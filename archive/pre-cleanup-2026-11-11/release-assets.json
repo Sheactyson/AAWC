@@ -1,0 +1,58 @@
+{
+  "schema": "aawc-pre-cleanup-release-assets-v1",
+  "snapshot_id": "pre-cleanup-2026-11-11",
+  "part_count": 10,
+  "total_bytes": 19406511039,
+  "parts": [
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-aa",
+      "bytes": 1992294400,
+      "sha256": "59fa90053ac356e5a5b15a1c858471f209b59e0c6bc7da5d20aa923afbc94900"
+    },
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-ab",
+      "bytes": 1992294400,
+      "sha256": "714c7c5f54ffdaa15fdbfec768e41306249425ac658f39c190a4f7d8c321774d"
+    },
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-ac",
+      "bytes": 1992294400,
+      "sha256": "147ae084646b10368d69ebbb0d173aba7623845c960954df88155f0dab146807"
+    },
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-ad",
+      "bytes": 1992294400,
+      "sha256": "7b0b7c4b2d250ba212252c4e1b1bce1440d113abefc00a7818d3e8e827930eb2"
+    },
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-ae",
+      "bytes": 1992294400,
+      "sha256": "c9464e4a81abae213c4538cc146249c26d33ff78cbc9525b031c05aa70969956"
+    },
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-af",
+      "bytes": 1992294400,
+      "sha256": "74d3cb656b7b2b879423b11d044952344257e15b20e6da3db16d26abc3702ee9"
+    },
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-ag",
+      "bytes": 1992294400,
+      "sha256": "f79c5af3e7dabc752f2cf12ada9ec9881db6837c9035b55533f3045a535d0905"
+    },
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-ah",
+      "bytes": 1992294400,
+      "sha256": "8f11b2ca4d47a3edf2f8d48cea60ef60725367a722b80c26c50c23f8b8a18d1e"
+    },
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-ai",
+      "bytes": 1992294400,
+      "sha256": "66a571aba2a13eb0bdb6872f2391c5e88b4194ba0f96e93273e3d7a01164df72"
+    },
+    {
+      "name": "aawc-pre-cleanup-2026-11-11.tar.gz.part-aj",
+      "bytes": 1475861439,
+      "sha256": "9ac767affe2ca48194396c607481dc2214d9fbb343e0b7090ca54df10b9a08a9"
+    }
+  ]
+}
