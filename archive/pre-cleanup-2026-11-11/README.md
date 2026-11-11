@@ -9,7 +9,9 @@ This is a one-time safety net. The post-snapshot repository is intended to conta
 Snapshot identity:
 
 - Tag: `pre-cleanup-2026-11-11`
-- Planned release: `https://github.com/Sheactyson/AAWC/releases/tag/pre-cleanup-2026-11-11`
+- Snapshot commit: `46b0dafcb401a5c228bd30649cde43a3723cc960`
+- Archival branch: `archive/pre-cleanup-2026-11-11`
+- Published release: `https://github.com/Sheactyson/AAWC/releases/tag/pre-cleanup-2026-11-11` (ID `442051750`)
 - Retained files: 27,340 across 7,900 directories
 - Retained logical size: 61.111 GiB
 - Unique payload files: 8,284
@@ -19,7 +21,7 @@ Snapshot identity:
 - `release-assets.json` SHA-256: `d6e4aec4ad4a9716e45b799d3233898a8b734328929c35cf01f95e011d536636`
 - Payload path-list SHA-256: `7a31735ac3c23b0919491fe017d832d2a1009da12302d8d21caefac4de480a76`
 
-The immutable commit identity and remote asset verification will be added after the tag and Release are published.
+All 10 published assets were re-inventoried through the GitHub API in `uploaded` state. Their remote byte lengths and GitHub-computed SHA-256 digests exactly match `release-assets.json`. Remote `main`, the archival branch, and the annotated tag were created without force from an empty repository.
 
 ## Restore
 
