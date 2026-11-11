@@ -1,0 +1,1534 @@
+﻿# Exact read-only view: an absent ledger is unknown/zero, never expected capacity.
+aawc_population_holding_current_readonly = {
+	value = 0
+	if = {
+		limit = { has_variable = aawc_population_current }
+		value = var:aawc_population_current
+	}
+}
+
+@aawc_population_colonize_cost_per_barony = 500
+@aawc_population_reclaim_cost_per_barony = 1000
+@aawc_population_owned_settlement_population_per_holding = 1000
+@aawc_population_owned_settlement_gold_per_holding = 250
+@aawc_population_owned_settlement_starting_population = 250
+@aawc_population_new_castle_holding_cost = 1500
+@aawc_population_new_city_holding_cost = 2250
+@aawc_population_new_temple_holding_cost = 1750
+@aawc_population_new_tribal_holding_cost = 2250
+@aawc_population_blocker_clearance_minor_cost = 100
+@aawc_population_blocker_clearance_standard_cost = 150
+@aawc_population_blocker_clearance_severe_cost = 200
+@aawc_population_blocker_clearance_deadly_cost = 350
+@aawc_population_development_capacity_per_point = 0.0045
+
+aawc_population_holding_building_growth_rating = {
+	value = 0
+	if = { limit = { has_building = agot_amber_collection_01 } add = 15 }
+	if = { limit = { has_building = agot_amber_collection_02 } add = 18 }
+	if = { limit = { has_building = agot_amber_collection_03 } add = 21 }
+	if = { limit = { has_building = agot_amber_collection_04 } add = 24 }
+	if = { limit = { has_building = agot_amber_collection_05 } add = 26 }
+	if = { limit = { has_building = agot_amber_collection_06 } add = 29 }
+	if = { limit = { has_building = agot_amber_collection_07 } add = 32 }
+	if = { limit = { has_building = agot_amber_collection_08 } add = 35 }
+	if = { limit = { has_building = agot_glass_gardens_01 } add = 42 }
+	if = { limit = { has_building = agot_glass_gardens_02 } add = 59 }
+	if = { limit = { has_building = agot_glass_gardens_03 } add = 75 }
+	if = { limit = { has_building = agot_gold_mines_01 } add = 6 }
+	if = { limit = { has_building = agot_gold_mines_02 } add = 8 }
+	if = { limit = { has_building = agot_gold_mines_03 } add = 9 }
+	if = { limit = { has_building = agot_gold_mines_04 } add = 10 }
+	if = { limit = { has_building = agot_gold_mines_05 } add = 11 }
+	if = { limit = { has_building = agot_gold_mines_06 } add = 13 }
+	if = { limit = { has_building = agot_gold_mines_07 } add = 14 }
+	if = { limit = { has_building = agot_gold_mines_08 } add = 15 }
+	if = { limit = { has_building = agot_iron_island_mines_01 } add = 17 }
+	if = { limit = { has_building = agot_iron_island_mines_02 } add = 20 }
+	if = { limit = { has_building = agot_iron_island_mines_03 } add = 24 }
+	if = { limit = { has_building = agot_iron_island_mines_04 } add = 27 }
+	if = { limit = { has_building = agot_iron_island_mines_05 } add = 30 }
+	if = { limit = { has_building = agot_iron_island_mines_06 } add = 34 }
+	if = { limit = { has_building = agot_iron_island_mines_07 } add = 37 }
+	if = { limit = { has_building = agot_iron_island_mines_08 } add = 40 }
+	if = { limit = { has_building = agot_ironwood_01 } add = -5 }
+	if = { limit = { has_building = agot_ironwood_02 } add = -6 }
+	if = { limit = { has_building = agot_ironwood_03 } add = -7 }
+	if = { limit = { has_building = agot_ironwood_04 } add = -7 }
+	if = { limit = { has_building = agot_ironwood_05 } add = -8 }
+	if = { limit = { has_building = agot_ironwood_06 } add = -9 }
+	if = { limit = { has_building = agot_ironwood_07 } add = -10 }
+	if = { limit = { has_building = agot_ironwood_08 } add = -11 }
+	if = { limit = { has_building = agot_lighthouse_01 } add = 15 }
+	if = { limit = { has_building = agot_lighthouse_02 } add = 21 }
+	if = { limit = { has_building = agot_lighthouse_03 } add = 27 }
+	if = { limit = { has_building = agot_pirate_control_01 } add = 1 }
+	if = { limit = { has_building = agot_pirate_control_02 } add = 2 }
+	if = { limit = { has_building = agot_pirate_control_03 } add = 2 }
+	if = { limit = { has_building = agot_pirate_control_04 } add = 2 }
+	if = { limit = { has_building = agot_pirate_control_05 } add = 3 }
+	if = { limit = { has_building = agot_pirate_control_06 } add = 3 }
+	if = { limit = { has_building = agot_pirate_economic_01 } add = 8 }
+	if = { limit = { has_building = agot_pirate_economic_02 } add = 10 }
+	if = { limit = { has_building = agot_pirate_economic_03 } add = 11 }
+	if = { limit = { has_building = agot_pirate_economic_04 } add = 13 }
+	if = { limit = { has_building = agot_pirate_economic_05 } add = 15 }
+	if = { limit = { has_building = agot_pirate_economic_06 } add = 17 }
+	if = { limit = { has_building = agot_pirate_fortification_01 } add = -14 }
+	if = { limit = { has_building = agot_pirate_fortification_02 } add = -18 }
+	if = { limit = { has_building = agot_pirate_fortification_03 } add = -21 }
+	if = { limit = { has_building = agot_pirate_fortification_04 } add = -24 }
+	if = { limit = { has_building = agot_pirate_fortification_05 } add = -28 }
+	if = { limit = { has_building = agot_pirate_fortification_06 } add = -31 }
+	if = { limit = { has_building = agot_pirate_military_01 } add = -26 }
+	if = { limit = { has_building = agot_pirate_military_02 } add = -32 }
+	if = { limit = { has_building = agot_pirate_military_03 } add = -38 }
+	if = { limit = { has_building = agot_pirate_military_04 } add = -44 }
+	if = { limit = { has_building = agot_pirate_military_05 } add = -50 }
+	if = { limit = { has_building = agot_pirate_military_06 } add = -56 }
+	if = { limit = { has_building = agot_pirate_supply_01 } add = 16 }
+	if = { limit = { has_building = agot_pirate_supply_02 } add = 19 }
+	if = { limit = { has_building = agot_pirate_supply_03 } add = 23 }
+	if = { limit = { has_building = agot_pirate_supply_04 } add = 27 }
+	if = { limit = { has_building = agot_pirate_supply_05 } add = 30 }
+	if = { limit = { has_building = agot_pirate_supply_06 } add = 34 }
+	if = { limit = { has_building = agot_pirate_troop_01 } add = -10 }
+	if = { limit = { has_building = agot_pirate_troop_02 } add = -12 }
+	if = { limit = { has_building = agot_pirate_troop_03 } add = -14 }
+	if = { limit = { has_building = agot_pirate_troop_04 } add = -16 }
+	if = { limit = { has_building = agot_pirate_troop_05 } add = -19 }
+	if = { limit = { has_building = agot_pirate_troop_06 } add = -21 }
+	if = { limit = { has_building = agot_scholastic_guilds_01 } add = 36 }
+	if = { limit = { has_building = agot_scholastic_guilds_02 } add = 50 }
+	if = { limit = { has_building = agot_scholastic_guilds_03 } add = 64 }
+	if = { limit = { has_building = agot_silver_mines_01 } add = 6 }
+	if = { limit = { has_building = agot_silver_mines_02 } add = 8 }
+	if = { limit = { has_building = agot_silver_mines_03 } add = 9 }
+	if = { limit = { has_building = agot_silver_mines_04 } add = 10 }
+	if = { limit = { has_building = agot_silver_mines_05 } add = 11 }
+	if = { limit = { has_building = agot_silver_mines_06 } add = 13 }
+	if = { limit = { has_building = agot_silver_mines_07 } add = 14 }
+	if = { limit = { has_building = agot_silver_mines_08 } add = 15 }
+	if = { limit = { has_building = agot_slave_camps_01 } add = -30 }
+	if = { limit = { has_building = agot_slave_camps_02 } add = -36 }
+	if = { limit = { has_building = agot_slave_camps_03 } add = -42 }
+	if = { limit = { has_building = agot_slave_camps_04 } add = -47 }
+	if = { limit = { has_building = agot_slave_camps_05 } add = -53 }
+	if = { limit = { has_building = agot_slave_camps_06 } add = -59 }
+	if = { limit = { has_building = agot_slave_camps_07 } add = -64 }
+	if = { limit = { has_building = agot_slave_camps_08 } add = -70 }
+	if = { limit = { has_building = agot_slave_diplomacy_01 } add = 8 }
+	if = { limit = { has_building = agot_slave_diplomacy_02 } add = 12 }
+	if = { limit = { has_building = agot_slave_diplomacy_03 } add = 15 }
+	if = { limit = { has_building = agot_slave_intrigue_01 } add = 4 }
+	if = { limit = { has_building = agot_slave_intrigue_02 } add = 5 }
+	if = { limit = { has_building = agot_slave_intrigue_03 } add = 7 }
+	if = { limit = { has_building = agot_slave_learning_01 } add = 16 }
+	if = { limit = { has_building = agot_slave_learning_02 } add = 23 }
+	if = { limit = { has_building = agot_slave_learning_03 } add = 29 }
+	if = { limit = { has_building = agot_slave_martial_01 } add = -12 }
+	if = { limit = { has_building = agot_slave_martial_02 } add = -16 }
+	if = { limit = { has_building = agot_slave_martial_03 } add = -21 }
+	if = { limit = { has_building = agot_slave_stewardship_01 } add = 15 }
+	if = { limit = { has_building = agot_slave_stewardship_02 } add = 21 }
+	if = { limit = { has_building = agot_slave_stewardship_03 } add = 27 }
+	if = { limit = { has_building = agot_steppe_farms_01 } add = 29 }
+	if = { limit = { has_building = agot_steppe_farms_02 } add = 34 }
+	if = { limit = { has_building = agot_steppe_farms_03 } add = 40 }
+	if = { limit = { has_building = agot_steppe_farms_04 } add = 45 }
+	if = { limit = { has_building = agot_steppe_farms_05 } add = 51 }
+	if = { limit = { has_building = agot_steppe_farms_06 } add = 56 }
+	if = { limit = { has_building = agot_steppe_farms_07 } add = 62 }
+	if = { limit = { has_building = agot_steppe_farms_08 } add = 67 }
+	if = { limit = { has_building = agot_urban_farms_01 } add = 29 }
+	if = { limit = { has_building = agot_urban_farms_02 } add = 34 }
+	if = { limit = { has_building = agot_urban_farms_03 } add = 40 }
+	if = { limit = { has_building = agot_urban_farms_04 } add = 45 }
+	if = { limit = { has_building = agot_urban_farms_05 } add = 51 }
+	if = { limit = { has_building = agot_urban_farms_06 } add = 56 }
+	if = { limit = { has_building = agot_urban_farms_07 } add = 62 }
+	if = { limit = { has_building = agot_urban_farms_08 } add = 67 }
+	if = { limit = { has_building = agot_vineyard_01 } add = 14 }
+	if = { limit = { has_building = agot_vineyard_02 } add = 20 }
+	if = { limit = { has_building = agot_vineyard_03 } add = 25 }
+	if = { limit = { has_building = apiaries_01 } add = 12 }
+	if = { limit = { has_building = apiaries_02 } add = 14 }
+	if = { limit = { has_building = apiaries_03 } add = 16 }
+	if = { limit = { has_building = apiaries_04 } add = 18 }
+	if = { limit = { has_building = apiaries_05 } add = 20 }
+	if = { limit = { has_building = apiaries_06 } add = 23 }
+	if = { limit = { has_building = apiaries_07 } add = 25 }
+	if = { limit = { has_building = apiaries_08 } add = 27 }
+	if = { limit = { has_building = archery_ranges_01 } add = -32 }
+	if = { limit = { has_building = archery_ranges_02 } add = -44 }
+	if = { limit = { has_building = archery_ranges_03 } add = -56 }
+	if = { limit = { has_building = barracks_01 } add = -31 }
+	if = { limit = { has_building = barracks_02 } add = -37 }
+	if = { limit = { has_building = barracks_03 } add = -43 }
+	if = { limit = { has_building = barracks_04 } add = -49 }
+	if = { limit = { has_building = barracks_05 } add = -55 }
+	if = { limit = { has_building = barracks_06 } add = -61 }
+	if = { limit = { has_building = barracks_07 } add = -67 }
+	if = { limit = { has_building = barracks_08 } add = -73 }
+	if = { limit = { has_building = blacksmiths_01 } add = -27 }
+	if = { limit = { has_building = blacksmiths_02 } add = -38 }
+	if = { limit = { has_building = blacksmiths_03 } add = -48 }
+	if = { limit = { has_building = breweries_01 } add = 15 }
+	if = { limit = { has_building = breweries_02 } add = 18 }
+	if = { limit = { has_building = breweries_03 } add = 21 }
+	if = { limit = { has_building = breweries_04 } add = 24 }
+	if = { limit = { has_building = breweries_05 } add = 26 }
+	if = { limit = { has_building = breweries_06 } add = 29 }
+	if = { limit = { has_building = breweries_07 } add = 32 }
+	if = { limit = { has_building = breweries_08 } add = 35 }
+	if = { limit = { has_building = building_moat_01 } add = 10 }
+	if = { limit = { has_building = building_moat_02 } add = 12 }
+	if = { limit = { has_building = building_moat_03 } add = 14 }
+	if = { limit = { has_building = building_moat_04 } add = 16 }
+	if = { limit = { has_building = building_moat_05 } add = 18 }
+	if = { limit = { has_building = building_moat_06 } add = 20 }
+	if = { limit = { has_building = building_moat_07 } add = 22 }
+	if = { limit = { has_building = building_moat_08 } add = 24 }
+	if = { limit = { has_building = burial_site_01 } add = 26 }
+	if = { limit = { has_building = burial_site_02 } add = 35 }
+	if = { limit = { has_building = burial_site_03 } add = 45 }
+	if = { limit = { has_building = camel_farms_01 } add = 2 }
+	if = { limit = { has_building = camel_farms_02 } add = 2 }
+	if = { limit = { has_building = camel_farms_03 } add = 2 }
+	if = { limit = { has_building = camel_farms_04 } add = 3 }
+	if = { limit = { has_building = camel_farms_05 } add = 3 }
+	if = { limit = { has_building = camel_farms_06 } add = 3 }
+	if = { limit = { has_building = camel_farms_07 } add = 4 }
+	if = { limit = { has_building = camel_farms_08 } add = 4 }
+	if = { limit = { has_building = caravanserai_01 } add = 6 }
+	if = { limit = { has_building = caravanserai_02 } add = 7 }
+	if = { limit = { has_building = caravanserai_03 } add = 8 }
+	if = { limit = { has_building = caravanserai_04 } add = 9 }
+	if = { limit = { has_building = caravanserai_05 } add = 11 }
+	if = { limit = { has_building = caravanserai_06 } add = 12 }
+	if = { limit = { has_building = caravanserai_07 } add = 13 }
+	if = { limit = { has_building = caravanserai_08 } add = 14 }
+	if = { limit = { has_building = cereal_fields_01 } add = 30 }
+	if = { limit = { has_building = cereal_fields_02 } add = 35 }
+	if = { limit = { has_building = cereal_fields_03 } add = 41 }
+	if = { limit = { has_building = cereal_fields_04 } add = 47 }
+	if = { limit = { has_building = cereal_fields_05 } add = 52 }
+	if = { limit = { has_building = cereal_fields_06 } add = 58 }
+	if = { limit = { has_building = cereal_fields_07 } add = 63 }
+	if = { limit = { has_building = cereal_fields_08 } add = 69 }
+	if = { limit = { has_building = charnel_grounds_01 } add = 32 }
+	if = { limit = { has_building = charnel_grounds_02 } add = 45 }
+	if = { limit = { has_building = charnel_grounds_03 } add = 57 }
+	if = { limit = { has_building = citadel_shrine_01 } add = 10 }
+	if = { limit = { has_building = citadel_shrine_02 } add = 12 }
+	if = { limit = { has_building = citadel_shrine_03 } add = 14 }
+	if = { limit = { has_building = citadel_shrine_04 } add = 16 }
+	if = { limit = { has_building = citadel_shrine_05 } add = 17 }
+	if = { limit = { has_building = citadel_shrine_06 } add = 19 }
+	if = { limit = { has_building = citadel_shrine_07 } add = 21 }
+	if = { limit = { has_building = citadel_shrine_08 } add = 23 }
+	if = { limit = { has_building = city_walls_01 } add = -13 }
+	if = { limit = { has_building = city_walls_02 } add = -18 }
+	if = { limit = { has_building = city_walls_03 } add = -22 }
+	if = { limit = { has_building = city_walls_04 } add = -26 }
+	if = { limit = { has_building = common_tradeport_01 } add = 15 }
+	if = { limit = { has_building = common_tradeport_02 } add = 18 }
+	if = { limit = { has_building = common_tradeport_03 } add = 21 }
+	if = { limit = { has_building = common_tradeport_04 } add = 24 }
+	if = { limit = { has_building = common_tradeport_05 } add = 26 }
+	if = { limit = { has_building = common_tradeport_06 } add = 29 }
+	if = { limit = { has_building = common_tradeport_07 } add = 32 }
+	if = { limit = { has_building = common_tradeport_08 } add = 35 }
+	if = { limit = { has_building = curtain_walls_01 } add = -6 }
+	if = { limit = { has_building = curtain_walls_02 } add = -7 }
+	if = { limit = { has_building = curtain_walls_03 } add = -8 }
+	if = { limit = { has_building = curtain_walls_04 } add = -9 }
+	if = { limit = { has_building = curtain_walls_05 } add = -11 }
+	if = { limit = { has_building = curtain_walls_06 } add = -12 }
+	if = { limit = { has_building = curtain_walls_07 } add = -13 }
+	if = { limit = { has_building = curtain_walls_08 } add = -14 }
+	if = { limit = { has_building = dragon_kiln_01 } add = 20 }
+	if = { limit = { has_building = dragon_kiln_02 } add = 27 }
+	if = { limit = { has_building = dragon_kiln_03 } add = 35 }
+	if = { limit = { has_building = elephant_pens_01 } add = -3 }
+	if = { limit = { has_building = elephant_pens_02 } add = -3 }
+	if = { limit = { has_building = elephant_pens_03 } add = -4 }
+	if = { limit = { has_building = elephant_pens_04 } add = -4 }
+	if = { limit = { has_building = elephant_pens_05 } add = -5 }
+	if = { limit = { has_building = elephant_pens_06 } add = -5 }
+	if = { limit = { has_building = elephant_pens_07 } add = -6 }
+	if = { limit = { has_building = elephant_pens_08 } add = -6 }
+	if = { limit = { has_building = examination_hall_01 } add = 22 }
+	if = { limit = { has_building = examination_hall_02 } add = 31 }
+	if = { limit = { has_building = examination_hall_03 } add = 39 }
+	if = { limit = { has_building = farm_estates_01 } add = 28 }
+	if = { limit = { has_building = farm_estates_02 } add = 33 }
+	if = { limit = { has_building = farm_estates_03 } add = 39 }
+	if = { limit = { has_building = farm_estates_04 } add = 44 }
+	if = { limit = { has_building = farm_estates_05 } add = 49 }
+	if = { limit = { has_building = farm_estates_06 } add = 54 }
+	if = { limit = { has_building = farm_estates_07 } add = 60 }
+	if = { limit = { has_building = farm_estates_08 } add = 65 }
+	if = { limit = { has_building = generic_dragon_pit_01 } add = -65 }
+	if = { limit = { has_building = godswood_01 } add = 21 }
+	if = { limit = { has_building = godswood_02 } add = 25 }
+	if = { limit = { has_building = godswood_03 } add = 29 }
+	if = { limit = { has_building = godswood_04 } add = 33 }
+	if = { limit = { has_building = godswood_05 } add = 37 }
+	if = { limit = { has_building = godswood_06 } add = 41 }
+	if = { limit = { has_building = godswood_07 } add = 45 }
+	if = { limit = { has_building = godswood_08 } add = 49 }
+	if = { limit = { has_building = great_megalith_01 } add = 42 }
+	if = { limit = { has_building = guild_halls_01 } add = 21 }
+	if = { limit = { has_building = guild_halls_02 } add = 25 }
+	if = { limit = { has_building = guild_halls_03 } add = 29 }
+	if = { limit = { has_building = guild_halls_04 } add = 33 }
+	if = { limit = { has_building = guild_halls_05 } add = 37 }
+	if = { limit = { has_building = guild_halls_06 } add = 41 }
+	if = { limit = { has_building = guild_halls_07 } add = 45 }
+	if = { limit = { has_building = guild_halls_08 } add = 49 }
+	if = { limit = { has_building = hill_farms_01 } add = 18 }
+	if = { limit = { has_building = hill_farms_02 } add = 21 }
+	if = { limit = { has_building = hill_farms_03 } add = 24 }
+	if = { limit = { has_building = hill_farms_04 } add = 28 }
+	if = { limit = { has_building = hill_farms_05 } add = 31 }
+	if = { limit = { has_building = hill_farms_06 } add = 34 }
+	if = { limit = { has_building = hill_farms_07 } add = 38 }
+	if = { limit = { has_building = hill_farms_08 } add = 41 }
+	if = { limit = { has_building = hill_forts_01 } add = -17 }
+	if = { limit = { has_building = hill_forts_02 } add = -20 }
+	if = { limit = { has_building = hill_forts_03 } add = -24 }
+	if = { limit = { has_building = hill_forts_04 } add = -27 }
+	if = { limit = { has_building = hill_forts_05 } add = -30 }
+	if = { limit = { has_building = hill_forts_06 } add = -34 }
+	if = { limit = { has_building = hill_forts_07 } add = -37 }
+	if = { limit = { has_building = hill_forts_08 } add = -40 }
+	if = { limit = { has_building = hillside_grazing_01 } add = -5 }
+	if = { limit = { has_building = hillside_grazing_02 } add = -6 }
+	if = { limit = { has_building = hillside_grazing_03 } add = -7 }
+	if = { limit = { has_building = hillside_grazing_04 } add = -7 }
+	if = { limit = { has_building = hillside_grazing_05 } add = -8 }
+	if = { limit = { has_building = hillside_grazing_06 } add = -9 }
+	if = { limit = { has_building = hillside_grazing_07 } add = -10 }
+	if = { limit = { has_building = hillside_grazing_08 } add = -11 }
+	if = { limit = { has_building = horse_pastures_01 } add = 4 }
+	if = { limit = { has_building = horse_pastures_02 } add = 5 }
+	if = { limit = { has_building = horse_pastures_03 } add = 5 }
+	if = { limit = { has_building = horse_pastures_04 } add = 6 }
+	if = { limit = { has_building = horse_pastures_05 } add = 7 }
+	if = { limit = { has_building = horse_pastures_06 } add = 8 }
+	if = { limit = { has_building = horse_pastures_07 } add = 8 }
+	if = { limit = { has_building = horse_pastures_08 } add = 9 }
+	if = { limit = { has_building = hospices_01 } add = 8 }
+	if = { limit = { has_building = hospices_02 } add = 10 }
+	if = { limit = { has_building = hospices_03 } add = 11 }
+	if = { limit = { has_building = hospices_04 } add = 13 }
+	if = { limit = { has_building = hospices_05 } add = 14 }
+	if = { limit = { has_building = hospices_06 } add = 16 }
+	if = { limit = { has_building = hospices_07 } add = 17 }
+	if = { limit = { has_building = hospices_08 } add = 19 }
+	if = { limit = { has_building = hunting_grounds_01 } add = 15 }
+	if = { limit = { has_building = hunting_grounds_02 } add = 18 }
+	if = { limit = { has_building = hunting_grounds_03 } add = 21 }
+	if = { limit = { has_building = hunting_grounds_04 } add = 24 }
+	if = { limit = { has_building = hunting_grounds_05 } add = 26 }
+	if = { limit = { has_building = hunting_grounds_06 } add = 29 }
+	if = { limit = { has_building = hunting_grounds_07 } add = 32 }
+	if = { limit = { has_building = hunting_grounds_08 } add = 35 }
+	if = { limit = { has_building = idjang_forts_01 } add = -8 }
+	if = { limit = { has_building = idjang_forts_02 } add = -11 }
+	if = { limit = { has_building = idjang_forts_03 } add = -13 }
+	if = { limit = { has_building = idjang_forts_04 } add = -16 }
+	if = { limit = { has_building = jousting_lists_01 } add = -32 }
+	if = { limit = { has_building = jousting_lists_02 } add = -44 }
+	if = { limit = { has_building = jousting_lists_03 } add = -56 }
+	if = { limit = { has_building = kora_kora_yards_01 } add = -11 }
+	if = { limit = { has_building = kora_kora_yards_02 } add = -14 }
+	if = { limit = { has_building = kora_kora_yards_03 } add = -18 }
+	if = { limit = { has_building = kora_kora_yards_04 } add = -21 }
+	if = { limit = { has_building = leisure_palace_01 } add = 28 }
+	if = { limit = { has_building = leisure_palace_02 } add = 38 }
+	if = { limit = { has_building = leisure_palace_03 } add = 49 }
+	if = { limit = { has_building = logging_camps_01 } add = 8 }
+	if = { limit = { has_building = logging_camps_02 } add = 10 }
+	if = { limit = { has_building = logging_camps_03 } add = 11 }
+	if = { limit = { has_building = logging_camps_04 } add = 13 }
+	if = { limit = { has_building = logging_camps_05 } add = 14 }
+	if = { limit = { has_building = logging_camps_06 } add = 16 }
+	if = { limit = { has_building = logging_camps_07 } add = 17 }
+	if = { limit = { has_building = logging_camps_08 } add = 19 }
+	if = { limit = { has_building = longhouses_01 } add = 18 }
+	if = { limit = { has_building = longhouses_02 } add = 27 }
+	if = { limit = { has_building = march_01 } add = 5 }
+	if = { limit = { has_building = march_02 } add = 7 }
+	if = { limit = { has_building = march_03 } add = 9 }
+	if = { limit = { has_building = market_villages_01 } add = 25 }
+	if = { limit = { has_building = market_villages_02 } add = 37 }
+	if = { limit = { has_building = megalith_01 } add = 19 }
+	if = { limit = { has_building = megalith_02 } add = 23 }
+	if = { limit = { has_building = megalith_03 } add = 26 }
+	if = { limit = { has_building = megalith_04 } add = 30 }
+	if = { limit = { has_building = megalith_05 } add = 33 }
+	if = { limit = { has_building = megalith_06 } add = 37 }
+	if = { limit = { has_building = megalith_07 } add = 40 }
+	if = { limit = { has_building = megalith_08 } add = 44 }
+	if = { limit = { has_building = military_academy_01 } add = -18 }
+	if = { limit = { has_building = military_academy_02 } add = -25 }
+	if = { limit = { has_building = military_academy_03 } add = -32 }
+	if = { limit = { has_building = military_camps_01 } add = -12 }
+	if = { limit = { has_building = military_camps_02 } add = -14 }
+	if = { limit = { has_building = military_camps_03 } add = -17 }
+	if = { limit = { has_building = military_camps_04 } add = -19 }
+	if = { limit = { has_building = military_camps_05 } add = -21 }
+	if = { limit = { has_building = military_camps_06 } add = -23 }
+	if = { limit = { has_building = military_camps_07 } add = -26 }
+	if = { limit = { has_building = military_camps_08 } add = -28 }
+	if = { limit = { has_building = monastic_schools_01 } add = 32 }
+	if = { limit = { has_building = monastic_schools_02 } add = 38 }
+	if = { limit = { has_building = monastic_schools_03 } add = 45 }
+	if = { limit = { has_building = monastic_schools_04 } add = 51 }
+	if = { limit = { has_building = monastic_schools_05 } add = 57 }
+	if = { limit = { has_building = monastic_schools_06 } add = 63 }
+	if = { limit = { has_building = monastic_schools_07 } add = 69 }
+	if = { limit = { has_building = monastic_schools_08 } add = 75 }
+	if = { limit = { has_building = murex_farm_01 } add = 25 }
+	if = { limit = { has_building = murex_farm_02 } add = 29 }
+	if = { limit = { has_building = murex_farm_03 } add = 34 }
+	if = { limit = { has_building = murex_farm_04 } add = 38 }
+	if = { limit = { has_building = murex_farm_05 } add = 43 }
+	if = { limit = { has_building = murex_farm_06 } add = 48 }
+	if = { limit = { has_building = murex_farm_07 } add = 52 }
+	if = { limit = { has_building = murex_farm_08 } add = 57 }
+	if = { limit = { has_building = orchards_01 } add = 30 }
+	if = { limit = { has_building = orchards_02 } add = 35 }
+	if = { limit = { has_building = orchards_03 } add = 41 }
+	if = { limit = { has_building = orchards_04 } add = 47 }
+	if = { limit = { has_building = orchards_05 } add = 52 }
+	if = { limit = { has_building = orchards_06 } add = 58 }
+	if = { limit = { has_building = orchards_07 } add = 63 }
+	if = { limit = { has_building = orchards_08 } add = 69 }
+	if = { limit = { has_building = outposts_01 } add = -16 }
+	if = { limit = { has_building = outposts_02 } add = -18 }
+	if = { limit = { has_building = outposts_03 } add = -21 }
+	if = { limit = { has_building = outposts_04 } add = -24 }
+	if = { limit = { has_building = outposts_05 } add = -27 }
+	if = { limit = { has_building = outposts_06 } add = -30 }
+	if = { limit = { has_building = outposts_07 } add = -33 }
+	if = { limit = { has_building = outposts_08 } add = -36 }
+	if = { limit = { has_building = paddy_fields_01 } add = 30 }
+	if = { limit = { has_building = paddy_fields_02 } add = 35 }
+	if = { limit = { has_building = paddy_fields_03 } add = 41 }
+	if = { limit = { has_building = paddy_fields_04 } add = 47 }
+	if = { limit = { has_building = paddy_fields_05 } add = 52 }
+	if = { limit = { has_building = paddy_fields_06 } add = 58 }
+	if = { limit = { has_building = paddy_fields_07 } add = 63 }
+	if = { limit = { has_building = paddy_fields_08 } add = 69 }
+	if = { limit = { has_building = palisades_01 } add = -11 }
+	if = { limit = { has_building = palisades_02 } add = -16 }
+	if = { limit = { has_building = pastures_01 } add = 26 }
+	if = { limit = { has_building = pastures_02 } add = 31 }
+	if = { limit = { has_building = pastures_03 } add = 36 }
+	if = { limit = { has_building = pastures_04 } add = 41 }
+	if = { limit = { has_building = pastures_05 } add = 46 }
+	if = { limit = { has_building = pastures_06 } add = 51 }
+	if = { limit = { has_building = pastures_07 } add = 56 }
+	if = { limit = { has_building = pastures_08 } add = 61 }
+	if = { limit = { has_building = peat_quarries_01 } add = 17 }
+	if = { limit = { has_building = peat_quarries_02 } add = 20 }
+	if = { limit = { has_building = peat_quarries_03 } add = 23 }
+	if = { limit = { has_building = peat_quarries_04 } add = 26 }
+	if = { limit = { has_building = peat_quarries_05 } add = 29 }
+	if = { limit = { has_building = peat_quarries_06 } add = 33 }
+	if = { limit = { has_building = peat_quarries_07 } add = 36 }
+	if = { limit = { has_building = peat_quarries_08 } add = 39 }
+	if = { limit = { has_building = plantations_01 } add = 8 }
+	if = { limit = { has_building = plantations_02 } add = 10 }
+	if = { limit = { has_building = plantations_03 } add = 11 }
+	if = { limit = { has_building = plantations_04 } add = 13 }
+	if = { limit = { has_building = plantations_05 } add = 14 }
+	if = { limit = { has_building = plantations_06 } add = 16 }
+	if = { limit = { has_building = plantations_07 } add = 17 }
+	if = { limit = { has_building = plantations_08 } add = 19 }
+	if = { limit = { has_building = qanats_01 } add = 23 }
+	if = { limit = { has_building = qanats_02 } add = 28 }
+	if = { limit = { has_building = qanats_03 } add = 32 }
+	if = { limit = { has_building = qanats_04 } add = 36 }
+	if = { limit = { has_building = qanats_05 } add = 41 }
+	if = { limit = { has_building = qanats_06 } add = 45 }
+	if = { limit = { has_building = qanats_07 } add = 50 }
+	if = { limit = { has_building = qanats_08 } add = 54 }
+	if = { limit = { has_building = quarries_01 } add = 9 }
+	if = { limit = { has_building = quarries_02 } add = 10 }
+	if = { limit = { has_building = quarries_03 } add = 12 }
+	if = { limit = { has_building = quarries_04 } add = 14 }
+	if = { limit = { has_building = quarries_05 } add = 15 }
+	if = { limit = { has_building = quarries_06 } add = 17 }
+	if = { limit = { has_building = quarries_07 } add = 18 }
+	if = { limit = { has_building = quarries_08 } add = 20 }
+	if = { limit = { has_building = ramparts_01 } add = -10 }
+	if = { limit = { has_building = ramparts_02 } add = -12 }
+	if = { limit = { has_building = ramparts_03 } add = -14 }
+	if = { limit = { has_building = ramparts_04 } add = -16 }
+	if = { limit = { has_building = ramparts_05 } add = -17 }
+	if = { limit = { has_building = ramparts_06 } add = -19 }
+	if = { limit = { has_building = ramparts_07 } add = -21 }
+	if = { limit = { has_building = ramparts_08 } add = -23 }
+	if = { limit = { has_building = regimental_grounds_01 } add = -22 }
+	if = { limit = { has_building = regimental_grounds_02 } add = -27 }
+	if = { limit = { has_building = regimental_grounds_03 } add = -31 }
+	if = { limit = { has_building = regimental_grounds_04 } add = -35 }
+	if = { limit = { has_building = regimental_grounds_05 } add = -39 }
+	if = { limit = { has_building = regimental_grounds_06 } add = -44 }
+	if = { limit = { has_building = regimental_grounds_07 } add = -48 }
+	if = { limit = { has_building = regimental_grounds_08 } add = -52 }
+	if = { limit = { has_building = royal_armory_01 } add = -39 }
+	if = { limit = { has_building = royal_armory_02 } add = -53 }
+	if = { limit = { has_building = royal_armory_03 } add = -68 }
+	if = { limit = { has_building = royal_forest_01 } add = 15 }
+	if = { limit = { has_building = royal_forest_02 } add = 21 }
+	if = { limit = { has_building = royal_forest_03 } add = 27 }
+	if = { limit = { has_building = royal_garden_01 } add = 16 }
+	if = { limit = { has_building = royal_garden_02 } add = 23 }
+	if = { limit = { has_building = royal_garden_03 } add = 29 }
+	if = { limit = { has_building = sacred_pool_01 } add = 19 }
+	if = { limit = { has_building = sacred_pool_02 } add = 23 }
+	if = { limit = { has_building = sacred_pool_03 } add = 27 }
+	if = { limit = { has_building = sacred_pool_04 } add = 30 }
+	if = { limit = { has_building = sacred_pool_05 } add = 34 }
+	if = { limit = { has_building = sacred_pool_06 } add = 38 }
+	if = { limit = { has_building = sacred_pool_07 } add = 41 }
+	if = { limit = { has_building = sacred_pool_08 } add = 45 }
+	if = { limit = { has_building = scriptorium_01 } add = 13 }
+	if = { limit = { has_building = scriptorium_02 } add = 15 }
+	if = { limit = { has_building = scriptorium_03 } add = 18 }
+	if = { limit = { has_building = scriptorium_04 } add = 20 }
+	if = { limit = { has_building = scriptorium_05 } add = 23 }
+	if = { limit = { has_building = scriptorium_06 } add = 25 }
+	if = { limit = { has_building = scriptorium_07 } add = 28 }
+	if = { limit = { has_building = scriptorium_08 } add = 30 }
+	if = { limit = { has_building = siege_works_01 } add = -15 }
+	if = { limit = { has_building = siege_works_02 } add = -20 }
+	if = { limit = { has_building = siege_works_03 } add = -26 }
+	if = { limit = { has_building = smiths_01 } add = -6 }
+	if = { limit = { has_building = smiths_02 } add = -8 }
+	if = { limit = { has_building = smiths_03 } add = -9 }
+	if = { limit = { has_building = smiths_04 } add = -10 }
+	if = { limit = { has_building = smiths_05 } add = -11 }
+	if = { limit = { has_building = smiths_06 } add = -13 }
+	if = { limit = { has_building = smiths_07 } add = -14 }
+	if = { limit = { has_building = smiths_08 } add = -15 }
+	if = { limit = { has_building = spice_plantation_01 } add = 16 }
+	if = { limit = { has_building = spice_plantation_02 } add = 19 }
+	if = { limit = { has_building = spice_plantation_03 } add = 22 }
+	if = { limit = { has_building = spice_plantation_04 } add = 25 }
+	if = { limit = { has_building = spice_plantation_05 } add = 28 }
+	if = { limit = { has_building = spice_plantation_06 } add = 31 }
+	if = { limit = { has_building = spice_plantation_07 } add = 34 }
+	if = { limit = { has_building = spice_plantation_08 } add = 37 }
+	if = { limit = { has_building = stables_01 } add = -24 }
+	if = { limit = { has_building = stables_02 } add = -29 }
+	if = { limit = { has_building = stables_03 } add = -33 }
+	if = { limit = { has_building = stables_04 } add = -38 }
+	if = { limit = { has_building = stables_05 } add = -42 }
+	if = { limit = { has_building = stables_06 } add = -47 }
+	if = { limit = { has_building = stables_07 } add = -51 }
+	if = { limit = { has_building = stables_08 } add = -56 }
+	if = { limit = { has_building = stilted_granaries_01 } add = 2 }
+	if = { limit = { has_building = stilted_granaries_02 } add = 3 }
+	if = { limit = { has_building = stilted_granaries_03 } add = 3 }
+	if = { limit = { has_building = stilted_granaries_04 } add = 4 }
+	if = { limit = { has_building = tax_assessor_01 } add = 14 }
+	if = { limit = { has_building = tax_assessor_02 } add = 20 }
+	if = { limit = { has_building = tax_assessor_03 } add = 25 }
+	if = { limit = { has_building = temple_citadel_01 } add = 7 }
+	if = { limit = { has_building = temple_citadel_02 } add = 9 }
+	if = { limit = { has_building = temple_citadel_03 } add = 12 }
+	if = { limit = { has_building = temple_citadel_04 } add = 14 }
+	if = { limit = { has_building = tower_of_silence_01 } add = 27 }
+	if = { limit = { has_building = vihara_halls_01 } add = 27 }
+	if = { limit = { has_building = vihara_halls_02 } add = 32 }
+	if = { limit = { has_building = vihara_halls_03 } add = 37 }
+	if = { limit = { has_building = vihara_halls_04 } add = 42 }
+	if = { limit = { has_building = vihara_halls_05 } add = 47 }
+	if = { limit = { has_building = vihara_halls_06 } add = 52 }
+	if = { limit = { has_building = vihara_halls_07 } add = 57 }
+	if = { limit = { has_building = vihara_halls_08 } add = 62 }
+	if = { limit = { has_building = wantilan_01 } add = -7 }
+	if = { limit = { has_building = wantilan_02 } add = -9 }
+	if = { limit = { has_building = wantilan_03 } add = -11 }
+	if = { limit = { has_building = wantilan_04 } add = -13 }
+	if = { limit = { has_building = war_camps_01 } add = -46 }
+	if = { limit = { has_building = war_camps_02 } add = -68 }
+	if = { limit = { has_building = warrior_lodges_01 } add = -21 }
+	if = { limit = { has_building = warrior_lodges_02 } add = -25 }
+	if = { limit = { has_building = warrior_lodges_03 } add = -28 }
+	if = { limit = { has_building = warrior_lodges_04 } add = -32 }
+	if = { limit = { has_building = warrior_lodges_05 } add = -36 }
+	if = { limit = { has_building = warrior_lodges_06 } add = -40 }
+	if = { limit = { has_building = warrior_lodges_07 } add = -44 }
+	if = { limit = { has_building = warrior_lodges_08 } add = -48 }
+	if = { limit = { has_building = watchtowers_01 } add = -10 }
+	if = { limit = { has_building = watchtowers_02 } add = -12 }
+	if = { limit = { has_building = watchtowers_03 } add = -14 }
+	if = { limit = { has_building = watchtowers_04 } add = -16 }
+	if = { limit = { has_building = watchtowers_05 } add = -18 }
+	if = { limit = { has_building = watchtowers_06 } add = -20 }
+	if = { limit = { has_building = watchtowers_07 } add = -22 }
+	if = { limit = { has_building = watchtowers_08 } add = -24 }
+	if = { limit = { has_building = water_temples_01 } add = 21 }
+	if = { limit = { has_building = water_temples_02 } add = 28 }
+	if = { limit = { has_building = water_temples_03 } add = 34 }
+	if = { limit = { has_building = water_temples_04 } add = 41 }
+	if = { limit = { has_building = watermills_01 } add = 30 }
+	if = { limit = { has_building = watermills_02 } add = 35 }
+	if = { limit = { has_building = watermills_03 } add = 41 }
+	if = { limit = { has_building = watermills_04 } add = 47 }
+	if = { limit = { has_building = watermills_05 } add = 52 }
+	if = { limit = { has_building = watermills_06 } add = 58 }
+	if = { limit = { has_building = watermills_07 } add = 63 }
+	if = { limit = { has_building = watermills_08 } add = 69 }
+	if = { limit = { has_building = waterworks_01 } add = 29 }
+	if = { limit = { has_building = waterworks_02 } add = 34 }
+	if = { limit = { has_building = waterworks_03 } add = 40 }
+	if = { limit = { has_building = waterworks_04 } add = 45 }
+	if = { limit = { has_building = waterworks_05 } add = 51 }
+	if = { limit = { has_building = waterworks_06 } add = 56 }
+	if = { limit = { has_building = waterworks_07 } add = 62 }
+	if = { limit = { has_building = waterworks_08 } add = 67 }
+	if = { limit = { has_building = wind_furnace_01 } add = -10 }
+	if = { limit = { has_building = wind_furnace_02 } add = -12 }
+	if = { limit = { has_building = wind_furnace_03 } add = -14 }
+	if = { limit = { has_building = wind_furnace_04 } add = -16 }
+	if = { limit = { has_building = wind_furnace_05 } add = -17 }
+	if = { limit = { has_building = wind_furnace_06 } add = -19 }
+	if = { limit = { has_building = wind_furnace_07 } add = -21 }
+	if = { limit = { has_building = wind_furnace_08 } add = -23 }
+	if = { limit = { has_building = windmills_01 } add = 30 }
+	if = { limit = { has_building = windmills_02 } add = 35 }
+	if = { limit = { has_building = windmills_03 } add = 41 }
+	if = { limit = { has_building = windmills_04 } add = 47 }
+	if = { limit = { has_building = windmills_05 } add = 52 }
+	if = { limit = { has_building = windmills_06 } add = 58 }
+	if = { limit = { has_building = windmills_07 } add = 63 }
+	if = { limit = { has_building = windmills_08 } add = 69 }
+	if = { limit = { has_building = workshops_01 } add = -1 }
+	if = { limit = { has_building = workshops_02 } add = -2 }
+	if = { limit = { has_building = workshops_03 } add = -2 }
+	if = { limit = { has_building = workshops_04 } add = -2 }
+	if = { limit = { has_building = workshops_05 } add = -2 }
+	if = { limit = { has_building = workshops_06 } add = -3 }
+	if = { limit = { has_building = workshops_07 } add = -3 }
+	if = { limit = { has_building = workshops_08 } add = -3 }
+}
+
+aawc_population_holding_building_expected_capacity = {
+	# Stage 2 net infrastructure/geography/condition adjustment; may be negative.
+	value = aawc_stage2_capacity_adjustment
+}
+aawc_population_holding_main_line_capacity_base = {
+	value = 0
+	if = { limit = { has_building = settlement_03 } value = 1000 }
+	else_if = { limit = { has_building = settlement_02 } value = 500 }
+	else_if = { limit = { has_building = settlement_01 } value = 250 }
+	else_if = { limit = { has_holding_type = ruin_holding } value = 0 }
+	else_if = { limit = { has_holding_type = wilderness_holding } value = 0 }
+	else_if = { limit = { has_building = tribe_02 } value = 6500 }
+	else_if = { limit = { has_building = tribe_01 } value = 4500 }
+	else_if = { limit = { has_building = city_05 } value = 13000 }
+	else_if = { limit = { has_building = city_04 } value = 11000 }
+	else_if = { limit = { has_building = city_03 } value = 9000 }
+	else_if = { limit = { has_building = city_02 } value = 6500 }
+	else_if = { limit = { has_building = city_01 } value = 4500 }
+	else_if = { limit = { has_building = temple_04 } value = 10500 }
+	else_if = { limit = { has_building = temple_03 } value = 8000 }
+	else_if = { limit = { has_building = temple_02 } value = 5500 }
+	else_if = { limit = { has_building = temple_01 } value = 3500 }
+	else_if = { limit = { has_building = castle_05 } value = 9000 }
+	else_if = { limit = { has_building = castle_04 } value = 7800 }
+	else_if = { limit = { has_building = castle_03 } value = 6200 }
+	else_if = { limit = { has_building = castle_02 } value = 4500 }
+	else_if = { limit = { has_building = castle_01 } value = 3000 }
+	else_if = { limit = { OR = { has_building = monastery_04 has_building = temple_citadel_04 } } value = 10500 }
+	else_if = { limit = { OR = { has_building = monastery_03 has_building = temple_citadel_03 } } value = 8000 }
+	else_if = { limit = { OR = { has_building = monastery_02 has_building = temple_citadel_02 } } value = 5500 }
+	else_if = { limit = { OR = { has_building = monastery_01 has_building = temple_citadel_01 } } value = 3500 }
+	else_if = { limit = { has_building = pirate_den_03 } value = 4500 }
+	else_if = { limit = { has_building = pirate_den_02 } value = 3000 }
+	else_if = { limit = { has_building = pirate_den_01 } value = 2000 }
+	else_if = { limit = { has_holding_type = settlement_holding } value = 250 }
+	else_if = { limit = { has_holding_type = tribal_holding } value = 4500 }
+	else_if = { limit = { has_holding_type = city_holding } value = 4500 }
+	else_if = { limit = { has_holding_type = church_holding } value = 3500 }
+	else_if = { limit = { has_holding_type = castle_holding } value = 3000 }
+	else_if = { limit = { has_holding_type = nomad_holding } value = 2500 }
+	else_if = { limit = { has_holding_type = herder_holding } value = 2500 }
+	else_if = { limit = { has_holding_type = temple_citadel_holding } value = 3500 }
+	else_if = { limit = { has_holding_type = pirate_den_holding } value = 2000 }
+}
+
+aawc_population_holding_main_line_development_bonus = {
+	value = 1
+	if = {
+		limit = { has_holding = yes }
+		add = {
+			value = county.development_level
+			multiply = @aawc_population_development_capacity_per_point
+		}
+	}
+}
+
+aawc_population_holding_main_line_expected_capacity = {
+	value = aawc_population_holding_main_line_capacity_base
+	multiply = aawc_population_holding_main_line_development_bonus
+	round = yes
+}
+
+aawc_population_holding_expected = {
+	value = aawc_stage2_physical_capacity
+}
+
+aawc_population_holding_total = {
+	value = 0
+	if = {
+		limit = { has_holding = yes }
+		value = aawc_population_holding_current_readonly
+		round = yes
+	}
+}
+
+aawc_population_holding_surplus = {
+	value = aawc_population_holding_total
+	subtract = aawc_population_holding_expected
+	round = yes
+}
+
+aawc_population_holding_base_growth_rate = {
+	value = 0
+	if = { limit = { has_holding_type = settlement_holding } value = 0.01 }
+	else_if = { limit = { has_holding_type = ruin_holding } value = 0 }
+	else_if = { limit = { has_holding_type = wilderness_holding } value = 0 }
+	else_if = { limit = { has_holding_type = tribal_holding } value = 0.05 }
+	else_if = { limit = { has_holding_type = castle_holding } value = 0.025 }
+	else_if = { limit = { has_holding_type = church_holding } value = 0.035 }
+	else_if = { limit = { has_holding_type = city_holding } value = 0.05 }
+}
+
+aawc_population_holding_base_growth_percent_display = {
+	value = aawc_population_holding_base_growth_rate
+	multiply = 100
+	round = yes
+}
+
+aawc_population_holding_growth_rating = {
+	value = aawc_population_holding_building_growth_rating
+}
+
+aawc_population_holding_growth_rating_multiplier = {
+	value = 1
+	if = { limit = { aawc_population_holding_growth_rating <= -500 } value = 0.10 }
+	else_if = { limit = { aawc_population_holding_growth_rating <= -400 } value = 0.15 }
+	else_if = { limit = { aawc_population_holding_growth_rating <= -300 } value = 0.22 }
+	else_if = { limit = { aawc_population_holding_growth_rating <= -220 } value = 0.32 }
+	else_if = { limit = { aawc_population_holding_growth_rating <= -150 } value = 0.45 }
+	else_if = { limit = { aawc_population_holding_growth_rating <= -100 } value = 0.58 }
+	else_if = { limit = { aawc_population_holding_growth_rating <= -65 } value = 0.72 }
+	else_if = { limit = { aawc_population_holding_growth_rating <= -35 } value = 0.85 }
+	else_if = { limit = { aawc_population_holding_growth_rating <= -15 } value = 0.93 }
+	else_if = { limit = { aawc_population_holding_growth_rating < 5 } value = 1.00 }
+	else_if = { limit = { aawc_population_holding_growth_rating < 15 } value = 1.10 }
+	else_if = { limit = { aawc_population_holding_growth_rating < 40 } value = 1.20 }
+	else_if = { limit = { aawc_population_holding_growth_rating < 80 } value = 1.30 }
+	else_if = { limit = { aawc_population_holding_growth_rating < 140 } value = 1.40 }
+	else_if = { limit = { aawc_population_holding_growth_rating < 220 } value = 1.50 }
+	else_if = { limit = { aawc_population_holding_growth_rating < 320 } value = 1.65 }
+	else_if = { limit = { aawc_population_holding_growth_rating < 420 } value = 1.80 }
+	else_if = { limit = { aawc_population_holding_growth_rating < 500 } value = 1.92 }
+	else = { value = 2.00 }
+}
+
+aawc_population_holding_growth_rating_multiplier_percent_display = {
+	value = aawc_population_holding_growth_rating_multiplier
+	multiply = 100
+	round = yes
+}
+
+aawc_population_holding_growth_rating_effect_percent_display = {
+	value = aawc_population_holding_growth_rating_multiplier
+	subtract = 1
+	multiply = 100
+	round = yes
+}
+
+aawc_population_holding_terrain_growth_multiplier = {
+	value = 1
+	if = { limit = { agot_is_urban_terrain = yes } add = 0.30 }
+	else_if = { limit = { OR = { agot_is_farmlands_terrain = yes agot_is_floodplains_terrain = yes agot_is_oasis_terrain = yes } } add = 0.25 }
+	else_if = { limit = { OR = { agot_is_plains_terrain = yes agot_is_forest_terrain = yes agot_is_taiga_terrain = yes agot_is_cloudforest_terrain = yes } } add = 0.10 }
+	else_if = { limit = { OR = { agot_is_steppe_terrain = yes agot_is_hills_terrain = yes } } add = 0.05 }
+	else_if = { limit = { OR = { agot_is_wetlands_terrain = yes agot_is_taiga_bog_terrain = yes agot_is_the_bog_terrain = yes } } add = -0.05 }
+	else_if = { limit = { OR = { agot_is_mountains_terrain = yes agot_is_highlands_terrain = yes agot_is_desert_mountains_terrain = yes agot_is_canyon_terrain = yes } } add = -0.10 }
+	else_if = { limit = { agot_is_drylands_terrain = yes } add = -0.15 }
+	else_if = { limit = { OR = { agot_is_desert_terrain = yes agot_is_glacier_terrain = yes agot_is_frozen_flats_terrain = yes } } add = -0.30 }
+}
+
+aawc_population_holding_terrain_growth_multiplier_percent_display = {
+	value = aawc_population_holding_terrain_growth_multiplier
+	multiply = 100
+	round = yes
+}
+
+aawc_population_holding_potential_growth_rate = {
+	value = aawc_population_holding_base_growth_rate
+	multiply = aawc_population_holding_growth_rating_multiplier
+	multiply = aawc_population_holding_terrain_growth_multiplier
+}
+
+aawc_population_holding_potential_growth_percent_display = {
+	value = aawc_population_holding_potential_growth_rate
+	multiply = 100
+	round = yes
+}
+
+aawc_population_holding_potential_quarterly_growth_delta_display = {
+	value = 0
+	if = {
+		limit = { has_variable = aawc_population_current }
+		value = var:aawc_population_current
+		multiply = aawc_population_holding_potential_growth_rate
+		round = yes
+	}
+}
+
+aawc_population_holding_control_factor = {
+	value = county.county_control
+	if = {
+		limit = { county.county_control > 100 }
+		value = 100
+	}
+	divide = 100
+}
+
+aawc_population_holding_control_factor_percent_display = {
+	value = aawc_population_holding_control_factor
+	multiply = 100
+	round = yes
+}
+
+aawc_population_holding_expected_pressure_multiplier_display = {
+	value = 1
+	if = { limit = { has_variable = aawc_population_expected_pressure_multiplier } value = var:aawc_population_expected_pressure_multiplier }
+}
+
+aawc_population_holding_live_expected_pressure_percent_display = {
+	value = 100
+	if = {
+		limit = {
+			has_variable = aawc_population_current
+			aawc_population_holding_expected > 0
+		}
+		value = var:aawc_population_current
+		multiply = 100
+		divide = aawc_population_holding_expected
+	}
+}
+
+aawc_population_holding_live_expected_pressure_multiplier_display = {
+	value = 1
+	if = {
+		limit = {
+			has_variable = aawc_population_current
+			aawc_population_holding_expected > 0
+		}
+		if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 5 } value = 2.00 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 10 } value = 1.80 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 15 } value = 1.60 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 20 } value = 1.40 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 25 } value = 1.20 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 75 } value = 1.00 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 80 } value = 0.99 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 85 } value = 0.96 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 90 } value = 0.91 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 95 } value = 0.84 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 100 } value = 0.75 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 105 } value = 0.64 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 110 } value = 0.51 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 115 } value = 0.36 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 120 } value = 0.19 }
+		else_if = { limit = { aawc_population_holding_live_expected_pressure_percent_display < 125 } value = 0.05 }
+		else = { value = 0 }
+	}
+}
+
+aawc_population_holding_expected_pressure_multiplier_percent_display = {
+	value = aawc_population_holding_live_expected_pressure_multiplier_display
+	multiply = 100
+	round = yes
+}
+
+aawc_population_holding_post_control_growth_rate_display = {
+	value = aawc_population_holding_potential_growth_rate
+	multiply = aawc_population_holding_control_factor
+}
+
+aawc_population_holding_live_final_growth_rate_display = {
+	value = aawc_population_holding_post_control_growth_rate_display
+	if = {
+		limit = {
+			aawc_population_holding_potential_growth_rate > 0
+			aawc_population_holding_post_control_growth_rate_display < 0.0005
+			NOT = { has_holding_type = ruin_holding }
+			NOT = { has_holding_type = wilderness_holding }
+		}
+		value = 0.0005
+	}
+	multiply = aawc_population_holding_live_expected_pressure_multiplier_display
+	if = {
+		limit = {
+			OR = {
+				has_holding_type = ruin_holding
+				has_holding_type = wilderness_holding
+			}
+		}
+		value = 0
+	}
+	if = {
+		limit = {
+			county = {
+				OR = {
+					has_variable = aawc_population_warfare_growth_suppressed
+					has_variable = aawc_population_siege_growth_suppressed
+					has_variable = aawc_population_raid_growth_suppressed
+				}
+			}
+			aawc_population_holding_potential_growth_rate > 0
+		}
+		value = 0
+	}
+	if = {
+		limit = { county = { has_province_with_epidemic = { intensity = apocalyptic } } }
+		value = -0.08
+	}
+	else_if = {
+		limit = { county = { has_province_with_epidemic = { intensity >= major } } }
+		value = -0.06
+	}
+	else_if = {
+		limit = { county = { has_province_with_epidemic = { intensity = any } } }
+		value = -0.02
+	}
+}
+
+aawc_population_holding_normal_quarterly_growth_percent_display = {
+	value = aawc_population_holding_post_control_growth_rate_display
+	if = {
+		limit = {
+			aawc_population_holding_potential_growth_rate > 0
+			aawc_population_holding_post_control_growth_rate_display < 0.0005
+			NOT = { has_holding_type = ruin_holding }
+			NOT = { has_holding_type = wilderness_holding }
+		}
+		value = 0.0005
+	}
+	multiply = aawc_population_holding_live_expected_pressure_multiplier_display
+	if = {
+		limit = {
+			OR = {
+				has_holding_type = ruin_holding
+				has_holding_type = wilderness_holding
+			}
+		}
+		value = 0
+	}
+	if = {
+		limit = {
+			county = {
+				OR = {
+					has_variable = aawc_population_warfare_growth_suppressed
+					has_variable = aawc_population_siege_growth_suppressed
+					has_variable = aawc_population_raid_growth_suppressed
+				}
+			}
+			aawc_population_holding_potential_growth_rate > 0
+		}
+		value = 0
+	}
+	multiply = 100
+}
+
+aawc_population_holding_final_growth_rate_display = {
+	value = aawc_population_holding_live_final_growth_rate_display
+}
+
+aawc_population_holding_final_growth_percent_display = {
+	value = aawc_population_holding_final_growth_rate_display
+	multiply = 100
+}
+
+aawc_population_holding_growth_delta_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_population_growth_delta } value = var:aawc_population_growth_delta }
+}
+
+aawc_population_holding_predicted_quarterly_growth_delta_display = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = aawc_population_current
+		}
+		value = var:aawc_population_current
+		multiply = aawc_population_holding_live_final_growth_rate_display
+		round = yes
+	}
+}
+
+aawc_population_holding_predicted_growth_delta_display = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = aawc_population_current
+		}
+		value = var:aawc_population_current
+		multiply = aawc_population_holding_live_final_growth_rate_display
+		divide = 3
+		round = yes
+	}
+}
+
+aawc_population_holding_last_military_contribution = {
+	value = 0
+	if = { limit = { has_variable = aawc_population_last_military_contribution } value = var:aawc_population_last_military_contribution }
+}
+
+aawc_population_holding_max_military_contribution = {
+	value = 0
+	if = { limit = { has_variable = aawc_population_maa_max_contribution } value = var:aawc_population_maa_max_contribution }
+}
+
+aawc_population_holding_military_floor_percent_value = {
+	value = aawc_population_holding_expected
+	multiply = 0.25
+	round = yes
+}
+
+aawc_population_holding_military_protected_floor_display = {
+	value = aawc_population_holding_military_floor_percent_value
+	if = { limit = { aawc_population_holding_military_floor_percent_value > 2000 } value = 2000 }
+}
+
+aawc_population_holding_yearly_military_contribution = {
+	value = 0
+	if = { limit = { has_variable = aawc_population_yearly_military_contribution } value = var:aawc_population_yearly_military_contribution }
+}
+
+aawc_migration_county_projected_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_projected_net } value = var:aawc_migration_county_projected_net }
+	round = yes
+}
+
+aawc_migration_county_projected_percent_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_projected_percent } value = var:aawc_migration_county_projected_percent }
+	round = yes
+}
+
+aawc_migration_county_rating_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_rating } value = var:aawc_migration_county_rating }
+	round = yes
+}
+
+aawc_migration_county_base_rating_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_base_rating } value = var:aawc_migration_county_base_rating }
+	round = yes
+}
+
+aawc_migration_county_popular_opinion_rating_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_popular_opinion_rating } value = var:aawc_migration_county_popular_opinion_rating }
+	round = yes
+}
+
+aawc_migration_county_war_rating_penalty_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_war_rating_penalty } value = var:aawc_migration_county_war_rating_penalty }
+	round = yes
+}
+
+aawc_migration_county_direct_faith_penalty_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_direct_faith_penalty } value = var:aawc_migration_county_direct_faith_penalty }
+	round = yes
+}
+
+aawc_migration_county_direct_culture_penalty_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_direct_culture_penalty } value = var:aawc_migration_county_direct_culture_penalty }
+	round = yes
+}
+
+aawc_migration_county_liege_faith_penalty_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_liege_faith_penalty } value = var:aawc_migration_county_liege_faith_penalty }
+	round = yes
+}
+
+aawc_migration_county_liege_culture_penalty_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_liege_culture_penalty } value = var:aawc_migration_county_liege_culture_penalty }
+	round = yes
+}
+
+aawc_migration_county_building_rating_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_building_rating } value = var:aawc_migration_county_building_rating }
+	round = yes
+}
+
+aawc_migration_county_population_pressure_percent_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_population_pressure_percent } value = var:aawc_migration_county_population_pressure_percent }
+	round = yes
+}
+
+aawc_migration_county_leaving_percent_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_leaving_percent } value = var:aawc_migration_county_leaving_percent }
+	round = yes
+}
+
+aawc_migration_county_entering_percent_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_entering_percent } value = var:aawc_migration_county_entering_percent }
+	round = yes
+}
+
+aawc_migration_county_public_order_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_public_order_value } value = var:aawc_migration_public_order_value }
+	round = yes
+}
+
+aawc_migration_county_public_order_pull_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_public_order_pull } value = var:aawc_migration_public_order_pull }
+	round = yes
+}
+
+aawc_migration_county_public_order_push_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_public_order_push } value = var:aawc_migration_public_order_push }
+	round = yes
+}
+
+aawc_migration_county_capacity_pull_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_capacity_pull } value = var:aawc_migration_capacity_pull }
+	round = yes
+}
+
+aawc_migration_county_capacity_push_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_capacity_push } value = var:aawc_migration_capacity_push }
+	round = yes
+}
+
+aawc_migration_county_peace_pull_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_peace_pull } value = var:aawc_migration_peace_pull }
+	round = yes
+}
+
+aawc_migration_county_war_push_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_war_push } value = var:aawc_migration_war_push }
+	round = yes
+}
+
+aawc_migration_county_warfare_blocked_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_warfare_blocked } value = var:aawc_migration_warfare_blocked }
+	round = yes
+}
+
+aawc_migration_county_neighbor_targets_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_neighbor_target_count } value = var:aawc_migration_neighbor_target_count }
+	round = yes
+}
+
+aawc_migration_county_adjacent_count_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_static_neighbor_count } value = var:aawc_migration_static_neighbor_count }
+	round = yes
+}
+
+aawc_migration_county_receive_cap_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_receive_cap } value = var:aawc_migration_county_receive_cap }
+	round = yes
+}
+
+aawc_migration_county_give_cap_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_county_give_cap } value = var:aawc_migration_county_give_cap }
+	round = yes
+}
+
+aawc_migration_county_internal_transfer_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_internal_transfer_total } value = var:aawc_migration_internal_transfer_total }
+	round = yes
+}
+
+aawc_migration_holding_projected_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_projected_total } value = var:aawc_migration_holding_projected_total }
+	round = yes
+}
+
+aawc_migration_holding_projected_percent_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_projected_percent } value = var:aawc_migration_holding_projected_percent }
+	round = yes
+}
+
+aawc_migration_holding_internal_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_internal } value = var:aawc_migration_holding_internal }
+	round = yes
+}
+
+aawc_migration_holding_internal_percent_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_internal_percent } value = var:aawc_migration_holding_internal_percent }
+	round = yes
+}
+
+aawc_migration_holding_county_share_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_county_share } value = var:aawc_migration_holding_county_share }
+	round = yes
+}
+
+aawc_migration_holding_county_share_percent_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_county_share_percent } value = var:aawc_migration_holding_county_share_percent }
+	round = yes
+}
+
+aawc_migration_holding_building_rating_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_building_rating } value = var:aawc_migration_holding_building_rating }
+	round = yes
+}
+
+aawc_migration_holding_protective_floor_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_protective_floor } value = var:aawc_migration_holding_protective_floor }
+	round = yes
+}
+
+aawc_migration_holding_max_internal_move_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_max_internal_move } value = var:aawc_migration_holding_max_internal_move }
+	round = yes
+}
+
+aawc_migration_holding_max_county_move_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_max_county_move } value = var:aawc_migration_holding_max_county_move }
+	round = yes
+}
+
+aawc_migration_holding_internal_give_cap_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_internal_give_cap } value = var:aawc_migration_holding_internal_give_cap }
+	round = yes
+}
+
+aawc_migration_holding_internal_receive_cap_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_internal_receive_cap } value = var:aawc_migration_holding_internal_receive_cap }
+	round = yes
+}
+
+aawc_migration_holding_county_give_cap_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_county_give_cap } value = var:aawc_migration_holding_county_give_cap }
+	round = yes
+}
+
+aawc_migration_holding_county_receive_cap_display = {
+	value = 0
+	if = { limit = { has_variable = aawc_migration_holding_county_receive_cap } value = var:aawc_migration_holding_county_receive_cap }
+	round = yes
+}
+
+aawc_population_maa_replenish_amount = {
+	value = maa_max_troops_count
+	divide = 12
+	floor = yes
+	min = 1
+	max = {
+		value = maa_max_troops_count
+		subtract = maa_current_troops_count
+	}
+	max = {
+		value = scope:aawc_population_maa_owner.var:aawc_population_maa_regiment_population_budget
+		divide = scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier
+		floor = yes
+	}
+	max = {
+		value = scope:aawc_population_maa_owner.var:aawc_population_maa_remaining_population_pool
+		divide = scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier
+		floor = yes
+	}
+}
+
+# Compatibility names kept for GUI/event stability. Their meaning changed in 1.9.0.
+aawc_population_holding_dev_weight = { value = aawc_population_holding_main_line_expected_capacity }
+aawc_population_holding_income_component = { value = aawc_population_holding_building_expected_capacity }
+aawc_population_holding_levy_component = { value = aawc_population_holding_final_growth_percent_display }
+aawc_population_holding_levy_multiplier_debug = { value = aawc_population_holding_growth_rating_multiplier }
+aawc_population_holding_building_levies_debug = { value = aawc_population_holding_building_expected_capacity }
+
+aawc_population_county_holding_count = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = { if = { limit = { has_holding = yes } add = 1 } }
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.aawc_population_county_holding_count }
+}
+
+aawc_population_county_development_display = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = { if = { limit = { has_holding = yes } add = county.development_level } }
+		}
+		if = {
+			limit = { aawc_population_county_holding_count > 0 }
+			divide = aawc_population_county_holding_count
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.development_level }
+	round = yes
+}
+
+aawc_population_county_control_raw_display = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = { if = { limit = { has_holding = yes } add = county.county_control } }
+		}
+		if = {
+			limit = { aawc_population_county_holding_count > 0 }
+			divide = aawc_population_county_holding_count
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.county_control }
+	round = yes
+}
+
+aawc_population_county_control_display = {
+	value = aawc_population_county_control_raw_display
+	if = {
+		limit = { aawc_population_county_control_raw_display > 100 }
+		value = 100
+	}
+	round = yes
+}
+
+aawc_population_county_dev_weight = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = { if = { limit = { has_holding = yes } add = aawc_population_holding_main_line_expected_capacity } }
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.aawc_population_county_dev_weight }
+}
+
+aawc_population_county_total = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			# Match census aggregation: sum exact residents, then round once for display.
+			title_province = { if = { limit = { has_holding = yes } add = aawc_population_holding_current_readonly } }
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.aawc_population_county_total }
+	round = yes
+}
+
+aawc_population_county_income_component = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = { if = { limit = { has_holding = yes } add = aawc_population_holding_building_expected_capacity } }
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.aawc_population_county_income_component }
+}
+
+aawc_population_county_levy_building_sum = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = { if = { limit = { has_holding = yes } add = aawc_population_holding_growth_rating } }
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.aawc_population_county_levy_building_sum }
+}
+
+aawc_population_county_levy_component = {
+	value = aawc_population_county_levy_building_sum
+}
+
+aawc_population_county_expected = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = { if = { limit = { has_holding = yes } add = aawc_population_holding_expected } }
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.aawc_population_county_expected }
+	round = yes
+}
+
+aawc_population_county_surplus = {
+	value = aawc_population_county_total
+	subtract = aawc_population_county_expected
+	round = yes
+}
+
+aawc_population_county_barony_count = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = { if = { limit = { has_holding = yes } add = 1 } }
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.aawc_population_county_barony_count }
+}
+
+aawc_population_county_barony_slot_count = {
+	value = 0
+	if = {
+		limit = { tier = tier_county }
+		every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = { add = 1 }
+		}
+	}
+	else_if = { limit = { has_holding = yes } value = county.aawc_population_county_barony_slot_count }
+}
+
+aawc_population_county_colonize_cost_wh = {
+	value = aawc_population_county_barony_slot_count
+	multiply = @aawc_population_colonize_cost_per_barony
+	min = 500
+}
+
+aawc_population_wilderness_colonize_cost_live = {
+	value = 500
+	if = {
+		limit = { tier = tier_county }
+		value = aawc_population_county_barony_slot_count
+		multiply = @aawc_population_colonize_cost_per_barony
+		min = 500
+	}
+	else_if = {
+		limit = { has_holding = yes }
+		value = county.aawc_population_county_barony_slot_count
+		multiply = @aawc_population_colonize_cost_per_barony
+		min = 500
+	}
+}
+
+aawc_population_county_reclaim_cost_rh = {
+	value = aawc_population_county_barony_slot_count
+	multiply = @aawc_population_reclaim_cost_per_barony
+	min = 1000
+}
+
+aawc_population_owned_settlement_population_cost = {
+	value = county.aawc_population_county_holding_count
+	multiply = @aawc_population_owned_settlement_population_per_holding
+	min = @aawc_population_owned_settlement_population_per_holding
+}
+
+aawc_population_owned_settlement_gold_cost = {
+	value = county.aawc_population_county_holding_count
+	multiply = @aawc_population_owned_settlement_gold_per_holding
+	min = @aawc_population_owned_settlement_gold_per_holding
+}
+
+aawc_population_owned_settlement_starting_population = { value = @aawc_population_owned_settlement_starting_population }
+aawc_population_new_castle_holding_cost = { value = @aawc_population_new_castle_holding_cost }
+aawc_population_new_city_holding_cost = { value = @aawc_population_new_city_holding_cost }
+aawc_population_new_temple_holding_cost = { value = @aawc_population_new_temple_holding_cost }
+aawc_population_new_tribal_holding_cost = { value = @aawc_population_new_tribal_holding_cost }
+aawc_population_new_holding_minimum_cost = { value = @aawc_population_new_castle_holding_cost }
+aawc_population_blocker_clearance_minor_cost = { value = @aawc_population_blocker_clearance_minor_cost }
+aawc_population_blocker_clearance_standard_cost = { value = @aawc_population_blocker_clearance_standard_cost }
+aawc_population_blocker_clearance_severe_cost = { value = @aawc_population_blocker_clearance_severe_cost }
+aawc_population_blocker_clearance_deadly_cost = { value = @aawc_population_blocker_clearance_deadly_cost }
+
+aawc_population_new_holding_construction_cost = {
+	value = 0
+	if = { limit = { has_construction_with_flag = castle } value = @aawc_population_new_castle_holding_cost }
+	else_if = { limit = { has_construction_with_flag = city } value = @aawc_population_new_city_holding_cost }
+	else_if = { limit = { has_construction_with_flag = temple } value = @aawc_population_new_temple_holding_cost }
+	else_if = { limit = { has_construction_with_flag = tribe } value = @aawc_population_new_tribal_holding_cost }
+}
+
+aawc_population_blocker_clearance_construction_cost = {
+	value = 0
+	# Regional paid levels carry an exact per-stage population marker. Resolve
+	# that proven construction flag first, then retain the historical severity
+	# constants only for dependency blockers that AAWC no longer places.
+	if = { limit = { has_construction_with_flag = aawc_regional_blocker } value = aawc_population_regional_blocker_clearance_construction_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_cost_deadly } value = @aawc_population_blocker_clearance_deadly_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_cost_severe } value = @aawc_population_blocker_clearance_severe_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_cost_standard } value = @aawc_population_blocker_clearance_standard_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_cost_minor } value = @aawc_population_blocker_clearance_minor_cost }
+}
+
+aawc_population_realm_total_development = {
+	value = 0
+	every_realm_county = { limit = { tier = tier_county } add = development_level }
+}
+
+aawc_population_character_total_cached = { value = 0 add = var:aawc_population_total }
+aawc_population_character_expected_cached = { value = 0 add = var:aawc_population_expected }
+aawc_population_character_surplus_cached = { value = 0 add = var:aawc_population_surplus }
+aawc_population_character_reserved_cached = { value = 0 add = var:aawc_population_reserved }
+aawc_population_character_available_cached = { value = 0 add = var:aawc_population_available }
+
+
+
+
+

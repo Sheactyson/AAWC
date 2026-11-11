@@ -1,0 +1,13 @@
+﻿NCounty = {
+	COUNTY_OPINION_ZERO_ACCEPTANCE = 0 # Handled by culture tension system
+}
+
+NReligion = {
+	# Hostility levels start at 0 (same faith or equivalent to same faith)
+	HOSTILITY_COUNTY_OPINION_EFFECTS = {	# Handled by faith tension system
+		0
+		0
+		0
+		0
+	}
+}

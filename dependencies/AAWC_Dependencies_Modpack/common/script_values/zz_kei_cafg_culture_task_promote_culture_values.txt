@@ -1,0 +1,862 @@
+﻿V_kCAFG_task_promote_culture_tension_increase_per_factor = 0.8 # Tension Increase per factor converted
+V_kCAFG_steward_promotion_province_culture_tension_max_reduction = 0.2 # At max tension, conversion speed is multiplied by this value
+V_kCAFG_steward_promotion_low_presence_factor = 0.85 # Starting converting a province is a bit slower
+
+# The AI will suggest to convert elsewhere
+# If the task speed is multiplied by a value below this threshold because of minorities
+V_kCAFG_AI_suggestion_task_promotion_minorities_speed_factor_threshold = 0.4
+# If the task would take at least this amount of months (game rule excluded)
+V_kCAFG_AI_suggestion_task_promotion_duration_threshold_months = 12
+# If the province baseline tension is under this value
+V_kCAFG_AI_suggestion_task_promotion_tension_threshold = 0.05
+
+V_kCAFG_steward_promotion_small_minorities_majority_threshold = 0.7
+V_kCAFG_steward_promotion_small_minorities_start_factor = 0.40
+V_kCAFG_steward_promotion_small_minorities_end_factor = 0.005
+
+V_kCAFG_task_promote_culture_councillor_current_progress = {
+	value = 0
+	if = {
+		limit = {
+			exists = yes
+			has_variable = kCAFG_task_promote_culture_progress
+		}
+		add = var:kCAFG_task_promote_culture_progress
+	}
+}
+
+# Scope : province
+V_kCAFG_steward_promotion_bonuses_game_rules_excluded_months_to_finish = {
+	value = V_kCAFG_steward_promotion_bonuses_game_rules_excluded
+	save_temporary_value_as = kCAFG_bonuses
+	if = {
+		limit = { scope:kCAFG_bonuses > 0 }
+		value = {
+			value = 100
+			divide = scope:kCAFG_bonuses
+			ceiling = yes
+		}
+	}
+	else = { value = -1 }
+}
+
+# Scope : province
+V_kCAFG_steward_promotion_bonuses_months_to_finish = {
+	value = V_kCAFG_steward_promotion_bonuses
+	save_temporary_value_as = kCAFG_bonuses
+	if = {
+		limit = { scope:kCAFG_bonuses > 0 }
+		value = {
+			value = 100
+			divide = scope:kCAFG_bonuses
+			ceiling = yes
+		}
+	}
+	else = { value = -1 }
+}
+
+# Scope : province
+V_kCAFG_steward_promotion_bonuses_game_rules_excluded = {
+	scope:councillor_liege.culture = { save_temporary_scope_as = kCAFG_converting_culture }
+
+	if = {
+		limit = {
+			NOT = { T_kCAFG_province_only_culture = { CULTURE = scope:kCAFG_converting_culture } }
+		}
+
+		## Save Scopes
+		save_temporary_scope_as = kCAFG_converted_province
+		scope:councillor = { save_temporary_scope_as = kCAFG_converter_character }
+		scope:councillor_liege = { save_temporary_scope_as = kCAFG_converting_character }
+		scope:councillor_liege.faith = { save_temporary_scope_as = kCAFG_converting_faith }
+
+		## Base
+		add = {
+			value = kCAFG_steward_promote_culture_base
+			desc = STEWARD_PROGRESS_BASE
+		}
+
+		## Skill
+		add = {
+			value = scope:councillor.kCAFG_steward_promote_culture_monthly_increase
+			desc = SCALED_COUNCILLOR_STEWARDSHIP_VALUE
+
+			save_temporary_value_as = kCAFG_steward_stewardship_progress
+		}
+
+		save_temporary_value_as = kCAFG_promotion_base_total
+		
+		add = V_kCAFG_steward_promotion_liege_bonuses
+
+		scope:kCAFG_converting_culture = { add = V_kCAFG_culture_conversion_converting_culture_modifiers }
+
+		# Converted cultures
+		add = {
+			every_in_list = {
+				variable = kCAFG_province_culture_structs
+				limit = { scope:kCAFG_converting_culture != var:culture }
+				add = {
+					value = var:culture.V_kCAFG_culture_conversion_converted_culture_modifiers
+					multiply = var:factor
+				}
+			}
+			# rescale by excluding converting culture
+			divide = {
+				value = 1
+				scope:kCAFG_converting_culture = { scope:kCAFG_converted_province = { subtract = V_kCAFG_province_prev_culture_factor } }
+            	min = V_kCAFG_smallest_minority_factor
+			}
+			desc = kCAFG_task_promote_culture_various_cultures
+		}
+
+		# Province faiths
+		add = {
+			every_in_list = {
+				variable = kCAFG_province_faith_structs
+				limit = { scope:kCAFG_converting_faith != var:faith }
+				add = {
+					value = var:faith.V_kCAFG_culture_conversion_faiths_modifiers
+					multiply = var:factor
+				}
+			}
+			desc = kCAFG_task_promote_culture_various_faiths
+		}
+
+		county = { add = V_kCAFG_culture_conversion_county_modifiers_add }
+
+		## MULTIPLICATIVE MODIFIERS ##
+
+		multiply = V_kCAFG_culture_conversion_province_modifiers_mult
+		
+		county = {
+			multiply = V_kCAFG_culture_conversion_county_modifiers_mult
+
+			if = { # Development reduces the speed
+				limit = { development_level > 0 }
+				multiply = {
+					value = V_kCAFG_culture_conversion_county_development_factor
+					desc = STEWARD_PROMOTE_CULTURE_DEVELOPMENT_PENALTY
+				}
+			}
+		}
+
+		scope:kCAFG_converting_character = {
+			multiply = V_kCAFG_culture_conversion_converting_character_modifiers_mult
+		}
+
+		scope:kCAFG_converting_culture = {
+			multiply = V_kCAFG_culture_conversion_converting_culture_modifiers_mult
+		}
+		
+		# Culture Tension
+		multiply = {
+			value = V_kCAFG_steward_promotion_province_culture_tension_mult
+			desc = kCAFG_task_promote_culture_tension_impact
+		}
+
+		# Starting converting a province is a bit slower
+		if = {
+			limit = {
+				scope:kCAFG_converting_culture = {
+					prev = { # province
+						V_kCAFG_province_prev_culture_factor < V_kCAFG_small_minority_factor
+					}
+				}
+			}
+			multiply = {
+				value = V_kCAFG_steward_promotion_low_presence_factor
+				desc = kCAFG_task_promote_culture_low_presence
+			}
+		}
+
+		multiply = V_kCAFG_steward_promotion_small_minorities_mult
+
+
+		min = 0
+	}
+	else = { value = 0 }
+}
+
+V_kCAFG_steward_promotion_bonuses = {
+	value = V_kCAFG_steward_promotion_bonuses_game_rules_excluded
+	multiply = V_kCAFG_steward_promotion_game_rules_mult
+}
+
+kCAFG_steward_promote_culture_base = {
+	value = 0.25
+	multiply = V_kCAFG_culture_steward_promotion_values_scale
+}
+
+kCAFG_steward_promote_culture_monthly_increase = {
+	add = stewardship
+	divide = 20
+	multiply = V_kCAFG_culture_steward_promotion_values_scale
+}
+
+V_kCAFG_steward_promotion_liege_bonuses = {
+	# Relation Bonuses/Penalties
+	if = { # Friend
+		limit = {
+			scope:councillor_liege = {
+				has_relation_friend = scope:councillor
+				NOT = { has_relation_best_friend = scope:councillor }
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_steward_stewardship_progress
+				multiply = V_kCAFG_steward_promote_culture_friend_factor
+			}
+			desc = COUNCILLOR_IS_YOUR_FRIEND
+		}
+	}
+	if = { # Best Friend
+		limit = {
+			scope:councillor_liege = {
+				has_relation_best_friend = scope:councillor
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_steward_stewardship_progress
+				multiply = V_kCAFG_steward_promote_culture_best_friend_factor
+			}
+			desc = COUNCILLOR_IS_YOUR_BEST_FRIEND
+		}
+	}
+	if = { # Rival
+		limit = {
+			scope:councillor_liege = {
+				has_relation_rival = scope:councillor
+				NOT = { has_relation_nemesis = scope:councillor }
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_steward_stewardship_progress
+				multiply = V_kCAFG_steward_promote_culture_rival_factor
+			}
+			desc = COUNCILLOR_IS_YOUR_RIVAL
+		}
+	}
+	if = { # Nemesis
+		limit = {
+			scope:councillor_liege = {
+				has_relation_nemesis = scope:councillor
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_steward_stewardship_progress
+				multiply = V_kCAFG_steward_promote_culture_nemesis_factor
+			}
+			desc = COUNCILLOR_IS_YOUR_NEMESIS
+		}
+	}
+	if = {
+		limit = {
+			councillor_liege_has_erudition_legacy_5_perk = yes
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_steward_stewardship_progress
+				multiply = V_kCAFG_steward_promote_culture_erudition_legacy_5_factor
+			}
+			desc = ERUDITION_DYNASTY_PERK_BONUS_VALUE
+		}
+	}
+	if = {
+		limit = {
+			councillor_liege_has_family_business_bonus = yes
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_steward_stewardship_progress
+				multiply = V_kCAFG_steward_promote_culture_family_business_councillors_factor
+			}
+			desc = FAMILY_BUSINESS_BONUS_VALUE
+		}
+	}
+
+	if = {
+		limit = {
+			councillor_liege_has_consulted_house_bonus = yes
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_steward_stewardship_progress
+				multiply = V_kCAFG_steward_promote_culture_consulted_house_councillors_factor
+			}
+			desc = CONSULTED_HOUSE_BONUS_VALUE
+		}
+	}
+}
+# Scope : county
+V_kCAFG_culture_conversion_county_development_factor = {
+    value = 1.1 # 100% speed at 10 development
+    subtract = {
+        value = development_level
+        divide = max_development_level
+    }
+}
+
+# Scope : character
+V_kCAFG_culture_conversion_converting_character_modifiers_mult = {
+	value = 1
+
+	multiply = {
+		value = V_kCAFG_culture_conversion_speed_tolerance_law_factor
+		desc = kCAFG_culture_intolerant_law
+	}
+
+	multiply = V_kCAFG_culture_conversion_converting_character_modifiers_mult_VANILLA
+}
+
+# scope : character
+V_kCAFG_culture_conversion_speed_tolerance_law_factor = {
+	value = 1
+	scope:kCAFG_converted_province = {
+		county.holder = {
+			if = {
+				limit = { is_independent_ruler = yes }
+				save_temporary_scope_as = law_enforcer
+			}
+			else = {
+				# Get the first liege whose law applies
+				ordered_liege_or_above = {
+					position = 0
+					order_by = primary_title.tier
+					limit = { T_kCAFG_overrides_culture_tolerance_law = yes }
+					save_temporary_scope_as = law_enforcer
+				}
+
+				# Default to county holder
+				if = {
+					limit = { NOT = { exists = scope:law_enforcer } }
+					save_temporary_scope_as = law_enforcer
+				}
+			}
+		}
+
+		if = {
+			limit = { exists = scope:law_enforcer }
+			scope:law_enforcer = {
+				if = {
+					limit = {
+						T_kCAFG_has_culture_intolerance_realm_law = yes
+						# Bonus applies to the culture of the lawmaker
+						culture = scope:kCAFG_converting_character.culture
+					}
+					add = V_kCAFG_intolerant_law_conversion_bonus
+				}
+			}
+		}
+	}
+}
+
+# Scope : character
+V_kCAFG_culture_conversion_converting_character_modifiers_mult_VANILLA = {
+	value = 1
+
+	if = {
+		limit = { has_character_modifier = devoted_to_tradition_modifier }
+		multiply = {
+			value = 1.25
+			desc = bp2_devoted_to_tradition_modifier_conversion_task_desc
+		}
+	}
+
+	# Faster promotion for FP2 Hostility ending, if county is in Iberia and culture was involved
+	if = {
+		limit = {
+            exists = house
+			exists = scope:kCAFG_converted_province
+			house = {
+				OR = {
+					has_house_modifier = fp2_struggle_hostility_house_culture_modifier
+					has_house_modifier = fp2_struggle_hostility_house_combined_modifier
+				}
+			}
+            scope:kCAFG_converted_province = { geographical_region = world_europe_west_iberia }
+		}
+		multiply = {
+			value = 1
+            add = {
+				value = 0
+				# Get proportion of cultures that meet the requirements
+				scope:kCAFG_converted_province = {
+					every_in_list = {
+						variable = kCAFG_province_culture_structs
+
+						limit = {
+							is_target_in_global_variable_list = {
+								name = fp2_struggle_ending_faith_list
+								target = var:culture
+							}
+						}
+
+						add = var:factor
+					}
+				}
+				multiply = {
+					value = fp2_struggle_hostility_conversion_value
+					subtract = 1 # Only the part above one
+				}
+			}
+            desc = fp2_struggle_hostility_culture_conversion_task_desc
+        }
+	}
+	if = {
+		limit = {
+			has_title = title:c_byzantion
+			title:c_byzantion = { has_county_modifier = pandidakterion_university_modifier }
+		}
+		multiply = {
+			value = 1.25
+			desc = pandidakterion_university_modifier
+		}
+	}
+	if = {
+		limit = {
+			scope:kCAFG_converted_province.county = { has_county_modifier = improve_promote_culture_modifier }
+			scope:councillor_liege = {
+				has_character_modifier = ep3_integration_promoter_modifier
+				has_variable = integration_promoted_in
+				var:integration_promoted_in = scope:kCAFG_converted_province.county
+			}
+		}
+		multiply = {
+			value = 1.20
+			desc = improve_promote_culture_modifier
+		}
+	}
+}
+
+# Scope : province
+V_kCAFG_steward_promotion_province_culture_tension_mult = {
+	value = 1
+	subtract = {
+		value = var:kCAFG_culture_tension
+		multiply = V_kCAFG_steward_promotion_province_culture_tension_max_reduction
+	}
+}
+
+# Scope : province
+V_kCAFG_steward_promotion_small_minorities_mult = {
+	value = 1
+	# Converting remaining small minorities is very long
+	# Kei : TO DO use the "health"/"resistance" instead ?
+	if = {
+		limit = {
+			any_in_list = {
+				variable = kCAFG_province_culture_structs
+				scope:kCAFG_converting_culture = var:culture
+				var:factor > V_kCAFG_steward_promotion_small_minorities_majority_threshold
+			}
+			NOT = {
+				any_in_list = {
+					variable = kCAFG_province_culture_structs
+					scope:kCAFG_converting_culture != var:culture
+					var:factor > V_kCAFG_small_minority_factor
+				}
+			}
+		}
+		multiply = {
+			value = {
+				value = V_kCAFG_steward_promotion_small_minorities_start_factor
+				scope:kCAFG_converting_culture = {
+					prev = {
+						subtract = {
+							value = V_kCAFG_province_prev_culture_factor
+							# Rescale to 0-1
+							subtract = V_kCAFG_steward_promotion_small_minorities_majority_threshold
+							min = 0
+							divide = {
+								value = 1
+								subtract = V_kCAFG_steward_promotion_small_minorities_majority_threshold
+							}
+							# 
+							multiply = {
+								value = V_kCAFG_steward_promotion_small_minorities_start_factor
+								subtract = V_kCAFG_steward_promotion_small_minorities_end_factor
+							}
+						}
+					}
+				}
+				# If sorrounded by counties having the majority culture of the councillor liege, mitigate
+				if = {
+					limit = {
+						NOT = {
+							county = {
+								any_neighboring_county = {
+									culture != scope:kCAFG_converting_culture
+								}
+							}
+						}
+					}
+					multiply = 1.5
+				}
+				# Mitigated by urbanization tech of Majority Culture
+				if = {
+					limit = { county.culture = { has_innovation = innovation_development_04 } }
+					multiply = 1.4 # With Rennaisance Thought
+				}
+				else_if = {
+					limit = { county.culture = { has_innovation = innovation_development_03 } }
+					multiply = 1.2 # With Urbanization
+				}
+				else_if = {
+					limit = { county.culture = { has_innovation = innovation_development_02 } }
+					multiply = 1.1 # With Communal Government
+				}
+				else_if = {
+					limit = { county.culture = { has_innovation = innovation_development_01 } }
+					multiply = 1.05 # With the Public Works innovation
+				}
+				max = 1
+			}
+			desc = kCAFG_task_promote_culture_only_minority_cultures_remain
+		}
+	}
+}
+
+V_kCAFG_steward_promotion_game_rules_mult = {
+	value = 1
+	# Conversion speed game rules
+	if = {
+		limit = {
+			has_game_rule = slower_culture_conversion_speed
+		}
+		multiply = {
+			value = slower_game_rule_value
+			desc = GAME_RULE_SLOWER_REASON
+		}
+	}
+	if = {
+		limit = {
+			has_game_rule = significantly_slower_culture_conversion_speed
+		}
+		multiply = {
+			value = significantly_slower_game_rule_value
+			desc = GAME_RULE_SIGNIFICANTLY_SLOWER_REASON
+		}
+	}
+	if = {
+		limit = {
+			has_game_rule = significantly_faster_culture_conversion_speed
+		}
+		multiply = {
+			value = significantly_faster_game_rule_value
+			desc = GAME_RULE_SIGNIFICANTLY_FASTER_REASON
+		}
+	}
+	if = {
+		limit = {
+			has_game_rule = faster_culture_conversion_speed
+		}
+		multiply = {
+			value = faster_game_rule_value
+			desc = GAME_RULE_FASTER_REASON
+		}
+	}
+
+	if = {
+		limit = {
+			has_game_rule = kCAFG_culture_conversion_speed_075
+		}
+		multiply = {
+			value = 0.75
+			desc = kCAFG_task_promote_culture_speed_game_rule_075
+		}
+	}
+
+	if = {
+		limit = {
+			has_game_rule = kCAFG_culture_conversion_speed_125
+		}
+		multiply = {
+			value = 1.25
+			desc = kCAFG_task_promote_culture_speed_game_rule_125
+		}
+	}
+
+	if = {
+		limit = {
+			has_game_rule = kCAFG_culture_conversion_speed_150
+		}
+		multiply = {
+			value = 1.50
+			desc = kCAFG_task_promote_culture_speed_game_rule_150
+		}
+	}
+
+	if = {
+		limit = {
+			has_game_rule = kCAFG_culture_conversion_speed_175
+		}
+		multiply = {
+			value = 1.75
+			desc = kCAFG_task_promote_culture_speed_game_rule_175
+		}
+	}
+}
+
+V_kCAFG_steward_promotion_culture_ai_will_do = {
+	value = 0
+
+	if = {
+		limit = {
+			scope:councillor = { is_performing_council_task = task_promote_culture }
+		}
+		add = 10000 # Always keep going if this is already chosen
+	}
+	else = {
+		if = {
+			# Bold rulers like doing this
+			limit = { scope:councillor_liege.ai_boldness > 0 }
+			add = {
+				value = scope:councillor_liege.ai_boldness
+				multiply = 0.9
+			}
+		}
+
+		if = {
+			limit = { has_realm_law = kCAFG_culture_intolerant_law }
+			add = 125
+		}
+
+		subtract = {
+			value = scope:councillor_liege.ai_compassion
+			divide = 2
+		}
+
+		add = {
+			value = scope:councillor_liege.ai_energy
+			divide = 12
+		}
+
+		add = V_kCAFG_steward_promotion_culture_ai_will_do_add_VANILLA_B
+		if = {
+			limit = {
+				scope:councillor_liege.culture = {
+					has_cultural_parameter = less_likely_to_promote_culture
+				}
+			}
+			subtract = 150
+		}
+		if = {
+			limit = {
+				scope:councillor_liege = {
+					OR = {
+						gold >= steward_convert_culture_value
+						AND = {
+							gold > 0
+							culture = {
+								OR = {
+									is_hybrid_culture = yes
+									is_divergent_culture = yes
+								}
+							}
+							any_realm_county = {
+								culture = {
+									save_temporary_scope_as = culture_check
+									scope:councillor_liege.culture = {
+										any_parent_culture = {
+											this = scope:culture_check
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			add = 60
+		}
+		if = {
+			limit = {
+				scope:councillor_liege = {
+					culture = {
+						OR = {
+							is_hybrid_culture = yes
+							is_divergent_culture = yes
+						}
+					}
+					any_sub_realm_county = {
+						culture = {
+							save_temporary_scope_as = culture_check
+							scope:councillor_liege.culture = {
+								any_parent_culture = {
+									this = scope:culture_check
+								}
+							}
+						}
+					}
+				}
+			}
+			add = 60
+		}
+		# Motivate the AI with an escalation agenda to take this task
+		if = {
+			limit = {
+				has_character_flag = agenda_towards_escalation
+			}
+			add = 250
+		}
+		else_if = {
+			limit = {
+				has_character_flag = agenda_towards_deescalation
+			}
+			add = -250
+		}
+	}
+	
+	multiply = V_kCAFG_steward_promotion_culture_ai_will_do_mult_VANILLA
+	if = {
+		# Interrupt this task if you're bankrupt
+		limit = {
+			scope:councillor_liege = {
+				gold < -50
+			}
+		}
+		multiply = 0
+	}
+
+	# AI directive
+	if = {
+		limit = {
+			scope:councillor_liege = {
+				has_character_flag = vassal_directive_convert_culture
+				vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+			}
+		}
+		add = 50000
+	}
+}
+
+V_kCAFG_steward_promotion_culture_ai_will_do_add_VANILLA_B = {
+	if = {
+		limit = { scope:councillor_liege.culture = { has_cultural_pillar = ethos_communal } }
+		add = 25
+	}
+	else_if = {
+		limit = { scope:councillor_liege.culture = { has_cultural_pillar = ethos_egalitarian } }
+		subtract = 75
+	}
+
+	if = {
+		limit = { scope:councillor_liege.culture = { has_cultural_tradition = tradition_xenophilic } }	
+		subtract = 50
+	}
+	if = {
+		limit = { scope:councillor_liege.culture = { has_cultural_tradition = tradition_culture_blending } }	
+		subtract = 50
+	}
+
+	if = {
+		limit = {
+			scope:councillor_liege.culture = {
+				has_innovation = innovation_desert_tactics #Best way to check if the culture is Outremer
+			}
+			scope:councillor_liege = {
+				gold >= steward_convert_culture_value
+			}
+		}
+		add = 500
+	}
+}
+
+V_kCAFG_steward_promotion_culture_ai_will_do_mult_VANILLA = {
+	value = 1
+
+	if = {
+		# Don't do this too often
+		limit = {
+			scope:councillor_liege = {
+				has_character_flag = no_ai_culture_convert
+				NAND = {
+					has_character_flag = vassal_directive_convert_culture 
+					vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+				}
+			}
+		}
+		multiply = 0
+	}
+}
+
+# Scope : province
+# Required scopes :
+# kCAFG_culture
+# councillor_liege
+V_kCAFG_steward_promotion_default_focus_province_score = {
+	value = squared_distance_large
+
+	# The further, the less we care
+	subtract = "squared_distance(scope:councillor_liege.capital_province)"
+	divide = 100
+	min = 100
+
+	multiply = {
+		# Other faiths factor
+		value = 1
+		subtract = V_kCAFG_province_culture_factor
+
+		if = {
+			limit = { scope:councillor_liege = { is_ai = yes } }
+			# Rescale to conversion threshold
+			subtract = scope:councillor_liege.V_kCAFG_ai_stop_task_culture_promote_threshold
+			min = 0
+			divide = {
+				value = 1
+				subtract = scope:councillor_liege.V_kCAFG_ai_stop_task_culture_promote_threshold
+			}
+		}
+
+		save_temporary_value_as = tmp_value
+		if = {
+			limit = { scope:tmp_value > 0 }
+
+			# Rescale relative to county values (if applicable)
+			multiply = {
+				value = V_kCAFG_province_relative_values_scale
+				divide = V_kCAFG_province_relative_scale
+			}
+			
+			multiply = 0.2
+			add = 0.8
+		}
+	}
+}
+
+# Scope : character
+# Returns value between 0 (does not care about culture conversion) and 1 (cares a lot)
+V_kCAFG_culture_promotion_ai_personality_propensity_to_convert = {
+	add = {
+		value = ai_boldness
+		add = 100
+		divide = 200
+		multiply = 0.5
+	}
+	add = {
+		value = ai_compassion
+		add = 100
+		divide = 200
+		multiply = -0.3
+	}
+	add = {
+		value = ai_energy
+		add = 100
+		divide = 200
+		multiply = 0.2
+	}
+	if = {
+		limit = { has_trait = humble }
+		subtract = 0.4
+	}
+	if = {
+		limit = { has_trait = arrogant }
+		add = 0.4
+	}
+	min = 0
+	max = 1
+}

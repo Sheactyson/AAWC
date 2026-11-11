@@ -1,0 +1,63 @@
+﻿## Character
+V_kCAFG_character_different_faith_county_opinion_mult_bonuses_VANILLA = 0
+V_kCAFG_character_different_faith_county_opinion_mult_maluses_VANILLA = 0
+V_kCAFG_character_different_faith_county_opinion_mult_bonuses_VANILLA_B = 0
+V_kCAFG_character_different_faith_county_opinion_mult_maluses_VANILLA_B = 0
+
+V_kCAFG_faith_province_conversion_mult_VANILLA_B = 1
+V_kCAFG_faith_province_conversion_mult_VANILLA = 1
+
+## Culture
+V_kCAFG_culture_different_faith_county_opinion_mult_maluses_VANILLA = 0
+V_kCAFG_culture_different_faith_county_opinion_mult_maluses_VANILLA_B = 0
+
+V_kCAFG_culture_province_conversion_mult_VANILLA_B = 1
+V_kCAFG_culture_province_conversion_mult_VANILLA = 1
+
+V_kCAFG_culture_tension_target_baseline_mult_VANILLA_B = 1
+V_kCAFG_culture_tension_target_baseline_holder_factor_mult_VANILLA_B = 1
+
+## Court Chaplain Tasks
+V_kCAFG_conversion_county_modifiers_add_VANILLA = 0
+V_kCAFG_conversion_county_modifiers_add_VANILLA_B = 0
+V_kCAFG_conversion_county_modifiers_mult_VANILLA = 1
+V_kCAFG_conversion_county_modifiers_mult_VANILLA_B = 1
+V_kCAFG_conversion_converted_culture_modifiers = 0
+
+V_kCAFG_conversion_converting_faith_modifiers_VANILLA = 0
+V_kCAFG_conversion_converted_faith_modifiers_VANILLA = 0
+
+V_kCAFG_conversion_converting_faith_modifiers_VANILLA_B = 0
+V_kCAFG_conversion_converted_faith_modifiers_VANILLA_B = 0
+
+V_kCAFG_chaplain_conversion_syncretism_minimum_VANILLA = 0
+
+V_kCAFG_conversion_converting_character_modifiers_mult_VANILLA = 1
+V_kCAFG_conversion_converting_character_modifiers_mult_VANILLA = 1
+V_kCAFG_conversion_converting_faith_modifiers_mult_VANILLA = 1
+
+## Steward Tasks
+V_kCAFG_culture_conversion_power_mult_bonuses_VANILLA_B = 0
+V_kCAFG_culture_conversion_power_add = 0
+
+V_kCAFG_promotion_converting_character_modifiers_mult_VANILLA = 1
+V_kCAFG_promotion_converting_culture_modifiers_VANILLA = 0
+V_kCAFG_promotion_converted_culture_modifiers_VANILLA = 0
+V_kCAFG_promotion_converted_culture_modifiers_VANILLA_B = 0
+V_kCAFG_promotion_county_modifiers_add_VANILLA = 0
+V_kCAFG_promotion_county_modifiers_add_VANILLA_B = 0
+V_kCAFG_promotion_county_modifiers_mult_VANILLA = 1
+V_kCAFG_promotion_county_modifiers_mult_VANILLA_B = 1
+
+V_kCAFG_steward_promotion_culture_modifiers_mult_VANILLA = 1
+V_kCAFG_steward_promotion_culture_ai_will_do_mult_VANILLA = 1
+V_kCAFG_steward_promotion_culture_ai_will_do_add_VANILLA_B = 0
+
+V_kCAFG_steward_accept_culture_ai_will_do_VANILLA = 0
+V_kCAFG_steward_accept_culture_ai_will_do_add_VANILLA_B = 0
+V_kCAFG_steward_accept_culture_ai_will_do_mult_VANILLA_B = 1
+
+##
+
+fp3_struggle_ending_conversion_modifier_value = 0
+fp2_lyonese_monk_conversion_bonus_actual_value = 0

@@ -1,0 +1,22 @@
+﻿# Happens when a character changes culture
+# Root = character
+on_character_culture_change = {
+	 on_actions = {
+        kCAFG_on_character_culture_change
+    }
+}
+
+# Happens when a character changes culture
+# Root = character
+kCAFG_on_character_culture_change = {
+    effect = {
+        # Update target culture tensions
+        if = {
+            limit = { 
+                is_landed = yes
+				highest_held_title_tier >= tier_county
+            }
+            every_directly_owned_province = { E_kCAFG_update_province_target_culture_tension = yes }
+        }
+    }
+}

@@ -1,0 +1,55 @@
+﻿kCAFG_has_culture_tolerance_law_cooldown = {
+	first_not = kCAFG_culture_tolerance_law_is_on_cooldown
+}
+
+kCAFG_has_faith_tolerance_law_cooldown = {
+	first_not = kCAFG_faith_tolerance_law_is_on_cooldown
+}
+
+kCAFG_has_tribal_law_allowing_culture_tolerance_law_change = {
+	first_not = I_LACK_TRIBAL_law_allowing_culture_tolerance_law_change 
+}
+
+kCAFG_has_bureaucracy_law_allowing_culture_tolerance_law_change = {
+	first_not = I_LACK_BUREAUCRACY_law_allowing_culture_tolerance_law_change 
+}
+
+kCAFG_has_crown_law_allowing_culture_tolerance_law_change = {
+	first_not = I_LACK_law_allowing_culture_tolerance_law_change
+}
+
+kCAFG_has_tribal_law_allowing_faith_tolerance_law_change = {
+	first_not = I_LACK_TRIBAL_law_allowing_faith_tolerance_law_change
+}
+
+kCAFG_has_imperial_bureaucracy_law_allowing_faith_tolerance_law_change = {
+	first_not = I_LACK_IMPERIAL_BUREAUCRACY_law_allowing_faith_tolerance_law_change
+}
+
+kCAFG_has_meritocratic_bureaucracy_law_allowing_faith_tolerance_law_change = {
+	first_not = I_LACK_MERITOCRATIC_BUREAUCRACY_law_allowing_faith_tolerance_law_change
+}
+
+kCAFG_has_japanese_bureaucracy_law_allowing_faith_tolerance_law_change = {
+	first_not = I_LACK_JAPANESE_BUREAUCRACY_law_allowing_faith_tolerance_law_change
+}
+
+kCAFG_has_celestial_bureaucracy_law_allowing_faith_tolerance_law_change = {
+	first_not = I_LACK_CELESTIAL_BUREAUCRACY_law_allowing_faith_tolerance_law_change
+}
+
+kCAFG_has_crown_law_allowing_faith_tolerance_law_change = {
+	first_not = I_LACK_law_allowing_faith_tolerance_law_change
+}
+
+kCAFG_does_not_have_realm_law_preventing_task_promote_culture = {
+	first_not = I_have_realm_law_preventing_task_promote_culture
+}
+
+kCAFG_does_not_have_realm_law_preventing_task_accept_culture = {
+	first_not = I_have_realm_law_preventing_task_accept_culture
+}
+
+kCAFG_does_not_have_realm_law_preventing_task_conversion = {
+	first_not = I_have_realm_law_preventing_task_conversion
+}

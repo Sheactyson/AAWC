@@ -1,0 +1,90 @@
+{
+  "version": "1.11.2.1",
+  "validation_revision": "1.11.2.1-validation.1",
+  "date": "2026-11-09",
+  "scope": "Stage 2 effective-condition integration into the existing Stage 1 thirteen-band births and mortality authority",
+  "evidence_class": "SOURCE_EXECUTING_AND_STATIC_NOT_CK3_RUNTIME",
+  "critical_acceptance": {
+    "existing_thirteen_band_authority_preserved": "PASS",
+    "differentiated_condition_driven_fertility": "PASS",
+    "age_sensitive_condition_driven_mortality": "PASS",
+    "centralized_crisis_losses_not_duplicated": "PASS",
+    "poor_conditions_decline_below_capacity": "PASS",
+    "favorable_125_percent_births_below_deaths": "PASS",
+    "no_target_growth_hard_cap_or_resident_deletion": "PASS"
+    ,"real_infrastructure_initialization_recalculation_and_demography_together": "PASS"
+  },
+  "deterministic_scenarios": {
+    "balanced_10_year_population": 167,
+    "poor_10_year_population": 86,
+    "poor_scenario_occupancy": 0.1,
+    "favorable_125_effective_habitation": 5.5,
+    "favorable_125_effective_health": 77.25,
+    "favorable_125_monthly_birth_demand": 0.17453,
+    "favorable_125_monthly_death_demand": 0.23362,
+    "agricultural_fixture_capacity": 5020,
+    "agricultural_fixture_monthly_birth_demand": 0.46089,
+    "agricultural_fixture_monthly_death_demand": 0.06325,
+    "fortress_fixture_capacity": 3469,
+    "fortress_fixture_monthly_birth_demand": 0.40783,
+    "fortress_fixture_monthly_death_demand": 0.12545
+  },
+  "checks": [
+    {"command": "python -B -m unittest -v test_aawc_stage2_conditions test_aawc_stage2_demographic_integration", "working_directory": "scripts", "result": "PASS", "tests": 26, "purpose": "single focused run spanning real contribution initialization/recalculation, capacity pressure, births, age-specific mortality, crisis separation, and resident conservation"},
+    {"command": "python -X utf8 -B scripts/test_aawc_stage2_demographic_integration.py", "result": "PASS", "tests": 8},
+    {"command": "python -X utf8 -B scripts/test_aawc_stage2_conditions.py", "result": "PASS", "tests": 18},
+    {"command": "python -X utf8 -B scripts/test_aawc_stage1_demographic_engine_acceptance.py", "result": "PASS", "tests": 9},
+    {"command": "python -X utf8 -B scripts/test_aawc_cohort_bounded_arithmetic.py", "result": "PASS", "tests": 10},
+    {"command": "python -X utf8 -B scripts/test_aawc_stage1_population_transaction_acceptance.py", "result": "PASS", "tests": 11},
+    {"command": "python -X utf8 -B scripts/test_aawc_cohort_tick_cadence.py", "result": "PASS", "tests": 5},
+    {"command": "python -X utf8 -B scripts/test_aawc_population_readonly_refresh.py", "result": "PASS", "tests": 12},
+    {"command": "python -X utf8 -B scripts/validate_aawc_reforging_stage1_cohort_engine.py", "result": "PASS"},
+    {"command": "python -X utf8 -B scripts/validate_aawc_reforging_stage1_authority_graph.py", "result": "PASS"},
+    {"command": "python -X utf8 -B scripts/validate_aawc_reforging_stage1_candidate_activation.py", "result": "PASS"},
+    {"command": "python -X utf8 -B scripts/generate_aawc_stage2_conditions.py --check --audit-sources", "result": "PASS", "levels": 666, "chains": 141},
+    {"command": "python -B scripts/verify_aawc_release_candidate.py --workspace workspace --archive versions/1.11.2/AGOT_Alternate_World_Compatch_1.11.2.1.zip --manifest versions/1.11.2/AGOT_Alternate_World_Compatch_1.11.2.1.manifest.sha256 --version 1.11.2.1", "result": "PASS", "files": 341},
+    {"check": "source/archive/manifest parity", "result": "PASS", "files": 341}
+  ],
+  "package": {
+    "archive": "versions/1.11.2/AGOT_Alternate_World_Compatch_1.11.2.1.zip",
+    "archive_sha256": "38523E5C7E6C84CD3CE11DA28AEC783E3354914228FD6F852C4744DEE890BABE",
+    "manifest": "versions/1.11.2/AGOT_Alternate_World_Compatch_1.11.2.1.manifest.sha256",
+    "manifest_sha256": "1E6C0E0C76D32369162D9C258A82244AA355519692C4E7B4594F3A70309FA343",
+    "installation_checked": false
+  },
+  "sha256": {
+    "workspace/AGOT_Alternate_World_Compatch/common/script_values/aawc_reforging_cohort_stage1_values.txt": "B4E179899FE0D65D9E900B5C778A30493D1F2EA36CC5F7DCFFB74BC0A9EC7EBF",
+    "workspace/AGOT_Alternate_World_Compatch/common/scripted_effects/aawc_population_effects.txt": "71D541A3919DE63D8DB419AF612A350942AC927C57C978ECD60819ECD52F49E9",
+    "workspace/AGOT_Alternate_World_Compatch/descriptor.mod": "D8AB1C0D5060A520C9F6FD2EA274770FAA2096D29337E9635124290E7D8B0ACF",
+    "workspace/AGOT_Alternate_World_Compatch.mod": "7207E2383B17F36B8C31B031B4F830FC5FF6A527AA27F62275758570BE03C691",
+    "scripts/test_aawc_stage2_demographic_integration.py": "0F1B80D1B86F39E95015ACEE032B99D2182728164EA9F51717B60545325B6373",
+    "scripts/test_aawc_stage2_conditions.py": "52F6529CA06ED203060DE0F37B6062B52BB2B4D2DAE3A6640A15A9C2DCEB0C42",
+    "scripts/test_aawc_stage1_demographic_engine_acceptance.py": "1AFAC3D5CA738AEF3D1BD51DD9C9366F70145C18B0CA0D1111DDEB06046FA69C",
+    "scripts/test_aawc_cohort_bounded_arithmetic.py": "E1EB8796BC55F0F3EC10D7CD13EE50FCB68A0F52FA90D8CCDDC1C133EFC475B1",
+    "scripts/validate_aawc_reforging_stage1_cohort_engine.py": "9A451CFC5B5F4F53ED180A5B453553AD0E16B0C883ACE5B512CB3D35C8A3E053"
+  },
+  "changed_assumptions": [
+    "The previously neutral Stage 2 birth and per-band mortality hooks are now live effective-condition formulas.",
+    "Exact neutral effective scores still preserve the Stage 1 baseline, but holding-specific initialized conditions are no longer assumed neutral in baseline tests.",
+    "Title-transfer cadence recovery must refresh dynamic conditions before its guarded demographic tick."
+  ],
+  "downstream_disposition": {
+    "birth_mortality_integration_task": "COMPLETE_AND_OBSOLETE_AS_FOLLOW_ON",
+    "legacy_condition_foundation_statement_that_rate_integration_remains_downstream": "SUPERSEDED",
+    "presentation_reconciliation_follow_on": "UNCHANGED_AND_OUT_OF_SCOPE",
+    "final_long_term_calibration": "BLOCKED_FROM_CERTIFICATION_BY_MISSING_SECTION_10_REMAINDER"
+  },
+  "limitations": [
+    "No installation, native CK3 parser/runtime, save, UI, or rendered validation.",
+    "The supplied directive still omits the remainder of Section 10, so final long-horizon calibration targets are not claimed.",
+    "Two pre-existing Python cache files remain because the exact validated cleanup command was rejected before execution by automatic policy review."
+  ],
+  "verification_disposition": {
+    "focused_integration_candidate": "PASS",
+    "demonstrated_stage2_defects": [],
+    "required_new_follow_on_work": [],
+    "runtime_gameplay_ui": "PENDING_NOT_CERTIFIED",
+    "changed_assumptions": [],
+    "obsolete_downstream_tasks": ["separate Stage 2 birth/mortality integration follow-on"]
+  }
+}

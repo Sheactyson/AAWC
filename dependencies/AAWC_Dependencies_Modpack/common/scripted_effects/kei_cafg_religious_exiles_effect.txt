@@ -1,0 +1,139 @@
+﻿# Scope : county
+# kCAFG_converted_province
+# kCAFG_converting_faith
+# kCAFG_converted_faith
+E_kCAFG_task_conversion_religious_exile = {
+    if = {
+        limit = {
+            NOT = { has_variable = kCAFG_religious_exile_cooldown }
+        }
+        set_variable = {
+            name = kCAFG_religious_exile_cooldown
+            years = 20
+        }
+
+        faith = { save_temporary_scope_as = exiled_faith }
+        add_to_variable_list = {
+            name = faiths_converted_in_the_county
+            target = scope:exiled_faith
+            years = 40
+        }
+        scope:exiled_faith = {
+            if = {
+                limit = {
+                    OR = {
+                        NOT = { has_variable = associated_county }
+                        AND = {
+                            has_variable = converted_development
+                            var:converted_development <= 0
+                        }
+                    }
+                }
+                set_variable = {
+                    name = associated_county
+                    value = scope:kCAFG_converted_province.county
+                }
+            }
+            if = {
+                limit = {
+                    OR = {
+                        NOT = { has_variable = associated_culture }
+                        AND = {
+                            has_variable = converted_development
+                            var:converted_development <= 0
+                        }
+                    }
+                }
+                scope:kCAFG_converted_province = {
+                    ordered_in_list = {
+                        variable = kCAFG_province_culture_structs
+                        order_by = {
+                            value = var:factor
+                            multiply = V_kCAFG_province_values_scale
+                            multiply = 100
+                        }
+                        position = 0
+
+                        var:culture = { save_temporary_scope_as = selected_culture }
+                    }
+                }
+                set_variable = {
+                    name = associated_culture
+                    value = scope:selected_culture
+                }
+            }
+            if = {
+                limit = {
+                    NOT = { has_variable = converted_development }
+                }
+                set_variable = {
+                    name = converted_development
+                    value = scope:county.convert_faith_development_value
+                }
+            }
+            else = {
+                change_variable = {
+                    name = converted_development
+                    add = scope:county.convert_faith_development_value
+                }
+            }
+        }
+        change_development_level = convert_faith_development_loss
+    }
+    if = {
+        limit = {
+            scope:councillor_liege = {
+                OR = {
+                    NOT = { has_variable_list = converted_faiths }
+                    NOT = {
+                        is_target_in_variable_list = {
+                            name = converted_faiths
+                            target = scope:kCAFG_converted_faith
+                        }
+                    }
+                }
+            }
+        }
+        scope:councillor_liege = {
+            add_to_variable_list = {
+                name = converted_faiths
+                target = scope:kCAFG_converted_faith
+            }
+        }
+    }
+}
+
+E_kCAFG_welcome_religious_exiles = {
+    $FAITH$ = { save_temporary_scope_as = E_kCAFG_province_weighted_faith_conversion_converting_faith } # used by localization
+    custom_tooltip = {
+        text = kCAFG_E_province_weighted_faith_conversion_tt
+        every_county_province = {
+            save_temporary_scope_value_as = {
+                name = added_factor
+                value = { fixed_range = { min = $MIN_FACTOR$ max = $MAX_FACTOR$ } }
+            }
+            E_kCAFG_province_weighted_faith_conversion = {
+                FACTOR = scope:added_factor
+                FAITH = $FAITH$
+            }
+            
+            # Instant tension drift
+            set_variable = {
+                name = kCAFG_faith_tension
+                value = {
+                    value = var:kCAFG_faith_tension
+                    add = {
+                        value = var:kCAFG_target_faith_tension
+                        multiply = $ADDED_TENSION_FACTOR$
+                    }
+                    min = 0
+                    max = 1
+                }
+            }
+            E_kCAFG_on_province_faith_tension_updated = yes
+        }
+    
+        E_kCAFG_update_county_faiths_list = yes
+        E_kCAFG_update_county_faith = { REASON = flag:kCAFG_religious_exiles }
+    }
+}

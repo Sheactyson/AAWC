@@ -1,0 +1,421 @@
+﻿namespace = kCAFG_steward_task_accept
+
+###############
+# Side effects from Promote Cultural Acceptance
+# 3200-3399
+###############
+
+### Bad Side Effects
+
+# 3201 - Reduced Control
+# by Sean Hughes
+kCAFG_steward_task_accept.3201 = {
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship < high_skill_rating
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_bad
+			title = steward_task.3201.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_bad_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:county
+			right_icon = scope:councillor
+			tooltip = task_promote_culture_notification_tooltip
+
+			scope:county = {
+				change_county_control = -25
+			}
+		}
+	}
+}
+
+# 3202 - Reduced County Taxes
+# by Sean Hughes
+kCAFG_steward_task_accept.3202 = {
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship < high_skill_rating
+		}
+		scope:county = {
+			NOT = { has_county_modifier = steward_accept_culture_reduced_taxes_modifier }
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_bad
+			title = steward_task.3202.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_bad_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:county
+			right_icon = scope:councillor
+			tooltip = task_accept_culture_notification_tooltip
+
+			scope:county = {
+				add_county_modifier = {
+					modifier = steward_accept_culture_reduced_taxes_modifier
+					days = steward_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+# 3203 - Reduced Development Spread
+# by Sean Hughes
+kCAFG_steward_task_accept.3203 = {
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship < high_skill_rating
+		}
+		scope:county = {
+			NOR = {
+				has_county_modifier = steward_accept_culture_reduced_development_spread_modifier
+				has_county_modifier = steward_accept_culture_increased_development_spread_modifier
+			}
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_bad
+			title = steward_task.3203.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_bad_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:county
+			right_icon = scope:councillor
+			tooltip = task_accept_culture_notification_tooltip
+
+			scope:county = {
+				add_county_modifier = {
+					modifier = steward_accept_culture_reduced_development_spread_modifier
+					days = steward_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+### Good Side Effects
+
+# 3301 - Rapid Acceptance
+# by Sean Hughes
+kCAFG_steward_task_accept.3301 = {
+	hidden = yes
+	
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship > mediocre_skill_rating
+		}
+		# different culture
+		exists = scope:county
+		NOT =  { scope:county.culture = root.culture }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_good
+			title = steward_task.3301.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_good_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:county
+			right_icon = scope:councillor
+			tooltip = task_accept_culture_notification_tooltip
+		
+			scope:county = {
+				culture = {
+					change_cultural_acceptance = {
+						target = root.culture
+						value = 10
+						desc = task_accept_culture_acceptance_gain
+					}
+				}
+			}
+		}
+	}
+}
+
+# 3302 - Improved County Opinion
+# by Sean Hughes
+kCAFG_steward_task_accept.3302 = {
+	hidden = yes
+	
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship > mediocre_skill_rating
+		}
+		scope:county = {
+			NOT = { has_county_modifier = steward_accept_culture_increased_opinion_modifier }
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_good
+			title = steward_task.3302.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_good_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:county
+			right_icon = scope:councillor
+			tooltip = task_accept_culture_notification_tooltip
+
+			scope:county = {
+				add_county_modifier = {
+					modifier = steward_accept_culture_increased_opinion_modifier
+					days = steward_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+# 3303 - Increased County Levies
+# by Sean Hughes
+kCAFG_steward_task_accept.3303 = {
+	hidden = yes
+	
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship > mediocre_skill_rating
+		}
+		scope:county = {
+			NOR = {
+				has_county_modifier = steward_accept_culture_reduced_development_spread_modifier
+				has_county_modifier = steward_accept_culture_increased_development_spread_modifier
+			}
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_good
+			title = steward_task.3303.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_good_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:county
+			right_icon = scope:councillor
+			tooltip = task_accept_culture_notification_tooltip
+
+			scope:county = {
+				add_county_modifier = {
+					modifier = steward_accept_culture_increased_development_spread_modifier
+					days = steward_task_modifier_duration
+				}
+			}
+		}
+	}
+}

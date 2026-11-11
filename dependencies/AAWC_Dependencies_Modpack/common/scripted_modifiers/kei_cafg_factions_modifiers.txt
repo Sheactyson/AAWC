@@ -1,0 +1,621 @@
+﻿kCAFG_populist_faction_join_modifiers = {
+    modifier = {
+        add = -1000
+        # Do not join if we have nothing to gain (already share Liege faith and will not share new liege Culture (Group)).
+        AND = {
+            # We already share a Faith with the Top Liege.
+            OR = {
+                title_province.faith = scope:faction.faction_target.faith
+                any_in_list = {
+                    variable = kCAFG_county_faiths
+                    scope:faction.var:faction_faith = this
+                    save_temporary_scope_as = kCAFG_faith
+                    root = { V_kCAFG_county_faith_factor >= V_kCAFG_populist_faction_join_minimum_minority_factor }
+                    
+                    scope:faction.faction_target.faith = this
+                }
+            }
+            # And we do NOT share a Culture Group with the faction leader.
+            NOT = { this.title_province.culture = { has_same_culture_heritage = scope:faction.var:faction_culture } }
+        }
+    }
+    # If a suitable Escalated Faction exists, prefer to join it instead.
+    modifier = {
+        desc = "FACTION_REASON_PREFER_ESCALATED_FACTION"
+        add = -100
+        scope:faction.faction_target = {
+            any_targeting_faction = {
+                faction_type = escalated_peasant_faction
+            }
+        }
+    }
+
+    # Summary of score weights (base + modifiers):
+    #	Different Culture Group + Evil Faith: 100% chance at -28 opinion, 1% chance at -15 opinion
+    #	Different Culture (Same Group) + Hostile Faith: 100% chance at -88 opinion, 1% chance at -34 opinion
+    # 	Different Culture (Same Group) AND Astray Faith: 80% chance at -100 opinion, 1% chance at -60 opinion
+    #	Different Culture (Same Group) OR Astray Faith: Never Joins
+    compare_modifier = {
+        desc = "FACTION_REASON_CULTURAL_REASONS"
+        trigger = {
+            NOR = {
+                OR = {
+                    this.title_province.culture = scope:faction.faction_target.culture
+                    any_in_list = {
+                        variable = kCAFG_county_cultures
+                        scope:faction.var:faction_culture = this
+                        save_temporary_scope_as = kCAFG_culture
+                        root = { V_kCAFG_county_culture_factor >= V_kCAFG_populist_faction_join_minimum_minority_factor }
+                        
+                        scope:faction.faction_target.culture = this
+                    }
+                }
+                AND = {
+                    scope:faction.faction_target = { has_active_diarchy = yes }
+                    OR = {
+                        this.title_province.culture = scope:faction.faction_target.diarch.culture
+                        any_in_list = {
+                            variable = kCAFG_county_cultures
+                            scope:faction.var:faction_culture = this
+                            save_temporary_scope_as = kCAFG_culture
+                            root = { V_kCAFG_county_culture_factor >= V_kCAFG_populist_faction_join_minimum_minority_factor }
+                            
+                            scope:faction.faction_target.diarch.culture = this
+                        }
+                    }
+                }
+            }
+            
+        }
+        value = county_opinion
+        multiplier = {
+            value = -1.0
+            if = {
+                limit = {
+                    NOR = {
+                        OR = {
+                            this.title_province.culture = { has_same_culture_heritage = scope:faction.faction_target.culture }
+                            any_in_list = {
+                                variable = kCAFG_county_cultures
+                                scope:faction.var:faction_culture = this
+                                save_temporary_scope_as = kCAFG_culture
+                                root = { V_kCAFG_county_culture_factor >= V_kCAFG_populist_faction_join_minimum_minority_factor }
+                                
+                                has_same_culture_heritage = scope:faction.faction_target.culture
+                            }
+                        }
+                        AND = {
+                            scope:faction.faction_target = { has_active_diarchy = yes }
+                            OR = {
+                                this.title_province.culture = { has_same_culture_heritage = scope:faction.faction_target.diarch.culture }
+                                any_in_list = {
+                                    variable = kCAFG_county_cultures
+                                    scope:faction.var:faction_culture = this
+                                    save_temporary_scope_as = kCAFG_culture
+                                    root = { V_kCAFG_county_culture_factor >= V_kCAFG_populist_faction_join_minimum_minority_factor }
+                                    
+                                    has_same_culture_heritage = scope:faction.faction_target.diarch.culture
+                                }
+                            }
+                        }
+                    }
+                }
+                multiply = 3
+            }
+            multiply = V_kCAFG_populist_faction_faction_to_join_culture_factor
+        }
+    }
+
+    pluralism_fundamentalism_dual_modifier = {
+        ASTRAY_BASE_VALUE = kCAFG_faction_county_opinion_astray_scaled_by_joined_faction_faith
+        HOSTILE_BASE_VALUE = kCAFG_faction_county_opinion_hostile_scaled_by_joined_faction_faith
+        EVIL_BASE_VALUE = kCAFG_faction_county_opinion_evil_scaled_by_joined_faction_faith
+        BASE_FAITH = scope:faction.var:faction_faith
+        TARGET = scope:faction.faction_target
+    }
+    pluralism_fundamentalism_modifier = {
+        ASTRAY_BASE_VALUE = kCAFG_faction_county_opinion_astray_scaled_by_joined_faction_faith
+        HOSTILE_BASE_VALUE = kCAFG_faction_county_opinion_hostile_scaled_by_joined_faction_faith
+        EVIL_BASE_VALUE = kCAFG_faction_county_opinion_evil_scaled_by_joined_faction_faith
+        BASE_FAITH = scope:faction.var:faction_faith
+        TARGET = scope:faction.faction_target
+    }
+
+    # Reduced chance for a character's capital county to join a faction against them (extra -10 opinion needed).
+    modifier = {
+        desc = "FACTION_REASON_CAPITAL_COUNTY"
+        add = -80
+        exists = scope:faction.faction_target.capital_province
+        this.title_province = scope:faction.faction_target.capital_province
+    }
+
+    legalism_virtue_and_sin_modifier = {
+        TARGET = scope:faction.faction_target
+        SCORE_PER_TRAIT = 50 # Worth ~12 opinion per virtue.
+    }
+
+    liege_debt_modifier = {
+        TARGET = scope:faction.faction_target
+        SCORE_PER_DEBT_LEVEL = 20 # Worth ~5 opinon per debt level, up to a max of 140 (-35 opinion)
+    }
+
+    # Ruling Caste
+    modifier = {
+        desc = "FACTION_REASON_RULING_CASTE"
+        add = -25
+        NOT = {
+            culture = scope:faction.faction_target.culture
+        }
+        scope:faction.faction_target.culture = {
+            has_cultural_parameter = peasant_and_populist_factions_less_common
+        }
+    }
+
+    # Defiant Ambushers
+    modifier = {
+        add = 25
+        county_opinion < 0
+        culture != scope:faction.faction_target.culture
+        culture = { has_cultural_parameter = county_peasant_and_populist_factions_more_common }
+    }
+
+    # Realm Stability Settings
+    modifier = {
+        desc = "FACTION_REASON_GAME_RULE_REALM_STABILITY_LESSER"
+        add = 50
+        has_game_rule = lesser_realm_stability
+    }
+    modifier = {
+        desc = "FACTION_REASON_GAME_RULE_REALM_STABILITY_HIGHER"
+        add = -100
+        has_game_rule = higher_realm_stability
+    }
+    modifier = {
+        desc = "FACTION_REASON_GAME_RULE_REALM_STABILITY_EXTREME"
+        add = -200
+        has_game_rule = extreme_realm_stability
+    }
+
+    # Regent
+    modifier = {
+        desc = "FACTION_REASON_REGENT_CULTURAL_REASONS"
+        add = -100
+        scope:faction.faction_target = { has_active_diarchy = yes }
+        OR = {
+            AND = {
+                NOT = { scope:faction.faction_target.culture = culture }
+                scope:faction.faction_target.diarch.culture ?= culture
+            }
+            any_in_list = {
+                variable = kCAFG_county_cultures
+                scope:faction.var:faction_culture = this
+                NOT = { scope:faction.faction_target.culture = this }
+                scope:faction.faction_target.diarch.culture ?= this
+                save_temporary_scope_as = kCAFG_culture
+                root = { V_kCAFG_county_culture_factor >= V_kCAFG_populist_faction_join_minimum_minority_factor }
+            }
+        }
+    }
+    modifier = {
+        desc = "FACTION_REASON_REGENT_FAITH_REASONS"
+        add = -100
+        OR = {
+            AND = {
+                NOT = { scope:faction.faction_target.faith = faith }
+                scope:faction.faction_target.diarch.faith ?= faith
+            }
+            any_in_list = {
+                variable = kCAFG_county_faiths
+                scope:faction.var:faction_faith = this
+                NOT = { scope:faction.faction_target.faith = this }
+                scope:faction.faction_target.diarch.faith ?= this
+                save_temporary_scope_as = kCAFG_faith
+                root = { V_kCAFG_county_faith_factor >= V_kCAFG_populist_faction_join_minimum_minority_factor }
+            }
+        }
+    }
+    # TGP Dynastic Cycle in Instability phase
+    modifier = {
+        desc = "FACTION_REASON_DYNASTIC_CYCLE_INSTABILITY"
+        add = 25
+        scope:faction.faction_target = {
+            top_participant_group:dynastic_cycle ?= {
+                has_participant_group_parameter = dynastic_cycle_more_peasant_factions
+            }
+        }
+    }
+}
+
+kCAFG_populist_faction_create_modifiers = {
+    # If a suitable Popular Faction already exists (of the same faith), side with it instead.
+    modifier = {
+        add = -1000
+        scope:target = {
+            any_targeting_faction = {
+                faction_is_type = populist_faction
+                any_faction_county_member = {
+                    this.title_province.faith = root.title_province.faith
+                }
+            }
+        }
+    }
+
+    # Summary of score weights (base + modifiers):
+    #	Different Culture Group + Evil Faith: 100% chance at -32 opinion, 1% chance at -19 opinion
+    #	Different Culture (Same Group) + Hostile Faith: 90% chance at -100 opinion, 1% chance at -46 opinion
+    # 	Different Culture AND Astray Faith: 40% chance at -100 opinion, 1% chance at -80 opinion
+    #	Different Culture OR Astray Faith: Never Creates
+    compare_modifier = {
+        desc = "FACTION_REASON_CULTURAL_REASONS"
+        value = county_opinion
+        multiplier = {
+            value = 0
+            if = {
+                limit = { scope:target = { has_active_diarchy = yes } }
+                scope:target.diarch.culture = { save_temporary_scope_as = kCAFG_target_culture }
+            }
+            else = {
+                scope:target.culture = { save_temporary_scope_as = kCAFG_target_culture }
+            }
+            every_in_list = {
+                variable = kCAFG_county_cultures
+                limit = { scope:kCAFG_target_culture != this }
+                subtract = {
+                    save_temporary_scope_as = kCAFG_culture
+                    prev = { value = V_kCAFG_county_culture_factor }
+                    if = {
+                        limit = { NOT = { has_same_culture_heritage = scope:kCAFG_target_culture } }
+                        multiply = 3
+                    }
+                }
+            }
+        }
+    }
+
+    kCAFG_populist_faction_creation_pluralism_fundamentalism_modifier = {
+        ASTRAY_BASE_VALUE = faction_county_opinion_astray
+        HOSTILE_BASE_VALUE = faction_county_opinion_hostile
+        EVIL_BASE_VALUE = faction_county_opinion_evil
+        TARGET = scope:target
+    }
+
+    # Greatly reduced chance for a character's capital county to form a faction against them (extra -25 opinion needed).
+    modifier = {
+        add = -200
+        this.title_province = scope:target.capital_province
+    }
+
+    legalism_virtue_and_sin_modifier = {
+        TARGET = scope:target
+        SCORE_PER_TRAIT = 50 # Worth ~12 opinion per trait.
+    }
+
+    liege_debt_modifier = {
+        TARGET = scope:target
+        SCORE_PER_DEBT_LEVEL = 20 # Worth ~5 opinon per debt level, up to a max of 140 (-35 opinion)
+    }
+
+    # Ruling Caste
+    modifier = {
+        add = {
+            value = -25
+            multiply = {
+                value = 0
+                every_in_list = {
+                    variable = kCAFG_county_cultures
+                    limit = { scope:target.culture != this }
+                    add = {
+                        save_temporary_scope_as = kCAFG_culture
+                        prev = { add = V_kCAFG_county_culture_factor }
+                    }
+                }
+            }
+        }
+        scope:target.culture = { has_cultural_parameter = peasant_and_populist_factions_less_common }
+    }
+
+    # Defiant Ambushers
+    modifier = {
+        add = 25
+        county_opinion < 0
+        culture != scope:target.culture
+        culture = { has_cultural_parameter = county_peasant_and_populist_factions_more_common }
+    }
+
+    # 10-year 'grace period' from populist factions forming after game start
+    # modifier = {
+    #     years_from_game_start <= 10
+    #     factor = {
+    #         value = 0
+    #         if = {
+    #             limit = { years_from_game_start >= 5 }
+    #             add = years_from_game_start
+    #             subtract = 5
+    #             divide = 5 # In year 6 factions can begin forming, but at 20% weighting. This increases to 40% in year 7, 60% in year 8, etc., up to 100% in year 10 where things are then normal.
+    #         }
+    #     }
+    # }
+
+    # Realm Stability Settings
+    modifier = {
+        add = 50
+        has_game_rule = lesser_realm_stability
+    }
+    modifier = {
+        add = -100
+        has_game_rule = higher_realm_stability
+    }
+    modifier = {
+        add = -200
+        has_game_rule = extreme_realm_stability
+    }
+    modifier = {
+        desc = "FACTION_REASON_GAME_RULE_REALM_STABILITY_LESSER"
+        add = 50
+        has_game_rule = lesser_realm_stability_ai_only
+        scope:target = {
+            is_ai = yes
+        }
+    }
+    modifier = {
+        desc = "FACTION_REASON_GAME_RULE_REALM_STABILITY_HIGHER"
+        add = -100
+        has_game_rule = higher_realm_stability_ai_only
+        scope:target = {
+            is_ai = yes
+        }
+    }
+    modifier = {
+        desc = "FACTION_REASON_GAME_RULE_REALM_STABILITY_EXTREME"
+        add = -200
+        has_game_rule = extreme_realm_stability_ai_only
+        scope:target = {
+            is_ai = yes
+        }
+    }
+		
+    # Conquerors
+    modifier = {
+        add = -100
+        scope:target = { ai_should_get_conqueror_bonuses = yes }
+    }
+    modifier = {
+        add = -200
+        scope:target = { ai_should_get_extreme_conqueror_bonuses = yes }
+    }
+    # TGP Dynastic Cycle in Instability phase
+    modifier = {
+        desc = "FACTION_REASON_DYNASTIC_CYCLE_INSTABILITY"
+        add = 25
+        scope:target = {
+            top_participant_group:dynastic_cycle ?= {
+                has_participant_group_parameter = dynastic_cycle_more_peasant_factions
+            }
+        }
+    }
+}
+
+kCAFG_populist_faction_creation_pluralism_fundamentalism_modifier = {
+	modifier = {
+		desc = "FACTION_REASON_PLURALISM_ASTRAY"
+		add = {
+			value = $ASTRAY_BASE_VALUE$
+            if = {
+			    limit = { has_active_diarch_for_factions_trigger = { TARGET = $TARGET$ } }
+                $TARGET$.diarch.faith = { save_temporary_scope_as = kCAFG_target_faith }
+                $TARGET$.diarch.culture = { save_temporary_scope_as = kCAFG_target_culture }
+            }
+            else = {
+                $TARGET$.faith = { save_temporary_scope_as = kCAFG_target_faith }
+                $TARGET$.culture = { save_temporary_scope_as = kCAFG_target_culture }
+            }
+			# Base opinion multiplier from pluralism
+			if = {
+				limit = { $TARGET$.faith = { has_doctrine = doctrine_pluralism_righteous } }
+				multiply = hostility_multiplier_righteous
+			}
+			else_if = {
+				limit = { $TARGET$.faith = { has_doctrine = doctrine_pluralism_pluralistic } }
+				multiply = hostility_multiplier_pluralism
+			}
+			else_if = {
+				limit = { $TARGET$.faith = { has_doctrine = doctrine_pluralism_fundamentalist } }
+				multiply = hostility_multiplier_fundamentalist
+			}
+
+			#Additional opinion multiplier from adaptive
+			if = {
+				limit = { $TARGET$.faith = { has_doctrine_parameter = reduced_vassal_religion_discontent } }
+				add = {
+					value = $ASTRAY_BASE_VALUE$
+					multiply = hostility_multiplier_reduction_adaptive
+				}
+			}
+            if = {
+                limit = {
+                    any_in_list = {
+                        variable = kCAFG_county_cultures
+                        scope:kCAFG_target_culture != this
+                    }
+                }
+            }
+            multiply = {
+                value = 1
+                every_in_list = {
+                    variable = kCAFG_county_cultures
+                    limit = {
+                        scope:kCAFG_target_culture != this
+                        has_cultural_parameter = doesnt_care_about_culture_faith_in_factions
+                    }
+                    subtract = {
+                        save_temporary_scope_as = kCAFG_culture
+                        prev = { value = V_kCAFG_county_culture_factor }
+                        divide = {
+                            value = 1
+                            scope:kCAFG_target_culture = { save_temporary_scope_as = kCAFG_culture }
+                            prev = { subtract = V_kCAFG_county_culture_factor }
+                            min = 0.001
+                        }
+                    }
+                }
+            }
+            multiply = {
+                value = 0
+                every_in_list = {
+                    variable = kCAFG_county_faiths
+                    limit = {
+                        scope:kCAFG_target_faith != this
+                        faith_hostility_level = {
+                            target = scope:kCAFG_target_faith
+                            value = faith_astray_level
+                        }
+                    }
+                    save_temporary_scope_as = kCAFG_faith
+                    prev = { add = V_kCAFG_county_faith_factor }
+                }
+            }
+		}
+	}
+	modifier = {
+		desc = "FACTION_REASON_PLURALISM_HOSTILE"
+		add = {
+			value = $HOSTILE_BASE_VALUE$
+            if = {
+			    limit = { has_active_diarch_for_factions_trigger = { TARGET = $TARGET$ } }
+                $TARGET$.diarch.faith = { save_temporary_scope_as = kCAFG_target_faith }
+                $TARGET$.diarch.culture = { save_temporary_scope_as = kCAFG_target_culture }
+            }
+            else = {
+                $TARGET$.faith = { save_temporary_scope_as = kCAFG_target_faith }
+                $TARGET$.culture = { save_temporary_scope_as = kCAFG_target_culture }
+            }
+			if = {
+				limit = { $TARGET$.faith = { has_doctrine = doctrine_pluralism_righteous } }
+				multiply = hostility_multiplier_righteous
+			}
+			else_if = {
+				limit = { $TARGET$.faith = { has_doctrine = doctrine_pluralism_pluralistic } }
+				multiply = hostility_multiplier_pluralism
+			}
+			else_if = {
+				limit = { $TARGET$.faith = { has_doctrine = doctrine_pluralism_fundamentalist } }
+				multiply = hostility_multiplier_fundamentalist
+			}
+
+			#Additional opinion multiplier from adaptive
+			if = {
+				limit = { $TARGET$.faith = { has_doctrine_parameter = reduced_vassal_religion_discontent } }
+				add = {
+					value = $ASTRAY_BASE_VALUE$
+					multiply = hostility_multiplier_reduction_adaptive
+				}
+			}
+            multiply = {
+                value = 1
+                every_in_list = {
+                    variable = kCAFG_county_cultures
+                    limit = {
+                        scope:kCAFG_target_culture != this
+                        has_cultural_parameter = doesnt_care_about_culture_faith_in_factions
+                    }
+                    subtract = {
+                        save_temporary_scope_as = kCAFG_culture
+                        prev = { value = V_kCAFG_county_culture_factor }
+                        divide = {
+                            value = 1
+                            scope:kCAFG_target_culture = { save_temporary_scope_as = kCAFG_culture }
+                            prev = { subtract = V_kCAFG_county_culture_factor }
+                            min = 0.001
+                        }
+                    }
+                }
+            }
+            multiply = {
+                value = 0
+                every_in_list = {
+                    variable = kCAFG_county_faiths
+                    limit = {
+                        scope:kCAFG_target_faith != this
+                        faith_hostility_level = {
+                            target = scope:kCAFG_target_faith
+                            value = faith_hostile_level
+                        }
+                    }
+                    save_temporary_scope_as = kCAFG_faith
+                    prev = { add = V_kCAFG_county_faith_factor }
+                }
+            }
+		}
+	}
+	modifier = {
+		desc = "FACTION_REASON_PLURALISM_EVIL"
+		add = {
+			value = $EVIL_BASE_VALUE$
+            if = {
+			    limit = { has_active_diarch_for_factions_trigger = { TARGET = $TARGET$ } }
+                $TARGET$.diarch.faith = { save_temporary_scope_as = kCAFG_target_faith }
+                $TARGET$.diarch.culture = { save_temporary_scope_as = kCAFG_target_culture }
+            }
+            else = {
+                $TARGET$.faith = { save_temporary_scope_as = kCAFG_target_faith }
+                $TARGET$.culture = { save_temporary_scope_as = kCAFG_target_culture }
+            }
+			if = {
+				limit = { $TARGET$.faith = { has_doctrine = doctrine_pluralism_righteous } }
+				multiply = hostility_multiplier_righteous
+			}
+			else_if = {
+				limit = { $TARGET$.faith = { has_doctrine = doctrine_pluralism_pluralistic } }
+				multiply = hostility_multiplier_pluralism
+			}
+			else_if = {
+				limit = { $TARGET$.faith = { has_doctrine = doctrine_pluralism_fundamentalist } }
+				multiply = hostility_multiplier_fundamentalist
+			}
+
+			#Additional opinion multiplier from adaptive
+			if = {
+				limit = { $TARGET$.faith = { has_doctrine_parameter = reduced_vassal_religion_discontent } }
+				add = {
+					value = $ASTRAY_BASE_VALUE$
+					multiply = hostility_multiplier_reduction_adaptive
+				}
+			}
+            multiply = {
+                value = 1
+                every_in_list = {
+                    variable = kCAFG_county_cultures
+                    limit = {
+                        scope:kCAFG_target_culture != this
+                        has_cultural_parameter = doesnt_care_about_culture_faith_in_factions
+                    }
+                    subtract = {
+                        save_temporary_scope_as = kCAFG_culture
+                        prev = { value = V_kCAFG_county_culture_factor }
+                        divide = {
+                            value = 1
+                            scope:kCAFG_target_culture = { save_temporary_scope_as = kCAFG_culture }
+                            prev = { subtract = V_kCAFG_county_culture_factor }
+                            min = 0.001
+                        }
+                    }
+                }
+            }
+            multiply = {
+                value = 0
+                every_in_list = {
+                    variable = kCAFG_county_faiths
+                    limit = {
+                        scope:kCAFG_target_faith != this
+                        faith_hostility_level = {
+                            target = scope:kCAFG_target_faith
+                            value = faith_evil_level
+                        }
+                    }
+                    save_temporary_scope_as = kCAFG_faith
+                    prev = { add = V_kCAFG_county_faith_factor }
+                }
+            }
+		}
+	}	
+}

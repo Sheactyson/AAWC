@@ -1,0 +1,535 @@
+﻿# GOGOSSOS HISTORY
+# - Gogossos was a formal penal colony of Valyria that grew in power after the Doom
+# - It fell to the dreaded Red Death 77 years after the Doom of Valyria
+
+# Death Isle
+9910 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		culture = elyrian
+		religion = valyrian_pan_freehold
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_control_02
+			agot_pirate_military_03
+		}
+	}
+}
+9911 = { holding = none }
+
+# Isle of Flies
+9912 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		culture = lyseni
+		religion = fc_pan_tyrosh
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_control_02
+			agot_pirate_military_03
+		}
+	}
+}
+9913 = { holding = none }
+9914 = { holding = none }
+9915 = { holding = none }
+
+# Maggot Shore
+9905 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	special_building_slot = garden_of_malice_01
+	7880.1.1 = {
+		buildings = { castle_02 }
+		special_building = garden_of_malice_02
+	}
+	7976.1.1 = {
+		culture = myrish
+		religion = fc_pan_myr
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_01
+			agot_pirate_troop_01
+			agot_pirate_control_02
+		}
+		special_building = garden_of_malice_01
+	}
+}
+9906 = { holding = none }
+9907 = { holding = none }
+9908 = { holding = none }
+9909 = { holding = none }
+
+# Serpent Forest
+9916 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_01 } }
+	7976.1.1 = {
+		culture = myrish
+		religion = fc_pan_myr
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_01
+			agot_pirate_supply_02
+		}
+	}
+}
+9917 = { holding = none }
+9918 = { holding = none }
+9919 = { holding = none }
+9920 = { holding = none }
+9921 = { holding = none }
+
+# Howling Bay
+9879 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 }
+	}
+	7976.1.1 = {
+		culture = tyroshi
+		religion = fc_pan_tyrosh
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_military_04
+		}
+	}
+}
+9880 = { holding = none }
+9881 = { holding = none }
+9882 = { holding = none }
+9883 = { holding = none }
+
+# Strait of Skulls
+9884 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_01 } }
+	7976.1.1 = {
+		culture = pentoshi
+		religion = fc_pan_pentos
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_01
+			agot_pirate_military_01
+			agot_pirate_control_02
+		}
+	}
+}
+9885 = { holding = none }
+9886 = { holding = none }
+
+# Coast of Sorrows
+9887 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		culture = pentoshi
+		religion = fc_pan_pentos
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_troop_03
+		}
+	}
+}
+9888 = { holding = none }
+9889 = { holding = none }
+
+# Talon
+9873 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	special_building_slot = pit_of_sorrows_01
+	7880.1.1 = {
+		buildings = { castle_03 }
+		special_building = pit_of_sorrows_03
+	}
+	7976.1.1 = {
+		culture = jhalai
+		religion = rhllor_fc
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_03
+			agot_pirate_control_01
+		}
+		special_building = pit_of_sorrows_01
+		effect = {
+			add_province_modifier = extra_building_slot
+			add_province_modifier = extra_building_slot
+			add_building = agot_pirate_troop_04
+			add_building = agot_pirate_military_02
+		}
+	}
+}
+9874 = { holding = none }
+9875 = { holding = none }
+9876 = { holding = none }
+9877 = { holding = none }
+9878 = { holding = none }
+
+# The Arm
+9890 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		culture = jhalai
+		religion = rhllor_fc
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_military_01
+			agot_pirate_control_02
+		}
+	}
+}
+9891 = { holding = none }
+
+# Wraith's Rest
+9892 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_01 } }
+	7976.1.1 = {
+		culture = jhalai
+		religion = rhllor_fc
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_01
+			agot_pirate_military_01
+		}
+	}
+}
+9893 = { holding = none }
+9894 = { holding = none }
+9895 = { holding = none }
+
+# Scoundrel's Point
+9896 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		culture = ironborn
+		religion = drowned_god
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_military_03
+		}
+	}
+}
+9897 = { holding = none }
+9898 = { holding = none }
+
+# Treasure Island
+9899 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_01 } }
+	7976.1.1 = {
+		culture = ironborn
+		religion = drowned_god
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_01
+			agot_pirate_control_02
+		}
+	}
+}
+9900 = { holding = none }
+9901 = { holding = none }
+
+# Pirate's Haven
+9902 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_01 } }
+	7976.1.1 = {
+		culture = pentoshi
+		religion = fc_pan_pentos
+
+		holding = pirate_den_holding
+		buildings = { pirate_den_01 }
+	}
+}
+
+# Gogossos
+9927 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	special_building_slot = red_citadel_01
+	7880.1.1 = {
+		buildings = { castle_03 }
+		special_building = red_citadel_03
+		duchy_capital_building = last_dragon_tower_01
+	}
+	7976.1.1 = { # Red Death
+		holding = ruin_holding
+		buildings = {
+			large_ruin_01
+			ruin_infamous_01
+		}
+		special_building = red_citadel_01
+	}
+}
+9928 = {
+	holding = city_holding
+	special_building_slot = sapphire_quarter
+	7880.1.1 = {
+		buildings = { city_02 }
+		special_building = sapphire_quarter
+	}
+	# Red Death
+	7976.1.1 = { holding = none }
+}
+9929 = {
+	holding = castle_holding
+	special_building_slot = crimson_gate
+	7880.1.1 = {
+		buildings = { castle_01 }
+		special_building = crimson_gate
+	}
+	# Red Death
+	7976.1.1 = { holding = none }
+}
+9930 = { holding = none }
+9931 = { holding = none }
+
+# Haunted Reach
+9932 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = city_holding
+	special_building_slot = glittering_pits_01
+	7880.1.1 = {
+		buildings = { city_02 }
+		special_building = glittering_pits_01
+	}
+	7976.1.1 = { #Red Death
+		holding = ruin_holding
+		buildings = { large_ruin_01 }
+	}
+}
+9933 = { holding = none }
+9934 = { holding = none }
+9935 = { holding = none }
+9936 = { holding = none }
+
+# Bloody Marsh
+9937 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		holding = ruin_holding
+		buildings = { large_ruin_01 }
+	}
+}
+9938 = { holding = none }
+9939 = { holding = none }
+
+# Draezar
+9940 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		holding = ruin_holding
+		buildings = { large_ruin_01 }
+	}
+}
+9941 = { holding = none }
+
+# Bleak Shore
+9942 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		holding = ruin_holding
+		buildings = { large_ruin_01 }
+	}
+}
+9943 = { holding = none }
+
+# Isle of Toads
+9903 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	special_building_slot = the_toad
+	7880.1.1 = {
+		buildings = { castle_02 }
+		special_building = the_toad
+	}
+	7976.1.1 = {
+		culture = andalosi
+		religion = fots_stars
+
+		holding = pirate_den_holding
+		buildings = { pirate_den_02 }
+	}
+}
+9904 = { holding = none }
+
+# Isle of Vines
+9947 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_03 } }
+	7976.1.1 = {
+		culture = qartheen
+		religion = qh_commoner # Formerly Bearded God
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_03
+			agot_pirate_control_04
+		}
+	}
+}
+9948 = { holding = none }
+9949 = { holding = none }
+
+# Skull Island
+9950 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_01 } }
+	7976.1.1 = {
+		culture = tyroshi
+		religion = fc_pan_tyrosh
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_01
+			agot_pirate_control_01
+		}
+	}
+}
+9951 = { holding = none }
+9952 = { holding = none }
+
+# Ax Isle
+9944 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		culture = qartheen
+		religion = qh_commoner
+		special_building_slot = ax_hold
+		special_building = ax_hold
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_03
+			agot_pirate_control_02
+			agot_pirate_troop_04
+		}
+	}
+}
+9945 = { holding = none }
+9946 = { holding = none }
+
+# The Blade
+9953 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_01 } }
+	7976.1.1 = {
+		culture = qartheen
+		religion = qh_commoner
+
+		holding = pirate_den_holding
+		buildings = { pirate_den_01 }
+	}
+}
+9954 = { holding = none }
+9955 = { holding = none }
+
+# The Handle
+9956 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_02 } }
+	7976.1.1 = {
+		culture = qartheen
+		religion = qh_commoner # Formerly Bearded God
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_military_03
+		}
+	}
+}
+9957 = { holding = none }
+9958 = { holding = none }
+9959 = { holding = none }
+
+# Isle of Lice
+9922 = {
+	culture = gogossite
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	7880.1.1 = { buildings = { castle_03 } }
+	7976.1.1 = {
+		culture = pentoshi
+		religion = fc_pan_pentos
+
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_03
+			agot_pirate_military_03
+		}
+	}
+}
+9923 = { holding = none }
+9924 = { holding = none }
+9925 = { holding = none }
+9926 = { holding = none }

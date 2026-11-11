@@ -1,0 +1,604 @@
+﻿# AI foundation helpers. Faiths are selected at the same post-shatter startup point as player foundations.
+aawc_1103_create_ai_faith_foundation_effect = {
+	random_list = {
+		100 = { aawc_1103_apply_ai_faith_family_the_chosen_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_churches_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_counsels_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_courts_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_cults_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_first_gods_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_flames_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_flocks_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_graces_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_houses_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_liturgies_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_mother_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_orders_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_others_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_pact_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_rhllor_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_seven_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_shanties_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_songs_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_temples_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_venerations_effect = yes }
+		100 = { aawc_1103_apply_ai_faith_family_the_ways_effect = yes }
+	}
+	add_character_flag = aawc_1103_ai_faith_foundation_completed
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.3 AI faith foundation completed" }
+}
+
+aawc_1103_apply_ai_faith_family_the_chosen_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_chosen_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_chosen_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_chosen_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_chosen_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_chosen_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_chosen_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_chosen_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_chosen_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_chosen_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_chosen_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_chosen_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_chosen_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_churches_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_churches_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_churches_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_churches_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_churches_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_churches_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_churches_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_churches_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_churches_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_churches_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_churches_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_churches_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_churches_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_counsels_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_counsels_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_counsels_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_counsels_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_counsels_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_counsels_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_counsels_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_counsels_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_counsels_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_counsels_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_counsels_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_counsels_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_counsels_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_courts_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_courts_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_courts_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_courts_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_courts_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_courts_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_courts_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_courts_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_courts_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_courts_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_courts_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_courts_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_courts_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_cults_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_cults_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_cults_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_cults_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_cults_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_cults_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_cults_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_cults_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_cults_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_cults_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_cults_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_cults_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_cults_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_first_gods_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_first_gods_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_first_gods_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_first_gods_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_first_gods_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_first_gods_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_first_gods_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_first_gods_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_first_gods_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_first_gods_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_first_gods_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_first_gods_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_first_gods_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_flames_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_flames_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_flames_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_flames_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_flames_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_flames_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_flames_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_flames_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_flames_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_flames_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_flames_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_flames_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_flames_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_flocks_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_flocks_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_flocks_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_flocks_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_flocks_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_flocks_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_flocks_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_flocks_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_flocks_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_flocks_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_flocks_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_flocks_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_flocks_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_graces_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_graces_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_graces_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_graces_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_graces_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_graces_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_graces_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_graces_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_graces_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_graces_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_graces_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_graces_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_graces_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_houses_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_houses_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_houses_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_houses_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_houses_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_houses_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_houses_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_houses_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_houses_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_houses_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_houses_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_houses_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_houses_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_liturgies_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_liturgies_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_liturgies_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_liturgies_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_liturgies_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_liturgies_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_liturgies_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_liturgies_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_liturgies_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_liturgies_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_liturgies_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_liturgies_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_liturgies_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_mother_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_mother_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_mother_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_mother_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_mother_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_mother_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_mother_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_mother_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_mother_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_mother_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_mother_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_mother_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_mother_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_orders_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_orders_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_orders_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_orders_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_orders_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_orders_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_orders_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_orders_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_orders_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_orders_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_orders_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_orders_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_orders_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_others_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_others_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_others_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_others_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_others_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_others_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_others_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_others_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_others_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_others_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_others_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_others_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_others_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_pact_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_pact_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_pact_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_pact_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_pact_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_pact_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_pact_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_pact_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_pact_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_pact_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_pact_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_pact_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_pact_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_rhllor_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_rhllor_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_rhllor_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_rhllor_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_rhllor_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_rhllor_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_rhllor_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_rhllor_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_rhllor_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_rhllor_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_rhllor_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_rhllor_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_rhllor_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_seven_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_seven_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_seven_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_seven_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_seven_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_seven_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_seven_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_seven_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_seven_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_seven_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_seven_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_seven_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_seven_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_shanties_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_shanties_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_shanties_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_shanties_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_shanties_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_shanties_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_shanties_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_shanties_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_shanties_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_shanties_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_shanties_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_shanties_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_shanties_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_songs_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_songs_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_songs_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_songs_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_songs_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_songs_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_songs_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_songs_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_songs_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_songs_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_songs_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_songs_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_songs_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_temples_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_temples_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_temples_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_temples_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_temples_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_temples_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_temples_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_temples_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_temples_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_temples_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_temples_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_temples_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_temples_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_venerations_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_venerations_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_venerations_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_venerations_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_venerations_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_venerations_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_venerations_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_venerations_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_venerations_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_venerations_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_venerations_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_venerations_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_venerations_stormbound }
+		}
+	}
+}
+
+aawc_1103_apply_ai_faith_family_the_ways_effect = {
+	random_list = {
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_ways_ashen
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_ways_ashen }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_ways_ashen }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_ways_dawnbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_ways_dawnbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_ways_dawnbound }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_ways_veiled
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_ways_veiled }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_ways_veiled }
+		}
+		100 = {
+			set_character_faith = faith:aawc_ai_foundation_ways_stormbound
+			every_courtier = { set_character_faith = faith:aawc_ai_foundation_ways_stormbound }
+			capital_county = { set_county_faith = faith:aawc_ai_foundation_ways_stormbound }
+		}
+	}
+}
+
+aawc_1103_set_ai_culture_name_effect = {
+	if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_andal } } set_culture_name = { noun = aawc_ai_culture_andal collective_noun = aawc_ai_culture_andal prefix = aawc_ai_culture_andal } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_elder_races } } set_culture_name = { noun = aawc_ai_culture_elder_races collective_noun = aawc_ai_culture_elder_races prefix = aawc_ai_culture_elder_races } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_first_man } } set_culture_name = { noun = aawc_ai_culture_first_man collective_noun = aawc_ai_culture_first_man prefix = aawc_ai_culture_first_man } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_freecities } } set_culture_name = { noun = aawc_ai_culture_freecities collective_noun = aawc_ai_culture_freecities prefix = aawc_ai_culture_freecities } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_ghiscari } } set_culture_name = { noun = aawc_ai_culture_ghiscari collective_noun = aawc_ai_culture_ghiscari prefix = aawc_ai_culture_ghiscari } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_grasslands } } set_culture_name = { noun = aawc_ai_culture_grasslands collective_noun = aawc_ai_culture_grasslands prefix = aawc_ai_culture_grasslands } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_hairyman } } set_culture_name = { noun = aawc_ai_culture_hairyman collective_noun = aawc_ai_culture_hairyman prefix = aawc_ai_culture_hairyman } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_hyrkoonan } } set_culture_name = { noun = aawc_ai_culture_hyrkoonan collective_noun = aawc_ai_culture_hyrkoonan prefix = aawc_ai_culture_hyrkoonan } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_ironborn } } set_culture_name = { noun = aawc_ai_culture_ironborn collective_noun = aawc_ai_culture_ironborn prefix = aawc_ai_culture_ironborn } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_jadeislands } } set_culture_name = { noun = aawc_ai_culture_jadeislands collective_noun = aawc_ai_culture_jadeislands prefix = aawc_ai_culture_jadeislands } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_mennight } } set_culture_name = { noun = aawc_ai_culture_mennight collective_noun = aawc_ai_culture_mennight prefix = aawc_ai_culture_mennight } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_moraqi } } set_culture_name = { noun = aawc_ai_culture_moraqi collective_noun = aawc_ai_culture_moraqi prefix = aawc_ai_culture_moraqi } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_nghai } } set_culture_name = { noun = aawc_ai_culture_nghai collective_noun = aawc_ai_culture_nghai prefix = aawc_ai_culture_nghai } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_qaathi } } set_culture_name = { noun = aawc_ai_culture_qaathi collective_noun = aawc_ai_culture_qaathi prefix = aawc_ai_culture_qaathi } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_rhoynar } } set_culture_name = { noun = aawc_ai_culture_rhoynar collective_noun = aawc_ai_culture_rhoynar prefix = aawc_ai_culture_rhoynar } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_sarnori } } set_culture_name = { noun = aawc_ai_culture_sarnori collective_noun = aawc_ai_culture_sarnori prefix = aawc_ai_culture_sarnori } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_shadowlanders } } set_culture_name = { noun = aawc_ai_culture_shadowlanders collective_noun = aawc_ai_culture_shadowlanders prefix = aawc_ai_culture_shadowlanders } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_sothoryi } } set_culture_name = { noun = aawc_ai_culture_sothoryi collective_noun = aawc_ai_culture_sothoryi prefix = aawc_ai_culture_sothoryi } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_summer } } set_culture_name = { noun = aawc_ai_culture_summer collective_noun = aawc_ai_culture_summer prefix = aawc_ai_culture_summer } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_valyrian } } set_culture_name = { noun = aawc_ai_culture_valyrian collective_noun = aawc_ai_culture_valyrian prefix = aawc_ai_culture_valyrian } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_wildling } } set_culture_name = { noun = aawc_ai_culture_wildling collective_noun = aawc_ai_culture_wildling prefix = aawc_ai_culture_wildling } }
+	else_if = { limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_yitish } } set_culture_name = { noun = aawc_ai_culture_yitish collective_noun = aawc_ai_culture_yitish prefix = aawc_ai_culture_yitish } }
+}

@@ -1,0 +1,571 @@
+﻿################## asshai ##################
+8233 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_05 } }
+}
+################## vhirak ##################
+8242 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+}
+################## ashen shore ##################
+8251 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+}
+################## cursed valley ##################
+8255 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+################## vashira ##################
+8260 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+################## nymos ##################
+8247 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+}
+################## thalys ##################
+8309 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_04 } }
+}
+################## varqen ##################
+8313 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+}
+################## veskaz ##################
+8316 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+################## zhalor ##################
+8304 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+}
+################## boglos ##################
+8264 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+################## mouth of dread ##################
+8367 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8368 = { holding = none }
+8369 = { holding = none }
+8370 = { holding = none }
+################## zikuri ##################
+8371 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8372 = { holding = none }
+8373 = { holding = none }
+################## saffar ##################
+8269 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_04 } }
+}
+################## shores of the undying ##################
+8299 = {
+	culture = asshaii
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+################## vale of whispers ##################
+8374 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8375 = { holding = none }
+8376 = { holding = none }
+8377 = { holding = none }
+
+################## ziphor ##################
+8275 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+
+
+################## aures ##################
+8280 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+
+
+################## velaza ##################
+8287 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+
+
+################## guzul ##################
+8290 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+}
+
+################## turakaz ##################
+8295 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_03 } }
+}
+
+################## sakkur ##################
+8321 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+}
+
+################## arrat ##################
+8326 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_03 } }
+}
+
+################## venar ##################
+8331 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+}
+
+################## stygai ##################
+8335 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { large_ruin_01 }
+		special_building = stygai_01
+	}
+}
+8336 = { holding = none }
+8337 = { holding = none }
+8338 = { holding = none }
+8339 = { holding = none }
+8340 = { holding = none }
+
+################## zuba ##################
+8341 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8342 = { holding = none }
+8343 = { holding = none }
+
+################## kator ##################
+8344 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8345 = { holding = none }
+8346 = { holding = none }
+8347 = { holding = none }
+8348 = { holding = none }
+
+################## bubarai ##################
+8349 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8350 = { holding = none }
+8351 = { holding = none }
+8352 = { holding = none }
+8353 = { holding = none }
+
+################## zufattar ##################
+8354 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8355 = { holding = none }
+8356 = { holding = none }
+8357 = { holding = none }
+8358 = { holding = none }
+8359 = { holding = none }
+
+################## turatos ##################
+8360 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8361 = { holding = none }
+8362 = { holding = none }
+8363 = { holding = none }
+
+################## citos ##################
+8364 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8365 = { holding = none }
+8366 = { holding = none }
+################## hattar ##################
+8378 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = city_holding
+	7824.1.1 = { buildings = { city_02 } }
+}
+8379 = { holding = none }
+8380 = { holding = none }
+8381 = { holding = none }
+8382 = { holding = none }
+8383 = { holding = none }
+################## olmar ##################
+8384 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_04 } }
+}
+8385 = { holding = none }
+8386 = { holding = none }
+8387 = { holding = none }
+8388 = { holding = none }
+################## farat ##################
+8389 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+8390 = { holding = none }
+8391 = { holding = none }
+8392 = { holding = none }
+8393 = { holding = none }
+################## eranos ##################
+8394 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_03 } }
+}
+8395 = { holding = none }
+8396 = { holding = none }
+8397 = { holding = none }
+################## vyrokh ##################
+8398 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = tribal_holding
+}
+8399 = { holding = none }
+8400 = { holding = none }
+8401 = { holding = none }
+8402 = { holding = none }
+8403 = { holding = none }
+
+################## ostar ##################
+8404 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8405 = { holding = none }
+8406 = { holding = none }
+8407 = { holding = none }
+
+################## lebat ##################
+8408 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8409 = { holding = none }
+8410 = { holding = none }
+
+################## eranyr ##################
+8411 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8412 = { holding = none }
+8413 = { holding = none }
+8414 = { holding = none }
+
+################## uzhor ##################
+8415 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8416 = { holding = none }
+8417 = { holding = none }
+8418 = { holding = none }
+
+################## ostelar ##################
+8419 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8420 = { holding = none }
+8421 = { holding = none }
+8422 = { holding = none }
+8423 = { holding = none }
+################## malior ##################
+8424 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8425 = { holding = none }
+8426 = { holding = none }
+8427 = { holding = none }
+8428 = { holding = none }
+
+################## marghan ##################
+8429 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8430 = { holding = none }
+8431 = { holding = none }
+
+################## lazyros ##################
+8432 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = tribal_holding
+}
+8433 = { holding = none }
+8434 = { holding = none }
+8435 = { holding = none }
+8436 = { holding = none }
+8437 = { holding = none }
+
+################## gattar ##################
+8438 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8439 = { holding = none }
+8440 = { holding = none }
+8441 = { holding = none }
+################## razmai ##################
+8442 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = tribal_holding
+}
+8443 = { holding = none }
+8444 = { holding = none }
+
+################## hestion ##################
+8445 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8446 = { holding = none }
+8447 = { holding = none }
+8448 = { holding = none }
+
+################## hartelion ##################
+8449 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8450 = { holding = none }
+8451 = { holding = none }
+
+################## vynys ##################
+8452 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = wilderness_holding
+}
+8453 = { holding = none }
+8454 = { holding = none }
+8455 = { holding = none }
+8456 = { holding = none }
+################## maruza ##################
+8457 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_03 } }
+}
+8458 = { holding = none }
+8459 = { holding = none }
+8460 = { holding = none }
+
+################## orlyr ##################
+8461 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = city_holding
+	7824.1.1 = { buildings = { city_02 } }
+}
+8462 = { holding = none }
+8463 = { holding = none }
+8464 = { holding = none }
+
+################## nahel ##################
+8465 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+8466 = { holding = none }
+8467 = { holding = none }
+
+################## zefat ##################
+8468 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+8469 = { holding = none }
+8470 = { holding = none }
+8471 = { holding = none }
+8472 = { holding = none }
+8473 = { holding = none }
+8474 = { holding = none }
+
+################## ormin ##################
+8475 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = city_holding
+	7824.1.1 = { buildings = { city_01 } }
+}
+8476 = { holding = none }
+8477 = { holding = none }
+8478 = { holding = none }
+8479 = { holding = none }
+8480 = { holding = none }
+################## ostiros ##################
+8481 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_01 } }
+}
+8482 = { holding = none }
+8483 = { holding = none }
+8484 = { holding = none }
+8485 = { holding = none }
+
+################## stassar ##################
+8486 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_03 } }
+}
+8487 = { holding = none }
+8488 = { holding = none }
+8489 = { holding = none }
+8490 = { holding = none }
+
+################## vogen ##################
+8491 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_03 } }
+}
+8492 = { holding = none }
+8493 = { holding = none }
+8494 = { holding = none }
+
+################## jaqor ##################
+8495 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_04 } }
+}
+8496 = { holding = none }
+8497 = { holding = none }
+8498 = { holding = none }
+
+################## sanyr ##################
+8499 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = city_holding
+	7824.1.1 = { buildings = { city_01 } }
+}
+8500 = { holding = none }
+8501 = { holding = none }
+
+################## nuzat ##################
+8502 = {
+	culture = shadowman
+	religion = rhllor_asshai
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_03 } }
+}
+8503 = { holding = none }
+8504 = { holding = none }
+8505 = { holding = none }
+8506 = { holding = none }

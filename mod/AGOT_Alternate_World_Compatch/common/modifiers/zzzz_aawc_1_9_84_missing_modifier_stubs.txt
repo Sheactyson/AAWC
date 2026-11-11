@@ -1,0 +1,5 @@
+﻿# AAWC 1.9.84 missing modifier compatibility stubs.
+
+buddhist_teachings_conversion_modifier = {
+	icon = county_modifier_conversion_resistance
+}

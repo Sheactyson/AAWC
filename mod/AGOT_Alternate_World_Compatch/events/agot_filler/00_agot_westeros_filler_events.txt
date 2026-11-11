@@ -1,0 +1,6522 @@
+﻿namespace = agot_filler_westeros
+
+####################################
+#   	Skagos Independance		   #
+#        ZombieSchrodCat		   #
+#            0001-0001             #
+####################################
+
+agot_filler_westeros.0001 = {#skagos raiders
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0001.opening
+	}
+	desc = agot_filler_westeros.0001.desc
+	sender = title:d_skagos.holder
+	orphan = yes
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		exists = title:d_skagos.holder
+		title:d_skagos.holder = {
+			agot_is_independent_ruler = yes
+		}
+		location = {
+			OR = {
+				geographical_region = world_westeros_the_north
+				geographical_region = world_westeros_the_vale
+			}
+		}
+		NOT = {
+			has_character_flag = agot_filler_skagos_independence
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_filler_skagos_independence
+			years = 10
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0001.a
+		add_stress = minor_stress_gain
+	}
+	after = {
+		hidden_effect = {
+			title:c_seal_shore = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_everwood = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_dorridge = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_the_grey_cliffs = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_grey_cliff_point = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_karhold = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_groundpress = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_overton = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_the_weep = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_tawney_bay = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_broadmend = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_widows_watch = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+		}
+	}
+}
+
+####################################
+#   	The Sisters Independance   #
+#        ZombieSchrodCat		   #
+#            0002-0002             #
+####################################
+
+agot_filler_westeros.0002 = {#sisters raiders
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0002.opening
+	}
+	desc = agot_filler_westeros.0002.desc
+	sender = title:d_the_sisters.holder
+	orphan = yes
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		exists = title:d_the_sisters.holder
+		title:d_the_sisters.holder = {
+			agot_is_independent_ruler = yes
+		}
+		location = {
+			OR = {
+				geographical_region = world_westeros_the_north
+				geographical_region = world_westeros_the_vale
+			}
+		}
+		NOT = {
+			has_character_flag = agot_filler_sisters_independence
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_filler_sisters_independence
+			years = 10
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0002.a
+		add_stress = minor_stress_gain
+	}
+	after = {
+		hidden_effect = {
+			title:c_ramsgate = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_beam_cross = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_keyguard = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_bites_edge = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_oldcastle = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_silverfield = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_white_harbor = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_whetmarsh = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_fennwell = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_the_seastrands = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_slewness = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_crows_barrens = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_sunrise_bite = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_rockle = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_bludden = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_forgotten_shore = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_scorched_vale = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_eventide = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_pebble = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_portmouth = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_reckshaw = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_bommenstone = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_pinkstrath = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_midlor = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_midlor_point = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_grey_glen = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_tammerlan = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_brownden = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_longmoor = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_the_paps = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+		}
+	}
+}
+
+####################################
+#   Ironborn Independance:North	   #
+#        ZombieSchrodCat		   #
+#            0003-0003             #
+####################################
+
+agot_filler_westeros.0003 = {#ironborn raiders
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0003.opening
+	}
+	desc = agot_filler_westeros.0003.desc
+	sender = title:e_the_iron_islands.holder
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		location = {
+			geographical_region = world_westeros_the_north
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0003.a
+		add_stress = minor_stress_gain
+	}
+	after = {
+		hidden_effect = {
+			title:c_bearstone = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_mormont = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_moorwood = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_mullroot = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_deepwood = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_flatmire = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_sea_dragon_point = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_stillport = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_blackpool = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_blue_hills = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_hillcrest = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_whitecaster = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_batestone = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_ridgewater = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_soddenburn = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_witheredheath = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_bottom_run = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_atwater = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_drumlynn = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_spearmouth = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_waterstone = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_spears_sound = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_arnscarre = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_flints_finger = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_blazewater_bay = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_cape_kraken = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_beastyrn = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_the_flint_cliffs = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_cannmill = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_cypress_rising = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_cypressbottom = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+		}
+	}
+}
+
+#######################################
+#   Ironborn Independance:Riverlands  #
+#        ZombieSchrodCat		      #
+#            0004-0004                #
+#######################################
+
+agot_filler_westeros.0004 = {#ironborn raiders
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0004.opening
+	}
+	desc = agot_filler_westeros.0004.desc
+	sender = title:e_the_iron_islands.holder
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		location = {
+			geographical_region = world_westeros_the_riverlands
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0004.a
+		add_stress = minor_stress_gain
+	}
+	after = {
+		hidden_effect = {
+			title:c_mistcore = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_eagleside = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_seasorrow = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_seagard = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_hook_bay = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_hammerford = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_raventree = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_maidstone = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+		}
+	}
+}
+
+############################################
+#   Ironborn Independance:Westernlands	   #
+#        ZombieSchrodCat                #
+#            0005-0005                     #
+############################################
+
+agot_filler_westeros.0005 = {#ironborn raiders
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0005.opening
+	}
+	desc = agot_filler_westeros.0005.desc
+	sender = title:e_the_iron_islands.holder
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		location = {
+			geographical_region = world_westeros_the_westerlands
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0005.a
+		add_stress = minor_stress_gain
+	}
+	after = {
+		hidden_effect = {
+			title:c_provence = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_golden_hills = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_darrows = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_wyndemere = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_fearby = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_banefort = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_eldress = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_the_crag = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_castamere = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_seven_points = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_borrenline = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_clifton = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_faircastle = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_madgerich = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_kynlands = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_kayce = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_feastfires = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_casterly_rock = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_lannisport = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_biltmore = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_forthane = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_crakehall = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+		}
+	}
+}
+
+####################################
+#   Ironborn Independance:Reach	   #
+#        ZombieSchrodCat		   #
+#            0006-0006             #
+####################################
+
+agot_filler_westeros.0006 = {#ironborn raiders
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0006.opening
+	}
+	desc = agot_filler_westeros.0006.desc
+	sender = title:e_the_iron_islands.holder
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		location = {
+			geographical_region = world_westeros_the_reach
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0006.a
+		add_stress = minor_stress_gain
+	}
+	after = {
+		hidden_effect = {
+			title:c_cobble_cove = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_summer_cove = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_oakheart = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_beechshore = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_clickingmoor = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_harborvyne = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_hayholt = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_warnstand = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_greenshield = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_greyshield = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_oakenshield = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_small_shields = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_whitewater_watch = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_islandview = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_bloomfield_hills = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_festune = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_bandallon = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_ashridge = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_walnut_bank = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_pruttand = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_blackcrown = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_greylock_hills = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_oldtown = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_daresbury = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_whisper_point = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_meadowport = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_beachcastle = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_orchard_shore = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_sunhouse = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_dunnsbridge = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_freeridge = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_wynegarde = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+				}
+			}
+			title:c_starfish_harbor = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_mermaid_rocks = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_vinetown = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_peachtree = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+			title:c_stonecrab_cape = {
+				add_county_modifier = {
+					modifier = disrupted_trade_modifier
+					years = 50
+				}
+			}
+		}
+	}
+}
+
+####################################
+#   Dornish Independance		   #
+#        ZombieSchrodCat		   #
+#            0007-0007             #
+####################################
+
+agot_filler_westeros.0007 = {#Dorne independent - border tension
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0007.opening
+	}
+	desc = agot_filler_westeros.0007.desc
+	sender = title:e_dorne.holder
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		location = {
+			OR = {
+				geographical_region = world_westeros_the_reach
+				geographical_region = world_westeros_the_stormlands
+			}
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0007.a
+		add_stress = minor_stress_gain
+	}
+	after = {
+		hidden_effect = {
+			title:c_starfall = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+					years = 50
+				}
+			}
+			title:c_blackmont = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+					years = 50
+				}
+			}
+			title:c_skyreach = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+					years = 50
+				}
+			}
+			title:c_kingsgrave = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+					years = 50
+				}
+			}
+			title:c_wyl = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+					years = 50
+				}
+			}
+			title:c_blackhaven = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+					years = 50
+				}
+			}
+			title:c_harvest_hall = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+					years = 50
+				}
+			}
+			title:c_nightsong = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+					years = 50
+				}
+			}
+			title:c_starpike = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+					years = 50
+				}
+			}
+			title:c_horn_hill = {
+				add_county_modifier = {
+					modifier = border_tension_modifier
+				}
+			}
+		}
+	}
+}
+
+####################################
+#      High Septon Scandal   	   #
+#        ZombieSchrodCat		   #
+#            0008-0008             #
+####################################
+
+agot_filler_westeros.0008 = {#high septon scandal
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0008.opening
+	}
+	desc = agot_filler_westeros.0008.desc
+	sender = title:k_the_most_devout.holder
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		title:k_the_most_devout.holder ?= {
+			OR = {
+				has_trait = fornicator
+				has_trait = deviant
+				has_trait = sodomite
+				has_trait = incestuous
+			}
+		}
+		exists = title:k_the_most_devout.holder
+		faith = faith:fots_seven
+		NOT = {
+			has_character_flag = agot_high_septon_scandal
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_high_septon_scandal
+			years = 20
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0008.a
+		trigger = {
+			NOT = {
+				has_trait = cynical
+			}
+		}
+		add_stress = minor_stress_gain
+	}
+
+	option = {
+		name = agot_filler_westeros.0008.b
+		trigger = {
+			has_trait = zealous
+		}
+		add_stress = minor_stress_gain
+		remove_trait = zealous
+	}
+
+	option = {
+		name = agot_filler_westeros.0008.c
+		trigger = {
+			has_trait = cynical
+		}
+		add_stress = minor_stress_loss
+	}
+}
+
+####################################
+#      High Septon Scandal:MURDER  #
+#        ZombieSchrodCat		   #
+#            0009-0009             #
+####################################
+
+agot_filler_westeros.0009 = {#high septon scandal:murder
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0009.opening
+	}
+	desc = agot_filler_westeros.0009.desc
+	sender = title:k_the_most_devout.holder
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		title:k_the_most_devout.holder ?= {
+			has_trait = murderer
+		}
+		exists = title:k_the_most_devout.holder
+		faith = faith:fots_seven
+		NOT = {
+			has_character_flag = agot_high_septon_scandal
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_high_septon_scandal
+			years = 20
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0009.a
+		trigger = {
+			NOT = {
+				has_trait = cynical
+			}
+		}
+		add_stress = medium_stress_gain
+	}
+
+	option = {
+		name = agot_filler_westeros.0009.b
+		trigger = {
+			has_trait = zealous
+		}
+		add_stress = major_stress_gain
+		remove_trait = zealous
+	}
+
+	option = {
+		name = agot_filler_westeros.0009.c
+		trigger = {
+			has_trait = cynical
+		}
+		add_stress = minor_stress_gain
+	}
+}
+
+####################################
+#      		House at Wars  	 	   #
+#        ZombieSchrodCat		   #
+#            0010-0010             #
+####################################
+
+agot_filler_westeros.0010 = {
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0010.opening
+	}
+	desc = agot_filler_westeros.0010.desc
+	sender = scope:vassal_at_war
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		is_at_war = no
+		agot_is_independent_ruler = no
+		root.liege = {
+			any_vassal = {
+				is_at_war = yes
+				is_at_war_as_defender = yes
+			}
+		}
+		location = {
+			OR = {
+				geographical_region = world_westeros_the_north
+				geographical_region = world_westeros_the_riverlands
+				geographical_region = world_westeros_the_westerlands
+				geographical_region = world_westeros_the_iron_islands
+				geographical_region = world_westeros_the_reach
+				geographical_region = world_westeros_dorne
+				geographical_region = world_westeros_the_stormlands
+				geographical_region = world_westeros_the_vale
+			}
+		}
+		NOT = {
+			has_character_flag = agot_filler_house_war
+		}
+	}
+
+	immediate = {
+		root.liege = {
+			random_vassal = {
+				limit = {
+					is_at_war = yes
+					is_at_war_as_defender = yes
+				}
+				save_scope_as = vassal_at_war
+			}
+		}
+		add_character_flag = {
+			flag = agot_filler_house_war
+			years = 5
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0010.a
+		remove_short_term_gold = 10
+		scope:vassal_at_war = {
+			add_gold = 10
+		}
+		reverse_add_opinion = {
+			modifier = grateful_opinion
+			target = scope:vassal_at_war
+			opinion = 10
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0010.b
+		trigger = {
+			OR = {
+				has_trait = deceitful
+				has_trait = paranoid
+				intrigue >= 15
+			}
+		}
+		add_hook = {
+			target = scope:vassal_at_war
+			type = indebted_hook
+		}
+		remove_short_term_gold = 25
+		scope:vassal_at_war = {
+			add_gold = 25
+		}
+		reverse_add_opinion = {
+			modifier = grateful_opinion
+			target = scope:vassal_at_war
+			opinion = 5
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0010.c
+		reverse_add_opinion = {
+			modifier = insulted_opinion
+			target = scope:vassal_at_war
+			opinion = -10
+		}
+	}
+}
+
+####################################
+#   King of Mountain Clans		   #
+#        ZombieSchrodCat		   #
+#            0017-0017             #
+####################################
+
+#Moonclans yeet
+# agot_filler_westeros.0017 = {#King of Mountain Clans - border tension
+# 	type = letter_event
+# 	opening = {
+# 		desc = agot_filler_westeros.0017.opening
+# 	}
+# 	desc = agot_filler_westeros.0017.desc
+# 	sender = title:e_the_vale.holder
+# 	orphan = yes
+
+# 	trigger = {
+# 		is_landed = yes
+# 		is_available_adult = yes
+# 		exists = title:k_the_moonclans.holder
+# 		title:k_the_moonclans.holder = {
+# 			agot_is_independent_ruler = yes
+# 		}
+# 		location = {
+# 			geographical_region = world_westeros_the_vale
+# 		}
+# 		NOT = {
+# 			has_character_flag = agot_filler_king_of_mountain_clans
+# 		}
+# 	}
+
+# 	immediate = {
+# 		add_character_flag = {
+# 			flag = agot_filler_king_of_mountain_clans
+# 			years = 10
+# 		}
+# 	}
+
+# 	option = {
+# 		name = agot_filler_westeros.0017.a
+# 		add_stress = minor_stress_gain
+# 	}
+# 	after = {
+#		hidden_effect = {
+# 			title:c_wickenden = {
+# 				add_county_modifier = {
+# 					modifier = border_tension_modifier
+# 					years = 50
+# 				}
+# 			}
+# 			title:c_ninestars = {
+# 				add_county_modifier = {
+# 					modifier = border_tension_modifier
+# 					years = 50
+# 				}
+# 			}
+# 			title:c_the_eyrie = {
+# 				add_county_modifier = {
+# 					modifier = border_tension_modifier
+# 					years = 50
+# 				}
+# 			}
+# 			title:c_crown_crescent = {
+# 				add_county_modifier = {
+# 					modifier = border_tension_modifier
+# 					years = 50
+# 				}
+# 			}
+# 			title:c_strongsong = {
+# 				add_county_modifier = {
+# 					modifier = border_tension_modifier
+# 					years = 50
+# 				}
+# 			}
+#		}
+# 	}
+# }
+
+####################################
+#      	  Fellow Hunter		       #
+#        ZombieSchrodCat		   #
+#            0018-0032             #
+####################################
+
+agot_filler_westeros.0018 = { #start
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0018.opening
+	}
+	desc = agot_filler_westeros.0018.desc
+	sender = scope:fellow_hunter
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		is_at_war = no
+		has_trait = lifestyle_hunter
+		liege = {
+			any_vassal = {
+				has_trait = lifestyle_hunter
+			}
+		}
+		location = {
+			geographical_region = world_westeros
+		}
+		NOT = {
+			has_character_flag = agot_filler_hunting_letter
+		}
+		liege = {
+			any_vassal = {
+				has_trait = lifestyle_hunter
+				NOT = { this = root }
+			}
+		}
+	}
+
+	immediate = {
+		liege = {
+			random_vassal = {
+				limit = {
+					has_trait = lifestyle_hunter
+					NOT = { this = root }
+				}
+				save_scope_as = fellow_hunter
+			}
+		}
+		add_character_flag = {
+			flag = agot_filler_hunting_letter
+			years = 5
+		}
+	}
+
+	option = { #boar
+		name = agot_filler_westeros.0018.a
+		trigger_event = {
+			id = agot_filler_westeros.0019
+			days = 15
+		}
+
+	}
+
+	option = { #deer
+		name = agot_filler_westeros.0018.b
+		trigger_event = {
+			id = agot_filler_westeros.0020
+			days = 15
+		}
+
+	}
+
+	option = { #burn letter
+		name = agot_filler_westeros.0018.c
+
+	}
+}
+
+agot_filler_westeros.0019 = {#boar hunt
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0019.opening
+	}
+	desc = agot_filler_westeros.0019.desc
+	sender = scope:fellow_hunter
+
+	option = { #go and hunt the boar
+		name = agot_filler_westeros.0019.a
+		trigger_event = {
+			id = agot_filler_westeros.0021
+			days = 10
+		}
+	}
+
+	option = { #polietly refuse
+		name = agot_filler_westeros.0019.b
+
+	}
+}
+
+agot_filler_westeros.0020 = {#deer hunt
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0020.opening
+	}
+	desc = agot_filler_westeros.0020.desc
+	sender = scope:fellow_hunter
+
+	option = { #go and hunt the deer
+		name = agot_filler_westeros.0020.a
+		trigger_event = {
+			id = agot_filler_westeros.0025
+			days = 10
+		}
+
+	}
+
+	option = { #polietly refuse
+		name = agot_filler_westeros.0020.b
+
+	}
+}
+
+agot_filler_westeros.0021 = { #boar hunt
+	type = character_event
+	title = agot_filler_westeros.0021.t
+	desc = agot_filler_westeros.0021.desc
+
+	theme = crown
+	override_background = {
+		reference = wilderness
+	}
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	right_portrait = {
+		character = scope:fellow_hunter
+		animation = happiness
+	}
+
+	option = { #lets look for tracks
+		name = agot_filler_westeros.0021.a
+		hidden_effect = {
+			random_list = {
+				50 = { #boar finds them
+					trigger_event = agot_filler_westeros.0022
+				}
+				50 = { #no signs
+					trigger_event = agot_filler_westeros.0028
+				}
+			}
+		}
+	}
+}
+
+agot_filler_westeros.0022 = { #boar charge
+	type = character_event
+	title = agot_filler_westeros.0022.t
+	desc = agot_filler_westeros.0022.desc
+
+	theme = crown
+	override_background = {
+		reference = wilderness
+	}
+	left_portrait = {
+		character = root
+		animation = shock
+	}
+
+	right_portrait = {
+		character = scope:fellow_hunter
+		animation = shock
+	}
+
+	option = { #attack boar
+		name = agot_filler_westeros.0022.a
+		trigger = {
+			NOT = {
+				has_trait = craven
+			}
+		}
+		trigger_event = agot_filler_westeros.0023
+	}
+
+	option = { #flee
+		name = agot_filler_westeros.0022.b
+		trigger_event = agot_filler_westeros.0024
+	}
+}
+
+agot_filler_westeros.0023 = { #stab boar - good
+	type = character_event
+	title = agot_filler_westeros.0023.t
+	desc = agot_filler_westeros.0023.desc
+
+	theme = crown
+	override_background = {
+		reference = wilderness
+	}
+	left_portrait = {
+		character = root
+		animation = rage
+	}
+
+	right_portrait = {
+		character = scope:fellow_hunter
+		animation = shock
+	}
+
+	option = { #boar dies
+		name = agot_filler_westeros.0023.a
+		hidden_effect = {
+			random_list = {
+				70 = {
+					add_prestige = medium_prestige_gain
+				}
+				10 = {
+					add_prestige = medium_prestige_gain
+					add_trait = wounded_1
+				}
+				10 = {
+					add_prestige = medium_prestige_gain
+					add_trait = wounded_2
+				}
+				10 = {
+					add_prestige = medium_prestige_gain
+					add_trait = wounded_3
+				}
+			}
+		}
+		add_character_flag = {
+			flag = good_hunt
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0029
+	}
+}
+
+agot_filler_westeros.0024 = { #craven!
+	type = character_event
+	title = agot_filler_westeros.0024.t
+	desc = agot_filler_westeros.0024.desc
+
+	theme = crown
+	override_background = {
+		reference = wilderness
+	}
+	left_portrait = {
+		character = root
+		animation = personality_dishonorable
+	}
+
+	right_portrait = {
+		character = scope:fellow_hunter
+		animation = disgust
+	}
+
+	option = { #lord disuted with you
+		name = agot_filler_westeros.0024.a
+		add_prestige = medium_prestige_loss
+		add_character_flag = {
+			flag = bad_hunt
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0029
+	}
+}
+
+agot_filler_westeros.0025 = { #deer hunt
+	type = character_event
+	title = agot_filler_westeros.0025.t
+	desc = agot_filler_westeros.0025.desc
+
+	theme = crown
+	override_background = {
+		reference = wilderness
+	}
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	right_portrait = {
+		character = scope:fellow_hunter
+		animation = happiness
+	}
+
+	option = { #lets look for tracks
+		name = agot_filler_westeros.0025.a
+		hidden_effect = {
+			random_list = {
+				50 = { #finds the stag
+					trigger_event = agot_filler_westeros.0026
+				}
+				50 = { #no signs
+					trigger_event = agot_filler_westeros.0028
+				}
+			}
+		}
+	}
+}
+
+
+agot_filler_westeros.0026 = { #find deer
+	type = character_event
+	title = agot_filler_westeros.0026.t
+	desc = agot_filler_westeros.0026.desc
+
+	theme = crown
+	override_background = {
+		reference = wilderness
+	}
+	left_portrait = {
+		character = root
+		animation = shock
+	}
+
+	right_portrait = {
+		character = scope:fellow_hunter
+		animation = shock
+	}
+
+	option = { #take shot at deer first
+		name = agot_filler_westeros.0026.a
+		trigger = {
+			has_trait = arrogant
+		}
+		add_prestige = medium_prestige_gain
+		add_character_flag = {
+			flag = arrogant_hunt
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0027
+	}
+
+	option = { #take shot together
+		name = agot_filler_westeros.0026.b
+		add_character_flag = {
+			flag = good_hunt
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0027
+	}
+
+	option = { #give shot to host
+		name = agot_filler_westeros.0026.c
+		trigger = {
+			has_trait = generous
+		}
+		reverse_add_opinion = {
+			modifier = pleased_opinion
+			target = scope:fellow_hunter
+			opinion = 20
+		}
+		add_character_flag = {
+			flag = good_hunt
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0027
+	}
+}
+
+agot_filler_westeros.0027 = { #deer shot
+	type = character_event
+	title = agot_filler_westeros.0027.t
+	desc = agot_filler_westeros.0027.desc
+
+	theme = crown
+	override_background = {
+		reference = wilderness
+	}
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	right_portrait = {
+		character = scope:fellow_hunter
+		animation = happiness
+	}
+
+	option = { #boar dies
+		name = agot_filler_westeros.0027.a
+		add_prestige = medium_prestige_gain
+		trigger_event = agot_filler_westeros.0029
+	}
+}
+
+agot_filler_westeros.0028 = { #find no tracks part ways
+	type = character_event
+	title = agot_filler_westeros.0028.t
+	desc = agot_filler_westeros.0028.desc
+
+	theme = crown
+	override_background = {
+		reference = wilderness
+	}
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+
+	right_portrait = {
+		character = scope:fellow_hunter
+		animation = personality_bold
+	}
+
+	option = { #good hunt
+		name = agot_filler_westeros.0028.a
+		add_prestige = minor_prestige_loss
+	}
+
+}
+
+agot_filler_westeros.0029 = { #hunt finished part ways
+	type = character_event
+	title = agot_filler_westeros.0029.t
+	desc = agot_filler_westeros.0029.desc
+
+	theme = crown
+	override_background = {
+		reference = wilderness
+	}
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+
+	right_portrait = {
+		character = scope:fellow_hunter
+		animation = personality_bold
+	}
+
+	option = { #good hunt
+		name = agot_filler_westeros.0029.a
+		trigger = {
+			has_character_flag = good_hunt
+		}
+		trigger_event = {
+			id = agot_filler_westeros.0030
+			days = 10
+		}
+	}
+	option = { #bad hunt
+		name = agot_filler_westeros.0029.b
+		trigger = {
+			has_character_flag = bad_hunt
+		}
+		trigger_event = {
+			id = agot_filler_westeros.0031
+			days = 10
+		}
+	}
+	option = { #bad hunt
+		name = agot_filler_westeros.0029.c
+		trigger = {
+			has_character_flag = arrogant_hunt
+		}
+		trigger_event = {
+			id = agot_filler_westeros.0032
+			days = 10
+		}
+	}
+}
+
+agot_filler_westeros.0030 = {#good hunt
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0030.opening
+	}
+	desc = agot_filler_westeros.0030.desc
+	sender = scope:fellow_hunter
+
+	option = { #hope we can go again
+		name = agot_filler_westeros.0030.a
+		random_list = {
+			75 = {
+				reverse_add_opinion = {
+					modifier = grateful_opinion
+					target = scope:fellow_hunter
+					opinion = 20
+				}
+			}
+			25 = {
+				set_relation_potential_friend = scope:fellow_hunter
+			}
+		}
+	}
+}
+
+agot_filler_westeros.0031 = {#bad hunt
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0031.opening
+	}
+	desc = agot_filler_westeros.0031.desc
+	sender = scope:fellow_hunter
+
+	option = { #hope i never see him again
+		name = agot_filler_westeros.0031.a
+
+		if = {
+			limit = {
+				is_alive = yes
+				exists = scope:fellow_hunter
+				scope:fellow_hunter = { is_alive = yes }
+			}
+
+			reverse_add_opinion = {
+				modifier = insult_opinion
+				target = scope:fellow_hunter
+				opinion = -20
+			}
+		}
+	}
+}
+
+agot_filler_westeros.0032 = {#arrogant hunt - end
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0032.opening
+	}
+	desc = agot_filler_westeros.0032.desc
+	sender = scope:fellow_hunter
+
+	option = { #hope i never see him again
+		name = agot_filler_westeros.0032.a
+		reverse_add_opinion = {
+			modifier = insult_opinion
+			target = scope:fellow_hunter
+			opinion = -20
+		}
+	}
+}
+
+####################################
+#   	Skagos Subdued		       #
+#        ZombieSchrodCat		   #
+#            0033-0033             #
+####################################
+
+agot_filler_westeros.0033 = {#skagos raiders
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0033.opening
+	}
+	desc = agot_filler_westeros.0033.desc
+	sender = title:d_skagos.holder
+	orphan = yes
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		title:c_seal_shore = {
+			has_county_modifier = disrupted_trade_modifier
+		}
+		AND = {
+			exists = title:d_skagos.holder
+			title:d_skagos.holder = {
+				agot_is_independent_ruler = no
+			}
+		}
+		location = {
+			OR = {
+				geographical_region = world_westeros_the_north
+				geographical_region = world_westeros_the_vale
+			}
+		}
+		NOT = {
+			has_character_flag = agot_filler_skagos_subdue
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_filler_skagos_subdue
+			years = 10
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0033.a
+		add_stress = minor_stress_loss
+	}
+	after = {
+		hidden_effect = {
+			title:c_seal_shore = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_everwood = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_dorridge = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_the_grey_cliffs = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_grey_cliff_point = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_karhold = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_groundpress = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_overton = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_the_weep = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_tawney_bay = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_broadmend = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_widows_watch = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+		}
+	}
+}
+
+####################################
+#   	The Sisters Subdued 	   #
+#        ZombieSchrodCat		   #
+#            0034-0034             #
+####################################
+
+agot_filler_westeros.0034 = {#sisters raiders
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0034.opening
+	}
+	desc = agot_filler_westeros.0034.desc
+	sender = title:d_the_sisters.holder
+	orphan = yes
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		exists = title:d_the_sisters.holder
+		title:c_ramsgate = {
+			has_county_modifier = disrupted_trade_modifier
+		}
+		title:d_the_sisters.holder = {
+			agot_is_independent_ruler = no
+		}
+		location = {
+			OR = {
+				geographical_region = world_westeros_the_north
+				geographical_region = world_westeros_the_vale
+			}
+		}
+		NOT = {
+			has_character_flag = agot_filler_sisters_subdue
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_filler_sisters_subdue
+			years = 10
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0034.a
+		add_stress = minor_stress_loss
+	}
+	after = {
+		hidden_effect = {
+			title:c_ramsgate = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_beam_cross = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_keyguard = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_bites_edge = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_oldcastle = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_silverfield = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_white_harbor = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_whetmarsh = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_fennwell = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_the_seastrands = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_slewness = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_crows_barrens = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_sunrise_bite = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_rockle = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_bludden = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_forgotten_shore = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_scorched_vale = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_eventide = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_pebble = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_portmouth = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_reckshaw = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_bommenstone = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_pinkstrath = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_midlor = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_midlor_point = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_grey_glen = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_tammerlan = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_brownden = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_longmoor = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_the_paps = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+		}
+	}
+}
+
+####################################
+#   Ironborn Subdued:North	       #
+#        ZombieSchrodCat		   #
+#            0035-0035             #
+####################################
+
+agot_filler_westeros.0035 = {#
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0035.opening
+	}
+	desc = agot_filler_westeros.0035.desc
+	sender = title:e_the_iron_islands.holder
+	orphan = yes
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		exists = title:e_the_iron_islands.holder
+		title:c_bearstone = {
+			has_county_modifier = disrupted_trade_modifier
+		}
+		title:e_the_iron_islands.holder = {
+			agot_is_independent_ruler = no
+		}
+		location = {
+			geographical_region = world_westeros_the_north
+		}
+		NOT = {
+			has_character_flag = agot_filler_iron_island_subdue_north
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_filler_iron_island_subdue_north
+			years = 10
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0035.a
+		add_stress = minor_stress_loss
+	}
+	after = {
+		hidden_effect = {
+			title:c_bearstone = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_mormont = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_moorwood = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_mullroot = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_deepwood = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_flatmire = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_sea_dragon_point = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_stillport = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_blackpool = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_blue_hills = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_hillcrest = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_whitecaster = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_batestone = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_ridgewater = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_soddenburn = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_witheredheath = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_bottom_run = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_atwater = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_drumlynn = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_spearmouth = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_waterstone = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_spears_sound = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_arnscarre = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_flints_finger = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_blazewater_bay = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_cape_kraken = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_beastyrn = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_the_flint_cliffs = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_cannmill = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_cypress_rising = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_cypressbottom = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+		}
+	}
+}
+
+#######################################
+#   Ironborn Subdued:Riverlands  #
+#        ZombieSchrodCat		      #
+#            0036-0036                #
+#######################################
+
+agot_filler_westeros.0036 = {
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0036.opening
+	}
+	desc = agot_filler_westeros.0036.desc
+	sender = title:e_the_iron_islands.holder
+	orphan = yes
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		exists = title:e_the_iron_islands.holder
+		title:c_mistcore = {
+			has_county_modifier = disrupted_trade_modifier
+		}
+		title:e_the_iron_islands.holder = {
+			agot_is_independent_ruler = no
+		}
+		location = {
+			geographical_region = world_westeros_the_riverlands
+		}
+		NOT = {
+			has_character_flag = agot_filler_iron_island_subdue_riverlands
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_filler_iron_island_subdue_riverlands
+			years = 10
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0036.a
+		add_stress = minor_stress_loss
+	}
+	after = {
+		hidden_effect = {
+			title:c_mistcore = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_eagleside = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_seasorrow = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_seagard = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_hook_bay = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_hammerford = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_raventree = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_maidstone = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+		}
+	}
+}
+
+############################################
+#   Ironborn Subdued:Westernlands	       #
+#        ZombieSchrodCat                #
+#            0037-0037                     #
+############################################
+
+agot_filler_westeros.0037 = {#ironborn raiders
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0037.opening
+	}
+	desc = agot_filler_westeros.0037.desc
+	sender = title:e_the_iron_islands.holder
+	orphan = yes
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		exists = title:e_the_iron_islands.holder
+		title:c_provence = {
+			has_county_modifier = disrupted_trade_modifier
+		}
+		title:e_the_iron_islands.holder = {
+			agot_is_independent_ruler = no
+		}
+		location = {
+			geographical_region = world_westeros_the_westerlands
+		}
+		NOT = {
+			has_character_flag = agot_filler_iron_island_westerlands_subdue
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_filler_iron_island_westerlands_subdue
+			years = 10
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0037.a
+		add_stress = minor_stress_loss
+	}
+	after = {
+		hidden_effect = {
+			title:c_provence = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_golden_hills = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_darrows = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_wyndemere = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_fearby = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_banefort = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_eldress = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_the_crag = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_castamere = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_borrenline = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_clifton = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_faircastle = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_madgerich = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_kynlands = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_kayce = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_feastfires = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_casterly_rock = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_lannisport = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_biltmore = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_forthane = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_crakehall = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+		}
+	}
+}
+
+####################################
+#   Ironborn Subdued:Reach	   	   #
+#        ZombieSchrodCat		   #
+#            0038-0038             #
+####################################
+
+agot_filler_westeros.0038 = {
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0038.opening
+	}
+	desc = agot_filler_westeros.0038.desc
+	sender = title:e_the_iron_islands.holder
+	orphan = yes
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		exists = title:e_the_iron_islands.holder
+		title:c_cobble_cove = {
+			has_county_modifier = disrupted_trade_modifier
+		}
+		title:e_the_iron_islands.holder = {
+			agot_is_independent_ruler = no
+		}
+		location = {
+			geographical_region = world_westeros_the_reach
+		}
+		NOT = {
+			has_character_flag = agot_filler_iron_island_subdue_reach
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_filler_iron_island_subdue_reach
+			years = 20
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0038.a
+		add_stress = minor_stress_loss
+	}
+	after = {
+		hidden_effect = {
+			title:c_cobble_cove = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_summer_cove = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_oakheart = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_beechshore = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_clickingmoor = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_harborvyne = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_hayholt = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_warnstand = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_greenshield = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_greyshield = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_oakenshield = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_small_shields = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_whitewater_watch = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_islandview = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_bloomfield_hills = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_festune = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_bandallon = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_ashridge = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_walnut_bank = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_pruttand = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_blackcrown = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_greylock_hills = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_oldtown = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_daresbury = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_whisper_point = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_meadowport = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_beachcastle = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_orchard_shore = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_sunhouse = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_dunnsbridge = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_freeridge = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_wynegarde = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_starfish_harbor = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_mermaid_rocks = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_vinetown = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_peachtree = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+			title:c_stonecrab_cape = {
+				remove_county_modifier = disrupted_trade_modifier
+			}
+		}
+	}
+}
+
+####################################
+#   Dornish Independance		   #
+#        ZombieSchrodCat		   #
+#            0039-0039             #
+####################################
+
+agot_filler_westeros.0039 = {
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0039.opening
+	}
+	desc = agot_filler_westeros.0039.desc
+	sender = title:e_dorne.holder
+	orphan = yes
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		title:c_starfall = {
+			has_county_modifier = border_tension_modifier
+		}
+		exists = title:e_dorne.holder
+		title:e_dorne.holder = {
+			agot_is_independent_ruler = no
+		}
+		location = {
+			OR = {
+				geographical_region = world_westeros_the_reach
+				geographical_region = world_westeros_the_stormlands
+			}
+		}
+		NOT = {
+			has_character_flag = agot_filler_dorne_subdue
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = agot_filler_dorne_subdue
+			years = 20
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0039.a
+		add_stress = minor_stress_loss
+	}
+	after = {
+		hidden_effect = {
+			title:c_starfall = {
+				remove_county_modifier = border_tension_modifier
+			}
+			title:c_blackmont = {
+				remove_county_modifier = border_tension_modifier
+			}
+			title:c_skyreach = {
+				remove_county_modifier = border_tension_modifier
+			}
+			title:c_kingsgrave = {
+				remove_county_modifier = border_tension_modifier
+			}
+			title:c_wyl = {
+				remove_county_modifier = border_tension_modifier
+			}
+			title:c_blackhaven = {
+				remove_county_modifier = border_tension_modifier
+			}
+			title:c_harvest_hall = {
+				remove_county_modifier = border_tension_modifier
+			}
+			title:c_nightsong = {
+				remove_county_modifier = border_tension_modifier
+			}
+			title:c_starpike = {
+				remove_county_modifier = border_tension_modifier
+			}
+			title:c_horn_hill = {
+				remove_county_modifier = border_tension_modifier
+			}
+		}
+	}
+}
+
+####################################
+#      	  Fellow Gardener 	       #
+#        ZombieSchrodCat		   #
+#            0040-0047       	   #
+####################################
+
+agot_filler_westeros.0040 = { #start
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0040.opening
+	}
+	desc = agot_filler_westeros.0040.desc
+	sender = scope:fellow_gardener
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		is_at_war = no
+		OR = {
+			has_trait = lifestyle_gardener
+			has_trait = lifestyle_herbalist
+		}
+		liege = {
+			any_vassal = {
+				OR = {
+					has_trait = lifestyle_gardener
+					has_trait = lifestyle_herbalist
+				}
+			}
+		}
+		location = {
+			geographical_region = world_westeros
+		}
+		NOT = {
+			has_character_flag = agot_filler_gardening_letter
+		}
+
+		liege = {
+			any_vassal = {
+				OR = {
+					has_trait = lifestyle_gardener
+					has_trait = lifestyle_herbalist
+				}
+				NOT = { this = root }
+			}
+		}
+	}
+
+	immediate = {
+		liege = {
+			random_vassal = {
+				limit = {
+					OR = {
+						has_trait = lifestyle_gardener
+						has_trait = lifestyle_herbalist
+					}
+					NOT = { this = root }
+				}
+				save_scope_as = fellow_gardener
+			}
+		}
+		add_character_flag = {
+			flag = agot_filler_gardening_letter
+			years = 5
+		}
+	}
+
+	option = { #visit garden
+		name = agot_filler_westeros.0040.a
+		trigger_event = {
+			id = agot_filler_westeros.0041
+			days = 15
+		}
+
+	}
+
+	option = { #burn letter
+		name = agot_filler_westeros.0040.b
+
+	}
+}
+
+agot_filler_westeros.0041 = {
+	type = character_event
+	title = agot_filler_westeros.0041.t
+	desc = agot_filler_westeros.0041.desc
+
+	theme = crown
+	override_background = {
+		reference = garden
+	}
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	right_portrait = {
+		character = scope:fellow_gardener
+		animation = happiness
+	}
+
+	option = { #tour garden
+		name = agot_filler_westeros.0041.a
+		hidden_effect = {
+			random_list = {
+				34 = { #find pests on plants
+					trigger_event = agot_filler_westeros.0042
+				}
+				33 = { #host goes into long talk about plants
+					trigger_event = agot_filler_westeros.0043
+				}
+				33 = { #very colorful garden
+					trigger_event = agot_filler_westeros.0044
+				}
+			}
+		}
+	}
+}
+
+agot_filler_westeros.0042 = { #find pests
+	type = character_event
+	title = agot_filler_westeros.0042.t
+	desc = agot_filler_westeros.0042.desc
+
+	theme = crown
+	override_background = {
+		reference = garden
+	}
+	left_portrait = {
+		character = root
+		animation = shock
+	}
+
+	right_portrait = {
+		character = scope:fellow_gardener
+		animation = shock
+	}
+
+	option = { #try to spare the pests
+		name = agot_filler_westeros.0042.a
+		trigger = {
+			has_trait = compassionate
+		}
+		add_character_flag = {
+			flag = bad_garden
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+
+	option = { #kill the pests
+		name = agot_filler_westeros.0042.b
+		trigger = {
+			has_trait = callous
+		}
+		add_character_flag = {
+			flag = good_garden
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+
+	option = { #try to change the focus
+		name = agot_filler_westeros.0042.c
+		hidden_effect = {
+			random_list = {
+				50 = {
+					add_character_flag = {
+						flag = good_garden
+						days = 30
+					}
+				}
+				50 = {
+					add_character_flag = {
+						flag = bad_garden
+						days = 30
+					}
+				}
+			}
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+}
+
+agot_filler_westeros.0043 = { #rambling host
+	type = character_event
+	title = agot_filler_westeros.0043.t
+	desc = agot_filler_westeros.0043.desc
+
+	theme = crown
+	override_background = {
+		reference = garden
+	}
+	left_portrait = {
+		character = root
+		animation = boredom
+	}
+
+	right_portrait = {
+		character = scope:fellow_gardener
+		animation = ecstasy
+	}
+
+	option = { #cut host off
+		name = agot_filler_westeros.0043.a
+		trigger = {
+			has_trait = impatient
+		}
+		add_character_flag = {
+			flag = bad_garden
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+
+	option = { #listen
+		name = agot_filler_westeros.0043.b
+		trigger = {
+			has_trait = patient
+		}
+		add_character_flag = {
+			flag = good_garden
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+
+	option = { #try to contribute
+		name = agot_filler_westeros.0043.c
+		hidden_effect = {
+			random_list = {
+				50 = { #find pests on plants
+					add_character_flag = {
+						flag = good_garden
+						days = 30
+					}
+				}
+				50 = { #host goes into long talk about plants
+					add_character_flag = {
+						flag = bad_garden
+						days = 30
+					}
+				}
+			}
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+}
+
+agot_filler_westeros.0044 = { #colorful plants
+	type = character_event
+	title = agot_filler_westeros.0044.t
+	desc = agot_filler_westeros.0044.desc
+
+	theme = crown
+	override_background = {
+		reference = garden
+	}
+	left_portrait = {
+		character = root
+		animation = personality_callous
+	}
+
+	right_portrait = {
+		character = scope:fellow_gardener
+		animation = personality_bold
+	}
+
+	option = { #recongize posion plants
+		name = agot_filler_westeros.0044.a
+		trigger = {
+			intrigue >= 15
+		}
+		if = {
+			limit = {
+				scope:fellow_gardener = {
+					intrigue < 15
+				}
+			}
+			add_character_flag = {
+				flag = bad_garden
+				days = 30
+			}
+		}
+		if = {
+			limit = {
+				scope:fellow_gardener = {
+					intrigue >= 15
+				}
+			}
+			add_character_flag = {
+				flag = good_garden
+				days = 30
+			}
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+
+	option = { #must be compensating
+		name = agot_filler_westeros.0044.b
+		trigger = {
+			has_trait = arrogant
+		}
+		add_character_flag = {
+			flag = bad_garden
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+	option = { #more lovely than mine
+		name = agot_filler_westeros.0044.c
+		trigger = {
+			has_trait = humble
+		}
+		add_character_flag = {
+			flag = good_garden
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+
+	option = { #try to compare
+		name = agot_filler_westeros.0044.d
+		hidden_effect = {
+			random_list = {
+				50 = { #find pests on plants
+					add_character_flag = {
+						flag = good_garden
+						days = 30
+					}
+				}
+				50 = { #host goes into long talk about plants
+					add_character_flag = {
+						flag = bad_garden
+						days = 30
+					}
+				}
+			}
+		}
+		trigger_event = agot_filler_westeros.0045
+	}
+}
+
+agot_filler_westeros.0045 = { #finish visit
+	type = character_event
+	title = agot_filler_westeros.0045.t
+	desc = agot_filler_westeros.0045.desc
+
+	theme = crown
+	override_background = {
+		reference = garden
+	}
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+
+	right_portrait = {
+		character = scope:fellow_gardener
+		animation = personality_bold
+	}
+
+	option = { #good visit
+		name = agot_filler_westeros.0045.a
+		trigger = {
+			has_character_flag = good_garden
+		}
+		trigger_event = {
+			id = agot_filler_westeros.0046
+			days = 10
+		}
+	}
+	option = { #bad visit
+		name = agot_filler_westeros.0045.b
+		trigger = {
+			has_character_flag = bad_garden
+		}
+		trigger_event = {
+			id = agot_filler_westeros.0047
+			days = 10
+		}
+	}
+}
+
+agot_filler_westeros.0046 = {#good
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0046.opening
+	}
+	desc = agot_filler_westeros.0046.desc
+	sender = scope:fellow_gardener
+
+	option = { #hope we can go again
+		name = agot_filler_westeros.0046.a
+		random_list = {
+			75 = {
+				reverse_add_opinion = {
+					modifier = grateful_opinion
+					target = scope:fellow_gardener
+					opinion = 20
+				}
+			}
+			25 = {
+				set_relation_potential_friend = scope:fellow_gardener
+			}
+		}
+	}
+}
+
+agot_filler_westeros.0047 = {#bad - end
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0047.opening
+	}
+	desc = agot_filler_westeros.0047.desc
+	sender = scope:fellow_gardener
+
+	option = { #hope i never see him again
+		name = agot_filler_westeros.0047.a
+		random_list = {
+			75 = {
+				reverse_add_opinion = {
+					modifier = insult_opinion
+					target = scope:fellow_gardener
+					opinion = -20
+				}
+			}
+			25 = {
+				progress_towards_rival_effect = {
+					CHARACTER = scope:fellow_gardener
+					REASON = rival_rude_response
+					OPINION = 0
+				}
+			}
+		}
+	}
+}
+
+####################################
+#      	  Fellow Swordsman 	       #
+#        ZombieSchrodCat		   #
+#            0048-0055       	   #
+####################################
+
+agot_filler_westeros.0048 = { #start
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0048.opening
+	}
+	desc = agot_filler_westeros.0048.desc
+	sender = scope:fellow_swordsman
+
+	trigger = {
+		is_landed = yes
+		is_available_adult = yes
+		is_at_war = no
+		has_trait = lifestyle_blademaster
+		liege = {
+			any_vassal = {
+				has_trait = lifestyle_blademaster
+			}
+		}
+		location = {
+			geographical_region = world_westeros
+		}
+		NOT = {
+			has_character_flag = agot_filler_swordsman_letter
+		}
+		liege = {
+			any_vassal = {
+				has_trait = lifestyle_blademaster
+				NOT = { this = root }
+			}
+		}
+	}
+
+	immediate = {
+		liege = {
+			random_vassal = {
+				limit = {
+					has_trait = lifestyle_blademaster
+					NOT = { this = root }
+				}
+				save_scope_as = fellow_swordsman
+			}
+		}
+		add_character_flag = {
+			flag = agot_filler_swordsman_letter
+			years = 5
+		}
+	}
+
+	option = { #I know a blade
+		name = agot_filler_westeros.0048.a
+		trigger_event = {
+			id = agot_filler_westeros.0049
+			days = 15
+		}
+
+	}
+
+	option = { #burn letter
+		name = agot_filler_westeros.0048.b
+
+	}
+}
+
+agot_filler_westeros.0049 = {
+	type = character_event
+	title = agot_filler_westeros.0049.t
+	desc = agot_filler_westeros.0049.desc
+
+	theme = war
+	override_background = {
+		reference = armory
+	}
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	right_portrait = {
+		character = scope:fellow_swordsman
+		animation = happiness
+	}
+
+	option = { #armory
+		name = agot_filler_westeros.0049.a
+		hidden_effect = {
+			random_list = {
+				34 = { #discuss war tatics
+					trigger_event = agot_filler_westeros.0050
+				}
+				33 = { #help in the armory
+					trigger_event = agot_filler_westeros.0051
+				}
+				33 = { #dual
+					trigger_event = agot_filler_westeros.0052
+				}
+			}
+		}
+	}
+}
+
+agot_filler_westeros.0050 = { #discuss war tatics
+	type = character_event
+	title = agot_filler_westeros.0050.t
+	desc = agot_filler_westeros.0050.desc
+
+	theme = war
+	override_background = {
+		reference = armory
+	}
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+
+	right_portrait = {
+		character = scope:fellow_swordsman
+		animation = personality_bold
+	}
+
+	option = { #discuss war mobility and siege
+		name = agot_filler_westeros.0050.a
+		trigger = {
+			OR = {
+				has_trait = logistician
+				has_trait = military_engineer
+				has_trait = forder
+			}
+			NOT = {
+				has_trait = craven
+			}
+		}
+		add_character_flag = {
+			flag = good_swordsman
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0053
+	}
+
+	option = { #discuss terrain warfare
+		name = agot_filler_westeros.0050.b
+		trigger = {
+			OR = {
+				has_trait = desert_warrior
+				has_trait = jungle_stalker
+				has_trait = open_terrain_expert
+				has_trait = rough_terrain_expert
+				has_trait = forest_fighter
+				has_trait = winter_soldier
+			}
+			NOT = {
+				has_trait = craven
+			}
+		}
+		add_character_flag = {
+			flag = good_swordsman
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0053
+	}
+
+	option = { #craven
+		name = agot_filler_westeros.0050.c
+		trigger = {
+			has_trait = craven
+		}
+		add_character_flag = {
+			flag = bad_swordsman
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0053
+	}
+
+	option = { #Let him do the talking
+		name = agot_filler_westeros.0050.d
+		hidden_effect = {
+			random_list = {
+				50 = {
+					add_character_flag = {
+						flag = good_swordsman
+						days = 30
+					}
+				}
+				50 = {
+					add_character_flag = {
+						flag = bad_swordsman
+						days = 30
+					}
+				}
+			}
+		}
+		trigger_event = agot_filler_westeros.0053
+	}
+}
+
+agot_filler_westeros.0051 = { #help in the armory
+	type = character_event
+	title = agot_filler_westeros.0051.t
+	desc = agot_filler_westeros.0051.desc
+
+	theme = war
+	override_background = {
+		reference = armory
+	}
+	left_portrait = {
+		character = root
+		animation = shock
+	}
+
+	right_portrait = {
+		character = scope:fellow_gardener
+		animation = personality_dishonorable
+	}
+
+	option = { #get to work!
+		name = agot_filler_westeros.0051.a
+		trigger = {
+			has_trait = diligent
+		}
+		add_character_flag = {
+			flag = good_swordsman
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0053
+	}
+
+	option = { #I was tricked!
+		name = agot_filler_westeros.0051.b
+		trigger = {
+			has_trait = wrathful
+		}
+		add_character_flag = {
+			flag = bad_swordsman
+			days = 30
+		}
+		trigger_event = agot_filler_westeros.0053
+	}
+
+	option = { #I guess I'll help, but not happily
+		name = agot_filler_westeros.0051.c
+		hidden_effect = {
+			random_list = {
+				50 = {
+					add_character_flag = {
+						flag = good_swordsman
+						days = 30
+					}
+				}
+				50 = {
+					add_character_flag = {
+						flag = bad_swordsman
+						days = 30
+					}
+				}
+			}
+		}
+		trigger_event = agot_filler_westeros.0053
+	}
+}
+
+agot_filler_westeros.0052 = { #duel
+	type = character_event
+	title = agot_filler_westeros.0052.t
+	desc = agot_filler_westeros.0052.desc
+
+	theme = war
+	override_background = {
+		reference = armory
+	}
+	left_portrait = {
+		character = root
+		animation = war_attacker
+	}
+
+	right_portrait = {
+		character = scope:fellow_swordsman
+		animation = war_attacker
+	}
+
+	option = { #dual
+		name = agot_filler_westeros.0052.a
+		trigger = {
+			NOT = {
+				has_trait = craven
+			}
+		}
+		duel = {
+			skill = prowess
+			target = scope:fellow_swordsman
+
+			50 = {
+				compare_modifier = {
+					value = scope:duel_value
+					multiplier = 3.5
+					min = -49
+				}
+
+				send_interface_toast = {
+					title = agot_filler_westeros.0052.win
+					root = {
+						add_prestige = minor_prestige_gain
+						add_character_flag = {
+							flag = good_swordsman
+							days = 30
+						}
+					}
+				}
+			}
+			50 = {
+				compare_modifier = {
+					value = scope:duel_value
+					multiplier = -3.5
+					min = -49
+				}
+				send_interface_toast = {
+					title = agot_filler_westeros.0052.lose
+					root = {
+						add_prestige = minor_prestige_loss
+						add_character_flag = {
+							flag = bad_swordsman
+							days = 30
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = { #turn down duel
+		name = agot_filler_westeros.0052.b
+		add_character_flag = {
+			flag = bad_swordsman
+			days = 30
+		}
+	}
+	after = {
+		trigger_event = agot_filler_westeros.0053
+	}
+}
+
+agot_filler_westeros.0053 = { #finish visit
+	type = character_event
+	title = agot_filler_westeros.0053.t
+	desc = agot_filler_westeros.0053.desc
+
+	theme = war
+	override_background = {
+		reference = armory
+	}
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+
+	right_portrait = {
+		character = scope:fellow_swordsman
+		animation = personality_bold
+	}
+
+	option = { #good visit
+		name = agot_filler_westeros.0053.a
+		trigger = {
+			has_character_flag = good_swordsman
+		}
+		trigger_event = {
+			id = agot_filler_westeros.0054
+			days = 10
+		}
+	}
+	option = { #bad visit
+		name = agot_filler_westeros.0053.b
+		trigger = {
+			has_character_flag = bad_swordsman
+		}
+		trigger_event = {
+			id = agot_filler_westeros.0055
+			days = 10
+		}
+	}
+}
+
+agot_filler_westeros.0054 = {#good
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0054.opening
+	}
+	desc = agot_filler_westeros.0054.desc
+	sender = scope:fellow_swordsman
+
+	option = { #hope we can go again
+		name = agot_filler_westeros.0054.a
+		random_list = {
+			75 = {
+				reverse_add_opinion = {
+					modifier = grateful_opinion
+					target = scope:fellow_swordsman
+					opinion = 20
+				}
+			}
+			25 = {
+				root = {
+					if = {
+						limit = { can_set_relation_potential_friend_trigger = { CHARACTER = scope:fellow_swordsman } }
+						set_relation_potential_friend = scope:fellow_swordsman
+					}
+				}
+			}
+		}
+	}
+}
+
+agot_filler_westeros.0055 = {#bad - end
+	type = letter_event
+	opening = {
+		desc = agot_filler_westeros.0055.opening
+	}
+	desc = agot_filler_westeros.0055.desc
+	sender = scope:fellow_swordsman
+
+	option = { #hope i never see him again
+		name = agot_filler_westeros.0055.a
+		random_list = {
+			75 = {
+				reverse_add_opinion = {
+					modifier = insult_opinion
+					target = scope:fellow_swordsman
+					opinion = -20
+				}
+			}
+			25 = {
+				progress_towards_rival_effect = {
+					CHARACTER = scope:fellow_swordsman
+					REASON = rival_rude_response
+					OPINION = 0
+				}
+			}
+		}
+	}
+}
+
+####################################
+#      	  A Silver Bride	 	   #
+#             Badger               #
+#            0057-0060		       #
+####################################
+
+scripted_trigger westeros_generic_0057_candidate_trigger = {
+	age >= 10
+	is_married = no
+	NOT = { exists = betrothed }
+	can_marry_trigger = yes
+	is_courtier_of = root
+	is_ruler = no
+	is_ai = yes
+	character_gender_can_inherit_from_trigger = {
+		CHARACTER = root
+	}
+}
+
+
+agot_filler_westeros.0057 = {
+	type = character_event
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					scope:unmarried_child = { is_female = yes }
+				}
+				desc = agot_filler_westeros.0057.t_female
+			}
+			triggered_desc = {
+				desc = agot_filler_westeros.0057.t
+			}
+		}
+	}
+
+	desc = agot_filler_westeros.0057.desc
+
+	theme = dynasty
+
+	left_portrait = root
+	right_portrait = scope:unmarried_child
+
+	trigger = {
+		NOT = { has_character_flag = had_event_agot_filler_westeros_0057 }
+		exists = capital_province
+		capital_province = { geographical_region = world_westeros }
+		is_available_adult = yes
+		exists = dynasty
+		dynasty = {
+			has_dynasty_modifier = valyrian_heritage_dynasty_modifier
+		}
+		any_child = { westeros_generic_0057_candidate_trigger = yes }
+		any_councillor = {
+			OR = {
+				has_council_position = councillor_chancellor #Send you Chancellor
+				AND = { #Or your Hand if diplo is high enough
+					has_council_position = councillor_castellan
+					diplomacy >= 10
+				}
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_event_agot_filler_westeros_0057
+
+		random_child = {
+			limit = {
+				westeros_generic_0057_candidate_trigger = yes
+			}
+			save_scope_as = unmarried_child
+		}
+
+		random_councillor = {
+			limit = {
+				OR = {
+					has_council_position = councillor_chancellor #Send you Chancellor
+					AND = { #Or your Hand if diplo is high enough
+						has_council_position = councillor_castellan
+						diplomacy >= 10
+					}
+				}
+			}
+			save_scope_as = diplomat
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0057.a
+		custom_tooltip = agot_filler_westeros.0057.a.tt
+
+		remove_short_term_gold = medium_gold_value
+
+		scope:diplomat = {
+			duel = {
+				skill = diplomacy
+				value = medium_skill_rating
+				50 = {
+					desc = agot_filler_westeros.0057.a.big_success
+					compare_modifier = {
+						value = scope:duel_value
+						multiplier = 1.5
+					}
+					root = {
+						trigger_event = {
+							id = agot_filler_westeros.0058
+							days = { 60 180}
+						}
+					}
+				}
+				50 = {
+					desc = agot_filler_westeros.0057.a.success
+					compare_modifier = {
+						value = scope:duel_value
+						multiplier = 2
+					}
+					root = {
+						trigger_event = {
+							id = agot_filler_westeros.0059
+							days = { 60 180}
+						}
+					}
+				}
+				50 = {
+					desc = agot_filler_westeros.0057.a.failure
+					compare_modifier = {
+						value = scope:duel_value
+						multiplier = -1.5
+					}
+					root = {
+						trigger_event = {
+							id = agot_filler_westeros.0060
+							days = { 60 180}
+						}
+					}
+				}
+			}
+		}
+
+		scope:unmarried_child = {
+			add_trait = refusing_marriage
+		}
+
+		ai_chance = { #why not good flavour
+			base = 100
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0057.b
+
+		add_piety = minor_piety_gain
+		add_prestige = minor_prestige_gain
+
+		ai_chance = { #why not flavour
+			base = 0
+		}
+	}
+
+}
+
+agot_filler_westeros.0058 = { #Excellent match!
+	type = character_event
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					scope:unmarried_child = { is_female = yes }
+				}
+				desc = agot_filler_westeros.0058.t_female
+			}
+			triggered_desc = {
+				desc = agot_filler_westeros.0058.t
+			}
+		}
+	}
+
+	desc = agot_filler_westeros.0058.desc
+
+	theme = dynasty
+
+	left_portrait = {
+		character = scope:essosi_bride
+		animation = personality_content
+	}
+	right_portrait = {
+		character = scope:diplomat
+		animation = admiration
+	}
+	lower_center_portrait = scope:unmarried_child
+
+	immediate = {
+		create_character = {
+			location = root.capital_province
+			template = agot_essosi_bride
+			gender_female_chance = {
+				if = {
+					limit = {
+						scope:unmarried_child = {
+							is_female = no
+						}
+					}
+					add = 100
+				}
+				else = {
+					add = 0
+				}
+			}
+			random_traits_list = {
+				count = 1
+				beauty_good_1 = {}
+				beauty_good_2 = {}
+				beauty_good_3 = {}
+			}
+			save_scope_as = essosi_bride
+		}
+		hidden_effect = {
+			add_courtier ?= scope:essosi_bride
+
+			scope:essosi_bride = {
+				add_prestige_level = { 1 3 }
+				add_piety_level = { 1 3 }
+				add_gold = { 150 350 }
+				dynasty = {
+					add_dynasty_prestige_level = { 2 4 }
+				}
+			}
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0058.a
+
+		hidden_effect = {
+			scope:unmarried_child = {
+				remove_trait = refusing_marriage
+			}
+		}
+
+		add_gold = medium_gold_value
+
+		scope:unmarried_child = {
+			if = {
+				limit = {
+					age >= 16
+					is_female = no
+				}
+				marry = scope:essosi_bride
+			}
+			else_if = {
+				limit = {
+					age >= 16
+					is_female = yes
+				}
+				marry_matrilineal = scope:essosi_bride
+			}
+			else_if = {
+				limit = {
+					is_female = no
+				}
+				create_betrothal = scope:essosi_bride
+			}
+			else = {
+				create_betrothal_matrilineal = scope:essosi_bride
+			}
+		}
+
+		ai_chance = { #why not good flavour
+			base = 100
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0058.b
+
+		add_prestige = medium_prestige_loss
+
+		hidden_effect = {
+			scope:unmarried_child = {
+				remove_trait = refusing_marriage
+			}
+
+			scope:essosi_bride = {
+				death = { death_reason = death_vanished }
+			}
+		}
+
+		reverse_add_opinion = {
+			target = scope:diplomat
+			modifier = insulted_opinion
+		}
+
+		ai_chance = { #why not flavour
+			base = 0
+		}
+	}
+}
+
+agot_filler_westeros.0059 = { #Solid match!
+	type = character_event
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					scope:unmarried_child = { is_female = yes }
+				}
+				desc = agot_filler_westeros.0059.t_female
+			}
+			triggered_desc = {
+				desc = agot_filler_westeros.0059.t
+			}
+		}
+	}
+
+	desc = agot_filler_westeros.0059.desc
+
+	theme = dynasty
+
+	left_portrait = {
+		character = scope:essosi_bride
+		animation = personality_content
+	}
+	right_portrait = {
+		character = scope:diplomat
+		animation = happiness
+	}
+	lower_center_portrait = scope:unmarried_child
+
+	immediate = {
+		create_character = {
+			location = root.capital_province
+			template = agot_essosi_bride
+			gender_female_chance = {
+				if = {
+					limit = {
+						scope:unmarried_child = {
+							is_female = no
+						}
+					}
+					add = 100
+				}
+				else = {
+					add = 0
+				}
+			}
+			save_scope_as = essosi_bride
+		}
+		hidden_effect = {
+			add_courtier ?= scope:essosi_bride
+
+			scope:essosi_bride = {
+				dynasty = {
+					add_dynasty_prestige_level = 1
+				}
+			}
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0059.a
+
+		hidden_effect = {
+			scope:unmarried_child = {
+				remove_trait = refusing_marriage
+			}
+		}
+
+		add_gold = minor_gold_value
+		add_prestige = medium_prestige_loss
+
+		scope:unmarried_child = {
+			if = {
+				limit = {
+					age >= 16
+					is_female = no
+				}
+				marry = scope:essosi_bride
+			}
+			else_if = {
+				limit = {
+					age >= 16
+					is_female = yes
+				}
+				marry_matrilineal = scope:essosi_bride
+			}
+			else_if = {
+				limit = {
+					is_female = no
+				}
+				create_betrothal = scope:essosi_bride
+			}
+			else = {
+				create_betrothal_matrilineal = scope:essosi_bride
+			}
+		}
+
+		ai_chance = { #why not good flavour
+			base = 100
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0059.b
+
+		hidden_effect = {
+			scope:unmarried_child = {
+				remove_trait = refusing_marriage
+			}
+
+			scope:essosi_bride = {
+				death = { death_reason = death_vanished }
+			}
+		}
+
+		reverse_add_opinion = {
+			target = scope:diplomat
+			modifier = insulted_opinion
+		}
+
+		ai_chance = { #why not flavour
+			base = 0
+		}
+	}
+}
+
+agot_filler_westeros.0060 = { #Bad match!
+	type = character_event
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					scope:unmarried_child = { is_female = yes }
+				}
+				desc = agot_filler_westeros.0060.t_female
+			}
+			triggered_desc = {
+				desc = agot_filler_westeros.0060.t
+			}
+		}
+	}
+
+	desc = agot_filler_westeros.0060.desc
+
+	theme = dynasty
+
+	left_portrait = {
+		character = scope:essosi_bride
+		animation = personality_content
+	}
+	right_portrait = {
+		character = scope:diplomat
+		animation = stress
+	}
+	lower_center_portrait = scope:unmarried_child
+
+	immediate = {
+		create_character = {
+			location = root.capital_province
+			template = agot_essosi_bride
+			gender_female_chance = {
+				if = {
+					limit = {
+						scope:unmarried_child = {
+							is_female = no
+						}
+					}
+					add = 100
+				}
+				else = {
+					add = 0
+				}
+			}
+			save_scope_as = essosi_bride
+		}
+		hidden_effect = {
+			add_courtier ?= scope:essosi_bride
+			scope:essosi_bride = {
+				add_trait = peasant_leader
+			}
+		}
+
+		root.capital_county = {
+			save_scope_as = county
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0060.a
+
+		hidden_effect = {
+			scope:unmarried_child = {
+				remove_trait = refusing_marriage
+			}
+		}
+
+		add_prestige = massive_prestige_loss
+
+		scope:unmarried_child = {
+			if = {
+				limit = {
+					age >= 16
+					is_female = no
+				}
+				marry = scope:essosi_bride
+			}
+			else_if = {
+				limit = {
+					age >= 16
+					is_female = yes
+				}
+				marry_matrilineal = scope:essosi_bride
+			}
+			else_if = {
+				limit = {
+					is_female = no
+				}
+				create_betrothal = scope:essosi_bride
+			}
+			else = {
+				create_betrothal_matrilineal = scope:essosi_bride
+			}
+		}
+
+		ai_chance = { #why not good flavour
+			base = 100
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0060.b
+
+		hidden_effect = {
+			scope:unmarried_child = {
+				remove_trait = refusing_marriage
+			}
+
+			scope:essosi_bride = {
+				death = { death_reason = death_vanished }
+			}
+		}
+
+		reverse_add_opinion = {
+			target = scope:diplomat
+			modifier = insulted_opinion
+		}
+
+		ai_chance = { #why not flavour
+			base = 0
+		}
+	}
+}
+
+
+####################################
+#      	  Seven Pointed Scar	   #
+#             Badger               #
+#              0061                #
+####################################
+
+agot_filler_westeros.0061 = { #Seven Pointed Scar
+	type = character_event
+
+	title = agot_filler_westeros.0061.t
+
+	desc = agot_filler_westeros.0061.desc
+
+	theme = faith
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:zealot
+		animation = personality_zealous
+	}
+
+	trigger = {
+		is_available_adult = yes
+		religion = religion:the_seven_religion
+		OR = {
+			has_trait = zealous
+			faith = faith:fots_pure
+		}
+		NOT = { has_trait = cynical }
+		NOT = { has_character_flag = had_agot_filler_westeros_0061_event }
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_westeros_0061_event
+
+		if = {
+			limit = {
+				any_close_or_extended_family_member = {
+					is_available_ai_adult = yes
+					religion = religion:the_seven_religion
+					OR = {
+						has_trait = zealous
+						faith = faith:fots_pure
+					}
+				}
+			}
+			random_close_or_extended_family_member = {
+				limit = {
+					is_available_ai_adult = yes
+					religion = religion:the_seven_religion
+					OR = {
+						has_trait = zealous
+						faith = faith:fots_pure
+					}
+				}
+				save_scope_as = zealot
+			}
+		}
+		else_if = {
+			limit = {
+				any_courtier_or_guest = {
+					is_available_ai_adult = yes
+					religion = religion:the_seven_religion
+					OR = {
+						has_trait = zealous
+						faith = faith:fots_pure
+						NOT = {
+							AND = {
+								has_trait = cynical
+								number_of_personality_traits < personality_trait_limit
+							}
+						}
+					}
+				}
+			}
+			random_courtier_or_guest = {
+				limit = {
+					is_available_ai_adult = yes
+					religion = religion:the_seven_religion
+					OR = {
+						has_trait = zealous
+						faith = faith:fots_pure
+						NOT = {
+							AND = {
+								has_trait = cynical
+								number_of_personality_traits < personality_trait_limit
+							}
+						}
+					}
+				}
+				save_scope_as = zealot
+			}
+		}
+		else_if = {
+			limit = {
+				exists = cp:councillor_court_chaplain
+				cp:councillor_court_chaplain = {
+					NOT = { has_trait = cynical }
+				}
+			}
+			cp:councillor_court_chaplain = {
+				save_scope_as = zealot
+			}
+		}
+		else = { #fallback essentially
+			random_courtier_or_guest = {
+				limit = {
+					is_available_ai_adult = yes
+					religion = religion:the_seven_religion
+				}
+				save_scope_as = zealot
+			}
+		}
+
+		hidden_effect = {
+			scope:zealot = {
+				if = {
+					limit= {
+						NOT = { has_trait = zealous }
+						number_of_personality_traits < personality_trait_limit
+					}
+					add_trait = zealous
+				}
+				add_piety_level = 1
+				add_character_modifier = {
+					modifier = the_seven_zealot_modifier
+				}
+			}
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0061.a
+
+		add_character_modifier = {
+			modifier = the_seven_zealot_modifier
+		}
+
+		add_piety_level = 1
+
+		reverse_add_opinion = {
+			target = scope:zealot
+			modifier = pious_opinion
+			opinion = 50
+		}
+
+		if = {
+			limit= {
+				NOT = { has_trait = zealous }
+				number_of_personality_traits < personality_trait_limit
+			}
+			add_trait = zealous
+		}
+
+		random_list = {
+			60 = {}
+			30 = { add_trait = wounded_1 }
+			5 = { add_trait = one_eyed }
+			5 = {
+				add_trait = half_blind
+				make_trait_inactive = halfblind_scar
+			}
+		}
+
+		ai_chance = {
+			base = 60
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0061.b
+
+		add_prestige = medium_prestige_gain
+
+		reverse_add_opinion = {
+			target = scope:zealot
+			modifier = impious_opinion
+			opinion = -50
+		}
+
+
+		ai_chance = {
+			base = 40
+		}
+	}
+}
+
+agot_filler_westeros.0062 = {
+	type = character_event
+	title = agot_filler_westeros.0062.t
+	desc = agot_filler_westeros.0062.desc
+
+	theme = romance_scheme
+
+	right_portrait = {
+		character = root
+		animation = ecstasy
+	}
+
+	trigger = {
+		is_available = yes
+		capital_province ?= { has_building = agot_glass_gardens_03 }
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				exists = cp:councillor_steward
+			}
+			cp:councillor_steward = { save_scope_as = informer }
+		}
+		else = {
+			random_courtier = {
+				save_scope_as = informer
+			}
+		}
+	}
+
+	#Admire beauty
+	option = {
+		name = agot_filler_westeros.0062.a
+		add_stress = medium_stress_loss
+		ai_chance = {
+			base = 50
+		}
+	}
+
+	#Pluck rose
+	option = {
+		name = agot_filler_westeros.0062.b
+		agot_create_artifact_winter_rose_effect = { OWNER = root }
+		ai_chance = {
+			base = 50
+		}
+	}
+
+	#Create crown
+	option = {
+		name = agot_filler_westeros.0062.c
+		agot_create_artifact_crown_of_winter_roses_effect = { OWNER = root }
+		ai_chance = {
+			base = 5
+		}
+	}
+}
+
+####################################
+#   Foreign Tutor - Waterdancer    #
+#             Badger               #
+#              0063                #
+####################################
+
+agot_filler_westeros.0063 = { #Bravo Water Dancer - Prowess - Syrio Forel
+	type = character_event
+
+	title = agot_filler_westeros.0063.t
+
+	desc = agot_filler_westeros.0063.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:waterdancer
+		animation = personality_zealous
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = { #Child who is likely to be hitting things with sticks
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_mean_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+			OR = {
+				can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+				has_character_modifier = agot_tomboy_modifier
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = water_dancer_character
+			save_scope_as = waterdancer
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_mean_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+				OR = {
+					can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+					has_character_modifier = agot_tomboy_modifier
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = {
+		name = agot_filler_westeros.0063.a
+
+		add_courtier = scope:waterdancer
+
+		pay_short_term_gold = {
+			target = scope:waterdancer
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:waterdancer
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:waterdancer
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+			random_list = {
+				1 = {}
+				1 = {
+					add_prowess_skill = 1
+				}
+				1 = {
+					add_prowess_skill = 2
+				}
+				1 = {
+					add_prowess_skill = 3
+				}
+			}
+			random_list = {
+				4 = {}
+				1 = {
+					add_trait = lifestyle_blademaster
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						number_of_personality_traits < personality_trait_limit
+					}
+					random_list = {
+						7 = {}
+						1 = {
+							add_trait = brave
+						}
+						1 = {
+							add_trait = patient
+						}
+						1 = {
+							add_trait = arrogant
+						}
+					}
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Bravos ya greaseball
+		name = agot_filler_westeros.0063.b
+
+		hidden_effect = {
+			scope:waterdancer = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+####################################
+# Foreign Tutor - Bearded Priest   #
+#             Badger               #
+#              0064                #
+####################################
+
+agot_filler_westeros.0064 = { #Norvoshi Bearded Priest - Prowess - Areo Hotah
+	type = character_event
+
+	title = agot_filler_westeros.0064.t
+
+	desc = agot_filler_westeros.0064.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:bearded_priest
+		animation = aggressive_axe
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_mean_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+			OR = {
+				can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+				has_character_modifier = agot_tomboy_modifier
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = bearded_priest_character
+			save_scope_as = bearded_priest
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_mean_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+				OR = {
+					can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+					has_character_modifier = agot_tomboy_modifier
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = { #Yes this Bearded Priest may tutor my child
+		name = agot_filler_westeros.0064.a
+
+		add_courtier = scope:bearded_priest
+
+		pay_short_term_gold = {
+			target = scope:bearded_priest
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:bearded_priest
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:bearded_priest
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+			random_list = {
+				1 = {}
+				1 = {
+					add_prowess_skill = 1
+				}
+				1 = {
+					add_prowess_skill = 2
+				}
+				1 = {
+					add_prowess_skill = 3
+				}
+			}
+			random_list = {
+				4 = {}
+				1 = {
+					add_trait = strong
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						number_of_personality_traits < personality_trait_limit
+					}
+					random_list = {
+						7 = {}
+						1 = {
+							add_trait = brave
+						}
+						1 = {
+							add_trait = zealous
+						}
+						1 = {
+							add_trait = wrathful
+						}
+					}
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Norvos ya Scruffy git
+		name = agot_filler_westeros.0064.b
+
+		hidden_effect = {
+			scope:bearded_priest = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+########################################
+# Foreign Tutor - Pentoshi Magistrate  #
+#             Badger                   #
+#              0065                    #
+########################################
+
+agot_filler_westeros.0065 = { #Pentoshi Magistrate - Stewardship
+	type = character_event
+
+	title = agot_filler_westeros.0065.t
+
+	desc = agot_filler_westeros.0065.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:magistrate
+		animation = steward
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_quiet_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = pentoshi_magistrate_character
+			save_scope_as = magistrate
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_quiet_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = { #Yes this Magistrate may tutor my child
+		name = agot_filler_westeros.0065.a
+
+		add_courtier = scope:magistrate
+
+
+		pay_short_term_gold = {
+			target = scope:magistrate
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:magistrate
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:magistrate
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+			random_list = {
+				1 = {}
+				1 = {
+					add_stewardship_skill = 1
+				}
+				1 = {
+					add_stewardship_skill = 2
+				}
+				1 = {
+					add_stewardship_skill = 3
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						number_of_personality_traits < personality_trait_limit
+					}
+					random_list = {
+						7 = {}
+						1 = {
+							add_trait = diligent
+						}
+						1 = {
+							add_trait = ambitious
+						}
+						1 = {
+							add_trait = gluttonous
+						}
+					}
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Bravos ya greaseball
+		name = agot_filler_westeros.0065.b
+
+		hidden_effect = {
+			scope:magistrate = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+########################################
+# Foreign Tutor - Bravosi Banker       #
+#             Badger                   #
+#              0066                    #
+########################################
+
+agot_filler_westeros.0066 = { #Bravosi Banker - Stewardship
+	type = character_event
+
+	title = agot_filler_westeros.0066.t
+
+	desc = agot_filler_westeros.0066.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:banker
+		animation = steward
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_quiet_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = bravosi_banker_character
+			save_scope_as = banker
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_quiet_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = {
+		name = agot_filler_westeros.0066.a
+
+		add_courtier = scope:banker
+
+		pay_short_term_gold = {
+			target = scope:banker
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:banker
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:banker
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+			random_list = {
+				1 = {}
+				1 = {
+					add_stewardship_skill = 1
+				}
+				1 = {
+					add_stewardship_skill = 2
+				}
+				1 = {
+					add_stewardship_skill = 3
+				}
+			}
+			if = {
+				random_list = {
+					4 = {}
+					1 = {
+						add_trait = shrewd
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						number_of_personality_traits < personality_trait_limit
+					}
+					random_list = {
+						7 = {}
+						1 = {
+							add_trait = diligent
+						}
+						1 = {
+							add_trait = greedy
+						}
+						1 = {
+							add_trait = shy
+						}
+					}
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Bravos ya greaseball
+		name = agot_filler_westeros.0066.b
+
+		hidden_effect = {
+			scope:banker = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+####################################
+# Foreign Tutor - Lyseni Diplomat  #
+#             Badger               #
+#              0067                #
+####################################
+
+agot_filler_westeros.0067 = { #Lyseni Diplomat- Diplomacy
+	type = character_event
+
+	title = agot_filler_westeros.0067.t
+
+	desc = agot_filler_westeros.0067.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:diplomat
+		animation = chancellor
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_nice_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = lyseni_diplomat_character
+			save_scope_as = diplomat
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_nice_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = {
+		name = agot_filler_westeros.0067.a
+
+		add_courtier = scope:diplomat
+
+		pay_short_term_gold = {
+			target = scope:diplomat
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:diplomat
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:diplomat
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+			random_list = {
+				1 = {}
+				1 = {
+					add_diplomacy_skill = 1
+				}
+				1 = {
+					add_diplomacy_skill = 2
+				}
+				1 = {
+					add_diplomacy_skill = 3
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						number_of_personality_traits < personality_trait_limit
+					}
+					random_list = {
+						7 = {}
+						1 = {
+							add_trait = gregarious
+						}
+						1 = {
+							add_trait = generous
+						}
+						1 = {
+							add_trait = arrogant
+						}
+					}
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Bravos ya greaseball
+		name = agot_filler_westeros.0067.b
+
+		hidden_effect = {
+			scope:diplomat = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+####################################
+# Foreign Tutor - Pentoshi Noble   #
+#             Badger               #
+#              0068                #
+####################################
+
+agot_filler_westeros.0068 = { #Pentoshi Noble - Diplomacy
+	type = character_event
+
+	title = agot_filler_westeros.0068.t
+
+	desc = agot_filler_westeros.0068.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:noble
+		animation = flirtation
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_nice_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = pentoshi_noble_character
+			save_scope_as = noble
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_nice_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = {
+		name = agot_filler_westeros.0068.a
+
+		add_courtier = scope:noble
+
+		pay_short_term_gold = {
+			target = scope:noble
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:noble
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:noble
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+			random_list = {
+				1 = {}
+				1 = {
+					add_diplomacy_skill = 1
+				}
+				1 = {
+					add_diplomacy_skill = 2
+				}
+				1 = {
+					add_diplomacy_skill = 3
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						number_of_personality_traits < personality_trait_limit
+					}
+					random_list = {
+						7 = {}
+						1 = {
+							add_trait = gregarious
+						}
+						1 = {
+							add_trait = generous
+						}
+						1 = {
+							add_trait = gluttonous
+						}
+					}
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Bravos ya greaseball
+		name = agot_filler_westeros.0068.b
+
+		hidden_effect = {
+			scope:noble = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+####################################
+# Foreign Tutor - Myrish Inventor  #
+#             Badger               #
+#              0069                #
+####################################
+
+agot_filler_westeros.0069 = { #Myrish Inventor - Learning
+	type = character_event
+
+	title = agot_filler_westeros.0069.t
+
+	desc = agot_filler_westeros.0069.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:inventor
+		animation = flirtation
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_nice_child_trigger = yes
+				childhood_quiet_child_trigger = yes
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = myrish_inventor_character
+			save_scope_as = inventor
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_nice_child_trigger = yes
+					childhood_quiet_child_trigger = yes
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = {
+		name = agot_filler_westeros.0069.a
+
+		add_courtier = scope:inventor
+
+		pay_short_term_gold = {
+			target = scope:inventor
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:inventor
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:inventor
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+			random_list = {
+				1 = {}
+				1 = {
+					add_learning_skill = 1
+				}
+				1 = {
+					add_learning_skill = 2
+				}
+				1 = {
+					add_learning_skill = 3
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_trait = lifestyle_mystic
+					}
+				}
+				random_list = {
+					4 = {}
+					1 = {
+						add_trait = lifestyle_mystic
+					}
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Bravos ya greaseball
+		name = agot_filler_westeros.0069.b
+
+		hidden_effect = {
+			scope:inventor = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+########################################
+# Foreign Tutor - Asshai Shadowbinder  #
+#             Badger                   #
+#              0070                    #
+########################################
+
+agot_filler_westeros.0070 = { #Asshai Shadowbinder - Learning
+	type = character_event
+
+	title = agot_filler_westeros.0070.t
+
+	desc = agot_filler_westeros.0070.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:shadowbinder
+		animation = flirtation
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_mean_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+			OR = {
+				can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+				has_character_modifier = agot_tomboy_modifier
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = asshai_shadowbinder_character
+			save_scope_as = shadowbinder
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_mean_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = {
+		name = agot_filler_westeros.0070.a
+
+		add_courtier = scope:shadowbinder
+
+		pay_short_term_gold = {
+			target = scope:shadowbinder
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:shadowbinder
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:shadowbinder
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+		}
+		random_list = {
+			1 = {}
+			1 = {
+				add_learning_skill = 1
+			}
+			1 = {
+				add_learning_skill = 2
+			}
+			1 = {
+				add_learning_skill = 3
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_trait = lifestyle_mystic
+				}
+			}
+			random_list = {
+				4 = {}
+				1 = {
+					add_trait = lifestyle_mystic
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Bravos ya greaseball
+		name = agot_filler_westeros.0070.b
+
+		hidden_effect = {
+			scope:shadowbinder = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+######################################
+# Foreign Tutor - Volantene General  #
+#             Badger                 #
+#              0071                  #
+######################################
+
+agot_filler_westeros.0071 = { #Volantene General - Martial
+	type = character_event
+
+	title = agot_filler_westeros.0071.t
+
+	desc = agot_filler_westeros.0071.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:general
+		animation = chess_certain_win
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_mean_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+			OR = {
+				can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+				has_character_modifier = agot_tomboy_modifier
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = volantene_general_character
+			save_scope_as = general
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_mean_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+				OR = {
+					can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+					has_character_modifier = agot_tomboy_modifier
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = {
+		name = agot_filler_westeros.0071.a
+
+		add_courtier = scope:general
+
+		pay_short_term_gold = {
+			target = scope:general
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:general
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:general
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+			random_list = {
+				1 = {}
+				1 = {
+					add_martial_skill = 1
+				}
+				1 = {
+					add_martial_skill = 2
+				}
+				1 = {
+					add_martial_skill = 3
+				}
+			}
+			hidden_effect = {
+				random_list = {
+					4 = {}
+					1 = {
+						hidden_effect = {
+							wanderer_give_random_commander_trait_effect = yes
+						}
+					}
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Bravos ya greaseball
+		name = agot_filler_westeros.0071.b
+
+		hidden_effect = {
+			scope:general = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+######################################
+# Foreign Tutor - Tyroshi Sellword   #
+#             Badger                 #
+#              0072	                 #
+######################################
+
+agot_filler_westeros.0072 = { #Tyroshi Sellword - Martial - Daario Naharis
+	type = character_event
+
+	title = agot_filler_westeros.0072.t
+
+	desc = agot_filler_westeros.0072.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:sellsword
+		animation = scheme
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_mean_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+			OR = {
+				can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+				has_character_modifier = agot_tomboy_modifier
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = tyroshi_sellsword_character
+			save_scope_as = sellsword
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_mean_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+				OR = {
+					can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+					has_character_modifier = agot_tomboy_modifier
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = {
+		name = agot_filler_westeros.0072.a
+
+		add_courtier = scope:sellsword
+
+		pay_short_term_gold = {
+			target = scope:sellsword
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:sellsword
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:sellsword
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+		}
+		random_list = {
+			1 = {}
+			1 = {
+				add_martial_skill = 1
+			}
+			1 = {
+				add_martial_skill = 2
+			}
+			1 = {
+				add_martial_skill = 3
+			}
+		}
+		random_list = {
+			4 = {}
+			1 = {
+				add_trait = lifestyle_blademaster
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+
+	}
+
+	option = { #Go back to Bravos ya greaseball
+		name = agot_filler_westeros.0072.b
+
+		hidden_effect = {
+			scope:sellsword = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+######################################
+# Foreign Tutor - Qohorik Sorcerer   #
+#             Badger                 #
+#              0073	                 #
+######################################
+
+agot_filler_westeros.0073 = { #Qohorik Sorcerer - Intrigue
+	type = character_event
+
+	title = agot_filler_westeros.0073.t
+
+	desc = agot_filler_westeros.0073.desc
+
+	theme = court
+
+	left_portrait = {
+		character = root
+		animation = schadenfreude
+	}
+
+	right_portrait = {
+		character = scope:sorcerer
+		animation = scheme
+	}
+
+	lower_center_portrait = scope:ward_child
+
+	trigger = {
+		is_available_adult = yes
+		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+		any_child = {
+			is_ai = yes
+			age >= 6
+			age <= 15
+			OR = {
+				childhood_mean_child_trigger = yes
+				childhood_loud_child_trigger = yes
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = had_agot_filler_foreign_tutor_event
+
+		random_sub_realm_barony = {
+			limit = {
+				county = { holder = root }
+			}
+			save_scope_as = location
+		}
+
+		create_character = {
+			template = qohorik_sorcerer_character
+			save_scope_as = sorcerer
+			location = root.location
+		}
+
+		random_child = {
+			limit = {
+				is_ai = yes
+				age >= 6
+				age <= 15
+				OR = {
+					childhood_mean_child_trigger = yes
+					childhood_loud_child_trigger = yes
+				}
+			}
+			save_scope_as = ward_child
+		}
+	}
+
+
+	option = {
+		name = agot_filler_westeros.0073.a
+
+		add_courtier = scope:sorcerer
+
+		pay_short_term_gold = {
+			target = scope:sorcerer
+			gold = massive_gold_value
+		}
+
+		scope:ward_child = {
+			every_relation = {
+				type = guardian
+				remove_guardian_effect = {
+					GUARDIAN = this
+					WARD = scope:ward_child
+					RETURN_WARD = no
+					HIDE_OPINION = no
+				}
+			}
+			set_relation_guardian = scope:sorcerer
+			# Opinion
+			guardian_add_opinion_effect = {
+				GUARDIAN = scope:sorcerer
+				WARD_LIEGE = root
+				WARD = scope:ward_child
+			}
+			random_list = {
+				1 = {}
+				1 = {
+					add_intrigue_skill = 1
+				}
+				1 = {
+					add_intrigue_skill = 2
+				}
+				1 = {
+					add_intrigue_skill = 3
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_trait = lifestyle_mystic
+					}
+				}
+				random_list = {
+					4 = {}
+					1 = {
+						add_trait = lifestyle_mystic
+					}
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 90
+
+			#Don't do if can't afford
+			modifier = {
+				factor = 0
+				gold < major_gold_value
+			}
+		}
+	}
+
+	option = { #Go back to Wohor ya nasty goat
+		name = agot_filler_westeros.0073.b
+
+		hidden_effect = {
+			scope:sorcerer = {
+				death = {
+					death_reason = death_vanished
+				}
+			}
+		}
+
+		ai_chance = {
+			base = 10
+		}
+	}
+}
+
+######################################
+# Foreign Tutor - Lyseni Seductress  #
+#             Badger                 #
+#              0074	                 #
+######################################
+
+# agot_filler_westeros.0074 = { #Lyseni Seductress - Intrigue
+# 	type = character_event
+
+# 	title = agot_filler_westeros.0074.t
+
+# 	desc = agot_filler_westeros.0074.desc
+
+# 	theme = court
+
+# 	left_portrait = {
+# 		character = root
+# 		animation = schadenfreude
+# 	}
+
+# 	right_portrait = {
+# 		character = scope:seductress
+# 		animation = scheme
+# 	}
+
+# 	lower_center_portrait = scope:ward_child
+
+# 	trigger = {
+# 		NOT = { has_character_flag = had_agot_filler_foreign_tutor_event }
+
+# 		any_child = {
+# 			is_ai = yes
+# 			age >= 6
+# 			age <= 15
+# 			OR = {
+# 				childhood_nice_child_trigger = yes
+# 				childhood_mean_child_trigger = yes
+# 			}
+# 		}
+# 	}
+
+# 	immediate = {
+# 		add_character_flag = had_agot_filler_foreign_tutor_event
+
+# 		random_sub_realm_barony = {
+# 			limit = {
+# 				county = { holder = root }
+# 			}
+# 			save_scope_as = location
+# 		}
+
+# 		create_character = {
+# 			template = lyseni_seductress_character
+# 			save_scope_as = seductress
+# 			location = root.location
+# 		}
+
+# 		random_child = {
+# 			limit = {
+# 				is_ai = yes
+# 				age >= 6
+# 				age <= 15
+# 				OR = {
+# 					childhood_nice_child_trigger = yes
+# 					childhood_mean_child_trigger = yes
+# 				}
+# 				OR = {
+# 					can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root }
+# 					has_character_modifier = agot_tomboy_modifier
+# 				}
+# 			}
+# 			save_scope_as = ward_child
+# 		}
+# 	}
+
+
+# 	option = {
+# 		name = agot_filler_westeros.0074.a
+
+# 		add_courtier = scope:seductress
+
+# 		pay_short_term_gold = {
+# 			target = scope:seductress
+# 			gold = massive_gold_value
+# 		}
+
+# 		scope:ward_child = {
+# 			every_relation = {
+# 				type = guardian
+# 				remove_guardian_effect = {
+# 					GUARDIAN = this
+# 					WARD = scope:ward_child
+# 					RETURN_WARD = no
+# 					HIDE_OPINION = no
+# 				}
+# 			}
+# 			set_relation_guardian = scope:seductress
+# 			# Opinion
+# 			guardian_add_opinion_effect = {
+# 				GUARDIAN = scope:seductress
+# 				WARD_LIEGE = root
+# 				WARD = scope:ward_child
+# 			}
+# 			random_list = {
+# 				1 = {}
+# 				1 = {
+# 					add_intrigue_skill = 1
+# 				}
+# 				1 = {
+# 					add_intrigue_skill = 2
+# 				}
+# 				1 = {
+# 					add_intrigue_skill = 3
+# 				}
+# 			}
+# 			random_list = {
+# 				4 = {}
+# 				1 = {
+# 					add_trait = shrewd
+# 				}
+# 			}
+# 			hidden_effect = {
+# 				if = {
+# 					limit = {
+# 						number_of_personality_traits < personality_trait_limit
+# 					}
+# 					random_list = {
+# 						7 = {}
+# 						1 = {
+# 							add_trait = lustful
+# 						}
+# 						1 = {
+# 							add_trait = ambitious
+# 						}
+# 						1 = {
+# 							add_trait = lazy
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+
+# 		ai_chance = {
+# 			base = 90
+
+# 			#Don't do if can't afford
+# 			modifier = {
+# 				factor = 0
+# 				gold < major_gold_value
+# 			}
+# 		}
+# 	}
+
+# 	option = { #Go back to Lys ya harlot
+# 		name = agot_filler_westeros.0074.b
+
+# 		hidden_effect = {
+# 			scope:seductress = {
+# 				death = {
+# 					death_reason = death_vanished
+# 				}
+# 			}
+# 		}
+
+# 		ai_chance = {
+# 			base = 10
+# 		}
+# 	}
+# }
+
+###################################
+#     Discovered Treasure Map     #
+#             Hybrid              #
+#              0080	              #
+###################################
+
+agot_filler_westeros.0080 = {
+ 	type = character_event
+ 	title = agot_filler_westeros.0080.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { court_position:maester_court_position ?= scope:councillor }
+				desc = agot_filler_westeros.0080.desc_court
+			}
+			desc = agot_filler_westeros.0080.desc_council
+		}
+	}
+
+ 	theme = court
+
+	right_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	left_portrait = {
+		character = scope:councillor
+		animation = happiness
+	}
+
+	trigger = {
+		OR = {
+			trigger_if = {
+				limit = { exists = cp:councillor_court_chaplain }
+				cp:councillor_court_chaplain = { NOT = { has_title = title:k_the_most_devout } }
+			}
+			exists = cp:councillor_personal_steward
+			exists = court_position:maester_court_position
+		}
+		exists = house
+	}
+
+	immediate = {
+		if = {
+			limit = { exists = court_position:maester_court_position }
+			court_position:maester_court_position = { save_scope_as = councillor }
+		}
+		else_if = {
+			limit = { exists = cp:councillor_personal_steward }
+			cp:councillor_personal_steward = { save_scope_as = councillor }
+		}
+		else_if = {
+			limit = { exists = cp:councillor_court_chaplain }
+			cp:councillor_court_chaplain = { save_scope_as = councillor }
+		}
+	}
+
+	option = {
+		name = agot_filler_westeros.0080.a
+		agot_sunken_treasure_map_effect = { OWNER = root }
+	}
+}

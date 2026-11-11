@@ -1,0 +1,31 @@
+﻿# A title is transferred to a new character
+# root = the new holder
+# scope:title = the title that changes hands
+# scope:previous_holder = previous holder. Might be dead
+on_title_gain = {
+    on_actions = {
+        kCAFG_on_title_gain
+    }
+}
+
+# A title is transferred to a new character
+# root = the new holder
+# scope:title = the title that changes hands
+# scope:previous_holder = previous holder. Might be dead
+kCAFG_on_title_gain = {
+    effect = {
+        # If county gains a new holder, update target tension baselines since its calculation depends on the holder
+        if = {
+            limit = {
+                scope:title.tier = tier_county
+            }
+
+            scope:title = {
+                every_county_province = {
+                    E_kCAFG_update_province_target_culture_tension = yes
+                    E_kCAFG_update_province_target_faith_tension = yes
+                }
+            }
+        }
+    }
+}

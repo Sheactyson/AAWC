@@ -1,0 +1,6 @@
+﻿# Triggered by custom event
+kCAFG_quarterly_global_pulse = {
+    effect = {
+        E_kCAFG_ongoing_wars_tensions_quarterly_change = yes
+    }
+}

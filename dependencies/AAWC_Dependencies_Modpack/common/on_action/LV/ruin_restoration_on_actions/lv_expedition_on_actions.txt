@@ -1,0 +1,289 @@
+﻿# Legacy of Valyria Expedition on actions
+
+# Forced Valyrian travel danger events
+on_travel_plan_movement = {
+	on_actions = {
+		lv_travel_danger_events_on_action
+		lv_travel_danger_sea_events_on_action
+		lv_travel_danger_firewyrm_on_action
+	}
+}
+
+# Valyrian
+lv_travel_danger_events_on_action = {
+	trigger = {
+		is_migrating = no # No Danger events while migrating
+		#AGOT Added
+		NOR = {
+			current_travel_plan ?= { has_travel_option = dragon_flight_option }
+			has_trait = dragon
+		}
+		# If Valyria, must NOT be green
+		location = { lv_valyria_subregion_ruined = yes }
+	}
+	random_events = {
+		chance_of_no_event = {
+			value = {
+				add = 100
+				if = {
+					limit = {
+						exists = root.current_travel_plan
+						exists = root.location
+					}
+					subtract = root.current_travel_plan.current_danger_value
+					add = root.current_travel_plan.travel_safety
+				}
+			}
+			max = {
+				value = 100
+				subtract = define:NTravel|TRAVEL_DANGER_MINIMUM
+			}
+		}
+		100 = 0
+
+		50 = lv_valyria_random_event.0009 # Ghosts
+		175 = lv_valyria_random_event.0040 # Dragon Sighting
+		350 = lv_valyria_random_event.0050 # Ruins: The Vanishing City
+		175 = lv_valyria_random_event.0090 # Earthquake reveals lava river
+		175 = lv_valyria_random_event.0100 # Swarm
+		175 = lv_valyria_random_event.0110 # Ash Serpents
+		350 = lv_valyria_random_event.0120 # Toxic Fumes: Sulfur
+	}
+}
+
+lv_travel_danger_sea_events_on_action = {
+	trigger = {
+		is_migrating = no # No Danger events while migrating
+		#AGOT Added
+		NOR = {
+			current_travel_plan ?= { has_travel_option = dragon_flight_option }
+			has_trait = dragon
+		}
+		# If Valyria, must NOT be green
+		location = {
+			trigger_if = {
+				limit = { geographical_region = sea_smoking_sea }
+				always = no # Turn off Smoking Sea danger events for now until we can make a GP for it
+			}
+			trigger_else = { always = yes }
+		}
+	}
+	random_events = {
+		chance_of_no_event = {
+			value = {
+				add = 100
+				if = {
+					limit = {
+						exists = root.current_travel_plan
+						exists = root.location
+					}
+					subtract = root.current_travel_plan.current_danger_value
+					add = root.current_travel_plan.travel_safety
+				}
+			}
+			max = {
+				value = 100
+				subtract = define:NTravel|TRAVEL_DANGER_MINIMUM
+			}
+		}
+		10 = 0
+		350 = lv_travel_danger.0001 # Smoking Sea: The Fog Lives
+		350 = lv_travel_danger.0002 # Smoking Sea: Blood on the Deck
+	}
+}
+
+lv_travel_danger_firewyrm_on_action = {
+	trigger = {
+		is_migrating = no # No Danger events while migrating
+		#AGOT Added
+		NOR = {
+			current_travel_plan ?= { has_travel_option = dragon_flight_option }
+			has_trait = dragon
+		}
+		location = {
+			NAND = {
+				has_variable = lv_firewyrm
+				has_building = firewyrm_lair
+			}
+			has_building_or_higher = valyria_mines_01
+			NOT = { has_building = valyria_mines_03 }
+			# Maybe also include the Fourteen Flames, but only if Valyria is not green
+			lv_valyria_subregion_ruined = yes
+		}
+	}
+	effect = {
+		random = {
+			chance = 10
+			# Consider adding a pre-event, e.g. an event warning you of something roaring or screeching
+			location = { save_scope_as = firewyrm_source }
+			trigger_event = lv_firewyrm_event.0001
+		}
+	}
+}
+
+on_travel_plan_movement = { on_actions = { lv_special_location_on_action } }
+
+# Flavour text for when you travel for the first time to historically ruined regions
+# Note: Tie all 'any_county_in_region' list builders to either the situation or a global variable soon
+lv_special_location_on_action = {
+	trigger = { is_ai = no }
+	effect = {
+		#trigger_event = lv_special_region_event.0002 - Reintegrate once GP done
+		current_travel_plan = {
+			current_location = {
+				if = {
+					limit = { geographical_region = world_valyria_proper }
+					root = {
+						if = {
+							limit = {
+								OR = {
+									NOT = { has_variable = lv_visited_valyria }
+									var:lv_visited_valyria ?= flag:ruined
+								}
+								any_county_in_region = {
+									region = world_valyria_proper
+									percent >= 0.5
+									title_province = {
+										NOT = { has_holding_type = ruin_holding }
+										NOT = { has_holding_type = wilderness_holding }
+									}
+								}
+							}
+							trigger_event = lv_special_region_event.0001
+							set_variable = {
+								name = lv_visited_valyria
+								value = flag:restored
+							}
+						}
+						else_if = {
+							limit = {
+								OR = {
+									NOT = { has_variable = lv_visited_valyria }
+									var:lv_visited_valyria ?= flag:restored
+								}
+								any_county_in_region = {
+									region = world_valyria_proper
+									percent >= 0.5
+									title_province = {
+										OR = {
+											has_holding_type = ruin_holding
+											has_holding_type = wilderness_holding
+										}
+									}
+								}
+							}
+							trigger_event = lv_special_region_event.0001
+							set_variable = {
+								name = lv_visited_valyria
+								value = flag:ruined
+							}
+						}
+					}
+				}
+				else_if = {
+					limit = { geographical_region = world_valyria_lands_of_the_long_summer }
+					root = {
+						if = {
+							limit = {
+								OR = {
+									NOT = { has_variable = lv_visited_lands_of_the_long_summer }
+									var:lv_visited_lands_of_the_long_summer ?= flag:ruined
+								}
+								any_county_in_region = {
+									region = world_valyria_lands_of_the_long_summer
+									percent >= 0.5
+									title_province = {
+										NOT = { has_holding_type = ruin_holding }
+										NOT = { has_holding_type = wilderness_holding }
+									}
+								}
+							}
+							trigger_event = lv_special_region_event.0001
+							set_variable = {
+								name = lv_visited_lands_of_the_long_summer
+								value = flag:restored
+							}
+						}
+						else_if = {
+							limit = {
+								OR = {
+									NOT = { has_variable = lv_visited_lands_of_the_long_summer }
+									var:lv_visited_lands_of_the_long_summer ?= flag:restored
+								}
+								any_county_in_region = {
+									region = world_valyria_lands_of_the_long_summer
+									percent >= 0.5
+									title_province = {
+										OR = {
+											has_holding_type = ruin_holding
+											has_holding_type = wilderness_holding
+										}
+									}
+								}
+							}
+							trigger_event = lv_special_region_event.0001
+							set_variable = {
+								name = lv_visited_lands_of_the_long_summer
+								value = flag:ruined
+							}
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						OR = {
+							geographical_region = sea_smoking_sea
+							this = province:6928
+						}
+					}
+					root = {
+						if = {
+							limit = {
+								OR = {
+									NOT = { has_variable = lv_visited_smoking_sea }
+									var:lv_visited_smoking_sea ?= flag:ruined
+								}
+								any_county_in_region = {
+									region = world_valyria_lands_of_the_long_summer
+									percent >= 0.5
+									title_province = {
+										NOT = { has_holding_type = ruin_holding }
+										NOT = { has_holding_type = wilderness_holding }
+									}
+								}
+							}
+							trigger_event = lv_special_region_event.0001
+							set_variable = {
+								name = lv_visited_smoking_sea
+								value = flag:restored
+							}
+						}
+						else_if = {
+							limit = {
+								OR = {
+									NOT = { has_variable = lv_visited_smoking_sea }
+									var:lv_visited_smoking_sea ?= flag:restored
+								}
+								any_county_in_region = {
+									region = sea_smoking_sea
+									percent >= 0.5
+									title_province = {
+										OR = {
+											has_holding_type = ruin_holding
+											has_holding_type = wilderness_holding
+										}
+									}
+								}
+							}
+							trigger_event = lv_special_region_event.0001
+							set_variable = {
+								name = lv_visited_smoking_sea
+								value = flag:ruined
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,13 @@
+
+widget = {
+	name = "kCAFG_loaded_gui_condition"
+	widgetid = "kCAFG_loaded_gui_condition"
+
+	size = { 0 0 }
+	layer = bottom_bottom
+
+    state = {
+		trigger_on_create = yes
+        on_finish = "[GetVariableSystem.Set('kCAFG_is_loaded_GUI', 'true')]"
+    }
+}

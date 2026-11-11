@@ -1,0 +1,215 @@
+﻿AAWC_PopulationHoldingType = {
+	type = province
+
+	text = {
+		trigger = { has_holding_type = city_holding }
+		localization_key = aawc_population_holding_type_city
+	}
+	text = {
+		trigger = { has_holding_type = church_holding }
+		localization_key = aawc_population_holding_type_temple
+	}
+	text = {
+		trigger = { has_holding_type = castle_holding }
+		localization_key = aawc_population_holding_type_castle
+	}
+	text = {
+		trigger = { has_holding_type = tribal_holding }
+		localization_key = aawc_population_holding_type_tribal
+	}
+	text = {
+		fallback = yes
+		localization_key = aawc_population_holding_type_none
+	}
+}
+
+
+AAWC_PopGrowthRatingMultiplierText = {
+	type = province
+
+	text = { trigger = { aawc_population_holding_growth_rating <= -500 } localization_key = aawc_pop_multiplier_x010 }
+	text = { trigger = { aawc_population_holding_growth_rating <= -400 } localization_key = aawc_pop_multiplier_x015 }
+	text = { trigger = { aawc_population_holding_growth_rating <= -300 } localization_key = aawc_pop_multiplier_x022 }
+	text = { trigger = { aawc_population_holding_growth_rating <= -220 } localization_key = aawc_pop_multiplier_x032 }
+	text = { trigger = { aawc_population_holding_growth_rating <= -150 } localization_key = aawc_pop_multiplier_x045 }
+	text = { trigger = { aawc_population_holding_growth_rating <= -100 } localization_key = aawc_pop_multiplier_x058 }
+	text = { trigger = { aawc_population_holding_growth_rating <= -65 } localization_key = aawc_pop_multiplier_x072 }
+	text = { trigger = { aawc_population_holding_growth_rating <= -35 } localization_key = aawc_pop_multiplier_x085 }
+	text = { trigger = { aawc_population_holding_growth_rating <= -15 } localization_key = aawc_pop_multiplier_x093 }
+	text = { trigger = { aawc_population_holding_growth_rating < 5 } localization_key = aawc_pop_multiplier_x100 }
+	text = { trigger = { aawc_population_holding_growth_rating < 15 } localization_key = aawc_pop_multiplier_x110 }
+	text = { trigger = { aawc_population_holding_growth_rating < 40 } localization_key = aawc_pop_multiplier_x120 }
+	text = { trigger = { aawc_population_holding_growth_rating < 80 } localization_key = aawc_pop_multiplier_x130 }
+	text = { trigger = { aawc_population_holding_growth_rating < 140 } localization_key = aawc_pop_multiplier_x140 }
+	text = { trigger = { aawc_population_holding_growth_rating < 220 } localization_key = aawc_pop_multiplier_x150 }
+	text = { trigger = { aawc_population_holding_growth_rating < 320 } localization_key = aawc_pop_multiplier_x165 }
+	text = { trigger = { aawc_population_holding_growth_rating < 420 } localization_key = aawc_pop_multiplier_x180 }
+	text = { trigger = { aawc_population_holding_growth_rating < 500 } localization_key = aawc_pop_multiplier_x192 }
+	text = { fallback = yes localization_key = aawc_pop_multiplier_x200 }
+}
+
+AAWC_PopTerrainMultiplierText = {
+	type = province
+
+	text = { trigger = { agot_is_urban_terrain = yes } localization_key = aawc_pop_multiplier_x130 }
+	text = { trigger = { OR = { agot_is_farmlands_terrain = yes agot_is_floodplains_terrain = yes agot_is_oasis_terrain = yes } } localization_key = aawc_pop_multiplier_x125 }
+	text = { trigger = { OR = { agot_is_plains_terrain = yes agot_is_forest_terrain = yes agot_is_taiga_terrain = yes agot_is_cloudforest_terrain = yes } } localization_key = aawc_pop_multiplier_x110 }
+	text = { trigger = { OR = { agot_is_steppe_terrain = yes agot_is_hills_terrain = yes } } localization_key = aawc_pop_multiplier_x105 }
+	text = { trigger = { OR = { agot_is_wetlands_terrain = yes agot_is_taiga_bog_terrain = yes agot_is_the_bog_terrain = yes } } localization_key = aawc_pop_multiplier_x095 }
+	text = { trigger = { OR = { agot_is_mountains_terrain = yes agot_is_highlands_terrain = yes agot_is_desert_mountains_terrain = yes agot_is_canyon_terrain = yes } } localization_key = aawc_pop_multiplier_x090 }
+	text = { trigger = { agot_is_drylands_terrain = yes } localization_key = aawc_pop_multiplier_x085 }
+	text = { trigger = { OR = { agot_is_desert_terrain = yes agot_is_glacier_terrain = yes agot_is_frozen_flats_terrain = yes } } localization_key = aawc_pop_multiplier_x070 }
+	text = { fallback = yes localization_key = aawc_pop_multiplier_x100 }
+}
+
+AAWC_PopPressureMultiplierText = {
+	type = province
+
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 5 } localization_key = aawc_pop_multiplier_x200 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 10 } localization_key = aawc_pop_multiplier_x180 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 15 } localization_key = aawc_pop_multiplier_x160 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 20 } localization_key = aawc_pop_multiplier_x140 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 25 } localization_key = aawc_pop_multiplier_x120 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 75 } localization_key = aawc_pop_multiplier_x100 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 80 } localization_key = aawc_pop_multiplier_x099 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 85 } localization_key = aawc_pop_multiplier_x096 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 90 } localization_key = aawc_pop_multiplier_x091 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 95 } localization_key = aawc_pop_multiplier_x084 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 100 } localization_key = aawc_pop_multiplier_x075 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 105 } localization_key = aawc_pop_multiplier_x064 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 110 } localization_key = aawc_pop_multiplier_x051 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 115 } localization_key = aawc_pop_multiplier_x036 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 120 } localization_key = aawc_pop_multiplier_x019 }
+	text = { trigger = { aawc_population_holding_live_expected_pressure_percent_display < 125 } localization_key = aawc_pop_multiplier_x005 }
+	text = { fallback = yes localization_key = aawc_pop_multiplier_x000 }
+}
+
+AAWC_PopControlMultiplierText = {
+	type = province
+
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 100 } localization_key = aawc_pop_multiplier_x100 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 99 } localization_key = aawc_pop_multiplier_x099 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 98 } localization_key = aawc_pop_multiplier_x098 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 97 } localization_key = aawc_pop_multiplier_x097 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 96 } localization_key = aawc_pop_multiplier_x096 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 95 } localization_key = aawc_pop_multiplier_x095 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 94 } localization_key = aawc_pop_multiplier_x094 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 93 } localization_key = aawc_pop_multiplier_x093 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 92 } localization_key = aawc_pop_multiplier_x092 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 91 } localization_key = aawc_pop_multiplier_x091 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 90 } localization_key = aawc_pop_multiplier_x090 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 89 } localization_key = aawc_pop_multiplier_x089 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 88 } localization_key = aawc_pop_multiplier_x088 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 87 } localization_key = aawc_pop_multiplier_x087 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 86 } localization_key = aawc_pop_multiplier_x086 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 85 } localization_key = aawc_pop_multiplier_x085 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 84 } localization_key = aawc_pop_multiplier_x084 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 83 } localization_key = aawc_pop_multiplier_x083 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 82 } localization_key = aawc_pop_multiplier_x082 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 81 } localization_key = aawc_pop_multiplier_x081 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 80 } localization_key = aawc_pop_multiplier_x080 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 79 } localization_key = aawc_pop_multiplier_x079 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 78 } localization_key = aawc_pop_multiplier_x078 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 77 } localization_key = aawc_pop_multiplier_x077 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 76 } localization_key = aawc_pop_multiplier_x076 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 75 } localization_key = aawc_pop_multiplier_x075 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 74 } localization_key = aawc_pop_multiplier_x074 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 73 } localization_key = aawc_pop_multiplier_x073 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 72 } localization_key = aawc_pop_multiplier_x072 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 71 } localization_key = aawc_pop_multiplier_x071 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 70 } localization_key = aawc_pop_multiplier_x070 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 69 } localization_key = aawc_pop_multiplier_x069 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 68 } localization_key = aawc_pop_multiplier_x068 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 67 } localization_key = aawc_pop_multiplier_x067 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 66 } localization_key = aawc_pop_multiplier_x066 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 65 } localization_key = aawc_pop_multiplier_x065 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 64 } localization_key = aawc_pop_multiplier_x064 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 63 } localization_key = aawc_pop_multiplier_x063 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 62 } localization_key = aawc_pop_multiplier_x062 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 61 } localization_key = aawc_pop_multiplier_x061 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 60 } localization_key = aawc_pop_multiplier_x060 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 59 } localization_key = aawc_pop_multiplier_x059 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 58 } localization_key = aawc_pop_multiplier_x058 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 57 } localization_key = aawc_pop_multiplier_x057 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 56 } localization_key = aawc_pop_multiplier_x056 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 55 } localization_key = aawc_pop_multiplier_x055 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 54 } localization_key = aawc_pop_multiplier_x054 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 53 } localization_key = aawc_pop_multiplier_x053 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 52 } localization_key = aawc_pop_multiplier_x052 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 51 } localization_key = aawc_pop_multiplier_x051 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 50 } localization_key = aawc_pop_multiplier_x050 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 49 } localization_key = aawc_pop_multiplier_x049 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 48 } localization_key = aawc_pop_multiplier_x048 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 47 } localization_key = aawc_pop_multiplier_x047 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 46 } localization_key = aawc_pop_multiplier_x046 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 45 } localization_key = aawc_pop_multiplier_x045 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 44 } localization_key = aawc_pop_multiplier_x044 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 43 } localization_key = aawc_pop_multiplier_x043 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 42 } localization_key = aawc_pop_multiplier_x042 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 41 } localization_key = aawc_pop_multiplier_x041 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 40 } localization_key = aawc_pop_multiplier_x040 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 39 } localization_key = aawc_pop_multiplier_x039 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 38 } localization_key = aawc_pop_multiplier_x038 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 37 } localization_key = aawc_pop_multiplier_x037 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 36 } localization_key = aawc_pop_multiplier_x036 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 35 } localization_key = aawc_pop_multiplier_x035 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 34 } localization_key = aawc_pop_multiplier_x034 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 33 } localization_key = aawc_pop_multiplier_x033 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 32 } localization_key = aawc_pop_multiplier_x032 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 31 } localization_key = aawc_pop_multiplier_x031 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 30 } localization_key = aawc_pop_multiplier_x030 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 29 } localization_key = aawc_pop_multiplier_x029 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 28 } localization_key = aawc_pop_multiplier_x028 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 27 } localization_key = aawc_pop_multiplier_x027 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 26 } localization_key = aawc_pop_multiplier_x026 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 25 } localization_key = aawc_pop_multiplier_x025 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 24 } localization_key = aawc_pop_multiplier_x024 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 23 } localization_key = aawc_pop_multiplier_x023 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 22 } localization_key = aawc_pop_multiplier_x022 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 21 } localization_key = aawc_pop_multiplier_x021 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 20 } localization_key = aawc_pop_multiplier_x020 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 19 } localization_key = aawc_pop_multiplier_x019 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 18 } localization_key = aawc_pop_multiplier_x018 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 17 } localization_key = aawc_pop_multiplier_x017 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 16 } localization_key = aawc_pop_multiplier_x016 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 15 } localization_key = aawc_pop_multiplier_x015 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 14 } localization_key = aawc_pop_multiplier_x014 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 13 } localization_key = aawc_pop_multiplier_x013 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 12 } localization_key = aawc_pop_multiplier_x012 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 11 } localization_key = aawc_pop_multiplier_x011 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 10 } localization_key = aawc_pop_multiplier_x010 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 9 } localization_key = aawc_pop_multiplier_x009 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 8 } localization_key = aawc_pop_multiplier_x008 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 7 } localization_key = aawc_pop_multiplier_x007 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 6 } localization_key = aawc_pop_multiplier_x006 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 5 } localization_key = aawc_pop_multiplier_x005 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 4 } localization_key = aawc_pop_multiplier_x004 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 3 } localization_key = aawc_pop_multiplier_x003 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 2 } localization_key = aawc_pop_multiplier_x002 }
+	text = { trigger = { aawc_population_holding_control_factor_percent_display >= 1 } localization_key = aawc_pop_multiplier_x001 }
+	text = { fallback = yes localization_key = aawc_pop_multiplier_x000 }
+}
+
+AAWC_PopDiseaseFormulaText = {
+	type = province
+
+	text = { trigger = { county = { has_province_with_epidemic = { intensity = apocalyptic } } } localization_key = aawc_pop_plague_apocalyptic_override }
+	text = { trigger = { county = { has_province_with_epidemic = { intensity >= major } } } localization_key = aawc_pop_plague_major_override }
+	text = { trigger = { county = { has_province_with_epidemic = { intensity = any } } } localization_key = aawc_pop_plague_minor_override }
+	text = { fallback = yes localization_key = aawc_pop_plague_none_override }
+}
+
+AAWC_PopulationDiseaseGrowthStatus = {
+	type = province
+
+	text = { trigger = { county = { has_province_with_epidemic = { intensity = apocalyptic } } } localization_key = aawc_pop_apocalyptic_disease_status }
+	text = { trigger = { county = { has_province_with_epidemic = { intensity >= major } } } localization_key = aawc_pop_major_disease_status }
+	text = { trigger = { county = { has_province_with_epidemic = { intensity = any } } } localization_key = aawc_pop_minor_disease_status }
+	text = { fallback = yes localization_key = aawc_pop_no_disease_status }
+}
+
+AAWC_PopulationWarfareGrowthStatus = {
+	type = province
+
+	text = { fallback = yes localization_key = aawc_pop_no_warfare_status }
+}

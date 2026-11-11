@@ -1,0 +1,475 @@
+﻿namespace = kCAFG_steward_task_promote
+
+###############
+# Side effects from Promote Culture
+#3000-3299
+###############
+
+###Bad Side Effects
+
+
+#Resistance to Settlers
+# by Petter Vilberg
+kCAFG_steward_task_promote.3001 = {
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship < high_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_promote_culture_focused_province }
+		scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+			NOT = { has_province_modifier = kCAFG_steward_settler_resistance_modifier }
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_bad
+			title = steward_task.3001.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_bad_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:councillor.var:kCAFG_task_promote_culture_focused_province.barony
+			right_icon = scope:councillor
+			tooltip = task_promote_culture_notification_tooltip
+
+			scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+				add_province_modifier = {
+					modifier = kCAFG_steward_settler_resistance_modifier
+					days = steward_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+
+#Resistance to Administration
+# by Petter Vilberg
+kCAFG_steward_task_promote.3002 = {
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship < high_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_promote_culture_focused_province }
+		scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+			NOR = {
+				has_province_modifier = kCAFG_steward_population_mismanaged_modifier
+				has_province_modifier = kCAFG_steward_administration_embraced_modifier
+			}
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = event_stewardship_bad
+			title = steward_task.3002.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_bad_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:councillor.var:kCAFG_task_promote_culture_focused_province.barony
+			right_icon = scope:councillor
+			tooltip = task_promote_culture_notification_tooltip
+
+			scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+				add_province_modifier = {
+					modifier = kCAFG_steward_population_mismanaged_modifier
+					days = steward_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+
+###Good Side Effects
+
+
+
+#Improve County Opinion
+# by Petter Vilberg
+
+kCAFG_steward_task_promote.3101 = {
+	hidden = yes
+	
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship > mediocre_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_promote_culture_focused_province }
+		scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+			NOR = {
+				has_province_modifier = kCAFG_steward_population_mismanaged_modifier
+				has_province_modifier = kCAFG_steward_administration_embraced_modifier
+			}
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_good
+			title = steward_task.3101.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_good_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:councillor.var:kCAFG_task_promote_culture_focused_province.barony
+			right_icon = scope:councillor
+			tooltip = task_promote_culture_notification_tooltip
+			
+			scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+				add_province_modifier = {
+					modifier = kCAFG_steward_administration_embraced_modifier
+					days = steward_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+
+#Successful Administration
+# by Petter Vilberg
+
+kCAFG_steward_task_promote.3102 = {
+	hidden = yes
+	
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship > mediocre_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_promote_culture_focused_province }
+		scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+			NOT = { has_province_modifier = kCAFG_steward_welcome_administration_modifier }
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_good
+			title = steward_task.3102.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_good_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:councillor.var:kCAFG_task_promote_culture_focused_province.barony
+			right_icon = scope:councillor
+			tooltip = task_promote_culture_notification_tooltip
+		
+			scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+				add_province_modifier = {
+					modifier = kCAFG_steward_welcome_administration_modifier
+					days = steward_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+
+#Increased County Levies
+# by Petter Vilberg
+
+kCAFG_steward_task_promote.3103 = {
+	hidden = yes
+	
+	trigger = {
+		exists = cp:councillor_steward
+		scope:councillor = cp:councillor_steward
+		scope:councillor = {
+			stewardship > mediocre_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_promote_culture_focused_province }
+		scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+			NOT = { has_province_modifier = kCAFG_steward_realm_identity_modifier }
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = stewardship
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_steward = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_steward_task_side_effect
+			value = yes
+			days = steward_task_side_effect_cooldown
+		}
+
+		send_interface_message = {
+			type = msg_steward_task_good
+			title = steward_task.3103.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship <= average_skill_level }
+					}
+					desc = task_stewardship_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { stewardship > average_skill_level }
+					}
+					desc = task_stewardship_good_skilled_notification_tooltip
+				}
+			}
+			
+			left_icon = scope:councillor.var:kCAFG_task_promote_culture_focused_province.barony
+			right_icon = scope:councillor
+			tooltip = task_promote_culture_notification_tooltip
+
+			scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+				add_province_modifier = {
+					modifier = kCAFG_steward_realm_identity_modifier
+					days = steward_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+
+#Steward deems conversion unnecessary
+kCAFG_steward_task_promote.9001 = {
+	type = letter_event
+	opening = {
+		desc = kCAFG_steward_task_promote.9001.opening
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:focused_province = { T_kCAFG_province_only_culture = { CULTURE = scope:councillor_liege.culture } } }
+				desc = kCAFG_steward_task_promote.9001.desc_complete
+			}
+			triggered_desc = {
+				trigger = { scope:focused_province = { var:kCAFG_target_culture_tension <= V_kCAFG_AI_suggestion_task_promotion_tension_threshold } }
+				desc = kCAFG_steward_task_promote.9001.desc_tension
+			}
+			desc = kCAFG_steward_task_promote.9001.desc
+		}
+	}
+	sender = scope:councillor
+
+	immediate = {
+		scope:councillor.var:kCAFG_task_promote_culture_focused_province = { save_scope_as = focused_province }
+		
+		scope:focused_province = { 
+			# Parameters
+			save_temporary_scope_as = kCAFG_set_default_focus_excluded_province
+			save_temporary_scope_as = kCAFG_set_default_focus_can_redirect
+			save_temporary_scope_as = kCAFG_set_default_focus_ai_select_for_liege
+			#
+			county = { E_kCAFG_task_promote_culture_select_default_focus = yes }
+		}
+	}
+
+	# I'll let you decide
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { scope:focused_province = { T_kCAFG_province_only_culture = { CULTURE = scope:councillor_liege.culture } } }
+						desc = kCAFG_steward_task_promote.9001.a_complete
+					}
+					desc = kCAFG_steward_task_promote.9001.a
+				}
+			}
+		}
+		trigger = {
+			trigger_if = {
+				limit = {
+					exists = scope:focused_province
+					exists = scope:kCAFG_selected_province_to_focus
+					scope:councillor = { has_council_position = councillor_steward }
+				}
+				always = yes
+			}
+		}
+		custom_tooltip = kCAFG_steward_task_promote.9001.a.tt
+		hidden_effect = {
+			scope:councillor = {
+				E_kCAFG_task_promote_culture_set_focus = { PROVINCE = scope:kCAFG_selected_province_to_focus }
+				clear_saved_scope = kCAFG_selected_province_to_focus
+			}
+		}
+		ai_chance = 1
+	}
+
+	# Keep it up
+	option = {
+		trigger = {
+			scope:councillor = { is_performing_council_task = task_promote_culture }
+			scope:focused_province = { NOT = { T_kCAFG_province_only_culture = { CULTURE = scope:councillor_liege.culture } } }
+		}
+		name = kCAFG_steward_task_promote.9001.b
+		custom_tooltip = kCAFG_steward_task_promote.9001.b.tt
+		hidden_effect = { scope:councillor = { set_variable = kCAFG_steward_promotion_finish_focus } }
+		ai_chance = 1
+	}
+
+	#Set to default task
+	option = {
+		name = kCAFG_steward_task_promote.9001.c
+		custom_tooltip = kCAFG_steward_task_promote.9001.c.tt
+		hidden_effect = {
+			scope:councillor = {
+				if = {
+					limit = { has_council_position = councillor_steward }
+					start_default_task = yes
+				}
+			}
+		}
+		ai_chance = 1
+	}
+
+	# Don't bother me
+	option = {
+		name = kCAFG_steward_task_promote.9001.d
+		custom_tooltip = kCAFG_steward_task_promote.9001.d.tt
+		hidden_effect = { set_variable = kCAFG_ignore_steward_promotion_suggestions }
+		ai_chance = 1
+	}
+}

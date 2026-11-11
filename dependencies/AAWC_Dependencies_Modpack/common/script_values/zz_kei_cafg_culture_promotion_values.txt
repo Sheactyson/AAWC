@@ -1,0 +1,536 @@
+﻿# Vanilla values were for a complete county conversion, so we will scale that with the granularity we have
+V_kCAFG_culture_steward_promotion_values_scale = 20
+
+V_kCAFG_culture_conversion_persecuted_minorities_expelled_factor = 1.5
+V_kCAFG_culture_conversion_minority_persecution_forbidden_factor = 0.2
+
+# Promotion multiplier for a culture converting in a province with no specific character associated with that promotion
+# Scope : province
+# kCAFG_converting_culture
+V_kCAFG_province_culture_promotion_multiplier = {
+	if = {
+		limit = {
+			NOT = { T_kCAFG_province_only_culture = { CULTURE = scope:kCAFG_converting_culture } }
+		}
+		save_temporary_scope_as = kCAFG_converted_province
+		value = 1
+		save_temporary_value_as = kCAFG_promotion_base_total
+		multiply = {
+			value = {
+				value = 1
+				desc = BASE_VALUE
+			}
+
+			## Converting culture Modifiers
+			add = scope:kCAFG_converting_culture.V_kCAFG_culture_conversion_converting_culture_modifiers
+
+			## Converted cultures Modifiers
+			add = {
+				every_in_list = {
+					variable = kCAFG_province_culture_structs
+					limit = { scope:kCAFG_converting_culture != var:culture }
+					add = {
+						value = var:culture.V_kCAFG_culture_conversion_converted_culture_modifiers
+						multiply = var:factor
+					}
+				}
+				# rescale by excluding converting culture
+				divide = {
+					value = 1
+					scope:kCAFG_converting_culture = { scope:kCAFG_converted_province = { subtract = V_kCAFG_province_prev_culture_factor } }
+            		min = V_kCAFG_smallest_minority_factor
+				}
+				desc = kCAFG_task_promote_culture_various_cultures
+			}
+
+			## Converted Faiths Modifiers
+			add = {
+				every_in_list = {
+					variable = kCAFG_province_faith_structs
+					add = {
+						value = var:faith.V_kCAFG_culture_conversion_faiths_modifiers
+						multiply = var:factor
+					}
+				}
+				desc = kCAFG_task_promote_culture_various_faiths
+			}
+
+			min = 0
+		}
+
+		county = { add = V_kCAFG_culture_conversion_county_modifiers_add }
+		
+		## MULTIPLICATIVE MODIFIERS ##
+
+		multiply = V_kCAFG_culture_conversion_province_modifiers_mult
+
+		county = { multiply = V_kCAFG_culture_conversion_county_modifiers_mult }
+
+		scope:kCAFG_converting_culture = { multiply = V_kCAFG_culture_conversion_converting_culture_modifiers_mult }
+	}
+}
+
+# Scope : converting culture
+# prev: province
+V_kCAFG_culture_conversion_converting_culture_modifiers = {
+	add = V_kCAFG_culture_conversion_converting_culture_modifiers_VANILLA
+}
+
+V_kCAFG_culture_conversion_converting_culture_modifiers_VANILLA = {
+	if = {
+		limit = {
+			has_innovation = innovation_east_settling
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_east_settling_factor
+			}
+			desc = STEWARD_PROMOTE_CULTURE_INNOVATION_BONUS_EAST_SETTLING
+		}
+	}
+}
+
+# Scope : converted culture
+V_kCAFG_culture_conversion_converted_culture_modifiers = {
+	if = {
+		limit = {
+			save_temporary_scope_as = kCAFG_converted_culture
+			scope:kCAFG_converting_culture = {
+				is_hybrid_culture = yes
+				culture_age < culture_hybrid_cooldown
+				any_parent_culture = {
+					this = scope:kCAFG_converted_culture
+				}
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_hybrid_culture_vs_parents_factor
+			}
+			desc = STEWARD_PROMOTE_CULTURE_HYBRID_VS_PARENTS_BONUS_MODIFIER
+		}
+	}
+	if = {
+		limit = {
+			save_temporary_scope_as = kCAFG_converted_culture
+			scope:kCAFG_converting_culture = {
+				is_divergent_culture = yes
+				culture_age < culture_hybrid_cooldown # Intentional
+				any_parent_culture = {
+					this = scope:kCAFG_converted_culture
+				}
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_divergent_culture_vs_parents_factor
+			}
+			desc = STEWARD_PROMOTE_CULTURE_DIVERGENT_VS_PARENTS_BONUS_MODIFIER
+		}
+	}
+	add = V_kCAFG_culture_conversion_converted_culture_modifiers_VANILLA_B
+	add = V_kCAFG_culture_conversion_converted_culture_modifiers_VANILLA
+}
+
+V_kCAFG_culture_conversion_converted_culture_modifiers_VANILLA_B = {
+	if = {
+		limit = {
+			has_cultural_parameter = easier_to_convert_county_culture_with_heritage
+			has_same_culture_heritage = scope:kCAFG_converting_culture
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_easier_to_culture_change_with_heritage_factor
+			}
+			desc = TRADITION_EASIER_TO_CULTURE_CONVERT_WITH_HERITAGE_MODIFIER
+		}
+	}
+
+	if = {
+		limit = {
+			has_cultural_parameter = harder_to_convert_county_culture_without_heritage
+			NOT = { has_same_culture_heritage = scope:kCAFG_converting_culture }
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_resistant_to_culture_change_without_heritage_factor
+			}
+			desc = TRADITION_HARDER_TO_CULTURE_CONVERT_WITHOUT_HERITAGE_MODIFIER
+		}
+	}
+	if = {
+		limit = {
+			has_cultural_parameter = harder_to_convert_county_culture
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_resistant_to_culture_change_factor
+			}
+			desc = TRADITION_HARDER_TO_CULTURE_CONVERT
+		}
+	}
+}
+
+V_kCAFG_culture_conversion_converted_culture_modifiers_VANILLA = {
+	# Decisions
+	if = {
+		limit = {
+			OR = {
+				scope:kCAFG_converting_culture = { has_cultural_pillar = heritage_goidelic }
+				scope:kCAFG_converting_culture = { has_cultural_pillar = heritage_brythonic }
+			}
+			scope:kCAFG_converted_province.county = { has_county_modifier = reclaim_britannia_culture_modifier }
+			NOR = {
+				has_cultural_pillar = heritage_goidelic
+				has_cultural_pillar = heritage_brythonic
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_reclaimed_brittania_factor
+			}
+			desc = STEWARD_PROMOTE_CULTURE_RECLAIMING_BRITANNIA
+		}
+	}
+
+	if = {
+		limit = {
+			has_cultural_pillar = heritage_iranian
+			exists = global_var:fp3_struggle_ending  
+			global_var:fp3_struggle_ending = flag:fp3_struggle_rekindle_iran_ending
+
+			NOT = { has_same_culture_heritage = scope:kCAFG_converting_culture }
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_resistant_to_culture_change_factor
+			}
+			desc = struggle_persia_ending_rekindle_iran_harder_to_convert_culture_reason
+		}
+	}
+
+	if = {
+		limit = {
+			scope:kCAFG_converting_culture = { has_cultural_pillar = heritage_iranian }
+			exists = global_var:fp3_struggle_ending  
+			global_var:fp3_struggle_ending = flag:fp3_struggle_rekindle_iran_ending
+
+			NOT = { has_same_culture_heritage = scope:kCAFG_converting_culture }
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_easy_factor
+			}
+			desc = struggle_persia_ending_rekindle_iran_harder_to_convert_culture_reason
+		}
+	}
+}
+
+# Scope : faith
+V_kCAFG_culture_conversion_faiths_modifiers = {
+	if = {
+		limit = {
+			exists = scope:kCAFG_converting_faith
+			scope:kCAFG_converting_faith = { has_doctrine_parameter = same_faith_promote_culture_bonus_active }
+			this = scope:kCAFG_converting_faith
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_communal_identity_factor
+			}
+			desc = STEWARD_PROMOTE_CULTURE_COMMUNAL_IDENTITY_BONUS_MODIFIER
+		}
+	}
+	if = {
+		limit = {
+			exists = scope:kCAFG_converting_faith
+			scope:kCAFG_converting_faith = { has_doctrine_parameter = easier_to_convert_culture_in_same_faith_mountains }
+			this = scope:kCAFG_converting_faith
+			scope:kCAFG_converted_province = {
+				OR = {
+					terrain = mountains
+					terrain = desert_mountains
+				}
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_easier_to_convert_culture_in_same_faith_mountains_factor
+			}
+			desc = STEWARD_PROMOTE_CULTURE_EASIER_TO_CONVERT_CULTURE_IN_SAME_FAITH_MOUNTAINS_BONUS
+		}
+	}
+}
+
+# Scope : county
+# prev: province
+V_kCAFG_culture_conversion_county_modifiers_add = {
+	add = V_kCAFG_culture_conversion_county_modifiers_add_VANILLA_B
+	add = V_kCAFG_culture_conversion_county_modifiers_add_VANILLA
+}
+
+V_kCAFG_culture_conversion_county_modifiers_add_VANILLA_B = {
+	if = {
+		limit = { has_county_modifier = 6210_architect_county_modifier }
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_6210_architect_factor
+			}
+			desc = COURT_CHAPLAIN_CONVERSION_LOCAL_COUNTY_MODIFIERS
+		}
+	}
+
+	if = {
+		limit = { has_county_modifier = easier_to_culture_convert }
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_easier_to_convert_county_factor
+			}
+			desc = COURT_CHAPLAIN_CONVERSION_LOCAL_COUNTY_MODIFIERS
+		}
+	}
+
+	# Struggles
+	## Penalties
+	if = {
+		limit = {
+			any_county_struggle = { has_struggle_phase_parameter = county_culture_conversion_in_region_proceeds_slower }
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_resistant_to_culture_change_due_to_struggle_phase_factor
+			}
+			desc = STRUGGLE_HARDER_TO_CULTURE_CONVERT_DUE_TO_STRUGGLE_PHASE_MODIFIER
+		}
+	}
+	## Bonuses
+	if = {
+		limit = {
+			any_county_struggle = { has_struggle_phase_parameter = county_culture_conversion_in_region_proceeds_faster }
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_accepting_of_culture_change_due_to_struggle_phase_factor
+			}
+			desc = STRUGGLE_EASIER_TO_CULTURE_CONVERT_DUE_TO_STRUGGLE_PHASE_MODIFIER
+		}
+	}
+
+	# Events
+	if = {
+		limit = { has_county_modifier = governance_1073_conversion_resistance_modifier }
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_local_traditions_respected_factor
+			}
+			desc = STEWARD_PROMOTE_CULTURE_LOCAL_TRADITIONS_RESPECTED
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_county_modifier = enthusiastic_nomad_settlement_saharan_modifier
+				has_county_modifier = nomad_settlement_saharan_modifier
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_allowed_nomad_settlement_factor
+			}
+			desc = STEWARD_PROMOTE_CULTURE_ALLOWED_NOMAD_SETTLEMENT
+		}
+	}
+	if = {
+		limit = { has_county_modifier = hold_court_8190_vassal_modifier }
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_court_8190_vassal_factor
+			}
+			desc = COURT_CHAPLAIN_CONVERSION_LOCAL_COUNTY_MODIFIERS
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_county_modifier = 3020_own_culture_monument
+				has_county_modifier = 3020_multicultural_monument
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = hold_court_3020_culture_bonus
+			}
+			desc = 3020_MONUMENT_VALUE
+		}
+	}
+}
+
+V_kCAFG_culture_conversion_county_modifiers_add_VANILLA = {
+	if = {
+		limit  = { has_county_modifier = county_shuubiyya_modifier }
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = V_kCAFG_culture_conversion_shuubiyya_factor
+			}
+			desc = STEWARD_PROMOTE_CULTURE_SHUUBIYYA
+		}
+	}
+
+	if = {
+		limit = {
+			scope:kCAFG_converting_culture = { has_cultural_pillar = heritage_syriac }
+			has_county_modifier = promote_culture_beth_nahrain_modifier
+			NOT = {
+				culture = { has_cultural_pillar = heritage_syriac }
+			}
+		}
+		add = {
+			value = {
+				value = scope:kCAFG_promotion_base_total
+				multiply = {
+					value = 0
+					every_in_list = {
+						variable = kCAFG_province_culture_structs
+						limit = {
+							scope:kCAFG_converting_culture != var:culture
+							NOT = { var:culture = { has_cultural_pillar = heritage_syriac } }
+						}
+						add = var:factor
+					}
+					multiply = V_kCAFG_culture_conversion_beth_nahrain_factor
+				}
+			}
+			desc = steward_promote_culture_beth_nahrain
+		}
+	}
+}
+
+# Scope : province
+V_kCAFG_culture_conversion_province_modifiers_mult = {
+	value = 1
+	if = {
+		limit = {
+			has_ongoing_construction = yes
+			scope:kCAFG_converting_culture = { scope:kCAFG_converted_province = { V_kCAFG_province_prev_culture_factor < 0.5 } }
+		}
+		if = {
+			limit = { has_holding = no }
+			multiply = {
+				value = 1.5
+				scope:kCAFG_converting_culture = { scope:kCAFG_converted_province = { subtract = V_kCAFG_province_prev_culture_factor } }
+				min = 1
+				desc = kCAFG_conversion_constructing_new_holding
+			}
+		}
+		# Not yet implemented to avoid exploit with building cancellation
+		# else = {
+		# 	multiply = {
+		# 		value = 1.15
+		# 		desc = constructing
+		# 	}
+		# }
+	}
+}
+
+# Scope : county
+# prev: province
+V_kCAFG_culture_conversion_county_modifiers_mult = {
+	value = 1
+	multiply = V_kCAFG_culture_conversion_county_modifiers_mult_VANILLA_B
+	multiply = V_kCAFG_culture_conversion_county_modifiers_mult_VANILLA
+}
+
+
+V_kCAFG_culture_conversion_county_modifiers_mult_VANILLA_B = {
+	value = 1
+
+    if = {
+        limit = { has_county_modifier = persecuted_minorities_expelled }
+		multiply = {
+			value = V_kCAFG_culture_conversion_persecuted_minorities_expelled_factor
+			desc = persecuted_minorities_expelled
+		}
+    }
+
+    if = {
+        limit = { has_county_modifier = minority_persecution_forbidden }
+		multiply = {
+			value = V_kCAFG_culture_conversion_minority_persecution_forbidden_factor
+			desc = minority_persecution_forbidden
+		}
+    }
+}
+
+V_kCAFG_culture_conversion_county_modifiers_mult_VANILLA = {
+	value = 1
+}
+
+# Scope : province
+V_kCAFG_culture_conversion_converting_culture_modifiers_mult = {
+	value = 1
+	multiply = V_kCAFG_culture_conversion_converting_culture_modifiers_mult_VANILLA
+}
+
+V_kCAFG_culture_conversion_converting_culture_modifiers_mult_VANILLA = {
+	value = 1
+}
+
+# If only cultures below this threshold remain, AI will stop converting the province
+# Scope : character
+V_kCAFG_ai_stop_task_culture_promote_threshold = {
+    value = 0.15
+    add = {
+        value = ai_compassion
+        divide = 100
+        multiply = 0.125
+
+        if = {
+            limit = { ai_boldness > 0 }
+            subtract = {
+                value = ai_boldness
+                divide = 100
+                multiply = 0.1
+            }
+        }
+
+        # Irrationality will amplify personality effects by a variance of 50%
+        multiply = {
+            value = ai_rationality # Can be negative so the multiplier can be above 1
+            divide = 100
+            multiply = -0.5
+            add = 1
+        }
+    }
+    min = 0
+}
+
+# If above this tension threshold, AI vassal counts will convert culture if under intolerant law
+# Scope : character
+V_kCAFG_ai_count_vassal_culture_tension_conversion_threshold = {
+	value = 0.65
+	add = {
+		value = ai_rationality
+		divide = 100
+		multiply = -0.35
+	}
+}

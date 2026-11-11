@@ -1,0 +1,795 @@
+﻿aawc_migration_prepare_holding_diagnostics_effect = {
+	set_variable = { name = aawc_migration_holding_internal value = 0 }
+	set_variable = { name = aawc_migration_holding_county_share value = 0 }
+	set_variable = { name = aawc_migration_holding_projected_total value = 0 }
+	set_variable = { name = aawc_migration_holding_protective_floor value = 250 }
+	set_variable = { name = aawc_migration_holding_internal_give_cap value = 0 }
+	set_variable = { name = aawc_migration_holding_internal_receive_cap value = 0 }
+	set_variable = { name = aawc_migration_holding_county_give_cap value = 0 }
+	set_variable = { name = aawc_migration_holding_county_receive_cap value = 0 }
+	set_variable = { name = aawc_migration_holding_max_internal_move value = 0 }
+	set_variable = { name = aawc_migration_holding_max_county_move value = 0 }
+	set_variable = { name = aawc_migration_holding_county_rate_abs value = 0 }
+	set_variable = { name = aawc_migration_holding_county_leaving_percent value = 0 }
+	set_variable = { name = aawc_migration_holding_county_entering_percent value = 0 }
+	set_variable = { name = aawc_migration_holding_internal_percent value = 0 }
+	set_variable = { name = aawc_migration_holding_county_share_percent value = 0 }
+	set_variable = { name = aawc_migration_holding_projected_percent value = 0 }
+	set_variable = { name = aawc_migration_holding_rate value = 0 }
+	set_variable = { name = aawc_migration_holding_population_pressure_percent value = 100 }
+
+	if = {
+		limit = {
+			has_holding = yes
+			has_variable = aawc_population_current
+			has_variable = aawc_population_expected
+			var:aawc_population_current > 0
+			# Ratios are undefined at zero capacity; retain initialized diagnostic defaults.
+			var:aawc_population_expected > 0
+		}
+		set_variable = { name = aawc_migration_holding_protective_floor value = var:aawc_population_expected }
+		change_variable = { name = aawc_migration_holding_protective_floor multiply = 10 }
+		change_variable = { name = aawc_migration_holding_protective_floor divide = 100 }
+		if = {
+			limit = { var:aawc_migration_holding_protective_floor < 250 }
+			set_variable = { name = aawc_migration_holding_protective_floor value = 250 }
+		}
+
+		set_variable = { name = aawc_migration_holding_population_pressure_percent value = var:aawc_population_current }
+		change_variable = { name = aawc_migration_holding_population_pressure_percent multiply = 100 }
+		change_variable = { name = aawc_migration_holding_population_pressure_percent divide = var:aawc_population_expected }
+
+		if = {
+			limit = { var:aawc_migration_holding_population_pressure_percent < 100 }
+			set_variable = { name = aawc_migration_holding_rate value = 100 }
+			change_variable = {
+				name = aawc_migration_holding_rate
+				add = {
+					value = var:aawc_migration_holding_population_pressure_percent
+					multiply = -1
+				}
+			}
+			change_variable = { name = aawc_migration_holding_rate multiply = 3 }
+			change_variable = { name = aawc_migration_holding_rate divide = 75 }
+			if = { limit = { var:aawc_migration_holding_rate > 3 } set_variable = { name = aawc_migration_holding_rate value = 3 } }
+		}
+		else_if = {
+			limit = { var:aawc_migration_holding_population_pressure_percent > 100 }
+			set_variable = { name = aawc_migration_holding_rate value = var:aawc_migration_holding_population_pressure_percent }
+			change_variable = { name = aawc_migration_holding_rate add = -100 }
+			change_variable = { name = aawc_migration_holding_rate multiply = 3 }
+			change_variable = { name = aawc_migration_holding_rate divide = 25 }
+			if = { limit = { var:aawc_migration_holding_rate > 3 } set_variable = { name = aawc_migration_holding_rate value = 3 } }
+			change_variable = { name = aawc_migration_holding_rate multiply = -1 }
+		}
+
+		set_variable = { name = aawc_migration_holding_max_internal_move value = var:aawc_population_current }
+		if = { limit = { var:aawc_migration_holding_rate < 0 } change_variable = { name = aawc_migration_holding_max_internal_move multiply = var:aawc_migration_holding_rate } }
+		else = { change_variable = { name = aawc_migration_holding_max_internal_move multiply = var:aawc_migration_holding_rate } }
+		if = { limit = { var:aawc_migration_holding_max_internal_move < 0 } change_variable = { name = aawc_migration_holding_max_internal_move multiply = -1 } }
+		change_variable = { name = aawc_migration_holding_max_internal_move divide = 100 }
+		set_variable = { name = aawc_migration_holding_county_leaving_percent value = scope:aawc_migration_source_county.var:aawc_migration_county_leaving_percent }
+		set_variable = { name = aawc_migration_holding_county_entering_percent value = scope:aawc_migration_source_county.var:aawc_migration_county_entering_percent }
+
+		if = {
+			limit = { var:aawc_population_current > var:aawc_population_expected }
+			set_variable = { name = aawc_migration_holding_internal_give_cap value = var:aawc_population_current }
+			change_variable = {
+				name = aawc_migration_holding_internal_give_cap
+				add = {
+					value = var:aawc_population_expected
+					multiply = -1
+				}
+			}
+			if = {
+				limit = { var:aawc_migration_holding_internal_give_cap > var:aawc_migration_holding_max_internal_move }
+				set_variable = { name = aawc_migration_holding_internal_give_cap value = var:aawc_migration_holding_max_internal_move }
+			}
+		}
+		else_if = {
+			limit = { var:aawc_population_current < var:aawc_population_expected }
+			set_variable = { name = aawc_migration_holding_internal_receive_cap value = var:aawc_population_expected }
+			change_variable = {
+				name = aawc_migration_holding_internal_receive_cap
+				add = {
+					value = var:aawc_population_current
+					multiply = -1
+				}
+			}
+			if = {
+				limit = { var:aawc_migration_holding_internal_receive_cap > var:aawc_migration_holding_max_internal_move }
+				set_variable = { name = aawc_migration_holding_internal_receive_cap value = var:aawc_migration_holding_max_internal_move }
+			}
+		}
+
+		set_variable = { name = aawc_migration_holding_max_county_move value = var:aawc_population_current }
+		change_variable = { name = aawc_migration_holding_max_county_move multiply = var:aawc_migration_holding_county_leaving_percent }
+		change_variable = { name = aawc_migration_holding_max_county_move divide = 100 }
+		set_variable = { name = aawc_migration_holding_county_give_cap value = var:aawc_population_current }
+		change_variable = {
+			name = aawc_migration_holding_county_give_cap
+			add = {
+				value = var:aawc_migration_holding_protective_floor
+				multiply = -1
+			}
+		}
+		if = {
+			limit = { var:aawc_migration_holding_county_give_cap < 0 }
+			set_variable = { name = aawc_migration_holding_county_give_cap value = 0 }
+		}
+		if = {
+			limit = { var:aawc_migration_holding_county_give_cap > var:aawc_migration_holding_max_county_move }
+			set_variable = { name = aawc_migration_holding_county_give_cap value = var:aawc_migration_holding_max_county_move }
+		}
+
+		set_variable = { name = aawc_migration_holding_max_county_move value = var:aawc_population_current }
+		change_variable = { name = aawc_migration_holding_max_county_move multiply = var:aawc_migration_holding_county_entering_percent }
+		change_variable = { name = aawc_migration_holding_max_county_move divide = 100 }
+		set_variable = { name = aawc_migration_holding_county_receive_cap value = var:aawc_population_expected }
+		change_variable = { name = aawc_migration_holding_county_receive_cap multiply = 125 }
+		change_variable = { name = aawc_migration_holding_county_receive_cap divide = 100 }
+		change_variable = {
+			name = aawc_migration_holding_county_receive_cap
+			add = {
+				value = var:aawc_population_current
+				multiply = -1
+			}
+		}
+		if = {
+			limit = { var:aawc_migration_holding_county_receive_cap < 0 }
+			set_variable = { name = aawc_migration_holding_county_receive_cap value = 0 }
+		}
+		if = {
+			limit = { var:aawc_migration_holding_county_receive_cap > var:aawc_migration_holding_max_county_move }
+			set_variable = { name = aawc_migration_holding_county_receive_cap value = var:aawc_migration_holding_max_county_move }
+		}
+
+		county = {
+			change_variable = { name = aawc_migration_internal_total_give_capacity add = prev.var:aawc_migration_holding_internal_give_cap }
+			change_variable = { name = aawc_migration_internal_total_receive_capacity add = prev.var:aawc_migration_holding_internal_receive_cap }
+			change_variable = { name = aawc_migration_county_total_give_capacity add = prev.var:aawc_migration_holding_county_give_cap }
+			change_variable = { name = aawc_migration_county_total_receive_capacity add = prev.var:aawc_migration_holding_county_receive_cap }
+		}
+	}
+}
+
+aawc_migration_apply_holding_diagnostics_effect = {
+	set_variable = { name = aawc_migration_holding_internal value = 0 }
+	set_variable = { name = aawc_migration_holding_county_share value = 0 }
+	set_variable = { name = aawc_migration_holding_projected_total value = 0 }
+	set_variable = { name = aawc_migration_holding_internal_percent value = 0 }
+	set_variable = { name = aawc_migration_holding_county_share_percent value = 0 }
+	set_variable = { name = aawc_migration_holding_projected_percent value = 0 }
+
+	if = {
+		limit = {
+			has_holding = yes
+			has_variable = aawc_population_current
+		}
+		if = {
+			limit = {
+				var:aawc_migration_holding_internal_give_cap > 0
+				var:aawc_migration_local_internal_transfer_total > 0
+				var:aawc_migration_local_internal_total_give_capacity > 0
+			}
+			set_variable = { name = aawc_migration_holding_internal value = var:aawc_migration_local_internal_transfer_total }
+			change_variable = { name = aawc_migration_holding_internal multiply = var:aawc_migration_holding_internal_give_cap }
+			change_variable = { name = aawc_migration_holding_internal divide = var:aawc_migration_local_internal_total_give_capacity }
+			change_variable = { name = aawc_migration_holding_internal multiply = -1 }
+		}
+		else_if = {
+			limit = {
+				var:aawc_migration_holding_internal_receive_cap > 0
+				var:aawc_migration_local_internal_transfer_total > 0
+				var:aawc_migration_local_internal_total_receive_capacity > 0
+			}
+			set_variable = { name = aawc_migration_holding_internal value = var:aawc_migration_local_internal_transfer_total }
+			change_variable = { name = aawc_migration_holding_internal multiply = var:aawc_migration_holding_internal_receive_cap }
+			change_variable = { name = aawc_migration_holding_internal divide = var:aawc_migration_local_internal_total_receive_capacity }
+		}
+
+		if = {
+			limit = {
+				var:aawc_migration_local_county_projected_net > 0
+				var:aawc_migration_holding_county_receive_cap > 0
+				var:aawc_migration_local_county_total_receive_capacity > 0
+			}
+			set_variable = { name = aawc_migration_holding_county_share value = var:aawc_migration_local_county_projected_net }
+			change_variable = { name = aawc_migration_holding_county_share multiply = var:aawc_migration_holding_county_receive_cap }
+			change_variable = { name = aawc_migration_holding_county_share divide = var:aawc_migration_local_county_total_receive_capacity }
+		}
+		else_if = {
+			limit = {
+				var:aawc_migration_local_county_projected_net < 0
+				var:aawc_migration_holding_county_give_cap > 0
+				var:aawc_migration_local_county_total_give_capacity > 0
+			}
+			set_variable = { name = aawc_migration_holding_county_share value = var:aawc_migration_local_county_projected_net }
+			change_variable = { name = aawc_migration_holding_county_share multiply = -1 }
+			change_variable = { name = aawc_migration_holding_county_share multiply = var:aawc_migration_holding_county_give_cap }
+			change_variable = { name = aawc_migration_holding_county_share divide = var:aawc_migration_local_county_total_give_capacity }
+			change_variable = { name = aawc_migration_holding_county_share multiply = -1 }
+		}
+
+		set_variable = { name = aawc_migration_holding_projected_total value = var:aawc_migration_holding_internal }
+		change_variable = { name = aawc_migration_holding_projected_total add = var:aawc_migration_holding_county_share }
+		set_variable = { name = aawc_migration_holding_internal_percent value = var:aawc_migration_holding_rate }
+		set_variable = { name = aawc_migration_holding_county_share_percent value = var:aawc_migration_local_county_rate }
+		set_variable = { name = aawc_migration_holding_projected_percent value = var:aawc_migration_holding_rate }
+	}
+}
+
+aawc_migration_reset_county_movement_effect = {
+	set_variable = { name = aawc_migration_county_actual_net value = 0 }
+	set_variable = { name = aawc_migration_county_remaining_outgoing value = 0 }
+	set_variable = { name = aawc_migration_county_remaining_receive value = 0 }
+	set_variable = { name = aawc_migration_county_transfer_amount value = 0 }
+
+	if = {
+		limit = { var:aawc_migration_warfare_blocked = 0 }
+		set_variable = { name = aawc_migration_county_remaining_outgoing value = var:aawc_migration_county_total_give_capacity }
+		set_variable = { name = aawc_migration_county_remaining_receive value = var:aawc_migration_county_total_receive_capacity }
+	}
+
+	every_county_province = { aawc_reforging_tx_migration_reset_node_effect = yes }
+}
+
+	aawc_migration_transfer_to_scoped_target_effect = {
+	set_variable = { name = aawc_migration_county_transfer_amount value = scope:aawc_migration_target_county.var:aawc_migration_county_rating }
+	change_variable = {
+		name = aawc_migration_county_transfer_amount
+		add = {
+			value = var:aawc_migration_county_rating
+			multiply = -1
+		}
+	}
+	if = {
+		limit = { var:aawc_migration_county_transfer_amount < 0 }
+		set_variable = { name = aawc_migration_county_transfer_amount value = 0 }
+	}
+	if = {
+		limit = { var:aawc_migration_county_transfer_amount > var:aawc_migration_county_remaining_outgoing }
+		set_variable = { name = aawc_migration_county_transfer_amount value = var:aawc_migration_county_remaining_outgoing }
+	}
+	if = {
+		limit = { var:aawc_migration_county_transfer_amount > scope:aawc_migration_target_county.var:aawc_migration_county_remaining_receive }
+		set_variable = { name = aawc_migration_county_transfer_amount value = scope:aawc_migration_target_county.var:aawc_migration_county_remaining_receive }
+	}
+	aawc_reforging_tx_migration_county_effect = { REQUEST = var:aawc_migration_county_transfer_amount }
+	set_variable = { name = aawc_migration_county_transfer_amount value = aawc_reforging_tx_migration_result_value }
+	remove_variable = aawc_reforging_tx_migration_result
+	aawc_migration_commit_scoped_pair_population_effect = yes
+	change_variable = {
+		name = aawc_migration_county_remaining_outgoing
+		add = {
+			value = var:aawc_migration_county_transfer_amount
+			multiply = -1
+		}
+	}
+	change_variable = {
+		name = aawc_migration_county_actual_net
+		add = {
+			value = var:aawc_migration_county_transfer_amount
+			multiply = -1
+		}
+	}
+	scope:aawc_migration_target_county = {
+		change_variable = {
+			name = aawc_migration_county_remaining_receive
+			add = {
+				value = scope:aawc_migration_source_county.var:aawc_migration_county_transfer_amount
+				multiply = -1
+			}
+		}
+		change_variable = {
+			name = aawc_migration_county_actual_net
+			add = scope:aawc_migration_source_county.var:aawc_migration_county_transfer_amount
+		}
+	}
+
+	if = {
+		limit = {
+			holder = { is_ai = no }
+			var:aawc_migration_county_transfer_amount > 0
+		}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.89 paired county rating transfer" }
+		}
+	
+	set_variable = { name = aawc_migration_county_remaining_outgoing value = { value = var:aawc_migration_county_remaining_outgoing min = 0 } }
+	scope:aawc_migration_target_county = { set_variable = { name = aawc_migration_county_remaining_receive value = { value = var:aawc_migration_county_remaining_receive min = 0 } } }
+}
+
+	aawc_migration_pair_adjacent_county_effect = {
+		save_scope_as = aawc_migration_source_county
+		set_variable = { name = aawc_migration_county_transfer_amount value = 0 }
+
+	if = {
+		limit = {
+			var:aawc_migration_county_remaining_outgoing > 0
+			var:aawc_migration_static_neighbor_count > 0
+		}
+		every_neighboring_county = {
+			limit = {
+				tier = tier_county
+				holder = { agot_is_dummy_character = no }
+				has_variable = aawc_population_total
+				has_variable = aawc_population_expected
+				var:aawc_migration_warfare_blocked = 0
+				var:aawc_migration_county_remaining_receive > 0
+				var:aawc_migration_county_rating > scope:aawc_migration_source_county.var:aawc_migration_county_rating
+				OR = {
+					faith = scope:aawc_migration_source_county.faith
+					culture = scope:aawc_migration_source_county.culture
+					scope:aawc_migration_source_county.holder = { is_at_war = yes }
+				}
+				OR = {
+					holder = { is_at_war = no }
+					scope:aawc_migration_source_county.holder = { is_at_war = yes }
+				}
+			}
+			if = {
+				limit = { scope:aawc_migration_source_county.var:aawc_migration_county_remaining_outgoing > 0 }
+				save_scope_as = aawc_migration_target_county
+				scope:aawc_migration_source_county = { aawc_migration_transfer_to_scoped_target_effect = yes }
+			}
+		}
+		if = {
+			limit = {
+				holder = { is_ai = no }
+				var:aawc_migration_county_remaining_outgoing > 0
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.89 source retained county migration budget after adjacent rating comparisons" }
+		}
+	}
+	else_if = {
+		limit = {
+			var:aawc_migration_county_remaining_outgoing > 0
+			holder = { is_ai = no }
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.89 county migration found no adjacent real county with higher rating and receive capacity" }
+	}
+}
+
+# Commit one already matched adjacent-county edge as an exact thirteen-band
+# packet. Planning, eligibility, ratings and rate caps remain the legacy Stage-1
+# inputs. The source county owns the temporary packet so no synthetic cohort is
+# invented at the destination.
+aawc_migration_commit_scoped_pair_population_effect = {
+	save_scope_as = aawc_reforging_transfer_pool_owner
+	aawc_reforging_cohort_reset_transfer_pool_effect = yes
+	set_variable = { name = aawc_reforging_transfer_pool_debited value = 0 }
+	set_variable = { name = aawc_reforging_transfer_pool_credited value = 0 }
+
+	every_county_province = {
+		if = {
+			limit = { aawc_reforging_tx_migration_edge_plan_value < 0 }
+			set_variable = { name = aawc_reforging_transfer_edge_amount value = { value = aawc_reforging_tx_migration_edge_plan_value multiply = -1 } }
+			aawc_reforging_cohort_capture_transfer_packet_effect = { AMOUNT = var:aawc_reforging_transfer_edge_amount }
+			scope:aawc_reforging_transfer_pool_owner = { change_variable = { name = aawc_reforging_transfer_pool_debited add = prev.var:aawc_reforging_cohort_last_transfer_debit } }
+			remove_variable = aawc_reforging_transfer_edge_amount
+		}
+	}
+	scope:aawc_migration_target_county = {
+		every_county_province = {
+			if = {
+				limit = { aawc_reforging_tx_migration_edge_plan_value > 0 }
+				aawc_reforging_cohort_apply_transfer_packet_effect = { AMOUNT = aawc_reforging_tx_migration_edge_plan_value }
+				scope:aawc_reforging_transfer_pool_owner = { change_variable = { name = aawc_reforging_transfer_pool_credited add = prev.var:aawc_reforging_cohort_last_transfer_credit } }
+			}
+		}
+	}
+	if = {
+		limit = { NOT = { var:aawc_reforging_transfer_pool_debited = var:aawc_reforging_transfer_pool_credited } }
+		change_variable = { name = aawc_reforging_tx_migration_rejected_total add = 1 }
+		error_log = "AAWC Stage 1 migration packet mismatch; unmatched residents remain fail-closed in the source-owned pool"
+	}
+	aawc_reforging_cohort_cleanup_transfer_pool_effect = yes
+	remove_variable = aawc_reforging_transfer_pool_debited
+	remove_variable = aawc_reforging_transfer_pool_credited
+	every_county_province = {
+		set_variable = { name = aawc_reforging_tx_migration_plan value = 0 }
+		set_variable = { name = aawc_reforging_tx_migration_county_plan value = 0 }
+		aawc_reforging_tx_migration_cleanup_edge_effect = yes
+	}
+	scope:aawc_migration_target_county = {
+		every_county_province = {
+			set_variable = { name = aawc_reforging_tx_migration_plan value = 0 }
+			set_variable = { name = aawc_reforging_tx_migration_county_plan value = 0 }
+			aawc_reforging_tx_migration_cleanup_edge_effect = yes
+		}
+	}
+}
+
+# Internal redistribution uses the same packet contract in two bounded passes:
+# all donors first, then all recipients. The legacy internal planner still owns
+# amounts and recipients; only demographic commit ownership is centralized.
+aawc_migration_commit_internal_population_effect = {
+	save_scope_as = aawc_reforging_transfer_pool_owner
+	aawc_reforging_cohort_reset_transfer_pool_effect = yes
+	set_variable = { name = aawc_reforging_transfer_pool_debited value = 0 }
+	set_variable = { name = aawc_reforging_transfer_pool_credited value = 0 }
+	every_county_province = {
+		if = {
+			limit = { aawc_reforging_tx_migration_internal_plan_value < 0 }
+			set_variable = { name = aawc_reforging_transfer_internal_amount value = { value = aawc_reforging_tx_migration_internal_plan_value multiply = -1 } }
+			aawc_reforging_cohort_capture_transfer_packet_effect = { AMOUNT = var:aawc_reforging_transfer_internal_amount }
+			scope:aawc_reforging_transfer_pool_owner = { change_variable = { name = aawc_reforging_transfer_pool_debited add = prev.var:aawc_reforging_cohort_last_transfer_debit } }
+			remove_variable = aawc_reforging_transfer_internal_amount
+		}
+	}
+	every_county_province = {
+		if = {
+			limit = { aawc_reforging_tx_migration_internal_plan_value > 0 }
+			aawc_reforging_cohort_apply_transfer_packet_effect = { AMOUNT = aawc_reforging_tx_migration_internal_plan_value }
+			scope:aawc_reforging_transfer_pool_owner = { change_variable = { name = aawc_reforging_transfer_pool_credited add = prev.var:aawc_reforging_cohort_last_transfer_credit } }
+		}
+	}
+	if = {
+		limit = { NOT = { var:aawc_reforging_transfer_pool_debited = var:aawc_reforging_transfer_pool_credited } }
+		change_variable = { name = aawc_reforging_tx_migration_rejected_total add = 1 }
+		error_log = "AAWC Stage 1 internal migration packet mismatch; unmatched residents remain fail-closed in the county pool"
+	}
+	aawc_reforging_cohort_cleanup_transfer_pool_effect = yes
+	remove_variable = aawc_reforging_transfer_pool_debited
+	remove_variable = aawc_reforging_transfer_pool_credited
+}
+
+# Retained as a compatibility wrapper for any external caller not represented in
+# the frozen ownership matrix. Production migration no longer invokes it.
+aawc_migration_apply_holding_population_delta_effect = {
+	if = {
+		limit = {
+			has_holding = yes
+			has_variable = aawc_population_current
+			OR = {
+				var:aawc_migration_holding_internal != 0
+				var:aawc_migration_holding_county_share != 0
+			}
+		}
+		aawc_reforging_cohort_apply_signed_transfer_effect = { AMOUNT = var:aawc_migration_holding_projected_total }
+		set_variable = { name = aawc_population_total value = var:aawc_population_current }
+		set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+		change_variable = {
+			name = aawc_population_surplus
+			add = {
+				value = var:aawc_population_expected
+				multiply = -1
+			}
+		}
+		if = {
+			limit = {
+				aawc_diagnostics_verbose_enabled = yes
+				county = { holder = { is_ai = no } }
+			}
+			error_log = "AAWC MIGRATION 1.9.89 committed holding population migration delta"
+		}
+	}
+}
+
+aawc_migration_commit_county_movement_effect = {
+	save_scope_as = aawc_migration_source_county
+	aawc_reforging_tx_migration_internal_effect = { REQUEST = var:aawc_migration_internal_transfer_total }
+	remove_variable = aawc_reforging_tx_migration_result
+	aawc_migration_commit_internal_population_effect = yes
+
+	set_variable = { name = aawc_migration_county_projected_net value = var:aawc_migration_county_actual_net }
+
+	every_county_province = {
+		set_variable = { name = aawc_migration_local_internal_transfer_total value = prev.var:aawc_migration_internal_transfer_total }
+		set_variable = { name = aawc_migration_local_internal_total_give_capacity value = prev.var:aawc_migration_internal_total_give_capacity }
+		set_variable = { name = aawc_migration_local_internal_total_receive_capacity value = prev.var:aawc_migration_internal_total_receive_capacity }
+		set_variable = { name = aawc_migration_local_county_projected_net value = prev.var:aawc_migration_county_actual_net }
+		set_variable = { name = aawc_migration_local_county_rate value = prev.var:aawc_migration_county_rate }
+		set_variable = { name = aawc_migration_local_county_total_give_capacity value = prev.var:aawc_migration_county_total_give_capacity }
+		set_variable = { name = aawc_migration_local_county_total_receive_capacity value = prev.var:aawc_migration_county_total_receive_capacity }
+		aawc_migration_apply_holding_diagnostics_effect = yes
+		set_variable = { name = aawc_migration_holding_internal value = aawc_reforging_tx_migration_internal_plan_value }
+		set_variable = { name = aawc_migration_holding_county_share value = aawc_reforging_tx_migration_county_plan_value }
+		set_variable = { name = aawc_migration_holding_projected_total value = aawc_reforging_tx_migration_plan_value }
+		aawc_reforging_tx_migration_cleanup_node_effect = yes
+	}
+
+	aawc_population_reaggregate_county_cached_effect = yes
+	# Keep the holder's realm aggregate current without a post-migration every_ruler scan.
+	holder = {
+		if = {
+			limit = {
+				agot_is_dummy_character = no
+				is_landed = yes
+				has_variable = aawc_population_total
+			}
+			change_variable = { name = aawc_population_total add = prev.var:aawc_migration_county_actual_net }
+			change_variable = { name = aawc_population_surplus add = prev.var:aawc_migration_county_actual_net }
+			if = { limit = { NOT = { has_variable = aawc_population_reserved } } set_variable = { name = aawc_population_reserved value = 0 } }
+			set_variable = { name = aawc_population_available value = var:aawc_population_surplus }
+			change_variable = { name = aawc_population_available add = { value = var:aawc_population_reserved multiply = -1 } }
+			if = { limit = { var:aawc_population_available < 0 } set_variable = { name = aawc_population_available value = 0 } }
+			set_variable = { name = aawc_population_total_display value = { value = var:aawc_population_total round = yes } }
+			set_variable = { name = aawc_population_surplus_display value = { value = var:aawc_population_surplus round = yes } }
+			set_variable = { name = aawc_population_available_display value = { value = var:aawc_population_available round = yes } }
+		}
+	}
+}
+
+# Target counts are informational GUI data. Actual movement and this selected-county
+# diagnostic both use direct adjacency exclusively.
+aawc_migration_refresh_selected_county_target_counts_effect = {
+	set_variable = { name = aawc_migration_neighbor_target_count value = 0 }
+	save_scope_as = aawc_migration_selected_county
+	if = {
+		limit = { var:aawc_migration_warfare_blocked = 0 }
+		every_neighboring_county = {
+			limit = {
+				NOT = { has_variable = aawc_population_warfare_growth_suppressed }
+				NOT = { has_variable = aawc_population_siege_growth_suppressed }
+				NOT = { has_variable = aawc_population_raid_growth_suppressed }
+				OR = {
+					faith = scope:aawc_migration_selected_county.faith
+					culture = scope:aawc_migration_selected_county.culture
+					scope:aawc_migration_selected_county.holder = { is_at_war = yes }
+				}
+				OR = {
+					holder = { is_at_war = no }
+					scope:aawc_migration_selected_county.holder = { is_at_war = yes }
+				}
+			}
+			scope:aawc_migration_selected_county = { change_variable = { name = aawc_migration_neighbor_target_count add = 1 } }
+		}
+	}
+}
+
+aawc_migration_update_county_diagnostics_effect = {
+	if = {
+		limit = { NOT = { has_variable = aawc_migration_static_neighbor_count } }
+		set_variable = { name = aawc_migration_static_neighbor_count value = 0 }
+		save_scope_as = aawc_migration_adjacency_county
+		every_neighboring_county = {
+			limit = { tier = tier_county }
+			scope:aawc_migration_adjacency_county = { change_variable = { name = aawc_migration_static_neighbor_count add = 1 } }
+		}
+	}
+	set_variable = { name = aawc_migration_public_order_value value = county_opinion }
+	set_variable = { name = aawc_migration_push_score value = 0 }
+	set_variable = { name = aawc_migration_pull_score value = 0 }
+	set_variable = { name = aawc_migration_public_order_push value = 0 }
+	set_variable = { name = aawc_migration_public_order_pull value = 0 }
+	set_variable = { name = aawc_migration_capacity_push value = 0 }
+	set_variable = { name = aawc_migration_capacity_pull value = 0 }
+	set_variable = { name = aawc_migration_peace_pull value = 0 }
+	set_variable = { name = aawc_migration_war_push value = 0 }
+	set_variable = { name = aawc_migration_warfare_blocked value = 0 }
+	set_variable = { name = aawc_migration_county_rating value = 100 }
+	set_variable = { name = aawc_migration_county_base_rating value = 100 }
+	set_variable = { name = aawc_migration_county_popular_opinion_rating value = var:aawc_migration_public_order_value }
+	set_variable = { name = aawc_migration_county_war_rating_penalty value = 0 }
+	set_variable = { name = aawc_migration_county_direct_faith_penalty value = 0 }
+	set_variable = { name = aawc_migration_county_direct_culture_penalty value = 0 }
+	set_variable = { name = aawc_migration_county_liege_faith_penalty value = 0 }
+	set_variable = { name = aawc_migration_county_liege_culture_penalty value = 0 }
+	set_variable = { name = aawc_migration_county_building_rating value = aawc_migration_county_building_rating_average }
+	set_variable = { name = aawc_migration_county_population_pressure_percent value = 100 }
+	set_variable = { name = aawc_migration_county_leaving_percent value = 0 }
+	set_variable = { name = aawc_migration_county_entering_percent value = 0 }
+	set_variable = { name = aawc_migration_neighbor_target_count value = 0 }
+	set_variable = { name = aawc_migration_county_projected_net value = 0 }
+	set_variable = { name = aawc_migration_county_projected_incoming value = 0 }
+	set_variable = { name = aawc_migration_county_projected_outgoing value = 0 }
+	set_variable = { name = aawc_migration_county_projected_percent value = 0 }
+	set_variable = { name = aawc_migration_county_rate value = 0 }
+	set_variable = { name = aawc_migration_county_rate_abs value = 0 }
+	set_variable = { name = aawc_migration_county_public_order_effect value = 0 }
+	set_variable = { name = aawc_migration_county_receive_cap value = 0 }
+	set_variable = { name = aawc_migration_county_give_cap value = 0 }
+	set_variable = { name = aawc_migration_county_score_balance value = 0 }
+	set_variable = { name = aawc_migration_internal_total_give_capacity value = 0 }
+	set_variable = { name = aawc_migration_internal_total_receive_capacity value = 0 }
+	set_variable = { name = aawc_migration_internal_transfer_total value = 0 }
+	set_variable = { name = aawc_migration_county_total_give_capacity value = 0 }
+	set_variable = { name = aawc_migration_county_total_receive_capacity value = 0 }
+
+	save_scope_as = aawc_migration_source_county
+
+	change_variable = { name = aawc_migration_county_rating add = var:aawc_migration_county_popular_opinion_rating }
+
+	if = {
+		limit = { holder = { is_at_war = yes } }
+		set_variable = { name = aawc_migration_war_push value = 50 }
+		set_variable = { name = aawc_migration_county_war_rating_penalty value = 50 }
+		change_variable = { name = aawc_migration_county_rating add = -50 }
+	}
+
+	if = {
+		limit = { holder = { NOT = { faith = scope:aawc_migration_source_county.faith } } }
+		set_variable = { name = aawc_migration_county_direct_faith_penalty value = 20 }
+		change_variable = { name = aawc_migration_county_rating add = -20 }
+	}
+
+	if = {
+		limit = { holder = { NOT = { culture = scope:aawc_migration_source_county.culture } } }
+		set_variable = { name = aawc_migration_county_direct_culture_penalty value = 20 }
+		change_variable = { name = aawc_migration_county_rating add = -20 }
+	}
+
+	if = {
+		limit = { holder = { exists = liege liege = { NOT = { faith = scope:aawc_migration_source_county.faith } } } }
+		change_variable = { name = aawc_migration_county_liege_faith_penalty add = 5 }
+		change_variable = { name = aawc_migration_county_rating add = -5 }
+	}
+	if = {
+		limit = { holder = { exists = liege.liege liege.liege = { NOT = { faith = scope:aawc_migration_source_county.faith } } } }
+		change_variable = { name = aawc_migration_county_liege_faith_penalty add = 5 }
+		change_variable = { name = aawc_migration_county_rating add = -5 }
+	}
+	if = {
+		limit = { holder = { exists = liege.liege.liege liege.liege.liege = { NOT = { faith = scope:aawc_migration_source_county.faith } } } }
+		change_variable = { name = aawc_migration_county_liege_faith_penalty add = 5 }
+		change_variable = { name = aawc_migration_county_rating add = -5 }
+	}
+	if = {
+		limit = { holder = { exists = liege.liege.liege.liege liege.liege.liege.liege = { NOT = { faith = scope:aawc_migration_source_county.faith } } } }
+		change_variable = { name = aawc_migration_county_liege_faith_penalty add = 5 }
+		change_variable = { name = aawc_migration_county_rating add = -5 }
+	}
+	if = {
+		limit = { holder = { exists = liege liege = { NOT = { culture = scope:aawc_migration_source_county.culture } } } }
+		change_variable = { name = aawc_migration_county_liege_culture_penalty add = 5 }
+		change_variable = { name = aawc_migration_county_rating add = -5 }
+	}
+	if = {
+		limit = { holder = { exists = liege.liege liege.liege = { NOT = { culture = scope:aawc_migration_source_county.culture } } } }
+		change_variable = { name = aawc_migration_county_liege_culture_penalty add = 5 }
+		change_variable = { name = aawc_migration_county_rating add = -5 }
+	}
+	if = {
+		limit = { holder = { exists = liege.liege.liege liege.liege.liege = { NOT = { culture = scope:aawc_migration_source_county.culture } } } }
+		change_variable = { name = aawc_migration_county_liege_culture_penalty add = 5 }
+		change_variable = { name = aawc_migration_county_rating add = -5 }
+	}
+	if = {
+		limit = { holder = { exists = liege.liege.liege.liege liege.liege.liege.liege = { NOT = { culture = scope:aawc_migration_source_county.culture } } } }
+		change_variable = { name = aawc_migration_county_liege_culture_penalty add = 5 }
+		change_variable = { name = aawc_migration_county_rating add = -5 }
+	}
+
+	change_variable = { name = aawc_migration_county_rating add = var:aawc_migration_county_building_rating }
+
+	if = {
+		limit = {
+			has_variable = aawc_population_expected
+			has_variable = aawc_population_total
+			var:aawc_population_expected > 0
+		}
+		set_variable = { name = aawc_migration_county_population_pressure_percent value = var:aawc_population_total }
+		change_variable = { name = aawc_migration_county_population_pressure_percent multiply = 100 }
+		change_variable = { name = aawc_migration_county_population_pressure_percent divide = var:aawc_population_expected }
+	}
+
+	if = {
+		limit = { var:aawc_migration_county_population_pressure_percent < 10 }
+		set_variable = { name = aawc_migration_county_leaving_percent value = 0 }
+		set_variable = { name = aawc_migration_county_entering_percent value = 5 }
+	}
+	else_if = {
+		limit = { var:aawc_migration_county_population_pressure_percent < 25 }
+		set_variable = { name = aawc_migration_county_leaving_percent value = 1 }
+		set_variable = { name = aawc_migration_county_entering_percent value = 4 }
+	}
+	else_if = {
+		limit = { var:aawc_migration_county_population_pressure_percent < 50 }
+		set_variable = { name = aawc_migration_county_leaving_percent value = 2 }
+		set_variable = { name = aawc_migration_county_entering_percent value = 3 }
+	}
+	else_if = {
+		limit = { var:aawc_migration_county_population_pressure_percent < 75 }
+		set_variable = { name = aawc_migration_county_leaving_percent value = 3 }
+		set_variable = { name = aawc_migration_county_entering_percent value = 2 }
+	}
+	else_if = {
+		limit = { var:aawc_migration_county_population_pressure_percent < 100 }
+		set_variable = { name = aawc_migration_county_leaving_percent value = 4 }
+		set_variable = { name = aawc_migration_county_entering_percent value = 1 }
+	}
+	else = {
+		set_variable = { name = aawc_migration_county_leaving_percent value = 5 }
+		set_variable = { name = aawc_migration_county_entering_percent value = 0 }
+	}
+
+	if = {
+		limit = {
+			OR = {
+				has_variable = aawc_population_warfare_growth_suppressed
+				has_variable = aawc_population_siege_growth_suppressed
+				has_variable = aawc_population_raid_growth_suppressed
+			}
+		}
+		set_variable = { name = aawc_migration_warfare_blocked value = 1 }
+		set_variable = { name = aawc_migration_push_score value = 0 }
+		set_variable = { name = aawc_migration_pull_score value = 0 }
+		set_variable = { name = aawc_migration_county_rate value = 0 }
+		set_variable = { name = aawc_migration_county_leaving_percent value = 0 }
+		set_variable = { name = aawc_migration_county_entering_percent value = 0 }
+	}
+
+	set_variable = { name = aawc_migration_county_rate value = 0 }
+	set_variable = { name = aawc_migration_county_projected_percent value = 0 }
+	set_variable = { name = aawc_migration_county_rate_abs value = 0 }
+	set_variable = { name = aawc_migration_county_score_balance value = var:aawc_migration_county_rating }
+
+	every_county_province = {
+		aawc_migration_prepare_holding_diagnostics_effect = yes
+	}
+
+	set_variable = { name = aawc_migration_county_receive_cap value = var:aawc_migration_county_total_receive_capacity }
+	set_variable = { name = aawc_migration_county_give_cap value = var:aawc_migration_county_total_give_capacity }
+
+	set_variable = { name = aawc_migration_internal_transfer_total value = var:aawc_migration_internal_total_give_capacity }
+	if = {
+		limit = { var:aawc_migration_internal_total_receive_capacity < var:aawc_migration_internal_transfer_total }
+		set_variable = { name = aawc_migration_internal_transfer_total value = var:aawc_migration_internal_total_receive_capacity }
+	}
+
+	if = {
+		limit = { holder = { is_ai = no } }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.89 county diagnostic calculated with county and holding movement caps" }
+		if = {
+			limit = { var:aawc_migration_warfare_blocked > 0 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.89 active siege or raid blocks county migration target selection" }
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.89 county diagnostic prepared rating and pressure caps" }
+		}
+	}
+}
+
+aawc_migration_update_world_effect = {
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.93 map-wide migration begin" }
+	every_county = {
+		limit = {
+			tier = tier_county
+			exists = holder
+			holder = { agot_is_dummy_character = no }
+			has_variable = aawc_population_total
+			has_variable = aawc_population_expected
+			var:aawc_population_expected > 0
+		}
+		aawc_migration_update_county_diagnostics_effect = yes
+		aawc_migration_reset_county_movement_effect = yes
+	}
+	every_county = {
+		limit = {
+			tier = tier_county
+			exists = holder
+			holder = { agot_is_dummy_character = no }
+			has_variable = aawc_population_total
+			has_variable = aawc_population_expected
+			var:aawc_population_expected > 0
+			var:aawc_migration_county_remaining_outgoing > 0
+		}
+		aawc_migration_pair_adjacent_county_effect = yes
+	}
+	every_county = {
+		limit = {
+			tier = tier_county
+			exists = holder
+			holder = { agot_is_dummy_character = no }
+			has_variable = aawc_population_total
+			has_variable = aawc_population_expected
+			var:aawc_population_expected > 0
+		}
+		aawc_migration_commit_county_movement_effect = yes
+	}
+	# County movement is already reflected in holding and county caches. Ruler aggregates are
+	# rebuilt by each staggered monthly ruler tick instead of another map-wide ruler scan here.
+	if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY synchronized monthly migration completed" }
+}
+
+aawc_migration_update_character_diagnostics_effect = {
+	if = {
+		limit = {
+			agot_is_dummy_character = no
+			is_landed = yes
+			is_ai = no
+		}
+		aawc_migration_update_world_effect = yes
+	}
+}

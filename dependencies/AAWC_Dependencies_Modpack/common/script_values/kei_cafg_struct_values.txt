@@ -1,0 +1,61 @@
+﻿V_kCAFG_struct_factor = {
+    value = var:factor
+}
+
+V_kCAFG_struct_inverted_factor = {
+    value = 1
+    subtract = var:factor
+}
+
+V_kCAFG_struct_amount = {
+    value = var:factor
+    multiply = V_kCAFG_province_values_scale
+}
+
+V_kCAFG_struct_factor_rounded = {
+    value = V_kCAFG_struct_factor
+    multiply = 100
+    round = yes
+    min = 1
+    divide = 100
+}
+
+V_kCAFG_struct_amount_rounded = {
+    value = V_kCAFG_struct_amount
+    multiply = 100
+    round = yes
+    min = 1
+    divide = 100
+}
+
+V_kCAFG_struct_tension_baseline_contribution = {
+    value = var:factor
+    multiply = var:tension_baseline
+}
+
+V_kCAFG_struct_opinion_value = {
+    value = 0
+    if = {
+        limit = { has_variable = tension_baseline }
+        if = {
+            limit = { var:tension_baseline <= V_kCAFG_tension_baseline_contribution_opinion_threshold_very_good }
+            value = 5
+        }
+        else_if = {
+            limit = { var:tension_baseline <= V_kCAFG_tension_baseline_contribution_opinion_threshold_good }
+            value = 4
+        }
+        else_if = {
+            limit = { var:tension_baseline <= V_kCAFG_tension_baseline_contribution_opinion_threshold_medium }
+            value = 3
+        }
+        else_if = {
+            limit = { var:tension_baseline <= V_kCAFG_tension_baseline_contribution_opinion_threshold_bad }
+            value = 2
+        }
+        else_if = {
+            limit = { var:tension_baseline <= V_kCAFG_tension_baseline_contribution_opinion_threshold_very_bad }
+            value = 1
+        }
+    }
+}

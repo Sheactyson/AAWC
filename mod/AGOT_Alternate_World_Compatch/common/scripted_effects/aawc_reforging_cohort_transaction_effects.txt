@@ -1,0 +1,388 @@
+﻿# Generated scope-coordinated Hamilton transactions. Do not hand edit.
+
+aawc_reforging_tx_prepare_effect = {
+	if = { limit = { aawc_reforging_round_counts_valid_value = 1 } aawc_reforging_cohort_ensure_production_ledger_effect = yes }
+	set_variable = { name = aawc_reforging_tx_weight value = { value = $WEIGHT$ min = 0 } }
+	set_variable = { name = aawc_reforging_tx_capacity value = { value = $CAPACITY$ min = 0 floor = yes } }
+	if = { limit = { OR = { NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_round_counts_valid_value = 0 } } set_variable = { name = aawc_reforging_tx_capacity value = 0 } }
+	set_variable = { name = aawc_reforging_tx_allocation value = 0 }
+	set_variable = { name = aawc_reforging_tx_active value = 0 }
+	set_variable = { name = aawc_reforging_tx_prepared value = 1 }
+}
+aawc_reforging_tx_allocate_effect = {
+	save_scope_as = aawc_reforging_tx_owner
+	set_variable = { name = aawc_reforging_tx_requested value = { value = $REQUEST$ min = 0 floor = yes } }
+	set_variable = { name = aawc_reforging_tx_remaining value = aawc_reforging_tx_requested_value }
+	set_variable = { name = aawc_reforging_tx_total_capacity value = 0 }
+	set_variable = { name = aawc_reforging_tx_count value = 0 }
+	set_variable = { name = aawc_reforging_tx_rounds value = 0 }
+	set_variable = { name = aawc_reforging_tx_valid value = 1 }
+	$SCAN$ = { ACTION = aawc_reforging_tx_initialize_node_effect }
+	set_variable = { name = aawc_reforging_tx_remaining value = { value = aawc_reforging_tx_remaining_value max = aawc_reforging_tx_total_capacity_value } }
+	if = { limit = { aawc_reforging_tx_valid_value = 1 }
+		while = { limit = { aawc_reforging_tx_remaining_value > 0 aawc_reforging_tx_rounds_value <= aawc_reforging_tx_count_value }
+			set_variable = { name = aawc_reforging_tx_rounds value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_rounds } add = var:aawc_reforging_tx_rounds } } add = 1 } }
+			aawc_reforging_tx_round_effect = { SCAN = $SCAN$ }
+		}
+	}
+	else = { $SCAN$ = { ACTION = aawc_reforging_tx_zero_node_effect } }
+	set_variable = { name = aawc_reforging_tx_applied value = 0 }
+	$SCAN$ = { ACTION = aawc_reforging_tx_sum_node_effect }
+	set_variable = { name = aawc_reforging_tx_remaining value = { value = aawc_reforging_tx_requested_value subtract = aawc_reforging_tx_applied_value } }
+}
+aawc_reforging_tx_initialize_node_effect = {
+	set_variable = { name = aawc_reforging_tx_allocation value = 0 }
+	set_variable = { name = aawc_reforging_tx_active value = 0 }
+	scope:aawc_reforging_tx_owner = { set_variable = { name = aawc_reforging_tx_count value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_count } add = var:aawc_reforging_tx_count } } add = 1 } } }
+	set_variable = { name = aawc_reforging_tx_index value = scope:aawc_reforging_tx_owner.aawc_reforging_tx_count_value }
+	if = { limit = { aawc_reforging_tx_weight_value > 0 aawc_reforging_tx_capacity_value > 0 }
+		set_variable = { name = aawc_reforging_tx_active value = 1 }
+	scope:aawc_reforging_tx_owner = { set_variable = { name = aawc_reforging_tx_total_capacity value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_total_capacity } add = var:aawc_reforging_tx_total_capacity } } add = prev.aawc_reforging_tx_capacity_value } } }
+		set_variable = { name = aawc_reforging_tx_quota value = { value = scope:aawc_reforging_tx_owner.aawc_reforging_tx_requested_value multiply = aawc_reforging_tx_weight_value } }
+		if = { limit = { aawc_reforging_tx_quota_value > 1000000000000 } scope:aawc_reforging_tx_owner = { set_variable = { name = aawc_reforging_tx_valid value = 0 } } }
+	}
+}
+aawc_reforging_tx_zero_node_effect = {
+	set_variable = { name = aawc_reforging_tx_allocation value = 0 }
+	set_variable = { name = aawc_reforging_tx_active value = 0 }
+}
+aawc_reforging_tx_sum_node_effect = {
+	scope:aawc_reforging_tx_owner = { set_variable = { name = aawc_reforging_tx_applied value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_applied } add = var:aawc_reforging_tx_applied } } add = prev.aawc_reforging_tx_allocation_value } } }
+}
+aawc_reforging_tx_sum_weight_effect = {
+	if = { limit = { aawc_reforging_tx_active_value = 1 } scope:aawc_reforging_tx_owner = { set_variable = { name = aawc_reforging_tx_weight_sum value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_weight_sum } add = var:aawc_reforging_tx_weight_sum } } add = prev.aawc_reforging_tx_weight_value } } } }
+}
+aawc_reforging_tx_round_effect = {
+	set_variable = { name = aawc_reforging_tx_weight_sum value = 0 }
+	$SCAN$ = { ACTION = aawc_reforging_tx_sum_weight_effect }
+	if = { limit = { aawc_reforging_tx_weight_sum_value > 0 }
+	set_variable = { name = aawc_reforging_tx_budget value = aawc_reforging_tx_remaining_value }
+	set_variable = { name = aawc_reforging_tx_saturated value = 0 }
+	$SCAN$ = { ACTION = aawc_reforging_tx_quota_effect }
+	if = { limit = { aawc_reforging_tx_saturated_value = 0 }
+	$SCAN$ = { ACTION = aawc_reforging_tx_floor_effect }
+	set_variable = { name = aawc_reforging_tx_awards value = 0 }
+	while = { limit = { aawc_reforging_tx_remaining_value > 0 aawc_reforging_tx_awards_value < aawc_reforging_tx_count_value }
+	set_variable = { name = aawc_reforging_tx_awards value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_awards } add = var:aawc_reforging_tx_awards } } add = 1 } }
+	set_variable = { name = aawc_reforging_tx_best value = -1 }
+	set_variable = { name = aawc_reforging_tx_best_index value = 0 }
+	$SCAN$ = { ACTION = aawc_reforging_tx_best_effect }
+	$SCAN$ = { ACTION = aawc_reforging_tx_award_effect }
+	}
+	set_variable = { name = aawc_reforging_tx_rounds value = { value = aawc_reforging_tx_count_value add = 1 } }
+	}
+	}
+	else = { set_variable = { name = aawc_reforging_tx_rounds value = { value = aawc_reforging_tx_count_value add = 1 } } }
+}
+aawc_reforging_tx_quota_effect = {
+	if = { limit = { aawc_reforging_tx_active_value = 1 }
+	set_variable = { name = aawc_reforging_tx_quota value = { value = scope:aawc_reforging_tx_owner.aawc_reforging_tx_budget_value multiply = aawc_reforging_tx_weight_value divide = scope:aawc_reforging_tx_owner.aawc_reforging_tx_weight_sum_value floor = yes } }
+	if = { limit = { aawc_reforging_tx_quota_value >= aawc_reforging_tx_capacity_value }
+	set_variable = { name = aawc_reforging_tx_allocation value = aawc_reforging_tx_capacity_value }
+	set_variable = { name = aawc_reforging_tx_active value = 0 }
+	scope:aawc_reforging_tx_owner = { set_variable = { name = aawc_reforging_tx_remaining value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_remaining } add = var:aawc_reforging_tx_remaining } } add = { value = prev.aawc_reforging_tx_capacity_value multiply = -1 } } } set_variable = { name = aawc_reforging_tx_saturated value = 1 } }
+	}
+	}
+}
+aawc_reforging_tx_floor_effect = {
+	if = { limit = { aawc_reforging_tx_active_value = 1 }
+	set_variable = { name = aawc_reforging_tx_allocation value = aawc_reforging_tx_quota_value }
+	scope:aawc_reforging_tx_owner = { set_variable = { name = aawc_reforging_tx_remaining value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_remaining } add = var:aawc_reforging_tx_remaining } } add = { value = prev.aawc_reforging_tx_quota_value multiply = -1 } } } }
+	set_variable = { name = aawc_reforging_tx_remainder value = { value = scope:aawc_reforging_tx_owner.aawc_reforging_tx_budget_value multiply = aawc_reforging_tx_weight_value subtract = { value = aawc_reforging_tx_quota_value multiply = scope:aawc_reforging_tx_owner.aawc_reforging_tx_weight_sum_value } } }
+	}
+}
+aawc_reforging_tx_best_effect = {
+	if = { limit = { aawc_reforging_tx_active_value = 1 OR = { aawc_reforging_tx_remainder_value > scope:aawc_reforging_tx_owner.aawc_reforging_tx_best_value AND = { aawc_reforging_tx_remainder_value = scope:aawc_reforging_tx_owner.aawc_reforging_tx_best_value aawc_reforging_tx_index_value < scope:aawc_reforging_tx_owner.aawc_reforging_tx_best_index_value } } }
+	scope:aawc_reforging_tx_owner = { set_variable = { name = aawc_reforging_tx_best value = prev.aawc_reforging_tx_remainder_value } set_variable = { name = aawc_reforging_tx_best_index value = prev.aawc_reforging_tx_index_value } }
+	}
+}
+aawc_reforging_tx_award_effect = {
+	if = { limit = { aawc_reforging_tx_index_value = scope:aawc_reforging_tx_owner.aawc_reforging_tx_best_index_value }
+	set_variable = { name = aawc_reforging_tx_allocation value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_allocation } add = var:aawc_reforging_tx_allocation } } add = 1 } }
+	set_variable = { name = aawc_reforging_tx_active value = 0 }
+	scope:aawc_reforging_tx_owner = { set_variable = { name = aawc_reforging_tx_remaining value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_remaining } add = var:aawc_reforging_tx_remaining } } add = -1 } } }
+	}
+}
+aawc_reforging_tx_whole_debit_effect = {
+	set_variable = { name = aawc_reforging_tx_whole value = { value = $AMOUNT$ min = 0 floor = yes } }
+	set_variable = { name = aawc_reforging_tx_had_carry value = 0 }
+	set_variable = { name = aawc_reforging_tx_saved_carry value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_population_debit_pending } add = var:aawc_reforging_round_population_debit_pending } } }
+	if = { limit = { has_variable = aawc_reforging_round_population_debit_pending } set_variable = { name = aawc_reforging_tx_had_carry value = 1 } }
+	set_variable = { name = aawc_reforging_round_population_debit_pending value = 0 }
+	aawc_reforging_cohort_debit_population_effect = { AMOUNT = aawc_reforging_tx_whole_value }
+	if = { limit = { aawc_population_valid_settlement_for_cohort_trigger = yes aawc_reforging_tx_had_carry_value = 1 } set_variable = { name = aawc_reforging_round_population_debit_pending value = aawc_reforging_tx_saved_carry_value } }
+	else = { remove_variable = aawc_reforging_round_population_debit_pending }
+	remove_variable = aawc_reforging_tx_whole
+	remove_variable = aawc_reforging_tx_had_carry
+	remove_variable = aawc_reforging_tx_saved_carry
+}
+aawc_reforging_tx_whole_credit_effect = {
+	set_variable = { name = aawc_reforging_tx_whole value = { value = $AMOUNT$ min = 0 floor = yes } }
+	set_variable = { name = aawc_reforging_tx_had_carry value = 0 }
+	set_variable = { name = aawc_reforging_tx_saved_carry value = { value = 0 if = { limit = { has_variable = aawc_reforging_cohort_age_20_24_credit_pending } add = var:aawc_reforging_cohort_age_20_24_credit_pending } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_20_24_credit_pending } set_variable = { name = aawc_reforging_tx_had_carry value = 1 } }
+	set_variable = { name = aawc_reforging_cohort_age_20_24_credit_pending value = 0 }
+	aawc_reforging_cohort_credit_population_effect = { AMOUNT = aawc_reforging_tx_whole_value BAND = aawc_reforging_cohort_age_20_24 }
+	if = { limit = { aawc_population_valid_settlement_for_cohort_trigger = yes aawc_reforging_tx_had_carry_value = 1 } set_variable = { name = aawc_reforging_cohort_age_20_24_credit_pending value = aawc_reforging_tx_saved_carry_value } }
+	else = { remove_variable = aawc_reforging_cohort_age_20_24_credit_pending }
+	remove_variable = aawc_reforging_tx_whole
+	remove_variable = aawc_reforging_tx_had_carry
+	remove_variable = aawc_reforging_tx_saved_carry
+}
+aawc_reforging_tx_cleanup_node_effect = {
+	remove_variable = aawc_reforging_tx_weight
+	remove_variable = aawc_reforging_tx_capacity
+	remove_variable = aawc_reforging_tx_allocation
+	remove_variable = aawc_reforging_tx_active
+	remove_variable = aawc_reforging_tx_quota
+	remove_variable = aawc_reforging_tx_remainder
+	remove_variable = aawc_reforging_tx_index
+	remove_variable = aawc_reforging_tx_prepared
+}
+aawc_reforging_tx_cleanup_owner_effect = {
+	remove_variable = aawc_reforging_tx_requested
+	remove_variable = aawc_reforging_tx_remaining
+	remove_variable = aawc_reforging_tx_total_capacity
+	remove_variable = aawc_reforging_tx_weight_sum
+	remove_variable = aawc_reforging_tx_budget
+	remove_variable = aawc_reforging_tx_saturated
+	remove_variable = aawc_reforging_tx_best
+	remove_variable = aawc_reforging_tx_best_index
+	remove_variable = aawc_reforging_tx_count
+	remove_variable = aawc_reforging_tx_rounds
+	remove_variable = aawc_reforging_tx_awards
+	remove_variable = aawc_reforging_tx_valid
+	remove_variable = aawc_reforging_tx_applied
+}
+aawc_reforging_tx_round_reserved_cost_effect = {
+	if = { limit = { aawc_reforging_tx_reserved_pending_value >= 0 aawc_reforging_tx_reserved_pending_value < 1 }
+	set_variable = { name = aawc_reforging_tx_cost_due value = { value = $AMOUNT$ min = 0 add = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_reserved_pending } add = var:aawc_reforging_tx_reserved_pending } } } }
+	set_variable = { name = aawc_population_remaining_spend value = { value = aawc_reforging_tx_cost_due_value floor = yes } }
+	set_variable = { name = aawc_reforging_tx_reserved_pending value = { value = aawc_reforging_tx_cost_due_value subtract = { value = 0 if = { limit = { has_variable = aawc_population_remaining_spend } add = var:aawc_population_remaining_spend } } } }
+	remove_variable = aawc_reforging_tx_cost_due
+	}
+	else = { set_variable = { name = aawc_population_remaining_spend value = 0 } set_variable = { name = aawc_reforging_tx_invalid_rejections_total value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_invalid_rejections_total } add = var:aawc_reforging_tx_invalid_rejections_total } } add = 1 } } }
+}
+aawc_reforging_tx_begin_isolated_debit_effect = {
+	set_variable = { name = aawc_reforging_tx_had_carry value = 0 }
+	set_variable = { name = aawc_reforging_tx_saved_carry value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_population_debit_pending } add = var:aawc_reforging_round_population_debit_pending } } }
+	if = { limit = { has_variable = aawc_reforging_round_population_debit_pending } set_variable = { name = aawc_reforging_tx_had_carry value = 1 } }
+	set_variable = { name = aawc_reforging_round_population_debit_pending value = 0 }
+}
+aawc_reforging_tx_end_isolated_debit_effect = {
+	if = { limit = { aawc_population_valid_settlement_for_cohort_trigger = yes aawc_reforging_tx_had_carry_value = 1 } set_variable = { name = aawc_reforging_round_population_debit_pending value = aawc_reforging_tx_saved_carry_value } }
+	else = { remove_variable = aawc_reforging_round_population_debit_pending }
+	remove_variable = aawc_reforging_tx_had_carry
+	remove_variable = aawc_reforging_tx_saved_carry
+}
+aawc_reforging_tx_prepare_surplus_effect = {
+	aawc_reforging_tx_prepare_effect = { WEIGHT = aawc_reforging_tx_prepare_surplus_weight_value CAPACITY = aawc_reforging_tx_prepare_surplus_capacity_value }
+}
+aawc_reforging_tx_prepare_reserved_effect = {
+	aawc_reforging_tx_prepare_effect = { WEIGHT = aawc_reforging_tx_prepare_reserved_weight_value CAPACITY = aawc_reforging_tx_prepare_reserved_capacity_value }
+}
+aawc_reforging_tx_prepare_maa_effect = {
+	aawc_reforging_tx_prepare_effect = { WEIGHT = aawc_reforging_tx_prepare_maa_weight_value CAPACITY = aawc_reforging_tx_prepare_maa_capacity_value }
+}
+aawc_reforging_tx_aawc_population_consume_reserved_from_county_holder_baronies_effect_scan_effect = {
+	every_realm_province = {
+			limit = {
+				has_holding = yes
+				county = { holder = scope:aawc_population_barony_owner }
+			}
+			$ACTION$ = yes
+		}
+}
+aawc_reforging_tx_aawc_population_consume_reserved_from_owned_and_vassal_baronies_effect_scan_effect = {
+	every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = { $ACTION$ = yes }
+		}
+		every_vassal_or_below = {
+			every_held_title = {
+				limit = { tier = tier_barony }
+				title_province = {
+					if = {
+						limit = {
+							has_holding = yes
+							county = { holder = scope:aawc_population_barony_owner }
+						}
+						$ACTION$ = yes
+					}
+				}
+			}
+		}
+}
+aawc_reforging_tx_aawc_population_spend_county_holder_barony_maa_pool_effect_scan_effect = {
+	every_realm_province = {
+			limit = {
+				has_holding = yes
+				county = { holder = scope:aawc_population_barony_owner }
+			}
+			$ACTION$ = yes
+		}
+}
+aawc_reforging_tx_aawc_population_spend_owned_and_vassal_barony_maa_pool_effect_scan_effect = {
+	every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = { limit = { has_holding = yes } $ACTION$ = yes }
+			}
+		}
+		every_vassal_or_below = {
+			every_held_title = {
+				limit = { tier = tier_barony }
+				title_province = {
+					if = {
+						limit = {
+							has_holding = yes
+							county = { holder = scope:aawc_population_barony_owner }
+						}
+						$ACTION$ = yes
+					}
+				}
+			}
+		}
+}
+aawc_reforging_tx_aawc_population_spend_county_maa_population_pool_effect_scan_effect = {
+	every_in_de_jure_hierarchy = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = {
+					limit = {
+						has_holding = yes
+						barony = {
+							holder = {
+								OR = {
+									this = scope:aawc_population_maa_owner
+									is_vassal_or_below_of = scope:aawc_population_maa_owner
+								}
+							}
+						}
+					}
+					$ACTION$ = yes
+				}
+			}
+		}
+}
+aawc_reforging_tx_migration_give_scan_effect = {
+	scope:aawc_migration_source_county = { every_county_province = { $ACTION$ = yes } }
+}
+aawc_reforging_tx_migration_receive_scan_effect = {
+	scope:aawc_migration_target_county = { every_county_province = { $ACTION$ = yes } }
+}
+aawc_reforging_tx_migration_prepare_internal_give_effect = {
+	if = { limit = { aawc_reforging_round_counts_valid_value = 1 aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_cohort_ensure_production_ledger_effect = yes }
+	set_variable = { name = aawc_reforging_tx_migration_available value = { value = { value = 0 if = { limit = { has_variable = aawc_migration_holding_internal_give_cap } add = var:aawc_migration_holding_internal_give_cap } } min = 0 } }
+	set_variable = { name = aawc_reforging_tx_migration_limit value = { value = aawc_reforging_tx_migration_available_value floor = yes } }
+	if = { limit = { aawc_reforging_tx_migration_available_value > aawc_reforging_tx_migration_limit_value } set_variable = { name = aawc_reforging_tx_migration_limit value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_limit } add = var:aawc_reforging_tx_migration_limit } } add = 1 } } }
+	aawc_reforging_tx_prepare_effect = { WEIGHT = aawc_reforging_tx_migration_available_value CAPACITY = aawc_reforging_tx_migration_prepare_internal_give_capacity_value }
+	remove_variable = aawc_reforging_tx_migration_available
+	remove_variable = aawc_reforging_tx_migration_limit
+}
+aawc_reforging_tx_migration_record_internal_give_effect = {
+	set_variable = { name = aawc_reforging_tx_migration_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_plan } add = var:aawc_reforging_tx_migration_plan } } add = { value = aawc_reforging_tx_allocation_value multiply = -1 } } }
+	set_variable = { name = aawc_reforging_tx_migration_internal_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_internal_plan } add = var:aawc_reforging_tx_migration_internal_plan } } add = { value = aawc_reforging_tx_allocation_value multiply = -1 } } }
+}
+aawc_reforging_tx_migration_prepare_internal_receive_effect = {
+	if = { limit = { aawc_reforging_round_counts_valid_value = 1 aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_cohort_ensure_production_ledger_effect = yes }
+	set_variable = { name = aawc_reforging_tx_migration_available value = { value = { value = 0 if = { limit = { has_variable = aawc_migration_holding_internal_receive_cap } add = var:aawc_migration_holding_internal_receive_cap } } min = 0 } }
+	set_variable = { name = aawc_reforging_tx_migration_limit value = { value = aawc_reforging_tx_migration_available_value floor = yes } }
+	if = { limit = { aawc_reforging_tx_migration_available_value > aawc_reforging_tx_migration_limit_value } set_variable = { name = aawc_reforging_tx_migration_limit value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_limit } add = var:aawc_reforging_tx_migration_limit } } add = 1 } } }
+	aawc_reforging_tx_prepare_effect = { WEIGHT = aawc_reforging_tx_migration_available_value CAPACITY = aawc_reforging_tx_migration_prepare_internal_receive_capacity_value }
+	remove_variable = aawc_reforging_tx_migration_available
+	remove_variable = aawc_reforging_tx_migration_limit
+}
+aawc_reforging_tx_migration_record_internal_receive_effect = {
+	set_variable = { name = aawc_reforging_tx_migration_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_plan } add = var:aawc_reforging_tx_migration_plan } } add = aawc_reforging_tx_allocation_value } }
+	set_variable = { name = aawc_reforging_tx_migration_internal_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_internal_plan } add = var:aawc_reforging_tx_migration_internal_plan } } add = aawc_reforging_tx_allocation_value } }
+}
+aawc_reforging_tx_migration_prepare_county_give_effect = {
+	if = { limit = { aawc_reforging_round_counts_valid_value = 1 aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_cohort_ensure_production_ledger_effect = yes }
+	set_variable = { name = aawc_reforging_tx_migration_available value = { value = { value = 0 if = { limit = { has_variable = aawc_migration_holding_county_give_cap } add = var:aawc_migration_holding_county_give_cap } } subtract = aawc_reforging_tx_migration_given_value min = 0 } }
+	set_variable = { name = aawc_reforging_tx_migration_limit value = { value = aawc_reforging_tx_migration_available_value floor = yes } }
+	if = { limit = { aawc_reforging_tx_migration_available_value > aawc_reforging_tx_migration_limit_value } set_variable = { name = aawc_reforging_tx_migration_limit value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_limit } add = var:aawc_reforging_tx_migration_limit } } add = 1 } } }
+	aawc_reforging_tx_prepare_effect = { WEIGHT = aawc_reforging_tx_migration_available_value CAPACITY = aawc_reforging_tx_migration_prepare_county_give_capacity_value }
+	remove_variable = aawc_reforging_tx_migration_available
+	remove_variable = aawc_reforging_tx_migration_limit
+}
+aawc_reforging_tx_migration_record_county_give_effect = {
+	set_variable = { name = aawc_reforging_tx_migration_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_plan } add = var:aawc_reforging_tx_migration_plan } } add = { value = aawc_reforging_tx_allocation_value multiply = -1 } } }
+	set_variable = { name = aawc_reforging_tx_migration_county_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_county_plan } add = var:aawc_reforging_tx_migration_county_plan } } add = { value = aawc_reforging_tx_allocation_value multiply = -1 } } }
+	set_variable = { name = aawc_reforging_tx_migration_given value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_given } add = var:aawc_reforging_tx_migration_given } } add = aawc_reforging_tx_allocation_value } }
+	set_variable = { name = aawc_reforging_tx_migration_edge_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_edge_plan } add = var:aawc_reforging_tx_migration_edge_plan } } add = { value = aawc_reforging_tx_allocation_value multiply = -1 } } }
+}
+aawc_reforging_tx_migration_prepare_county_receive_effect = {
+	if = { limit = { aawc_reforging_round_counts_valid_value = 1 aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_cohort_ensure_production_ledger_effect = yes }
+	set_variable = { name = aawc_reforging_tx_migration_available value = { value = { value = 0 if = { limit = { has_variable = aawc_migration_holding_county_receive_cap } add = var:aawc_migration_holding_county_receive_cap } } subtract = aawc_reforging_tx_migration_received_value min = 0 } }
+	set_variable = { name = aawc_reforging_tx_migration_limit value = { value = aawc_reforging_tx_migration_available_value floor = yes } }
+	if = { limit = { aawc_reforging_tx_migration_available_value > aawc_reforging_tx_migration_limit_value } set_variable = { name = aawc_reforging_tx_migration_limit value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_limit } add = var:aawc_reforging_tx_migration_limit } } add = 1 } } }
+	aawc_reforging_tx_prepare_effect = { WEIGHT = aawc_reforging_tx_migration_available_value CAPACITY = aawc_reforging_tx_migration_prepare_county_receive_capacity_value }
+	remove_variable = aawc_reforging_tx_migration_available
+	remove_variable = aawc_reforging_tx_migration_limit
+}
+aawc_reforging_tx_migration_record_county_receive_effect = {
+	set_variable = { name = aawc_reforging_tx_migration_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_plan } add = var:aawc_reforging_tx_migration_plan } } add = aawc_reforging_tx_allocation_value } }
+	set_variable = { name = aawc_reforging_tx_migration_county_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_county_plan } add = var:aawc_reforging_tx_migration_county_plan } } add = aawc_reforging_tx_allocation_value } }
+	set_variable = { name = aawc_reforging_tx_migration_received value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_received } add = var:aawc_reforging_tx_migration_received } } add = aawc_reforging_tx_allocation_value } }
+	set_variable = { name = aawc_reforging_tx_migration_edge_plan value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_edge_plan } add = var:aawc_reforging_tx_migration_edge_plan } } add = aawc_reforging_tx_allocation_value } }
+}
+aawc_reforging_tx_migration_plan_pair_effect = {
+	set_variable = { name = aawc_reforging_tx_migration_result value = 0 }
+	if = { limit = { OR = { NOT = { has_variable = $CARRY$ } AND = { var:$CARRY$ >= 0 var:$CARRY$ < 1 } } }
+	set_variable = { name = aawc_reforging_tx_migration_due value = { value = $REQUEST$ min = 0 add = { value = 0 if = { limit = { has_variable = $CARRY$ } add = var:$CARRY$ } } } }
+	set_variable = { name = aawc_reforging_tx_migration_budget value = { value = aawc_reforging_tx_migration_due_value floor = yes } }
+	set_variable = { name = $CARRY$ value = { value = aawc_reforging_tx_migration_due_value subtract = aawc_reforging_tx_migration_budget_value } }
+	$GIVE_SCAN$ = { ACTION = $GIVE_PREPARE$ }
+	aawc_reforging_tx_allocate_effect = { REQUEST = aawc_reforging_tx_migration_budget_value SCAN = $GIVE_SCAN$ }
+	set_variable = { name = aawc_reforging_tx_migration_matched value = aawc_reforging_tx_applied_value }
+	$GIVE_SCAN$ = { ACTION = aawc_reforging_tx_cleanup_node_effect }
+	$RECEIVE_SCAN$ = { ACTION = $RECEIVE_PREPARE$ }
+	aawc_reforging_tx_allocate_effect = { REQUEST = aawc_reforging_tx_migration_matched_value SCAN = $RECEIVE_SCAN$ }
+	set_variable = { name = aawc_reforging_tx_migration_matched value = aawc_reforging_tx_applied_value }
+	$RECEIVE_SCAN$ = { ACTION = aawc_reforging_tx_cleanup_node_effect }
+	$GIVE_SCAN$ = { ACTION = $GIVE_PREPARE$ }
+	aawc_reforging_tx_allocate_effect = { REQUEST = aawc_reforging_tx_migration_matched_value SCAN = $GIVE_SCAN$ }
+	$GIVE_SCAN$ = { ACTION = $GIVE_RECORD$ }
+	$GIVE_SCAN$ = { ACTION = aawc_reforging_tx_cleanup_node_effect }
+	$RECEIVE_SCAN$ = { ACTION = $RECEIVE_PREPARE$ }
+	aawc_reforging_tx_allocate_effect = { REQUEST = aawc_reforging_tx_migration_matched_value SCAN = $RECEIVE_SCAN$ }
+	$RECEIVE_SCAN$ = { ACTION = $RECEIVE_RECORD$ }
+	$RECEIVE_SCAN$ = { ACTION = aawc_reforging_tx_cleanup_node_effect }
+	set_variable = { name = aawc_reforging_tx_migration_result value = aawc_reforging_tx_migration_matched_value }
+	set_variable = { name = aawc_reforging_tx_migration_rejected_total value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_rejected_total } add = var:aawc_reforging_tx_migration_rejected_total } } add = { value = aawc_reforging_tx_migration_budget_value subtract = aawc_reforging_tx_migration_result_value } } }
+	aawc_reforging_tx_cleanup_owner_effect = yes
+	}
+	else = { set_variable = { name = aawc_reforging_tx_invalid_rejections_total value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_invalid_rejections_total } add = var:aawc_reforging_tx_invalid_rejections_total } } add = 1 } } }
+	remove_variable = aawc_reforging_tx_migration_due
+	remove_variable = aawc_reforging_tx_migration_budget
+	remove_variable = aawc_reforging_tx_migration_matched
+}
+aawc_reforging_tx_migration_county_effect = {
+	aawc_reforging_tx_migration_give_scan_effect = { ACTION = aawc_reforging_tx_migration_reset_edge_effect }
+	aawc_reforging_tx_migration_receive_scan_effect = { ACTION = aawc_reforging_tx_migration_reset_edge_effect }
+	aawc_reforging_tx_migration_plan_pair_effect = { REQUEST = $REQUEST$ CARRY = aawc_reforging_tx_migration_outgoing_pending GIVE_SCAN = aawc_reforging_tx_migration_give_scan_effect GIVE_PREPARE = aawc_reforging_tx_migration_prepare_county_give_effect GIVE_RECORD = aawc_reforging_tx_migration_record_county_give_effect RECEIVE_SCAN = aawc_reforging_tx_migration_receive_scan_effect RECEIVE_PREPARE = aawc_reforging_tx_migration_prepare_county_receive_effect RECEIVE_RECORD = aawc_reforging_tx_migration_record_county_receive_effect }
+}
+aawc_reforging_tx_migration_internal_effect = {
+	aawc_reforging_tx_migration_plan_pair_effect = { REQUEST = $REQUEST$ CARRY = aawc_reforging_tx_migration_internal_pending GIVE_SCAN = aawc_reforging_tx_migration_give_scan_effect GIVE_PREPARE = aawc_reforging_tx_migration_prepare_internal_give_effect GIVE_RECORD = aawc_reforging_tx_migration_record_internal_give_effect RECEIVE_SCAN = aawc_reforging_tx_migration_give_scan_effect RECEIVE_PREPARE = aawc_reforging_tx_migration_prepare_internal_receive_effect RECEIVE_RECORD = aawc_reforging_tx_migration_record_internal_receive_effect }
+}
+aawc_reforging_tx_migration_reset_node_effect = {
+	set_variable = { name = aawc_reforging_tx_migration_plan value = 0 }
+	set_variable = { name = aawc_reforging_tx_migration_internal_plan value = 0 }
+	set_variable = { name = aawc_reforging_tx_migration_county_plan value = 0 }
+	set_variable = { name = aawc_reforging_tx_migration_given value = 0 }
+	set_variable = { name = aawc_reforging_tx_migration_received value = 0 }
+}
+aawc_reforging_tx_migration_reset_edge_effect = {
+	set_variable = { name = aawc_reforging_tx_migration_edge_plan value = 0 }
+}
+aawc_reforging_tx_migration_cleanup_edge_effect = {
+	remove_variable = aawc_reforging_tx_migration_edge_plan
+}
+aawc_reforging_tx_migration_cleanup_node_effect = {
+	remove_variable = aawc_reforging_tx_migration_plan
+	remove_variable = aawc_reforging_tx_migration_internal_plan
+	remove_variable = aawc_reforging_tx_migration_county_plan
+	remove_variable = aawc_reforging_tx_migration_given
+	remove_variable = aawc_reforging_tx_migration_received
+}

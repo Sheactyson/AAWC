@@ -1,0 +1,72 @@
+﻿V_kCAFG_populist_faction_creation_minimum_minority_factor = 0.3
+V_kCAFG_populist_faction_join_minimum_minority_factor = V_kCAFG_smaller_minority_factor
+
+# 25% at V_kCAFG_populist_faction_join_minimum_minority_factor - 125% at max culture
+# Scope : county
+V_kCAFG_populist_faction_faction_to_join_culture_factor = {
+    value = 1
+    every_in_list = {
+        variable = kCAFG_county_cultures
+        limit = {
+            scope:faction.var:faction_culture = this
+            save_temporary_scope_as = kCAFG_culture
+            root = { V_kCAFG_county_culture_factor >= V_kCAFG_populist_faction_join_minimum_minority_factor }
+        }
+        save_temporary_scope_as = kCAFG_culture
+        root = {
+            value = 0.25
+            add = {
+                value = V_kCAFG_county_culture_factor
+                subtract = V_kCAFG_populist_faction_join_minimum_minority_factor
+                min = 0
+                divide = {
+                    value = 1
+                    subtract = V_kCAFG_populist_faction_join_minimum_minority_factor
+                }
+            }
+        }
+    }
+}
+
+# 25% at V_kCAFG_populist_faction_join_minimum_minority_factor - 125% at max faith
+# Scope : county
+V_kCAFG_populist_faction_faction_to_join_faith_factor = {
+    value = 1
+    every_in_list = {
+        variable = kCAFG_county_faiths
+        limit = {
+            scope:faction.var:faction_faith = this
+            save_temporary_scope_as = kCAFG_faith
+            root = { V_kCAFG_county_faith_factor >= V_kCAFG_populist_faction_join_minimum_minority_factor }
+        }
+        save_temporary_scope_as = kCAFG_faith
+        root = {
+            value = 0.25
+            add = {
+                value = V_kCAFG_county_faith_factor
+                subtract = V_kCAFG_populist_faction_join_minimum_minority_factor
+                min = 0
+                divide = {
+                    value = 1
+                    subtract = V_kCAFG_populist_faction_join_minimum_minority_factor
+                }
+            }
+        }
+    }
+}
+
+kCAFG_faction_county_opinion_astray_scaled_by_joined_faction_faith = {
+	value = county_opinion
+	multiply = -1.0
+    multiply = V_kCAFG_populist_faction_faction_to_join_faith_factor
+}
+kCAFG_faction_county_opinion_hostile_scaled_by_joined_faction_faith = {
+	value = county_opinion
+	multiply = -2.5
+    multiply = V_kCAFG_populist_faction_faction_to_join_faith_factor
+}
+kCAFG_faction_county_opinion_evil_scaled_by_joined_faction_faith = {
+	value = county_opinion
+	multiply = -5.0
+    multiply = V_kCAFG_populist_faction_faction_to_join_faith_factor
+}

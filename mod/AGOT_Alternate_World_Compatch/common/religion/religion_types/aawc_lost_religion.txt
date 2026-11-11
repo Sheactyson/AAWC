@@ -1,0 +1,206 @@
+﻿aawc_lost_religion = {
+	family = rf_western_essos
+	doctrine = western_essosi_hostility_doctrine
+	graphical_faith = dawnbringer_god_gfx
+
+	localization = {
+		HighGodName = valyrian_pan_freehold_high_god_name
+		HighGodName2 = valyrian_pan_freehold_high_god_name_2
+		HighGodNamePossessive = valyrian_pan_freehold_high_god_name_possessive
+		HighGodNameSheHe = CHARACTER_SHEHE_HE
+		HighGodHerselfHimself = CHARACTER_HIMSELF
+		HighGodHerHis = CHARACTER_HERHIS_HIS
+		HighGodNameAlternate = valyrian_pan_freehold_high_god_name_alternate
+		HighGodNameAlternatePossessive = valyrian_pan_freehold_high_god_name_alternate_possessive
+
+		CreatorName = valyrian_pan_freehold_creator_name
+		CreatorNamePossessive = valyrian_pan_freehold_creator_name_possessive
+		CreatorSheHe = CHARACTER_SHEHE_HE
+		CreatorHerHis = CHARACTER_HERHIS_HIS
+		CreatorHerHim = CHARACTER_HERHIM_HIM
+
+		HealthGodName = valyrian_pan_freehold_health_god_name
+		HealthGodNamePossessive = valyrian_pan_freehold_health_god_name_possessive
+		HealthGodSheHe = CHARACTER_SHEHE_HE
+		HealthGodHerHis = CHARACTER_HERHIS_HIS
+		HealthGodHerHim = CHARACTER_HERHIM_HIM
+
+		FertilityGodName = valyrian_pan_freehold_fertility_god_name
+		FertilityGodNamePossessive = valyrian_pan_freehold_fertility_god_name_possessive
+		FertilityGodSheHe = CHARACTER_SHEHE_HE
+		FertilityGodHerHis = CHARACTER_HERHIS_HIS
+		FertilityGodHerHim = CHARACTER_HERHIM_HIM
+
+		WealthGodName = valyrian_pan_freehold_wealth_god_name
+		WealthGodNamePossessive = valyrian_pan_freehold_wealth_god_name_possessive
+		WealthGodSheHe = CHARACTER_SHEHE_HE
+		WealthGodHerHis = CHARACTER_HERHIS_HIS
+		WealthGodHerHim = CHARACTER_HERHIM_HIM
+
+		HouseholdGodName = valyrian_pan_freehold_household_god_name
+		HouseholdGodNamePossessive = valyrian_pan_freehold_household_god_name_possessive
+		HouseholdGodSheHe = CHARACTER_SHEHE_SHE
+		HouseholdGodHerHis = CHARACTER_HERHIS_HIS
+		HouseholdGodHerHim = CHARACTER_HERHIM_HER
+
+		FateGodName = valyrian_pan_freehold_fate_god_name
+		FateGodNamePossessive = valyrian_pan_freehold_fate_god_name_possessive
+		FateGodSheHe = CHARACTER_SHEHE_HE
+		FateGodHerHis = CHARACTER_HERHIS_HIS
+		FateGodHerHim = CHARACTER_HERHIM_HIM
+
+		KnowledgeGodName = valyrian_pan_freehold_knowledge_god_name
+		KnowledgeGodNamePossessive = valyrian_pan_freehold_knowledge_god_name_possessive
+		KnowledgeGodSheHe = CHARACTER_SHEHE_SHE
+		KnowledgeGodHerHis = CHARACTER_HERHIS_HIS
+		KnowledgeGodHerHim = CHARACTER_HERHIM_HER
+
+		WarGodName = valyrian_pan_freehold_war_god_name
+		WarGodNamePossessive = valyrian_pan_freehold_war_god_name_possessive
+		WarGodSheHe = CHARACTER_SHEHE_SHE
+		WarGodHerHis = CHARACTER_HERHIS_HIS
+		WarGodHerHim = CHARACTER_HERHIM_HER
+
+		TricksterGodName = valyrian_pan_freehold_trickster_god_name
+		TricksterGodNamePossessive = valyrian_pan_freehold_trickster_god_name_possessive
+		TricksterGodSheHe = CHARACTER_SHEHE_SHE
+		TricksterGodHerHis = CHARACTER_HERHIS_HIS
+		TricksterGodHerHim = CHARACTER_HERHIM_HER
+
+		NightGodName = valyrian_pan_freehold_night_god_name
+		NightGodNamePossessive = valyrian_pan_freehold_night_god_name_possessive
+		NightGodSheHe = CHARACTER_SHEHE_HE
+		NightGodHerHis = CHARACTER_HERHIS_HIS
+		NightGodHerHim = CHARACTER_HERHIM_HIM
+
+		WaterGodName = valyrian_pan_freehold_water_god_name
+		WaterGodNamePossessive = valyrian_pan_freehold_water_god_name_possessive
+		WaterGodSheHe = CHARACTER_SHEHE_HE
+		WaterGodHerHis = CHARACTER_HERHIS_HIS
+		WaterGodHerHim = CHARACTER_HERHIM_HIM
+
+		DeathDeityName = valyrian_pan_freehold_death_deity_name
+		DeathDeityNamePossessive = valyrian_pan_freehold_death_deity_name_possessive
+		DeathDeitySheHe = CHARACTER_SHEHE_SHE
+		DeathDeityHerHis = CHARACTER_HERHIS_HIS
+		DeathDeityHerHim = CHARACTER_HERHIM_HER
+
+		WitchGodName = valyrian_pan_freehold_witch_god_name
+		WitchGodNamePossessive = valyrian_pan_freehold_witch_god_name_possessive
+		WitchGodHerHis = CHARACTER_HERHIS_HIS
+		WitchGodSheHe = CHARACTER_SHEHE_HE
+		WitchGodHerHim = CHARACTER_HERHIM_HIM
+		WitchGodMistressMaster = master
+		WitchGodMotherFather = father
+
+		PantheonTerm = valyrian_pan_freehold_pantheon_term
+		PantheonTerm2 = valyrian_pan_freehold_pantheon_term_2
+		PantheonTerm3 = valyrian_pan_freehold_pantheon_term_3
+		PantheonTermHasHave = pantheon_term_have
+		GoodGodNames = {
+			valyrian_pan_freehold_high_god_name
+			valyrian_pan_freehold_creator_name
+			valyrian_pan_freehold_health_god_name
+			valyrian_pan_freehold_fertility_god_name
+			valyrian_pan_freehold_wealth_god_name
+			valyrian_pan_freehold_fate_god_name
+			valyrian_pan_freehold_knowledge_god_name
+			valyrian_pan_freehold_war_god_name
+			valyrian_pan_freehold_trickster_god_name
+			valyrian_pan_freehold_night_god_name
+			valyrian_pan_freehold_water_god_name
+			valyrian_pan_freehold_death_deity_name
+		}
+
+		DevilName = valyrian_pan_freehold_devil_name
+		DevilNamePossessive = valyrian_pan_freehold_devil_name_possessive
+		DevilSheHe = CHARACTER_SHEHE_THEY
+		DevilHerHis = CHARACTER_HERHIS_THEIR
+		DevilHerselfHimself = their
+		EvilGodNames = { valyrian_pan_freehold_devil_name }
+
+		HouseOfWorship = valyrian_pan_freehold_house_of_worship
+		HouseOfWorship2 = valyrian_pan_freehold_house_of_worship_2
+		HouseOfWorship3 = valyrian_pan_freehold_house_of_worship_3
+		HouseOfWorshipPlural = valyrian_pan_freehold_house_of_worship_plural
+
+		ReligiousSymbol = valyrian_pan_freehold_religious_symbol
+		ReligiousSymbol2 = valyrian_pan_freehold_religious_symbol_2
+		ReligiousSymbol3 = valyrian_pan_freehold_religious_symbol_3
+		ReligiousText = valyrian_pan_freehold_religious_text
+		ReligiousText2 = valyrian_pan_freehold_religious_text_2
+		ReligiousText3 = valyrian_pan_freehold_religious_text_3
+
+		ReligiousHeadName = valyrian_pan_freehold_religious_head
+		ReligiousHeadTitleName = valyrian_pan_freehold_religious_head_title_name
+
+		DevoteeMale = valyrian_pan_freehold_devotee_male
+		DevoteeMalePlural = valyrian_pan_freehold_devotee_male_plural
+		DevoteeFemale = valyrian_pan_freehold_devotee_female
+		DevoteeFemalePlural = valyrian_pan_freehold_devotee_female_plural
+		DevoteeNeuter = valyrian_pan_freehold_devotee_neutral
+		DevoteeNeuterPlural = valyrian_pan_freehold_devotee_neutral_plural
+
+		PriestMale = valyrian_pan_freehold_priest_male
+		PriestMalePlural = valyrian_pan_freehold_priest_male_plural
+		PriestFemale = valyrian_pan_freehold_priest_female
+		PriestFemalePlural = valyrian_pan_freehold_priest_female_plural
+		PriestNeuter = valyrian_pan_freehold_priest_neutral
+		PriestNeuterPlural = valyrian_pan_freehold_priest_neutral_plural
+		AltPriestTermPlural = valyrian_pan_freehold_priest_alternate_plural
+		BishopMale = valyrian_pan_freehold_bishop_male
+		BishopMalePlural = valyrian_pan_freehold_bishop_male_plural
+		BishopFemale = valyrian_pan_freehold_bishop_female
+		BishopFemalePlural = valyrian_pan_freehold_bishop_female_plural
+		BishopNeuter = valyrian_pan_freehold_bishop_neutral
+		BishopNeuterPlural = valyrian_pan_freehold_bishop_neutral_plural
+
+		DivineRealm = valyrian_pan_freehold_divine_realm
+		DivineRealm2 = valyrian_pan_freehold_divine_realm_2
+		DivineRealm3 = valyrian_pan_freehold_divine_realm_3
+		PositiveAfterLife = valyrian_pan_freehold_afterlife_positive
+		PositiveAfterLife2 = valyrian_pan_freehold_afterlife_positive_2
+		PositiveAfterLife3 = valyrian_pan_freehold_afterlife_positive_3
+		NegativeAfterLife = valyrian_pan_freehold_afterlife_negative
+		NegativeAfterLife2 = valyrian_pan_freehold_afterlife_negative_2
+		NegativeAfterLife3 = valyrian_pan_freehold_afterlife_negative_3
+
+		GHWName = valyrian_pan_freehold_ghw_great_holy_war
+		GHWNamePlural = valyrian_pan_freehold_ghw_great_holy_wars
+	}
+
+	faiths = {
+		aawc_lost_faith = {
+			icon = valyrian
+
+			# Intentionally no tenets or holy sites: Lost is a weak shared remnant.
+			doctrine = doctrine_gender_equal
+			doctrine = doctrine_pluralism_pluralistic
+			doctrine = doctrine_theocracy_lay_clergy
+			doctrine = doctrine_no_head
+			doctrine = doctrine_valyrian_pantheon
+			doctrine = doctrine_pilgrimage_encouraged
+			doctrine = doctrine_syncretism_the_flames
+
+			doctrine = doctrine_polygamy
+			doctrine = doctrine_divorce_allowed
+			doctrine = doctrine_bastardry_none
+			doctrine = doctrine_consanguinity_unrestricted
+
+			doctrine = doctrine_homosexuality_accepted
+			doctrine = doctrine_deviancy_accepted
+			doctrine = doctrine_adultery_men_accepted
+			doctrine = doctrine_adultery_women_accepted
+			doctrine = doctrine_kinslaying_accepted
+			doctrine = doctrine_witchcraft_accepted
+			doctrine = doctrine_slavery_crime
+
+			doctrine = doctrine_clerical_function_alms_and_pacification
+			doctrine = doctrine_clerical_gender_either
+			doctrine = doctrine_clerical_marriage_allowed
+			doctrine = doctrine_clerical_succession_temporal_appointment
+
+			color = { 0 0 0 }
+		}
+	}
+}

@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.ck3
+*.log
+
+# Runtime/install outputs are reproducible and must not become project history.
+playtest/
+_inspect_label/
+_package_*/
+
+# The dependency package is a large GitHub Release asset; its source remains tracked.
+release/AAWC_Dependencies_Modpack_*.zip
+

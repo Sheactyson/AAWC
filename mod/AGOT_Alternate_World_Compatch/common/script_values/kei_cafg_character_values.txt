@@ -1,0 +1,38 @@
+﻿# AAWC 1.9.84 compatibility shadow.
+# Zero vanilla-only Kei/CaFG values whose source files validate missing AGOT database objects.
+
+V_kCAFG_character_different_faith_county_opinion_mult = {
+	value = 0
+}
+
+V_kCAFG_character_different_faith_county_opinion_mult_bonuses = {
+	value = 0
+}
+
+V_kCAFG_character_different_faith_county_opinion_mult_bonuses_VANILLA_B = {
+	value = 0
+}
+
+V_kCAFG_character_different_faith_county_opinion_mult_bonuses_VANILLA = {
+	value = 0
+}
+
+V_kCAFG_character_different_faith_county_opinion_mult_maluses = {
+	value = 0
+}
+
+V_kCAFG_character_different_faith_county_opinion_mult_maluses_VANILLA_B = {
+	value = 0
+}
+
+V_kCAFG_character_different_faith_county_opinion_mult_maluses_VANILLA = {
+	value = 0
+}
+
+V_kCAFG_character_different_faith_county_opinion_mult_diff = {
+	value = 0
+}
+
+V_kCAFG_character_cultural_acceptance_gain_mult = {
+	value = 0
+}

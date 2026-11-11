@@ -1,0 +1,63 @@
+﻿k_golden_company = {
+	color = { 255 215 0 }
+	landless = yes
+	definite_form = yes
+
+	capital = c_goldfuror
+
+	can_create = { always = no }
+}
+
+k_ibbenese_colony = {
+	color = { 128 167 166 }
+	landless = yes
+	definite_form = yes
+
+	capital = c_warriors_heel
+
+	can_create = { always = no }
+}
+
+d_harvest_principality = {
+	color = { 125 171 77 }
+	landless = yes
+	definite_form = yes
+
+	capital = c_palliera
+
+	can_create = { always = no }
+	destroy_on_succession = yes
+}
+
+d_fisher_principality = {
+	color = { 114 186 201 }
+	landless = yes
+	definite_form = yes
+
+	capital = c_qapahienn
+
+	can_create = { always = no }
+	destroy_on_succession = yes
+}
+
+d_principality_of_the_streets = {
+	color = { 81 156 142 }
+	landless = yes
+	definite_form = yes
+
+	capital = c_west_catch
+
+	can_create = { always = no }
+	destroy_on_succession = yes
+}
+
+h_valyria = {
+	color = { 179 18 15 }
+	landless = yes
+	definite_form = yes
+
+	capital = c_lys # AGOT TODO
+
+	can_create = { always = no }
+
+}

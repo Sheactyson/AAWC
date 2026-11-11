@@ -1,0 +1,591 @@
+﻿# Reforging 1.11 Milestone 1 cohort-engine values.
+#
+# These values read only new aawc_reforging_* province state. They are not
+# referenced by production population, migration, settlement, warfare, MAA,
+# construction, or refresh authorities. Demographic rates below are the
+# approved Milestone 1 neutral baseline. Stage 2 may modulate these rates
+# through dimensions/capacity, but must not silently replace this baseline.
+
+aawc_reforging_cohort_children = {
+	value = 0
+	add = var:aawc_reforging_cohort_age_00_04
+	add = var:aawc_reforging_cohort_age_05_09
+	add = var:aawc_reforging_cohort_age_10_14
+}
+
+aawc_reforging_cohort_young_adults = {
+	value = 0
+	add = var:aawc_reforging_cohort_age_15_19
+	add = var:aawc_reforging_cohort_age_20_24
+	add = var:aawc_reforging_cohort_age_25_29
+	add = var:aawc_reforging_cohort_age_30_34
+	add = var:aawc_reforging_cohort_age_35_39
+}
+
+aawc_reforging_cohort_older_adults = {
+	value = 0
+	add = var:aawc_reforging_cohort_age_40_44
+	add = var:aawc_reforging_cohort_age_45_49
+	add = var:aawc_reforging_cohort_age_50_54
+	add = var:aawc_reforging_cohort_age_55_59
+}
+
+aawc_reforging_cohort_elderly = {
+	value = var:aawc_reforging_cohort_age_60_plus
+}
+
+aawc_reforging_cohort_reproductive_civilians = {
+	value = 0
+	add = var:aawc_reforging_cohort_age_15_19
+	add = var:aawc_reforging_cohort_age_20_24
+	add = var:aawc_reforging_cohort_age_25_29
+	add = var:aawc_reforging_cohort_age_30_34
+	add = var:aawc_reforging_cohort_age_35_39
+	subtract = var:aawc_reforging_military_age_15_19
+	subtract = var:aawc_reforging_military_age_20_24
+	subtract = var:aawc_reforging_military_age_25_29
+	subtract = var:aawc_reforging_military_age_30_34
+	subtract = var:aawc_reforging_military_age_35_39
+	min = 0
+}
+
+# Building-driven military eligibility contract. These uniquely namespaced
+# values are the only automatic civilian-to-military inputs consumed by the
+# monthly cohort authority. Each age-band value is an absolute maximum military
+# membership for that band; the throughput value is the fractional number of
+# civilians that qualifying custom buildings may classify per month.
+#
+# The reviewed catalogue is PROTOTYPE_ONLY/review_only_not_installed and does
+# not authorize live custom-building definitions or numeric per-age/throughput
+# values. The contract therefore defaults to zero. This deliberately preserves
+# existing military overlays while disabling automatic recruitment; a later
+# authorized building adapter must supply explicit values for the relevant
+# custom building levels. Vanilla/AGOT building IDs and guessed percentages are
+# not substituted. Reclassification creates no soldiers or residents, and the
+# blocked D9 regiment identity/station/casualty contract is not inferred here.
+aawc_reforging_military_building_eligibility_age_15_19 = { value = 0 }
+aawc_reforging_military_building_eligibility_age_20_24 = { value = 0 }
+aawc_reforging_military_building_eligibility_age_25_29 = { value = 0 }
+aawc_reforging_military_building_eligibility_age_30_34 = { value = 0 }
+aawc_reforging_military_building_eligibility_age_35_39 = { value = 0 }
+aawc_reforging_military_building_eligibility_age_40_44 = { value = 0 }
+aawc_reforging_military_building_eligibility_age_45_49 = { value = 0 }
+aawc_reforging_military_building_eligibility_age_50_54 = { value = 0 }
+aawc_reforging_military_building_eligibility_age_55_59 = { value = 0 }
+aawc_reforging_military_building_training_monthly = { value = 0 }
+
+# Stage 2 conditions feed the existing Stage 1 age-band authority directly.
+# Fertility deliberately excludes Amenities and has no direct Health factor:
+# Health's primary reproductive contribution remains adult/child survival.
+aawc_reforging_stage2_sustenance_input = { value = aawc_stage2_effective_sustenance_value }
+aawc_reforging_stage2_habitation_input = { value = aawc_stage2_effective_habitation_value }
+aawc_reforging_stage2_opportunity_input = { value = aawc_stage2_effective_opportunity_value }
+aawc_reforging_stage2_health_input = { value = aawc_stage2_effective_health_value }
+aawc_reforging_stage2_security_input = { value = aawc_stage2_effective_security_value }
+aawc_reforging_stage2_amenities_input = { value = aawc_stage2_effective_amenities_value }
+aawc_reforging_stage2_capacity_pressure_input = { value = aawc_stage2_occupancy }
+# Deficient family necessities have the strongest response. Surplus benefits are
+# deliberately smaller so excellent infrastructure improves rather than doubles
+# the neutral birth rate. Security matters only below the disruption threshold.
+aawc_reforging_stage2_habitation_deficit = { value = 50 subtract = aawc_reforging_stage2_habitation_input min = 0 max = 50 }
+aawc_reforging_stage2_habitation_surplus = { value = aawc_reforging_stage2_habitation_input subtract = 50 min = 0 max = 50 }
+aawc_reforging_stage2_sustenance_deficit = { value = 50 subtract = aawc_reforging_stage2_sustenance_input min = 0 max = 50 }
+aawc_reforging_stage2_sustenance_surplus = { value = aawc_reforging_stage2_sustenance_input subtract = 50 min = 0 max = 50 }
+aawc_reforging_stage2_opportunity_deficit = { value = 50 subtract = aawc_reforging_stage2_opportunity_input min = 0 max = 50 }
+aawc_reforging_stage2_opportunity_surplus = { value = aawc_reforging_stage2_opportunity_input subtract = 50 min = 0 max = 50 }
+aawc_reforging_stage2_health_deficit = { value = 50 subtract = aawc_reforging_stage2_health_input min = 0 max = 50 }
+aawc_reforging_stage2_health_surplus = { value = aawc_reforging_stage2_health_input subtract = 50 min = 0 max = 50 }
+aawc_reforging_stage2_security_disruption = { value = 35 subtract = aawc_reforging_stage2_security_input min = 0 max = 35 }
+aawc_reforging_stage2_security_danger = { value = 25 subtract = aawc_reforging_stage2_security_input min = 0 max = 25 }
+
+aawc_reforging_stage2_birth_habitation_factor = {
+	value = 1
+	subtract = { value = aawc_reforging_stage2_habitation_deficit multiply = 0.016 }
+	add = { value = aawc_reforging_stage2_habitation_surplus multiply = 0.002 }
+	min = 0.20
+	max = 1.10
+}
+aawc_reforging_stage2_birth_sustenance_factor = {
+	value = 1
+	subtract = { value = aawc_reforging_stage2_sustenance_deficit multiply = 0.012 }
+	add = { value = aawc_reforging_stage2_sustenance_surplus multiply = 0.0015 }
+	min = 0.40
+	max = 1.075
+}
+aawc_reforging_stage2_birth_opportunity_factor = {
+	value = 1
+	subtract = { value = aawc_reforging_stage2_opportunity_deficit multiply = 0.004 }
+	add = { value = aawc_reforging_stage2_opportunity_surplus multiply = 0.0005 }
+	min = 0.80
+	max = 1.025
+}
+aawc_reforging_stage2_birth_security_factor = {
+	value = 1
+	subtract = { value = aawc_reforging_stage2_security_disruption multiply = 0.01 }
+	min = 0.65
+}
+aawc_reforging_stage2_birth_rate_multiplier = {
+	value = aawc_reforging_stage2_birth_habitation_factor
+	multiply = aawc_reforging_stage2_birth_sustenance_factor
+	multiply = aawc_reforging_stage2_birth_opportunity_factor
+	multiply = aawc_reforging_stage2_birth_security_factor
+}
+# Compatibility accessor retained for diagnostics. Ordinary mortality below uses
+# thirteen age-band multipliers so hardship vulnerability is not flattened.
+aawc_reforging_stage2_mortality_rate_multiplier = { value = 1 }
+
+# Distinct deprivation channels. Opportunity and Amenities are intentionally
+# absent. Excellent necessities/care can improve survival, but bounded relief
+# cannot erase baseline mortality. Security contributes only in genuine danger.
+aawc_reforging_stage2_mortality_multiplier_infant = {
+	value = 1
+	add = { value = aawc_reforging_stage2_sustenance_deficit multiply = 0.060 }
+	add = { value = aawc_reforging_stage2_health_deficit multiply = 0.075 }
+	add = { value = aawc_reforging_stage2_habitation_deficit multiply = 0.045 }
+	add = { value = aawc_reforging_stage2_security_danger multiply = 0.012 }
+	subtract = { value = aawc_reforging_stage2_sustenance_surplus multiply = 0.012 }
+	subtract = { value = aawc_reforging_stage2_health_surplus multiply = 0.015 }
+	subtract = { value = aawc_reforging_stage2_habitation_surplus multiply = 0.009 }
+	min = 0.45
+	max = 12
+}
+aawc_reforging_stage2_mortality_multiplier_child = {
+	value = 1
+	add = { value = aawc_reforging_stage2_sustenance_deficit multiply = 0.045 }
+	add = { value = aawc_reforging_stage2_health_deficit multiply = 0.055 }
+	add = { value = aawc_reforging_stage2_habitation_deficit multiply = 0.035 }
+	add = { value = aawc_reforging_stage2_security_danger multiply = 0.010 }
+	subtract = { value = aawc_reforging_stage2_sustenance_surplus multiply = 0.009 }
+	subtract = { value = aawc_reforging_stage2_health_surplus multiply = 0.011 }
+	subtract = { value = aawc_reforging_stage2_habitation_surplus multiply = 0.007 }
+	min = 0.45
+	max = 12
+}
+aawc_reforging_stage2_mortality_multiplier_young_adult = {
+	value = 1
+	add = { value = aawc_reforging_stage2_sustenance_deficit multiply = 0.022 }
+	add = { value = aawc_reforging_stage2_health_deficit multiply = 0.028 }
+	add = { value = aawc_reforging_stage2_habitation_deficit multiply = 0.018 }
+	add = { value = aawc_reforging_stage2_security_danger multiply = 0.006 }
+	subtract = { value = aawc_reforging_stage2_sustenance_surplus multiply = 0.0044 }
+	subtract = { value = aawc_reforging_stage2_health_surplus multiply = 0.0056 }
+	subtract = { value = aawc_reforging_stage2_habitation_surplus multiply = 0.0036 }
+	min = 0.45
+	max = 12
+}
+aawc_reforging_stage2_mortality_multiplier_mature_adult = {
+	value = 1
+	add = { value = aawc_reforging_stage2_sustenance_deficit multiply = 0.028 }
+	add = { value = aawc_reforging_stage2_health_deficit multiply = 0.035 }
+	add = { value = aawc_reforging_stage2_habitation_deficit multiply = 0.022 }
+	add = { value = aawc_reforging_stage2_security_danger multiply = 0.007 }
+	subtract = { value = aawc_reforging_stage2_sustenance_surplus multiply = 0.0056 }
+	subtract = { value = aawc_reforging_stage2_health_surplus multiply = 0.007 }
+	subtract = { value = aawc_reforging_stage2_habitation_surplus multiply = 0.0044 }
+	min = 0.45
+	max = 12
+}
+aawc_reforging_stage2_mortality_multiplier_older_adult = {
+	value = 1
+	add = { value = aawc_reforging_stage2_sustenance_deficit multiply = 0.040 }
+	add = { value = aawc_reforging_stage2_health_deficit multiply = 0.050 }
+	add = { value = aawc_reforging_stage2_habitation_deficit multiply = 0.030 }
+	add = { value = aawc_reforging_stage2_security_danger multiply = 0.009 }
+	subtract = { value = aawc_reforging_stage2_sustenance_surplus multiply = 0.008 }
+	subtract = { value = aawc_reforging_stage2_health_surplus multiply = 0.010 }
+	subtract = { value = aawc_reforging_stage2_habitation_surplus multiply = 0.006 }
+	min = 0.45
+	max = 12
+}
+aawc_reforging_stage2_mortality_multiplier_elderly = {
+	value = aawc_reforging_stage2_mortality_multiplier_infant
+}
+
+aawc_reforging_stage2_mortality_multiplier_age_00_04 = { value = aawc_reforging_stage2_mortality_multiplier_infant }
+aawc_reforging_stage2_mortality_multiplier_age_05_09 = { value = aawc_reforging_stage2_mortality_multiplier_child }
+aawc_reforging_stage2_mortality_multiplier_age_10_14 = { value = aawc_reforging_stage2_mortality_multiplier_child }
+aawc_reforging_stage2_mortality_multiplier_age_15_19 = { value = aawc_reforging_stage2_mortality_multiplier_young_adult }
+aawc_reforging_stage2_mortality_multiplier_age_20_24 = { value = aawc_reforging_stage2_mortality_multiplier_young_adult }
+aawc_reforging_stage2_mortality_multiplier_age_25_29 = { value = aawc_reforging_stage2_mortality_multiplier_young_adult }
+aawc_reforging_stage2_mortality_multiplier_age_30_34 = { value = aawc_reforging_stage2_mortality_multiplier_young_adult }
+aawc_reforging_stage2_mortality_multiplier_age_35_39 = { value = aawc_reforging_stage2_mortality_multiplier_young_adult }
+aawc_reforging_stage2_mortality_multiplier_age_40_44 = { value = aawc_reforging_stage2_mortality_multiplier_mature_adult }
+aawc_reforging_stage2_mortality_multiplier_age_45_49 = { value = aawc_reforging_stage2_mortality_multiplier_mature_adult }
+aawc_reforging_stage2_mortality_multiplier_age_50_54 = { value = aawc_reforging_stage2_mortality_multiplier_older_adult }
+aawc_reforging_stage2_mortality_multiplier_age_55_59 = { value = aawc_reforging_stage2_mortality_multiplier_older_adult }
+aawc_reforging_stage2_mortality_multiplier_age_60_plus = { value = aawc_reforging_stage2_mortality_multiplier_elderly }
+
+# Approved Milestone 1 neutral birth increment per month. At exactly neutral
+# effective scores, the Stage 2 factors equal one and preserve this baseline.
+aawc_reforging_cohort_candidate_monthly_births = {
+	value = aawc_reforging_cohort_reproductive_civilians
+	multiply = 0.011
+	multiply = aawc_reforging_stage2_birth_rate_multiplier
+}
+
+# Approved Milestone 1 annual ordinary-mortality rates divided by twelve. Each result is
+# accumulated fractionally; no minimum-one death is imposed.
+aawc_reforging_cohort_candidate_monthly_mortality_age_00_04 = {
+	value = var:aawc_reforging_cohort_age_00_04
+	multiply = 0.012
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_00_04
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_05_09 = {
+	value = var:aawc_reforging_cohort_age_05_09
+	multiply = 0.003
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_05_09
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_10_14 = {
+	value = var:aawc_reforging_cohort_age_10_14
+	multiply = 0.003
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_10_14
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_15_19 = {
+	value = var:aawc_reforging_cohort_age_15_19
+	multiply = 0.005
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_15_19
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_20_24 = {
+	value = var:aawc_reforging_cohort_age_20_24
+	multiply = 0.005
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_20_24
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_25_29 = {
+	value = var:aawc_reforging_cohort_age_25_29
+	multiply = 0.005
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_25_29
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_30_34 = {
+	value = var:aawc_reforging_cohort_age_30_34
+	multiply = 0.006
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_30_34
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_35_39 = {
+	value = var:aawc_reforging_cohort_age_35_39
+	multiply = 0.006
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_35_39
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_40_44 = {
+	value = var:aawc_reforging_cohort_age_40_44
+	multiply = 0.010
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_40_44
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_45_49 = {
+	value = var:aawc_reforging_cohort_age_45_49
+	multiply = 0.012
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_45_49
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_50_54 = {
+	value = var:aawc_reforging_cohort_age_50_54
+	multiply = 0.016
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_50_54
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_55_59 = {
+	value = var:aawc_reforging_cohort_age_55_59
+	multiply = 0.022
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_55_59
+	divide = 12
+}
+aawc_reforging_cohort_candidate_monthly_mortality_age_60_plus = {
+	value = var:aawc_reforging_cohort_age_60_plus
+	multiply = 0.055
+	multiply = aawc_reforging_stage2_mortality_multiplier_age_60_plus
+	divide = 12
+}
+
+# Full Stage-1 invariant. A value of one requires the Stage-1 completion marker,
+# the original representation invariant, all military/training carries normalized,
+# all four stored mirrors exact, and total/military/civilian mirrors exact.
+aawc_reforging_cohort_stage1_invariant_status = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = aawc_reforging_cohort_stage1_initialized
+			aawc_reforging_cohort_invariant_status = 1
+			# Count integrity is independent of total conservation and carry bounds.
+			# Read only: never round residents or clear a failed ledger here.
+			aawc_reforging_diag_fractional_status = 0
+			has_variable = aawc_reforging_military_aging_fraction_age_15_19
+			has_variable = aawc_reforging_military_aging_fraction_age_20_24
+			has_variable = aawc_reforging_military_aging_fraction_age_25_29
+			has_variable = aawc_reforging_military_aging_fraction_age_30_34
+			has_variable = aawc_reforging_military_aging_fraction_age_35_39
+			has_variable = aawc_reforging_military_aging_fraction_age_40_44
+			has_variable = aawc_reforging_military_aging_fraction_age_45_49
+			has_variable = aawc_reforging_military_aging_fraction_age_50_54
+			has_variable = aawc_reforging_military_aging_fraction_age_55_59
+			has_variable = aawc_reforging_military_training_fraction
+			var:aawc_reforging_military_aging_fraction_age_15_19 >= 0
+			var:aawc_reforging_military_aging_fraction_age_15_19 < 1
+			var:aawc_reforging_military_aging_fraction_age_20_24 >= 0
+			var:aawc_reforging_military_aging_fraction_age_20_24 < 1
+			var:aawc_reforging_military_aging_fraction_age_25_29 >= 0
+			var:aawc_reforging_military_aging_fraction_age_25_29 < 1
+			var:aawc_reforging_military_aging_fraction_age_30_34 >= 0
+			var:aawc_reforging_military_aging_fraction_age_30_34 < 1
+			var:aawc_reforging_military_aging_fraction_age_35_39 >= 0
+			var:aawc_reforging_military_aging_fraction_age_35_39 < 1
+			var:aawc_reforging_military_aging_fraction_age_40_44 >= 0
+			var:aawc_reforging_military_aging_fraction_age_40_44 < 1
+			var:aawc_reforging_military_aging_fraction_age_45_49 >= 0
+			var:aawc_reforging_military_aging_fraction_age_45_49 < 1
+			var:aawc_reforging_military_aging_fraction_age_50_54 >= 0
+			var:aawc_reforging_military_aging_fraction_age_50_54 < 1
+			var:aawc_reforging_military_aging_fraction_age_55_59 >= 0
+			var:aawc_reforging_military_aging_fraction_age_55_59 < 1
+			var:aawc_reforging_military_training_fraction >= 0
+			var:aawc_reforging_military_training_fraction < 1
+			var:aawc_reforging_cohort_children_mirror = aawc_reforging_cohort_children
+			var:aawc_reforging_cohort_young_adults_mirror = aawc_reforging_cohort_young_adults
+			var:aawc_reforging_cohort_older_adults_mirror = aawc_reforging_cohort_older_adults
+			var:aawc_reforging_cohort_elderly_mirror = aawc_reforging_cohort_elderly
+			var:aawc_reforging_cohort_total_mirror = aawc_reforging_cohort_band_sum
+			var:aawc_reforging_military_total_mirror = aawc_reforging_military_overlay_sum
+			var:aawc_reforging_civilian_adults_mirror = aawc_reforging_civilian_available_adults
+		}
+		value = 1
+	}
+
+	if = { limit = { aawc_reforging_round_pending_valid_value = 0 } value = 0 }
+}
+
+aawc_reforging_cohort_last_tick_accounting_status = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = aawc_reforging_cohort_last_before_total
+			has_variable = aawc_reforging_cohort_last_births
+			has_variable = aawc_reforging_cohort_last_deaths
+			has_variable = aawc_reforging_cohort_last_after_total
+			has_variable = aawc_reforging_cohort_last_expected_after
+			var:aawc_reforging_cohort_last_after_total = var:aawc_reforging_cohort_last_expected_after
+		}
+		value = 1
+	}
+}
+
+# Read-only comparison between the current Stage-1 state and the checkpoint
+# written by event .0003. A post-reload .0002 inspection evaluates the full
+# band/overlay/mirror vector, all 35 carries, and guarded tick serial/count.
+aawc_reforging_cohort_stage1_persistence_status = {
+	value = 0
+	if = {
+		limit = {
+			var:aawc_reforging_persistence_checkpoint_ready = 1
+			var:aawc_reforging_birth_fraction = var:aawc_reforging_persistence_expected_birth_fraction
+			var:aawc_reforging_mortality_fraction_age_00_04 = var:aawc_reforging_persistence_expected_mortality_fraction_age_00_04
+			var:aawc_reforging_mortality_fraction_age_05_09 = var:aawc_reforging_persistence_expected_mortality_fraction_age_05_09
+			var:aawc_reforging_mortality_fraction_age_10_14 = var:aawc_reforging_persistence_expected_mortality_fraction_age_10_14
+			var:aawc_reforging_mortality_fraction_age_15_19 = var:aawc_reforging_persistence_expected_mortality_fraction_age_15_19
+			var:aawc_reforging_mortality_fraction_age_20_24 = var:aawc_reforging_persistence_expected_mortality_fraction_age_20_24
+			var:aawc_reforging_mortality_fraction_age_25_29 = var:aawc_reforging_persistence_expected_mortality_fraction_age_25_29
+			var:aawc_reforging_mortality_fraction_age_30_34 = var:aawc_reforging_persistence_expected_mortality_fraction_age_30_34
+			var:aawc_reforging_mortality_fraction_age_35_39 = var:aawc_reforging_persistence_expected_mortality_fraction_age_35_39
+			var:aawc_reforging_mortality_fraction_age_40_44 = var:aawc_reforging_persistence_expected_mortality_fraction_age_40_44
+			var:aawc_reforging_mortality_fraction_age_45_49 = var:aawc_reforging_persistence_expected_mortality_fraction_age_45_49
+			var:aawc_reforging_mortality_fraction_age_50_54 = var:aawc_reforging_persistence_expected_mortality_fraction_age_50_54
+			var:aawc_reforging_mortality_fraction_age_55_59 = var:aawc_reforging_persistence_expected_mortality_fraction_age_55_59
+			var:aawc_reforging_mortality_fraction_age_60_plus = var:aawc_reforging_persistence_expected_mortality_fraction_age_60_plus
+			var:aawc_reforging_aging_fraction_age_00_04 = var:aawc_reforging_persistence_expected_aging_fraction_age_00_04
+			var:aawc_reforging_aging_fraction_age_05_09 = var:aawc_reforging_persistence_expected_aging_fraction_age_05_09
+			var:aawc_reforging_aging_fraction_age_10_14 = var:aawc_reforging_persistence_expected_aging_fraction_age_10_14
+			var:aawc_reforging_aging_fraction_age_15_19 = var:aawc_reforging_persistence_expected_aging_fraction_age_15_19
+			var:aawc_reforging_aging_fraction_age_20_24 = var:aawc_reforging_persistence_expected_aging_fraction_age_20_24
+			var:aawc_reforging_aging_fraction_age_25_29 = var:aawc_reforging_persistence_expected_aging_fraction_age_25_29
+			var:aawc_reforging_aging_fraction_age_30_34 = var:aawc_reforging_persistence_expected_aging_fraction_age_30_34
+			var:aawc_reforging_aging_fraction_age_35_39 = var:aawc_reforging_persistence_expected_aging_fraction_age_35_39
+			var:aawc_reforging_aging_fraction_age_40_44 = var:aawc_reforging_persistence_expected_aging_fraction_age_40_44
+			var:aawc_reforging_aging_fraction_age_45_49 = var:aawc_reforging_persistence_expected_aging_fraction_age_45_49
+			var:aawc_reforging_aging_fraction_age_50_54 = var:aawc_reforging_persistence_expected_aging_fraction_age_50_54
+			var:aawc_reforging_aging_fraction_age_55_59 = var:aawc_reforging_persistence_expected_aging_fraction_age_55_59
+			var:aawc_reforging_military_aging_fraction_age_15_19 = var:aawc_reforging_persistence_expected_military_aging_fraction_age_15_19
+			var:aawc_reforging_military_aging_fraction_age_20_24 = var:aawc_reforging_persistence_expected_military_aging_fraction_age_20_24
+			var:aawc_reforging_military_aging_fraction_age_25_29 = var:aawc_reforging_persistence_expected_military_aging_fraction_age_25_29
+			var:aawc_reforging_military_aging_fraction_age_30_34 = var:aawc_reforging_persistence_expected_military_aging_fraction_age_30_34
+			var:aawc_reforging_military_aging_fraction_age_35_39 = var:aawc_reforging_persistence_expected_military_aging_fraction_age_35_39
+			var:aawc_reforging_military_aging_fraction_age_40_44 = var:aawc_reforging_persistence_expected_military_aging_fraction_age_40_44
+			var:aawc_reforging_military_aging_fraction_age_45_49 = var:aawc_reforging_persistence_expected_military_aging_fraction_age_45_49
+			var:aawc_reforging_military_aging_fraction_age_50_54 = var:aawc_reforging_persistence_expected_military_aging_fraction_age_50_54
+			var:aawc_reforging_military_aging_fraction_age_55_59 = var:aawc_reforging_persistence_expected_military_aging_fraction_age_55_59
+			var:aawc_reforging_military_training_fraction = var:aawc_reforging_persistence_expected_military_training_fraction
+			var:aawc_reforging_cohort_last_tick = var:aawc_reforging_persistence_expected_last_tick
+			var:aawc_reforging_cohort_tick_count = var:aawc_reforging_persistence_expected_tick_count
+			var:aawc_reforging_cohort_age_00_04 = var:aawc_reforging_persistence_expected_age_00_04
+			var:aawc_reforging_cohort_age_05_09 = var:aawc_reforging_persistence_expected_age_05_09
+			var:aawc_reforging_cohort_age_10_14 = var:aawc_reforging_persistence_expected_age_10_14
+			var:aawc_reforging_cohort_age_15_19 = var:aawc_reforging_persistence_expected_age_15_19
+			var:aawc_reforging_cohort_age_20_24 = var:aawc_reforging_persistence_expected_age_20_24
+			var:aawc_reforging_cohort_age_25_29 = var:aawc_reforging_persistence_expected_age_25_29
+			var:aawc_reforging_cohort_age_30_34 = var:aawc_reforging_persistence_expected_age_30_34
+			var:aawc_reforging_cohort_age_35_39 = var:aawc_reforging_persistence_expected_age_35_39
+			var:aawc_reforging_cohort_age_40_44 = var:aawc_reforging_persistence_expected_age_40_44
+			var:aawc_reforging_cohort_age_45_49 = var:aawc_reforging_persistence_expected_age_45_49
+			var:aawc_reforging_cohort_age_50_54 = var:aawc_reforging_persistence_expected_age_50_54
+			var:aawc_reforging_cohort_age_55_59 = var:aawc_reforging_persistence_expected_age_55_59
+			var:aawc_reforging_cohort_age_60_plus = var:aawc_reforging_persistence_expected_age_60_plus
+			var:aawc_reforging_military_age_15_19 = var:aawc_reforging_persistence_expected_military_age_15_19
+			var:aawc_reforging_military_age_20_24 = var:aawc_reforging_persistence_expected_military_age_20_24
+			var:aawc_reforging_military_age_25_29 = var:aawc_reforging_persistence_expected_military_age_25_29
+			var:aawc_reforging_military_age_30_34 = var:aawc_reforging_persistence_expected_military_age_30_34
+			var:aawc_reforging_military_age_35_39 = var:aawc_reforging_persistence_expected_military_age_35_39
+			var:aawc_reforging_military_age_40_44 = var:aawc_reforging_persistence_expected_military_age_40_44
+			var:aawc_reforging_military_age_45_49 = var:aawc_reforging_persistence_expected_military_age_45_49
+			var:aawc_reforging_military_age_50_54 = var:aawc_reforging_persistence_expected_military_age_50_54
+			var:aawc_reforging_military_age_55_59 = var:aawc_reforging_persistence_expected_military_age_55_59
+			var:aawc_reforging_cohort_children_mirror = var:aawc_reforging_persistence_expected_children_mirror
+			var:aawc_reforging_cohort_young_adults_mirror = var:aawc_reforging_persistence_expected_young_adults_mirror
+			var:aawc_reforging_cohort_older_adults_mirror = var:aawc_reforging_persistence_expected_older_adults_mirror
+			var:aawc_reforging_cohort_elderly_mirror = var:aawc_reforging_persistence_expected_elderly_mirror
+			var:aawc_reforging_cohort_total_mirror = var:aawc_reforging_persistence_expected_total_mirror
+			var:aawc_reforging_military_total_mirror = var:aawc_reforging_persistence_expected_military_total_mirror
+			var:aawc_reforging_civilian_adults_mirror = var:aawc_reforging_persistence_expected_civilian_adults_mirror
+		}
+		value = 1
+	}
+
+	if = { limit = { aawc_reforging_round_persistence_status_value = 0 } value = 0 }
+}
+
+# Runtime-only adversarial fixture check. Before its first tick it must retain
+# the reviewed 33/24 state. After one tick, population remains 33, exactly one
+# military member retires at age 60, other movers remain parent-bounded, and no
+# birth/death is large enough to round to an integer.
+aawc_reforging_cohort_stage1_military_runtime_fixture_status = {
+	value = 0
+	if = {
+		limit = {
+			has_variable = aawc_reforging_cohort_runtime_military_fixture
+			aawc_reforging_cohort_stage1_invariant_status = 1
+			OR = {
+				AND = {
+					var:aawc_reforging_cohort_tick_count = 0
+					var:aawc_reforging_cohort_total_mirror = 33
+					var:aawc_reforging_military_total_mirror = 24
+				}
+				AND = {
+					var:aawc_reforging_cohort_tick_count = 1
+					var:aawc_reforging_cohort_total_mirror = 33
+					var:aawc_reforging_military_total_mirror = 23
+					var:aawc_reforging_cohort_last_births = 0
+					var:aawc_reforging_cohort_last_deaths = 0
+					var:aawc_reforging_cohort_last_military_aged > 0
+					var:aawc_reforging_cohort_last_military_retired = 1
+				}
+			}
+		}
+		value = 1
+	}
+}
+
+aawc_reforging_cohort_stage1_benchmark_baseline_status = {
+	value = 0
+	if = {
+		limit = {
+			var:aawc_reforging_benchmark_count = 1024
+			var:aawc_reforging_benchmark_operations = 12288
+			var:aawc_reforging_benchmark_population_checksum = 0
+			var:aawc_reforging_benchmark_military_checksum = 0
+			var:aawc_reforging_benchmark_invariant_failures = 0
+		}
+		value = 1
+	}
+}
+
+aawc_reforging_cohort_stage1_benchmark_engine_status = {
+	value = 0
+	if = {
+		limit = {
+			var:aawc_reforging_benchmark_count = 1024
+			var:aawc_reforging_benchmark_operations = 12288
+			var:aawc_reforging_benchmark_population_checksum > 0
+			var:aawc_reforging_benchmark_military_checksum >= 0
+			var:aawc_reforging_benchmark_invariant_failures = 0
+		}
+		value = 1
+	}
+}
+
+# Read-only population-panel values. Missing ledgers display zero without creating state.
+aawc_reforging_ui_children = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_children_mirror } add = var:aawc_reforging_cohort_children_mirror }
+}
+aawc_reforging_ui_young_adults = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_young_adults_mirror } add = var:aawc_reforging_cohort_young_adults_mirror }
+}
+aawc_reforging_ui_older_adults = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_older_adults_mirror } add = var:aawc_reforging_cohort_older_adults_mirror }
+}
+aawc_reforging_ui_elderly = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_elderly_mirror } add = var:aawc_reforging_cohort_elderly_mirror }
+}
+aawc_reforging_ui_young_adults_military = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_military_age_15_19 } add = var:aawc_reforging_military_age_15_19 }
+ if = { limit = { has_variable = aawc_reforging_military_age_20_24 } add = var:aawc_reforging_military_age_20_24 }
+ if = { limit = { has_variable = aawc_reforging_military_age_25_29 } add = var:aawc_reforging_military_age_25_29 }
+ if = { limit = { has_variable = aawc_reforging_military_age_30_34 } add = var:aawc_reforging_military_age_30_34 }
+ if = { limit = { has_variable = aawc_reforging_military_age_35_39 } add = var:aawc_reforging_military_age_35_39 }
+}
+aawc_reforging_ui_young_adults_civilian = {
+ value = aawc_reforging_ui_young_adults
+ subtract = aawc_reforging_ui_young_adults_military
+}
+aawc_reforging_ui_older_adults_military = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_military_age_40_44 } add = var:aawc_reforging_military_age_40_44 }
+ if = { limit = { has_variable = aawc_reforging_military_age_45_49 } add = var:aawc_reforging_military_age_45_49 }
+ if = { limit = { has_variable = aawc_reforging_military_age_50_54 } add = var:aawc_reforging_military_age_50_54 }
+ if = { limit = { has_variable = aawc_reforging_military_age_55_59 } add = var:aawc_reforging_military_age_55_59 }
+}
+aawc_reforging_ui_older_adults_civilian = {
+ value = aawc_reforging_ui_older_adults
+ subtract = aawc_reforging_ui_older_adults_military
+}
+aawc_reforging_ui_last_births = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_last_births } add = var:aawc_reforging_cohort_last_births }
+}
+aawc_reforging_ui_last_deaths = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_last_deaths } add = var:aawc_reforging_cohort_last_deaths }
+}
+
+# Read-only monthly-flow and transaction diagnostics for the compact county
+# tooltip.  These values intentionally never initialize, reconcile, advance,
+# or repair the ledger: absent records render as zero until an authoritative
+# demographic tick or transaction has created them.
+aawc_reforging_ui_last_natural_change = {
+ value = aawc_reforging_ui_last_births
+ subtract = aawc_reforging_ui_last_deaths
+}
+aawc_reforging_ui_last_aged = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_last_aged } add = var:aawc_reforging_cohort_last_aged }
+}
+aawc_reforging_ui_last_transfer_credit = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_last_transfer_credit } add = var:aawc_reforging_cohort_last_transfer_credit }
+}
+aawc_reforging_ui_last_transfer_debit = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_last_transfer_debit } add = var:aawc_reforging_cohort_last_transfer_debit }
+}
+aawc_reforging_ui_last_external_deaths = {
+ value = 0
+ if = { limit = { has_variable = aawc_reforging_cohort_last_external_deaths } add = var:aawc_reforging_cohort_last_external_deaths }
+}

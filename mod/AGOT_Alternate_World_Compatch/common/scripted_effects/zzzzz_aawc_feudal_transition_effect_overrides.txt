@@ -1,0 +1,299 @@
+﻿convert_whole_realm_to_feudalism_effect = {
+	hidden_effect = {
+		# AAWC 1.9.94: only the county capital auto-converts. Non-capital tribal
+		# holdings remain tribal until the owner chooses their feudal holding type.
+		every_realm_province = {
+			limit = {
+				has_holding_type = tribal_holding
+				is_county_capital = yes
+				NOT = { is_in_list = feudal_conversion }
+			}
+			add_to_list = feudal_conversion
+		}
+		every_vassal_or_below = {
+			every_realm_province = {
+				limit = {
+					has_holding_type = tribal_holding
+					is_county_capital = yes
+					NOT = { is_in_list = feudal_conversion }
+				}
+				add_to_list = feudal_conversion
+			}
+		}
+		every_in_list = {
+			list = feudal_conversion
+			set_variable = {
+				name = tribal_to_feudal_building_level
+				value = combined_building_level
+				days = 1
+			}
+			set_variable = { name = aawc_population_preconversion_tribal value = 1 }
+			set_holding_type = castle_holding
+			aawc_population_refresh_holding_dynamic_effect = yes
+			aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+			county = { aawc_population_recalculate_county_effect = yes }
+			while = {
+				limit = { var:tribal_to_feudal_building_level > 1 }
+				generate_building = yes
+				change_variable = {
+					name = tribal_to_feudal_building_level
+					subtract = 1
+				}
+			}
+			remove_variable = tribal_to_feudal_building_level
+			remove_from_list = feudal_conversion
+			hidden_effect = {
+				county = {
+					if = {
+						limit = { has_county_modifier = mpo_siberian_permafrost_modifier }
+						remove_county_modifier = mpo_siberian_permafrost_modifier
+					}
+					else_if = {
+						limit = { has_county_modifier = mpo_siberian_permafrost_modifier_bad }
+						remove_county_modifier = mpo_siberian_permafrost_modifier_bad
+					}
+				}
+			}
+			if = {
+				limit = { has_building = generic_dragon_pit_01 }
+				remove_building = generic_dragon_pit_01
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			has_tgp_dlc_trigger = yes
+			top_liege != this
+			liege = { government_has_flag = government_is_japan_feudal }
+		}
+		change_government = japan_feudal_government
+		if = {
+			limit = { is_house_head = yes }
+			save_scope_as = new_head
+			house = {
+				set_house_name = japanese_dynasty_name
+				save_scope_as = new_house
+			}
+			create_noble_family_effect = { GOVERNMENT_GIVER = this }
+			scope:new_title = {
+				set_coa = scope:new_house
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			top_liege != this
+			OR = {
+				liege = { government_has_flag = government_is_clan }
+				AND = {
+					liege = { government_has_flag = government_is_tribal }
+					culture = { agot_is_wildling_culture = yes }
+				}
+			}
+		}
+		change_government = clan_government
+	}
+	else_if = {
+		limit = {
+			top_liege != this
+			OR = {
+				liege = { government_has_flag = government_is_feudal }
+				AND = {
+					liege = { government_has_flag = government_is_tribal }
+					culture = { agot_is_wildling_culture = no }
+				}
+			}
+		}
+		change_government = feudal_government
+	}
+	else_if = {
+		limit = {
+			has_tgp_dlc_trigger = yes
+			top_liege = this
+			culture.culture_head ?= { government_is_japanese_trigger = yes }
+		}
+		add_character_flag = can_become_japanese_feudal
+		change_government = japan_feudal_government
+		if = {
+			limit = { is_house_head = yes }
+			save_scope_as = new_head
+			house = {
+				set_house_name = japanese_dynasty_name
+				save_scope_as = new_house
+			}
+			create_noble_family_effect = { GOVERNMENT_GIVER = this }
+			scope:new_title = {
+				set_coa = scope:new_house
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			top_liege = this
+			culture = { agot_is_wildling_culture = yes }
+		}
+		change_government = clan_government
+	}
+	else = { change_government = feudal_government }
+
+	if = {
+		limit = { government_has_flag = government_is_tribal }
+		custom_tooltip = all_holding_will_change
+		if = {
+			limit = {
+				any_sub_realm_county = {
+					OR = {
+						has_county_modifier = mpo_siberian_permafrost_modifier
+						has_county_modifier = mpo_siberian_permafrost_modifier_bad
+					}
+				}
+			}
+			custom_tooltip = all_permafrost_will_clear
+		}
+		if = {
+			limit = {
+				top_liege != this
+				liege = { government_has_flag = government_is_clan }
+			}
+			custom_tooltip = clan_liege_vassals_will_convert
+		}
+		if = {
+			limit = {
+				top_liege != this
+				liege = { government_has_flag = government_is_feudal }
+			}
+			custom_tooltip = feudal_liege_vassals_will_convert
+		}
+		if = {
+			limit = {
+				top_liege = this
+				culture = { agot_is_wildling_culture = yes }
+			}
+			custom_tooltip = islamic_vassals_will_convert
+		}
+		else_if = {
+			limit = { top_liege = this }
+			custom_tooltip = other_vassals_will_convert
+		}
+	}
+
+	hidden_effect = {
+		if = {
+			limit = { has_realm_law = tribal_authority_0 }
+			remove_realm_law = tribal_authority_0
+		}
+		if = {
+			limit = { has_realm_law = tribal_authority_1 }
+			remove_realm_law = tribal_authority_1
+		}
+		if = {
+			limit = { has_realm_law = tribal_authority_2 }
+			remove_realm_law = tribal_authority_2
+		}
+		if = {
+			limit = { has_realm_law = tribal_authority_3 }
+			remove_realm_law = tribal_authority_3
+		}
+		if = {
+			limit = { NOT = { has_realm_law = crown_authority_0 } }
+			add_realm_law_skip_effects = crown_authority_0
+		}
+		if = {
+			limit = { government_has_flag = government_is_japan_feudal }
+			every_vassal_or_below = {
+				limit = { government_has_flag = government_is_tribal }
+				add_character_flag = can_become_japanese_feudal
+				change_government = japan_feudal_government
+				if = {
+					limit = { is_house_head = yes }
+					save_scope_as = new_head
+					house = {
+						set_house_name = japanese_dynasty_name
+						save_scope_as = new_house
+					}
+					if = {
+						limit = { highest_held_title_tier >= tier_county }
+						create_noble_family_effect = { GOVERNMENT_GIVER = this }
+						scope:new_title = {
+							set_coa = scope:new_house
+						}
+					}
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_0 }
+					remove_realm_law = tribal_authority_0
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_1 }
+					remove_realm_law = tribal_authority_1
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_2 }
+					remove_realm_law = tribal_authority_2
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_3 }
+					remove_realm_law = tribal_authority_3
+				}
+				if = {
+					limit = { NOT = { has_realm_law = japanese_bureaucracy_0 } }
+					add_realm_law_skip_effects = japanese_bureaucracy_0
+				}
+			}
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_clan }
+			every_vassal_or_below = {
+				limit = { government_has_flag = government_is_tribal }
+				change_government = clan_government
+				if = {
+					limit = { has_realm_law = tribal_authority_0 }
+					remove_realm_law = tribal_authority_0
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_1 }
+					remove_realm_law = tribal_authority_1
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_2 }
+					remove_realm_law = tribal_authority_2
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_3 }
+					remove_realm_law = tribal_authority_3
+				}
+				if = {
+					limit = { NOT = { has_realm_law = crown_authority_0 } }
+					add_realm_law_skip_effects = crown_authority_0
+				}
+			}
+		}
+		else = {
+			every_vassal_or_below = {
+				limit = { government_has_flag = government_is_tribal }
+				change_government = feudal_government
+				if = {
+					limit = { has_realm_law = tribal_authority_0 }
+					remove_realm_law = tribal_authority_0
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_1 }
+					remove_realm_law = tribal_authority_1
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_2 }
+					remove_realm_law = tribal_authority_2
+				}
+				if = {
+					limit = { has_realm_law = tribal_authority_3 }
+					remove_realm_law = tribal_authority_3
+				}
+				if = {
+					limit = { NOT = { has_realm_law = crown_authority_0 } }
+					add_realm_law_skip_effects = crown_authority_0
+				}
+			}
+		}
+	}
+}

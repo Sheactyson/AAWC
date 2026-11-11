@@ -1,0 +1,97 @@
+﻿# Scope : province
+E_kCAFG_custom_province_setup_clear_all = {
+    E_kCAFG_custom_province_setup = yes
+    E_kCAFG_clear_all_province_faiths = yes
+    E_kCAFG_clear_all_province_cultures = yes
+}
+
+# Scope : province
+E_kCAFG_custom_province_setup_clear_faiths = {
+    E_kCAFG_custom_province_setup = yes
+    E_kCAFG_clear_all_province_faiths = yes
+}
+
+# Scope : province
+E_kCAFG_custom_province_setup_clear_cultures = {
+    E_kCAFG_custom_province_setup = yes
+    E_kCAFG_clear_all_province_cultures = yes
+}
+
+# Scope : province
+E_kCAFG_custom_province_setup = {
+    add_to_global_variable_list = {
+        name = kCAFG_custom_setup_provinces_edited
+        target = this
+    }
+    county = {
+        add_to_global_variable_list = {
+            name = kCAFG_custom_setup_counties_edited
+            target = this
+        }
+    }
+}
+
+E_kCAFG_finish_custom_setup = {
+    set_global_variable = kCAFG_ignore_tolerance_laws # For some reason the laws are wrongly evaluated when this part executes, so we ignore laws instead
+
+    every_in_global_list = {
+        variable = kCAFG_custom_setup_provinces_edited
+        E_kCAFG_check_province_factors = yes # This will display errors if the province factor don't add up to 1
+        E_kCAFG_update_province_target_culture_tension = yes
+        set_variable = { name = kCAFG_culture_tension value = var:kCAFG_target_culture_tension }
+        E_kCAFG_on_province_culture_tension_updated = yes
+        E_kCAFG_update_province_target_faith_tension = yes
+        set_variable = { name = kCAFG_faith_tension value = var:kCAFG_target_faith_tension }
+        E_kCAFG_on_province_faith_tension_updated = yes
+    }
+
+    every_in_global_list = {
+        variable = kCAFG_custom_setup_counties_edited
+        E_kCAFG_update_county_cultures_list = yes
+        E_kCAFG_update_county_culture = { REASON = flag:kCAFG_default_reason }
+        E_kCAFG_update_county_faiths_list = yes
+        E_kCAFG_update_county_faith = { REASON = flag:kCAFG_default_reason }
+    }
+
+    remove_global_variable = kCAFG_ignore_tolerance_laws
+    clear_global_variable_list = kCAFG_custom_setup_provinces_edited
+    clear_global_variable_list = kCAFG_custom_setup_counties_edited
+}
+
+# Scope : province
+E_kCAFG_check_province_factors = {
+    ## CULTURE ##
+    set_global_variable = {
+        name = kCAFG_province_total_factor
+        value = {
+            value = 0
+            every_in_list = {
+                variable = kCAFG_province_culture_structs
+                add = var:factor
+            }
+        }
+    }
+
+    if = {
+        limit = { global_var:kCAFG_province_total_factor != 1 }
+        error_log = "Wrong culture factor in province [THIS.Province.GetNameNoTooltip] ([THIS.Province.GetID])! Got [GetGlobalVariable('kCAFG_province_total_factor').GetValue|0%] (Expected 100%)."
+    }
+    ## FAITHS ##
+    set_global_variable = {
+        name = kCAFG_province_total_factor
+        value = {
+            value = 0
+            every_in_list = {
+                variable = kCAFG_province_faith_structs
+                add = var:factor
+            }
+        }
+    }
+
+    if = {
+        limit = { global_var:kCAFG_province_total_factor != 1 }
+        error_log = "Wrong faith factor in province [THIS.Province.GetNameNoTooltip] ([THIS.Province.GetID])! Got [GetGlobalVariable('kCAFG_province_total_factor').GetValue|0%] (Expected 100%)."
+    }
+    ##
+    remove_global_variable = kCAFG_province_total_factor
+}

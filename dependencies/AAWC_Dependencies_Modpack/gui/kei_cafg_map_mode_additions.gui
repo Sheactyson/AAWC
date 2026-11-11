@@ -1,0 +1,59 @@
+﻿
+widget = {
+	name = "kCAFG_hud_bottom"
+	widgetid = "kCAFG_hud_bottom"
+
+	size = { 100% 100% }
+	visible = "[And(IsDefaultGUIMode, GetVariableSystem.Exists('kCAFG_is_loaded_GUI'))]"
+	layer = bottom_bottom
+
+	widget = {
+		visible = "[And( Not(IsGameViewOpen('barbershop')), And( Not( IsMapMode( 'realms' ) ), Not( IsGameViewOpen( 'struggle' ) ) ) )]"
+		parentanchor = bottom|hcenter
+		size = { 100% 100 }
+		allow_outside = yes
+
+		flowcontainer = {
+			name = "kCAFG_map_mode_header"
+
+			parentanchor = center
+			position = { 0 10 }
+			direction = vertical
+			ignoreinvisible = yes
+			margin = { 15 10 }
+			margin_top = 5
+
+			text_label_center = {
+				visible = "[IsMapMode('kCAFG_culture_custom_mapmode')]"
+				text = "kCAFG_culture_map_mode_header"
+				fontsize = 25
+				margin = { 30 0 }
+				align = nobaseline
+			}
+
+			text_label_center = {
+				visible = "[IsMapMode('kCAFG_faith_custom_mapmode')]"
+				raw_text = "kCAFG_faith_map_mode_header"
+				fontsize = 25
+				margin = { 30 0 }
+				align = nobaseline
+			}
+
+			text_label_center = {
+				visible = "[IsMapMode('kCAFG_faith_tension_custom_mapmode')]"
+				raw_text = "kCAFG_faith_tension_map_mode_header"
+				fontsize = 25
+				margin = { 30 0 }
+				align = nobaseline
+			}
+
+			text_label_center = {
+				visible = "[IsMapMode('kCAFG_culture_tension_custom_mapmode')]"
+				raw_text = "kCAFG_culture_tension_map_mode_header"
+				fontsize = 25
+				margin = { 30 0 }
+				align = nobaseline
+			}
+		}
+	}
+}

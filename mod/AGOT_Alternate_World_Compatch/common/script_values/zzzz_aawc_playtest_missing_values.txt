@@ -1,0 +1,12 @@
+﻿# AAWC 1.9.82 playtest compatibility value stubs.
+#
+# These keys are referenced by external vanilla/DLC compatibility content in
+# some playsets. Return 0 so validation succeeds without granting rewards.
+
+standard_activity_cost = {
+	value = 0
+}
+
+minor_stress_impaminiscule_stress_impact_lossct_loss = {
+	value = 0
+}

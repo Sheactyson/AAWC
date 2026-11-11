@@ -1,0 +1,39 @@
+﻿# Default-off disposable campaign entry points; no production or AI callers.
+aawc_setup_government_fixture_tribal_decision = {
+    picture = { reference = "gfx/interface/illustrations/decisions/decision_realm.dds" }
+    desc = aawc_setup_government_fixture_tribal_decision_desc
+    selection_tooltip = aawc_setup_government_fixture_tribal_decision_tooltip
+    confirm_text = aawc_setup_government_fixture_tribal_decision_confirm
+    ai_check_interval = 0
+    is_shown = { has_game_rule = aawc_reforging_disposable_fixtures is_ai = no is_landed = yes exists = capital_county agot_is_dummy_character = no }
+    # Availability is fully gated by is_shown and repeated inside the event.
+    # No is_valid block: even an `always = yes` requirement is rendered as
+    # unlocalized debug text in the confirmation preview.
+    effect = { hidden_effect = { trigger_event = aawc_setup_government_fixture.0001 } }
+    ai_potential = { always = no }
+    ai_will_do = { base = 0 }
+}
+
+aawc_setup_government_fixture_pirate_decision = {
+    picture = { reference = "gfx/interface/illustrations/decisions/decision_realm.dds" }
+    desc = aawc_setup_government_fixture_pirate_decision_desc
+    selection_tooltip = aawc_setup_government_fixture_pirate_decision_tooltip
+    confirm_text = aawc_setup_government_fixture_pirate_decision_confirm
+    ai_check_interval = 0
+    is_shown = { has_game_rule = aawc_reforging_disposable_fixtures is_ai = no is_landed = yes exists = capital_county agot_is_dummy_character = no }
+    effect = { hidden_effect = { trigger_event = aawc_setup_government_fixture.0002 } }
+    ai_potential = { always = no }
+    ai_will_do = { base = 0 }
+}
+
+aawc_setup_government_fixture_citadel_decision = {
+    picture = { reference = "gfx/interface/illustrations/decisions/decision_realm.dds" }
+    desc = aawc_setup_government_fixture_citadel_decision_desc
+    selection_tooltip = aawc_setup_government_fixture_citadel_decision_tooltip
+    confirm_text = aawc_setup_government_fixture_citadel_decision_confirm
+    ai_check_interval = 0
+    is_shown = { has_game_rule = aawc_reforging_disposable_fixtures is_ai = no is_landed = yes exists = capital_county agot_is_dummy_character = no }
+    effect = { hidden_effect = { trigger_event = aawc_setup_government_fixture.0003 } }
+    ai_potential = { always = no }
+    ai_will_do = { base = 0 }
+}

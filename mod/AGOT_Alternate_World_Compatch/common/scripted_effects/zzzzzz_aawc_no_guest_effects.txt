@@ -1,0 +1,37 @@
+﻿# AAWC intentionally has no court-guest population. These effects remove only
+# the guest/host relationship: they do not kill the character and therefore do
+# not destroy legitimate born or dynastic characters serialized as guests.
+
+aawc_no_guest_reject_pool_arrival_effect = {
+	if = {
+		limit = {
+			exists = scope:host
+			is_pool_guest_of = scope:host
+		}
+		scope:host = {
+			remove_courtier_or_guest = root
+		}
+	}
+}
+
+aawc_no_guest_clear_host_effect = {
+	# Cancel delayed generic guest invitations from saves made before the system
+	# was disabled. Removing the variables also prevents their event countdowns
+	# from being treated as active decisions.
+	remove_character_flag = invite_knights_decision_active
+	remove_character_flag = invite_claimants_decision_active
+	remove_variable = number_of_invite_knights_countdown
+	remove_variable = number_of_invite_claimants_countdown
+	remove_variable = number_of_invite_poets_countdown
+
+	save_scope_as = aawc_no_guest_host
+	every_courtier_or_guest = {
+		limit = {
+			is_pool_guest_of = scope:aawc_no_guest_host
+		}
+		save_scope_as = aawc_no_guest_character
+		scope:aawc_no_guest_host = {
+			remove_courtier_or_guest = scope:aawc_no_guest_character
+		}
+	}
+}

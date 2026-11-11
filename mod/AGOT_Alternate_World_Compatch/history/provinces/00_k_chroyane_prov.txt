@@ -1,0 +1,356 @@
+﻿################## b_chroyane ###################
+######## c_chroyane - d_chroyane ########
+
+################## b_tul_poy ###################
+######## c_chroyane - d_chroyane ########
+
+################## b_shroudfall ###################
+######## c_chroyane - d_chroyane ########
+
+################## b_the_visage ###################
+######## c_chroyane - d_chroyane ########
+
+################## b_denllal ###################
+######## c_chroyane - d_chroyane ########
+
+################## b_romsas ###################
+######## c_chroyane - d_chroyane ########
+
+################## b_asolheam ###################
+######## c_chroyane - d_chroyane ########
+
+################## b_the_sorrows ###################
+######## c_chroyane - d_chroyane ########
+
+################## b_peadhean ###################
+######## c_peadhean - d_chroyane ########
+
+################## b_rhorigoy ##################
+######## c_peadhean - d_chroyane ########
+
+################## b_dhindham ##################
+######## c_peadhean - d_chroyane ########
+
+################## b_ialduschea ##################
+######## c_peadhean - d_chroyane ########
+
+################## b_wealia ##################
+######## c_peadhean - d_chroyane ########
+
+################## b_lhoysrol ##################
+######## c_peadhean - d_chroyane ########
+
+################## b_shealdalhem ##################
+######## c_shealdalhem - d_chroyane ########
+
+################## b_lhonyloy ##################
+######## c_shealdalhem - d_chroyane ########
+
+################## b_amoyl ##################
+######## c_shealdalhem - d_chroyane ########
+
+################## b_pullunwol ##################
+######## c_shealdalhem - d_chroyane ########
+
+################## b_dhoymwoy ##################
+######## c_shealdalhem - d_chroyane ########
+
+################## b_panlia_sar ##################
+######## c_panlia_sar - d_chroyane ########
+
+################## b_muroy ##################
+######## c_panlia_sar - d_chroyane ########
+
+################## b_tynoy ##################
+######## c_panlia_sar - d_chroyane ########
+
+################## b_hoysdislhy ##################
+######## c_panlia_sar - d_chroyane ########
+
+################## b_wynia_sar ##################
+######## c_panlia_sar - d_chroyane ########
+
+################## b_earhol ##################
+######## c_panlia_sar - d_chroyane ########
+
+################## b_iaello ##################
+######## c_panlia_sar - d_chroyane ########
+
+################## b_oydha ##################
+######## c_oydha - d_chroyane ########
+
+################## b_chiabun ##################
+######## c_oydha - d_chroyane ########
+
+################## b_lindhuslhia ##################
+######## c_oydha - d_chroyane ########
+
+################## b_lesky ##################
+######## c_oydha - d_chroyane ########
+
+################## b_oteaoy ##################
+######## c_oydha - d_chroyane ########
+
+################## b_chiwias ##################
+######## c_oydha - d_chroyane ########
+
+################## b_redodhoyl ##################
+######## c_oydha - d_chroyane ########
+
+################## b_rhyni ##################
+######## c_oydha - d_chroyane ########
+
+################## b_tianos ##################
+######## c_tianos - d_gar_sagon ########
+
+################## b_rhian ##################
+######## c_tianos - d_gar_sagon ########
+
+################## b_lhynhemlhu ##################
+######## c_tianos - d_gar_sagon ########
+
+################## b_uloym ##################
+######## c_tianos - d_gar_sagon ########
+
+################## b_hymylchim ##################
+######## c_tianos - d_gar_sagon ########
+
+################## b_imelhoys ##################
+######## c_tianos - d_gar_sagon ########
+
+################## b_eanlho ##################
+######## c_tianos - d_gar_sagon ########
+
+################## b_chunrhe ##################
+######## c_tianos - d_gar_sagon ########
+
+################## b_shattermire ##################
+######## c_perforated_mangrove - d_gar_sagon ########
+
+################## b_shianlia ##################
+######## c_perforated_mangrove - d_gar_sagon ########
+
+################## b_wulun ##################
+######## c_perforated_mangrove - d_gar_sagon ########
+
+################## b_chagoyl ##################
+######## c_perforated_mangrove - d_gar_sagon ########
+
+################## b_todhapedeanos ##################
+######## c_perforated_mangrove - d_gar_sagon ########
+
+################## b_choyriarian ##################
+######## c_perforated_mangrove - d_gar_sagon ########
+
+################## b_mas_poroys ##################
+######## c_perforated_mangrove - d_gar_sagon ########
+
+################## b_serenity ##################
+######## c_freedmens_respite - d_gar_sagon ########
+
+################## b_wenoymsu ##################
+######## c_freedmens_respite - d_gar_sagon ########
+
+################## b_speartips_shadow ##################
+######## c_freedmens_respite - d_gar_sagon ########
+
+################## b_esmia ##################
+######## c_freedmens_respite - d_gar_sagon ########
+
+################## b_dhiamoim ##################
+######## c_freedmens_respite - d_gar_sagon ########
+
+################## b_taelas_steps ##################
+######## c_freedmens_respite - d_gar_sagon ########
+
+################## b_meabeaby ##################
+######## c_freedmens_respite - d_gar_sagon ########
+
+################## b_dhyslhechin ##################
+######## c_freedmens_respite - d_gar_sagon ########
+
+################## b_lhiloy ##################
+######## c_freedmens_respite - d_gar_sagon ########
+
+################## b_pihu_sar ##################
+######## c_pihu_sar - d_azure_valley ########
+
+################## b_lhemnialnea ##################
+######## c_pihu_sar - d_azure_valley ########
+
+################## b_rhulkus ##################
+######## c_pihu_sar - d_azure_valley ########
+
+################## b_chengia ##################
+######## c_pihu_sar - d_azure_valley ########
+
+################## b_tiapia_mal ##################
+######## c_pihu_sar - d_azure_valley ########
+
+################## b_the_tills ##################
+######## c_pihu_sar - d_azure_valley ########
+
+################## b_ugmoyl ##################
+######## c_pihu_sar - d_azure_valley ########
+
+################## b_soytialne ##################
+####### c_soytialne - d_azure_valley ########
+
+################## b_ebamo ##################
+####### c_soytialne - d_azure_valley ########
+
+################## b_aminoys ##################
+####### c_soytialne - d_azure_valley ########
+
+################## b_shelia_sar ##################
+####### c_soytialne - d_azure_valley ########
+
+################## b_oialnian ##################
+####### c_soytialne - d_azure_valley ########
+
+################## b_hoymlhadhy ##################
+####### c_soytialne - d_azure_valley ########
+
+################## b_choyguhoy ##################
+####### c_soytialne - d_azure_valley ########
+
+################## b_cerulean_gap ##################
+####### c_lomoyrea - d_azure_valley ########
+
+################## b_ramiloys ##################
+####### c_lomoyrea - d_azure_valley ########
+
+################## b_ysbega ##################
+####### c_lomoyrea - d_azure_valley ########
+
+################## b_ponys_sar ##################
+####### c_lomoyrea - d_azure_valley ########
+
+################## b_puham_mal ##################
+####### c_lomoyrea - d_azure_valley ########
+
+################## b_lisdhon ##################
+####### c_lomoyrea - d_azure_valley ########
+
+################## b_lheamwi ##################
+####### c_lomoyrea - d_azure_valley ########
+
+################## b_suru_mal ##################
+####### c_suru_mal - d_suru_mal ########
+
+################## b_rhaneamu ##################
+####### c_suru_mal - d_suru_mal ########
+
+################## b_cherishia ##################
+####### c_suru_mal - d_suru_mal ########
+
+################## b_pinliul ##################
+####### c_suru_mal - d_suru_mal ########
+
+################## b_pymwudho ##################
+####### c_suru_mal - d_suru_mal ########
+
+################## b_rylheamdo ##################
+####### c_suru_mal - d_suru_mal ########
+
+################## b_rosheho ##################
+####### c_suru_mal - d_suru_mal ########
+
+################## b_tealbukoys ##################
+####### c_suru_mal - d_suru_mal ########
+
+################## b_punulea_sar ##################
+####### c_punulea_sar - d_suru_mal ########
+
+################## b_nodiros ##################
+####### c_punulea_sar - d_suru_mal ########
+
+################## b_udhiltoy ##################
+####### c_punulea_sar - d_suru_mal ########
+
+################## b_amlhyl ##################
+####### c_punulea_sar - d_suru_mal ########
+
+################## b_tealyn ##################
+####### c_punulea_sar - d_suru_mal ########
+
+################## b_eammi ##################
+####### c_punulea_sar - d_suru_mal ########
+
+################## b_witnesses_mire ##################
+####### c_witnesses_mire - d_suru_mal ########
+
+################## b_tyho ##################
+####### c_witnesses_mire - d_suru_mal ########
+
+################## b_ebanlhys_sar ##################
+####### c_witnesses_mire - d_suru_mal ########
+
+################## b_woylresti ##################
+####### c_witnesses_mire - d_suru_mal ########
+
+################## b_the_besottment ##################
+####### c_witnesses_mire - d_suru_mal ########
+
+################## b_pepper_flats ##################
+####### c_witnesses_mire - d_suru_mal ########
+
+################# b_sen_malhoy ##################
+####### c_sen_malhoy - d_sen_malhoy ########
+
+################# b_ylenby ##################
+####### c_sen_malhoy - d_sen_malhoy ########
+
+################# b_oyntia ##################
+####### c_sen_malhoy - d_sen_malhoy ########
+
+################# b_ghiasta ##################
+####### c_sen_malhoy - d_sen_malhoy ########
+
+################# b_lialea ##################
+####### c_sen_malhoy - d_sen_malhoy ########
+
+################# b_eairun ##################
+####### c_sen_malhoy - d_sen_malhoy ########
+
+################# b_cheasko ##################
+####### c_sen_malhoy - d_sen_malhoy ########
+
+################# b_chasaloy ##################
+####### c_chasaloy - d_sen_malhoy ########
+
+################# b_liasmoyroy ##################
+####### c_chasaloy - d_sen_malhoy ########
+
+################# b_teamlhoyn ##################
+####### c_chasaloy - d_sen_malhoy ########
+
+################# b_lhiahen ##################
+####### c_chasaloy - d_sen_malhoy ########
+
+################# b_nidhan ##################
+####### c_chasaloy - d_sen_malhoy ########
+
+################# b_rhillupea ##################
+####### c_chasaloy - d_sen_malhoy ########
+
+################# b_neais ##################
+####### c_chasaloy - d_sen_malhoy ########
+
+################# b_rhogo_sar ##################
+####### c_rhogo_sar - d_sen_malhoy ########
+
+################# b_reswosdhol ##################
+####### c_rhogo_sar - d_sen_malhoy ########
+
+################# b_garinimro_lywa ##################
+####### c_rhogo_sar - d_sen_malhoy ########
+
+################# b_numdym ##################
+####### c_rhogo_sar - d_sen_malhoy ########
+
+################# b_loshys ##################
+####### c_rhogo_sar - d_sen_malhoy ########
+
+################# b_dhypoydym ##################
+####### c_rhogo_sar - d_sen_malhoy ########

@@ -1,0 +1,32 @@
+﻿# County changes faith.
+# Root is the county title
+# scope:old_faith is the faith it used to have
+on_county_faith_change = {
+	on_actions = {
+        kCAFG_on_county_faith_change
+    }
+}
+
+# Root = County title
+# scope:old_culture = old culture
+on_county_culture_change = {
+	on_actions = {
+        kCAFG_on_county_culture_change
+    }
+}
+
+# Root is the county title
+# scope:old_faith is the faith it used to have
+kCAFG_on_county_faith_change = {
+    effect = {
+        E_kCAFG_on_county_faith_changed = yes
+    }
+}
+
+# Root = County title
+# scope:old_culture = old culture
+kCAFG_on_county_culture_change = {
+    effect = {
+        E_kCAFG_on_county_culture_changed = yes
+    }
+}

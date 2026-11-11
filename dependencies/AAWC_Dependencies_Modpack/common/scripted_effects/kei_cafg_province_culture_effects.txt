@@ -1,0 +1,354 @@
+﻿# SOURCE : From which culture we convert
+# TARGET : To which culture we convert
+# FACTOR : Factor (between 0-1) of total adherents to convert
+E_kCAFG_convert_province_culture_factor = {
+    $SOURCE$ = { save_temporary_scope_as = kCAFG_culture }
+    save_temporary_scope_value_as = {
+        name = source_factor
+        value = V_kCAFG_province_culture_factor
+    }
+    $TARGET$ = { save_temporary_scope_as = kCAFG_culture }
+    save_temporary_scope_value_as = {
+        name = target_factor
+        value = V_kCAFG_province_culture_factor
+    }
+    save_temporary_scope_value_as = {
+        name = converted_factor
+        value = {
+            value = $FACTOR$
+            min = 0
+            max = 1
+            max = scope:source_factor
+            max = {
+                value = 1
+                subtract = scope:target_factor
+            }
+        }
+    }
+    E_kCAFG_subtract_struct_factor = {
+        TYPE = culture
+        SCOPE = $SOURCE$
+        FACTOR = scope:converted_factor
+    }
+    E_kCAFG_add_struct_factor = {
+        TYPE = culture
+        SCOPE = $TARGET$
+        FACTOR = scope:converted_factor
+    }
+
+    E_kCAFG_check_request_culture_UI_update = yes
+    E_kCAFG_update_province_target_culture_tension = yes
+}
+
+# CULTURE : culture scope
+# FACTOR : 0-1 value
+E_kCAFG_set_province_culture_factor = {
+    E_kCAFG_set_struct_factor = {
+        TYPE = culture
+        SCOPE = $CULTURE$
+        FACTOR = $FACTOR$
+    }
+    
+    E_kCAFG_check_request_culture_UI_update = yes
+}
+
+# CULTURE : culture scope
+E_kCAFG_set_maximum_province_culture_factor = {
+    E_kCAFG_set_province_culture_factor = {
+        CULTURE = $CULTURE$
+        FACTOR = 1
+    }
+}
+
+# CULTURE : culture name
+# VALUE : 0-100 value
+E_kCAFG_set_province_culture_percentage = {
+    save_temporary_scope_value_as = {
+        name = kCAFG_tmp_factor
+        value = {
+            value = $VALUE$
+            divide = 100
+            min = 0
+            max = 1
+        }
+    }
+    E_kCAFG_set_province_culture_factor = {
+        CULTURE = culture:$CULTURE$
+        FACTOR = scope:kCAFG_tmp_factor
+    }
+}
+
+# Scope : province 
+# FACTOR : how much to convert
+# CULTURE : culture to convert to
+# Doesn't update any county variables
+E_kCAFG_province_weighted_culture_conversion = { # Additional people
+    E_kCAFG_add_struct_factor = {
+        TYPE = culture
+        SCOPE = $CULTURE$
+        FACTOR = $FACTOR$
+    }
+
+    # Normalize
+    set_local_variable = {
+        name = kCAFG_weighted_conversion_total_factor
+        value = {
+            value = 1
+            add = $FACTOR$
+        }
+    }
+    every_in_list = {
+        variable = kCAFG_province_culture_structs
+        change_variable = { name = factor divide = local_var:kCAFG_weighted_conversion_total_factor }
+        E_kCAFG_check_struct_removal = { TYPE = culture }
+    }
+
+    E_kCAFG_update_province_target_culture_tension = yes
+    E_kCAFG_check_request_culture_UI_update = yes
+}
+
+# Scope : province 
+# FACTOR : how much to convert
+# CULTURE : culture to convert to
+# Doesn't update any county variables
+E_kCAFG_province_weighted_culture_deconversion = { # People leave
+    if = {
+        limit = {
+            T_kCAFG_province_cultures_count_at_least = { VALUE = 2 } # No point in doing that if there is only one culture
+            T_kCAFG_does_province_contain_culture = { CULTURE = $CULTURE$ }
+        }
+        
+        every_in_list = {
+            variable = kCAFG_province_culture_structs
+            limit = { this.var:culture = $CULTURE$ }
+            save_temporary_scope_as = struct
+        }
+
+        set_local_variable = {
+            name = kCAFG_final_factor
+            value = {
+                value = $FACTOR$
+                max = scope:struct.var:factor
+            }
+        }
+
+        # Normalize
+        every_in_list = {
+            variable = kCAFG_province_culture_structs
+            limit = { this.var:culture != $CULTURE$ }
+            change_variable = {
+                name = factor
+                add = {
+                    value = local_var:kCAFG_final_factor
+                    multiply = var:factor
+                    divide = {
+                        value = 1
+                        subtract = scope:struct.var:factor
+                    }
+                }
+            }
+        }
+
+        E_kCAFG_subtract_struct_factor = {
+            TYPE = culture
+            SCOPE = $CULTURE$
+            FACTOR = local_var:kCAFG_final_factor
+        }
+
+        E_kCAFG_update_province_target_culture_tension = yes
+        E_kCAFG_check_request_culture_UI_update = yes
+    }
+}
+
+# Scope : province 
+# FACTOR : how much to convert
+# CULTURE : culture to convert to
+# Doesn't update any county variables
+E_kCAFG_province_dynamic_weighted_culture_conversion = { # Additional people
+    $CULTURE$ = { save_temporary_scope_as = kCAFG_converting_culture } # used by V_kCAFG_province_culture_conversion_weight
+    if = {
+        limit = {
+		    has_global_variable = kCAFG_is_loaded_v2
+            any_in_list = {
+                variable = kCAFG_province_cultures
+                scope:kCAFG_converting_culture != this
+            }
+        }
+
+        E_kCAFG_add_struct_factor = {
+            TYPE = culture
+            SCOPE = scope:kCAFG_converting_culture
+            FACTOR = $FACTOR$
+        }
+
+        # Normalize
+        set_local_variable = {
+            name = kCAFG_weighted_conversion_remaining_factor
+            value = $FACTOR$
+        }
+        save_temporary_scope_as = kCAFG_converted_province # used by V_kCAFG_province_culture_conversion_weight
+        while = {
+            limit = {
+                local_var:kCAFG_weighted_conversion_remaining_factor > 0
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:kCAFG_converting_culture != this
+                }
+            }
+
+            # Transfer culture
+            random_in_list = {
+                variable = kCAFG_province_culture_structs
+                limit = { scope:kCAFG_converting_culture != var:culture }
+
+                weight = {
+                    base = 0
+                    modifier = { add = var:culture.V_kCAFG_province_culture_conversion_weight }
+                }
+
+                save_temporary_scope_value_as = {
+                    name = converted_factor
+                    value = {
+                        value = V_kCAFG_smallest_minority_factor
+                        max = var:factor
+                        max = local_var:kCAFG_weighted_conversion_remaining_factor
+                    }
+                }
+
+                if = {
+                    limit = {
+                        scope:converted_factor > 0
+                    }
+
+                    var:culture = { save_temporary_scope_as = kCAFG_converted_culture }
+
+                    scope:kCAFG_converted_province = {
+                        E_kCAFG_subtract_struct_factor = {
+                            TYPE = culture
+                            SCOPE = scope:kCAFG_converted_culture
+                            FACTOR = scope:converted_factor
+                        }
+                    }
+
+                    change_local_variable = {
+                        name = kCAFG_weighted_conversion_remaining_factor
+                        subtract = scope:converted_factor
+                    }
+                }
+            }
+        }
+
+        # Excess
+        if = {
+            limit = {
+                has_local_variable = kCAFG_weighted_conversion_remaining_factor
+                local_var:kCAFG_weighted_conversion_remaining_factor > 0
+            }
+            E_kCAFG_subtract_struct_factor = {
+                TYPE = culture
+                SCOPE = scope:kCAFG_converting_culture
+                FACTOR = local_var:kCAFG_weighted_conversion_remaining_factor
+            }
+        }
+        remove_local_variable = kCAFG_weighted_conversion_remaining_factor
+
+        E_kCAFG_update_province_target_culture_tension = yes
+        E_kCAFG_check_request_culture_UI_update = yes
+    }
+}
+
+# Scope : province 
+# FACTOR : base factor conversion
+# VARIANCE : randomization added to the base factor
+# CULTURE : culture to convert to
+# MAX : maximum converted factor (i.e. keep minorities)
+# Doesn't update any county variables
+E_kCAFG_province_randomized_weighted_culture_conversion = {
+    save_temporary_scope_value_as = {
+        name = randomized_factor_to_convert
+        value = {
+            fixed_range = {
+                min = {
+                    value = $FACTOR$
+                    subtract = {
+                        fixed_range = {
+                            min = 0
+                            max = $VARIANCE$
+                        }
+                    }
+                    min = 0
+                }
+                max = {
+                    value = $FACTOR$
+                    add = {
+                        fixed_range = {
+                            min = 0
+                            max = $VARIANCE$
+                        }
+                    }
+                    max = 1
+                }
+            }
+            min = 0
+
+            max = {
+                value = {
+                    value = {
+                        value = $MAX$
+                        min = 0
+                        max = 1
+                    }
+                }
+                $CULTURE$ = { prev = { subtract = V_kCAFG_province_prev_culture_factor } }
+            }
+        }
+    }
+
+    E_kCAFG_province_dynamic_weighted_culture_conversion = {
+        FACTOR = scope:randomized_factor_to_convert
+        CULTURE = $CULTURE$
+    }
+}
+
+E_kCAFG_clear_all_province_cultures = {
+	clear_variable_list = kCAFG_province_cultures
+	clear_variable_list = kCAFG_province_culture_structs
+
+    E_kCAFG_check_request_culture_UI_update = yes
+}
+
+# Used to update UI if we're looking at the scoped province
+# Scope : province
+E_kCAFG_check_request_culture_UI_update = {
+    if = {
+        limit = {
+            NOT = { has_variable = kCAFG_culture_UI_update_requested }
+            is_target_in_global_variable_list = {
+                name = kCAFG_UI_viewed_provinces
+                target = this
+            }
+        }
+        set_variable = kCAFG_culture_UI_update_requested
+    }
+}
+
+# Scope : Province
+# SAVED_SCOPE
+E_kCAFG_get_random_culture_from_this_province = {
+    random_in_list = {
+        variable = kCAFG_province_culture_structs
+        weight = {
+            base = 0
+            modifier = { add = { value = var:factor multiply = 10000 } }
+        }
+        var:culture = { save_scope_as = $SAVED_SCOPE$ }
+    }
+}
+
+# PROVINCE
+# SAVED_SCOPE
+E_kCAFG_get_random_culture_from_province = {
+    $PROVINCE$ = {
+        E_kCAFG_get_random_culture_from_this_province = { SAVED_SCOPE = $SAVED_SCOPE$ }
+    }
+}

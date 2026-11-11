@@ -1,0 +1,23 @@
+﻿aawc_colonization_camp_purpose = {
+	default = aawc_camp_purpose_colonization
+	flag = realm_law
+
+	aawc_camp_purpose_colonization = {
+		flag = aawc_colonization_camp_purpose
+		flag = can_change_succession_laws
+
+		modifier = {
+			character_travel_speed = 10000
+			character_travel_safety = 10000
+			provisions_use_mult = -1.0
+		}
+
+		can_keep = {
+			has_game_rule = aawc_age_of_silence
+			is_landless_adventurer = yes
+		}
+
+		pass_cost = { prestige = 0 }
+		ai_will_do = { value = 0 }
+	}
+}

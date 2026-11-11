@@ -1,0 +1,377 @@
+﻿#Triggers to control Coat of Arms weighting
+
+coa_bishopric_trigger = {
+	scope:faith.religion = religion:the_seven_religion
+	coa_theocratic_trigger = yes
+}
+
+coa_feudal_trigger = {
+	OR = {
+		has_government = lp_feudal_government
+		has_government = feudal_government
+	}
+}
+
+coa_theocratic_trigger = {
+	exists = root
+	OR = {
+		has_government = theocracy_government
+		AND = {
+			exists = liege
+			liege = {
+				any_sub_realm_barony = {
+					lessee = ROOT
+					title_province = {
+						has_holding_type = church_holding
+					}
+				}
+			}
+		}
+	}
+}
+
+coa_andal_trigger = {
+	exists = scope:culture
+	OR = {
+		scope:culture = { has_coa_gfx = andal_coa_gfx }
+		coa_dornish_trigger = yes
+		coa_first_man_trigger = yes
+		coa_ironborn_trigger = yes
+		coa_wildling_trigger = yes
+	}
+}
+
+coa_dornish_trigger = {
+	exists = scope:culture
+	scope:culture = { has_coa_gfx = dornish_coa_gfx }
+}
+
+coa_first_man_trigger = {
+	exists = scope:culture
+	scope:culture = { has_coa_gfx = first_man_coa_gfx }
+}
+
+coa_ironborn_trigger = {
+	exists = scope:culture
+	scope:culture = { has_coa_gfx = ironborn_coa_gfx }
+}
+coa_valyrian_trigger = {
+	exists = scope:culture
+	scope:culture = { has_coa_gfx = valyrian_coa_gfx }
+}
+coa_wildling_trigger = {
+	exists = scope:culture
+	scope:culture = { has_coa_gfx = wildling_coa_gfx }
+}
+
+#Valid CoAs
+agot_is_valid_dyn_coa_target = {
+	exists = dynasty
+	agot_is_member_of_nights_watch = no
+	agot_is_landless_nw_character = no
+}
+
+agot_is_valid_dyn_coa_title = {
+	NOR = {
+		is_holy_order = yes
+		is_mercenary_company = yes
+		is_head_of_faith = yes
+		agot_is_valid_laamp_coa_target = yes
+		this = title:d_the_silent_sisterhood
+		this = title:d_kingsguard
+		this = title:b_goldguard_heights
+		this = title:b_the_citadel
+	}
+	NAND = {
+		tier = tier_barony
+		title_province = { has_holding_type = ruin_holding }
+	}
+	trigger_if = {
+		limit = {
+			exists = holder
+		}
+		NAND = {
+			holder = { agot_is_a_republic = yes }
+			agot_title_has_historic_free_city_coa = yes
+		}
+		NOT = {
+			holder = { government_has_flag = government_is_ruins }
+		}
+		NOT = {
+			holder = { government_has_flag = government_is_unknown }
+		}
+	}
+}
+
+agot_title_has_historic_free_city_coa = {
+	OR = {
+		this = title:h_valyria
+		this = title:e_valyria
+		this = title:e_daoryrdembos
+		this = title:e_narrow_sea
+		this = title:e_rhoyne
+		this = title:k_valyria
+		this = title:k_tyrosh
+		this = title:k_lys
+		this = title:k_myr
+		this = title:k_andalos
+		this = title:k_pentos
+		this = title:k_nontelos
+		this = title:k_braavos
+		this = title:k_lorath
+		this = title:k_norvos
+		this = title:k_qohor
+		this = title:k_ar_noy
+		this = title:k_ny_sar
+		this = title:k_chroyane
+		this = title:k_ghoyan_drohe
+	}
+}
+
+#Keep in sync with agot_set_laamp_coas
+agot_is_valid_laamp_coa_target = {
+	OR = {
+		this = title:d_laamp_Knight_Kings_Landing_5
+		this = title:d_laamp_Tall_1
+		this = title:d_laamp_Suggs_1
+		this = title:d_laamp_Seaworth_1
+		this = title:d_laamp_Knight_Kings_Landing_2
+		this = title:d_laamp_Knight_Stormlands_3
+		this = title:d_laamp_Knight_Pennytree_2
+		this = title:d_laamp_Knight_Riverlands_1
+		this = title:d_laamp_Frey_24
+		this = title:d_laamp_Knight_Vale_3
+		this = title:d_laamp_Knight_Vale_6
+		this = title:d_laamp_Knight_Westerlands_2
+		this = title:d_laamp_Knight_Iron_Isles_1
+		this = title:d_laamp_Osgrey_hh_1
+		this = title:d_laamp_Knight_Dorne_2
+		this = title:d_laamp_Knight_Dorne_3
+		this = title:d_laamp_Knight_North_1
+		this = title:d_laamp_merc_golden_company
+	}
+}
+
+#Personal CoAs
+agot_can_have_personal_arms_trigger = {
+	is_adult = yes
+	has_character_flag = has_personal_coa
+}
+
+has_rhllor_personal_coa_trigger = {
+	exists = house
+	OR = {
+		#North
+		AND = {
+			exists = dynasty:dynn_Stark.dynasty_founder.house
+			house ?= dynasty:dynn_Stark.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Bolton.dynasty_founder.house
+			house ?= dynasty:dynn_Bolton.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Glover.dynasty_founder.house
+			house ?= dynasty:dynn_Glover.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Ryswell.dynasty_founder.house
+			house ?= dynasty:dynn_Ryswell.dynasty_founder.house
+		}
+		house = house:house_Karstark
+		#Riverlands
+		AND = {
+			exists = dynasty:dynn_Tully.dynasty_founder.house
+			house ?= dynasty:dynn_Tully.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Blackwood.dynasty_founder.house
+			house ?= dynasty:dynn_Blackwood.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Bracken.dynasty_founder.house
+			house ?= dynasty:dynn_Bracken.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Frey.dynasty_founder.house
+			house ?= dynasty:dynn_Frey.dynasty_founder.house
+		}
+		#Vale
+		AND = {
+			exists = dynasty:dynn_Arryn.dynasty_founder.house
+			house ?= dynasty:dynn_Arryn.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Redfort.dynasty_founder.house
+			house ?= dynasty:dynn_Redfort.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Corbray.dynasty_founder.house
+			house ?= dynasty:dynn_Corbray.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Royce.dynasty_founder.house
+			house ?= dynasty:dynn_Royce.dynasty_founder.house
+		}
+		#Iron Islands
+		AND = {
+			exists = dynasty:dynn_Greyjoy.dynasty_founder.house
+			house ?= dynasty:dynn_Greyjoy.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Harlaw.dynasty_founder.house
+			house ?= dynasty:dynn_Harlaw.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Drumm.dynasty_founder.house
+			house ?= dynasty:dynn_Drumm.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Saltcliffe.dynasty_founder.house
+			house ?= dynasty:dynn_Saltcliffe.dynasty_founder.house
+		}
+		#Crownlands
+		AND = {
+			exists = dynasty:dynn_Targaryen.dynasty_founder.house
+			house ?= dynasty:dynn_Targaryen.dynasty_founder.house
+		}
+		house = house:house_Blackfyre
+		AND = {
+			exists = dynasty:dynn_Velaryon.dynasty_founder.house
+			house ?= dynasty:dynn_Velaryon.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Celtigar.dynasty_founder.house
+			house ?= dynasty:dynn_Celtigar.dynasty_founder.house
+		}
+		#Stormlands
+		AND = {
+			exists = dynasty:dynn_Baratheon.dynasty_founder.house
+			house ?= dynasty:dynn_Baratheon.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Dondarrion.dynasty_founder.house
+			house ?= dynasty:dynn_Dondarrion.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Estermont.dynasty_founder.house
+			house ?= dynasty:dynn_Estermont.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Selmy.dynasty_founder.house
+			house ?= dynasty:dynn_Selmy.dynasty_founder.house
+		}
+		#Westerlands
+		AND = {
+			exists = dynasty:dynn_Lannister.dynasty_founder.house
+			house ?= dynasty:dynn_Lannister.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Reyne.dynasty_founder.house
+			house ?= dynasty:dynn_Reyne.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Brax.dynasty_founder.house
+			house ?= dynasty:dynn_Brax.dynasty_founder.house
+		}
+		#Reach
+		AND = {
+			exists = dynasty:dynn_Tyrell.dynasty_founder.house
+			house ?= dynasty:dynn_Tyrell.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Hightower.dynasty_founder.house
+			house ?= dynasty:dynn_Hightower.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Florent.dynasty_founder.house
+			house ?= dynasty:dynn_Florent.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Rowan.dynasty_founder.house
+			house ?= dynasty:dynn_Rowan.dynasty_founder.house
+		}
+		#Dorne
+		house = house:house_Martell
+		AND = {
+			exists = dynasty:dynn_Dayne.dynasty_founder.house
+			house ?= dynasty:dynn_Dayne.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Toland.dynasty_founder.house
+			house ?= dynasty:dynn_Toland.dynasty_founder.house
+		}
+		AND = {
+			exists = dynasty:dynn_Yronwood.dynasty_founder.house
+			house ?= dynasty:dynn_Yronwood.dynasty_founder.house
+		}
+	}
+}
+
+#Same as has_rhllor_personal_coa_trigger for cases when a dynasty has no dynasty_founder for some reason
+has_no_house_rhllor_personal_coa_trigger = {
+	exists = dynasty
+	OR = {
+		dynasty = dynasty:dynn_Clegane
+	}
+}
+
+has_specific_rhllor_personal_coa_trigger = {
+	OR = {
+		this = character:Stark_7 #Jon Snow
+		this = character:Targaryen_96 #Bloodraven
+		this = character:Targaryen_95 #Bittersteel
+	}
+}
+
+allowed_faiths_for_rhllor_personal_coa = {
+	religion = religion:the_rhllor_religion
+}
+
+can_recieve_rhllor_personal_coa_trigger = {
+	exists = dynasty
+	OR = {
+		has_specific_rhllor_personal_coa_trigger = yes
+		has_rhllor_personal_coa_trigger = yes
+		has_no_house_rhllor_personal_coa_trigger = yes
+	}
+	allowed_faiths_for_rhllor_personal_coa = yes
+	trigger_if = {
+		limit = { exists = house.var:rhllor_coa_holder }
+		OR = {
+			house.var:rhllor_coa_holder = { NOT = { is_alive = yes } }
+			this = house.var:rhllor_coa_holder
+		}
+	}
+}
+
+valid_character_for_rhllor_personal_coa_trigger = {
+	exists = dynasty
+	OR = {
+		has_specific_rhllor_personal_coa_trigger = yes
+		AND = {
+			trigger_if = {
+				limit = {
+					exists = house.var:rhllor_coa_holder
+					house.var:rhllor_coa_holder = { is_alive = yes }
+				}
+				this = house.var:rhllor_coa_holder
+			}
+			OR = {
+				has_rhllor_personal_coa_trigger = yes
+				has_no_house_rhllor_personal_coa_trigger = yes
+			}
+		}
+	}
+	allowed_faiths_for_rhllor_personal_coa = yes
+}
+
+can_recieve_fourth_child_personal_coa_trigger = {
+	any_sibling = {
+		count = 3
+		AND = {
+			sex_same_as = $ACTOR$
+			age > $ACTOR$.age
+		}
+	}
+}

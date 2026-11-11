@@ -1,0 +1,135 @@
+
+types kCAFG_Types
+{
+    type kCAFG_amount_detailed = widget {
+        size = { 164 0 }
+
+        flowcontainer = {
+            spacing = 2
+            margin_left = 4
+            parentanchor = vcenter
+
+            widget = {
+                size = { 32 32 }
+                parentanchor = vcenter
+
+                icon = {
+                    texture = "gfx/interface/icons/modifiers/family_mixed.dds"
+                    size = { 100% 100% }
+                    color = { .75 .85 1 1 }
+                }
+            }
+
+            text_single = {
+                name = "amount_text"
+                block "amount_text" {}
+                margin_top = 6
+                min_width = 50
+                parentanchor = left|vcenter
+                align = left|nobaseline
+                default_format = "#high"
+                fontsize = 16
+                size = { 0 25 }
+            }
+        }
+
+        kCAFG_amount_percentage_only = {
+            margin_right = 4
+            default_format = "#weak"
+            parentanchor = right|vcenter
+            block "amount_percentage_text" {}
+        }
+    }
+
+    type kCAFG_amount_percentage_only = text_single {
+        align = center|nobaseline
+        block "amount_percentage_text" {}
+        default_format = "#high"
+        using = Font_Size_Medium
+    }
+
+    type kCAFG_province_additional_button = widget {
+        size = { 40 40 }
+        using = tooltip_above
+
+        button = {
+            size = { 100% 100% }
+            parentanchor = center
+
+            icon = {
+                size = { 85% 85% }
+                parentanchor = center
+                texture = "gfx/interface/component_masks/mask_circle.dds"
+
+                visible = "[ScriptedGui.IsShown( GuiScope.SetRoot( Province.MakeScope ).AddScope('local_player', GetPlayer.MakeScope).End)]"
+
+                glow = {
+                    glow_radius = 6
+                    color = { 1 0.85 0.6 1 }
+
+                    glow_generation_rules= {
+                        glow_alpha_mask = 0
+                        glow_blur_passes = 15
+                        glow_texture_downscale = 2f
+                        glow_ignore_inside_pixels = yes
+                    }
+                }
+
+                using = Animation_Glow_Pulse
+            }
+
+            button_icon = {
+                texture = "gfx/interface/buttons/button_round_frame.dds"
+                parentanchor = center
+                size = { 100% 100% }
+                color = { 0.8 0.8 1 1 }
+                using = Master_Button_Modify_Texture
+
+                enabled = "[ScriptedGui.IsValid( GuiScope.SetRoot( Province.MakeScope ).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('local_player', GetPlayer.MakeScope).End)]"
+            }
+
+            background = {
+                texture = "gfx/interface/icons/struggle_banners/icon_background_dark.dds"
+
+                modify_texture = {
+                    texture = "gfx/interface/component_overlay/overlay_texture.dds"
+                    blend_mode = overlay
+                }
+            }
+
+            icon = {
+                size = { 64% 64% }
+                parentanchor = center
+
+                block "button_icon" {}
+            }
+        }
+
+        widget = {
+            parentanchor = bottom|hcenter
+            position = { 0 4 }
+            size = { 16 16 }
+            alwaystransparent = yes
+
+            block "number_tooltip" {}
+            using = tooltip_below
+
+            background = {
+                texture = "gfx/interface/component_tiles/solid_black_label.dds"
+                spritetype = Corneredtiled
+                spriteborder = { 20 20 }
+                texture_density = 2
+                margin = { 3 2 }
+            }
+            
+            text_single = {
+                parentanchor = center
+                position = { 0 0 }
+                block "number_datamodel" {}
+                default_format = "#high"
+                align = nobaseline
+            }
+        }
+    }
+}

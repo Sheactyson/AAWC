@@ -1,0 +1,42 @@
+﻿on_game_start = {
+	on_actions = {
+		on_silent_sister_start
+	}
+}
+
+on_silent_sister_start = {
+	effect = {
+		error_log = "AAWC 1.10.1 silent sisterhood startup suppressed"
+	}
+}
+
+on_title_gain = {
+	on_actions = {
+		on_silent_sister_succession
+	}
+}
+
+#Made to prevent an error
+on_silent_sister_succession = {
+	effect = {}
+	events = {}
+}
+
+#Made to prevent an error
+on_silent_sister_election = {
+	effect = {}
+	events = {}
+}
+
+# character just about to die in root scope
+# if a killer is know, it's set as scope:killer
+#Triggered by code
+on_death = {
+	first_valid_on_action = {
+		on_silent_sister_sm_death
+	}
+}
+
+on_silent_sister_sm_death = {
+	effect = {}
+}

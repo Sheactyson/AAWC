@@ -1,0 +1,412 @@
+﻿# Legacy of Valyria On Game Start On Actions
+# - All on actions effects after initial map generation (but before playing) goes here
+on_game_start = {
+    on_actions = {
+		lv_remove_realms
+
+		lv_culture_and_history_setup
+		lv_provinces_setup
+		lv_titles_setup
+		lv_on_game_start
+
+		cob_on_game_start
+		cob_set_legacies
+		cob_house_dna
+		cob_disputed_lands_cleanup
+		cob_set_dragonstone_faiths
+		cob_set_birthplaces
+		cob_set_contracts
+		cob_new_dnas
+    }
+}
+
+# Bye map
+lv_remove_realms = {
+	on_actions = {
+		lv_remove_realm_rhoyne
+		lv_remove_realm_volantis
+		lv_remove_realm_valyria
+		lv_remove_realm_north_valyria
+		lv_remove_realm_ghiscar
+		lv_remove_realm_far_east_essos
+		lv_remove_realm_sothoryos
+    }
+}
+
+lv_remove_realm_rhoyne = {
+	trigger = { lv_realm_rhoyne_disabled = yes }
+	effect = {
+		agot_remove_realm_effect = { REALM = title:e_rhoyne }
+	}
+}
+
+lv_remove_realm_volantis = {
+	trigger = { lv_realm_volantis_disabled = yes }
+	effect = {
+		agot_remove_realm_effect = { REALM = title:e_volantis }
+	}
+}
+
+lv_remove_realm_valyria = {
+	trigger = { lv_realm_valyria_disabled = yes }
+	effect = {
+		agot_remove_realm_effect = { REALM = title:e_lands_of_long_summer }
+		agot_remove_realm_effect = { REALM = title:e_valyria }
+	}
+}
+
+lv_remove_realm_north_valyria = {
+	trigger = { lv_realm_north_valyria_disabled = yes }
+	effect = {
+		agot_remove_realm_effect = { REALM = title:e_old_valyria }
+	}
+}
+
+lv_remove_realm_ghiscar = {
+	trigger = { lv_realm_ghiscar_disabled = yes }
+	effect = {
+		agot_remove_realm_effect = { REALM = title:e_ghiscar }
+	}
+}
+
+lv_remove_realm_far_east_essos = {
+	trigger = { lv_realm_far_east_essos_disabled = yes }
+	effect = {
+		agot_remove_realm_effect = { REALM = title:e_asshai }
+		agot_remove_realm_effect = { REALM = title:k_vehar }
+	}
+}
+
+lv_remove_realm_sothoryos = {
+	trigger = { lv_realm_sothoryos_disabled = yes }
+	effect = {
+		agot_remove_realm_effect = { REALM = title:e_sothoryos }
+		agot_remove_realm_effect = { REALM = title:e_sothoryos_major_east }
+	}
+}
+
+# Set up culture and history-related stuff here
+lv_culture_and_history_setup = {
+	effect = {
+		# This prevents us from using direct file overrides if we don't have to and is generally cleaner for cases such as AGOT itself updating those cultures
+		culture:mantaryan = {
+			if = {
+				limit = { NOT = { has_cultural_tradition = lv_tradition_mantaryan } }
+				add_culture_tradition = lv_tradition_mantaryan
+			}
+			if = {
+				limit = { NOT = { has_cultural_tradition = lv_tradition_north_valyrian_1 } }
+				add_culture_tradition = lv_tradition_north_valyrian_1
+			}
+		}
+		culture:tolosi = {
+			if = {
+				limit = { NOT = { has_cultural_tradition = lv_tradition_tolosi } }
+				add_culture_tradition = lv_tradition_tolosi
+			}
+			if = {
+				limit = { NOT = { has_cultural_tradition = lv_tradition_north_valyrian_1 } }
+				add_culture_tradition = lv_tradition_north_valyrian_1
+			}
+		}
+		culture:elyrian = {
+			if = {
+				limit = { NOT = { has_cultural_tradition = lv_tradition_elyrian } }
+				add_culture_tradition = lv_tradition_elyrian
+			}
+			if = {
+				limit = { NOT = { has_cultural_tradition = lv_tradition_north_valyrian_1 } }
+				add_culture_tradition = lv_tradition_north_valyrian_1
+			}
+		}
+
+		# Give Old Blood modifiers to Volantene dynasties
+        dynasty:dynn_Maegyr = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+		dynasty:dynn_Vhassar = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+        dynasty:dynn_Paenymion = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+        dynasty:dynn_Qhaedar = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+        dynasty:dynn_Vaelaros = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+        dynasty:dynn_Staegone = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+        dynasty:dynn_Tagaros = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+        dynasty:dynn_Nogarys = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+        dynasty:dynn_Votar = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+        dynasty:dynn_Qoheros = { add_dynasty_modifier = valyrian_heritage_dynasty_modifier }
+	}
+}
+
+# Set up provinces-related stuff here
+lv_provinces_setup = {
+	effect = {
+		# Add buildings to special provinces here instead of in history to avoid missing-ruler errors
+		if = {
+			limit = { lv_realm_volantis_disabled = no }
+			province:10491 = { # Volantis Harbor
+				add_province_modifier = extra_building_slot
+				add_province_modifier = extra_building_slot
+				add_province_modifier = extra_building_slot
+				add_province_modifier = extra_building_slot
+				add_building = common_tradeport_08
+				add_building = guild_halls_08
+				add_building = agot_urban_farms_08
+				add_building = breweries_07
+			}
+			province:10492 = { # Fishmonger's Square
+				add_province_modifier = extra_building_slot
+				add_province_modifier = extra_building_slot
+				add_building = guild_halls_04
+				add_building = breweries_06
+			}
+			province:10493 = { # Western Waterfront
+				add_province_modifier = extra_building_slot
+				add_province_modifier = extra_building_slot
+				add_building = guild_halls_05
+				add_building = barracks_07
+			}
+			province:10494 = { # Eastern Waterfront
+				add_province_modifier = extra_building_slot
+				add_province_modifier = extra_building_slot
+				add_building = regimental_grounds_07
+				add_building = barracks_07
+			}
+			province:10490 = { # Old Volantis
+				add_province_modifier = extra_building_slot
+				add_province_modifier = extra_building_slot
+				add_building = barracks_08
+				add_building = breweries_08
+			}
+			province:10496 = { # The Great Plaza
+				add_province_modifier = extra_building_slot
+				add_building = city_walls_04
+			}
+		}
+	}
+}
+
+# Set up title-related stuff here
+lv_titles_setup = {
+	effect = {
+		# Changes the Ruins title's color to be transparent
+		title:d_ruins = { set_color_from_title = title:d_lv_map_transparent_color }
+		title:c_wilderness = { set_color_from_title = title:d_lv_map_transparent_color }
+		title:d_unknown = { set_color_from_title = title:d_lv_map_transparent_color }
+
+		# Free City-fy LoV-added realms
+		if = {
+			limit = { lv_realm_volantis_disabled = no }
+			lv_free_city_setup_effect = { KINGDOM_TITLE = title:k_volantis }
+		}
+		if = {
+			limit = { lv_realm_sothoryos_disabled = no }
+			lv_free_city_setup_effect = { KINGDOM_TITLE = title:k_the_basilisk_isles }
+			lv_free_city_setup_effect = { KINGDOM_TITLE = title:k_gogossos }
+		}
+
+		# Start setting important locations for the Valyrian Freehold
+		if = {
+			limit = { has_ep3_dlc_trigger = yes }
+			# NORTH VALYRIA
+			title:c_elyria = { # Elyria
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_mantarys = { # Mantarys
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_tolos = { # Tolos
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			# FREE CITIES
+			title:c_old_volantis = { # Volantis, the First Daughter
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_tyrosh = { # Tyrosh
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_lys = { # Lys
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_myr = { # Myr
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_pentos = { # Pentos
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			# RHOYNE
+			title:c_chroyane = { # Chroyane
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_ny_sar = { # Ny Sar
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			# GHISCAR
+			title:c_meereen = { # Meereen
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_yunkai = { # Yunkai
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_astapor = { # Astapor
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_new_ghis = { # New Ghis
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_old_ghis = { # Old Ghis
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			title:c_gogossos = { # Gogossos / Gorgai
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+			# UNCONQUERED SIGNIFICANT AREAS
+			title:c_braavos = { # Braavos - Most well-known anti-slaver Free City
+				set_important_location = {
+					title = title:h_valyrian_freehold
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+				set_important_location = {
+					title = title:e_valyria
+					enter_realm_event = lv_valyrian_freehold.0100
+				}
+			}
+		}
+	}
+}
+
+lv_on_game_start = {
+	effect = {
+		set_global_variable = { # Set global variable for other submods to hook onto
+            name = LV_is_loaded
+            value = yes
+        }
+
+		# Yes!
+		if = {
+			limit = { global_var:LV_is_loaded ?= yes }
+			debug_log = "Legacy of Valyria is loaded"
+		}
+		if = {
+			limit = {
+				game_start_date > 7899.1.1
+			}
+			add_to_global_variable_list = {
+				name = lv_unavailable_unique_items
+				target = flag:torment_sword_lost
+			}
+			add_to_global_variable_list = {
+				name = lv_unavailable_unique_items
+				target = flag:mages_fire_lost
+			}
+		}
+	}
+}

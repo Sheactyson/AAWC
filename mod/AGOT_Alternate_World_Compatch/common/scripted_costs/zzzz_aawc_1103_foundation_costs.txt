@@ -1,0 +1,200 @@
+﻿+diverge_culture = {
+	prestige = {
+		add = {
+			desc = "BASE"
+			value = 5000
+			format = "BASE_VALUE_FORMAT"
+		}
+
+		# The foundation prompt grants exactly one free divergence from Lost culture.
+		if = {
+			limit = { has_character_flag = aawc_1103_foundation_culture_pending }
+			multiply = 0
+		}
+		
+		# Cost scales depending on how much of your culture is within your realm
+		# Controlling only a small part of your culture makes it cheaper
+		if = {
+			limit = {
+				culture = {
+					any_culture_county = {
+						percent <= 0.1
+						holder = {
+							OR = {
+								any_liege_or_above = { this = root }
+								this = root
+							}
+						}
+					}
+				}
+			}
+			multiply = {
+				value = 0.1
+				desc = "culture_size_in_realm"
+			}
+		}
+		else_if = {
+			limit = {
+				culture = {
+					any_culture_county = {
+						percent <= 0.2
+						holder = {
+							OR = {
+								any_liege_or_above = { this = root }
+								this = root
+							}
+						}
+					}
+				}
+			}
+			multiply = {
+				value = 0.2
+				desc = "culture_size_in_realm"
+			}
+		}
+		else_if = {
+			limit = {
+				culture = {
+					any_culture_county = {
+						percent <= 0.3
+						holder = {
+							OR = {
+								any_liege_or_above = { this = root }
+								this = root
+							}
+						}
+					}
+				}
+			}
+			multiply = {
+				value = 0.3
+				desc = "culture_size_in_realm"
+			}
+		}
+		else_if = {
+			limit = {
+				culture = {
+					any_culture_county = {
+						percent <= 0.4
+						holder = {
+							OR = {
+								any_liege_or_above = { this = root }
+								this = root
+							}
+						}
+					}
+				}
+			}
+			multiply = {
+				value = 0.4
+				desc = "culture_size_in_realm"
+			}
+		}
+		else_if = {
+			limit = {
+				culture = {
+					any_culture_county = {
+						percent <= 0.5
+						holder = {
+							OR = {
+								any_liege_or_above = { this = root }
+								this = root
+							}
+						}
+					}
+				}
+			}
+			multiply = {
+				value = 0.5
+				desc = "culture_size_in_realm"
+			}
+		}
+		else_if = {
+			limit = {
+				culture = {
+					any_culture_county = {
+						percent <= 0.6
+						holder = {
+							OR = {
+								any_liege_or_above = { this = root }
+								this = root
+							}
+						}
+					}
+				}
+			}
+			multiply = {
+				value = 0.6
+				desc = "culture_size_in_realm"
+			}
+		}
+		else_if = {
+			limit = {
+				culture = {
+					any_culture_county = {
+						percent <= 0.7
+						holder = {
+							OR = {
+								any_liege_or_above = { this = root }
+								this = root
+							}
+						}
+					}
+				}
+			}
+			multiply = {
+				value = 0.7
+				desc = "culture_size_in_realm"
+			}
+		}
+		else_if = {
+			limit = {
+				culture = {
+					any_culture_county = {
+						percent <= 0.8
+						holder = {
+							OR = {
+								any_liege_or_above = { this = root }
+								this = root
+							}
+						}
+					}
+				}
+			}
+			multiply = {
+				value = 0.8
+				desc = "culture_size_in_realm"
+			}
+		}
+		else_if = {
+			limit = {
+				culture = {
+					any_culture_county = {
+						percent <= 0.9
+						holder = {
+							OR = {
+								any_liege_or_above = { this = root }
+								this = root
+							}
+						}
+					}
+				}
+			}
+			multiply = {
+				value = 0.9
+				desc = "culture_size_in_realm"
+			}
+		}
+		#EVENTS
+		if = {
+			limit = {
+				has_character_flag = diverging_culture_discount
+			}
+			multiply = {
+				value = 0.66
+				desc = "contented_distant_governor"
+			}
+		}
+	}
+}
+

@@ -1,0 +1,21 @@
+﻿barony_cannot_construct_holding = {
+	OR = {
+		# AGOT disables vanilla's Sahara-only restriction because that vanilla
+		# region is absent from the AGOT map. Keep that authoritative behavior.
+		always = no
+		AND = {
+			barony.county.holder ?= {
+				top_liege = {
+					NOT = { agot_is_dummy_character = yes }
+					custom_tooltip = {
+						text = aawc_population_need_new_holding_surplus_minimum_tt
+						OR = {
+							NOT = { has_variable = aawc_population_available }
+							var:aawc_population_available < aawc_population_new_holding_minimum_cost
+						}
+					}
+				}
+			}
+		}
+	}
+}

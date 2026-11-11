@@ -1,0 +1,391 @@
+﻿E_kCAFG_natural_culture_evolution_yearly = {
+    if = {
+        limit = { NOT = { has_game_rule = kCAFG_natural_culture_evolution_none } }
+
+        #debug_log = "Kei CAFG - [GetCurrentDate.GetStringLong] - Natural Culture Evolution"
+        every_province_w_barony = {
+            change_variable = {
+                name = kCAFG_natural_culture_evolution_progress
+                add = {
+                    fixed_range = {
+                        # about every 5-12 years
+                        min = 7
+                        max = 19
+                    }
+                    # Increased by development
+                    add = {
+                        value = county.development_level
+                        divide = max_development_level
+                        subtract = 0.2
+                        divide = 0.8
+                        multiply = 15
+                        min = 0
+                        max = 10
+                    }
+                }
+            }
+
+            if = {
+                limit = { var:kCAFG_natural_culture_evolution_progress > 100 }
+                change_variable = {
+                    name = kCAFG_natural_culture_evolution_progress
+                    subtract = 100
+                }
+
+                save_scope_as = province
+                trigger_event = {
+                    id = kei_cafg_natural_culture_evolution_events.0001
+                    days = { 0 365 }
+                }
+            }
+        }
+        #debug_log = "Kei CAFG - [GetCurrentDate.GetStringLong] - NCE Done"
+    }
+}
+
+E_kCAFG_province_natural_culture_evolution = {
+    #debug_log = "Kei CAFG - [GetCurrentDate.GetStringLong] - Natural Culture Evolution Triggered in Province [THIS.Province.GetNameNoTooltip]"
+
+    # Random conversion within the province
+    if = {
+        limit = {
+            T_kCAFG_province_cultures_count_at_least = { VALUE = 2 }
+        }
+
+        random = {
+            chance = {
+                value = 15
+                add = {
+                    value = var:kCAFG_culture_tension
+                    multiply = 35
+                }
+                min = 1
+            }
+
+            # Decreased culture
+            # Avoid making minorities disappear
+            random_in_list = {
+                variable = kCAFG_province_culture_structs
+                limit = { var:factor > V_kCAFG_smaller_minority_factor }
+                var:culture = { save_temporary_scope_as = kCAFG_converted_culture }
+            }
+
+            if = {
+                limit = { exists = scope:kCAFG_converted_culture }
+
+                # Increased culture
+                random_in_list = {
+                    variable = kCAFG_province_cultures
+                    limit = { scope:kCAFG_converted_culture != this }
+                    weight = {
+                        base = 25
+                        modifier = {
+                            add = "cultural_acceptance(scope:kCAFG_converted_culture)"
+                        }
+                    }
+                    save_temporary_scope_as = kCAFG_converting_culture
+                }
+
+                if = {
+                    limit = { exists = scope:kCAFG_converting_culture }
+
+                    #debug_log = "Kei CAFG - [GetCurrentDate.GetStringLong] - Random Culture Conversion in [THIS.Province.GetNameNoTooltip]"
+                    E_kCAFG_convert_province_culture_factor = {
+                        SOURCE = scope:kCAFG_converted_culture
+                        TARGET = scope:kCAFG_converting_culture
+                        FACTOR = V_kCAFG_smallest_minority_factor
+                    }
+
+                    county = {
+                        E_kCAFG_update_county_cultures_list = yes
+                        E_kCAFG_update_county_culture = { REASON = flag:kCAFG_natural_evolution }
+                    }
+                }
+            }
+        }
+    }
+
+    # Culture Spread
+    if = {
+        limit = {
+            any_in_list = {
+                variable = kCAFG_province_culture_structs
+                var:factor >= V_kCAFG_medium_minority_factor
+            }
+        }
+        random_in_list = {
+            variable = kCAFG_province_culture_structs
+            limit = { var:factor >= V_kCAFG_medium_minority_factor }
+
+            weight = {
+                base = 500
+                modifier = {
+                    add = {
+                        value = var:factor
+                        multiply = 500
+                    }
+                }
+            }
+
+            save_temporary_scope_as = converting_struct
+            var:culture = {
+                save_temporary_scope_as = kCAFG_culture
+                save_temporary_scope_as = kCAFG_converting_culture
+                save_temporary_scope_as = kCAFG_target_culture # used by V_kCAFG_culture_tension_target_baseline
+            }
+        }
+        
+        set_local_variable = {
+            name = kCAFG_natural_spread_converted_factor
+            value = 0
+        }
+        
+        # Base chance to convert
+        random = {
+            chance = {
+                value = 0.6
+                add = {
+                    value = scope:converting_struct.var:factor
+                    subtract = 0.5
+                    divide = 0.5
+                    multiply = 0.4
+                }
+                multiply = 60
+
+                multiply = {
+                    value = 1.5
+                    every_in_list = {
+                        variable = kCAFG_province_culture_structs
+                        limit = { this.var:culture != scope:kCAFG_converting_culture }
+
+                        subtract = {
+                            var:culture = { value = V_kCAFG_culture_tension_target_baseline }
+                            multiply = var:factor
+                        }
+                    }
+                    add = 1
+                    divide = 2
+                }
+
+                if = {
+                    limit = {
+                        exists = scope:kCAFG_converting_culture.culture_head
+                        exists = scope:province.barony.holder
+                        scope:province.barony.holder = scope:kCAFG_converting_culture.culture_head
+                    }
+                    add = 20
+                }
+
+                # Law makes people move or stay
+                multiply = {
+                    value = V_kCAFG_culture_tension_tolerance_law_factor
+                    add = 1
+                    divide = 2
+                }
+            }
+            #debug_log = "Convert Common"
+            change_local_variable = {
+                name = kCAFG_natural_spread_converted_factor
+                add = { 0.01 0.09 }
+            }
+        }
+        # Chance to convert more
+        random = {
+            chance = {
+                value = 2
+                add = {
+                    value = scope:converting_struct.var:factor
+                    subtract = 0.7
+                    min = 0
+                    divide = 0.3
+                    multiply = 18
+                }
+
+                multiply = {
+                    value = 1.5
+                    every_in_list = {
+                        variable = kCAFG_province_culture_structs
+                        limit = { this.var:culture != scope:kCAFG_converting_culture }
+
+                        subtract = {
+                            var:culture = { value = V_kCAFG_culture_tension_target_baseline }
+                            multiply = var:factor
+                        }
+                    }
+                    add = 1
+                    divide = 2
+                }
+
+                if = {
+                    limit = {
+                        exists = scope:kCAFG_converting_culture.culture_head
+                        exists = scope:province.barony.holder
+                        scope:province.barony.holder = scope:kCAFG_converting_culture.culture_head
+                    }
+                    add = 10
+                }
+
+                # Law makes people move or stay
+                multiply = {
+                    value = V_kCAFG_culture_tension_tolerance_law_factor
+                    add = 2
+                    divide = 3
+                }
+            }
+            #debug_log = "Convert Rare"
+            change_local_variable = {
+                name = kCAFG_natural_spread_converted_factor
+                add = { 0.03 0.06 }
+            }
+        }
+
+        if = {
+            limit = {
+                local_var:kCAFG_natural_spread_converted_factor > 0
+            }
+            
+            if = {
+                limit = {
+                    NOT = {
+                        any_in_list = {
+                            variable = kCAFG_province_culture_structs
+                            var:culture = scope:kCAFG_converting_culture
+                            var:factor >= V_kCAFG_inverted_smaller_minority_factor
+                        }
+                    }
+                    var:kCAFG_culture_tension < V_kCAFG_province_natural_culture_conversion_max_tension
+                }
+                add_to_temporary_list = province_selection
+            }
+
+            every_neighboring_province = {
+                limit = {
+                    OR = {
+                        AND = {
+                            is_sea_province = yes # Chance to spread a bit further
+                            local_var:kCAFG_natural_spread_converted_factor > 0.03
+                        }
+                        AND = {
+                            exists = county
+                            NOT = {
+                                any_in_list = {
+                                    variable = kCAFG_province_culture_structs
+                                    var:culture = scope:kCAFG_converting_culture
+                                    var:factor >= V_kCAFG_inverted_smaller_minority_factor
+                                }
+                            }
+                            var:kCAFG_culture_tension < V_kCAFG_province_natural_culture_conversion_max_tension
+                        }
+                    }
+                }
+
+                if = {
+                    limit = { is_sea_province = yes }
+                    every_neighboring_province = {
+                        limit = {
+                            exists = county
+                            NOT = {
+                                any_in_list = {
+                                    variable = kCAFG_province_culture_structs
+                                    var:culture = scope:kCAFG_converting_culture
+                                    var:factor >= V_kCAFG_inverted_smaller_minority_factor
+                                }
+                            }
+                            var:kCAFG_culture_tension < V_kCAFG_province_natural_culture_conversion_max_tension
+                        }
+                        add_to_temporary_list = province_selection
+                    }
+                }
+                else = {
+                    add_to_temporary_list = province_selection
+                }
+            }
+
+            if = {
+                limit = { is_in_list = province_selection }
+                remove_from_list = province_selection
+            }
+
+            if = {
+                limit = { list_size:province_selection > 0 }
+
+                #debug_log = "-- Selection --"
+                every_in_list = {
+                    list = province_selection
+                    set_variable = {
+                        name = kCAFG_tmp_selection_weight # Store weight to avoid both evaluations in the limit AND the randomized selection
+                        value = V_kCAFG_province_natural_culture_conversion_weight
+                    }
+                    #debug_log = "[THIS.Province.GetNameNoTooltip] - Weight: [THIS.Var('kCAFG_tmp_selection_weight').GetValue]"
+                }
+                #debug_log = "-- --------- --"
+
+                random_in_list = {
+                    list = province_selection
+                    limit = {
+                        var:kCAFG_tmp_selection_weight > 0
+                    }
+                    weight = {
+                        base = 0
+                        modifier = { add = var:kCAFG_tmp_selection_weight }
+                    }
+
+                    #debug_log = "Province [THIS.Province.GetNameNoTooltip] with weight [THIS.Var('kCAFG_tmp_selection_weight').GetValue] selected."
+                    # Conversion will happen
+                    if = {
+                        limit = { var:kCAFG_tmp_selection_weight > V_kCAFG_province_natural_culture_conversion_bad_weight_threshold }
+                        save_temporary_scope_as = kCAFG_natural_culture_majority_converted_province
+                    }
+                    # Conversion is unappealing, randomized chance
+                    else = {
+                        random = {
+                            chance = {
+                                value = V_kCAFG_province_natural_culture_conversion_bad_weight_max_chance
+                                multiply = {
+                                    value = var:kCAFG_tmp_selection_weight
+                                    divide = V_kCAFG_province_natural_culture_conversion_bad_weight_threshold
+                                }
+                            }
+                            save_temporary_scope_as = kCAFG_natural_culture_majority_converted_province
+                        }
+                    }
+                }
+
+                every_in_list = {
+                    list = province_selection
+                    remove_variable = kCAFG_tmp_selection_weight
+                }
+
+                if = {
+                    limit = {
+                        exists = scope:kCAFG_natural_culture_majority_converted_province
+                    }
+
+                    scope:kCAFG_natural_culture_majority_converted_province = {
+                        ## LOG
+                        # debug_log = "Kei CAFG - [GetCurrentDate.GetStringLong] - Natural Culture Spread Conversion Happened in Province [THIS.Province.GetNameNoTooltip] from [province.GetNameNoTooltip]"
+                        # scope:kCAFG_converting_culture = {
+                        #     set_variable = { name = converted_factor value = local_var:kCAFG_natural_spread_converted_factor }
+                        #     debug_log = "Culture Converts: +[THIS.Var('converted_factor').GetValue] [THIS.Culture.GetNameNoTooltip]"
+                        #     remove_variable = converted_factor
+                        # }
+                        ###
+
+                        E_kCAFG_province_weighted_culture_conversion = {
+                            FACTOR = local_var:kCAFG_natural_spread_converted_factor
+                            CULTURE = scope:kCAFG_converting_culture
+                        }
+
+                        county = {
+                            E_kCAFG_update_county_cultures_list = yes
+                            E_kCAFG_update_county_culture = { REASON = flag:kCAFG_natural_evolution }
+                        }
+                    }
+                }
+                else = {
+                    #debug_log = "Failure!"
+                }
+            }
+        }
+    }
+}

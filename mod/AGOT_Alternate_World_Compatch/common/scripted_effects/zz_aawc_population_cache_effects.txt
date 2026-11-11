@@ -1,0 +1,39 @@
+﻿# Static holding values change only when the holding, its buildings, terrain, or county
+# development changes. The monthly path checks the development snapshot and structural
+# hooks mark the cache dirty for the remaining cases.
+aawc_population_refresh_holding_static_effect = {
+	if = {
+		limit = { has_holding = yes }
+		aawc_stage2_refresh_structural_effect = yes
+		set_variable = { name = aawc_population_expected value = aawc_population_holding_expected }
+		set_variable = { name = aawc_population_debug_main_capacity value = aawc_population_holding_main_line_expected_capacity }
+		set_variable = { name = aawc_population_debug_building_capacity value = aawc_population_holding_building_expected_capacity }
+		set_variable = { name = aawc_population_debug_growth_rating value = aawc_population_holding_growth_rating }
+		set_variable = { name = aawc_migration_holding_building_rating value = aawc_migration_holding_building_rating_value }
+		set_variable = { name = aawc_migration_holding_building_rating_eligible value = 0 }
+		if = {
+			limit = {
+				var:aawc_population_expected > 0
+				NOT = { has_holding_type = ruin_holding }
+				NOT = { has_holding_type = wilderness_holding }
+			}
+			set_variable = { name = aawc_migration_holding_building_rating_eligible value = 1 }
+		}
+		set_variable = { name = aawc_population_debug_base_growth_rate value = aawc_population_holding_base_growth_rate }
+		set_variable = { name = aawc_population_debug_rating_multiplier value = aawc_population_holding_growth_rating_multiplier }
+		set_variable = { name = aawc_population_debug_terrain_multiplier value = aawc_population_holding_terrain_growth_multiplier }
+		set_variable = { name = aawc_population_debug_potential_growth_rate value = aawc_population_holding_potential_growth_rate }
+		set_variable = { name = aawc_population_debug_development_capacity_bonus value = aawc_population_holding_main_line_development_bonus }
+		set_variable = { name = aawc_population_static_development_snapshot value = county.development_level }
+		set_variable = { name = aawc_stage2_environment_snapshot value = aawc_stage2_environment_signature }
+		set_variable = { name = aawc_population_static_cache_ready value = 1 }
+		remove_variable = aawc_population_static_cache_dirty
+	}
+}
+
+aawc_population_mark_holding_static_dirty_effect = {
+	if = {
+		limit = { has_holding = yes }
+		set_variable = { name = aawc_population_static_cache_dirty value = 1 }
+	}
+}

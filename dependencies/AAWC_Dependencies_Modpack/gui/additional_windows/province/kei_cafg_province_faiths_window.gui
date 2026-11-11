@@ -1,0 +1,465 @@
+######################################################
+############## PROVINCE FAITHS WINDOW ################
+######################################################
+
+kCAFG_province_additional_window = {
+    name = "kCAFG_province_faiths_window"
+	widgetid = "kCAFG_province_faiths_window"
+    
+    datacontext = "[GetScriptedGui( 'kCAFG_province_faith_scripted_gui' )]"
+
+    blockoverride "content" {
+        kCAFG_province_faith_granularity_content = {}
+    }
+}
+
+types kCAFG_ProvinceFaithTypes
+{
+    type kCAFG_province_faith_granularity_content = kCAFG_province_granularity_content {
+        blockoverride "update_state"
+        {
+            state = {
+                name = "kCAFG_faith_ui_update"
+                trigger_when = "[GetScriptedGui('kCAFG_province_faith_update_request_scripted_gui').IsValid( GuiScope.SetRoot( Province.MakeScope ).End )]"
+                on_finish = "[GetScriptedGui('kCAFG_province_faith_update_request_scripted_gui').Execute( GuiScope.SetRoot( Province.MakeScope ).End )]"
+                on_finish = "[GetScriptedGui( 'kCAFG_province_faiths_setup_variables_scripted_gui' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('local_player', GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        blockoverride "header_text"
+        {
+            text = "kCAFG_province_faiths_window_header_title"
+        }
+
+        blockoverride "tension_tooltip"
+        {
+            tooltip = "kCAFG_province_faiths_window_faith_tension_tooltip"
+        }
+
+        blockoverride "tension_map_mode_button"
+        {
+            onclick = "[SetMapMode('kCAFG_faith_tension_custom_mapmode')]"
+            onclick = "[GetScriptedGui('kCAFG_faith_tension_map_mode').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            tooltip = "kCAFG_faith_tension_show_map_mode_tt"
+        }
+
+        blockoverride "tension_title_text"
+        {
+            text = "kCAFG_province_faiths_window_faith_tension_title"
+        }
+
+        blockoverride "tension_value"
+        {
+            value = "[Province.MakeScope.Var('kCAFG_faith_tension').GetValue]"
+        }
+
+        blockoverride "tension_target_position"
+        {
+            position = "[GetGuiPositionFromPercentCoordinates( PdxGuiWidget.Self, Multiply_float( FixedPointToFloat( Province.MakeScope.Var('kCAFG_target_faith_tension').GetValue ), '(float)100'), '(float)0' )]"
+        }
+
+        blockoverride "tension_percentage_text"
+        {
+            raw_text = "[Province.MakeScope.Var('kCAFG_faith_tension').GetValue|v0%]"
+        }
+
+        blockoverride "attached_widgets" {
+            widget = {
+                visible = "[And(Province.IsValid, EqualTo_CFixedPoint(EmptyScope.ScriptValue('V_kCAFG_tolerance_laws_game_rule_allowed_value'), '(CFixedPoint)1'))]"
+                size = { 40 40 }
+                tooltip = "kCAFG_province_faiths_tolerance_law_tt"
+                using = tooltip_ne
+
+                button_add_laws = {
+                    size = { 75% 75% }
+                    parentanchor = center
+                    alwaystransparent = yes
+
+					glow = {
+						color = { 0 0 0 0.9 }
+						glow_radius = 3
+						using = Glow_Standard
+					}
+                }
+
+                text_single = {
+                    visible = "[EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_faith_tolerance_law_value'), '(CFixedPoint)1')]"
+                    parentanchor = top|right
+                    position = { 8 -6 }
+                    align = nobaseline
+                    raw_text = "@change_up_good_1!"
+                }
+
+                text_single = {
+                    visible = "[EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_faith_tolerance_law_value'), '(CFixedPoint)0')]"
+                    parentanchor = top|right
+                    position = { 8 -6 }
+                    align = nobaseline
+                    raw_text = "@change_none_neutral!"
+                }
+
+                text_single = {
+                    visible = "[EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_faith_tolerance_law_value'), '(CFixedPoint)-1')]"
+                    parentanchor = top|right
+                    position = { 8 -6 }
+                    align = nobaseline
+                    raw_text = "@change_down_bad_1!"
+                }
+            }
+        }
+
+        blockoverride "sub_header_widgets"
+        {
+            flowcontainer = {
+                spacing = 6
+
+                widget = {
+                    parentanchor = vcenter
+                    name = "additional_debug_info"
+                    size = { 20 20 }
+                    tooltip = "kCAFG_province_faiths_debug_info_tt"
+                    visible = "[InDebugMode]"
+
+                    icon = {
+                        size = { 100% 100% }
+                        texture = "gfx/interface/icons/portraits/hook_secret.dds"
+                        framesize = { 40 40 }
+                        frame = 4
+                        color = { 1 0.6 1 1 }
+                    }
+                }
+
+                kCAFG_province_focus_button = {
+                    visible = "[And(Not(IsObserver), GetPlayer.HasCouncillor('councillor_court_chaplain'))]"
+
+                    blockoverride "data_context"
+                    {
+                        datacontext = "[GetScriptedGui('kCAFG_task_conversion_province_focus_scripted_gui')]"
+                        datacontext = "[GetPlayer.GetCouncillor('councillor_court_chaplain')]"
+                    }
+
+                    blockoverride "main_button"
+                    {
+                        enabled = "[And(Character.IsValid, And(GetScriptedGui('kCAFG_is_task_conversion_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), Not(ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))))]"
+                    }
+
+                    blockoverride "tooltip_title"
+                    {
+                        text = "kCAFG_task_conversion_focus_province_tooltip_title"
+                    }
+
+                    blockoverride "tooltip_description"
+                    {
+                        text = "kCAFG_task_conversion_focus_province_tooltip_desc"
+                    }
+
+                    blockoverride "additional_description"
+                    {
+                        textbox = {
+                            visible = "[And(Character.IsValid, And(GetScriptedGui('kCAFG_is_task_conversion_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), Not(ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))))]"
+                            layoutpolicy_horizontal = expanding
+                            max_width = 400
+                            text = "kCAFG_task_conversion_focus_province_tooltip_progress_breakdown_title"
+                            using = DefaultTooltipText
+                            multiline = yes
+                            fonttintcolor = "[TooltipInfo.GetTintColor]"
+                            alwaystransparent = no
+                            tooltip = "kCAFG_task_conversion_focus_province_tooltip_progress_breakdown"
+                        }
+                    }
+
+                    blockoverride "tooltip_already_focused"
+                    {
+                        visible = "[And(And(Character.IsValid, Character.MakeScope.Var('kCAFG_task_conversion_focused_province').IsSet), And(GetScriptedGui('kCAFG_is_converting_in_province_county_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), Not(ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))))]"
+                        text = "kCAFG_task_conversion_focus_province_tooltip_already_focused_warning"
+                    }
+
+                    blockoverride "tooltip_warning_task_will_be_aborted"
+                    {
+                        visible = "[And(Character.IsValid, And(GetScriptedGui('kCAFG_is_task_conversion_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), Not(GetScriptedGui('kCAFG_is_converting_in_province_county_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))))]"
+                        text = "kCAFG_task_conversion_focus_province_tooltip_task_will_be_aborted"
+                    }
+
+                    blockoverride "tooltip_cannot_execute_task"
+                    {
+                        visible = "[And(Character.IsValid, Not(GetScriptedGui('kCAFG_is_task_conversion_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End)))]"
+                        text = "kCAFG_task_conversion_focus_province_tooltip_cannot_convert"
+                    }
+
+                    blockoverride "concept_link"
+                    {
+                        text = ""
+                    }
+
+                    blockoverride "task_button"
+                    {
+                        texture = "gfx/interface/icons/council_task_types/task_conversion.dds"
+                    }
+
+                    blockoverride "disabled_button_tooltip"
+                    {
+                        tooltip  = "kCAFG_task_conversion_focus_province_disabled_tooltip"
+                    }
+                }
+            }
+        }
+
+        blockoverride "list_datamodel"
+        {
+            datamodel = "[Province.MakeScope.GetList('kCAFG_UI_ordered_province_faith_structs')]"
+        }
+
+        blockoverride "list_item_datacontext"
+        {
+            datacontext = "[Scope.Story.MakeScope.Var('faith').Faith]"
+        }
+
+        blockoverride "list_datamodel_observer"
+        {
+            datamodel = "[Province.MakeScope.GetList('kCAFG_province_faith_structs')]"
+        }
+
+        blockoverride "list_item_content"
+        {
+            hbox = {
+                layoutpolicy_vertical = expanding
+                layoutpolicy_horizontal = growing
+                margin_right = 4
+                spacing = 6
+
+                expand = {
+                    button = {
+                        name = "element_button"
+                        layoutpolicy_vertical = expanding
+                        layoutpolicy_horizontal = growing
+
+                        onclick = "[OpenGameViewData( 'faith', Faith.GetID )]"
+                        onrightclick = "[SetMapMode('kCAFG_faith_custom_mapmode')]"
+                        onrightclick = "[GetScriptedGui('kCAFG_faith_map_mode').Execute(GuiScope.SetRoot(Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                        button_ignore = none
+                        tooltipwidget = {
+                            faith_tooltip = {
+                                blockoverride "extra_info"
+                                {
+                                    using = faith_tooltip_click_default_extra_info
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = "kCAFG_FAITH_OPEN_MAPMODE_TOOLTIP_RC"
+                                        margin = { 10 0 }
+                                    }
+                                }
+                            }
+                        }
+                        using = tooltip_ws
+
+                        flowcontainer = {
+                            name = "province_faith_info_content_faith"
+
+                            icon = {
+                                name = "faith_icon"
+                                texture = "[Faith.GetIcon]"
+                                size = { 40 40 }
+                                parentanchor = left
+                            }
+
+                            text_single = {
+                                name = "faith_name"
+                                parentanchor = left|vcenter
+                                align = left|nobaseline
+                                text = "[Faith.GetNameNoTooltip]"
+                                using = Font_Size_Medium
+                                default_format = "#high"
+                                max_width = 124
+                                margin_left = 4
+                            }
+                        }
+                    }
+                }
+
+                widget = {
+                    name = "additional_debug_info"
+                    size = { 20 20 }
+                    tooltip = "kCAFG_province_faith_debug_info_tt"
+                    visible = "[InDebugMode]"
+
+                    icon = {
+                        size = { 100% 100% }
+                        texture = "gfx/interface/icons/portraits/hook_secret.dds"
+                        framesize = { 40 40 }
+                        frame = 4
+                        color = { 1 0.6 1 1 }
+                    }
+                }
+
+                widget = {
+                    name = "faith_opinion_widget"
+                    size = { 28 28 }
+                    datacontext = "[Province.GetCounty.GetCount]"
+
+                    kCAFG_opinion_icon = {
+                        color = { 1 1 1 1 }
+                        visible = "[EqualTo_uint32(Faith.GetID, Character.GetFaith.GetID)]"
+                    }
+
+                    widget = {
+                        size = { 100% 100% }
+                        parentanchor = center
+                        visible = "[NotEqualTo_uint32(Faith.GetID, Character.GetFaith.GetID)]"
+
+                        kCAFG_opinion_icon = {
+                            visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)1')]"
+                            color = { .9 .3 .3 1 }
+                        }
+
+                        kCAFG_opinion_icon = {
+                            visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)2')]"
+                            color = { .9 .5 .3 1 }
+                        }
+
+                        kCAFG_opinion_icon = {
+                            visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)3')]"
+                            color = { 1 .8 .6 1 }
+                        }
+
+                        kCAFG_opinion_icon = {
+                            visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)4')]"
+                            color = { .70 .83 .5 1 }
+                        }
+
+                        kCAFG_opinion_icon = {
+                            visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)5')]"
+                            color = { .6 .9 .45 1 }
+                        }
+                    }
+
+                    using = tooltip_ne
+
+                    tooltipwidget = {
+                        widget = {
+                            name = "OpinionTooltipWidget"
+                            using = GeneralTooltipSetup
+                            alwaystransparent = no
+
+                            using = DefaultTooltipBackground
+
+                            vbox = {
+                                set_parent_size_to_minimum = yes
+                                margin = { 15 5 }
+
+                                textbox = {
+                                    name = "BaseLineContribution"
+                                    layoutpolicy_horizontal = expanding
+                                    max_width = 400
+                                    using = DefaultTooltipText
+                                    multiline = yes
+                                    text = "kCAFG_province_faith_tooltip_desc_tension_baseline_contribution"
+                                    fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                    alwaystransparent = no
+                                    visible = "[NotEqualTo_uint32(Faith.GetID, Character.GetFaith.GetID)]"
+                                }
+
+                                textbox = {
+                                    name = "SameFaithTooltip"
+                                    layoutpolicy_horizontal = expanding
+                                    max_width = 400
+                                    using = DefaultTooltipText
+                                    multiline = yes
+                                    text = "kCAFG_province_faith_same_tooltip_desc"
+                                    fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                    alwaystransparent = no
+                                    visible = "[EqualTo_uint32(Faith.GetID, Character.GetFaith.GetID)]"
+                                }
+
+                                textbox = {
+                                    name = "DifferentFaithTooltip"
+                                    layoutpolicy_horizontal = expanding
+                                    margin_top = 2
+                                    max_width = 400
+                                    using = DefaultTooltipText
+                                    multiline = yes
+                                    text = "[GetScriptedGui('kCAFG_province_faith_opinion_breakdown').ExecuteTooltip(GuiScope.SetRoot(Faith.MakeScope).AddScope('kCAFG_target_faith', Character.GetFaith.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End)]"
+                                    fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                    alwaystransparent = no
+                                    visible = "[NotEqualTo_uint32(Faith.GetID, Character.GetFaith.GetID)]"
+                                }
+
+                                textbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    max_width = 400
+                                    using = DefaultTooltipText
+                                    margin_top = 6
+                                    multiline = yes
+                                    raw_text = "[Localize('kCAFG_province_faith_tooltip_desc_fervor_average')] [GuiScope.SetRoot(Faith.MakeScope).AddScope('kCAFG_target_faith', Character.GetFaith.MakeScope).ScriptValue('V_kCAFG_faith_tension_target_baseline_fervor_factor_average_impact')|0-=%]"
+                                    fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                    visible = "[NotEqualTo_uint32(Faith.GetID, Character.GetFaith.GetID)]"
+                                    alwaystransparent = no
+                                }
+
+                                textbox = {
+                                    name = "TooltipTextShortcut"
+                                    layoutpolicy_horizontal = expanding
+                                    using = DefaultTooltipText
+                                    margin = { 10 5 }
+                                }
+                            }
+                        }
+                    }
+                }
+            
+            }
+        }
+
+        blockoverride "additional_item_content"
+        {
+            widget = {
+                size = { 100% 100% }
+                visible = "[And(Not(IsObserver), InDebugMode)]"
+
+                button_round = {
+                    size = { 18 18 }
+                    parentanchor = vcenter|right
+                    position = { -62 -12 }
+                    button_ignore = none
+                    visible = "[GetScriptedGui( 'kCAFG_DEBUG_province_faith_reverse_convert' ).IsShown( GuiScope.SetRoot( Province.MakeScope ).AddScope('faith', Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                    enabled = "[GetScriptedGui( 'kCAFG_DEBUG_province_faith_reverse_convert' ).IsValid( GuiScope.SetRoot( Province.MakeScope ).AddScope('faith', Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                    onclick = "[GetScriptedGui( 'kCAFG_DEBUG_province_faith_reverse_convert' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('faith', Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).AddScope('amount', MakeScopeValue(EmptyScope.ScriptValue('V_kCAFG_debug_conversion_amount'))).End)]"
+                    onrightclick = "[GetScriptedGui( 'kCAFG_DEBUG_province_faith_reverse_convert' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('faith', Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).AddScope('amount', MakeScopeValue(EmptyScope.ScriptValue('V_kCAFG_debug_conversion_amount_high'))).End)]"
+                    tooltip = "kCAFG_debug_convert_to_my_faith"
+                    using = tooltip_nw
+                    color = { 1 0.7 1 1 }
+
+                    highlight_icon = {
+                        parentanchor = center
+                        size = { 100% 100% }
+                        texture = "gfx/interface/icons/flat_icons/plus.dds"
+		                using = Master_Button_Modify_Texture
+                        color = { 1 0.7 1 1 }
+                    }
+                }
+
+                button_round = {
+                    size = { 18 18 }
+                    parentanchor = vcenter|right
+                    position = { -62 12 }
+                    button_ignore = none
+                    visible = "[GetScriptedGui( 'kCAFG_DEBUG_province_faith_convert' ).IsShown( GuiScope.SetRoot( Province.MakeScope ).AddScope('faith', Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                    enabled = "[GetScriptedGui( 'kCAFG_DEBUG_province_faith_convert' ).IsValid( GuiScope.SetRoot( Province.MakeScope ).AddScope('faith', Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                    onclick = "[GetScriptedGui( 'kCAFG_DEBUG_province_faith_convert' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('faith', Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).AddScope('amount', MakeScopeValue(EmptyScope.ScriptValue('V_kCAFG_debug_conversion_amount'))).End)]"
+                    onrightclick = "[GetScriptedGui( 'kCAFG_DEBUG_province_faith_convert' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('faith', Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).AddScope('amount', MakeScopeValue(EmptyScope.ScriptValue('V_kCAFG_debug_conversion_amount_high'))).End)]"
+                    tooltip = "kCAFG_debug_convert_from_my_faith"
+                    using = tooltip_nw
+                    color = { 1 0.7 1 1 }
+
+                    highlight_icon = {
+                        parentanchor = center
+                        size = { 100% 100% }
+                        texture = "gfx/interface/icons/flat_icons/minus.dds"
+		                using = Master_Button_Modify_Texture
+                        color = { 1 0.7 1 1 }
+                    }
+                }
+            }
+        }
+    }
+}

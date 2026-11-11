@@ -1,0 +1,339 @@
+﻿namespace = aawc_reforging_stage1a
+
+# Opt-in Stage 1A runtime harness. Only bounded player test decisions call
+# these events; no on-action or production caller. The fixture rule is off by default.
+# Every mutating immediate marks the whole save unsuitable for production certification.
+# The first replaces the player's
+# capital province; the second is deliberately read-only so a post-reload run
+# cannot conceal a persistence failure by rebuilding the fixture.
+aawc_reforging_stage1a.0001 = {
+	type = character_event
+	trigger = { has_game_rule = aawc_reforging_disposable_fixtures }
+	title = aawc_reforging_stage1a.0001.t
+	desc = {
+		triggered_desc = {
+			trigger = {
+				root.capital_county.title_province = {
+					aawc_reforging_cohort_test_fixture_status = 1
+				}
+			}
+			desc = aawc_reforging_stage1a.fixture_pass
+		}
+		triggered_desc = {
+			trigger = {
+				NOT = {
+					root.capital_county.title_province = {
+						aawc_reforging_cohort_test_fixture_status = 1
+					}
+				}
+			}
+			desc = aawc_reforging_stage1a.fixture_fail
+		}
+	}
+	theme = stewardship_domain_focus
+
+	immediate = {
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			set_global_variable = { name = aawc_reforging_fixture_tainted value = 1 }
+			root.capital_county.title_province = {
+				aawc_reforging_cohort_test_initializer_effect = yes
+				aawc_reforging_cohort_stage1_prepare_test_effect = yes
+				aawc_reforging_cohort_read_only_diagnostics_effect = yes
+			}
+
+		}
+}
+
+	option = { name = aawc_reforging_stage1a.0001.a }
+}
+
+aawc_reforging_stage1a.0002 = {
+	type = character_event
+	trigger = { has_game_rule = aawc_reforging_disposable_fixtures }
+	title = aawc_reforging_stage1a.0002.t
+	desc = {
+		triggered_desc = {
+			trigger = {
+				root.capital_county.title_province = {
+					aawc_reforging_cohort_stage1_invariant_status = 1
+					aawc_reforging_cohort_stage1_persistence_status = 1
+				}
+			}
+			desc = aawc_reforging_stage1a.persistence_pass
+		}
+		triggered_desc = {
+			trigger = {
+				NOT = {
+					root.capital_county.title_province = {
+						aawc_reforging_cohort_stage1_invariant_status = 1
+						aawc_reforging_cohort_stage1_persistence_status = 1
+					}
+				}
+			}
+			desc = aawc_reforging_stage1a.persistence_fail
+		}
+		desc = aawc_reforging_stage1a.full_state_vector
+	}
+	theme = stewardship_domain_focus
+
+	immediate = {
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			root.capital_county.title_province = {
+				aawc_reforging_cohort_stage1_persistence_diagnostics_effect = yes
+			}
+
+		}
+}
+
+	option = { name = aawc_reforging_stage1a.0002.a }
+}
+
+# Explicit single-tick Milestone 1 test. The called adapter advances its serial
+# exactly once; the authority rejects a duplicate serial and is not registered
+# with any production on-action.
+aawc_reforging_stage1a.0003 = {
+	type = character_event
+	trigger = { has_game_rule = aawc_reforging_disposable_fixtures }
+	title = aawc_reforging_stage1a.0003.t
+	desc = {
+		triggered_desc = {
+			trigger = {
+				root.capital_county.title_province = {
+					aawc_reforging_cohort_stage1_invariant_status = 1
+					aawc_reforging_cohort_last_tick_accounting_status = 1
+					OR = {
+						NOT = { has_variable = aawc_reforging_cohort_runtime_military_fixture }
+						aawc_reforging_cohort_stage1_military_runtime_fixture_status = 1
+					}
+				}
+			}
+			desc = aawc_reforging_stage1a.tick_pass
+		}
+		triggered_desc = {
+			trigger = {
+				NOT = {
+					root.capital_county.title_province = {
+						aawc_reforging_cohort_stage1_invariant_status = 1
+						aawc_reforging_cohort_last_tick_accounting_status = 1
+						OR = {
+							NOT = { has_variable = aawc_reforging_cohort_runtime_military_fixture }
+							aawc_reforging_cohort_stage1_military_runtime_fixture_status = 1
+						}
+					}
+				}
+			}
+			desc = aawc_reforging_stage1a.tick_fail
+		}
+		desc = aawc_reforging_stage1a.full_state_vector
+	}
+	theme = stewardship_domain_focus
+
+	immediate = {
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			set_global_variable = { name = aawc_reforging_fixture_tainted value = 1 }
+			root.capital_county.title_province = {
+				aawc_reforging_cohort_stage1_test_advance_effect = yes
+				aawc_reforging_cohort_stage1_snapshot_persistence_effect = yes
+			}
+
+		}
+}
+
+	option = { name = aawc_reforging_stage1a.0003.a }
+}
+
+# Same-scan control for external wall-clock comparison with event .0005.
+aawc_reforging_stage1a.0004 = {
+	type = character_event
+	trigger = { has_game_rule = aawc_reforging_disposable_fixtures }
+	title = aawc_reforging_stage1a.0004.t
+	desc = {
+		triggered_desc = {
+			trigger = { aawc_reforging_cohort_stage1_benchmark_baseline_status = 1 }
+			desc = aawc_reforging_stage1a.benchmark_baseline_pass
+		}
+		triggered_desc = {
+			trigger = { NOT = { aawc_reforging_cohort_stage1_benchmark_baseline_status = 1 } }
+			desc = aawc_reforging_stage1a.benchmark_baseline_fail
+		}
+	}
+	theme = stewardship_domain_focus
+	immediate = {
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			set_global_variable = { name = aawc_reforging_fixture_tainted value = 1 }
+		 aawc_reforging_cohort_stage1_benchmark_baseline_effect = yes
+		}
+}
+	option = { name = aawc_reforging_stage1a.0004.a }
+}
+
+# Bounded 1,024-province x 12-month cohort run. All per-province test state is
+# removed by the called effect before this rendered result is displayed.
+aawc_reforging_stage1a.0005 = {
+	type = character_event
+	trigger = { has_game_rule = aawc_reforging_disposable_fixtures }
+	title = aawc_reforging_stage1a.0005.t
+	desc = {
+		triggered_desc = {
+			trigger = { aawc_reforging_cohort_stage1_benchmark_engine_status = 1 }
+			desc = aawc_reforging_stage1a.benchmark_engine_pass
+		}
+		triggered_desc = {
+			trigger = { NOT = { aawc_reforging_cohort_stage1_benchmark_engine_status = 1 } }
+			desc = aawc_reforging_stage1a.benchmark_engine_fail
+		}
+	}
+	theme = stewardship_domain_focus
+	immediate = {
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			set_global_variable = { name = aawc_reforging_fixture_tainted value = 1 }
+		 aawc_reforging_cohort_stage1_benchmark_engine_effect = yes
+		}
+}
+	option = { name = aawc_reforging_stage1a.0005.a }
+}
+
+# Explicitly replace the actual capital ledger on a disposable campaign with a nonzero
+# military fixture. The next .0003 tick exercises divergent carries and age-60
+# retirement before the normal save/reload inspection.
+aawc_reforging_stage1a.0006 = {
+	type = character_event
+	trigger = { has_game_rule = aawc_reforging_disposable_fixtures }
+	title = aawc_reforging_stage1a.0006.t
+	desc = {
+		triggered_desc = {
+			trigger = {
+				root.capital_county.title_province = {
+					aawc_reforging_cohort_stage1_military_runtime_fixture_status = 1
+				}
+			}
+			desc = aawc_reforging_stage1a.military_fixture_pass
+		}
+		triggered_desc = {
+			trigger = {
+				NOT = {
+					root.capital_county.title_province = {
+						aawc_reforging_cohort_stage1_military_runtime_fixture_status = 1
+					}
+				}
+			}
+			desc = aawc_reforging_stage1a.military_fixture_fail
+		}
+	}
+	theme = stewardship_domain_focus
+	immediate = {
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			set_global_variable = { name = aawc_reforging_fixture_tainted value = 1 }
+			root.capital_county.title_province = {
+				aawc_reforging_cohort_stage1_prepare_military_runtime_fixture_effect = yes
+			}
+
+		}
+}
+	option = { name = aawc_reforging_stage1a.0006.a }
+}
+
+# Disposable post-migration regression. The called effect uses exactly two
+# verified-empty provinces, exercises all nine production adapters, checks the
+# paired transfer and removes all state before this result is rendered.
+aawc_reforging_stage1a.0007 = {
+	type = character_event
+	trigger = { has_game_rule = aawc_reforging_disposable_fixtures }
+	title = aawc_reforging_stage1a.0007.t
+	desc = {
+		triggered_desc = {
+			trigger = {
+				root = {
+					var:aawc_reforging_production_runtime_selected = 2
+					var:aawc_reforging_production_runtime_failures = 0
+					var:aawc_reforging_production_runtime_before_total = var:aawc_reforging_production_runtime_after_total
+				}
+			}
+			desc = aawc_reforging_stage1a.production_runtime_pass
+		}
+		triggered_desc = {
+			trigger = {
+				NOT = {
+					root = {
+						var:aawc_reforging_production_runtime_selected = 2
+						var:aawc_reforging_production_runtime_failures = 0
+						var:aawc_reforging_production_runtime_before_total = var:aawc_reforging_production_runtime_after_total
+					}
+				}
+			}
+			desc = aawc_reforging_stage1a.production_runtime_fail
+		}
+	}
+	theme = stewardship_domain_focus
+	immediate = {
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			set_global_variable = { name = aawc_reforging_fixture_tainted value = 1 }
+		 aawc_reforging_cohort_stage1_production_runtime_test_effect = yes
+		}
+}
+	option = {
+		name = aawc_reforging_stage1a.0007.a
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			remove_variable = aawc_reforging_production_runtime_selected
+			remove_variable = aawc_reforging_production_runtime_failures
+			remove_variable = aawc_reforging_production_runtime_before_total
+			remove_variable = aawc_reforging_production_runtime_source_after
+			remove_variable = aawc_reforging_production_runtime_destination_after
+			remove_variable = aawc_reforging_production_runtime_after_total
+		}
+	}
+}
+
+# Self-cleaning CK3 regression for a legitimate month in which no integer
+# parent or military aging movement occurs.
+aawc_reforging_stage1a.0008 = {
+	type = character_event
+	trigger = { has_game_rule = aawc_reforging_disposable_fixtures }
+	title = aawc_reforging_stage1a.0008.t
+	desc = {
+		triggered_desc = {
+			trigger = {
+				root = {
+					var:aawc_reforging_zero_mover_runtime_selected = 1
+					var:aawc_reforging_zero_mover_runtime_failures = 0
+				}
+			}
+			desc = aawc_reforging_stage1a.zero_mover_runtime_pass
+		}
+		triggered_desc = {
+			trigger = {
+				NOT = {
+					root = {
+						var:aawc_reforging_zero_mover_runtime_selected = 1
+						var:aawc_reforging_zero_mover_runtime_failures = 0
+					}
+				}
+			}
+			desc = aawc_reforging_stage1a.zero_mover_runtime_fail
+		}
+	}
+	theme = stewardship_domain_focus
+	immediate = {
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			set_global_variable = { name = aawc_reforging_fixture_tainted value = 1 }
+		 aawc_reforging_cohort_stage1_zero_mover_runtime_test_effect = yes
+		}
+}
+	option = {
+		name = aawc_reforging_stage1a.0008.a
+		if = {
+			limit = { has_game_rule = aawc_reforging_disposable_fixtures }
+			remove_variable = aawc_reforging_zero_mover_runtime_selected
+			remove_variable = aawc_reforging_zero_mover_runtime_failures
+		}
+	}
+}

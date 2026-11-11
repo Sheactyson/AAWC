@@ -1,0 +1,13 @@
+# Preserve the exact CK3/script bytes across Windows and non-Windows clones.
+* -text
+
+# Retained dependency art is source, but these already-compressed formats keep the
+# ordinary Git repository above GitHub's practical push limit. Store them in LFS.
+dependencies/**/*.dds filter=lfs diff=lfs merge=lfs -text
+dependencies/**/*.tga filter=lfs diff=lfs merge=lfs -text
+dependencies/**/*.mesh filter=lfs diff=lfs merge=lfs -text
+dependencies/**/*.png filter=lfs diff=lfs merge=lfs -text
+dependencies/**/*.pdn filter=lfs diff=lfs merge=lfs -text
+dependencies/**/*.dat filter=lfs diff=lfs merge=lfs -text
+dependencies/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+

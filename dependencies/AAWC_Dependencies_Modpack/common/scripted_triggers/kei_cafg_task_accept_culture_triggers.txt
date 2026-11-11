@@ -1,0 +1,38 @@
+﻿# Scope : culture
+# councillor_liege : character
+T_kCAFG_task_accept_culture_can_target_culture = {
+    custom_tooltip = {
+        text = kCAFG_councillor_liege_culture_is_identical
+        scope:councillor_liege.culture != this
+    }
+    custom_tooltip = {
+        text = kCAFG_councillor_liege_culture_acceptance_is_maximized
+        NOT = { cultural_acceptance = { target = scope:councillor_liege.culture value >= 100 } }
+    }
+}
+
+# Scope : province
+# councillor_liege : character
+T_kCAFG_task_accept_culture_can_target_province = {
+    any_in_list = {
+        variable = kCAFG_province_cultures
+        T_kCAFG_task_accept_culture_can_target_culture = yes
+    }
+    trigger_if = {
+        limit = {
+            scope:councillor_liege = { is_ai = yes }
+            exists = scope:councillor_liege.capital_county
+        }
+        OR = {
+            county = scope:councillor_liege.capital_county
+            scope:councillor_liege.capital_county = {
+                OR = {
+                    culture = scope:councillor_liege.culture
+                    culture = {
+                        cultural_acceptance = { target = scope:councillor_liege.culture value >= 50 }
+                    }
+                }
+            }
+        }
+    }
+}

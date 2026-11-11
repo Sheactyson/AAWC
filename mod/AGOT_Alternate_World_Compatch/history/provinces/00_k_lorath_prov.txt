@@ -1,0 +1,260 @@
+﻿################# b_eyeless_abbey ##################
+############# c_makers_maze - d_lorath #############
+
+################# b_misty_corridor #################
+############# c_makers_maze - d_lorath #############
+
+################ b_barefoot_warrens ################
+############# c_makers_maze - d_lorath #############
+
+################### b_hagns_town ###################
+############# c_west_catch - d_lorath ##############
+
+################ b_groveling_shoals ################
+############# c_west_catch - d_lorath ##############
+
+################### b_gaffstand ####################
+############# c_west_catch - d_lorath ##############
+
+################## b_the_oilworks ##################
+########### c_shivering_port - d_lorath ############
+
+################# b_whaler_strait ##################
+########### c_shivering_port - d_lorath ############
+
+#################### b_trmgarn #####################
+############ c_palliera - d_the_harvest ############
+
+################## b_hooded_doths ##################
+############ c_palliera - d_the_harvest ############
+
+##################### b_nasps ######################
+############ c_palliera - d_the_harvest ############
+
+################# b_walrus_haulout #################
+############ c_palliera - d_the_harvest ############
+
+################### b_hewn_snare ###################
+########## c_olath_hills - d_the_harvest ###########
+
+#################### b_qthyrds #####################
+########## c_olath_hills - d_the_harvest ###########
+
+################## b_bnth_grange ###################
+########## c_olath_hills - d_the_harvest ###########
+
+################### b_kslobaktn ####################
+########### c_scoured_seat - d_lorassyon ###########
+
+################# b_qarlons_ashes ##################
+########### c_scoured_seat - d_lorassyon ###########
+
+################# b_vathgaqy_rock ##################
+############## c_ibewos - d_lorassyon ##############
+
+#################### b_lomiets #####################
+############## c_ibewos - d_lorassyon ##############
+
+################# b_aele_labyrinth #################
+######### c_greyamber_isles - d_lorassyon ##########
+
+################### b_bleariness ###################
+######### c_greyamber_isles - d_lorassyon ##########
+
+################# b_cape_hughaeqr ##################
+########## c_qnlyshon - d_wrighters_wood ###########
+
+##################### b_lienqs #####################
+########## c_qnlyshon - d_wrighters_wood ###########
+
+#################### b_sheshla #####################
+########## c_qnlyshon - d_wrighters_wood ###########
+
+##################### b_hbaktn #####################
+########## c_qnlyshon - d_wrighters_wood ###########
+
+################### b_thankless ####################
+########## c_qnlyshon - d_wrighters_wood ###########
+
+##################### b_thnbab #####################
+########## c_qnlyshon - d_wrighters_wood ###########
+
+#################### b_hthaghe #####################
+####### c_zhymvaswe_horn - d_wrighters_wood ########
+
+################### b_rockslide ####################
+####### c_zhymvaswe_horn - d_wrighters_wood ########
+
+################## b_zhamvieshie ###################
+####### c_zhymvaswe_horn - d_wrighters_wood ########
+
+################## b_south_breach ##################
+####### c_zhymvaswe_horn - d_wrighters_wood ########
+
+#################### b_mylabrr #####################
+####### c_zhymvaswe_horn - d_wrighters_wood ########
+
+##################### b_kadhma #####################
+####### c_zhymvaswe_horn - d_wrighters_wood ########
+
+################# b_malaghe_forest #################
+####### c_zhymvaswe_horn - d_wrighters_wood ########
+
+#################### b_kulakqr #####################
+############## c_kulakqr - d_shlorath ##############
+
+################### b_codswallow ###################
+############## c_kulakqr - d_shlorath ##############
+
+################## b_cracked_bow ###################
+############## c_kulakqr - d_shlorath ##############
+
+################# b_sylielly_bend ##################
+############## c_kulakqr - d_shlorath ##############
+
+#################### b_malaths #####################
+############## c_kulakqr - d_shlorath ##############
+
+#################### b_ndaraktn ####################
+############ c_mirths_end - d_shlorath #############
+
+################ b_leviathan_beach #################
+############ c_mirths_end - d_shlorath #############
+
+################### b_govothagn ####################
+############ c_mirths_end - d_shlorath #############
+
+################### b_batvthyge ####################
+############ c_mirths_end - d_shlorath #############
+
+################### b_bent_stilt ###################
+############ c_mirths_end - d_shlorath #############
+
+#################### b_liesrog #####################
+############# c_ndaraktn - d_shlorath ##############
+
+################## b_the_wishbone ##################
+############# c_ndaraktn - d_shlorath ##############
+
+##################### b_llagn ######################
+############# c_ndaraktn - d_shlorath ##############
+
+###################### b_nahs ######################
+############# c_ndaraktn - d_shlorath ##############
+
+################# b_blindmans_view #################
+########### c_qapahienn - d_fisher_point ###########
+
+#################### b_maznnagn ####################
+########### c_qapahienn - d_fisher_point ###########
+
+##################### b_valuh ######################
+########### c_qapahienn - d_fisher_point ###########
+
+################### b_overgrowth ###################
+########### c_qapahienn - d_fisher_point ###########
+
+#################### b_daghnkn #####################
+########### c_qapahienn - d_fisher_point ###########
+
+################### b_roundshore ###################
+########### c_kaslathnn - d_fisher_point ###########
+
+################## b_gheshan_flow ##################
+########### c_kaslathnn - d_fisher_point ###########
+
+##################### b_geptn ######################
+########### c_kaslathnn - d_fisher_point ###########
+
+#################### b_kathaks #####################
+########### c_kaslathnn - d_fisher_point ###########
+
+################# b_sunken_atrium ##################
+####### c_sinking_corridors - d_fisher_point #######
+
+################### b_scrodhaven ###################
+####### c_sinking_corridors - d_fisher_point #######
+
+#################### b_kon_sat #####################
+####### c_sinking_corridors - d_fisher_point #######
+
+#################### b_odthagn #####################
+####### c_sinking_corridors - d_fisher_point #######
+
+################# b_grmazma_sambn ##################
+############ c_grmazma - d_fisher_point ############
+
+#################### b_flatmont ####################
+############ c_grmazma - d_fisher_point ############
+
+#################### b_skthatqr ####################
+############ c_grmazma - d_fisher_point ############
+
+################### b_iemndulagn ###################
+############ c_grmazma - d_fisher_point ############
+
+################### b_vaghebagn ####################
+############ c_grmazma - d_fisher_point ############
+
+################# b_port_ampnavath #################
+############# c_ampnavath - d_rbateros #############
+
+#################### b_kon_ndn #####################
+############# c_ampnavath - d_rbateros #############
+
+#################### b_bieraks #####################
+############# c_ampnavath - d_rbateros #############
+
+#################### b_piethie #####################
+############# c_ampnavath - d_rbateros #############
+
+############### b_hairstring_fields ################
+############# c_ampnavath - d_rbateros #############
+
+################# b_qammieg_river ##################
+############# c_blindfast - d_rbateros #############
+
+################### b_gthzierra ####################
+############# c_blindfast - d_rbateros #############
+
+#################### b_nkraprag ####################
+############# c_blindfast - d_rbateros #############
+
+################### b_kon_ygaln ####################
+############# c_blindfast - d_rbateros #############
+
+################### b_abstinence ###################
+############# c_blindfast - d_rbateros #############
+
+#################### b_diekaktn ####################
+############# c_blindfast - d_rbateros #############
+
+#################### b_ovghast #####################
+############ c_whitecliff - d_rbateros #############
+
+################## b_ghyvydthagn ###################
+############ c_whitecliff - d_rbateros #############
+
+############### b_gughnlien_heights ################
+############ c_whitecliff - d_rbateros #############
+
+################## b_humble_cove ###################
+############ c_whitecliff - d_rbateros #############
+
+#################### b_hnghagn #####################
+############## c_aslath - d_rbateros ###############
+
+#################### b_thymdat #####################
+############## c_aslath - d_rbateros ###############
+
+##################### b_adgien #####################
+############## c_aslath - d_rbateros ###############
+
+################# b_ambush_valley ##################
+############## c_aslath - d_rbateros ###############
+
+#################### b_syvrkths ####################
+############## c_aslath - d_rbateros ###############
+
+#################### b_softclay ####################
+############## c_aslath - d_rbateros ###############

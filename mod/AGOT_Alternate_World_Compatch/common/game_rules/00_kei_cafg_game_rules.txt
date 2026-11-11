@@ -1,0 +1,168 @@
+﻿
+
+kCAFG_tension_effects_impact = {
+	default = kCAFG_tension_effects_impact_default
+	
+	categories = {
+		kCAFG difficulty faith culture
+	}
+
+	kCAFG_tension_effects_impact_none = { flag = GG_can_change_rule }
+	kCAFG_tension_effects_impact_025 = { flag = GG_can_change_rule }
+	kCAFG_tension_effects_impact_050 = { flag = GG_can_change_rule }
+	kCAFG_tension_effects_impact_075 = { flag = GG_can_change_rule }
+	kCAFG_tension_effects_impact_default = { flag = GG_can_change_rule }
+	kCAFG_tension_effects_impact_125 = { flag = GG_can_change_rule }
+	kCAFG_tension_effects_impact_150 = { flag = GG_can_change_rule }
+	kCAFG_tension_effects_impact_175 = { flag = GG_can_change_rule }
+	kCAFG_tension_effects_impact_200 = { flag = GG_can_change_rule }
+}
+
+kCAFG_natural_culture_evolution = {
+	# AAWC owns alternate-world culture foundations.  Keep CaFG's callable
+	# rule contract, but do not run its vanilla-oriented autonomous evolution
+	# pass unless it is deliberately selected for a test campaign.
+	default = kCAFG_natural_culture_evolution_none
+	
+	categories = {
+		kCAFG culture
+	}
+
+	kCAFG_natural_culture_evolution_none = { flag = GG_can_change_rule }
+	kCAFG_natural_culture_evolution_default = { flag = GG_can_change_rule }
+}
+
+kCAFG_natural_faith_evolution = {
+	# AAWC owns alternate-world faith foundations.  The optional CaFG branch
+	# remains available for compatibility, but is unsupported by default.
+	default = kCAFG_natural_faith_evolution_none
+	
+	categories = {
+		kCAFG faith
+	}
+
+	kCAFG_natural_faith_evolution_none = { flag = GG_can_change_rule }
+	kCAFG_natural_faith_evolution_default = { flag = GG_can_change_rule }
+}
+
+kCAFG_tolerance_laws = {
+	default = kCAFG_tolerance_laws_default
+	
+	categories = {
+		kCAFG faith culture
+	}
+
+	kCAFG_tolerance_laws_off = { flag = GG_can_change_rule }
+	kCAFG_tolerance_laws_default = { flag = GG_can_change_rule }
+}
+
+kCAFG_cultural_benefits = {
+	default = kCAFG_cultural_benefits_default
+	
+	categories = {
+		kCAFG culture
+	}
+
+	kCAFG_cultural_benefits_off = { flag = GG_can_change_rule }
+	kCAFG_cultural_benefits_default = { flag = GG_can_change_rule }
+}
+
+culture_conversion_speed = {
+	
+	categories = {
+		tweaks historicity culture
+	}
+	
+	default = default_culture_conversion_speed
+
+	default_culture_conversion_speed = {
+		flag = GG_can_change_rule
+	}
+
+	kCAFG_culture_conversion_speed_075 = {
+		flag = GG_can_change_rule
+	}
+
+	kCAFG_culture_conversion_speed_125 = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+
+	kCAFG_culture_conversion_speed_150 = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+
+	kCAFG_culture_conversion_speed_175 = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+	
+	faster_culture_conversion_speed = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+	
+	significantly_faster_culture_conversion_speed = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+	
+	significantly_slower_culture_conversion_speed = {
+		flag = GG_can_change_rule
+	}
+	
+	slower_culture_conversion_speed = {
+		flag = GG_can_change_rule
+	}
+}
+
+faith_conversion_speed = {
+	
+	categories = {
+		tweaks historicity faith
+	}
+	
+	default = default_faith_conversion_speed
+
+	default_faith_conversion_speed = {
+		flag = GG_can_change_rule
+	}
+
+	kCAFG_faith_conversion_speed_075 = {
+		flag = GG_can_change_rule
+	}
+
+	kCAFG_faith_conversion_speed_125 = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+
+	kCAFG_faith_conversion_speed_150 = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+
+	kCAFG_faith_conversion_speed_175 = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+	
+	faster_faith_conversion_speed = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+	
+	significantly_faster_faith_conversion_speed = {
+		flag = GG_can_change_rule
+		flag = blocks_achievements
+	}
+	
+	significantly_slower_faith_conversion_speed = {
+		flag = GG_can_change_rule
+	}
+	
+	slower_faith_conversion_speed = {
+		flag = GG_can_change_rule
+	}
+}

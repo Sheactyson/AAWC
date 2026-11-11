@@ -1,0 +1,223 @@
+widget = {
+    position = { 0 70 }
+    name = "kCAFG_faith_map_mode_tab_button"
+    widgetid = "kCAFG_faith_map_mode_tab_button"
+    visible_at_creation = no
+
+    layer = bottom
+    
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        position_x = "[FixedPointToFloat(Faith.MakeScope.ScriptValue('V_kei_window_faith_size'))]"
+    }
+
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+        on_finish = "[GetVariableSystem.Clear('kCAFG_faith_map_mode_enabled')]"
+    }
+
+    state = {
+        name = hide2
+        using = Animation_FadeOut_Quick
+        trigger_when = "[Not(GetVariableSystem.Exists('hide_bottom_left_HUD'))]"
+    }
+
+    attachto = {
+        widgetid = "faith_window"
+        stackmode = top
+        inherit_data_context = yes
+        inherit_visibility = yes
+    }
+
+    allow_outside = yes
+
+    state = {
+        name = "kCAFG_update_display"
+
+        trigger_when = "[Not(GetScriptedGui('kCAFG_faith_map_mode_player_is_viewing_faith').IsValid(GuiScope.SetRoot(Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End))]"
+        on_finish = "[GetScriptedGui('kCAFG_faith_map_mode').Execute(GuiScope.SetRoot(Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+    }
+
+    state = {
+        name = "kCAFG_faith_map_mode_toggling_enable"
+
+        trigger_when = "[And(GetVariableSystem.HasValue('kCAFG_faith_map_mode_toggling', 'true'), GetVariableSystem.Exists('kCAFG_faith_map_mode_enabled'))]"
+        on_finish = "[SetMapMode('kCAFG_faith_custom_mapmode')]"
+        on_finish = "[GetScriptedGui('kCAFG_faith_map_mode').Execute(GuiScope.SetRoot(Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+        on_finish = "[GetVariableSystem.Clear('kCAFG_faith_map_mode_toggling')]"
+    }
+
+    state = {
+        name = "kCAFG_faith_map_mode_toggling_disable"
+
+        trigger_when = "[And(GetVariableSystem.HasValue('kCAFG_faith_map_mode_toggling', 'true'), Not(GetVariableSystem.Exists('kCAFG_faith_map_mode_enabled')))]"
+        on_finish = "[SetMapMode('religions')]"
+        on_finish = "[GetVariableSystem.Clear('kCAFG_faith_map_mode_toggling')]"
+    }
+
+    button_tab_vertical_bookmark = {
+        size = { 74 38 }
+        visible = "[And(Not(IsObserver), GetVariableSystem.Exists('kCAFG_is_loaded_GUI'))]"
+
+        down = "[IsMapMode('kCAFG_faith_custom_mapmode')]"
+        mirror = horizontal
+        using = tooltip_es
+
+        blockoverride "tab_button"
+        {
+            onclick = "[GetVariableSystem.Toggle('kCAFG_faith_map_mode_enabled')]"
+            onclick = "[GetVariableSystem.Set('kCAFG_faith_map_mode_toggling', 'true')]"
+
+            mirror = horizontal
+            tooltip = "kCAFG_FAITH_OPEN_MAPMODE_TOOLTIP_TITLE"
+        }
+
+        blockoverride = "tab_glow"
+        {
+            size = { 74 38 }
+            mirror = horizontal
+            visible = "[IsMapMode('kCAFG_faith_custom_mapmode')]"
+        }
+
+        blockoverride "tab_active"
+        {
+            trigger_when = "[IsMapMode('kCAFG_faith_custom_mapmode')]"
+            position_x = 0
+        }
+
+        blockoverride "tab_inactive"
+        {
+            trigger_when = "[Not( IsMapMode('kCAFG_faith_custom_mapmode') )]"
+            position_x = -4
+        }
+
+        blockoverride "tab_texture"
+        {
+            position = { 19 0 }
+            texture = "gfx/interface/icons/flat_icons/outliner_mod.dds"
+
+            down = "[IsMapMode('kCAFG_faith_custom_mapmode')]"
+        }
+
+        blockoverride "tab_frame_texture"
+        {
+            size = { 74 38 }
+            mirror = horizontal
+            down = "[IsMapMode('kCAFG_faith_custom_mapmode')]"
+        }
+    }
+}
+
+widget = {
+    position = { 0 70 }
+    name = "kCAFG_culture_map_mode_tab_button"
+    widgetid = "kCAFG_culture_map_mode_tab_button"
+    visible_at_creation = no
+
+    layer = bottom
+    
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        position_x = 595
+    }
+
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+        on_finish = "[GetVariableSystem.Clear('kCAFG_culture_map_mode_enabled')]"
+    }
+
+    state = {
+        name = hide2
+        using = Animation_FadeOut_Quick
+        trigger_when = "[Not(GetVariableSystem.Exists('hide_bottom_left_HUD'))]"
+    }
+
+    attachto = {
+        widgetid = "culture_window"
+        stackmode = top
+        inherit_data_context = yes
+        inherit_visibility = yes
+    }
+
+    allow_outside = yes
+
+    state = {
+        name = "kCAFG_update_display"
+
+        trigger_when = "[Not(GetScriptedGui('kCAFG_culture_map_mode_player_is_viewing_culture').IsValid(GuiScope.SetRoot(Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End))]"
+        on_finish = "[GetScriptedGui('kCAFG_culture_map_mode').Execute(GuiScope.SetRoot(Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+    }
+
+    state = {
+        name = "kCAFG_culture_map_mode_toggling_enable"
+
+        trigger_when = "[And(GetVariableSystem.HasValue('kCAFG_culture_map_mode_toggling', 'true'), GetVariableSystem.Exists('kCAFG_culture_map_mode_enabled'))]"
+        on_finish = "[SetMapMode('kCAFG_culture_custom_mapmode')]"
+        on_finish = "[GetScriptedGui('kCAFG_culture_map_mode').Execute(GuiScope.SetRoot(Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+        on_finish = "[GetVariableSystem.Clear('kCAFG_culture_map_mode_toggling')]"
+    }
+
+    state = {
+        name = "kCAFG_culture_map_mode_toggling_disable"
+
+        trigger_when = "[And(GetVariableSystem.HasValue('kCAFG_culture_map_mode_toggling', 'true'), Not(GetVariableSystem.Exists('kCAFG_culture_map_mode_enabled')))]"
+        on_finish = "[SetMapMode('cultures')]"
+        on_finish = "[GetVariableSystem.Clear('kCAFG_culture_map_mode_toggling')]"
+    }
+
+    button_tab_vertical_bookmark = {
+        size = { 74 38 }
+        visible = "[And(Not(IsObserver), GetVariableSystem.Exists('kCAFG_is_loaded_GUI'))]"
+
+        down = "[IsMapMode('kCAFG_culture_custom_mapmode')]"
+        mirror = horizontal
+        using = tooltip_es
+
+        blockoverride "tab_button"
+        {
+            onclick = "[GetVariableSystem.Toggle('kCAFG_culture_map_mode_enabled')]"
+            onclick = "[GetVariableSystem.Set('kCAFG_culture_map_mode_toggling', 'true')]"
+
+            mirror = horizontal
+            tooltip = "kCAFG_FAITH_OPEN_MAPMODE_TOOLTIP_TITLE"
+        }
+
+        blockoverride = "tab_glow"
+        {
+            size = { 74 38 }
+            mirror = horizontal
+            visible = "[IsMapMode('kCAFG_culture_custom_mapmode')]"
+        }
+
+        blockoverride "tab_active"
+        {
+            trigger_when = "[IsMapMode('kCAFG_culture_custom_mapmode')]"
+            position_x = 0
+        }
+
+        blockoverride "tab_inactive"
+        {
+            trigger_when = "[Not( IsMapMode('kCAFG_culture_custom_mapmode') )]"
+            position_x = -4
+        }
+
+        blockoverride "tab_texture"
+        {
+            position = { 19 0 }
+            texture = "gfx/interface/icons/flat_icons/outliner_mod.dds"
+
+            down = "[IsMapMode('kCAFG_culture_custom_mapmode')]"
+        }
+
+        blockoverride "tab_frame_texture"
+        {
+            size = { 74 38 }
+            mirror = horizontal
+            down = "[IsMapMode('kCAFG_culture_custom_mapmode')]"
+        }
+    }
+}

@@ -1,0 +1,7 @@
+﻿T_kCAFG_task_conversion_can_convert_province_VANILLA_B = { always = yes }
+
+T_kCAFG_task_conversion_ai_wants_to_convert_province_VANILLA = { always = yes }
+
+T_kCAFG_task_promote_culture_ai_wants_to_convert_province_VANILLA = { always = yes }
+
+fp2_struggle_faith_is_mozarabic_trigger = { always = no }

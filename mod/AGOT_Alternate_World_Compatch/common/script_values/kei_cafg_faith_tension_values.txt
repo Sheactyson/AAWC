@@ -1,0 +1,114 @@
+﻿# AAWC 1.9.84 compatibility shadow.
+# Zero vanilla-only Kei/CaFG values whose source files validate missing AGOT database objects.
+
+V_kCAFG_faith_tension_baseline_fundamentalist_astray = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_baseline_fundamentalist_hostile = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_baseline_fundamentalist_evil = {
+	value = 0
+}
+
+V_kCAFG_province_faith_tension_scaled_relative_amount_modifier = {
+	value = 0
+}
+
+V_kCAFG_province_faith_tension_scaled_relative_amount = {
+	value = 0
+}
+
+V_kCAFG_province_faith_tension_target_baseline_faith_contribution = {
+	value = 0
+}
+
+V_kCAFG_province_faith_tension_target_baseline_faith_struct_contribution = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_complete = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_fervor_factor_average_impact = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_scope_opinion_of_target = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_scope_opinion_of_target_fervor_factor = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_target_opinion_of_scope = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_target_opinion_of_scope_fervor_factor = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_holder_factor = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_holder_factor_mult_VANILLA = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_holder_factor_mult_VANILLA_B = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_province_factor = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_target_baseline_province_factor_cultures_different_faith_county_opinion_factor = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_difference_from_target = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_drift_minimum_value_negative = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_monthly_change = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_monthly_change_desc = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_monthly_change_desc_warring_character = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_monthly_drift = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_on_religious_war_declaration = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_on_religious_war_join = {
+	value = 0
+}
+
+V_kCAFG_faith_tension_on_religious_warring_quarterly = {
+	value = 0
+}

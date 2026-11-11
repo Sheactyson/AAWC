@@ -1,0 +1,6 @@
+﻿minority_disapproves_of_conversion_very_small_opinion = {
+	opinion = -1
+	years = 10
+	decaying = yes
+	stacking = yes
+}

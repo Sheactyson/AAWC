@@ -1,0 +1,11 @@
+﻿embrace_outremer_culture_decision = {
+	ai_check_interval = 0
+	is_shown = {
+		always = no
+	}
+	is_valid = {
+		always = no
+	}
+	effect = {
+	}
+}

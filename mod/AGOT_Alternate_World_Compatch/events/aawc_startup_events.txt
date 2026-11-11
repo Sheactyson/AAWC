@@ -1,0 +1,249 @@
+﻿namespace = aawc_startup
+
+aawc_startup.0001 = {
+	type = character_event
+	hidden = yes
+	trigger = { aawc_tribal_shatter_active = yes }
+	immediate = {
+		aawc_milestone_2_top_up_ruin_blockers_effect = yes
+		aawc_milestone_2_reassert_native_lov_ruin_dummy_ownership_effect = yes
+	}
+}
+
+# Annual AAWC maintenance is delayed and batched so lineage, artifact-market,
+# and mercenary scans do not stack with January's population scheduler work.
+aawc_startup.0008 = {
+	type = character_event
+	hidden = yes
+	trigger = { aawc_tribal_shatter_active = yes }
+	immediate = {
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY annual batched maintenance begin" }
+		aawc_lineage_yearly_audit_effect = yes
+		aawc_disable_artifact_market_effect = yes
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY annual batched maintenance complete" }
+	}
+}
+
+aawc_startup.0002 = {
+	type = character_event
+	hidden = yes
+	trigger = { aawc_tribal_shatter_active = yes }
+	immediate = {
+		aawc_milestone_2_reassert_native_lov_ruin_dummy_ownership_effect = yes
+		aawc_disable_artifact_market_effect = yes
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 delayed dummy-barony cleanup begin" }
+		every_player = {
+			aawc_1104_normalize_selected_player_staffing_pool_effect = yes
+		}
+		aawc_1101_cleanup_dummy_barony_vassals_effect = yes
+		aawc_1102_apply_lost_faith_culture_effect = yes
+		aawc_1101_audit_character_reset_effect = yes
+		if = {
+			limit = {
+				OR = {
+					has_game_rule = aawc_lost_faith_culture_enabled
+					has_game_rule = aawc_lost_faith_culture_culture_only
+				}
+			}
+			aawc_1103_found_ai_culture_foundations_effect = yes
+		}
+		if = {
+			limit = {
+				OR = {
+					has_game_rule = aawc_lost_faith_culture_enabled
+					has_game_rule = aawc_lost_faith_culture_faith_only
+				}
+			}
+			every_ruler = {
+				limit = {
+					is_ai = yes
+					is_landed = yes
+					agot_is_dummy_character = no
+					NOT = { has_character_flag = aawc_1103_ai_faith_foundation_completed }
+				}
+				aawc_1103_create_ai_faith_foundation_effect = yes
+			}
+		}
+		aawc_1103_invite_player_foundations_effect = yes
+		aawc_lineage_post_start_baseline_effect = yes
+		trigger_event = { id = aawc_startup.0006 days = 2 }
+		trigger_event = { id = aawc_startup.0004 days = 30 }
+		trigger_event = { id = aawc_startup.0005 days = 180 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 delayed dummy-barony cleanup completed" }
+	}
+}
+
+# Mercenary companies are created by the engine from culture county counts.
+# Validate the title's recorded capital after one day, when CK3's native
+# mercenary manager has finished assigning the source county and company title.
+aawc_startup.0003 = {
+	type = character_event
+	hidden = yes
+	trigger = { aawc_tribal_shatter_active = yes }
+	immediate = {
+		aawc_lineage_initialize_counters_effect = yes
+		if = {
+			limit = {
+				primary_title ?= { is_mercenary_company = yes }
+				primary_title.title_capital_county ?= {
+					aawc_mercenary_settled_county_trigger = yes
+				}
+			}
+			add_character_flag = aawc_lineage_known_mercenary
+			add_character_flag = aawc_lineage_audited
+			every_courtier = {
+				limit = {
+					is_lowborn = yes
+					NOT = { exists = father }
+					NOT = { exists = mother }
+					NOT = { has_character_flag = aawc_lineage_known_birth }
+					NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+					NOT = { any_player = { this = prev } }
+				}
+				change_global_variable = { name = aawc_lineage_valid_mercenary_entourage_removed add = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed engine-generated entourage from valid mercenary company" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+				death = { death_reason = death_disappearance }
+			}
+			every_courtier = {
+				add_character_flag = aawc_lineage_known_mercenary
+				add_character_flag = aawc_lineage_audited
+			}
+			change_global_variable = { name = aawc_lineage_mercenaries_accepted add = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE mercenary accepted: title capital is a settled non-dummy source county" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+		}
+		else_if = {
+			limit = { primary_title ?= { is_mercenary_company = yes } }
+			save_scope_as = aawc_invalid_mercenary_leader
+			primary_title = { save_scope_as = aawc_invalid_mercenary_title }
+			change_global_variable = { name = aawc_lineage_mercenaries_rejected add = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE mercenary rejected: title capital is not a settled non-dummy source county" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			every_courtier = {
+				limit = {
+					agot_is_dummy_character = no
+					NOT = { any_player = { this = prev } }
+				}
+				change_global_variable = { name = aawc_lineage_invalid_mercenary_entourage_removed add = 1 }
+				death = { death_reason = death_disappearance }
+			}
+			destroy_title = scope:aawc_invalid_mercenary_title
+			death = { death_reason = death_disappearance }
+		}
+	}
+}
+
+# The 30-day boundary closes the last setup loophole before taking its
+# provenance snapshot. Later snapshots remain report-only.
+aawc_startup.0004 = {
+	type = character_event
+	hidden = yes
+	trigger = { aawc_tribal_shatter_active = yes }
+	immediate = {
+		aawc_lineage_remove_delayed_setup_candidates_110434_effect = yes
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE 30-day provenance snapshot begin" }
+		aawc_lineage_yearly_audit_effect = yes
+	}
+}
+
+aawc_startup.0005 = {
+	type = character_event
+	hidden = yes
+	trigger = { aawc_tribal_shatter_active = yes }
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE 180-day provenance snapshot begin" }
+		aawc_lineage_yearly_audit_effect = yes
+	}
+}
+
+# The one-time baseline removes setup pool bodies. CK3 recreates its stable
+# reserve immediately afterward, so identify those replacements on a short
+# delay without deleting or replacing them again.
+aawc_startup.0006 = {
+	type = character_event
+	hidden = yes
+	trigger = { aawc_tribal_shatter_active = yes }
+	immediate = {
+		every_living_character = {
+			limit = { aawc_is_engine_pool_reserve_candidate = yes }
+			aawc_lineage_quarantine_engine_reserve_effect = yes
+		}
+	}
+}
+
+# AI rulers receive one month to staff their government from AAWC's marked
+# noble pool. Core councillors and a diarch remain; unused nobles and holders
+# of optional court positions are removed. Any parentless lowborn service
+# character generated during the window is removed as well.
+aawc_startup.0007 = {
+	type = character_event
+	hidden = yes
+	trigger = { aawc_tribal_shatter_active = yes }
+	immediate = {
+		if = {
+			limit = {
+				is_ai = no
+				is_landed = yes
+				agot_is_dummy_character = no
+				has_character_flag = aawc_lineage_ai_staffing_window
+			}
+			aawc_1104_normalize_selected_player_staffing_pool_effect = yes
+		}
+		if = {
+			limit = {
+				is_ai = yes
+				is_landed = yes
+				agot_is_dummy_character = no
+				has_character_flag = aawc_lineage_ai_staffing_window
+			}
+			save_scope_as = aawc_lineage_staffing_ruler
+			every_courtier_or_guest = {
+				limit = { has_character_flag = aawc_lineage_ai_staffing_candidate }
+				if = {
+					limit = {
+						OR = {
+							is_councillor = yes
+							is_diarch = yes
+						}
+					}
+					remove_character_flag = aawc_lineage_ai_staffing_candidate
+					add_character_flag = aawc_lineage_ai_staffing_retained
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE retained marked AI staffing noble in an essential government role" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+				}
+				else = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed unused or optional-role AI staffing noble after 30-day window" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+					death = { death_reason = death_disappearance }
+				}
+			}
+			# Realm priests and some other generated service holders are employed
+			# by the ruler without being exposed by every_courtier_or_guest. Scan
+			# living characters by employer so those optional lowborns do not
+			# survive merely because CK3 placed them in a service scope.
+			every_living_character = {
+				limit = {
+					is_landed = no
+					is_lowborn = yes
+					exists = employer
+					employer = scope:aawc_lineage_staffing_ruler
+					NOT = { exists = father }
+					NOT = { exists = mother }
+					NOT = { has_character_flag = aawc_lineage_known_birth }
+					NOT = { has_character_flag = aawc_lineage_known_aawc_generation }
+					NOT = { has_character_flag = aawc_engine_pool_reserve }
+					NOT = { has_character_flag = aawc_lineage_known_mercenary }
+					NOT = { any_player = { this = prev } }
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed nonessential parentless lowborn staff attached during AI staffing window" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+				death = { death_reason = death_disappearance }
+			}
+			remove_character_flag = aawc_lineage_ai_staffing_window
+			add_character_flag = aawc_lineage_ai_staffing_completed
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE closed AI staffing window; future automatic council filling disabled" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+		}
+	}
+}

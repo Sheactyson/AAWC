@@ -1,0 +1,94 @@
+﻿agot_invalid_war_target = {
+	OR = {
+		has_title_law = magisterial_attached_titles_law
+		agot_is_pirate_domicile_title_trigger = yes
+		NOT = { agot_wildling_nw_war_target_trigger = yes }
+	}
+}
+
+agot_pentos_braavos_treaty_prohibited_war_declaration_trigger = {
+	trigger_if = {
+		limit = {
+			exists = global_var:braavos_treaty
+			OR = {
+				$ACTOR$ = title:k_braavos.holder
+				$ACTOR$ = {
+					any_liege_or_above = {
+						this = title:k_braavos.holder
+					}
+				}
+			}
+		}
+		NOR = {
+			$RECIPIENT$ = title:k_pentos.holder
+			$RECIPIENT$ = {
+				any_liege_or_above = {
+					this = title:k_pentos.holder
+				}
+			}
+		}
+	}
+}
+
+agot_generic_war_blocks_trigger = {
+	OR = {
+		faith = { has_doctrine_parameter = cannot_declare_war }
+		government_has_flag = government_is_uninteractable
+		AND = {
+			faith = { has_doctrine_parameter = no_same_faith_wars }
+			exists = scope:defender.faith
+			scope:defender.faith ?= prev.faith
+		}
+		trigger_if ={
+			limit = {
+				exists = scope:defender
+			}
+			scope:defender = { government_has_flag = government_is_uninteractable }
+		}
+		trigger_if = {
+			limit = {
+				exists = scope:attacker
+				exists = scope:defender
+			}
+			NOT = {
+				agot_pentos_braavos_treaty_prohibited_war_declaration_trigger = { ACTOR = scope:attacker RECIPIENT = scope:defender }
+			}
+		}
+		trigger_if = {
+			limit = {
+				scope:attacker ?= {
+					has_diarchy_active_parameter = diarch_must_approve_war_declaration
+				}
+			}
+			NOT = {
+				has_variable = war_support_diarch
+			}
+		}
+		trigger_if = {
+			limit = {
+				norvos_are_the_bearded_priests_the_real_power_trigger = yes
+				top_liege = title:k_norvos.holder
+			}
+			scope:defender ?= {
+				has_title = title:d_norvos_high_priesthood
+			}
+		}
+	}
+}
+
+agot_wildling_nw_war_target_trigger = {
+	trigger_if = {
+		limit = {
+			exists = title:d_the_wall.holder
+			title:d_the_wall.holder = {
+				OR = {
+					has_trait = nightswatch
+					has_trait = nightswatch_temp
+					has_trait = nightswatch_historical
+				}
+				highest_held_title_tier > tier_duchy
+			}
+		}
+		NOT = { this = title:d_the_wall }
+	}
+}

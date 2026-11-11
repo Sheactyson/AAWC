@@ -1,0 +1,15 @@
+﻿aawc_on_title_gain_ruin_debug = {
+	effect = { aawc_on_title_gain_ruin_debug_effect = yes }
+}
+
+aawc_on_title_lost_ruin_debug = {
+	effect = { aawc_on_title_lost_ruin_debug_effect = yes }
+}
+
+on_title_gain = {
+	on_actions = { aawc_on_title_gain_ruin_debug }
+}
+
+on_title_lost = {
+	on_actions = { aawc_on_title_lost_ruin_debug }
+}

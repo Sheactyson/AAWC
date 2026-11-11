@@ -1,0 +1,138 @@
+﻿##restore great city of Gogossos
+
+#decision_restore_gogossos = {
+#    picture = {
+#        reference =
+#    }
+#    title = decision_restore_gogossos.t
+#    decision_group_type = major
+#
+#    desc = decision_restore_gogossos.desc
+#
+#    confirm_text = decision_restore_gogossos_confirm
+#
+#    cost = {
+#        prestige = 1200
+#        gold = 500
+#    }
+#
+#    is_shown = {
+#        primary_title.title_capital_county = {
+#            title_province = {
+#                geographical_region = world_gogossos
+#            }
+#        }
+#    }
+#    is_valid = {
+#        is_independent_ruler = yes
+#        tier = tier_duchy
+#        count >=2
+#        has_title = title:d_gogossos
+#        has_title = title:c_gogossos
+#        is_imprisoned = no
+#        government_has_flag = government_is_feudal
+#    }
+#    effect = {
+#
+#    }
+#}
+
+## Gogossos
+restore_gogossos = { #form gogossos free city
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds"
+	}
+	decision_group_type = major
+
+	ai_check_interval = 120
+
+	desc = restore_gogossos_desc
+
+	is_shown = {
+		is_independent_ruler = yes
+		primary_title.title_capital_county ?= {
+			title_province = {
+				geographical_region = world_gogossos
+			}
+		}
+
+		NOR = {
+			exists = title:k_gogossos.holder
+			exists = title:k_the_basilisk_isles.holder
+			government_has_flag = government_is_pirate
+		}
+	}
+
+	is_valid = {
+		completely_controls_region = world_gogossos
+		has_title = title:d_gogossos
+		has_title = title:c_gogossos
+	}
+    is_valid_showing_failures_only = {
+		is_alive = yes
+		NOT = { exists = involved_activity }
+		is_imprisoned = no
+		#Can't already be a empire.
+		NOT = { highest_held_title_tier = tier_empire }
+		NOT = { exists = title:k_gogossos.holder }
+	}
+
+    cost = { gold = 250 }
+
+	effect = {
+        custom_tooltip = restore_gogossos_choice
+
+		trigger_event = gogossos_restoration.0001
+
+		every_player = {
+			limit = { NOT = { this = scope:founder } }
+			trigger_event = gogossos_restoration.0002
+		}
+	}
+}
+
+expedition_quest = { #Explore the Jungles
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/fp3_decision_tax_collector.dds"
+	}
+
+	ai_check_interval = 0 # Leave to the player for now
+
+	desc = expedition_quest_desc
+
+	is_shown = {
+		any_realm_province = {
+  			geographical_region = world_gogossos
+		}
+		title:c_gogossos = { # No one must own Gogossos and it must be a ruin
+			OR = {
+				holder = character:Ruin_Empress
+				holder = title:c_ruins.holder
+			}
+		}
+		NOR = {
+			#government_has_flag = government_is_pirate
+			is_ai = yes
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		is_alive = yes
+		NOT = { exists = involved_activity }
+		is_imprisoned = no
+	}
+
+	minimum_cost = {
+		gold = 500
+		#prestige = 200
+	}
+
+	effect = {
+		custom_tooltip = {
+			text = expedition_quest_effect
+		}
+		trigger_event = funding_expedition.0001
+	}
+
+	cooldown = { years = 10 }
+}

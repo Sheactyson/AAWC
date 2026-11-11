@@ -1,0 +1,8 @@
+﻿l_english:
+kCAFG_appease_cultural_tensions: "Appease Cultural Tensions"
+kCAFG_appease_cultural_tensions_desc: "This character is tasked with appeasing the tension between cultures of their liege's lands."
+kCAFG_appease_cultural_tensions_tt: "Every month a random realm [barony|E] may have their [culture_tension|E] reduced by [EmptyScope.ScriptValue('V_kCAFG_appease_cultural_tensions_decrease')|%0]. Higher levels of [aptitude|E] will increase the chances of this occurring. Prioritizes liege's and high tension baronies."
+kCAFG_appease_cultural_tensions_has_any_valid_province_tt: "Any of your realm [baronies|E] has [culture_tension|E]"
+kCAFG_appease_cultural_tensions_notification_title: "Cultural Tensions Appeased"
+kCAFG_appease_cultural_tensions_notification_desc: "[ROOT.Char.GetShortUIName] reduced the [culture_tension|E] in [affected_province.GetName]."
+kCAFG_appease_cultural_tensions_effect_tt: "[culture_tension|E] reduced by [EmptyScope.ScriptValue('V_kCAFG_appease_cultural_tensions_decrease')|%0]"

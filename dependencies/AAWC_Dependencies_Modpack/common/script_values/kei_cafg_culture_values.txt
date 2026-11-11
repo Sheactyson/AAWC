@@ -1,0 +1,404 @@
+﻿V_kCAFG_county_setup_culture_conversion_factors_impact = 0.75 # Used to reduce the impact of the following vanilla bonuses and maluses when setupping the whole map
+
+V_kCAFG_province_natural_culture_conversion_base = 100
+V_kCAFG_province_natural_culture_conversion_max_tension = 0.75
+V_kCAFG_province_natural_culture_conversion_tension_impact = 115
+V_kCAFG_province_natural_culture_conversion_low_adherents_impact = 195
+
+V_kCAFG_province_natural_culture_conversion_bad_weight_threshold = 50 # Under this weight, conversion will not be guaranteed and be chance-based
+V_kCAFG_province_natural_culture_conversion_bad_weight_max_chance = 95 # Under the bad weight, conversion will have this % chance at best
+
+# Requires culture Scope: kCAFG_culture
+V_kCAFG_province_culture_factor = {
+    scope:kCAFG_culture = { save_temporary_scope_as = V_kCAFG_province_culture_factor_param }
+    value = V_kCAFG_province_culture_factor_internal
+}
+
+# Requires culture Scope: kCAFG_culture
+V_kCAFG_province_culture_factor_rounded = {
+    value = V_kCAFG_province_culture_factor
+    multiply = 100
+    round = yes
+    min = 1
+    divide = 100
+}
+
+# Requires culture Scope: kCAFG_culture
+V_kCAFG_province_culture_amount = {
+    value = V_kCAFG_province_culture_factor
+    multiply = V_kCAFG_province_values_scale
+}
+
+# Requires culture Scope: kCAFG_culture
+V_kCAFG_province_culture_amount_rounded = {
+    value = V_kCAFG_province_culture_amount
+    multiply = 100
+    round = yes
+    min = 1
+    divide = 100
+}
+
+V_kCAFG_province_prev_culture_factor = {
+    prev = { save_temporary_scope_as = V_kCAFG_province_culture_factor_param }
+    value = V_kCAFG_province_culture_factor_internal
+}
+
+V_kCAFG_province_prev_culture_amount = {
+    value = V_kCAFG_province_prev_culture_factor
+    multiply = V_kCAFG_province_values_scale
+}
+
+# Requires culture Scope: V_kCAFG_province_culture_factor_param
+V_kCAFG_province_culture_factor_internal = {
+    value = 0
+    if = {
+        limit = { T_kCAFG_does_province_contain_culture = { CULTURE = scope:V_kCAFG_province_culture_factor_param } }
+        every_in_list = {
+            variable = kCAFG_province_culture_structs
+            limit = { this.var:culture = scope:V_kCAFG_province_culture_factor_param }
+            value = this.var:factor
+        }
+    }
+}
+
+V_kCAFG_province_root_culture_factor = {
+    value = 0
+    if = {
+        limit = { T_kCAFG_does_province_contain_culture = { CULTURE = root } }
+        every_in_list = {
+            variable = kCAFG_province_culture_structs
+            limit = { this.var:culture = root }
+            value = this.var:factor
+        }
+    }
+}
+
+# Multiplier applied to a conversion from converted culture to converter culture
+# Scope : converting culture
+# kCAFG_converted_culture : culture
+V_kCAFG_culture_conversion_setup_mult = {
+    value = 1
+
+    multiply = {
+        value = "cultural_acceptance(scope:kCAFG_converted_culture)"
+        divide = 100
+        multiply = 1.9
+        add = 0.25
+        # 0.25-2.25
+    }
+
+    if = {
+        limit = { has_same_culture_heritage = scope:kCAFG_converted_culture }
+        add = 0.1
+    }
+}
+
+# Multiplier applied to a county conversion from converted culture to converter culture
+# Scope : converting culture
+# kCAFG_converted_culture : culture
+# kCAFG_converted_province
+V_kCAFG_culture_province_conversion_setup_mult = {
+    value = 1
+
+    multiply = scope:kCAFG_converted_province.V_kCAFG_province_terrain_conversion_factor
+}
+
+# Multiplier applied to a province conversion from converted culture to converter culture - County Setup
+# Scope : converting culture
+# kCAFG_converted_culture : culture
+# kCAFG_converted_province
+V_kCAFG_province_culture_setup_mult = {
+    value = 1
+    multiply = {
+        value = scope:kCAFG_converted_province.V_kCAFG_province_culture_promotion_multiplier
+        multiply = V_kCAFG_county_setup_culture_conversion_factors_impact
+    }
+    multiply = V_kCAFG_culture_conversion_setup_mult
+    multiply = V_kCAFG_culture_province_conversion_setup_mult
+}
+
+# Requires culture Scope: kCAFG_culture
+V_kCAFG_county_culture_factor = {
+    if = {
+        limit = { V_kCAFG_county_values_scale > 0 }
+        value = 0
+        every_county_province = {
+            add = {
+                value = V_kCAFG_province_culture_factor
+                multiply = V_kCAFG_province_values_scale
+            }
+        }
+        divide = V_kCAFG_county_values_scale
+    }
+    else = {
+        value = V_kCAFG_province_relative_scale
+    }
+}
+
+# Scope : culture
+# Required scopes :
+# kCAFG_converted_province : the province we want to convert the culture in
+# kCAFG_converting_culture : the culture we want to convert to
+V_kCAFG_province_culture_conversion_weight = {
+    if = {
+        limit = { scope:kCAFG_converting_culture = this }
+        value = 0 # Cannot convert to itself
+    }
+    else = {
+        # Scale based on level
+        save_temporary_scope_as = kCAFG_culture # used by V_kCAFG_province_culture_factor
+        value = scope:kCAFG_converted_province.V_kCAFG_province_culture_factor
+		save_temporary_value_as = converted_culture_factor
+        multiply = 10000 # Maybe I'm imagining things but weight might work better with higher numbers
+        # Rescale by excluding converting culture
+        divide = {
+            value = 1
+            scope:kCAFG_converting_culture = {
+                scope:kCAFG_converted_province = {
+                    subtract = V_kCAFG_province_prev_culture_factor
+                }
+            }
+            min = V_kCAFG_smallest_minority_factor
+        }
+        # Kei : maybe have a "resistance" or "health" factor for certain cultures in certain provinces or culture types/tenets/doctrines
+        # The smaller, the harder to convert if there are other cultures with higher levels
+        if = {
+            limit = {
+                scope:kCAFG_converted_province = {
+                    scope:converted_culture_factor <= 0.5
+                    any_in_list = {
+                        variable = kCAFG_province_culture_structs
+                        scope:kCAFG_converting_culture != var:culture
+                        var:factor > scope:converted_culture_factor
+                    }
+                }
+            }
+            multiply = {
+                value = 0.1
+                add = {
+                    value = scope:converted_culture_factor
+                    divide = 0.5
+                    multiply = 0.9
+                }
+            }
+        }
+        # If very small minority, improbable to convert if there are other cultures with higher levels
+        if = {
+            limit = {
+                scope:kCAFG_converted_province = {
+                    scope:converted_culture_factor <= V_kCAFG_very_small_minority_factor
+                    any_in_list = {
+                        variable = kCAFG_province_culture_structs
+                        scope:kCAFG_converting_culture != var:culture
+                        var:factor > V_kCAFG_very_small_minority_factor
+                    }
+                }
+            }
+            multiply = 0.01 # Already reduced by the "small minority" multiplier so we don't ovedo it, the conversion might still happen 
+        }
+    }
+}
+
+# Unfortunately, different_faith_county_opinion_mult is not accessible as a value, so we have to compose it like so
+V_kCAFG_culture_different_faith_county_opinion_mult = {
+    value = 1
+
+    ## MALUSES
+    divide = {
+        value = 1
+        
+        # Vanilla
+        add = V_kCAFG_culture_different_faith_county_opinion_mult_maluses_VANILLA_B
+        add = V_kCAFG_culture_different_faith_county_opinion_mult_maluses_VANILLA
+    }
+}
+
+V_kCAFG_culture_different_faith_county_opinion_mult_maluses_VANILLA_B = {
+    value = 0
+
+    if = {
+        limit = { has_cultural_tradition = tradition_malleable_invaders }
+        add = 0.2
+    }
+
+    if = {
+        limit = { has_cultural_tradition = tradition_steppe_tolerance }
+        add = 0.25
+    }
+}
+
+V_kCAFG_culture_different_faith_county_opinion_mult_maluses_VANILLA = {
+    value = 0
+
+    if = {
+        limit = { has_cultural_tradition = tradition_african_tolerance }
+        add = 0.25
+    }
+}
+
+
+# The less a culture is present in the world, the harder it is to convert (preserve small minority cultures)
+# kCAFG_converting_culture : culture
+V_kCAFG_culture_world_presence_conversion_factor = {
+    value = culture_number_of_counties
+    subtract = V_kCAFG_world_counties_very_small_amount
+    divide = {
+        value = V_kCAFG_world_counties_medium_amount
+        subtract = V_kCAFG_world_counties_very_small_amount
+    }
+    max = 1
+
+    # same heritage mitigation
+    if = {
+        limit = {
+            has_same_culture_heritage = scope:kCAFG_converting_culture
+        }
+        multiply = 3
+        add = 1
+        divide = 4
+    }
+
+    # same language mitigation
+    if = {
+        limit = {
+            has_same_culture_language = scope:kCAFG_converting_culture
+        }
+        multiply = 3
+        add = 1
+        divide = 4
+    }
+
+    multiply = 0.9
+    add = 0.1
+}
+
+# Can be negative
+# Scope : province
+# kCAFG_converting_culture : culture
+V_kCAFG_province_natural_culture_conversion_weight = {
+    ## Save factor
+    value = V_kCAFG_province_culture_factor
+    save_temporary_value_as = culture_factor
+    ## ----
+
+    value = V_kCAFG_province_natural_culture_conversion_base
+    multiply = 0.5
+
+    # Same culture neighbours
+    if = {
+        limit = { any_neighboring_province = { always = yes } }
+        add = {
+            value = 0
+            every_neighboring_province = {
+                every_in_list = {
+                    variable = kCAFG_province_culture_structs
+                    limit = { scope:kCAFG_converting_culture != var:culture }
+                    add = var:factor
+                }
+            }
+            divide = {
+                value = 0
+                every_neighboring_province = { add = 1 }
+            }
+            multiply = V_kCAFG_province_natural_culture_conversion_base
+            multiply = 0.5
+        }
+    }
+
+    # Tension reduces conversion weight
+    subtract = {
+        value = var:kCAFG_culture_tension
+        subtract = 0.1
+        min = 0
+        divide = 0.9
+        divide = V_kCAFG_province_natural_culture_conversion_max_tension
+        multiply = V_kCAFG_province_natural_culture_conversion_tension_impact
+    }
+
+    # Small Minorities are harder to convert
+    if = {
+        limit = {
+            scope:culture_factor >= V_kCAFG_inverted_small_minority_factor
+        }
+        add = {
+            value = 1
+            # Especially if they have low world presence
+            subtract = {
+                value = 0
+                every_in_list = {
+                    variable = kCAFG_province_culture_structs
+                    limit = { scope:kCAFG_converting_culture != var:culture }
+
+                    add = {
+                        value = var:culture.V_kCAFG_culture_world_presence_conversion_factor
+                        multiply = var:factor # Scale by converted culture factor
+                    }
+                }
+                # rescale by excluding converting culture
+                divide = {
+                    value = 1
+                    subtract = scope:culture_factor
+                }
+            }
+
+            multiply = {
+                value = scope:culture_factor
+                subtract = V_kCAFG_inverted_small_minority_factor
+                min = 0
+                divide = {
+                    value = V_kCAFG_small_minority_factor
+                    subtract = V_kCAFG_very_small_minority_factor
+                }
+
+                # Reduce impact
+                multiply = 0.5
+                add = 0.5
+            }
+
+            multiply = V_kCAFG_province_natural_culture_conversion_low_adherents_impact
+            multiply = -1
+        }
+    }
+    
+    multiply = V_kCAFG_province_culture_promotion_multiplier
+
+    # The closer to zero we are, the more likely the province will be converted
+    # 100% multiplier at 0% culture presence
+    # 50% multiplier at 50% culture presence
+    # 15% multiplier at 100% culture presence
+    if = {
+        limit = { scope:culture_factor <= 0.5 }
+        multiply = {
+            value = 1
+            subtract = scope:culture_factor
+        }
+    }
+    if = {
+        limit = { scope:culture_factor > 0.5 }
+        multiply = {
+            value = 0.5
+            subtract = {
+                value = scope:culture_factor # 0.5-1
+                subtract = 0.5 # 0-0.5
+                multiply = 2 # 0-1
+                multiply = 0.35 # 0-0.35
+            }
+        }
+    }
+    # unwelcoming holder
+    if = {
+        limit = { county.holder.culture != scope:kCAFG_converting_culture }
+        divide = 2
+    }
+    # holder is culture head
+    if = {
+        limit = {
+            exists = scope:kCAFG_converting_culture.culture_head
+            county.holder = scope:kCAFG_converting_culture.culture_head
+        }
+        multiply = 1.5
+    }
+
+    # tolerance laws
+    multiply = V_kCAFG_culture_tension_tolerance_law_factor
+}

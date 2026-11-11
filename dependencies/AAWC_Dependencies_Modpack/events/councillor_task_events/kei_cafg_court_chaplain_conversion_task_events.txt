@@ -1,0 +1,482 @@
+﻿namespace = kCAFG_court_chaplain_task_conversion
+
+###############
+# Side effects from Conversion
+# 2000-2999
+###############
+
+###Bad Side Effects
+
+
+#Resistance to conversion
+# by Petter Vilberg
+kCAFG_court_chaplain_task_conversion.2001 = {
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_court_chaplain
+		scope:councillor = cp:councillor_court_chaplain
+		scope:councillor = {
+			learning < high_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_conversion_focused_province }
+		scope:councillor.var:kCAFG_task_conversion_focused_province = {
+			NOT = { has_province_modifier = kCAFG_court_chaplain_resisted_conversion_modifier }
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_court_chaplain = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_court_chaplain_task_side_effect
+			value = yes
+			days = court_chaplain_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_court_chaplain_task_bad
+			title = court_chaplain_task.2001.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning <= average_skill_level }
+					}
+					desc = task_learning_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning > average_skill_level }
+					}
+					desc = task_learning_bad_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_conversion_notification_tooltip
+			left_icon = scope:councillor.var:kCAFG_task_conversion_focused_province.barony
+			right_icon = scope:councillor
+
+            scope:councillor.var:kCAFG_task_conversion_focused_province = {
+				add_province_modifier = {
+					modifier = kCAFG_court_chaplain_resisted_conversion_modifier
+					days = court_chaplain_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+#Upset over conversion
+# by Petter Vilberg
+kCAFG_court_chaplain_task_conversion.2002 = {
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_court_chaplain
+		scope:councillor = cp:councillor_court_chaplain
+		scope:councillor = {
+			learning < high_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_conversion_focused_province }
+		scope:councillor.var:kCAFG_task_conversion_focused_province = {
+			NOR = {
+				has_province_modifier = kCAFG_court_chaplain_county_conversion_upset_modifier
+				has_province_modifier = kCAFG_court_chaplain_county_conversion_support_modifier
+			}
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_court_chaplain = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_court_chaplain_task_side_effect
+			value = yes
+			days = court_chaplain_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_court_chaplain_task_bad
+			title = court_chaplain_task.2002.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning <= average_skill_level }
+					}
+					desc = task_learning_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning > average_skill_level }
+					}
+					desc = task_learning_bad_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_conversion_notification_tooltip
+
+			left_icon = scope:councillor.var:kCAFG_task_conversion_focused_province.barony
+			right_icon = scope:councillor
+
+            scope:councillor.var:kCAFG_task_conversion_focused_province = {
+                custom_tooltip = {
+                    text = kCAFG_court_chaplain_task_conversion_events_faith_tension_increase_tooltip
+                    change_variable = {
+                        name = kCAFG_faith_tension
+                        add = V_kCAFG_court_chaplain_task_conversions_tension_increase
+                    }
+                    E_kCAFG_on_province_faith_tension_updated = yes
+                }
+				add_province_modifier = {
+					modifier = kCAFG_court_chaplain_county_conversion_upset_modifier
+					days = court_chaplain_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+
+###Good Side Effects
+
+
+
+#Improve County opinion
+# by Petter Vilberg
+
+kCAFG_court_chaplain_task_conversion.2101 = {
+	hidden = yes
+	
+	trigger = {
+		exists = cp:councillor_court_chaplain
+		scope:councillor = cp:councillor_court_chaplain
+		scope:councillor = {
+			learning > mediocre_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_conversion_focused_province }
+		scope:councillor.var:kCAFG_task_conversion_focused_province = {
+			NOR = {
+				has_province_modifier = kCAFG_court_chaplain_county_conversion_upset_modifier
+				has_province_modifier = kCAFG_court_chaplain_county_conversion_support_modifier
+			}
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = 0.2
+			offset = inverted_mediocre_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_court_chaplain = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_court_chaplain_task_side_effect
+			value = yes
+			days = court_chaplain_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_court_chaplain_task_good
+			title = court_chaplain_task.2101.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning <= average_skill_level }
+					}
+					desc = task_learning_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning > average_skill_level }
+					}
+					desc = task_learning_good_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_conversion_notification_tooltip
+
+			left_icon = scope:councillor.var:kCAFG_task_conversion_focused_province.barony
+			right_icon = scope:councillor
+
+		    scope:councillor.var:kCAFG_task_conversion_focused_province = {
+                custom_tooltip = {
+                    text = kCAFG_court_chaplain_task_conversion_events_faith_tension_decrease_tooltip
+                    change_variable = {
+                        name = kCAFG_faith_tension
+                        add = V_kCAFG_court_chaplain_task_conversions_tension_decrease
+                    }
+                    E_kCAFG_on_province_faith_tension_updated = yes
+                }
+				add_province_modifier = {
+					modifier = kCAFG_court_chaplain_county_conversion_support_modifier
+					days = court_chaplain_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+
+#Increased County Development
+# by Petter Vilberg
+
+kCAFG_court_chaplain_task_conversion.2102 = {
+	hidden = yes
+	
+	trigger = {
+		exists = cp:councillor_court_chaplain
+		scope:councillor = cp:councillor_court_chaplain
+		scope:councillor = {
+			learning > mediocre_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_conversion_focused_province }
+		scope:councillor.var:kCAFG_task_conversion_focused_province = {
+			NOT = { has_province_modifier = kCAFG_court_chaplain_religious_construction_modifier }
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = 0.2
+			offset = inverted_mediocre_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_court_chaplain = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_court_chaplain_task_side_effect
+			value = yes
+			days = court_chaplain_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_court_chaplain_task_good
+			title = court_chaplain_task.2102.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning <= average_skill_level }
+					}
+					desc = task_learning_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning > average_skill_level }
+					}
+					desc = task_learning_good_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_conversion_notification_tooltip
+
+			left_icon = scope:councillor.var:kCAFG_task_conversion_focused_province.barony
+			right_icon = scope:councillor
+
+		    scope:councillor.var:kCAFG_task_conversion_focused_province = {
+				add_province_modifier = {
+					modifier = kCAFG_court_chaplain_religious_construction_modifier
+					days = court_chaplain_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+
+#Increased County Levies
+# by Petter Vilberg
+
+kCAFG_court_chaplain_task_conversion.2103 = {
+	hidden = yes
+	
+	trigger = {
+		exists = cp:councillor_court_chaplain
+		scope:councillor = cp:councillor_court_chaplain
+		scope:councillor = {
+			learning > mediocre_skill_rating
+		}
+        scope:councillor = { has_variable = kCAFG_task_conversion_focused_province }
+		scope:councillor.var:kCAFG_task_conversion_focused_province = {
+			NOT = { has_province_modifier = kCAFG_court_chaplain_religious_fervor_modifier }
+		}
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = 0.2
+			offset = inverted_mediocre_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_court_chaplain = {
+			save_scope_as = active_councillor
+		}
+		set_variable = {
+			name = had_court_chaplain_task_side_effect
+			value = yes
+			days = court_chaplain_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_court_chaplain_task_good
+			title = court_chaplain_task.2103.notification
+			desc = {
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning <= average_skill_level }
+					}
+					desc = task_learning_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = {
+						scope:active_councillor = { learning > average_skill_level }
+					}
+					desc = task_learning_good_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_conversion_notification_tooltip
+
+			left_icon = scope:councillor.var:kCAFG_task_conversion_focused_province.barony
+			right_icon = scope:councillor
+
+		    scope:councillor.var:kCAFG_task_conversion_focused_province = {
+				add_province_modifier = {
+					modifier = kCAFG_court_chaplain_religious_fervor_modifier
+					days = court_chaplain_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+
+#Court chaplain deems conversion unnecessary
+kCAFG_court_chaplain_task_conversion.9001 = {
+	type = letter_event
+	opening = {
+		desc = kCAFG_court_chaplain_task_conversion.9001.opening
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:focused_province = { T_kCAFG_province_only_faith = { FAITH = scope:councillor_liege.faith } } }
+				desc = kCAFG_court_chaplain_task_conversion.9001.desc_complete
+			}
+			triggered_desc = {
+				trigger = { scope:focused_province = { var:kCAFG_target_faith_tension <= V_kCAFG_AI_suggestion_task_conversion_tension_threshold } }
+				desc = kCAFG_court_chaplain_task_conversion.9001.desc_tension
+			}
+			desc = kCAFG_court_chaplain_task_conversion.9001.desc
+		}
+	}
+	sender = scope:councillor
+
+	immediate = {
+		scope:councillor.var:kCAFG_task_conversion_focused_province = { save_scope_as = focused_province }
+		scope:focused_province = { 
+			# Parameters
+			save_temporary_scope_as = kCAFG_set_default_focus_excluded_province
+			save_temporary_scope_as = kCAFG_set_default_focus_can_redirect
+			save_temporary_scope_as = kCAFG_set_default_focus_ai_select_for_liege
+			#
+			county = { E_kCAFG_task_conversion_select_default_focus = yes }
+		}
+	}
+
+	# I'll let you decide
+	option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = { scope:focused_province = { T_kCAFG_province_only_faith = { FAITH = scope:councillor_liege.faith } } }
+						desc = kCAFG_court_chaplain_task_conversion.9001.a_complete
+					}
+					desc = kCAFG_court_chaplain_task_conversion.9001.a
+				}
+			}
+		}
+		trigger = {
+			trigger_if = {
+				limit = {
+					exists = scope:focused_province
+					exists = scope:kCAFG_selected_province_to_focus
+					scope:councillor = { has_council_position = councillor_court_chaplain }
+				}
+				always = yes
+			}
+		}
+		custom_tooltip = kCAFG_court_chaplain_task_conversion.9001.a.tt
+		hidden_effect = {
+			scope:councillor = {
+				E_kCAFG_task_conversion_set_focus = { PROVINCE = scope:kCAFG_selected_province_to_focus }
+				clear_saved_scope = kCAFG_selected_province_to_focus
+			}
+		}
+		ai_chance = 1
+	}
+
+	# Keep it up
+	option = {
+		trigger = {
+			scope:councillor = { is_performing_council_task = task_conversion }
+			scope:focused_province = { NOT = { T_kCAFG_province_only_faith = { FAITH = scope:councillor_liege.faith } } }
+		}
+		name = kCAFG_court_chaplain_task_conversion.9001.b
+		custom_tooltip = kCAFG_court_chaplain_task_conversion.9001.b.tt
+		hidden_effect = { scope:councillor = { set_variable = kCAFG_court_chaplain_conversion_finish_focus } }
+		ai_chance = 1
+	}
+
+	#Set to default task
+	option = {
+		name = kCAFG_court_chaplain_task_conversion.9001.c
+		custom_tooltip = kCAFG_court_chaplain_task_conversion.9001.c.tt
+		hidden_effect = {
+			scope:councillor = {
+				if = {
+					limit = { has_council_position = councillor_court_chaplain }
+					start_default_task = yes
+				}
+			}
+		}
+		ai_chance = 1
+	}
+
+	# Don't bother me
+	option = {
+		name = kCAFG_court_chaplain_task_conversion.9001.d
+		custom_tooltip = kCAFG_court_chaplain_task_conversion.9001.d.tt
+		hidden_effect = { set_variable = kCAFG_ignore_court_chaplain_conversion_suggestions }
+		ai_chance = 1
+	}
+}

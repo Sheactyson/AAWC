@@ -1,0 +1,5 @@
+﻿dynn_aawc_stability = {
+	name = "dynn_aawc_stability"
+	culture = "crownlander"
+	motto = aawc_stability_house_motto
+}

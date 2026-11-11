@@ -1,0 +1,88 @@
+types kCAFG_MapModesButtonsTypes
+{
+    type kCAFG_culture_view_map_mode_button = widget {
+        size = { 30 30 }
+        parentanchor = top|right
+        position = { -24 38 }
+        visible = no#"[And(Not(IsObserver), GetVariableSystem.Exists('kCAFG_is_loaded_GUI'))]"
+
+        state = {
+            name = "kCAFG_update_display"
+
+            trigger_when = "[And(IsMapMode('kCAFG_culture_custom_mapmode'), Not(GetScriptedGui('kCAFG_culture_map_mode_player_is_viewing_culture').IsValid(GuiScope.SetRoot(Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)))]"
+            on_finish = "[GetScriptedGui('kCAFG_culture_map_mode').Execute(GuiScope.SetRoot(Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+        }
+
+        button_icon = {
+            name = "kCAFG_culture_map_mode_button_on"
+            texture = "gfx/interface/icons/flat_icons/outliner_mod.dds"
+            size = { 100% 100% }
+
+            visible = "[Not(IsMapMode('kCAFG_culture_custom_mapmode'))]"
+            
+            onclick = "[SetMapMode('kCAFG_culture_custom_mapmode')]"
+            onclick = "[GetScriptedGui('kCAFG_culture_map_mode').Execute(GuiScope.SetRoot(Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+            
+            tooltip = "kCAFG_CULTURE_OPEN_MAPMODE_TOOLTIP_TITLE"
+            using = tooltip_nw
+        }
+
+        button_icon = {
+            name = "kCAFG_culture_map_mode_button_off"
+            texture = "gfx/interface/icons/flat_icons/outliner_mod.dds"
+            size = { 100% 100% }
+
+            visible = "[IsMapMode('kCAFG_culture_custom_mapmode')]"
+            
+            onclick = "[SetMapMode('cultures')]"
+            
+            tooltip = "kCAFG_CULTURES_OPEN_MAPMODE_TOOLTIP_TITLE"
+            using = tooltip_nw
+        }
+
+        block "overrides" {}
+    }
+
+    type kCAFG_faith_view_map_mode_button = widget {
+        size = { 30 30 }
+        parentanchor = top|right
+        position = { -10 38 }
+        visible = no#"[And(Not(IsObserver), GetVariableSystem.Exists('kCAFG_is_loaded_GUI'))]"
+
+        state = {
+            name = "kCAFG_update_display"
+
+            trigger_when = "[And(IsMapMode('kCAFG_faith_custom_mapmode'), Not(GetScriptedGui('kCAFG_faith_map_mode_player_is_viewing_faith').IsValid(GuiScope.SetRoot(Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)))]"
+            on_finish = "[GetScriptedGui('kCAFG_faith_map_mode').Execute(GuiScope.SetRoot(Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+        }
+
+        button_icon = {
+            name = "kCAFG_faith_map_mode_button_on"
+            texture = "gfx/interface/icons/flat_icons/outliner_mod.dds"
+            size = { 100% 100% }
+            
+            visible = "[Not(IsMapMode('kCAFG_faith_custom_mapmode'))]"
+
+            onclick = "[SetMapMode('kCAFG_faith_custom_mapmode')]"
+            onclick = "[GetScriptedGui('kCAFG_faith_map_mode').Execute(GuiScope.SetRoot(Faith.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+            
+            tooltip = "kCAFG_FAITH_OPEN_MAPMODE_TOOLTIP_TITLE"
+            using = tooltip_nw
+        }
+
+        button_icon = {
+            name = "kCAFG_faith_map_mode_button_off"
+            texture = "gfx/interface/icons/flat_icons/outliner_mod.dds"
+            size = { 100% 100% }
+            
+            visible = "[IsMapMode('kCAFG_faith_custom_mapmode')]"
+
+            onclick = "[SetMapMode('religions')]"
+            
+            tooltip = "kCAFG_FAITHS_OPEN_MAPMODE_TOOLTIP_TITLE"
+            using = tooltip_nw
+        }
+
+        block "overrides" {}
+    }
+}

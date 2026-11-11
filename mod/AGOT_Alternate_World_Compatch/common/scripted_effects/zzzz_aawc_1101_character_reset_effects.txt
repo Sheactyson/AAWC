@@ -1,0 +1,1622 @@
+﻿aawc_1101_equalize_landed_ruler_effect = {
+	if = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+		}
+		refund_all_perks = yes
+		add_diplomacy_lifestyle_perk_points = -10
+		add_stewardship_lifestyle_perk_points = -10
+		add_martial_lifestyle_perk_points = -10
+		add_learning_lifestyle_perk_points = -10
+		add_intrigue_lifestyle_perk_points = -10
+		remove_short_term_gold = current_gold_value
+		add_gold = 100
+		add_prestige = {
+			value = prestige
+			multiply = -1
+		}
+		add_prestige = 100
+		add_piety = {
+			value = piety
+			multiply = -1
+		}
+		add_piety = 100
+		if = {
+			limit = { has_legitimacy = yes }
+			add_legitimacy = {
+				value = 100
+				subtract = legitimacy
+			}
+		}
+		if = {
+			limit = {
+				aawc_tribal_shatter_active = yes
+				NOR = {
+					has_government = tribal_government
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+				}
+				capital_province ?= { has_holding_type = tribal_holding }
+			}
+			change_government = tribal_government
+		}
+		add_character_flag = aawc_1101_landed_ruler_equalized
+		add_character_flag = aawc_lineage_known_aawc_generation
+		add_character_flag = aawc_lineage_audited
+	}
+}
+
+# One-time normalization after delayed startup systems have finished. The
+# oversized setup batch is removed once; CK3 then maintains its irreducible
+# eight reserve bodies, which later systems detect structurally and quarantine.
+aawc_lineage_initialize_counters_effect = {
+	if = {
+		limit = { NOT = { has_global_variable = aawc_lineage_births_recorded } }
+		set_global_variable = { name = aawc_lineage_births_recorded value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_lineage_mercenary_validations_scheduled } }
+		set_global_variable = { name = aawc_lineage_mercenary_validations_scheduled value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_lineage_mercenaries_accepted } }
+		set_global_variable = { name = aawc_lineage_mercenaries_accepted value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_lineage_mercenaries_rejected } }
+		set_global_variable = { name = aawc_lineage_mercenaries_rejected value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_lineage_invalid_mercenary_entourage_removed } }
+		set_global_variable = { name = aawc_lineage_invalid_mercenary_entourage_removed value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_lineage_valid_mercenary_entourage_removed } }
+		set_global_variable = { name = aawc_lineage_valid_mercenary_entourage_removed value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_lineage_startup_wanderers_removed } }
+		set_global_variable = { name = aawc_lineage_startup_wanderers_removed value = 0 }
+	}
+}
+
+aawc_lineage_quarantine_engine_reserve_effect = {
+	add_character_modifier = aawc_stability_engine_health
+	add_character_flag = aawc_engine_pool_reserve
+	add_character_flag = aawc_stability_core_reserve
+	add_character_flag = blocked_from_leaving
+	add_character_flag = aawc_lineage_audited
+	set_variable = { name = can_not_marry value = 1 }
+	set_house = house:house_aawc_stability
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE engine pool reserve assigned to Stability and quarantined from gameplay" }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+}
+
+aawc_lineage_maintain_stability_reserves_effect = {
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		every_living_character = {
+			limit = { has_character_flag = aawc_stability_core_reserve }
+			if = {
+				limit = {
+					NOT = { has_character_modifier = aawc_stability_engine_health }
+				}
+				add_character_modifier = aawc_stability_engine_health
+			}
+			add_character_flag = aawc_engine_pool_reserve
+			add_character_flag = blocked_from_leaving
+			add_character_flag = aawc_lineage_audited
+			set_variable = { name = can_not_marry value = 1 }
+			if = {
+				limit = { NOT = { dynasty = dynasty:dynn_aawc_stability } }
+				set_house = house:house_aawc_stability
+			}
+		}
+	}
+}
+
+aawc_lineage_normalize_stability_reserve_effect = {
+	if = {
+		limit = {
+			aawc_tribal_shatter_active = yes
+			NOT = { has_global_variable = aawc_stability_core_reserve_normalized }
+		}
+		every_living_character = {
+			limit = { has_character_flag = aawc_stability_core_reserve }
+			remove_character_flag = aawc_stability_core_reserve
+		}
+		random_living_character = {
+			limit = {
+				aawc_is_engine_pool_reserve = yes
+				dynasty = dynasty:dynn_aawc_stability
+			}
+			add_character_flag = aawc_stability_core_reserve
+		}
+		random_living_character = {
+			limit = {
+				aawc_is_engine_pool_reserve = yes
+				dynasty = dynasty:dynn_aawc_stability
+				NOT = { has_character_flag = aawc_stability_core_reserve }
+			}
+			add_character_flag = aawc_stability_core_reserve
+		}
+		random_living_character = {
+			limit = {
+				aawc_is_engine_pool_reserve = yes
+				dynasty = dynasty:dynn_aawc_stability
+				NOT = { has_character_flag = aawc_stability_core_reserve }
+			}
+			add_character_flag = aawc_stability_core_reserve
+		}
+		random_living_character = {
+			limit = {
+				aawc_is_engine_pool_reserve = yes
+				dynasty = dynasty:dynn_aawc_stability
+				NOT = { has_character_flag = aawc_stability_core_reserve }
+			}
+			add_character_flag = aawc_stability_core_reserve
+		}
+		random_living_character = {
+			limit = {
+				aawc_is_engine_pool_reserve = yes
+				dynasty = dynasty:dynn_aawc_stability
+				NOT = { has_character_flag = aawc_stability_core_reserve }
+			}
+			add_character_flag = aawc_stability_core_reserve
+		}
+		random_living_character = {
+			limit = {
+				aawc_is_engine_pool_reserve = yes
+				dynasty = dynasty:dynn_aawc_stability
+				NOT = { has_character_flag = aawc_stability_core_reserve }
+			}
+			add_character_flag = aawc_stability_core_reserve
+		}
+		random_living_character = {
+			limit = {
+				aawc_is_engine_pool_reserve = yes
+				dynasty = dynasty:dynn_aawc_stability
+				NOT = { has_character_flag = aawc_stability_core_reserve }
+			}
+			add_character_flag = aawc_stability_core_reserve
+		}
+		random_living_character = {
+			limit = {
+				aawc_is_engine_pool_reserve = yes
+				dynasty = dynasty:dynn_aawc_stability
+				NOT = { has_character_flag = aawc_stability_core_reserve }
+			}
+			add_character_flag = aawc_stability_core_reserve
+		}
+		every_living_character = {
+			limit = {
+				aawc_is_engine_pool_reserve = yes
+				dynasty = dynasty:dynn_aawc_stability
+				NOT = { has_character_flag = aawc_stability_core_reserve }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed excess Stability member adopted by the former broad reserve classifier" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			death = { death_reason = death_disappearance }
+		}
+		set_global_variable = {
+			name = aawc_stability_core_reserve_normalized
+			value = 1
+		}
+	}
+}
+
+# Compatibility marker for saves created before permanent reserve maintenance.
+# Existing flagged reserves are preserved; ordinary pool characters are never
+# adopted after startup.
+aawc_lineage_repair_stability_reserves_110426_effect = {
+	if = {
+		limit = {
+			aawc_tribal_shatter_active = yes
+			has_global_variable = aawc_lineage_post_start_baseline_complete
+			NOT = { has_global_variable = aawc_stability_core_reserves_repaired_110426 }
+		}
+		# The caller runs normal maintenance immediately after this one-time marker.
+		set_global_variable = {
+			name = aawc_stability_core_reserves_repaired_110426
+			value = 1
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE migrated existing Stability reserves to permanent health maintenance" }
+	}
+}
+
+aawc_lineage_post_start_baseline_effect = {
+	aawc_lineage_initialize_counters_effect = yes
+	if = {
+		limit = { NOT = { has_global_variable = aawc_lineage_post_start_baseline_complete } }
+		set_global_variable = { name = aawc_lineage_startup_pool_characters_removed value = 0 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE one-time post-start pool reduction begin" }
+		every_living_character = {
+			limit = {
+				is_pool_character = yes
+				is_landed = no
+				is_lowborn = yes
+				agot_is_dummy_character = no
+				NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+				NOT = { any_player = { this = prev } }
+			}
+			change_global_variable = { name = aawc_lineage_startup_pool_characters_removed add = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE one-time cleanup removed setup pool character" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			death = { death_reason = death_disappearance }
+		}
+		# Setup pool characters can lose formal pool status before this delayed
+		# pass. Remove only unattached, parentless lowborn setup wanderers. The
+		# baseline completion flag guarantees that this sweep never repeats.
+		every_living_character = {
+			limit = {
+				is_landed = no
+				is_lowborn = yes
+				agot_is_dummy_character = no
+				NOT = { exists = employer }
+				NOT = { exists = father }
+				NOT = { exists = mother }
+				NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+				NOT = { has_character_flag = aawc_lineage_known_aawc_generation }
+				NOT = { has_character_flag = aawc_lineage_known_birth }
+				NOT = { has_character_flag = aawc_engine_pool_reserve }
+				NOT = { any_player = { this = prev } }
+			}
+			change_global_variable = { name = aawc_lineage_startup_wanderers_removed add = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE one-time cleanup removed unattached parentless setup wanderer" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			death = { death_reason = death_disappearance }
+		}
+		every_ruler = {
+			limit = { primary_title ?= { is_mercenary_company = yes } }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE post-shatter mercenary revalidation scheduled" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			trigger_event = { id = aawc_startup.0003 days = 1 }
+		}
+		every_living_character = { add_character_flag = aawc_lineage_audited }
+		set_global_variable = { name = aawc_lineage_post_start_baseline_complete value = 1 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE one-time post-start pool reduction completed; summary follows" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+}
+
+# Some pre-campaign local candidates are temporarily employed while CK3 and
+# AGOT assemble the shattered world, so the immediate baseline cannot safely
+# identify them as disposable. Once the 30-day staffing window has elapsed,
+# remove that remaining parentless lowborn setup cohort before later title
+# changes can draw those characters into newly established courts.
+aawc_lineage_remove_delayed_setup_candidates_110434_effect = {
+	if = {
+		limit = {
+			aawc_tribal_shatter_active = yes
+			NOT = { has_global_variable = aawc_lineage_110434_delayed_setup_cleanup_complete }
+		}
+		set_global_variable = { name = aawc_lineage_110434_delayed_setup_removed value = 0 }
+		every_living_character = {
+			limit = {
+				is_landed = no
+				is_lowborn = yes
+				agot_is_dummy_character = no
+				NOT = { exists = father }
+				NOT = { exists = mother }
+				NOT = { has_character_flag = aawc_lineage_known_birth }
+				NOT = { has_character_flag = aawc_lineage_known_aawc_generation }
+				NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+				NOT = { has_character_flag = aawc_engine_pool_reserve }
+				NOT = { has_character_flag = aawc_lineage_known_mercenary }
+				NOT = { has_character_flag = aawc_artifact_market_keeper }
+				NOT = { any_player = { this = prev } }
+			}
+			change_global_variable = { name = aawc_lineage_110434_delayed_setup_removed add = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed delayed parentless lowborn setup candidate before court admission" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			death = { death_reason = death_disappearance }
+		}
+		set_global_variable = { name = aawc_lineage_110434_delayed_setup_cleanup_complete value = yes }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE delayed setup-candidate cleanup completed; summary follows" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+}
+
+aawc_lineage_yearly_audit_effect = {
+	aawc_lineage_initialize_counters_effect = yes
+	aawc_lineage_normalize_stability_reserve_effect = yes
+	aawc_lineage_repair_stability_reserves_110426_effect = yes
+	aawc_lineage_maintain_stability_reserves_effect = yes
+	aawc_lineage_remove_nonessential_lowborn_staff_110431_effect = yes
+	set_global_variable = { name = aawc_lineage_retired_populists_removed_this_year value = 0 }
+	set_global_variable = { name = aawc_lineage_new_characters_seen_this_year value = 0 }
+	set_global_variable = { name = aawc_lineage_new_pool_characters_seen_this_year value = 0 }
+	set_global_variable = { name = aawc_lineage_new_lowborn_characters_seen_this_year value = 0 }
+	set_global_variable = { name = aawc_lineage_new_mercenary_characters_seen_this_year value = 0 }
+	if = {
+		limit = { NOT = { has_global_variable = aawc_native_mercenary_audits } }
+		set_global_variable = { name = aawc_native_mercenary_audits value = 0 }
+	}
+	change_global_variable = { name = aawc_native_mercenary_audits add = 1 }
+	set_global_variable = { name = aawc_native_mercenary_validations_scheduled value = 0 }
+	every_living_character = {
+		if = {
+			limit = {
+				aawc_tribal_shatter_active = yes
+				is_landed = no
+				is_lowborn = yes
+				has_trait = populist_leader
+				NOT = { exists = father }
+				NOT = { exists = mother }
+				NOT = { has_variable = rebel_leader_peasants }
+				NOT = { has_variable = peasant_title }
+				NOT = { has_character_flag = peasant_revolt_do_not_kill }
+				NOT = { has_character_flag = aawc_lineage_known_aawc_generation }
+				NOT = { has_character_flag = aawc_lineage_known_birth }
+				NOT = { has_character_flag = aawc_engine_pool_reserve }
+				NOT = { any_player = { this = prev } }
+			}
+			change_global_variable = { name = aawc_lineage_retired_populists_removed_this_year add = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed a retired parentless populist leader left behind by a completed faction" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			death = { death_reason = death_vanished }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_character_flag = aawc_lineage_audited }
+					AND = {
+						aawc_is_engine_pool_reserve = yes
+						NOT = { dynasty = dynasty:dynn_aawc_stability }
+					}
+				}
+			}
+			change_global_variable = { name = aawc_lineage_new_characters_seen_this_year add = 1 }
+			if = {
+				limit = { is_pool_character = yes }
+				change_global_variable = { name = aawc_lineage_new_pool_characters_seen_this_year add = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE unexplained character detected in character pool" }
+				if = {
+					limit = { aawc_is_engine_pool_reserve = yes }
+					aawc_lineage_quarantine_engine_reserve_effect = yes
+				}
+			}
+			if = {
+				limit = { is_lowborn = yes }
+				change_global_variable = { name = aawc_lineage_new_lowborn_characters_seen_this_year add = 1 }
+			}
+			if = {
+				limit = { primary_title ?= { is_mercenary_company = yes } }
+				change_global_variable = { name = aawc_lineage_new_mercenary_characters_seen_this_year add = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE unclassified mercenary leader reached yearly audit" }
+			}
+			if = {
+				limit = {
+					has_trait = archmaester
+					aawc_diagnostics_verbose_enabled = yes
+				}
+				error_log = "AAWC LINEAGE unexplained Archmaester detected"
+			}
+			if = {
+				limit = {
+					exists = employer
+					employer.primary_title ?= { is_mercenary_company = yes }
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE unexplained mercenary courtier detected" }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE newly observed non-birth character; scopes follow" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			add_character_flag = aawc_lineage_audited
+		}
+		if = {
+			limit = { primary_title ?= { is_mercenary_company = yes } }
+			change_global_variable = { name = aawc_native_mercenary_validations_scheduled add = 1 }
+			trigger_event = { id = aawc_startup.0003 days = 1 }
+		}
+	}
+	if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY yearly lineage and mercenary audit complete" }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE yearly non-destructive character census completed; summary follows" }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+}
+
+# Existing saves may already contain generated realm priests, ordinary
+# courtiers, knights, or optional position holders created before AAWC closed
+# automatic staffing. Remove that cohort once. Later creation remains visible
+# to the non-destructive lineage census so a genuinely mandatory engine role
+# can be identified instead of hidden behind a recurring purge.
+aawc_lineage_remove_nonessential_lowborn_staff_110431_effect = {
+	if = {
+		limit = {
+			aawc_tribal_shatter_active = yes
+			NOT = { has_global_variable = aawc_lineage_110431_lowborn_staff_cleanup_complete }
+		}
+		set_global_variable = { name = aawc_lineage_110431_lowborn_staff_removed value = 0 }
+		every_living_character = {
+			limit = {
+				is_landed = no
+				is_lowborn = yes
+				exists = employer
+				employer = {
+					is_landed = yes
+					agot_is_dummy_character = no
+					NOT = { primary_title ?= { is_mercenary_company = yes } }
+				}
+				NOT = { exists = father }
+				NOT = { exists = mother }
+				NOT = { has_character_flag = aawc_lineage_known_birth }
+				NOT = { has_character_flag = aawc_lineage_known_aawc_generation }
+				NOT = { has_character_flag = aawc_engine_pool_reserve }
+				NOT = { has_character_flag = aawc_lineage_known_mercenary }
+				NOT = { any_player = { this = prev } }
+			}
+			change_global_variable = { name = aawc_lineage_110431_lowborn_staff_removed add = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE one-time removal of nonessential parentless lowborn staff" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			death = { death_reason = death_disappearance }
+		}
+		set_global_variable = { name = aawc_lineage_110431_lowborn_staff_cleanup_complete value = yes }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE one-time nonessential lowborn staff cleanup completed; summary follows" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+}
+
+# Remove only synthetic succession staff. Root must be the inheriting ruler.
+aawc_lineage_reconcile_inherited_court_effect = {
+	set_variable = { name = aawc_lineage_inherited_court_retained value = 0 }
+	set_variable = { name = aawc_lineage_inheritance_fill_removed value = 0 }
+
+	every_courtier_or_guest = {
+		if = {
+			limit = {
+				OR = {
+					exists = dynasty
+					exists = father
+					exists = mother
+					has_character_flag = aawc_lineage_known_birth
+					has_character_flag = aawc_lineage_known_aawc_generation
+					has_character_flag = aawc_1101_generated_start_courtier
+					has_character_flag = aawc_engine_pool_reserve
+					has_character_flag = aawc_lineage_known_mercenary
+					has_character_flag = aawc_artifact_market_keeper
+					any_player = { this = prev }
+				}
+			}
+			root = { change_variable = { name = aawc_lineage_inherited_court_retained add = 1 } }
+		}
+		if = {
+			limit = {
+				is_lowborn = yes
+				is_adult = yes
+				NOT = { exists = father }
+				NOT = { exists = mother }
+			}
+			root = { change_variable = { name = aawc_lineage_inheritance_fill_removed add = 1 } }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed synthetic parentless lowborn from inherited court" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			death = { death_reason = death_disappearance }
+		}
+	}
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE inheritance court reconciliation pass completed; heir summary follows" }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+}
+
+# CK3 transfers the deceased holder's existing court to an heir, then may add
+# an extra parentless lowborn staffing cohort after title acquisition on-actions
+# finish. Reconcile immediately and schedule two transaction-local follow-ups.
+aawc_lineage_inheritance_court_effect = {
+	if = {
+		limit = {
+			aawc_tribal_shatter_active = yes
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { has_character_flag = aawc_lineage_inheritance_court_checked }
+		}
+		add_character_flag = { flag = aawc_lineage_inheritance_court_checked days = 10 }
+		aawc_lineage_reconcile_inherited_court_effect = yes
+		trigger_event = { id = aawc_lineage.0001 days = 1 }
+		trigger_event = { id = aawc_lineage.0002 days = 7 }
+	}
+}
+
+aawc_1101_equalize_generated_courtier_effect = {
+	refund_all_perks = yes
+	add_diplomacy_lifestyle_perk_points = -10
+	add_stewardship_lifestyle_perk_points = -10
+	add_martial_lifestyle_perk_points = -10
+	add_learning_lifestyle_perk_points = -10
+	add_intrigue_lifestyle_perk_points = -10
+	remove_short_term_gold = current_gold_value
+	add_gold = 100
+	add_prestige = {
+		value = prestige
+		multiply = -1
+	}
+	add_prestige = 100
+	add_piety = {
+		value = piety
+		multiply = -1
+	}
+	add_piety = 100
+	add_character_flag = aawc_1101_generated_start_courtier
+	add_character_flag = aawc_lineage_known_aawc_generation
+	add_character_flag = aawc_lineage_audited
+	if = {
+		limit = { employer = { is_ai = yes } }
+		add_character_flag = aawc_lineage_ai_staffing_candidate
+	}
+}
+
+aawc_1101_create_one_generated_male_courtier_effect = {
+	create_character = {
+		employer = scope:aawc_1101_courtier_liege
+		gender_female_chance = 0
+		culture = scope:aawc_1101_courtier_liege.culture
+		faith = scope:aawc_1101_courtier_liege.faith
+		dynasty = generate
+		random_traits = yes
+		age = 18
+		after_creation = {
+			aawc_1101_equalize_generated_courtier_effect = yes
+		}
+	}
+	change_global_variable = { name = aawc_1101_generated_start_courtiers_created add = 1 }
+}
+
+aawc_1101_create_one_generated_female_courtier_effect = {
+	create_character = {
+		employer = scope:aawc_1101_courtier_liege
+		gender_female_chance = 100
+		culture = scope:aawc_1101_courtier_liege.culture
+		faith = scope:aawc_1101_courtier_liege.faith
+		dynasty = generate
+		random_traits = yes
+		age = 18
+		after_creation = {
+			aawc_1101_equalize_generated_courtier_effect = yes
+		}
+	}
+	change_global_variable = { name = aawc_1101_generated_start_courtiers_created add = 1 }
+}
+
+# Every selectable founder is still AI when the shattered world is assembled,
+# so the eventual player initially receives the twenty-person AI staffing pool.
+# Once ruler selection is complete, replace that temporary pool with the normal
+# two-men/two-women player court and close the AI-only staffing window.
+aawc_1104_normalize_selected_player_staffing_pool_effect = {
+	if = {
+		limit = {
+			is_ai = no
+			is_landed = yes
+			agot_is_dummy_character = no
+			has_character_flag = aawc_lineage_ai_staffing_window
+		}
+		every_courtier_or_guest = {
+			limit = { has_character_flag = aawc_lineage_ai_staffing_candidate }
+			death = { death_reason = death_disappearance }
+		}
+		save_scope_as = aawc_1101_courtier_liege
+		aawc_1101_create_one_generated_male_courtier_effect = yes
+		aawc_1101_create_one_generated_male_courtier_effect = yes
+		aawc_1101_create_one_generated_female_courtier_effect = yes
+		aawc_1101_create_one_generated_female_courtier_effect = yes
+		remove_character_flag = aawc_lineage_ai_staffing_window
+		add_character_flag = aawc_lineage_ai_staffing_completed
+		add_character_flag = aawc_lineage_player_staffing_normalized
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE normalized selected player staffing: removed preselection AI pool and seeded two men plus two women" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+}
+
+aawc_1101_generate_start_courtiers_effect = {
+	if = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			has_character_flag = aawc_1101_generated_start_ruler
+			NOT = { has_character_flag = aawc_1101_start_courtiers_seeded }
+		}
+		save_scope_as = aawc_1101_courtier_liege
+		if = {
+			limit = { is_ai = yes }
+			add_character_flag = aawc_lineage_ai_staffing_window
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			trigger_event = { id = aawc_startup.0007 days = 30 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE seeded marked AI staffing pool: 10 men and 10 women; 30-day appointment window opened" }
+		}
+		else = {
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_male_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+			aawc_1101_create_one_generated_female_courtier_effect = yes
+		}
+		add_character_flag = aawc_1101_start_courtiers_seeded
+	}
+}
+
+# Age of Silence begins with CK3-generated camp followers rather than the
+# standardized starting court. Once the founder becomes landed, discard those
+# lowborn startup followers and seed the same two men/two women noble court
+# used by every other AAWC start.
+aawc_1101_normalize_age_of_silence_court_effect = {
+	if = {
+		limit = {
+			has_game_rule = aawc_age_of_silence
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { has_character_flag = aawc_1101_start_courtiers_seeded }
+		}
+		every_courtier_or_guest = {
+			limit = {
+				is_lowborn = yes
+				NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+			}
+			death = { death_reason = death_disappearance }
+		}
+		save_scope_as = aawc_1101_courtier_liege
+		aawc_1101_create_one_generated_male_courtier_effect = yes
+		aawc_1101_create_one_generated_male_courtier_effect = yes
+		aawc_1101_create_one_generated_female_courtier_effect = yes
+		aawc_1101_create_one_generated_female_courtier_effect = yes
+		add_character_flag = aawc_1101_start_courtiers_seeded
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.7 Age of Silence removed lowborn camp followers and seeded four noble courtiers" }
+	}
+}
+
+aawc_1101_purge_special_title_holder_effect = {
+	if = {
+		limit = { is_title_created = yes }
+		holder = {
+			every_courtier_or_guest = {
+				limit = {
+					agot_is_dummy_character = no
+					NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+					NOT = { any_player = { this = prev } }
+				}
+				change_global_variable = { name = aawc_1101_special_courtiers_removed add = 1 }
+				death = { death_reason = death_disappearance }
+			}
+			if = {
+				limit = {
+					agot_is_dummy_character = no
+					NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+					NOT = { any_player = { this = prev } }
+				}
+				change_global_variable = { name = aawc_1101_special_title_holders_removed add = 1 }
+				destroy_title = prev
+				death = { death_reason = death_disappearance }
+			}
+		}
+	}
+}
+
+aawc_1101_purge_lowborn_survivor_effect = {
+	if = {
+		limit = {
+			is_lowborn = yes
+			agot_is_dummy_character = no
+			NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+			NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+			NOT = { any_player = { this = prev } }
+		}
+		every_held_title = {
+			limit = { is_landless_type_title = yes }
+			holder = { destroy_title = prev }
+		}
+		change_global_variable = { name = aawc_1101_lowborn_survivors_removed add = 1 }
+		death = { death_reason = death_disappearance }
+	}
+}
+
+aawc_1101_destroy_higher_non_landless_titles_effect = {
+	every_held_title = {
+		limit = {
+			is_landless_type_title = no
+			tier >= tier_duchy
+		}
+		change_global_variable = { name = aawc_1101_higher_titles_destroyed add = 1 }
+		holder = { destroy_title = prev }
+	}
+}
+
+aawc_1101_return_invalid_dummy_government_ruler_effect = {
+	if = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { any_player = { this = prev } }
+			NOR = {
+				this = title:c_ruins.holder
+				this = title:c_wilderness.holder
+			}
+			OR = {
+				has_government = ruins_government
+				has_government = unknown_government
+				has_government = wilderness_government
+			}
+		}
+		if = {
+			limit = { has_government = ruins_government }
+			create_title_and_vassal_change = {
+				type = revoked
+				save_scope_as = aawc_1101_invalid_ruin_change
+				add_claim_on_loss = no
+			}
+			every_held_title = {
+				limit = {
+					is_landless_type_title = no
+					tier <= tier_county
+				}
+				change_global_variable = { name = aawc_1101_counties_returned_to_dummy add = 1 }
+				change_title_holder = {
+					holder = title:c_ruins.holder
+					change = scope:aawc_1101_invalid_ruin_change
+					take_baronies = yes
+				}
+			}
+			resolve_title_and_vassal_change = scope:aawc_1101_invalid_ruin_change
+			change_global_variable = { name = aawc_1101_invalid_ruin_rulers_removed add = 1 }
+		}
+		else = {
+			create_title_and_vassal_change = {
+				type = revoked
+				save_scope_as = aawc_1101_invalid_wilderness_change
+				add_claim_on_loss = no
+			}
+			every_held_title = {
+				limit = {
+					is_landless_type_title = no
+					tier <= tier_county
+				}
+				change_global_variable = { name = aawc_1101_counties_returned_to_dummy add = 1 }
+				change_title_holder = {
+					holder = title:c_wilderness.holder
+					change = scope:aawc_1101_invalid_wilderness_change
+					take_baronies = yes
+				}
+			}
+			resolve_title_and_vassal_change = scope:aawc_1101_invalid_wilderness_change
+			change_global_variable = { name = aawc_1101_invalid_wilderness_rulers_removed add = 1 }
+		}
+		aawc_1101_destroy_higher_non_landless_titles_effect = yes
+		death = { death_reason = death_disappearance }
+	}
+}
+
+aawc_1101_return_dummy_barony_vassal_effect = {
+	if = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { any_player = { this = prev } }
+			highest_held_title_tier = tier_barony
+			OR = {
+				has_government = ruins_government
+				has_government = wilderness_government
+				has_government = unknown_government
+				is_vassal_or_below_of = title:c_ruins.holder
+				is_vassal_or_below_of = title:c_wilderness.holder
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_government = ruins_government
+					is_vassal_or_below_of = title:c_ruins.holder
+				}
+			}
+			create_title_and_vassal_change = {
+				type = revoked
+				save_scope_as = aawc_1101_invalid_ruin_barony_change
+				add_claim_on_loss = no
+			}
+			every_held_title = {
+				limit = {
+					is_landless_type_title = no
+					tier = tier_barony
+				}
+				change_global_variable = { name = aawc_1101_baronies_returned_to_dummy add = 1 }
+				change_title_holder = {
+					holder = title:c_ruins.holder
+					change = scope:aawc_1101_invalid_ruin_barony_change
+				}
+			}
+			resolve_title_and_vassal_change = scope:aawc_1101_invalid_ruin_barony_change
+			change_global_variable = { name = aawc_1101_invalid_ruin_barons_removed add = 1 }
+		}
+		else = {
+			create_title_and_vassal_change = {
+				type = revoked
+				save_scope_as = aawc_1101_invalid_wilderness_barony_change
+				add_claim_on_loss = no
+			}
+			every_held_title = {
+				limit = {
+					is_landless_type_title = no
+					tier = tier_barony
+				}
+				change_global_variable = { name = aawc_1101_baronies_returned_to_dummy add = 1 }
+				change_title_holder = {
+					holder = title:c_wilderness.holder
+					change = scope:aawc_1101_invalid_wilderness_barony_change
+				}
+			}
+			resolve_title_and_vassal_change = scope:aawc_1101_invalid_wilderness_barony_change
+			change_global_variable = { name = aawc_1101_invalid_wilderness_barons_removed add = 1 }
+		}
+		death = { death_reason = death_disappearance }
+	}
+}
+
+aawc_1101_cleanup_dummy_barony_vassals_effect = {
+	every_living_character = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { any_player = { this = prev } }
+			highest_held_title_tier = tier_barony
+			OR = {
+				has_government = ruins_government
+				has_government = unknown_government
+				has_government = wilderness_government
+				is_vassal_or_below_of = title:c_ruins.holder
+				is_vassal_or_below_of = title:c_wilderness.holder
+			}
+		}
+		aawc_1101_return_dummy_barony_vassal_effect = yes
+	}
+}
+
+aawc_1101_purge_special_institution_survivors_effect = {
+	title:d_the_silent_sisterhood = {
+		aawc_1101_purge_special_title_holder_effect = yes
+	}
+	title:d_the_citadel = {
+		aawc_1101_purge_special_title_holder_effect = yes
+	}
+	title:d_the_red_priesthood = {
+		aawc_1101_purge_special_title_holder_effect = yes
+	}
+}
+
+aawc_1101_final_generated_ruler_equalization_effect = {
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 final generated-ruler cleanup begin" }
+	set_global_variable = { name = aawc_1101_final_generated_rulers_equalized value = 0 }
+	set_global_variable = { name = aawc_1101_final_landed_lowborn_removed value = 0 }
+	set_global_variable = { name = aawc_1101_final_unlanded_removed value = 0 }
+	set_global_variable = { name = aawc_1101_final_invalid_dummy_rulers_removed value = 0 }
+	set_global_variable = { name = aawc_1101_final_invalid_dummy_barons_removed value = 0 }
+	set_global_variable = { name = aawc_1101_final_survivor_landed_rulers_generated value = 0 }
+	set_global_variable = { name = aawc_1101_final_generated_start_courtiers_created value = 0 }
+
+	aawc_1101_purge_special_institution_survivors_effect = yes
+
+	every_ruler = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { any_player = { this = prev } }
+			NOR = {
+				this = title:c_ruins.holder
+				this = title:c_wilderness.holder
+			}
+			OR = {
+				has_government = ruins_government
+				has_government = unknown_government
+				has_government = wilderness_government
+			}
+		}
+		change_global_variable = { name = aawc_1101_final_invalid_dummy_rulers_removed add = 1 }
+		aawc_1101_return_invalid_dummy_government_ruler_effect = yes
+	}
+
+	every_living_character = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { any_player = { this = prev } }
+			highest_held_title_tier = tier_barony
+			OR = {
+				has_government = ruins_government
+				has_government = unknown_government
+				has_government = wilderness_government
+				is_vassal_or_below_of = title:c_ruins.holder
+				is_vassal_or_below_of = title:c_wilderness.holder
+			}
+		}
+		change_global_variable = { name = aawc_1101_final_invalid_dummy_barons_removed add = 1 }
+		aawc_1101_return_dummy_barony_vassal_effect = yes
+	}
+
+	every_living_character = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { any_player = { this = prev } }
+			NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+			NOR = {
+				this = title:c_ruins.holder
+				this = title:c_wilderness.holder
+				has_government = ruins_government
+				has_government = unknown_government
+				has_government = wilderness_government
+			}
+		}
+		change_global_variable = { name = aawc_1101_final_survivor_landed_rulers_generated add = 1 }
+		aawc_1101_replace_landed_ruler_with_generated_ruler_effect = yes
+	}
+
+	every_ruler = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			has_character_flag = aawc_1101_generated_start_ruler
+		}
+		change_global_variable = { name = aawc_1101_final_generated_rulers_equalized add = 1 }
+		aawc_1101_destroy_higher_non_landless_titles_effect = yes
+		aawc_1101_equalize_landed_ruler_effect = yes
+	}
+
+	every_living_character = {
+		limit = {
+			is_landed = yes
+			is_lowborn = yes
+			agot_is_dummy_character = no
+			NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+			NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+			NOT = { any_player = { this = prev } }
+		}
+		change_global_variable = { name = aawc_1101_final_landed_lowborn_removed add = 1 }
+		aawc_1101_purge_lowborn_survivor_effect = yes
+	}
+
+	every_living_character = {
+		limit = {
+			is_landed = no
+			agot_is_dummy_character = no
+			NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+			NOT = { any_player = { this = prev } }
+		}
+		change_global_variable = { name = aawc_1101_final_unlanded_removed add = 1 }
+		death = { death_reason = death_disappearance }
+	}
+
+	every_ruler = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			has_character_flag = aawc_1101_generated_start_ruler
+			NOT = { has_character_flag = aawc_1101_start_courtiers_seeded }
+		}
+		aawc_1101_generate_start_courtiers_effect = yes
+		if = {
+			limit = { is_ai = yes }
+			change_global_variable = { name = aawc_1101_final_generated_start_courtiers_created add = 20 }
+		}
+		else = {
+			change_global_variable = { name = aawc_1101_final_generated_start_courtiers_created add = 4 }
+		}
+	}
+
+	aawc_1102_apply_lost_faith_culture_effect = yes
+	aawc_1101_audit_character_reset_effect = yes
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 final generated-ruler cleanup completed" }
+}
+
+aawc_1101_replace_landed_ruler_with_generated_ruler_effect = {
+	if = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+			NOR = {
+				this = title:c_ruins.holder
+				this = title:c_wilderness.holder
+				has_government = ruins_government
+				has_government = unknown_government
+				has_government = wilderness_government
+			}
+		}
+
+		if = { limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 candidate_entered" }
+		save_scope_as = aawc_1101_old_ruler
+		change_global_variable = { name = aawc_1101_replacement_candidates_seen add = 1 }
+
+		if = {
+			limit = {
+				scope:aawc_1101_old_ruler.faith = {
+					OR = {
+						AND = {
+							has_doctrine = doctrine_gender_male_dominated
+							has_game_rule = default_gender_equality
+						}
+						AND = {
+							has_doctrine = doctrine_gender_female_dominated
+							has_game_rule = inversed_gender_equality
+						}
+					}
+				}
+			}
+			create_character = {
+				location = title:c_oldtown.title_province
+				gender_female_chance = 0
+				culture = scope:aawc_1101_old_ruler.culture
+				faith = scope:aawc_1101_old_ruler.faith
+				dynasty = generate
+				random_traits = yes
+				age = 18
+				after_creation = {
+					add_character_flag = aawc_1101_generated_start_ruler
+					save_scope_as = aawc_1101_new_ruler
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:aawc_1101_old_ruler.faith = {
+					OR = {
+						AND = {
+							has_doctrine = doctrine_gender_female_dominated
+							has_game_rule = default_gender_equality
+						}
+						AND = {
+							has_doctrine = doctrine_gender_male_dominated
+							has_game_rule = inversed_gender_equality
+						}
+					}
+				}
+			}
+			create_character = {
+				location = title:c_oldtown.title_province
+				gender_female_chance = 100
+				culture = scope:aawc_1101_old_ruler.culture
+				faith = scope:aawc_1101_old_ruler.faith
+				dynasty = generate
+				random_traits = yes
+				age = 18
+				after_creation = {
+					add_character_flag = aawc_1101_generated_start_ruler
+					save_scope_as = aawc_1101_new_ruler
+				}
+			}
+		}
+		else = {
+			create_character = {
+				location = title:c_oldtown.title_province
+				gender_female_chance = 50
+				culture = scope:aawc_1101_old_ruler.culture
+				faith = scope:aawc_1101_old_ruler.faith
+				dynasty = generate
+				random_traits = yes
+				age = 18
+				after_creation = {
+					add_character_flag = aawc_1101_generated_start_ruler
+					save_scope_as = aawc_1101_new_ruler
+				}
+			}
+		}
+
+		if = { limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 primary_creation_returned" }
+		if = {
+			limit = { NOT = { exists = scope:aawc_1101_new_ruler } }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 character reset: fallback generated ruler location used" }
+			create_character = {
+				location = title:c_oldtown.title_province
+				gender_female_chance = 50
+				culture = scope:aawc_1101_old_ruler.culture
+				faith = scope:aawc_1101_old_ruler.faith
+				dynasty = generate
+				random_traits = yes
+				age = 18
+				after_creation = {
+					add_character_flag = aawc_1101_generated_start_ruler
+					add_character_flag = aawc_1101_generated_start_ruler_fallback_location
+					save_scope_as = aawc_1101_new_ruler
+				}
+			}
+			change_global_variable = { name = aawc_1101_fallback_rulers_generated add = 1 }
+		}
+
+		if = {
+			limit = { exists = scope:aawc_1101_new_ruler }
+			change_global_variable = { name = aawc_1101_new_ruler_scopes_created add = 1 }
+			if = { limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 before_create_title_change" }
+			create_title_and_vassal_change = {
+				type = created
+				save_scope_as = aawc_1101_replacement_change
+				add_claim_on_loss = no
+			}
+
+			if = { limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 before_queue_counties" }
+			every_held_title = {
+				limit = {
+					is_landless_type_title = no
+					OR = {
+						tier = tier_county
+						# County transfers already carry capital baronies. Handle only
+						# surviving secondary barons here, without queueing capitals twice.
+						AND = {
+							tier = tier_barony
+							is_capital_barony = no
+							holder = { highest_held_title_tier = tier_barony }
+						}
+					}
+				}
+				change_title_holder = {
+					holder = scope:aawc_1101_new_ruler
+					change = scope:aawc_1101_replacement_change
+				}
+			}
+
+			if = { limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 before_destroy_higher_titles" }
+			aawc_1101_destroy_higher_non_landless_titles_effect = yes
+
+			if = { limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 before_resolve_title_change" }
+			resolve_title_and_vassal_change = scope:aawc_1101_replacement_change
+			if = { limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 before_equalize_new_ruler" }
+			scope:aawc_1101_new_ruler = {
+				aawc_1101_equalize_landed_ruler_effect = yes
+			}
+
+			change_global_variable = { name = aawc_1101_landed_rulers_generated add = 1 }
+			if = { limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 before_old_ruler_death" }
+			if = {
+				limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes }
+				if = { limit = { highest_held_title_tier = tier_barony } error_log = "AAWC RESET phase_08 dying_barony_holder" }
+				if = { limit = { is_landed = no } error_log = "AAWC RESET phase_08 dying_unlanded" }
+			}
+			death = { death_reason = death_disappearance }
+			if = { limit = { has_global_variable = aawc_1114_phase08_trace aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 after_old_ruler_death" }
+		}
+		else = {
+			change_global_variable = { name = aawc_1101_new_ruler_scopes_missing add = 1 }
+		}
+	}
+}
+
+aawc_1101_audit_character_reset_effect = {
+	set_global_variable = { name = aawc_1101_audit_living_total value = 0 }
+	set_global_variable = { name = aawc_1101_audit_dummy_living value = 0 }
+	set_global_variable = { name = aawc_1101_audit_landed_generated value = 0 }
+	set_global_variable = { name = aawc_1101_audit_landed_non_generated value = 0 }
+	set_global_variable = { name = aawc_1101_audit_unlanded_non_dummy value = 0 }
+	set_global_variable = { name = aawc_1101_audit_unlanded_dummy value = 0 }
+	set_global_variable = { name = aawc_1101_audit_lowborn_non_dummy value = 0 }
+	set_global_variable = { name = aawc_1101_audit_higher_tier_non_dummy value = 0 }
+	set_global_variable = { name = aawc_1101_audit_invalid_dummy_government_rulers value = 0 }
+	set_global_variable = { name = aawc_1101_audit_invalid_dummy_barony_vassals value = 0 }
+	set_global_variable = { name = aawc_1101_audit_generated_start_courtiers value = 0 }
+
+	every_living_character = {
+		change_global_variable = { name = aawc_1101_audit_living_total add = 1 }
+		if = {
+			limit = { agot_is_dummy_character = yes }
+			change_global_variable = { name = aawc_1101_audit_dummy_living add = 1 }
+		}
+		if = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				has_character_flag = aawc_1101_generated_start_ruler
+			}
+			change_global_variable = { name = aawc_1101_audit_landed_generated add = 1 }
+		}
+		if = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+			}
+			change_global_variable = { name = aawc_1101_audit_landed_non_generated add = 1 }
+		}
+		if = {
+			limit = {
+				is_landed = no
+				agot_is_dummy_character = no
+				has_character_flag = aawc_1101_generated_start_courtier
+			}
+			change_global_variable = { name = aawc_1101_audit_generated_start_courtiers add = 1 }
+		}
+		if = {
+			limit = {
+				is_landed = no
+				agot_is_dummy_character = no
+			}
+			change_global_variable = { name = aawc_1101_audit_unlanded_non_dummy add = 1 }
+		}
+		if = {
+			limit = {
+				is_landed = no
+				agot_is_dummy_character = yes
+			}
+			change_global_variable = { name = aawc_1101_audit_unlanded_dummy add = 1 }
+		}
+		if = {
+			limit = {
+				is_lowborn = yes
+				agot_is_dummy_character = no
+			}
+			change_global_variable = { name = aawc_1101_audit_lowborn_non_dummy add = 1 }
+		}
+		if = {
+			limit = {
+				agot_is_dummy_character = no
+				any_held_title = {
+					is_landless_type_title = no
+					tier >= tier_duchy
+				}
+			}
+			change_global_variable = { name = aawc_1101_audit_higher_tier_non_dummy add = 1 }
+		}
+		if = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOR = {
+					this = title:c_ruins.holder
+					this = title:c_wilderness.holder
+				}
+				OR = {
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+				}
+			}
+			change_global_variable = { name = aawc_1101_audit_invalid_dummy_government_rulers add = 1 }
+		}
+		if = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				highest_held_title_tier = tier_barony
+				OR = {
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+					is_vassal_or_below_of = title:c_ruins.holder
+					is_vassal_or_below_of = title:c_wilderness.holder
+				}
+			}
+			change_global_variable = { name = aawc_1101_audit_invalid_dummy_barony_vassals add = 1 }
+		}
+	}
+
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 character reset audit follows" }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+}
+
+aawc_1104_strip_dummy_county_appointment_laws_effect = {
+	if = {
+		limit = { has_title_law = appointment_succession_law }
+		remove_title_law = appointment_succession_law
+		change_global_variable = { name = aawc_1104_dummy_appointment_laws_removed add = 1 }
+	}
+	if = {
+		limit = { has_title_law = celestial_appointment_succession_law }
+		remove_title_law = celestial_appointment_succession_law
+		change_global_variable = { name = aawc_1104_dummy_appointment_laws_removed add = 1 }
+	}
+	if = {
+		limit = { has_title_law = celestial_military_appointment_succession_law }
+		remove_title_law = celestial_military_appointment_succession_law
+		change_global_variable = { name = aawc_1104_dummy_appointment_laws_removed add = 1 }
+	}
+	if = {
+		limit = { has_title_law = japanese_appointment_succession_law }
+		remove_title_law = japanese_appointment_succession_law
+		change_global_variable = { name = aawc_1104_dummy_appointment_laws_removed add = 1 }
+	}
+	if = {
+		limit = { has_title_law = japanese_military_appointment_succession_law }
+		remove_title_law = japanese_military_appointment_succession_law
+		change_global_variable = { name = aawc_1104_dummy_appointment_laws_removed add = 1 }
+	}
+	if = {
+		limit = { has_title_law = meritocratic_appointment_succession_law }
+		remove_title_law = meritocratic_appointment_succession_law
+		change_global_variable = { name = aawc_1104_dummy_appointment_laws_removed add = 1 }
+	}
+	if = {
+		limit = { has_title_law = meritocratic_military_appointment_succession_law }
+		remove_title_law = meritocratic_military_appointment_succession_law
+		change_global_variable = { name = aawc_1104_dummy_appointment_laws_removed add = 1 }
+	}
+}
+
+aawc_1104_normalize_dummy_county_appointment_laws_effect = {
+	set_global_variable = { name = aawc_1104_dummy_appointment_laws_removed value = 0 }
+	every_county = {
+		limit = {
+			exists = holder
+			OR = {
+				holder = title:c_ruins.holder
+				holder = title:c_wilderness.holder
+			}
+		}
+		aawc_1104_strip_dummy_county_appointment_laws_effect = yes
+	}
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.13 normalized appointment succession laws on dummy-held shattered counties" }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+}
+
+aawc_1101_post_shatter_character_reset_effect = {
+	if = {
+		limit = { NOT = { aawc_tribal_shatter_active = yes } }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.5.12 character reset skipped: supported tribal-shatter world contract is inactive" }
+	}
+	else_if = {
+		limit = { has_global_variable = aawc_1101_character_reset_complete }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 character reset skipped: already complete" }
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_01 before_aawc_1101_audit_character_reset_effect" }
+		aawc_1101_audit_character_reset_effect = yes
+	}
+	else = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 character reset begin: post-shatter generated-ruler replacement and purge" }
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_02 before_aawc_1104_normalize_dummy_county_appointment_laws_effect" }
+		aawc_1104_normalize_dummy_county_appointment_laws_effect = yes
+		set_global_variable = { name = aawc_1101_dummy_holders_seen value = 0 }
+		set_global_variable = { name = aawc_1101_replacement_candidates_seen value = 0 }
+		set_global_variable = { name = aawc_1101_new_ruler_scopes_created value = 0 }
+		set_global_variable = { name = aawc_1101_new_ruler_scopes_missing value = 0 }
+		set_global_variable = { name = aawc_1101_fallback_rulers_generated value = 0 }
+		set_global_variable = { name = aawc_1101_landed_rulers_generated value = 0 }
+		set_global_variable = { name = aawc_1101_second_pass_landed_rulers_generated value = 0 }
+		set_global_variable = { name = aawc_1101_generated_rulers_equalized value = 0 }
+		set_global_variable = { name = aawc_1101_unlanded_characters_removed value = 0 }
+		set_global_variable = { name = aawc_1101_second_pass_unlanded_characters_removed value = 0 }
+		set_global_variable = { name = aawc_1101_unlanded_dummy_holders_protected value = 0 }
+		set_global_variable = { name = aawc_1101_unlanded_players_protected value = 0 }
+		set_global_variable = { name = aawc_1101_special_courtiers_removed value = 0 }
+		set_global_variable = { name = aawc_1101_special_title_holders_removed value = 0 }
+		set_global_variable = { name = aawc_1101_lowborn_survivors_removed value = 0 }
+		set_global_variable = { name = aawc_1101_higher_titles_destroyed value = 0 }
+		set_global_variable = { name = aawc_1101_counties_returned_to_dummy value = 0 }
+		set_global_variable = { name = aawc_1101_baronies_returned_to_dummy value = 0 }
+		set_global_variable = { name = aawc_1101_invalid_ruin_rulers_removed value = 0 }
+		set_global_variable = { name = aawc_1101_invalid_wilderness_rulers_removed value = 0 }
+		set_global_variable = { name = aawc_1101_invalid_ruin_barons_removed value = 0 }
+		set_global_variable = { name = aawc_1101_invalid_wilderness_barons_removed value = 0 }
+		set_global_variable = { name = aawc_1101_survivor_landed_rulers_generated value = 0 }
+		set_global_variable = { name = aawc_1101_generated_start_courtiers_created value = 0 }
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_03 before_every_living_character" }
+		every_living_character = {
+			limit = { agot_is_dummy_character = yes }
+			change_global_variable = { name = aawc_1101_dummy_holders_seen add = 1 }
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_04 before_every_ruler" }
+		every_ruler = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOT = { any_player = { this = prev } }
+				NOR = {
+					this = title:c_ruins.holder
+					this = title:c_wilderness.holder
+				}
+				OR = {
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+				}
+			}
+			aawc_1101_return_invalid_dummy_government_ruler_effect = yes
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_05 before_every_living_character" }
+		every_living_character = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOT = { any_player = { this = prev } }
+				highest_held_title_tier = tier_barony
+				OR = {
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+					is_vassal_or_below_of = title:c_ruins.holder
+					is_vassal_or_below_of = title:c_wilderness.holder
+				}
+			}
+			aawc_1101_return_dummy_barony_vassal_effect = yes
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_06 before_every_ruler" }
+		every_ruler = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+				NOR = {
+					this = title:c_ruins.holder
+					this = title:c_wilderness.holder
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+				}
+			}
+			aawc_1101_replace_landed_ruler_with_generated_ruler_effect = yes
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_07 before_every_ruler" }
+		every_ruler = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+				NOR = {
+					this = title:c_ruins.holder
+					this = title:c_wilderness.holder
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+				}
+			}
+			change_global_variable = { name = aawc_1101_second_pass_landed_rulers_generated add = 1 }
+			aawc_1101_replace_landed_ruler_with_generated_ruler_effect = yes
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_08 before_every_living_character" }
+		set_global_variable = { name = aawc_1114_phase08_trace value = yes }
+		every_living_character = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOT = { any_player = { this = prev } }
+				NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+				NOR = {
+					this = title:c_ruins.holder
+					this = title:c_wilderness.holder
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+				}
+			}
+			change_global_variable = { name = aawc_1101_survivor_landed_rulers_generated add = 1 }
+			aawc_1101_replace_landed_ruler_with_generated_ruler_effect = yes
+		}
+
+		remove_global_variable = aawc_1114_phase08_trace
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_09 before_every_ruler" }
+		every_ruler = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				has_character_flag = aawc_1101_generated_start_ruler
+			}
+			change_global_variable = { name = aawc_1101_generated_rulers_equalized add = 1 }
+			aawc_1101_destroy_higher_non_landless_titles_effect = yes
+			aawc_1101_equalize_landed_ruler_effect = yes
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_10 before_every_living_character" }
+		every_living_character = {
+			limit = {
+				is_landed = no
+				agot_is_dummy_character = no
+				NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+				NOT = { any_player = { this = prev } }
+			}
+			change_global_variable = { name = aawc_1101_unlanded_characters_removed add = 1 }
+			death = { death_reason = death_disappearance }
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_11 before_every_living_character" }
+		every_living_character = {
+			limit = {
+				is_landed = no
+				agot_is_dummy_character = no
+				NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+				NOT = { any_player = { this = prev } }
+			}
+			change_global_variable = { name = aawc_1101_second_pass_unlanded_characters_removed add = 1 }
+			death = { death_reason = death_disappearance }
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_12 before_aawc_1101_purge_special_institution_survivors_effect" }
+		aawc_1101_purge_special_institution_survivors_effect = yes
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_13 before_every_ruler" }
+		every_ruler = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOT = { any_player = { this = prev } }
+				NOR = {
+					this = title:c_ruins.holder
+					this = title:c_wilderness.holder
+				}
+				OR = {
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+				}
+			}
+			aawc_1101_return_invalid_dummy_government_ruler_effect = yes
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_14 before_every_living_character" }
+		every_living_character = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOT = { any_player = { this = prev } }
+				highest_held_title_tier = tier_barony
+				OR = {
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+					is_vassal_or_below_of = title:c_ruins.holder
+					is_vassal_or_below_of = title:c_wilderness.holder
+				}
+			}
+			aawc_1101_return_dummy_barony_vassal_effect = yes
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_15 before_every_living_character" }
+		every_living_character = {
+			limit = {
+				is_lowborn = yes
+				agot_is_dummy_character = no
+				NOT = { has_character_flag = aawc_1101_generated_start_ruler }
+				NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+				NOT = { any_player = { this = prev } }
+			}
+			aawc_1101_purge_lowborn_survivor_effect = yes
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_16 before_every_living_character" }
+		every_living_character = {
+			limit = {
+				is_landed = no
+				agot_is_dummy_character = yes
+			}
+			change_global_variable = { name = aawc_1101_unlanded_dummy_holders_protected add = 1 }
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_17 before_every_living_character" }
+		every_living_character = {
+			limit = {
+				is_landed = no
+				any_player = { this = prev }
+			}
+			change_global_variable = { name = aawc_1101_unlanded_players_protected add = 1 }
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_18 before_every_ruler" }
+		every_ruler = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				has_character_flag = aawc_1101_generated_start_ruler
+				NOT = { has_character_flag = aawc_1101_start_courtiers_seeded }
+			}
+			aawc_1101_generate_start_courtiers_effect = yes
+		}
+
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_19 before_aawc_1102_apply_lost_faith_culture_effect" }
+		aawc_1102_apply_lost_faith_culture_effect = yes
+		set_global_variable = { name = aawc_1101_character_reset_complete value = 1 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 character reset summary follows" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } error_log = "AAWC RESET phase_20 before_aawc_1101_audit_character_reset_effect" }
+		aawc_1101_audit_character_reset_effect = yes
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.1 character reset completed" }
+	}
+}

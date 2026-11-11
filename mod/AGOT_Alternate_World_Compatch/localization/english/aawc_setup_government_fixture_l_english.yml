@@ -1,0 +1,13 @@
+﻿l_english:
+ aawc_setup_government_fixture_tribal_decision:0 "TEST: Government: Tribal conversion"
+ aawc_setup_government_fixture_tribal_decision_desc:0 "Prepare a city republic, then run the real tribal conversion twice. Disposable campaign only; this changes real holdings and governments and taints the save."
+ aawc_setup_government_fixture_tribal_decision_tooltip:0 "Prepare a city republic, then run the real tribal conversion twice."
+ aawc_setup_government_fixture_tribal_decision_confirm:0 "Run disposable fixture"
+ aawc_setup_government_fixture_pirate_decision:0 "TEST: Government: Pirate conversion"
+ aawc_setup_government_fixture_pirate_decision_desc:0 "Prepare a pirate den, then run the Sothoryos government conversion twice. Disposable campaign only; this changes real holdings and governments and taints the save."
+ aawc_setup_government_fixture_pirate_decision_tooltip:0 "Prepare a pirate den, then run the Sothoryos government conversion twice."
+ aawc_setup_government_fixture_pirate_decision_confirm:0 "Run disposable fixture"
+ aawc_setup_government_fixture_citadel_decision:0 "TEST: Government: Citadel conversion"
+ aawc_setup_government_fixture_citadel_decision_desc:0 "Grant the restored Citadel to a fixture archmaester and run the real title-gain callback. Disposable campaign only; this changes real holdings and governments and taints the save."
+ aawc_setup_government_fixture_citadel_decision_tooltip:0 "Grant the restored Citadel to a fixture archmaester and run the real title-gain callback."
+ aawc_setup_government_fixture_citadel_decision_confirm:0 "Run disposable fixture"

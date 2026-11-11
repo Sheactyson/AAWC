@@ -1,0 +1,6 @@
+﻿gui/additional_windows/province/kei_cafg_province_faiths_window.gui = kCAFG_province_faiths_window
+gui/additional_windows/province/kei_cafg_province_cultures_window.gui = kCAFG_province_cultures_window
+gui/kei_cafg_map_mode_additions.gui = kCAFG_hud_bottom
+gui/kei_cafg_map_modes_tab_buttons.gui = kCAFG_faith_map_mode_tab_button
+gui/kei_cafg_map_modes_tab_buttons.gui = kCAFG_culture_map_mode_tab_button
+gui/kei_cafg_mod_loaded_gui_condition.gui = kCAFG_loaded_gui_condition

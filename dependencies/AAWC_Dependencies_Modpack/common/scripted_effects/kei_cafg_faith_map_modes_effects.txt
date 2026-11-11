@@ -1,0 +1,179 @@
+﻿E_kCAFG_update_faith_map_mode = {
+    every_barony = {
+        if = {
+            limit = { title_province = { NOT = { T_kCAFG_does_province_contain_faith = { FAITH = root } } } }
+            set_title_color = { 6 6 6 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.05 } }
+            set_title_color = { 12 6 190 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.1 } }
+            set_title_color = { 28 27 181 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.15 } }
+            set_title_color = { 39 50 170 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.2 } }
+            set_title_color = { 50 71 173 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.25 } }
+            set_title_color = { 62 79 169 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.3 } }
+            set_title_color = { 74 86 165 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.35 } }
+            set_title_color = { 86 93 160 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.4 } }
+            set_title_color = { 100 100 155 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.45 } }
+            set_title_color = { 112 106 150 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.5 } }
+            set_title_color = { 125 112 145 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.55 } }
+            set_title_color = { 137 115 137 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.6 } }
+            set_title_color = { 150 119 130 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.65 } }
+            set_title_color = { 162 123 123 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.7 } }
+            set_title_color = { 175 127 115 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.75 } }
+            set_title_color = { 187 131 106 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.8 } }
+            set_title_color = { 200 135 97 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.85 } }
+            set_title_color = { 212 138 83 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.9 } }
+            set_title_color = { 225 142 68 }
+        }
+        else_if = {
+            limit = { title_province = { V_kCAFG_province_root_faith_factor <= 0.95 } }
+            set_title_color = { 237 146 34 }
+        }
+        else = {
+            set_title_color = { 249 150 6 }
+        }
+    }
+}
+
+E_kCAFG_update_faith_tension_map_mode = {
+    every_barony = {
+        if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.01 } }
+            set_title_color = { 54 180 54 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.05 } }
+            set_title_color = { 76 174 53 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.1 } }
+            set_title_color = { 101 167 52 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.15 } }
+            set_title_color = { 119 160 51 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.2 } }
+            set_title_color = { 134 153 50 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.25 } }
+            set_title_color = { 153 218 6 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.3 } }
+            set_title_color = { 148 146 49 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.35 } }
+            set_title_color = { 160 138 48 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.4 } }
+            set_title_color = { 170 130 47 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.45 } }
+            set_title_color = { 180 122 46 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.5 } }
+            set_title_color = { 189 112 45 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.55 } }
+            set_title_color = { 197 102 44 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.6 } }
+            set_title_color = { 205 91 43 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.65 } }
+            set_title_color = { 212 78 42 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.7 } }
+            set_title_color = { 219 62 41 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.75 } }
+            set_title_color = { 225 40 40 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.8 } }
+            set_title_color = { 187 34 34 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.85 } }
+            set_title_color = { 149 27 27 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.9 } }
+            set_title_color = { 111 20 20 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 0.95 } }
+            set_title_color = { 73 13 13 }
+        }
+        else_if = {
+            limit = { title_province = { var:kCAFG_faith_tension <= 1 } }
+            set_title_color = { 35 6 6 }
+        }
+        else = {
+            set_title_color = { 6 6 6 }
+        }
+    }
+}

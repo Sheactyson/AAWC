@@ -1,0 +1,1089 @@
+﻿namespace = free_city_events
+
+free_city_events.0001 = { # Request to form Triarchy
+	type = character_event
+	title = free_city_events.0001.t
+	desc = free_city_events.0001.desc
+	left_portrait = {
+		character = scope:request_sender
+		animation = chancellor
+	}
+	theme = diplomacy
+
+	option = { # Yea
+		name = free_city_events.0001.a
+		change_global_variable = {
+			name = triarchy_agreements
+			add = 1
+		}
+		set_variable = voted_for_triarchy
+		ai_chance = {
+			base = 50
+			modifier = { has_trait = content add = -20 }
+			modifier = { has_trait = ambitious add = 20 }
+			modifier = { has_trait = brave add = -20 }
+			modifier = { has_trait = craven add = 20 }
+			modifier = { has_trait = education_diplomacy_1 add = 5 }
+			modifier = { has_trait = education_diplomacy_2 add = 10 }
+			modifier = { has_trait = education_diplomacy_3 add = 15 }
+			modifier = { has_trait = education_diplomacy_4 add = 25 }
+			opinion_modifier = {
+				who = this
+				opinion_target = scope:request_sender
+				multiplier = 0.5
+			}
+			modifier = {
+				current_military_strength < scope:request_sender.current_military_strength
+				add = 20
+			}
+			modifier = {
+				current_military_strength > scope:request_sender.current_military_strength
+				add = -20
+			}
+			modifier = {
+				gold < scope:request_sender.gold
+				add = 20
+			}
+			modifier = {
+				gold > scope:request_sender.gold
+				add = -20
+			}
+		}
+	}
+
+	option = { # Nay
+		name = free_city_events.0001.b
+		ai_chance = {
+			base = 50
+		}
+	}
+}
+
+free_city_events.0002 = { # Hidden triarchy stuff
+	type = character_event
+	hidden = yes
+	immediate = {
+		if = {
+			limit = {
+				global_var:triarchy_agreements = 2
+			}
+			agot_create_three_daughters_confederation = yes
+			scope:archon_tyrosh = { trigger_event = free_city_events.0003 }
+			scope:first_magister_lys = { trigger_event = free_city_events.0003 }
+			scope:first_magister_myr = { trigger_event = free_city_events.0003 }
+		}
+		if = {
+			limit = {
+				global_var:triarchy_agreements != 2
+			}
+			scope:archon_tyrosh = { trigger_event = free_city_events.0004 }
+			scope:first_magister_lys = { trigger_event = free_city_events.0004 }
+			scope:first_magister_myr = { trigger_event = free_city_events.0004 }
+		}
+		remove_global_variable = triarchy_agreements
+	}
+}
+
+free_city_events.0003 = { # Triarchy formed
+	type = character_event
+	title = free_city_events.0003.t
+	desc = free_city_events.0003.desc
+	left_portrait = {
+		character = scope:request_sender
+		animation = chancellor
+	}
+	theme = diplomacy
+
+	immediate = { show_as_tooltip = { scope:request_sender = { agot_create_three_daughters_confederation = yes } } }
+
+	option = { # Eternal alliance
+		name = free_city_events.0003.a
+		remove_variable = voted_for_triarchy
+	}
+}
+
+free_city_events.0004 = { # Triarchy didn't form
+	type = character_event
+	title = free_city_events.0004.t
+	desc = free_city_events.0004.desc
+	left_portrait = {
+		character = scope:request_sender
+		animation = disapproval
+	}
+	theme = diplomacy
+
+	option = { # Failed - bad
+		name = free_city_events.0004.a
+		trigger = { has_variable = voted_for_triarchy }
+		remove_variable = voted_for_triarchy
+	}
+
+	option = { # Failed - good
+		name = free_city_events.0004.b
+		trigger = { NOT = { has_variable = voted_for_triarchy } }
+		remove_variable = voted_for_triarchy
+	}
+}
+
+free_city_events.0005 = { # War declaration
+	hidden = yes
+	immediate = {
+		if = {
+			limit = {
+				exists = scope:war_approved
+			}
+			scope:actor.primary_title = { add_to_variable_list = { name = approved_war_targets target = scope:recipient } }
+			send_interface_toast = {
+				title = war_approved
+				left_icon = scope:actor
+				right_icon = scope:recipient
+			}
+		}
+		else = {
+			send_interface_toast = {
+				title = war_denied
+				left_icon = scope:actor
+				right_icon = scope:recipient
+			}
+		}
+	}
+}
+
+free_city_events.1000 = { # Free the Free Cities
+	type = character_event
+
+	title = free_city_events.1000.t
+	desc = free_city_events.1000.desc
+	left_portrait = {
+		character = root
+		animation = fear
+	}
+	right_portrait = {
+		character = scope:newly_elected
+		animation = anger
+	}
+	theme = martial
+
+	immediate = {
+		random_vassal = {
+			limit = {
+				government_has_flag = government_is_free_city
+				house ?= {
+					OR = {
+						is_powerful_family = yes
+						is_dominant_family = yes
+					}
+				}
+			}
+			save_scope_as = newly_elected
+		}
+		random_vassal = {
+			limit = {
+				government_has_flag = government_is_free_city
+				NOT = {
+					government_has_flag = government_is_norvos
+				}
+				house ?= {
+					OR = {
+						is_powerful_family = yes
+						is_dominant_family = yes
+					}
+				}
+				highest_held_title_tier > tier_county
+				NOT = { this = scope:newly_elected }
+			}
+			save_scope_as = future_diarch
+		}
+
+		every_held_title = {
+			if = {
+				limit = {
+					OR = {
+						any_this_title_or_de_jure_above = { this = title:e_daoryrdembos }
+						any_this_title_or_de_jure_above = { this = title:e_narrow_sea }
+						any_this_title_or_de_jure_above = { this = title:k_myr }
+						any_this_title_or_de_jure_above = { this = title:k_lys }
+						any_this_title_or_de_jure_above = { this = title:k_pentos }
+						any_this_title_or_de_jure_above = { this = title:k_tyrosh }
+						any_this_title_or_de_jure_above = { this = title:k_braavos }
+						any_this_title_or_de_jure_above = { this = title:k_qohor }
+					}
+				}
+				if = {
+					limit = { has_title_law = dictatorship_succession_law }
+					remove_title_law = dictatorship_succession_law
+				}
+			}
+		}
+
+		#Myr
+		if = {
+			limit = { has_title = title:k_myr }
+
+			title:k_myr = { save_scope_as = free_city }
+
+			create_title_and_vassal_change = {
+				type = election
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			if = {
+				limit = { has_title = title:c_myr }
+
+				title:c_myr = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			if = {
+				limit = { has_title = title:d_myr }
+
+				title:d_myr = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			title:k_myr = {
+				change_title_holder_include_vassals = {
+					holder = scope:newly_elected
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+
+			title:k_myr = { set_capital_county = title:c_myr }
+		}
+
+		#Lys
+		if = {
+			limit = { has_title = title:k_lys }
+
+			title:k_lys = { save_scope_as = free_city }
+
+			create_title_and_vassal_change = {
+				type = election
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			if = {
+				limit = { has_title = title:c_lys }
+
+				title:c_lys = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			if = {
+				limit = { has_title = title:d_lys }
+
+				title:d_lys = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			title:k_lys = {
+				change_title_holder_include_vassals = {
+					holder = scope:newly_elected
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+
+			title:k_lys = { set_capital_county = title:c_lys }
+		}
+
+		#Tyrosh
+		if = {
+			limit = { has_title = title:k_tyrosh }
+
+			title:k_tyrosh = { save_scope_as = free_city }
+
+			create_title_and_vassal_change = {
+				type = election
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			if = {
+				limit = { has_title = title:c_tyrosh }
+
+				title:c_tyrosh = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			if = {
+				limit = { has_title = title:d_tyrosh }
+
+				title:d_tyrosh = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			title:k_tyrosh = {
+				change_title_holder_include_vassals = {
+					holder = scope:newly_elected
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+
+			title:k_tyrosh = { set_capital_county = title:c_tyrosh }
+		}
+
+		#Pentos
+		if = {
+			limit = { has_title = title:k_pentos }
+
+			title:k_pentos = { save_scope_as = free_city }
+
+			create_title_and_vassal_change = {
+				type = election
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			if = {
+				limit = { has_title = title:c_princes_quarter }
+
+				title:c_princes_quarter = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			if = {
+				limit = { has_title = title:d_pentos }
+
+				title:d_pentos = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			title:k_pentos = {
+				change_title_holder_include_vassals = {
+					holder = scope:newly_elected
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+
+			title:k_pentos = { set_capital_county = title:c_princes_quarter }
+		}
+
+		#Braavos
+		if = {
+			limit = { has_title = title:k_braavos }
+
+			title:k_pentos = { save_scope_as = free_city }
+
+			create_title_and_vassal_change = {
+				type = election
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			if = {
+				limit = { has_title = title:c_braavos }
+
+				title:c_braavos = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			if = {
+				limit = { has_title = title:d_braavos }
+
+				title:d_braavos = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			title:k_braavos = {
+				change_title_holder_include_vassals = {
+					holder = scope:newly_elected
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+
+			title:k_braavos = { set_capital_county = title:c_braavos }
+		}
+
+		#Norvos
+		if = {
+			limit = { has_title = title:k_norvos }
+
+			title:k_norvos = { save_scope_as = free_city }
+
+			create_title_and_vassal_change = {
+				type = election
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			if = {
+				limit = { has_title = title:c_the_high_city }
+
+				title:c_the_high_city = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			if = {
+				limit = { has_title = title:d_norvos }
+
+				title:d_norvos = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			title:k_norvos = {
+				change_title_holder_include_vassals = {
+					holder = scope:newly_elected
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+
+			title:k_norvos = { set_capital_county = title:c_the_high_city }
+		}
+
+		#Lorath
+		if = {
+			limit = { has_title = title:k_lorath }
+
+			title:k_lorath = { save_scope_as = free_city }
+
+			create_title_and_vassal_change = {
+				type = election
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			if = {
+				limit = { has_title = title:c_makers_maze }
+
+				title:c_makers_maze = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			if = {
+				limit = { has_title = title:d_lorath }
+
+				title:d_lorath = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			title:k_lorath = {
+				change_title_holder_include_vassals = {
+					holder = scope:newly_elected
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+
+			title:k_lorath = { set_capital_county = title:c_makers_maze }
+		}
+
+		# Qohor
+		if = {
+			limit = { has_title = title:k_qohor }
+
+			title:k_qohor = { save_scope_as = free_city }
+
+			create_title_and_vassal_change = {
+				type = election
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			if = {
+				limit = { has_title = title:c_foresters_quarter }
+
+				title:c_foresters_quarter = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			if = {
+				limit = { has_title = title:d_qohor }
+
+				title:d_qohor = {
+					change_title_holder_include_vassals = {
+						holder = scope:newly_elected
+						change = scope:change
+					}
+				}
+			}
+
+			title:k_qohor = {
+				change_title_holder_include_vassals = {
+					holder = scope:newly_elected
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+
+			title:k_qohor = { set_capital_county = title:c_foresters_quarter }
+		}
+
+
+		#Three Daughters
+		if = {
+			limit = { has_title = title:e_narrow_sea }
+
+			title:e_narrow_sea = { save_scope_as = free_city }
+
+			create_title_and_vassal_change = {
+				type = election
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			title:e_narrow_sea = {
+				change_title_holder_include_vassals = {
+					holder = scope:newly_elected
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+
+			title:e_narrow_sea = { set_capital_county = title:c_the_spar }
+		}
+
+		if = {
+			limit = { root.highest_held_title_tier < scope:newly_elected.highest_held_title_tier }
+			create_title_and_vassal_change = {
+				type = swear_fealty
+				save_scope_as = change
+			}
+			change_liege = {
+				liege = scope:newly_elected
+				change = scope:change
+			}
+			resolve_title_and_vassal_change = scope:change
+		}
+
+		if = {
+			limit = {
+				scope:newly_elected.primary_title = title:k_lys
+			}
+			scope:newly_elected = {
+				designate_diarch = scope:future_diarch
+				try_start_diarchy = second_magister
+				set_diarchy_swing = 40
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					scope:newly_elected.primary_title = title:k_tyrosh
+					scope:newly_elected.primary_title = title:k_pentos
+				}
+			}
+			scope:newly_elected = {
+				designate_diarch = scope:future_diarch
+				try_start_diarchy = high_councilor
+				set_diarchy_swing = 40
+			}
+		}
+		else_if = {
+			limit = {
+				scope:newly_elected.primary_title = title:k_myr
+			}
+			scope:newly_elected = {
+				designate_diarch = scope:future_diarch
+				try_start_diarchy = tyniate
+				set_diarchy_swing = 40
+			}
+		}
+		else_if = {
+			limit = {
+				scope:newly_elected.primary_title = title:k_norvos
+			}
+			if = {
+				limit = {
+					norvos_are_the_bearded_priests_the_real_power_trigger = yes
+					title:k_norvos.holder = {
+						government_has_flag = government_is_norvos
+					}
+					title:d_norvos_high_priesthood.holder ?= {
+						top_liege = title:k_norvos.holder
+					}
+				}
+				scope:newly_elected = {
+					designate_diarch = title:d_norvos_high_priesthood.holder
+					try_start_diarchy = norvos_high_priestship
+					set_diarchy_swing = 100
+				}
+			}
+		}
+		else = {
+			scope:newly_elected = {
+				designate_diarch = scope:future_diarch
+				try_start_diarchy = gonfaloniere
+				set_diarchy_swing = 40
+			}
+		}
+
+		scope:newly_elected = {
+			if = {
+				limit = {
+					NOT = {
+						has_realm_law = free_city_election_succession_law
+					}
+				}
+				add_realm_law = free_city_election_succession_law
+			}
+		}
+	}
+
+	option = {
+		name = free_city_events.1000.a
+	}
+}
+
+free_city_events.1001 = { # Election Delayed Due To War
+	type = character_event
+	title = free_city_events.1001.t
+	desc = {
+		first_valid = { #Face expression
+			triggered_desc = {
+				trigger = {
+					NOT = {
+						this = scope:current_ruler
+					}
+				}
+				desc = free_city_events.1001.desc_elector
+			}
+			triggered_desc = {
+				trigger = {
+					this = scope:current_ruler
+				}
+				desc = free_city_events.1001.desc_liege
+			}
+		}
+	}
+
+	left_portrait = {
+		character = scope:current_ruler
+		animation = marshal
+	}
+	theme = war
+
+	option = {
+		name = free_city_events.1001.a
+		name = {
+			trigger = { NOT = { this = scope:current_ruler } }
+			text = free_city_events.1001.a
+		}
+		name = {
+			trigger = { this = scope:current_ruler }
+			text = free_city_events.1001.a_liege
+		}
+		flavor = free_city_events.1001.a.tt
+	}
+}
+
+free_city_events.1002 = { # Time for an election after war ended
+	type = character_event
+	title = free_city_events.1002.t
+	desc = {
+		first_valid = { #Face expression
+			triggered_desc = {
+				trigger = {
+					NOT = {
+						this = scope:current_ruler
+					}
+				}
+				desc = free_city_events.1002.desc_elector
+			}
+			triggered_desc = {
+				trigger = {
+					this = scope:current_ruler
+				}
+				desc = free_city_events.1002.desc_liege
+			}
+		}
+	}
+	left_portrait = {
+		character = scope:current_ruler
+		animation = marshal
+	}
+	theme = war
+
+	immediate = {
+		ordered_heir = { # Gets the character who is winning the election
+			order_by = "this.primary_title.place_in_line_of_succession(prev)"
+			position = 0
+			save_scope_as = magister_winner
+		}
+		primary_title = {
+			save_scope_as = term_limit_country
+		}
+	}
+
+	# Renew elections
+	option = {
+		trigger = {
+			this = scope:current_ruler
+		}
+		name = free_city_events.1002.a_liege
+		flavor = free_city_events.1002.a.tt
+		primary_title = { pre_magisterial_succession = yes }
+	}
+
+	option = {
+		trigger = {
+			NOT = { this = scope:current_ruler }
+		}
+		name = free_city_events.1002.a
+	}
+}
+
+free_city_events.1010 = { # Time for an election after war ended
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = {
+				is_at_war = no
+			}
+			remove_character_flag = election_delayed_till_war_ends
+			save_scope_as = current_ruler
+
+			trigger_event = { id = free_city_events.1002 days = 7 }
+
+			primary_title = {
+				every_elector = { # Event shows up for the electors
+					limit = {
+						NOT = { this = scope:current_ruler }
+					}
+					trigger_event = { id = free_city_events.1002 days = 5 }
+				}
+			}
+		}
+	}
+}
+
+free_city_events.1011 = { # Fake title history
+	hidden = yes
+
+	immediate = {
+		scope:term_limit_country = {
+			copy_title_history = scope:fake_title
+		}
+		scope:term_limit_country.holder = {
+			destroy_title = scope:fake_title
+		}
+	}
+}
+
+free_city_events.2000 = {
+	type = character_event
+	theme = war
+	override_background = {
+		reference = gallows
+	}
+
+	title = free_city_events.2000.t
+	desc = free_city_events.2000.desc
+	left_portrait = {
+		character = root
+		animation = prisonhouse
+	}
+
+	option = {
+		name = free_city_events.2000.a
+		title:c_ruins.holder = {
+			trigger_event = {
+				id = free_city_events.2001
+				days = 1
+			}
+		}
+		death = {
+			death_reason = death_sacrificed_to_gods
+		}
+	}
+}
+
+free_city_events.2001 = {
+	hidden = yes
+	trigger = {
+		exists = title:k_pentos.holder
+		NOT = { title:k_pentos.holder = scope:winner }
+	}
+	immediate = {
+		title:k_pentos.holder = { save_scope_as = new_prince }
+		if = {
+			limit = { scope:winner = scope:defender }
+			scope:new_prince = {
+				add_truce_one_way = {
+					character = scope:winner
+					days = standard_truce_duration_days
+					name = PENTOS_LOST_WAR
+				}
+			}
+		}
+		else = {
+			scope:winner ?= {
+				add_truce_one_way = {
+					character = scope:new_prince
+					days = standard_truce_duration_days
+					name = PENTOS_LOST_WAR
+				}
+			}
+		}
+	}
+}
+
+free_city_events.9996 = {
+	hidden = yes
+	immediate = {
+		agot_assign_capital_duchy_admins = { NEW_RULER = scope:new_ruler CAPITAL_COUNTY = scope:capital }
+	}
+}
+
+free_city_events.9997 = {
+	hidden = yes
+	immediate = {
+		if = {
+			limit = {
+				exists = global_var:three_daughters_confederation
+				OR = {
+					primary_title = title:k_myr
+					primary_title = title:k_tyrosh
+					primary_title = title:k_lys
+				}
+			}
+			global_var:three_daughters_confederation = {
+				add_confederation_member = scope:magister_winner
+			}
+		}
+		every_in_list = {
+			list = tributaries_death_reroll
+			start_tributary = { contract_group = tributary_subjugated suzerain = scope:magister_winner }
+			add_truce_both_ways = {
+				character = scope:magister_winner
+				years = 5
+				name = TRUCE_TRIBUTARY
+			}
+		}
+	}
+}
+
+free_city_events.9998 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		if = {
+			limit = {
+				exists = scope:future_diarch
+			}
+			if = {
+				limit = {
+					scope:magister_winner.primary_title = title:k_lys
+				}
+				scope:magister_winner = {
+					end_diarchy = yes
+					designate_diarch = scope:future_diarch
+					try_start_diarchy = second_magister
+					set_diarchy_swing = 40
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						scope:magister_winner.primary_title = title:k_tyrosh
+						scope:magister_winner.primary_title = title:k_pentos
+					}
+				}
+				scope:magister_winner = {
+					end_diarchy = yes
+					designate_diarch = scope:future_diarch
+					try_start_diarchy = high_councilor
+					set_diarchy_swing = 40
+				}
+			}
+			else_if = {
+				limit = {
+					scope:magister_winner.primary_title = title:k_myr
+				}
+				scope:magister_winner = {
+					end_diarchy = yes
+					designate_diarch = scope:future_diarch
+					try_start_diarchy = tyniate
+					set_diarchy_swing = 40
+				}
+			}
+			else_if = {
+				limit = {
+					scope:magister_winner.primary_title = title:k_norvos
+				}
+				if = {
+					limit = {
+						norvos_are_the_bearded_priests_the_real_power_trigger = yes
+						title:k_norvos.holder = {
+							government_has_flag = government_is_norvos
+						}
+						title:d_norvos_high_priesthood.holder ?= {
+							top_liege = title:k_norvos.holder
+						}
+					}
+					scope:magister_winner = {
+						end_diarchy = yes
+						designate_diarch = title:d_norvos_high_priesthood.holder
+						try_start_diarchy = norvos_high_priestship
+						set_diarchy_swing = 100
+					}
+				}
+			}
+			else = {
+				scope:magister_winner = {
+					end_diarchy = yes
+					designate_diarch = scope:future_diarch
+					try_start_diarchy = gonfaloniere
+					set_diarchy_swing = 40
+				}
+			}
+		}
+	}
+}
+
+free_city_events.9999 = { # Term ends, new one starts
+	type = character_event
+	title = free_city_events.9999.t
+	desc = {
+		first_valid = { # Leader who has lost Term POV
+			triggered_desc = {
+				trigger = {
+					this = scope:old_holder
+				}
+				desc = free_city_events.9999.desc_old_holder
+			}
+			triggered_desc = { # Leader who has won Term POV
+				trigger = {
+					this = scope:magister_winner
+				}
+				desc = free_city_events.9999.desc_magister_winner
+			}
+			triggered_desc = { # Vassal POV
+				trigger = {
+					NOT = {
+						this = scope:magister_winner
+						this = scope:old_holder
+					}
+				}
+				desc = free_city_events.9999.desc_vassal
+			}
+		}
+	}
+
+	left_portrait = {
+		character = scope:old_holder
+		animation = chancellor
+	}
+	right_portrait = {
+		character = scope:magister_winner
+		animation = personality_bold
+	}
+	theme = crown
+
+	immediate = {
+		if = {
+			limit = {
+				this = scope:old_holder
+			}
+			play_music_cue = mx_cue_murder #only real gloomy cue that isn't intense.
+		}
+		else_if = {
+			limit = {
+				this = scope:magister_winner
+			}
+			play_music_cue = mx_cue_low_key_positive
+		}
+		else = {
+			limit = {
+				NOT = {
+					this = scope:magister_winner
+					this = scope:old_holder
+				}
+			}
+			play_music_cue = mx_cue_succession_instrumental
+		}
+		show_as_tooltip = {
+			scope:term_limit_country = { magisterial_succession = yes } # Shows the events that happened as a tooltip
+		}
+	}
+
+	option = {
+		name = free_city_events.9999.a
+	}
+
+	option = {
+		name = free_city_events.9999.b
+		trigger = {
+			this = scope:old_holder
+			is_ai = no
+		}
+		set_player_character = scope:magister_winner
+	}
+}

@@ -1,0 +1,105 @@
+﻿# AAWC 1.10.2/1.10.3 practical Bronze Age innovation baseline.
+# IDs are generated from the active vanilla-plus-AGOT innovation database.
+aawc_1102_reset_lost_culture_innovations_effect = {
+	if = { limit = { has_innovation = innovation_advanced_bowmaking } remove_innovation = innovation_advanced_bowmaking }
+	if = { limit = { has_innovation = innovation_agot_anti_dragon_fighting } remove_innovation = innovation_agot_anti_dragon_fighting }
+	if = { limit = { has_innovation = innovation_agot_crownlands_fighting } remove_innovation = innovation_agot_crownlands_fighting }
+	if = { limit = { has_innovation = innovation_agot_dorne_fighting } remove_innovation = innovation_agot_dorne_fighting }
+	if = { limit = { has_innovation = innovation_agot_free_companies } remove_innovation = innovation_agot_free_companies }
+	if = { limit = { has_innovation = innovation_agot_gavelkind } remove_innovation = innovation_agot_gavelkind }
+	if = { limit = { has_innovation = innovation_agot_giants } remove_innovation = innovation_agot_giants }
+	if = { limit = { has_innovation = innovation_agot_goldenheart_bowmen } remove_innovation = innovation_agot_goldenheart_bowmen }
+	if = { limit = { has_innovation = innovation_agot_heraldry } remove_innovation = innovation_agot_heraldry }
+	if = { limit = { has_innovation = innovation_agot_landed_gentry } remove_innovation = innovation_agot_landed_gentry }
+	if = { limit = { has_innovation = innovation_agot_mail } remove_innovation = innovation_agot_mail }
+	if = { limit = { has_innovation = innovation_agot_northern_fighting } remove_innovation = innovation_agot_northern_fighting }
+	if = { limit = { has_innovation = innovation_agot_professional_lances } remove_innovation = innovation_agot_professional_lances }
+	if = { limit = { has_innovation = innovation_agot_reach_fighting } remove_innovation = innovation_agot_reach_fighting }
+	if = { limit = { has_innovation = innovation_agot_riverlands_fighting } remove_innovation = innovation_agot_riverlands_fighting }
+	if = { limit = { has_innovation = innovation_agot_rubies_and_iron } remove_innovation = innovation_agot_rubies_and_iron }
+	if = { limit = { has_innovation = innovation_agot_siege_01 } remove_innovation = innovation_agot_siege_01 }
+	if = { limit = { has_innovation = innovation_agot_stepstone_fighting } remove_innovation = innovation_agot_stepstone_fighting }
+	if = { limit = { has_innovation = innovation_agot_stormlands_fighting } remove_innovation = innovation_agot_stormlands_fighting }
+	if = { limit = { has_innovation = innovation_agot_sword_bound } remove_innovation = innovation_agot_sword_bound }
+	if = { limit = { has_innovation = innovation_agot_vale_fighting } remove_innovation = innovation_agot_vale_fighting }
+	if = { limit = { has_innovation = innovation_agot_valyrian_knights } remove_innovation = innovation_agot_valyrian_knights }
+	if = { limit = { has_innovation = innovation_agot_westerlands_fighting } remove_innovation = innovation_agot_westerlands_fighting }
+	if = { limit = { has_innovation = innovation_all_things } remove_innovation = innovation_all_things }
+	if = { limit = { has_innovation = innovation_arched_saddle } remove_innovation = innovation_arched_saddle }
+	if = { limit = { has_innovation = innovation_armilary_sphere } remove_innovation = innovation_armilary_sphere }
+	if = { limit = { has_innovation = innovation_baliffs } remove_innovation = innovation_baliffs }
+	if = { limit = { has_innovation = innovation_bannus } remove_innovation = innovation_bannus }
+	if = { limit = { has_innovation = innovation_barracks } remove_innovation = innovation_barracks }
+	if = { limit = { has_innovation = innovation_battlements } remove_innovation = innovation_battlements }
+	if = { limit = { has_innovation = innovation_block_printing } remove_innovation = innovation_block_printing }
+	if = { limit = { has_innovation = innovation_bulkheads } remove_innovation = innovation_bulkheads }
+	if = { limit = { has_innovation = innovation_burhs } remove_innovation = innovation_burhs }
+	if = { limit = { has_innovation = innovation_castle_baileys } remove_innovation = innovation_castle_baileys }
+	if = { limit = { has_innovation = innovation_casus_belli } remove_innovation = innovation_casus_belli }
+	if = { limit = { has_innovation = innovation_catapult } remove_innovation = innovation_catapult }
+	if = { limit = { has_innovation = innovation_champa_rice } remove_innovation = innovation_champa_rice }
+	if = { limit = { has_innovation = innovation_chronicle_writing } remove_innovation = innovation_chronicle_writing }
+	if = { limit = { has_innovation = innovation_city_planning } remove_innovation = innovation_city_planning }
+	if = { limit = { has_innovation = innovation_coking } remove_innovation = innovation_coking }
+	if = { limit = { has_innovation = innovation_compass } remove_innovation = innovation_compass }
+	if = { limit = { has_innovation = innovation_composite_crossbow } remove_innovation = innovation_composite_crossbow }
+	if = { limit = { has_innovation = innovation_court_officials } remove_innovation = innovation_court_officials }
+	if = { limit = { has_innovation = innovation_cranes } remove_innovation = innovation_cranes }
+	if = { limit = { has_innovation = innovation_crop_rotation } remove_innovation = innovation_crop_rotation }
+	if = { limit = { has_innovation = innovation_cupellation } remove_innovation = innovation_cupellation }
+	if = { limit = { has_innovation = innovation_currency_01 } remove_innovation = innovation_currency_01 }
+	if = { limit = { has_innovation = innovation_currency_02 } remove_innovation = innovation_currency_02 }
+	if = { limit = { has_innovation = innovation_currency_03 } remove_innovation = innovation_currency_03 }
+	if = { limit = { has_innovation = innovation_currency_04 } remove_innovation = innovation_currency_04 }
+	if = { limit = { has_innovation = innovation_development_01 } remove_innovation = innovation_development_01 }
+	if = { limit = { has_innovation = innovation_development_02 } remove_innovation = innovation_development_02 }
+	if = { limit = { has_innovation = innovation_development_03 } remove_innovation = innovation_development_03 }
+	if = { limit = { has_innovation = innovation_development_04 } remove_innovation = innovation_development_04 }
+	if = { limit = { has_innovation = innovation_divine_right } remove_innovation = innovation_divine_right }
+	if = { limit = { has_innovation = innovation_double_entry_bookkeeping } remove_innovation = innovation_double_entry_bookkeeping }
+	if = { limit = { has_innovation = innovation_dragon_kiln } remove_innovation = innovation_dragon_kiln }
+	if = { limit = { has_innovation = innovation_elephantry } remove_innovation = innovation_elephantry }
+	if = { limit = { has_innovation = innovation_ermine_cloaks } remove_innovation = innovation_ermine_cloaks }
+	if = { limit = { has_innovation = innovation_guilds } remove_innovation = innovation_guilds }
+	if = { limit = { has_innovation = innovation_hoardings } remove_innovation = innovation_hoardings }
+	if = { limit = { has_innovation = innovation_horseshoes } remove_innovation = innovation_horseshoes }
+	if = { limit = { has_innovation = innovation_house_soldiers } remove_innovation = innovation_house_soldiers }
+	if = { limit = { has_innovation = innovation_knighthood } remove_innovation = innovation_knighthood }
+	if = { limit = { has_innovation = innovation_lacquered_armor } remove_innovation = innovation_lacquered_armor }
+	if = { limit = { has_innovation = innovation_land_grants } remove_innovation = innovation_land_grants }
+	if = { limit = { has_innovation = innovation_ledger } remove_innovation = innovation_ledger }
+	if = { limit = { has_innovation = innovation_longboats } remove_innovation = innovation_longboats }
+	if = { limit = { has_innovation = innovation_machicolations } remove_innovation = innovation_machicolations }
+	if = { limit = { has_innovation = innovation_maesters } remove_innovation = innovation_maesters }
+	if = { limit = { has_innovation = innovation_mangonel } remove_innovation = innovation_mangonel }
+	if = { limit = { has_innovation = innovation_manorialism } remove_innovation = innovation_manorialism }
+	if = { limit = { has_innovation = innovation_men_at_arms } remove_innovation = innovation_men_at_arms }
+	if = { limit = { has_innovation = innovation_motte } remove_innovation = innovation_motte }
+	if = { limit = { has_innovation = innovation_mustering_grounds } remove_innovation = innovation_mustering_grounds }
+	if = { limit = { has_innovation = innovation_noblesse_oblige } remove_innovation = innovation_noblesse_oblige }
+	if = { limit = { has_innovation = innovation_pharmacopoeia } remove_innovation = innovation_pharmacopoeia }
+	if = { limit = { has_innovation = innovation_plate_armor } remove_innovation = innovation_plate_armor }
+	if = { limit = { has_innovation = innovation_plenary_assemblies } remove_innovation = innovation_plenary_assemblies }
+	if = { limit = { has_innovation = innovation_quilted_armor } remove_innovation = innovation_quilted_armor }
+	if = { limit = { has_innovation = innovation_rightful_ownership } remove_innovation = innovation_rightful_ownership }
+	if = { limit = { has_innovation = innovation_royal_armory } remove_innovation = innovation_royal_armory }
+	if = { limit = { has_innovation = innovation_royal_prerogative } remove_innovation = innovation_royal_prerogative }
+	if = { limit = { has_innovation = innovation_sanitation } remove_innovation = innovation_sanitation }
+	if = { limit = { has_innovation = innovation_sappers } remove_innovation = innovation_sappers }
+	if = { limit = { has_innovation = innovation_scutage } remove_innovation = innovation_scutage }
+	if = { limit = { has_innovation = innovation_sericulture } remove_innovation = innovation_sericulture }
+	if = { limit = { has_innovation = innovation_standing_armies } remove_innovation = innovation_standing_armies }
+	if = { limit = { has_innovation = innovation_trebuchet } remove_innovation = innovation_trebuchet }
+	if = { limit = { has_innovation = innovation_unsullied } remove_innovation = innovation_unsullied }
+	if = { limit = { has_innovation = innovation_war_camels } remove_innovation = innovation_war_camels }
+	if = { limit = { has_innovation = innovation_waterworks } remove_innovation = innovation_waterworks }
+	if = { limit = { has_innovation = innovation_windmills } remove_innovation = innovation_windmills }
+
+# Re-add only the six intentional opening innovations.
+	if = { limit = { NOT = { has_innovation = innovation_agot_gavelkind } } add_innovation = innovation_agot_gavelkind }
+	if = { limit = { NOT = { has_innovation = innovation_agot_siege_01 } } add_innovation = innovation_agot_siege_01 }
+	if = { limit = { NOT = { has_innovation = innovation_barracks } } add_innovation = innovation_barracks }
+	if = { limit = { NOT = { has_innovation = innovation_mustering_grounds } } add_innovation = innovation_mustering_grounds }
+	if = { limit = { NOT = { has_innovation = innovation_crop_rotation } } add_innovation = innovation_crop_rotation }
+	if = { limit = { NOT = { has_innovation = innovation_casus_belli } } add_innovation = innovation_casus_belli }
+}

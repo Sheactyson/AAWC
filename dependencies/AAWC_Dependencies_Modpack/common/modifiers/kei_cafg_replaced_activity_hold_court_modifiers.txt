@@ -1,0 +1,11 @@
+﻿hc_7010_holy_war = {
+	icon = martial_positive
+	tolerance_advantage_mod = 10
+	different_faith_opinion = -10
+	different_faith_county_opinion_mult = 0.25
+}
+hc_7010_tolerance = {
+	icon = county_modifier_opinion_positive
+	different_faith_opinion = 10
+	different_faith_county_opinion_mult = -0.25
+}

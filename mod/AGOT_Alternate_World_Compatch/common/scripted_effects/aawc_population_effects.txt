@@ -1,0 +1,1886 @@
+﻿# Demographic initialization belongs to explicit startup/monthly gameplay, never display refresh.
+aawc_population_initialize_holding_demographics_effect = {
+	if = {
+		limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+		if = {
+			limit = {
+				NOT = { has_variable = aawc_reforging_cohort_production_initialized }
+				NOT = { has_variable = aawc_population_current }
+			}
+			aawc_reforging_diag_caller_effect = { CALLER = 2 }
+			aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = 100 }
+		}
+		else = { aawc_reforging_cohort_ensure_production_ledger_effect = yes }
+	}
+	else = {
+		# Ruin, wilderness, unknown and typeless provinces cannot own residents.
+		aawc_reforging_cohort_clear_ineligible_settlement_effect = yes
+	}
+}
+
+aawc_population_update_holding_dynamic_effect = {
+	if = {
+		limit = { has_holding = yes }
+
+		set_variable = { name = aawc_population_current_development_snapshot value = county.development_level }
+		set_variable = { name = aawc_stage2_environment_current value = aawc_stage2_environment_signature }
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable = aawc_population_static_cache_ready }
+					NOT = { has_variable = aawc_stage2_environment_snapshot }
+					NOT = { has_variable = aawc_stage2_structural_ready }
+					NOT = { var:aawc_stage2_environment_snapshot = var:aawc_stage2_environment_current }
+					NOT = { has_variable = aawc_migration_holding_building_rating_eligible }
+					has_variable = aawc_population_static_cache_dirty
+					NOT = { var:aawc_population_static_development_snapshot = var:aawc_population_current_development_snapshot }
+				}
+			}
+			aawc_population_refresh_holding_static_effect = yes
+		}
+		remove_variable = aawc_population_current_development_snapshot
+		remove_variable = aawc_stage2_environment_current
+		aawc_stage2_refresh_effective_effect = yes
+		set_variable = { name = aawc_population_debug_control_factor value = aawc_population_holding_control_factor }
+		set_variable = { name = aawc_population_debug_disease_override value = 0 }
+
+
+		set_variable = { name = aawc_population_before_growth value = aawc_population_holding_current_readonly }
+		set_variable = { name = aawc_population_expected_pressure_percent value = 100 }
+		set_variable = { name = aawc_population_expected_pressure_multiplier value = 1 }
+		if = {
+			limit = { var:aawc_population_expected > 0 }
+			set_variable = { name = aawc_population_expected_pressure_percent value = aawc_population_holding_current_readonly }
+			change_variable = { name = aawc_population_expected_pressure_percent multiply = 100 }
+			change_variable = { name = aawc_population_expected_pressure_percent divide = var:aawc_population_expected }
+
+		}
+
+		set_variable = { name = aawc_population_final_growth_rate value = aawc_population_holding_potential_growth_rate }
+		change_variable = { name = aawc_population_final_growth_rate multiply = aawc_population_holding_control_factor }
+		if = {
+			limit = {
+				aawc_population_holding_potential_growth_rate > 0
+				var:aawc_population_final_growth_rate < 0.0005
+				NOT = { has_holding_type = ruin_holding }
+				NOT = { has_holding_type = wilderness_holding }
+			}
+			set_variable = { name = aawc_population_final_growth_rate value = 0.0005 }
+		}
+		change_variable = { name = aawc_population_final_growth_rate multiply = var:aawc_population_expected_pressure_multiplier }
+
+		if = {
+			limit = {
+				OR = {
+					has_holding_type = ruin_holding
+					has_holding_type = wilderness_holding
+				}
+			}
+			set_variable = { name = aawc_population_final_growth_rate value = 0 }
+		}
+
+		if = {
+			limit = {
+				county = {
+					OR = {
+						has_variable = aawc_population_warfare_growth_suppressed
+						has_variable = aawc_population_siege_growth_suppressed
+						has_variable = aawc_population_raid_growth_suppressed
+					}
+				}
+				var:aawc_population_final_growth_rate > 0
+			}
+			set_variable = { name = aawc_population_final_growth_rate value = 0 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 non-disease growth suppressed by active county raid or siege" }
+		}
+
+		if = {
+			limit = { county = { has_province_with_epidemic = { intensity = apocalyptic } } }
+			set_variable = { name = aawc_population_final_growth_rate value = -0.08 }
+			set_variable = { name = aawc_population_debug_disease_override value = -0.08 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 disease override applied: apocalyptic epidemic" }
+		}
+		else_if = {
+			limit = { county = { has_province_with_epidemic = { intensity >= major } } }
+			set_variable = { name = aawc_population_final_growth_rate value = -0.06 }
+			set_variable = { name = aawc_population_debug_disease_override value = -0.06 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 disease override applied: major epidemic" }
+		}
+		else_if = {
+			limit = { county = { has_province_with_epidemic = { intensity = any } } }
+			set_variable = { name = aawc_population_final_growth_rate value = -0.02 }
+			set_variable = { name = aawc_population_debug_disease_override value = -0.02 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 disease override applied: minor epidemic" }
+		}
+
+		set_variable = { name = aawc_population_total value = aawc_population_holding_current_readonly }
+		set_variable = { name = aawc_population_surplus value = aawc_population_holding_current_readonly }
+		change_variable = {
+			name = aawc_population_surplus
+			add = {
+				value = var:aawc_population_expected
+				multiply = -1
+			}
+		}
+
+	}
+}
+
+aawc_population_apply_holding_monthly_growth_effect = {
+	if = {
+		limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+
+		aawc_population_initialize_holding_demographics_effect = yes
+		# Reconstruct a missing county baseline before capturing or applying holding deltas.
+		county = { aawc_population_ensure_county_cache_effect = yes }
+		set_variable = { name = aawc_population_cached_old_current value = 0 }
+		if = { limit = { has_variable = aawc_population_current } set_variable = { name = aawc_population_cached_old_current value = var:aawc_population_current } }
+		set_variable = { name = aawc_population_cached_old_expected value = 0 }
+		if = { limit = { has_variable = aawc_population_expected } set_variable = { name = aawc_population_cached_old_expected value = var:aawc_population_expected } }
+		set_variable = { name = aawc_population_cached_old_main value = 0 }
+		if = { limit = { has_variable = aawc_population_debug_main_capacity } set_variable = { name = aawc_population_cached_old_main value = var:aawc_population_debug_main_capacity } }
+		set_variable = { name = aawc_population_cached_old_building value = 0 }
+		if = { limit = { has_variable = aawc_population_debug_building_capacity } set_variable = { name = aawc_population_cached_old_building value = var:aawc_population_debug_building_capacity } }
+		set_variable = { name = aawc_population_cached_old_rating value = 0 }
+		if = { limit = { has_variable = aawc_population_debug_growth_rating } set_variable = { name = aawc_population_cached_old_rating value = var:aawc_population_debug_growth_rating } }
+		# Rebuild once per monthly holding visit, including demolition/terrain changes
+		# that do not emit the building-completed invalidation hook.
+		aawc_population_mark_holding_static_dirty_effect = yes
+		aawc_population_update_holding_dynamic_effect = yes
+		# The growth pass already visits every eligible source holding, so initialize
+		# this month's MAA contribution here instead of performing another realm scan.
+		set_variable = { name = aawc_population_last_military_contribution value = 0 }
+		# Milestone-1 production candidate: the cohort authority now owns births,
+		# mortality and five-year aging. The former aggregate capacity-rate growth
+		# mutation is deliberately retired here so only one demographic path runs.
+		aawc_reforging_cohort_apply_production_month_effect = yes
+		aawc_stage2_refresh_effective_effect = yes
+
+		set_variable = { name = aawc_population_total value = var:aawc_population_current }
+		set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+		change_variable = {
+			name = aawc_population_surplus
+			add = {
+				value = var:aawc_population_expected
+				multiply = -1
+			}
+		}
+
+		set_variable = { name = aawc_population_cached_delta_current value = var:aawc_population_current }
+		change_variable = { name = aawc_population_cached_delta_current add = { value = var:aawc_population_cached_old_current multiply = -1 } }
+		set_variable = { name = aawc_population_cached_delta_expected value = var:aawc_population_expected }
+		change_variable = { name = aawc_population_cached_delta_expected add = { value = var:aawc_population_cached_old_expected multiply = -1 } }
+		set_variable = { name = aawc_population_cached_delta_main value = var:aawc_population_debug_main_capacity }
+		change_variable = { name = aawc_population_cached_delta_main add = { value = var:aawc_population_cached_old_main multiply = -1 } }
+		set_variable = { name = aawc_population_cached_delta_building value = var:aawc_population_debug_building_capacity }
+		change_variable = { name = aawc_population_cached_delta_building add = { value = var:aawc_population_cached_old_building multiply = -1 } }
+		set_variable = { name = aawc_population_cached_delta_rating value = var:aawc_population_debug_growth_rating }
+		change_variable = { name = aawc_population_cached_delta_rating add = { value = var:aawc_population_cached_old_rating multiply = -1 } }
+		county = {
+			change_variable = { name = aawc_population_total add = prev.var:aawc_population_cached_delta_current }
+			change_variable = { name = aawc_population_expected add = prev.var:aawc_population_cached_delta_expected }
+			change_variable = { name = aawc_population_county_dev_weight add = prev.var:aawc_population_cached_delta_main }
+			change_variable = { name = aawc_population_county_income_component add = prev.var:aawc_population_cached_delta_building }
+			change_variable = { name = aawc_population_county_levy_component add = prev.var:aawc_population_cached_delta_rating }
+			set_variable = { name = aawc_population_surplus value = var:aawc_population_total }
+			change_variable = { name = aawc_population_surplus add = { value = var:aawc_population_expected multiply = -1 } }
+		}
+		remove_variable = aawc_population_cached_old_current
+		remove_variable = aawc_population_cached_old_expected
+		remove_variable = aawc_population_cached_old_main
+		remove_variable = aawc_population_cached_old_building
+		remove_variable = aawc_population_cached_old_rating
+		remove_variable = aawc_population_cached_delta_current
+		remove_variable = aawc_population_cached_delta_expected
+		remove_variable = aawc_population_cached_delta_main
+		remove_variable = aawc_population_cached_delta_building
+		remove_variable = aawc_population_cached_delta_rating
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes county = { holder = { is_ai = no } } } error_log = "AAWC POP 1.9.65 GROWTH committed monthly holding population delta" }
+	}
+}
+
+aawc_population_refresh_holding_dynamic_effect = {
+	if = {
+		limit = { has_holding = yes }
+
+		# Reuse the established formula cache without mutating current population.
+		aawc_population_update_holding_dynamic_effect = yes
+
+		set_variable = { name = aawc_population_total value = aawc_population_holding_current_readonly }
+		set_variable = { name = aawc_population_surplus value = aawc_population_holding_current_readonly }
+		change_variable = {
+			name = aawc_population_surplus
+			add = {
+				value = var:aawc_population_expected
+				multiply = -1
+			}
+		}
+		set_variable = { name = aawc_population_maa_max_contribution value = 0 }
+		if = {
+			limit = {
+				NOT = { has_holding_type = ruin_holding }
+				NOT = { has_holding_type = wilderness_holding }
+				NOT = { county = { has_variable = aawc_population_warfare_growth_suppressed } }
+				NOT = { county = { has_variable = aawc_population_siege_growth_suppressed } }
+				NOT = { county = { has_variable = aawc_population_raid_growth_suppressed } }
+			}
+			set_variable = { name = aawc_population_maa_tooltip_protected_population value = var:aawc_population_expected }
+			change_variable = { name = aawc_population_maa_tooltip_protected_population multiply = 0.25 }
+			if = {
+				limit = { var:aawc_population_maa_tooltip_protected_population > 2000 }
+				set_variable = { name = aawc_population_maa_tooltip_protected_population value = 2000 }
+			}
+			set_variable = { name = aawc_population_maa_tooltip_spare_population value = aawc_population_holding_current_readonly }
+			change_variable = {
+				name = aawc_population_maa_tooltip_spare_population
+				add = {
+					value = var:aawc_population_maa_tooltip_protected_population
+					multiply = -1
+				}
+			}
+			if = {
+				limit = { var:aawc_population_maa_tooltip_spare_population >= 1 }
+				set_variable = { name = aawc_population_maa_max_contribution value = aawc_population_holding_current_readonly }
+				change_variable = { name = aawc_population_maa_max_contribution multiply = 0.01 }
+				if = {
+					limit = { var:aawc_population_maa_max_contribution > var:aawc_population_maa_tooltip_spare_population }
+					set_variable = { name = aawc_population_maa_max_contribution value = var:aawc_population_maa_tooltip_spare_population }
+				}
+			}
+			remove_variable = aawc_population_maa_tooltip_protected_population
+			remove_variable = aawc_population_maa_tooltip_spare_population
+		}
+
+	}
+}
+
+aawc_population_apply_county_holding_monthly_growth_effect = {
+	every_in_de_jure_hierarchy = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = {
+				limit = { has_holding = yes }
+				aawc_population_apply_holding_monthly_growth_effect = yes
+			}
+		}
+	}
+}
+
+# Repair a county ledger's cadence immediately when ownership moves between
+# independently staggered character schedulers. The province-local recent-tick
+# lease suppresses a second demographic tick when the old owner ran recently.
+# Refreshing the holding cache after that guarded tick satisfies cached county
+# aggregation without invoking another demographic authority. This narrow path
+# does not repeat MAA, reservation, migration, or AI work.
+aawc_population_apply_county_holding_cadence_recovery_effect = {
+	every_in_de_jure_hierarchy = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = {
+				limit = { has_holding = yes }
+				# Title-transfer recovery must refresh structural/effective inputs
+				# before the guarded natural-demography tick, just like the normal path.
+				aawc_population_update_holding_dynamic_effect = yes
+				aawc_reforging_cohort_apply_production_month_effect = yes
+				aawc_population_refresh_holding_dynamic_effect = yes
+			}
+		}
+	}
+	aawc_population_reaggregate_county_cached_effect = yes
+}
+
+aawc_population_refresh_county_holding_dynamic_effect = {
+	every_in_de_jure_hierarchy = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = {
+				limit = { has_holding = yes }
+				aawc_population_refresh_holding_static_effect = yes
+				aawc_population_refresh_holding_dynamic_effect = yes
+			}
+		}
+	}
+}
+
+aawc_population_refresh_county_holding_display_effect = {
+	every_in_de_jure_hierarchy = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = {
+				limit = { has_holding = yes }
+				set_variable = { name = aawc_population_county_total_display value = county.aawc_population_county_total }
+				set_variable = { name = aawc_population_county_expected_display value = county.aawc_population_county_expected }
+				set_variable = { name = aawc_population_county_surplus_display value = county.aawc_population_county_surplus }
+				set_variable = { name = aawc_population_colonize_cost_wh value = county.aawc_population_county_colonize_cost_wh }
+				set_variable = { name = aawc_population_reclaim_cost_rh value = county.aawc_population_county_reclaim_cost_rh }
+			}
+		}
+	}
+}
+
+aawc_population_reset_county_holding_maa_contribution_effect = {
+	every_in_de_jure_hierarchy = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = {
+				limit = {
+					has_holding = yes
+					barony = {
+						holder = {
+							OR = {
+								this = scope:aawc_population_maa_owner
+								is_vassal_or_below_of = scope:aawc_population_maa_owner
+							}
+						}
+					}
+				}
+				set_variable = { name = aawc_population_last_military_contribution value = 0 }
+			}
+		}
+	}
+}
+
+aawc_population_audit_county_maa_population_sources_effect = {
+	every_in_de_jure_hierarchy = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = {
+				limit = { has_holding = yes }
+				aawc_population_audit_maa_population_source_from_holding_effect = yes
+			}
+		}
+	}
+}
+
+aawc_population_prepare_county_maa_population_pool_effect = {
+	every_in_de_jure_hierarchy = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = {
+				limit = { has_holding = yes }
+				aawc_population_prepare_maa_population_pool_from_holding_effect = yes
+			}
+		}
+	}
+}
+
+aawc_population_spend_county_maa_population_pool_effect = {
+	aawc_reforging_tx_aawc_population_spend_county_maa_population_pool_effect_scan_effect = { ACTION = aawc_reforging_tx_prepare_maa_effect }
+	aawc_reforging_tx_allocate_effect = { REQUEST = scope:aawc_population_maa_owner.var:aawc_population_maa_population_to_spend SCAN = aawc_reforging_tx_aawc_population_spend_county_maa_population_pool_effect_scan_effect }
+	every_in_de_jure_hierarchy = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = {
+				limit = {
+					has_holding = yes
+					barony = {
+						holder = {
+							OR = {
+								this = scope:aawc_population_maa_owner
+								is_vassal_or_below_of = scope:aawc_population_maa_owner
+							}
+						}
+					}
+				}
+				aawc_population_spend_maa_population_pool_from_holding_effect = yes
+			}
+		}
+	}
+	aawc_reforging_tx_aawc_population_spend_county_maa_population_pool_effect_scan_effect = { ACTION = aawc_reforging_tx_cleanup_node_effect }
+	aawc_reforging_tx_cleanup_owner_effect = yes
+
+}
+
+aawc_population_apply_owned_and_vassal_barony_monthly_growth_effect = {
+	save_scope_as = aawc_population_barony_owner
+	every_held_title = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = { limit = { has_holding = yes } aawc_population_apply_holding_monthly_growth_effect = yes }
+		}
+	}
+	every_vassal_or_below = {
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = {
+					limit = {
+						has_holding = yes
+						county = { holder = scope:aawc_population_barony_owner }
+					}
+					aawc_population_apply_holding_monthly_growth_effect = yes
+				}
+			}
+		}
+	}
+}
+
+aawc_population_refresh_owned_and_vassal_barony_dynamic_effect = {
+	save_scope_as = aawc_population_barony_owner
+	every_held_title = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = { limit = { has_holding = yes } aawc_population_refresh_holding_dynamic_effect = yes }
+		}
+	}
+	every_vassal_or_below = {
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = {
+					limit = {
+						has_holding = yes
+						county = { holder = scope:aawc_population_barony_owner }
+					}
+					aawc_population_refresh_holding_dynamic_effect = yes
+				}
+			}
+		}
+	}
+}
+
+aawc_population_refresh_owned_and_vassal_barony_display_effect = {
+	save_scope_as = aawc_population_barony_owner
+	every_held_title = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = {
+				limit = { has_holding = yes }
+				set_variable = { name = aawc_population_county_total_display value = county.aawc_population_county_total }
+				set_variable = { name = aawc_population_county_expected_display value = county.aawc_population_county_expected }
+				set_variable = { name = aawc_population_county_surplus_display value = county.aawc_population_county_surplus }
+				set_variable = { name = aawc_population_colonize_cost_wh value = county.aawc_population_county_colonize_cost_wh }
+				set_variable = { name = aawc_population_reclaim_cost_rh value = county.aawc_population_county_reclaim_cost_rh }
+			}
+		}
+	}
+	every_vassal_or_below = {
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = {
+					limit = {
+						has_holding = yes
+						county = { holder = scope:aawc_population_barony_owner }
+					}
+					set_variable = { name = aawc_population_county_total_display value = county.aawc_population_county_total }
+					set_variable = { name = aawc_population_county_expected_display value = county.aawc_population_county_expected }
+					set_variable = { name = aawc_population_county_surplus_display value = county.aawc_population_county_surplus }
+					set_variable = { name = aawc_population_colonize_cost_wh value = county.aawc_population_county_colonize_cost_wh }
+					set_variable = { name = aawc_population_reclaim_cost_rh value = county.aawc_population_county_reclaim_cost_rh }
+				}
+			}
+		}
+	}
+}
+
+aawc_population_reset_owned_and_vassal_barony_maa_contribution_effect = {
+	save_scope_as = aawc_population_barony_owner
+	every_held_title = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = { limit = { has_holding = yes } set_variable = { name = aawc_population_last_military_contribution value = 0 } }
+		}
+	}
+	every_vassal_or_below = {
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = {
+					limit = {
+						has_holding = yes
+						county = { holder = scope:aawc_population_barony_owner }
+					}
+					set_variable = { name = aawc_population_last_military_contribution value = 0 }
+				}
+			}
+		}
+	}
+}
+
+aawc_population_audit_owned_and_vassal_barony_maa_sources_effect = {
+	save_scope_as = aawc_population_barony_owner
+	every_held_title = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = { limit = { has_holding = yes } aawc_population_audit_maa_population_source_from_holding_effect = yes }
+		}
+	}
+	every_vassal_or_below = {
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = {
+					limit = {
+						has_holding = yes
+						county = { holder = scope:aawc_population_barony_owner }
+					}
+					aawc_population_audit_maa_population_source_from_holding_effect = yes
+				}
+			}
+		}
+	}
+}
+
+aawc_population_prepare_owned_and_vassal_barony_maa_pool_effect = {
+	save_scope_as = aawc_population_barony_owner
+	every_held_title = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = { limit = { has_holding = yes } aawc_population_prepare_maa_population_pool_from_holding_effect = yes }
+		}
+	}
+	every_vassal_or_below = {
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = {
+					limit = {
+						has_holding = yes
+						county = { holder = scope:aawc_population_barony_owner }
+					}
+					aawc_population_prepare_maa_population_pool_from_holding_effect = yes
+				}
+			}
+		}
+	}
+}
+
+aawc_population_spend_owned_and_vassal_barony_maa_pool_effect = {
+	save_scope_as = aawc_population_barony_owner
+	aawc_reforging_tx_aawc_population_spend_owned_and_vassal_barony_maa_pool_effect_scan_effect = { ACTION = aawc_reforging_tx_prepare_maa_effect }
+	aawc_reforging_tx_allocate_effect = { REQUEST = var:aawc_population_maa_population_to_spend SCAN = aawc_reforging_tx_aawc_population_spend_owned_and_vassal_barony_maa_pool_effect_scan_effect }
+	every_held_title = {
+		limit = { tier = tier_barony }
+		title_province = {
+			if = { limit = { has_holding = yes } aawc_population_spend_maa_population_pool_from_holding_effect = yes }
+		}
+	}
+	every_vassal_or_below = {
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = {
+					limit = {
+						has_holding = yes
+						county = { holder = scope:aawc_population_barony_owner }
+					}
+					aawc_population_spend_maa_population_pool_from_holding_effect = yes
+				}
+			}
+		}
+	}
+	aawc_reforging_tx_aawc_population_spend_owned_and_vassal_barony_maa_pool_effect_scan_effect = { ACTION = aawc_reforging_tx_cleanup_node_effect }
+	aawc_reforging_tx_cleanup_owner_effect = yes
+
+}
+
+aawc_population_consume_reserved_from_holding_surplus_effect = {
+	if = {
+		limit = {
+			has_holding = yes
+			scope:aawc_population_spend_owner.var:aawc_population_remaining_spend > 0
+			var:aawc_population_surplus > 0
+		}
+		set_variable = { name = aawc_population_spend_from_holding value = var:aawc_population_surplus }
+		if = {
+			limit = { var:aawc_population_spend_from_holding > scope:aawc_population_spend_owner.var:aawc_population_remaining_spend }
+			set_variable = { name = aawc_population_spend_from_holding value = scope:aawc_population_spend_owner.var:aawc_population_remaining_spend }
+		}
+		if = { limit = { has_variable = aawc_reforging_tx_prepared } set_variable = { name = aawc_population_spend_from_holding value = aawc_reforging_tx_allocation_value } }
+		set_variable = { name = aawc_population_spend_from_holding value = { value = var:aawc_population_spend_from_holding max = scope:aawc_population_spend_owner.var:aawc_population_remaining_spend min = 0 floor = yes } }
+		aawc_reforging_tx_begin_isolated_debit_effect = yes
+		aawc_reforging_cohort_debit_population_effect = { AMOUNT = var:aawc_population_spend_from_holding }
+		aawc_reforging_tx_end_isolated_debit_effect = yes
+		set_variable = { name = aawc_population_spend_from_holding value = { value = 0 if = { limit = { has_variable = aawc_reforging_cohort_last_transfer_debit } add = var:aawc_reforging_cohort_last_transfer_debit } } }
+		scope:aawc_population_spend_owner = {
+			change_variable = {
+				name = aawc_population_remaining_spend
+				add = {
+					value = prev.var:aawc_population_spend_from_holding
+					multiply = -1
+				}
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.65 consumed population from county-holder barony holding surplus" }
+		remove_variable = aawc_population_spend_from_holding
+	}
+}
+
+aawc_population_prepare_reserved_spend_from_holding_effect = {
+	if = {
+		limit = {
+			has_holding = yes
+			var:aawc_population_surplus > 0
+		}
+		set_variable = { name = aawc_population_reserved_available_to_spend value = var:aawc_population_surplus }
+		scope:aawc_population_spend_owner = {
+			change_variable = {
+				name = aawc_population_reserved_spend_pool
+				add = prev.var:aawc_population_reserved_available_to_spend
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.94 reserve spend source added to proportional pool" }
+	}
+	else = {
+		remove_variable = aawc_population_reserved_available_to_spend
+	}
+}
+
+aawc_population_spend_reserved_pool_from_holding_effect = {
+	if = {
+		limit = {
+			has_holding = yes
+			has_variable = aawc_population_reserved_available_to_spend
+			scope:aawc_population_spend_owner.var:aawc_population_remaining_spend > 0
+			scope:aawc_population_spend_owner.var:aawc_population_reserved_spend_pool > 0
+		}
+		set_variable = { name = aawc_population_spend_from_holding value = scope:aawc_population_spend_owner.var:aawc_population_original_spend }
+		change_variable = { name = aawc_population_spend_from_holding multiply = var:aawc_population_reserved_available_to_spend }
+		change_variable = { name = aawc_population_spend_from_holding divide = scope:aawc_population_spend_owner.var:aawc_population_reserved_spend_pool }
+		if = {
+			limit = { var:aawc_population_spend_from_holding > scope:aawc_population_spend_owner.var:aawc_population_remaining_spend }
+			set_variable = { name = aawc_population_spend_from_holding value = scope:aawc_population_spend_owner.var:aawc_population_remaining_spend }
+		}
+		if = {
+			limit = { var:aawc_population_spend_from_holding > var:aawc_population_surplus }
+			set_variable = { name = aawc_population_spend_from_holding value = var:aawc_population_surplus }
+		}
+		if = { limit = { has_variable = aawc_reforging_tx_prepared } set_variable = { name = aawc_population_spend_from_holding value = aawc_reforging_tx_allocation_value } }
+		set_variable = { name = aawc_population_spend_from_holding value = { value = var:aawc_population_spend_from_holding max = scope:aawc_population_spend_owner.var:aawc_population_remaining_spend min = 0 floor = yes } }
+		aawc_reforging_tx_begin_isolated_debit_effect = yes
+		aawc_reforging_cohort_debit_population_effect = { AMOUNT = var:aawc_population_spend_from_holding }
+		aawc_reforging_tx_end_isolated_debit_effect = yes
+		set_variable = { name = aawc_population_spend_from_holding value = { value = 0 if = { limit = { has_variable = aawc_reforging_cohort_last_transfer_debit } add = var:aawc_reforging_cohort_last_transfer_debit } } }
+		set_variable = { name = aawc_population_before_growth value = var:aawc_population_current }
+		set_variable = { name = aawc_population_total value = var:aawc_population_current }
+		set_variable = { name = aawc_population_expected value = aawc_population_holding_expected }
+		set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+		change_variable = {
+			name = aawc_population_surplus
+			add = {
+				value = var:aawc_population_expected
+				multiply = -1
+			}
+		}
+		scope:aawc_population_spend_owner = {
+			change_variable = {
+				name = aawc_population_remaining_spend
+				add = {
+					value = prev.var:aawc_population_spend_from_holding
+					multiply = -1
+				}
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.94 reserve spend consumed proportional population from holding" }
+		remove_variable = aawc_population_spend_from_holding
+		remove_variable = aawc_population_reserved_available_to_spend
+	}
+	else = {
+		remove_variable = aawc_population_reserved_available_to_spend
+	}
+}
+
+aawc_population_consume_reserved_from_owned_and_vassal_baronies_effect = {
+	save_scope_as = aawc_population_barony_owner
+	aawc_reforging_tx_aawc_population_consume_reserved_from_owned_and_vassal_baronies_effect_scan_effect = { ACTION = aawc_reforging_tx_prepare_surplus_effect }
+	aawc_reforging_tx_allocate_effect = { REQUEST = var:aawc_population_remaining_spend SCAN = aawc_reforging_tx_aawc_population_consume_reserved_from_owned_and_vassal_baronies_effect_scan_effect }
+	every_held_title = {
+		limit = { tier = tier_barony }
+		title_province = { aawc_population_consume_reserved_from_holding_surplus_effect = yes }
+	}
+	every_vassal_or_below = {
+		every_held_title = {
+			limit = { tier = tier_barony }
+			title_province = {
+				if = {
+					limit = {
+						has_holding = yes
+						county = { holder = scope:aawc_population_barony_owner }
+					}
+					aawc_population_consume_reserved_from_holding_surplus_effect = yes
+				}
+			}
+		}
+	}
+	aawc_reforging_tx_aawc_population_consume_reserved_from_owned_and_vassal_baronies_effect_scan_effect = { ACTION = aawc_reforging_tx_cleanup_node_effect }
+	aawc_reforging_tx_cleanup_owner_effect = yes
+
+}
+
+aawc_population_apply_county_holder_barony_monthly_growth_effect = {
+	save_scope_as = aawc_population_county_holder_owner
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes is_ai = no } error_log = "AAWC POP 1.9.65 COUNTY HOLDER growth scanning realm provinces in personally held counties" }
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_county_holder_owner }
+		}
+		aawc_population_apply_holding_monthly_growth_effect = yes
+	}
+}
+
+aawc_population_refresh_county_holder_barony_dynamic_effect = {
+	save_scope_as = aawc_population_county_holder_owner
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes is_ai = no } error_log = "AAWC POP 1.9.65 COUNTY HOLDER dynamic refresh scanning realm provinces in personally held counties" }
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_county_holder_owner }
+		}
+		aawc_population_refresh_holding_static_effect = yes
+		aawc_population_refresh_holding_dynamic_effect = yes
+	}
+}
+
+aawc_population_refresh_county_holder_barony_display_effect = {
+	save_scope_as = aawc_population_county_holder_owner
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes is_ai = no } error_log = "AAWC POP 1.9.65 COUNTY HOLDER display refresh scanning realm provinces in personally held counties" }
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_county_holder_owner }
+		}
+		set_variable = { name = aawc_population_county_total_display value = county.aawc_population_county_total }
+		set_variable = { name = aawc_population_county_expected_display value = county.aawc_population_county_expected }
+		set_variable = { name = aawc_population_county_surplus_display value = county.aawc_population_county_surplus }
+		set_variable = { name = aawc_population_colonize_cost_wh value = county.aawc_population_county_colonize_cost_wh }
+		set_variable = { name = aawc_population_reclaim_cost_rh value = county.aawc_population_county_reclaim_cost_rh }
+	}
+}
+
+aawc_population_reset_county_holder_barony_maa_contribution_effect = {
+	save_scope_as = aawc_population_barony_owner
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes is_ai = no } error_log = "AAWC POP 1.9.65 COUNTY HOLDER MAA reset scanning realm provinces in personally held counties" }
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_barony_owner }
+		}
+		set_variable = { name = aawc_population_last_military_contribution value = 0 }
+	}
+}
+
+aawc_population_update_county_holder_barony_maa_contribution_history_effect = {
+	save_scope_as = aawc_population_barony_owner
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_barony_owner }
+		}
+		set_variable = { name = aawc_population_military_contribution_outgoing value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_12 } set_variable = { name = aawc_population_military_contribution_outgoing value = var:aawc_population_military_contribution_month_12 } }
+		set_variable = { name = aawc_population_military_contribution_month_12 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_11 } set_variable = { name = aawc_population_military_contribution_month_12 value = var:aawc_population_military_contribution_month_11 } }
+		set_variable = { name = aawc_population_military_contribution_month_11 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_10 } set_variable = { name = aawc_population_military_contribution_month_11 value = var:aawc_population_military_contribution_month_10 } }
+		set_variable = { name = aawc_population_military_contribution_month_10 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_09 } set_variable = { name = aawc_population_military_contribution_month_10 value = var:aawc_population_military_contribution_month_09 } }
+		set_variable = { name = aawc_population_military_contribution_month_09 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_08 } set_variable = { name = aawc_population_military_contribution_month_09 value = var:aawc_population_military_contribution_month_08 } }
+		set_variable = { name = aawc_population_military_contribution_month_08 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_07 } set_variable = { name = aawc_population_military_contribution_month_08 value = var:aawc_population_military_contribution_month_07 } }
+		set_variable = { name = aawc_population_military_contribution_month_07 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_06 } set_variable = { name = aawc_population_military_contribution_month_07 value = var:aawc_population_military_contribution_month_06 } }
+		set_variable = { name = aawc_population_military_contribution_month_06 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_05 } set_variable = { name = aawc_population_military_contribution_month_06 value = var:aawc_population_military_contribution_month_05 } }
+		set_variable = { name = aawc_population_military_contribution_month_05 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_04 } set_variable = { name = aawc_population_military_contribution_month_05 value = var:aawc_population_military_contribution_month_04 } }
+		set_variable = { name = aawc_population_military_contribution_month_04 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_03 } set_variable = { name = aawc_population_military_contribution_month_04 value = var:aawc_population_military_contribution_month_03 } }
+		set_variable = { name = aawc_population_military_contribution_month_03 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_02 } set_variable = { name = aawc_population_military_contribution_month_03 value = var:aawc_population_military_contribution_month_02 } }
+		set_variable = { name = aawc_population_military_contribution_month_02 value = 0 }
+		if = { limit = { has_variable = aawc_population_military_contribution_month_01 } set_variable = { name = aawc_population_military_contribution_month_02 value = var:aawc_population_military_contribution_month_01 } }
+		set_variable = { name = aawc_population_military_contribution_month_01 value = 0 }
+		if = { limit = { has_variable = aawc_population_last_military_contribution } set_variable = { name = aawc_population_military_contribution_month_01 value = var:aawc_population_last_military_contribution } }
+
+		if = {
+			limit = { has_variable = aawc_population_yearly_military_contribution }
+			change_variable = { name = aawc_population_yearly_military_contribution add = { value = var:aawc_population_military_contribution_outgoing multiply = -1 } }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_01 }
+			if = { limit = { var:aawc_population_yearly_military_contribution < 0 } set_variable = { name = aawc_population_yearly_military_contribution value = 0 } }
+		}
+		else = {
+			# Existing saves initialize the rolling cache once from the complete FIFO.
+			set_variable = { name = aawc_population_yearly_military_contribution value = 0 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_01 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_02 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_03 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_04 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_05 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_06 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_07 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_08 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_09 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_10 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_11 }
+			change_variable = { name = aawc_population_yearly_military_contribution add = var:aawc_population_military_contribution_month_12 }
+		}
+		remove_variable = aawc_population_military_contribution_outgoing
+	}
+}
+
+aawc_population_audit_county_holder_barony_maa_sources_effect = {
+	save_scope_as = aawc_population_barony_owner
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes is_ai = no } error_log = "AAWC POP 1.9.65 COUNTY HOLDER MAA audit scanning realm provinces in personally held counties" }
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_barony_owner }
+		}
+		aawc_population_audit_maa_population_source_from_holding_effect = yes
+	}
+}
+
+aawc_population_prepare_county_holder_barony_maa_pool_effect = {
+	save_scope_as = aawc_population_barony_owner
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes is_ai = no } error_log = "AAWC POP 1.9.65 COUNTY HOLDER MAA prepare scanning realm provinces in personally held counties" }
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_barony_owner }
+		}
+		aawc_population_prepare_maa_population_pool_from_holding_effect = yes
+	}
+}
+
+aawc_population_spend_county_holder_barony_maa_pool_effect = {
+	save_scope_as = aawc_population_barony_owner
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes is_ai = no } error_log = "AAWC POP 1.9.65 COUNTY HOLDER MAA spend scanning realm provinces in personally held counties" }
+	aawc_reforging_tx_aawc_population_spend_county_holder_barony_maa_pool_effect_scan_effect = { ACTION = aawc_reforging_tx_prepare_maa_effect }
+	aawc_reforging_tx_allocate_effect = { REQUEST = var:aawc_population_maa_population_to_spend SCAN = aawc_reforging_tx_aawc_population_spend_county_holder_barony_maa_pool_effect_scan_effect }
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_barony_owner }
+		}
+		aawc_population_spend_maa_population_pool_from_holding_effect = yes
+	}
+	aawc_reforging_tx_aawc_population_spend_county_holder_barony_maa_pool_effect_scan_effect = { ACTION = aawc_reforging_tx_cleanup_node_effect }
+	aawc_reforging_tx_cleanup_owner_effect = yes
+
+}
+
+aawc_population_consume_reserved_from_county_holder_baronies_effect = {
+	save_scope_as = aawc_population_barony_owner
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes is_ai = no } error_log = "AAWC POP 1.9.94 COUNTY HOLDER reserve spend scanning realm provinces in personally held counties" }
+	set_variable = { name = aawc_population_original_spend value = var:aawc_population_remaining_spend }
+	set_variable = { name = aawc_population_reserved_spend_pool value = 0 }
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_barony_owner }
+		}
+		aawc_population_prepare_reserved_spend_from_holding_effect = yes
+	}
+	if = {
+		limit = { var:aawc_population_reserved_spend_pool > 0 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.94 reserve spend pool prepared; consuming proportionally" }
+	}
+	aawc_reforging_tx_aawc_population_consume_reserved_from_county_holder_baronies_effect_scan_effect = { ACTION = aawc_reforging_tx_prepare_reserved_effect }
+	aawc_reforging_tx_allocate_effect = { REQUEST = var:aawc_population_remaining_spend SCAN = aawc_reforging_tx_aawc_population_consume_reserved_from_county_holder_baronies_effect_scan_effect }
+	every_realm_province = {
+		limit = {
+			has_holding = yes
+			county = { holder = scope:aawc_population_barony_owner }
+		}
+		aawc_population_spend_reserved_pool_from_holding_effect = yes
+	}
+	aawc_reforging_tx_aawc_population_consume_reserved_from_county_holder_baronies_effect_scan_effect = { ACTION = aawc_reforging_tx_cleanup_node_effect }
+	aawc_reforging_tx_cleanup_owner_effect = yes
+
+	remove_variable = aawc_population_original_spend
+	remove_variable = aawc_population_reserved_spend_pool
+}
+
+aawc_population_prepare_maa_population_pool_from_holding_effect = {
+	if = {
+		limit = { has_holding = yes }
+		remove_variable = aawc_population_maa_available_population_to_spend
+		set_variable = { name = aawc_population_maa_max_contribution value = 0 }
+
+		if = {
+			limit = {
+				OR = {
+					barony = {
+						holder = {
+							OR = {
+								this = scope:aawc_population_maa_owner
+								is_vassal_or_below_of = scope:aawc_population_maa_owner
+							}
+						}
+					}
+					county = { holder = scope:aawc_population_maa_owner }
+				}
+				# MAA may only collect an existing eligible settlement ledger.
+				# AGOT monastery/unknown holdings can have no resident variable.
+				aawc_population_valid_settlement_for_cohort_trigger = yes
+				has_variable = aawc_population_current
+				has_variable = aawc_population_expected
+				NOT = { county = { has_variable = aawc_population_warfare_growth_suppressed } }
+				NOT = { county = { has_variable = aawc_population_siege_growth_suppressed } }
+				NOT = { county = { has_variable = aawc_population_raid_growth_suppressed } }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA source holding accepted by owner/vassal or county-holder model" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes county = { holder = scope:aawc_population_maa_owner } } error_log = "AAWC POP 1.9.78 MAA CAUSE source accepted because county holder owns the county" }
+			scope:aawc_population_maa_owner = {
+				change_variable = { name = aawc_population_maa_source_holdings_checked add = 1 }
+			}
+			# Monthly growth already populated this cache before MAA processing.
+			set_variable = { name = aawc_population_maa_protected_population value = var:aawc_population_expected }
+			change_variable = { name = aawc_population_maa_protected_population multiply = 0.25 }
+			if = {
+				limit = { var:aawc_population_maa_protected_population > 2000 }
+				set_variable = { name = aawc_population_maa_protected_population value = 2000 }
+			}
+			set_variable = { name = aawc_population_maa_spare_population value = var:aawc_population_current }
+			change_variable = {
+				name = aawc_population_maa_spare_population
+				add = {
+					value = var:aawc_population_maa_protected_population
+					multiply = -1
+				}
+			}
+			if = {
+				limit = { var:aawc_population_maa_spare_population >= 1 }
+				set_variable = { name = aawc_population_maa_available_population_to_spend value = var:aawc_population_current }
+				change_variable = { name = aawc_population_maa_available_population_to_spend multiply = 0.01 }
+				if = {
+					limit = { var:aawc_population_maa_available_population_to_spend > var:aawc_population_maa_spare_population }
+					set_variable = { name = aawc_population_maa_available_population_to_spend value = var:aawc_population_maa_spare_population }
+				}
+				if = { limit = { aawc_reforging_round_counts_valid_value = 1 } aawc_reforging_cohort_ensure_production_ledger_effect = yes }
+				set_variable = { name = aawc_population_maa_available_population_to_spend value = { value = var:aawc_population_maa_available_population_to_spend max = aawc_reforging_cohort_band_sum min = 0 floor = yes } }
+				if = { limit = { OR = { NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_round_counts_valid_value = 0 } } set_variable = { name = aawc_population_maa_available_population_to_spend value = 0 } }
+				if = {
+					limit = { var:aawc_population_maa_available_population_to_spend >= 1 }
+					set_variable = { name = aawc_population_maa_max_contribution value = var:aawc_population_maa_available_population_to_spend }
+					scope:aawc_population_maa_owner = {
+						change_variable = {
+							name = aawc_population_maa_remaining_population_pool
+							add = prev.var:aawc_population_maa_available_population_to_spend
+						}
+						change_variable = { name = aawc_population_maa_source_holdings_pooled add = 1 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA OWNER source holding contributed to manpower pool" }
+					}
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA source holding added spendable population" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA CALC source protected floor is lower of 25 percent expected capacity or 2000 population" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA CALC source monthly contribution is capped at one percent of current population and spare above floor" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA CAUSE county-holder barony holding above protected floor supplied manpower pool" }
+				}
+				else = {
+					remove_variable = aawc_population_maa_available_population_to_spend
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA source holding skipped: monthly one-percent contribution below one population" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA CAUSE source had spare population but monthly contribution cap was below minimum soldier cost" }
+					scope:aawc_population_maa_owner = {
+						change_variable = { name = aawc_population_maa_source_holdings_below_cost add = 1 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA OWNER source blocked by monthly contribution cap below soldier cost" }
+					}
+				}
+			}
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA source holding skipped: protected population floor not met" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA CAUSE source was at or below lower of 25 percent capacity or 2000 population" }
+				scope:aawc_population_maa_owner = {
+					change_variable = { name = aawc_population_maa_source_holdings_floor_blocked add = 1 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA OWNER source blocked by protected population floor" }
+				}
+			}
+			remove_variable = aawc_population_maa_protected_population
+			remove_variable = aawc_population_maa_spare_population
+		}
+	}
+}
+
+aawc_population_spend_maa_population_pool_from_holding_effect = {
+	if = {
+		limit = {
+			has_holding = yes
+			has_variable = aawc_population_maa_available_population_to_spend
+			scope:aawc_population_maa_owner.var:aawc_population_maa_population_to_spend > 0
+		}
+		set_variable = { name = aawc_population_maa_spend_from_holding value = scope:aawc_population_maa_owner.var:aawc_population_maa_population_to_spend_original }
+		change_variable = { name = aawc_population_maa_spend_from_holding multiply = var:aawc_population_maa_available_population_to_spend }
+		change_variable = { name = aawc_population_maa_spend_from_holding divide = scope:aawc_population_maa_owner.var:aawc_population_maa_original_population_pool }
+		if = {
+			limit = { var:aawc_population_maa_spend_from_holding > scope:aawc_population_maa_owner.var:aawc_population_maa_population_to_spend }
+			set_variable = { name = aawc_population_maa_spend_from_holding value = scope:aawc_population_maa_owner.var:aawc_population_maa_population_to_spend }
+		}
+		if = { limit = { has_variable = aawc_reforging_tx_prepared } set_variable = { name = aawc_population_maa_spend_from_holding value = aawc_reforging_tx_allocation_value } }
+		set_variable = { name = aawc_population_maa_spend_from_holding value = { value = var:aawc_population_maa_spend_from_holding max = scope:aawc_population_maa_owner.var:aawc_population_maa_population_to_spend min = 0 floor = yes } }
+		aawc_reforging_tx_begin_isolated_debit_effect = yes
+		aawc_reforging_cohort_debit_legacy_maa_population_effect = { AMOUNT = var:aawc_population_maa_spend_from_holding }
+		aawc_reforging_tx_end_isolated_debit_effect = yes
+		set_variable = { name = aawc_population_maa_spend_from_holding value = { value = 0 if = { limit = { has_variable = aawc_reforging_cohort_last_transfer_debit } add = var:aawc_reforging_cohort_last_transfer_debit } } }
+		set_variable = { name = aawc_population_last_military_contribution value = var:aawc_population_maa_spend_from_holding }
+		county = {
+			change_variable = { name = aawc_population_total add = { value = prev.var:aawc_population_maa_spend_from_holding multiply = -1 } }
+			set_variable = { name = aawc_population_surplus value = var:aawc_population_total }
+			change_variable = { name = aawc_population_surplus add = { value = var:aawc_population_expected multiply = -1 } }
+		}
+		set_variable = { name = aawc_population_before_growth value = var:aawc_population_current }
+		set_variable = { name = aawc_population_total value = var:aawc_population_current }
+		set_variable = { name = aawc_population_expected value = aawc_population_holding_expected }
+		set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+		change_variable = {
+			name = aawc_population_surplus
+			add = {
+				value = var:aawc_population_expected
+				multiply = -1
+			}
+		}
+		scope:aawc_population_maa_owner = {
+			change_variable = {
+				name = aawc_population_maa_population_to_spend
+				add = {
+					value = prev.var:aawc_population_maa_spend_from_holding
+					multiply = -1
+				}
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA spent proportional population from holding" }
+		remove_variable = aawc_population_maa_spend_from_holding
+		remove_variable = aawc_population_maa_available_population_to_spend
+	}
+	else = {
+		remove_variable = aawc_population_maa_available_population_to_spend
+	}
+}
+
+aawc_population_audit_maa_population_source_from_holding_effect = {
+	if = {
+		limit = { has_holding = yes }
+		if = {
+			limit = {
+				OR = {
+					barony = {
+						holder = {
+							OR = {
+								this = scope:aawc_population_maa_owner
+								is_vassal_or_below_of = scope:aawc_population_maa_owner
+							}
+						}
+					}
+					county = { holder = scope:aawc_population_maa_owner }
+				}
+				NOT = { has_holding_type = ruin_holding }
+				NOT = { has_holding_type = wilderness_holding }
+				NOT = { county = { has_variable = aawc_population_warfare_growth_suppressed } }
+				NOT = { county = { has_variable = aawc_population_siege_growth_suppressed } }
+				NOT = { county = { has_variable = aawc_population_raid_growth_suppressed } }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT source holding accepted by owner/vassal or county-holder model" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes county = { holder = scope:aawc_population_maa_owner } } error_log = "AAWC POP 1.9.78 MAA AUDIT CAUSE source accepted because county holder owns the county" }
+			scope:aawc_population_maa_owner = {
+				change_variable = { name = aawc_population_maa_audit_sources_checked add = 1 }
+			}
+			# Reuse the same monthly holding cache for the post-effect audit.
+			set_variable = { name = aawc_population_maa_audit_protected_population value = var:aawc_population_expected }
+			change_variable = { name = aawc_population_maa_audit_protected_population multiply = 0.25 }
+			if = {
+				limit = { var:aawc_population_maa_audit_protected_population > 2000 }
+				set_variable = { name = aawc_population_maa_audit_protected_population value = 2000 }
+			}
+			set_variable = { name = aawc_population_maa_audit_spare_population value = var:aawc_population_current }
+			change_variable = {
+				name = aawc_population_maa_audit_spare_population
+				add = {
+					value = var:aawc_population_maa_audit_protected_population
+					multiply = -1
+				}
+			}
+			if = {
+				limit = { var:aawc_population_maa_audit_spare_population >= 1 }
+				set_variable = { name = aawc_population_maa_audit_available_population value = var:aawc_population_current }
+				change_variable = { name = aawc_population_maa_audit_available_population multiply = 0.01 }
+				if = {
+					limit = { var:aawc_population_maa_audit_available_population > var:aawc_population_maa_audit_spare_population }
+					set_variable = { name = aawc_population_maa_audit_available_population value = var:aawc_population_maa_audit_spare_population }
+				}
+				if = {
+					limit = { var:aawc_population_maa_audit_available_population >= 1 }
+					scope:aawc_population_maa_owner = {
+						change_variable = { name = aawc_population_maa_audit_sources_eligible add = 1 }
+					}
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT source holding has at least one population available under one-percent cap" }
+				}
+				else = {
+					scope:aawc_population_maa_owner = {
+						change_variable = { name = aawc_population_maa_audit_sources_below_cost add = 1 }
+					}
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT source holding is above floor but below minimum one-pop monthly contribution" }
+				}
+				remove_variable = aawc_population_maa_audit_available_population
+			}
+			else = {
+				scope:aawc_population_maa_owner = {
+					change_variable = { name = aawc_population_maa_audit_sources_floor_blocked add = 1 }
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT source holding remains below protected floor" }
+			}
+			remove_variable = aawc_population_maa_audit_protected_population
+			remove_variable = aawc_population_maa_audit_spare_population
+		}
+	}
+}
+
+aawc_population_audit_maa_state_character_effect = {
+	if = {
+		limit = {
+			agot_is_dummy_character = no
+			is_landed = yes
+		}
+		save_scope_as = aawc_population_maa_owner
+		set_variable = { name = aawc_population_maa_audit_damaged_regiments value = 0 }
+		set_variable = { name = aawc_population_maa_audit_sources_checked value = 0 }
+		set_variable = { name = aawc_population_maa_audit_sources_eligible value = 0 }
+		set_variable = { name = aawc_population_maa_audit_sources_floor_blocked value = 0 }
+		set_variable = { name = aawc_population_maa_audit_sources_below_cost value = 0 }
+
+		every_maa_regiment = {
+			limit = {
+				maa_current_troops_count < maa_max_troops_count
+				is_raised = no
+			}
+			scope:aawc_population_maa_owner = {
+				change_variable = { name = aawc_population_maa_audit_damaged_regiments add = 1 }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT damaged unraised regiment visible to every_maa_regiment" }
+		}
+
+		aawc_population_audit_county_holder_barony_maa_sources_effect = yes
+
+		if = {
+			limit = { var:aawc_population_maa_audit_damaged_regiments > 0 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT summary found damaged unraised regiments" }
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT summary found no damaged unraised regiments" }
+		}
+		if = {
+			limit = { var:aawc_population_maa_audit_sources_eligible > 0 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT summary found eligible source population" }
+		}
+		else_if = {
+			limit = { var:aawc_population_maa_audit_sources_below_cost > 0 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT summary found source above floor but below minimum monthly contribution" }
+		}
+		else_if = {
+			limit = { var:aawc_population_maa_audit_sources_floor_blocked > 0 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT summary found sources below protected floor" }
+		}
+		else_if = {
+			limit = { var:aawc_population_maa_audit_sources_checked <= 0 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT summary found no county-holder barony source holdings" }
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA AUDIT summary found no usable source population for unknown reason" }
+		}
+
+		remove_variable = aawc_population_maa_audit_damaged_regiments
+		remove_variable = aawc_population_maa_audit_sources_checked
+		remove_variable = aawc_population_maa_audit_sources_eligible
+		remove_variable = aawc_population_maa_audit_sources_floor_blocked
+		remove_variable = aawc_population_maa_audit_sources_below_cost
+	}
+}
+
+aawc_population_apply_monthly_maa_reinforcement_character_effect = {
+	if = {
+		limit = {
+			agot_is_dummy_character = no
+			is_landed = yes
+		}
+		if = {
+			limit = { aawc_diagnostics_verbose_enabled = yes }
+			error_log = "AAWC POP 1.9.78 MAA pre-effect audit begin"
+			aawc_population_audit_maa_state_character_effect = yes
+			error_log = "AAWC POP 1.9.78 MAA pre-effect audit complete"
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA population reinforcement begin" }
+		save_scope_as = aawc_population_maa_owner
+		set_variable = { name = aawc_population_maa_remaining_population_pool value = 0 }
+		set_variable = { name = aawc_population_maa_population_to_spend value = 0 }
+		set_variable = { name = aawc_population_maa_soldiers_added value = 0 }
+		set_variable = { name = aawc_population_maa_damaged_regiments value = 0 }
+		set_variable = { name = aawc_population_maa_damaged_regiments_remaining value = 0 }
+		set_variable = { name = aawc_population_maa_source_holdings_checked value = 0 }
+		set_variable = { name = aawc_population_maa_source_holdings_pooled value = 0 }
+		set_variable = { name = aawc_population_maa_source_holdings_floor_blocked value = 0 }
+		set_variable = { name = aawc_population_maa_source_holdings_below_cost value = 0 }
+		set_variable = { name = aawc_population_maa_regiment_loop_attempts value = 0 }
+		if = {
+			limit = {
+				any_maa_regiment = {
+					maa_current_troops_count < maa_max_troops_count
+					is_raised = no
+				}
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA damaged unraised regiment gate passed" }
+			every_maa_regiment = {
+				limit = {
+					maa_current_troops_count < maa_max_troops_count
+					is_raised = no
+				}
+				scope:aawc_population_maa_owner = {
+					change_variable = { name = aawc_population_maa_damaged_regiments add = 1 }
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COUNT damaged unraised regiment counted for equal budget split" }
+			}
+			aawc_population_prepare_county_holder_barony_maa_pool_effect = yes
+			if = {
+				limit = { var:aawc_population_maa_remaining_population_pool >= 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA eligible population pool found" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA CAUSE eligible county-holder barony population pool allows AAWC replenishment attempt" }
+				if = {
+					limit = { var:aawc_population_maa_source_holdings_pooled > 0 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA OWNER SUMMARY source holdings pooled successfully" }
+				}
+				set_variable = { name = aawc_population_maa_original_population_pool value = var:aawc_population_maa_remaining_population_pool }
+				set_variable = { name = aawc_population_maa_damaged_regiments_remaining value = var:aawc_population_maa_damaged_regiments }
+				every_maa_regiment = {
+					limit = {
+						maa_current_troops_count < maa_max_troops_count
+						is_raised = no
+						scope:aawc_population_maa_owner.var:aawc_population_maa_remaining_population_pool >= 1
+					}
+					scope:aawc_population_maa_owner = {
+						change_variable = {
+							name = aawc_population_maa_regiment_loop_attempts
+							add = 1
+						}
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA OWNER attempting tuned population reinforcement" }
+					}
+					aawc_population_set_maa_population_cost_for_regiment_effect = yes
+					if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier <= 1 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 1 population per soldier" }
+					}
+					else_if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier <= 2 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 2 population per soldier" }
+					}
+					else_if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier <= 3 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 3 population per soldier" }
+					}
+					else_if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier <= 4 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 4 population per soldier" }
+					}
+					else_if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier <= 5 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 5 population per soldier" }
+					}
+					else_if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier <= 6 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 6 population per soldier" }
+					}
+					else_if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier <= 7 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 7 population per soldier" }
+					}
+					else_if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier <= 8 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 8 population per soldier" }
+					}
+					else_if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_population_cost_per_soldier <= 9 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 9 population per soldier" }
+					}
+					else = {
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST regiment cost tier 10 population per soldier" }
+					}
+					scope:aawc_population_maa_owner = {
+						if = {
+							limit = { var:aawc_population_maa_damaged_regiments_remaining < 1 }
+							set_variable = { name = aawc_population_maa_damaged_regiments_remaining value = 1 }
+						}
+						set_variable = { name = aawc_population_maa_regiment_population_budget value = var:aawc_population_maa_remaining_population_pool }
+						change_variable = { name = aawc_population_maa_regiment_population_budget divide = var:aawc_population_maa_damaged_regiments_remaining }
+						set_variable = { name = aawc_population_maa_regiment_soldiers_to_add value = prev.aawc_population_maa_replenish_amount }
+						if = {
+							limit = { var:aawc_population_maa_regiment_soldiers_to_add < 1 }
+							set_variable = { name = aawc_population_maa_regiment_soldiers_to_add value = 0 }
+						}
+						set_variable = { name = aawc_population_maa_regiment_population_cost value = var:aawc_population_maa_regiment_soldiers_to_add }
+						change_variable = { name = aawc_population_maa_regiment_population_cost multiply = var:aawc_population_maa_population_cost_per_soldier }
+						set_variable = { name = aawc_population_maa_regiment_soldiers_added_this_regiment value = 0 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA CALC regiment received rolling equal share of remaining population pool" }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA CAP replenish amount is floor of max regiment size divided by twelve, capped by missing soldiers and population budget" }
+					}
+					if = {
+						limit = { scope:aawc_population_maa_owner.var:aawc_population_maa_regiment_soldiers_to_add > 0 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA ADD exact calculated population-supplied soldiers" }
+						change_maa_troops_count = scope:aawc_population_maa_owner.var:aawc_population_maa_regiment_soldiers_to_add
+						scope:aawc_population_maa_owner = {
+							change_variable = { name = aawc_population_maa_regiment_population_budget add = { value = var:aawc_population_maa_regiment_population_cost multiply = -1 } }
+							change_variable = { name = aawc_population_maa_remaining_population_pool add = { value = var:aawc_population_maa_regiment_population_cost multiply = -1 } }
+							change_variable = { name = aawc_population_maa_population_to_spend add = { value = var:aawc_population_maa_regiment_population_cost } }
+							change_variable = { name = aawc_population_maa_soldiers_added add = var:aawc_population_maa_regiment_soldiers_to_add }
+							set_variable = { name = aawc_population_maa_regiment_soldiers_added_this_regiment value = var:aawc_population_maa_regiment_soldiers_to_add }
+						}
+					}
+					else = {
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA STOP calculated replenish amount was zero after missing-soldier and population-budget caps" }
+					}
+					scope:aawc_population_maa_owner = {
+						if = {
+							limit = { var:aawc_population_maa_regiment_soldiers_added_this_regiment > 0 }
+							if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA RESULT regiment consumed population and gained soldiers" }
+						}
+						else = {
+							if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA RESULT regiment consumed no population this pulse" }
+						}
+						remove_variable = aawc_population_maa_population_cost_per_soldier
+						remove_variable = aawc_population_maa_regiment_population_budget
+						remove_variable = aawc_population_maa_regiment_soldiers_to_add
+						remove_variable = aawc_population_maa_regiment_population_cost
+						remove_variable = aawc_population_maa_regiment_soldiers_added_this_regiment
+						change_variable = { name = aawc_population_maa_damaged_regiments_remaining add = -1 }
+					}
+				}
+				if = {
+					limit = { var:aawc_population_maa_regiment_loop_attempts > 0 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA OWNER regiment loop attempted reinforcement" }
+				}
+				else = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA OWNER regiment loop made no attempts despite eligible pool" }
+				}
+				if = {
+					limit = { var:aawc_population_maa_soldiers_added > 0 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA post-loop soldier-added summary succeeded" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA RESULT AAWC population replenishment succeeded this pulse" }
+				}
+				else = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA post-loop soldier-added summary found zero" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA RESULT eligible pool existed but no damaged regiment consumed it" }
+				}
+				if = {
+					limit = { var:aawc_population_maa_population_to_spend > 0 }
+					set_variable = { name = aawc_population_maa_population_to_spend_original value = var:aawc_population_maa_population_to_spend }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA population spend requested" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA CALC spend will be distributed proportionally by each holding's available contribution cap" }
+					aawc_population_spend_county_holder_barony_maa_pool_effect = yes
+					if = {
+						limit = { var:aawc_population_maa_population_to_spend <= 0 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA population spend fully allocated" }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST holding population spent for AAWC replenishment" }
+					}
+					else = {
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA population spend incomplete" }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA COST WARNING not all requested population spend was allocated" }
+					}
+					# Spending changed current population only; reuse the formula cache.
+					aawc_population_reaggregate_character_cached_effect = yes
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA population reinforcement applied and recalculated" }
+				}
+				else = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA had pool but added no soldiers" }
+				}
+			}
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA skipped: no eligible population pool" }
+				if = {
+					limit = { var:aawc_population_maa_source_holdings_checked <= 0 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA RESULT blocked: no eligible county-holder barony source holdings passed filters" }
+				}
+				else_if = {
+					limit = { var:aawc_population_maa_source_holdings_floor_blocked > 0 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA RESULT blocked: source holdings were below protected population floor" }
+				}
+				else_if = {
+					limit = { var:aawc_population_maa_source_holdings_below_cost > 0 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA RESULT blocked: capped monthly manpower pool was below minimum one population" }
+				}
+				else = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA RESULT blocked: no eligible population pool for unknown source reason" }
+				}
+			}
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA skipped: no damaged unraised MAA regiments" }
+		}
+
+		remove_variable = aawc_population_maa_remaining_population_pool
+		remove_variable = aawc_population_maa_population_to_spend
+		remove_variable = aawc_population_maa_population_to_spend_original
+		remove_variable = aawc_population_maa_original_population_pool
+		remove_variable = aawc_population_maa_soldiers_added
+		remove_variable = aawc_population_maa_damaged_regiments
+		remove_variable = aawc_population_maa_damaged_regiments_remaining
+		remove_variable = aawc_population_maa_source_holdings_checked
+		remove_variable = aawc_population_maa_source_holdings_pooled
+		remove_variable = aawc_population_maa_source_holdings_floor_blocked
+		remove_variable = aawc_population_maa_source_holdings_below_cost
+		remove_variable = aawc_population_maa_regiment_loop_attempts
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.78 MAA population reinforcement complete" }
+		if = {
+			limit = { aawc_diagnostics_verbose_enabled = yes }
+			error_log = "AAWC POP 1.9.78 MAA post-effect audit begin"
+			aawc_population_audit_maa_state_character_effect = yes
+			error_log = "AAWC POP 1.9.78 MAA post-effect audit complete"
+		}
+	}
+}
+
+aawc_population_apply_monthly_growth_character_effect = {
+	if = {
+		limit = {
+			agot_is_dummy_character = no
+			is_landed = yes
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 monthly population pulse begin" }
+		aawc_population_apply_county_holder_barony_monthly_growth_effect = yes
+		# Growth has already refreshed every relevant holding. Rebuild only county/ruler aggregates.
+		aawc_population_reaggregate_character_cached_effect = yes
+		aawc_population_apply_monthly_maa_reinforcement_character_effect = yes
+		aawc_population_update_county_holder_barony_maa_contribution_history_effect = yes
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 monthly population pulse complete" }
+	}
+}
+
+aawc_population_recalculate_county_effect = {
+
+	aawc_population_refresh_county_holding_dynamic_effect = yes
+	aawc_population_reaggregate_county_cached_effect = yes
+
+	aawc_population_refresh_county_holding_display_effect = yes
+
+}
+
+# County-scope cache recovery, including acquired/uninitialized counties.
+# Recompute existing derived values; never initialize or change residents.
+aawc_population_ensure_county_cache_effect = {
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = aawc_population_total }
+				NOT = { has_variable = aawc_population_expected }
+				NOT = { has_variable = aawc_population_surplus }
+				NOT = { has_variable = aawc_population_county_dev_weight }
+				NOT = { has_variable = aawc_population_county_income_component }
+				NOT = { has_variable = aawc_population_county_levy_component }
+				NOT = { has_variable = aawc_population_county_holding_count }
+				NOT = { has_variable = aawc_population_county_barony_slot_count }
+				NOT = { has_variable = aawc_migration_county_building_rating_sum }
+				NOT = { has_variable = aawc_migration_county_rated_holding_count }
+			}
+		}
+		aawc_population_refresh_county_holding_dynamic_effect = yes
+		aawc_population_reaggregate_county_cached_effect = yes
+	}
+}
+
+# Rebuild county totals from already refreshed holding variables. This deliberately avoids
+# formula and display work and is safe after growth, migration, or population spending.
+aawc_population_reaggregate_county_cached_effect = {
+	set_variable = { name = aawc_population_total value = 0 }
+	set_variable = { name = aawc_population_expected value = 0 }
+	set_variable = { name = aawc_population_county_holding_count value = 0 }
+	set_variable = { name = aawc_population_county_barony_slot_count value = 0 }
+	set_variable = { name = aawc_population_county_dev_weight value = 0 }
+	set_variable = { name = aawc_population_county_income_component value = 0 }
+	set_variable = { name = aawc_population_county_levy_component value = 0 }
+	set_variable = { name = aawc_migration_county_building_rating_sum value = 0 }
+	set_variable = { name = aawc_migration_county_rated_holding_count value = 0 }
+	save_scope_as = aawc_population_cached_county
+	every_in_de_jure_hierarchy = {
+		limit = { tier = tier_barony }
+		scope:aawc_population_cached_county = {
+			change_variable = { name = aawc_population_county_barony_slot_count add = 1 }
+		}
+		title_province = {
+			if = {
+				limit = { has_holding = yes }
+				scope:aawc_population_cached_county = {
+					change_variable = { name = aawc_population_county_holding_count add = 1 }
+					change_variable = { name = aawc_population_total add = prev.aawc_population_holding_current_readonly }
+					change_variable = { name = aawc_population_expected add = prev.var:aawc_population_expected }
+					change_variable = { name = aawc_population_county_dev_weight add = prev.var:aawc_population_debug_main_capacity }
+					change_variable = { name = aawc_population_county_income_component add = prev.var:aawc_population_debug_building_capacity }
+					change_variable = { name = aawc_population_county_levy_component add = prev.var:aawc_population_debug_growth_rating }
+				}
+				if = {
+					limit = { var:aawc_migration_holding_building_rating_eligible = 1 }
+					scope:aawc_population_cached_county = {
+						change_variable = { name = aawc_migration_county_building_rating_sum add = prev.var:aawc_migration_holding_building_rating }
+						change_variable = { name = aawc_migration_county_rated_holding_count add = 1 }
+					}
+				}
+			}
+		}
+	}
+	set_variable = { name = aawc_migration_county_building_rating value = aawc_migration_county_building_rating_average }
+	set_variable = { name = aawc_population_surplus value = var:aawc_population_total }
+	change_variable = { name = aawc_population_surplus add = { value = var:aawc_population_expected multiply = -1 } }
+	set_variable = { name = aawc_population_colonize_cost_wh value = var:aawc_population_county_barony_slot_count }
+	# Parser constants are file-local; keep these literals synchronized with aawc_population_values.txt.
+	change_variable = { name = aawc_population_colonize_cost_wh multiply = 500 }
+	if = { limit = { var:aawc_population_colonize_cost_wh < 500 } set_variable = { name = aawc_population_colonize_cost_wh value = 500 } }
+	set_variable = { name = aawc_population_reclaim_cost_rh value = var:aawc_population_county_barony_slot_count }
+	change_variable = { name = aawc_population_reclaim_cost_rh multiply = 1000 }
+	if = { limit = { var:aawc_population_reclaim_cost_rh < 1000 } set_variable = { name = aawc_population_reclaim_cost_rh value = 1000 } }
+}
+
+# Aggregate a ruler from county caches without rescanning realm provinces or recalculating
+# holding formulas. Structural hooks still use the full recalculation effect when data changes.
+aawc_population_reaggregate_character_cached_effect = {
+	if = {
+		limit = {
+			agot_is_dummy_character = no
+			is_landed = yes
+		}
+		set_variable = { name = aawc_population_total value = 0 }
+		set_variable = { name = aawc_population_expected value = 0 }
+		set_variable = { name = aawc_population_surplus value = 0 }
+		save_scope_as = aawc_population_cached_owner
+		every_held_county = {
+			limit = { tier = tier_county }
+			aawc_population_ensure_county_cache_effect = yes
+			scope:aawc_population_cached_owner = {
+				change_variable = { name = aawc_population_total add = prev.var:aawc_population_total }
+				change_variable = { name = aawc_population_expected add = prev.var:aawc_population_expected }
+				change_variable = { name = aawc_population_surplus add = prev.var:aawc_population_surplus }
+			}
+		}
+		if = { limit = { NOT = { has_variable = aawc_population_reserved } } set_variable = { name = aawc_population_reserved value = 0 } }
+		if = { limit = { var:aawc_population_reserved < 0 } set_variable = { name = aawc_population_reserved value = 0 } }
+		set_variable = { name = aawc_population_available value = var:aawc_population_surplus }
+		change_variable = { name = aawc_population_available add = { value = var:aawc_population_reserved multiply = -1 } }
+		if = { limit = { var:aawc_population_available < 0 } set_variable = { name = aawc_population_available value = 0 } }
+		set_variable = { name = aawc_population_total_display value = { value = var:aawc_population_total round = yes } }
+		set_variable = { name = aawc_population_expected_display value = { value = var:aawc_population_expected round = yes } }
+		set_variable = { name = aawc_population_surplus_display value = { value = var:aawc_population_surplus round = yes } }
+		set_variable = { name = aawc_population_reserved_display value = { value = var:aawc_population_reserved round = yes } }
+		set_variable = { name = aawc_population_available_display value = { value = var:aawc_population_available round = yes } }
+	}
+}
+aawc_population_recalculate_character_effect = {
+	if = {
+		limit = {
+			agot_is_dummy_character = no
+			is_landed = yes
+		}
+		set_variable = { name = aawc_population_total value = 0 }
+		set_variable = { name = aawc_population_expected value = 0 }
+		set_variable = { name = aawc_population_surplus value = 0 }
+		save_scope_as = aawc_population_recalc_owner
+		aawc_population_refresh_county_holder_barony_dynamic_effect = yes
+
+		every_held_county = {
+			limit = { tier = tier_county }
+			aawc_population_recalculate_county_effect = yes
+			scope:aawc_population_recalc_owner = {
+				change_variable = {
+					name = aawc_population_total
+					add = prev.var:aawc_population_total
+				}
+				change_variable = {
+					name = aawc_population_expected
+					add = prev.var:aawc_population_expected
+				}
+				change_variable = {
+					name = aawc_population_surplus
+					add = prev.var:aawc_population_surplus
+				}
+			}
+		}
+		aawc_population_refresh_county_holder_barony_display_effect = yes
+
+		if = {
+			limit = { NOT = { has_variable = aawc_population_reserved } }
+			set_variable = { name = aawc_population_reserved value = 0 }
+		}
+		if = {
+			limit = { var:aawc_population_reserved < 0 }
+			set_variable = { name = aawc_population_reserved value = 0 }
+		}
+
+		set_variable = {
+			name = aawc_population_available
+			value = var:aawc_population_surplus
+		}
+		change_variable = {
+			name = aawc_population_available
+			add = {
+				value = var:aawc_population_reserved
+				multiply = -1
+			}
+		}
+		if = {
+			limit = { var:aawc_population_available < 0 }
+			set_variable = { name = aawc_population_available value = 0 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP yearly recalc clamped available population to zero" }
+		}
+		set_variable = { name = aawc_population_total_display value = { value = var:aawc_population_total round = yes } }
+		set_variable = { name = aawc_population_expected_display value = { value = var:aawc_population_expected round = yes } }
+		set_variable = { name = aawc_population_surplus_display value = { value = var:aawc_population_surplus round = yes } }
+		set_variable = { name = aawc_population_reserved_display value = { value = var:aawc_population_reserved round = yes } }
+		set_variable = { name = aawc_population_available_display value = { value = var:aawc_population_available round = yes } }
+		if = {
+			limit = { NOT = { has_variable = aawc_population_tooltip_colonize_cost_wh } }
+			set_variable = { name = aawc_population_tooltip_colonize_cost_wh value = 0 }
+		}
+		if = {
+			limit = { NOT = { has_variable = aawc_population_tooltip_reclaim_cost_rh } }
+			set_variable = { name = aawc_population_tooltip_reclaim_cost_rh value = 0 }
+		}
+		if = {
+			limit = { NOT = { has_variable = aawc_population_tooltip_gold_cost } }
+			set_variable = { name = aawc_population_tooltip_gold_cost value = 0 }
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP yearly recalc completed for landed ruler held counties" }
+	}
+}
+
+aawc_population_refresh_actor_and_top_liege_effect = {
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP refresh actor/top-liege begin" }
+	top_liege = {
+		aawc_population_recalculate_character_effect = yes
+	}
+	if = {
+		limit = { top_liege != this }
+		set_variable = { name = aawc_population_total value = 0 }
+		set_variable = { name = aawc_population_expected value = 0 }
+		set_variable = { name = aawc_population_surplus value = 0 }
+		set_variable = { name = aawc_population_reserved value = 0 }
+		set_variable = { name = aawc_population_available value = 0 }
+		set_variable = { name = aawc_population_total_display value = 0 }
+		set_variable = { name = aawc_population_expected_display value = 0 }
+		set_variable = { name = aawc_population_surplus_display value = 0 }
+		set_variable = { name = aawc_population_reserved_display value = 0 }
+		set_variable = { name = aawc_population_available_display value = 0 }
+		set_variable = { name = aawc_population_tooltip_colonize_cost_wh value = 0 }
+		set_variable = { name = aawc_population_tooltip_reclaim_cost_rh value = 0 }
+		set_variable = { name = aawc_population_tooltip_gold_cost value = 0 }
+	}
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP refresh actor/top-liege complete" }
+}
+
+aawc_population_resync_settlement_tracker_effect = {
+	if = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+		}
+		set_variable = { name = num_settled_wilderness value = 0 }
+		every_realm_province = {
+			limit = {
+				has_holding_type = settlement_holding
+				county = { holder = root }
+			}
+			root = {
+				change_variable = { name = num_settled_wilderness add = 1 }
+			}
+		}
+		if = {
+			limit = { var:num_settled_wilderness <= 0 }
+			remove_variable = num_settled_wilderness
+		}
+		trigger_event = agot_colonization_events.0007
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.94 resynced active settlement tracker from owned settlement holdings" }
+	}
+}
+
+aawc_population_cap_tribal_to_feudal_conversion_effect = {
+	if = {
+		limit = { has_variable = aawc_population_preconversion_tribal }
+		set_variable = {
+			name = aawc_population_feudal_conversion_cap
+			value = var:aawc_population_expected
+		}
+		change_variable = {
+			name = aawc_population_feudal_conversion_cap
+			multiply = 0.5
+		}
+		if = {
+			limit = { var:aawc_population_current > var:aawc_population_feudal_conversion_cap }
+			set_variable = { name = aawc_population_conversion_loss_before value = var:aawc_population_current }
+			aawc_reforging_cohort_set_population_target_effect = { POPULATION = var:aawc_population_feudal_conversion_cap }
+			set_variable = { name = aawc_population_last_conversion_loss value = var:aawc_population_conversion_loss_before }
+			change_variable = { name = aawc_population_last_conversion_loss add = { value = var:aawc_population_current multiply = -1 } }
+			set_variable = { name = aawc_population_last_transaction_class value = 7 }
+			remove_variable = aawc_population_conversion_loss_before
+			set_variable = {
+				name = aawc_population_total
+				value = var:aawc_population_current
+			}
+			set_variable = {
+				name = aawc_population_surplus
+				value = var:aawc_population_current
+			}
+			change_variable = {
+				name = aawc_population_surplus
+				add = {
+					value = var:aawc_population_expected
+					multiply = -1
+				}
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.94 capped tribal-to-feudal converted holding population to 50 percent expected capacity" }
+		}
+		remove_variable = aawc_population_feudal_conversion_cap
+		remove_variable = aawc_population_preconversion_tribal
+	}
+	if = {
+		limit = { has_variable = aawc_population_preconversion_settlement }
+		remove_variable = aawc_population_preconversion_settlement
+	}
+}
+
+aawc_population_add_reserved_amount_effect = {
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP reserve add begin" }
+	if = {
+		limit = { NOT = { has_variable = aawc_population_reserved } }
+		set_variable = { name = aawc_population_reserved value = 0 }
+	}
+	change_variable = {
+		name = aawc_population_reserved
+		add = $COST$
+	}
+	if = {
+		limit = { var:aawc_population_reserved < 0 }
+		set_variable = { name = aawc_population_reserved value = 0 }
+	}
+	aawc_population_recalculate_character_effect = yes
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP reserve increased" }
+}
+
+aawc_population_release_reserved_amount_effect = {
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP reserve release begin" }
+	if = {
+		limit = { NOT = { has_variable = aawc_population_reserved } }
+		set_variable = { name = aawc_population_reserved value = 0 }
+	}
+	change_variable = {
+		name = aawc_population_reserved
+		add = {
+			value = $COST$
+			multiply = -1
+		}
+	}
+	if = {
+		limit = { var:aawc_population_reserved < 0 }
+		set_variable = { name = aawc_population_reserved value = 0 }
+	}
+	aawc_population_recalculate_character_effect = yes
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP reserve released" }
+}
+
+# Convert the most recent centralized population spend into a settlement
+# receipt.  The destination may receive no more people than were actually
+# debited.  Any paid amount above the retained starting population is recorded
+# explicitly as settlement consumption rather than hidden as lost population.
+aawc_population_prepare_settlement_receipt_effect = {
+	set_variable = { name = aawc_population_last_settlement_credit value = { value = 0 if = { limit = { has_variable = aawc_population_last_consume_applied } add = var:aawc_population_last_consume_applied } } }
+	if = { limit = { var:aawc_population_last_settlement_credit > $STARTING_POPULATION$ } set_variable = { name = aawc_population_last_settlement_credit value = $STARTING_POPULATION$ } }
+	if = { limit = { var:aawc_population_last_settlement_credit < 0 } set_variable = { name = aawc_population_last_settlement_credit value = 0 } }
+	set_variable = { name = aawc_population_last_settlement_consumed value = { value = 0 if = { limit = { has_variable = aawc_population_last_consume_applied } add = var:aawc_population_last_consume_applied } } }
+	change_variable = { name = aawc_population_last_settlement_consumed add = { value = var:aawc_population_last_settlement_credit multiply = -1 } }
+	if = { limit = { var:aawc_population_last_settlement_consumed < 0 } set_variable = { name = aawc_population_last_settlement_consumed value = 0 } }
+	set_variable = { name = aawc_population_pending_settlement_credit value = var:aawc_population_last_settlement_credit }
+	set_variable = { name = aawc_population_last_transaction_class value = 4 }
+}
+
+aawc_population_consume_reserved_amount_effect = {
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP reserve consume begin" }
+	if = {
+		limit = { NOT = { has_variable = aawc_population_reserved } }
+		set_variable = { name = aawc_population_reserved value = 0 }
+	}
+	change_variable = {
+		name = aawc_population_reserved
+		add = {
+			value = $COST$
+			multiply = -1
+		}
+	}
+	if = {
+		limit = { var:aawc_population_reserved < 0 }
+		set_variable = { name = aawc_population_reserved value = 0 }
+	}
+
+	# Dynamic 1.9 spend: remove people from holdings with positive surplus instead of draining development.
+	aawc_reforging_tx_round_reserved_cost_effect = { AMOUNT = $COST$ }
+	set_variable = { name = aawc_population_last_consume_requested value = var:aawc_population_remaining_spend }
+	if = {
+		limit = { var:aawc_population_remaining_spend > 0 }
+		save_scope_as = aawc_population_spend_owner
+		aawc_population_consume_reserved_from_county_holder_baronies_effect = yes
+	}
+	if = {
+		limit = { var:aawc_population_remaining_spend > 0 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 consume warning: requested spend exceeded currently exposed surplus" }
+	}
+	set_variable = { name = aawc_population_last_consume_unmet value = var:aawc_population_remaining_spend }
+	set_variable = { name = aawc_population_last_consume_applied value = var:aawc_population_last_consume_requested }
+	change_variable = { name = aawc_population_last_consume_applied add = { value = var:aawc_population_last_consume_unmet multiply = -1 } }
+	if = { limit = { var:aawc_population_last_consume_applied < 0 } set_variable = { name = aawc_population_last_consume_applied value = 0 } }
+	set_variable = { name = aawc_population_last_transaction_class value = 3 }
+	remove_variable = aawc_population_remaining_spend
+	aawc_population_recalculate_character_effect = yes
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP reserve consumed and dynamic population reduced" }
+}
+
+aawc_population_cache_selected_holding_levy_debug_effect = {
+	# Kept under the old effect name because the ruin/county GUI already calls it.
+	# In 1.9 this now caches dynamic population growth/capacity debug values.
+	if = {
+		limit = { has_holding = yes }
+		aawc_population_refresh_holding_dynamic_effect = yes
+		county = {
+			aawc_migration_refresh_selected_county_target_counts_effect = yes
+			save_scope_as = aawc_population_selected_county
+		}
+		# County-facing display copies are needed only for the holding currently open
+		# in the GUI; monthly simulation keeps the authoritative county cache current.
+		set_variable = { name = aawc_population_county_total_display value = scope:aawc_population_selected_county.var:aawc_population_total }
+		set_variable = { name = aawc_population_county_expected_display value = scope:aawc_population_selected_county.var:aawc_population_expected }
+		set_variable = { name = aawc_population_county_surplus_display value = scope:aawc_population_selected_county.var:aawc_population_surplus }
+		set_variable = { name = aawc_population_colonize_cost_wh value = scope:aawc_population_selected_county.var:aawc_population_colonize_cost_wh }
+		set_variable = { name = aawc_population_reclaim_cost_rh value = scope:aawc_population_selected_county.var:aawc_population_reclaim_cost_rh }
+		if = { limit = { NOT = { has_variable = aawc_population_expected_pressure_multiplier } } set_variable = { name = aawc_population_expected_pressure_multiplier value = 1 } }
+		if = { limit = { NOT = { has_variable = aawc_population_final_growth_rate } } set_variable = { name = aawc_population_final_growth_rate value = 0 } }
+		if = { limit = { NOT = { has_variable = aawc_population_growth_delta } } set_variable = { name = aawc_population_growth_delta value = 0 } }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 selected holding growth/capacity debug cache refreshed" }
+	}
+}
+
+aawc_population_apply_warfare_population_loss_effect = {
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 warfare population loss helper entered" }
+	if = {
+		limit = { has_holding = yes }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 warfare population loss helper has province holding" }
+		aawc_population_refresh_holding_dynamic_effect = yes
+		if = {
+			# A read-only refresh may leave the authoritative ledger absent.
+			limit = { aawc_population_holding_current_readonly > 0 }
+			set_variable = { name = aawc_population_warfare_loss_before value = var:aawc_population_current }
+			set_variable = { name = aawc_population_warfare_loss_amount value = var:aawc_population_current }
+			change_variable = { name = aawc_population_warfare_loss_amount multiply = $LOSS_FACTOR$ }
+			aawc_reforging_cohort_death_population_effect = { AMOUNT = var:aawc_population_warfare_loss_amount }
+		set_variable = { name = aawc_population_warfare_loss_amount value = { value = 0 if = { limit = { has_variable = aawc_reforging_cohort_last_transfer_debit } add = var:aawc_reforging_cohort_last_transfer_debit } } }
+			set_variable = { name = aawc_population_total value = var:aawc_population_current }
+			set_variable = { name = aawc_population_expected value = aawc_population_holding_expected }
+			set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+			change_variable = {
+				name = aawc_population_surplus
+				add = {
+					value = var:aawc_population_expected
+					multiply = -1
+				}
+			}
+			set_variable = { name = aawc_population_last_warfare_loss value = var:aawc_population_warfare_loss_amount }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 warfare population loss applied" }
+			remove_variable = aawc_population_warfare_loss_before
+			remove_variable = aawc_population_warfare_loss_amount
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 warfare population loss skipped: no current population" }
+		}
+	}
+	else = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 warfare population loss skipped: province has no holding" }
+	}
+}

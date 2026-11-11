@@ -1,0 +1,210 @@
+﻿on_raid_action_completion = {
+	on_actions = {
+		aawc_population_on_raid_action_completion
+	}
+}
+
+on_siege_completion = {
+	on_actions = {
+		aawc_population_on_siege_completion
+	}
+}
+
+on_army_enter_province = {
+	on_actions = {
+		aawc_population_on_army_enter_province
+	}
+}
+
+on_raid_action_start = {
+	on_actions = {
+		aawc_population_on_raid_action_start
+	}
+}
+
+on_raid_action_weekly = {
+	on_actions = {
+		aawc_population_on_raid_action_weekly
+	}
+}
+
+on_county_occupied = {
+	on_actions = {
+		aawc_population_on_county_occupied
+	}
+}
+
+aawc_population_on_army_enter_province = {
+	effect = {
+		if = {
+			limit = {
+				exists = scope:army
+				scope:army = {
+					location = {
+						has_holding = yes
+						county.holder ?= { is_at_war_with = root }
+					}
+				}
+			}
+			scope:army = {
+				location = {
+					county = {
+						set_variable = { name = aawc_population_siege_growth_suppressed value = 1 days = 365 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 hostile army entered held enemy province; county siege growth suppression set" }
+					}
+				}
+			}
+		}
+	}
+}
+
+aawc_population_on_raid_action_start = {
+	effect = {
+		if = {
+			limit = { exists = scope:county }
+			scope:county = {
+				set_variable = { name = aawc_population_raid_growth_suppressed value = 1 days = 14 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 raid started; county raid growth suppression set" }
+			}
+		}
+	}
+}
+
+aawc_population_on_raid_action_weekly = {
+	effect = {
+		if = {
+			limit = { exists = scope:county }
+			scope:county = {
+				set_variable = { name = aawc_population_raid_growth_suppressed value = 1 days = 14 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 active raid weekly refresh; county raid growth suppression set" }
+			}
+		}
+	}
+}
+
+aawc_population_on_raid_action_completion = {
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 raid hook entered" }
+		if = {
+			limit = { exists = scope:county }
+			scope:county = {
+				remove_variable = aawc_population_raid_growth_suppressed
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 raid completed; county raid growth suppression cleared" }
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:barony
+				scope:barony = {
+					title_province = { has_holding = yes }
+				}
+			}
+			scope:barony.title_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 raid hook matched barony province with holding" }
+				aawc_population_apply_warfare_population_loss_effect = { LOSS_FACTOR = 0.15 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 raid population loss hook fired" }
+			}
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 raid hook skipped: missing barony scope or barony province holding" }
+		}
+	}
+}
+
+aawc_population_on_siege_completion = {
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook entered" }
+		if = { limit = { exists = scope:barony } error_log = "AAWC POP 1.9.47 siege hook has barony scope" }
+		else = { error_log = "AAWC POP 1.9.47 siege hook missing barony scope" }
+		if = {
+			limit = { exists = scope:county }
+			scope:county = {
+				remove_variable = aawc_population_siege_growth_suppressed
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege completed; county siege growth suppression cleared" }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook has county scope" }
+		}
+		else = { error_log = "AAWC POP 1.9.47 siege hook missing county scope" }
+		if = {
+			limit = {
+				exists = scope:barony
+				scope:barony = { title_province = { has_holding = yes } }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook barony province has holding" }
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook barony province missing holding" }
+		}
+		if = {
+			limit = {
+				exists = scope:barony
+				scope:barony = { title_province = { has_holding_type = castle_holding } }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook holding type castle" }
+		}
+		if = {
+			limit = {
+				exists = scope:barony
+				scope:barony = { title_province = { has_holding_type = tribal_holding } }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook holding type tribal" }
+		}
+		if = {
+			limit = {
+				exists = scope:barony
+				scope:barony = { title_province = { has_holding_type = settlement_holding } }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook holding type settlement" }
+		}
+		if = {
+			limit = {
+				exists = scope:barony
+				scope:barony = {
+					title_province = {
+						has_holding = yes
+						OR = {
+							has_holding_type = castle_holding
+							has_holding_type = tribal_holding
+							has_holding_type = settlement_holding
+						}
+					}
+				}
+			}
+			scope:barony.title_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook matched defensible holding" }
+				aawc_population_apply_warfare_population_loss_effect = { LOSS_FACTOR = 0.30 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 defensible holding capture population loss hook fired" }
+			}
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook skipped loss: no defensible captured holding match" }
+		}
+	}
+}
+
+aawc_population_on_county_occupied = {
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 county occupation hook entered" }
+		if = {
+			limit = { exists = scope:county }
+			scope:county = {
+				remove_variable = aawc_population_siege_growth_suppressed
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 county occupation hook has county scope" }
+				every_county_province = {
+					limit = {
+						has_holding = yes
+						NOT = { has_holding_type = castle_holding }
+						NOT = { has_holding_type = tribal_holding }
+						NOT = { has_holding_type = settlement_holding }
+					}
+					aawc_population_apply_warfare_population_loss_effect = { LOSS_FACTOR = 0.10 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 non-defensible county occupation population loss hook fired" }
+				}
+			}
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 county occupation hook skipped: missing county scope" }
+		}
+	}
+}
+

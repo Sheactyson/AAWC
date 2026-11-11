@@ -1,0 +1,1042 @@
+﻿E_kCAFG_try_trigger_cultural_benefits = {
+    if = {
+        limit = {
+            is_landed = yes
+            NOT = { has_realm_law_flag = F_kCAFG_intolerant_to_other_cultures }
+        }
+        #debug_log = "kCAFG - Cultural Benefits - Trying for [THIS.Char.GetNameNoTooltip]"
+    
+        save_temporary_scope_as = char
+        culture = { save_temporary_scope_as = character_culture }
+        clear_variable_list = domain_cultures
+        every_directly_owned_province = {
+            #debug_log = "kCAFG - Cultural Benefits - Province [THIS.Province.GetNameNoTooltip]"
+            every_in_list = {
+                variable = kCAFG_province_cultures
+                limit = {
+                    scope:character_culture != this
+                    cultural_acceptance = {
+                        target = root.culture
+                        value >= {
+                            value = V_kCAFG_cultural_benefits_minimum_base_cultural_acceptance
+                            if = {
+                                limit = { scope:char = { knows_language_of_culture = prev } }
+                                divide = define:NCharacterOpinion|CULTURE_ACCEPTANCE_MULT_KNOWS_LANGUAGE
+                            }
+                        }
+                    }
+                }
+
+                scope:char = {
+                    add_to_variable_list = {
+                        name = domain_cultures
+                        target = prev
+                    }
+                }
+            }
+        }
+        ordered_in_list = {
+            variable = domain_cultures
+            max = 10
+            check_range_bounds = no
+            limit = {
+                save_temporary_scope_as = kCAFG_culture
+                ## ALL provinces of that culture must be eligible
+                NOT = {
+                    scope:char = {
+                        any_directly_owned_province = {
+                            T_kCAFG_does_province_contain_culture = { CULTURE = scope:kCAFG_culture }
+                            T_kCAFG_is_province_eligible_for_cultural_benefits = no
+                        }
+                    }
+                }
+            }
+            order_by = {
+                value = 0
+                save_temporary_scope_as = kCAFG_culture
+                scope:char = { every_directly_owned_province = { add = V_kCAFG_province_culture_amount } }
+            }
+
+            save_temporary_scope_as = kCAFG_culture
+            #set_global_variable = { name = kCAFG_TMP_TEST_CHANCE value = V_kCAFG_cultural_benefits_trigger_chance }
+            #debug_log = "kCAFG - Cultural Benefits - chance for culture [THIS.Culture.GetNameNoTooltip]: [GetGlobalVariable('kCAFG_TMP_TEST_CHANCE').GetValue]"
+            random = {
+                chance = V_kCAFG_cultural_benefits_trigger_chance
+                save_scope_as = culture
+                #debug_log = "kCAFG - Cultural Benefits - Triggered for culture [THIS.Culture.GetNameNoTooltip]!"
+                scope:char = {
+                    if = {
+                        limit = { NOT = { has_variable = kCAFG_cultural_benefits_count } }
+                        set_variable = { name = kCAFG_cultural_benefits_count value = 0 }
+                    }
+                    change_variable = { name = kCAFG_cultural_benefits_count add = 1 }
+                    random_directly_owned_province = {
+                        weight = {
+                            base = 0
+                            modifier = {
+                                add = {
+                                    scope:culture = { prev = { value = V_kCAFG_province_prev_culture_amount } }
+                                }
+                            }
+                        }
+                        #debug_log = "kCAFG - Cultural Benefits - Selected Province [THIS.Province.GetNameNoTooltip]"
+                        save_scope_as = province
+                    }
+                    E_kCAFG_trigger_cultural_benefits = yes
+                }
+            }
+        }
+        clear_variable_list = domain_cultures
+    }
+}
+
+E_kCAFG_trigger_cultural_benefits = {
+    trigger_event = {
+        id = kCAFG_cultural_benefits_events.0001
+        days = { 0 31 }
+    }
+}
+
+E_kCAFG_apply_random_cultural_boon = {
+    random_list = {
+        # GENERIC
+        20 = {
+            trigger = {
+                scope:culture = {
+                    NOT = { has_cultural_tradition = tradition_fp2_strategy_gamers }
+                    OR = {
+                        has_cultural_parameter = winter_soldier_trait_more_common
+                        has_cultural_parameter = forest_fighter_trait_more_common
+                        has_cultural_parameter = rough_terrain_expert_trait_more_common
+                        has_cultural_parameter = desert_warrior_trait_more_common
+					    has_cultural_parameter = jungle_stalker_trait_more_common
+                    }
+                }
+            }
+            E_kCAFG_generic_cultural_boon_commander = yes
+        }
+        20 = {
+            trigger = { scope:culture = { has_cultural_pillar = ethos_bellicose } }
+            random_list = {
+                40 = {
+                    random_list = {
+                        15 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = light_footmen       SCALE = 1       } }
+                        12 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = bowmen              SCALE = 0.9     } }
+                        10 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = light_horsemen      SCALE = 0.6     } }
+                        12 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = pikemen_unit        SCALE = 0.8     } }
+                        6 =  { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = armored_footmen     SCALE = 0.4     } }
+                        3 =  { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = armored_horsemen    SCALE = 0.25    } }
+                    }
+                }
+                30 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = martial } }
+                40 = { E_kCAFG_generic_cultural_boon_character_modifier = { MODIFIER = CM_kCAFG_cultural_boon_ethos_bellicose YEARS = 5 } }
+
+            }
+        }
+        20 = {
+            trigger = { scope:culture = { has_cultural_pillar = ethos_stoic } }
+            random_list = {
+                30 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = intrigue } }
+                40 = { E_kCAFG_generic_cultural_boon_character_modifier = { MODIFIER = CM_kCAFG_cultural_boon_ethos_stoic YEARS = 5 } }
+            }
+        }
+        20 = {
+            trigger = { scope:culture = { has_cultural_pillar = ethos_bureaucratic } }
+            random_list = {
+                30 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = stewardship } }
+                40 = { E_kCAFG_generic_cultural_boon_character_modifier = { MODIFIER = CM_kCAFG_cultural_boon_ethos_bureaucratic YEARS = 5 } }
+            }
+        }
+        20 = {
+            trigger = { scope:culture = { has_cultural_pillar = ethos_spiritual } }
+            random_list = {
+                30 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = learning } }
+                40 = { E_kCAFG_generic_cultural_boon_character_modifier = { MODIFIER = CM_kCAFG_cultural_boon_ethos_spiritual YEARS = 5 } }
+            }
+        }
+        20 = {
+            trigger = { scope:culture = { has_cultural_pillar = ethos_courtly } }
+            random_list = {
+                30 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = diplomacy } }
+                40 = { E_kCAFG_generic_cultural_boon_character_modifier = { MODIFIER = CM_kCAFG_cultural_boon_ethos_courtly YEARS = 5 } }
+            }
+        }
+        20 = {
+            trigger = { scope:culture = { has_cultural_pillar = ethos_egalitarian } }
+            random_list = {
+                6 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = diplomacy } }
+                6 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = martial } }
+                6 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = stewardship } }
+                6 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = intrigue } }
+                6 = { E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = learning } }
+                40 = { E_kCAFG_generic_cultural_boon_character_modifier = { MODIFIER = CM_kCAFG_cultural_boon_ethos_egalitarian YEARS = 5 } }
+            }
+        }
+
+        # MARTIAL
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_only_the_strong } }
+            E_kCAFG_cultural_boon_tradition_only_the_strong = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_warriors_by_merit } }
+            E_kCAFG_cultural_boon_tradition_warriors_by_merit = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_warrior_monks } }
+            E_kCAFG_cultural_boon_tradition_warrior_monks = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_talent_acquisition } }
+            E_kCAFG_cultural_boon_tradition_talent_acquisition = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_strength_in_numbers } }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_strength_in_numbers
+                YEARS = 15
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_frugal_armorsmiths } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_frugal_armorsmiths
+                YEARS = 10
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_swords_for_hire } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_swords_for_hire
+                YEARS = 5
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_reverence_for_veterans } }
+            E_kCAFG_cultural_boon_tradition_reverence_for_veterans = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_stalwart_defenders } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_stalwart_defenders
+                YEARS = 15
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_stand_and_fight } }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_stand_and_fight
+                YEARS = 15
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_adaptive_skirmishing } }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_adaptive_skirmishing
+                YEARS = 15
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_formation_fighting } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_formation_fighting
+                YEARS = 15
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_horse_breeder } }
+            E_kCAFG_cultural_boon_tradition_horse_breeder = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_longbow_competitions } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = longbowmen SCALE = 1 }
+        }
+
+        ## MAA
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_futuwaa } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = ayyar SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_mubarizuns } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = mubarizun SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_desert_ribat } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = mulaththamun SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_land_of_the_bow } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = archers_of_the_nile SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_druzhina } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = druzhina SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_hussar } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = hussar SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_horn_mountain_skirmishing } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = horn_warrior SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_bush_hunting } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = bush_hunter SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_mobile_guards } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = shomer SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_khadga_puja } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = khandayat SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_garuda_warriors } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = garudas SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_burman_royal_army } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = palace_guards SCALE = 0.5 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_mountain_herding } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = abudrar SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_forest_wardens } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = metsanvartija SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_upland_skirmishing } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = guinea_warrior SCALE = 1 }
+        }
+        50 = {
+            trigger = {
+                scope:culture = {
+                    has_cultural_tradition = tradition_strong_kinship
+					has_innovation = innovation_rectilinear_schiltron
+                }
+            }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = schiltron SCALE = 1 }
+        }
+        50 = {
+            trigger = {
+                scope:culture = {
+                    has_cultural_tradition = tradition_amharic_highlanders
+					has_innovation = innovation_sarawit
+                }
+            }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = sarawit SCALE = 1 }
+        }
+        50 = {
+            trigger = {
+                scope:culture = {
+                    has_cultural_tradition = tradition_polders
+					has_innovation = innovation_adaptive_militia
+                }
+            }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = goedendag SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_caucasian_wolves } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = monaspa SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_hird } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = huscarl SCALE = 1 }
+        }
+        50 = {
+            trigger = {
+                scope:culture = {
+                    has_cultural_tradition = tradition_chanson_de_geste
+					has_innovation = innovation_valets
+                }
+            }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = gendarme SCALE = 1 }
+        }
+        ## REALM
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_republican_legacy }
+                any_held_title = {
+                    tier = tier_county
+                    any_county_province = {
+                        T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                        has_holding_type = city_holding
+                    }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_republican_legacy = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_hereditary_hierarchy }
+                any_directly_owned_province = {
+                    has_holding_type = castle_holding
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_hereditary_hierarchy = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_esteemed_hospitality } }
+            E_kCAFG_cultural_boon_tradition_esteemed_hospitality = yes
+        }
+        50 = {
+            trigger = {
+                OR = {
+                    scope:culture = { has_cultural_tradition = tradition_gardening }
+                    scope:culture = { has_cultural_tradition = tradition_tgp_ephemeral_grace }
+                }
+                OR = {
+				    can_employ_court_position_type = court_gardener_court_position
+                    culture = { has_cultural_parameter = can_appoint_court_gardener } # must be useful
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_gardening = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_astute_diplomats } }
+            E_kCAFG_cultural_boon_tradition_astute_diplomats = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_collective_lands } }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_collective_lands
+                YEARS = 10
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_metal_craftsmanship } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_metal_craftsmanship
+                YEARS = 10
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_family_entrepreneurship } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_family_entrepreneurship
+                YEARS = 10
+            }
+        }
+        # 50 = {
+        #     trigger = { scope:culture = { has_cultural_tradition = tradition_wedding_ceremonies } }
+        #     E_kCAFG_cultural_boon_tradition_wedding_ceremonies = yes
+        # }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fervent_temple_builders } }
+            E_kCAFG_cultural_boon_tradition_fervent_temple_builders = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_agrarian }
+                any_directly_owned_province = {
+					OR = {
+						terrain = farmlands
+						terrain = floodplains
+					}
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_agrarian = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_pastoralists }
+                any_directly_owned_province = {
+					OR = {
+						terrain = plains
+						terrain = steppe
+						geographical_region = world_steppe
+					}
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_pastoralists = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_parochialism }
+                any_held_title = {
+                    tier = tier_county
+                    any_county_province = {
+                        T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                        has_holding_type = city_holding
+                    }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_parochialism = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_hill_dwellers }
+                any_directly_owned_province = {
+                    terrain = hills
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_hill_dwellers = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_forest_folk }
+                any_directly_owned_province = {
+					OR = {
+						terrain = forest
+						terrain = taiga
+					}
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_forest_folk = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_mountain_homes }
+                any_directly_owned_province = {
+					OR = {
+						terrain = mountains
+						terrain = desert_mountains
+					}
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_mountain_homes = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_dryland_dwellers }
+                any_directly_owned_province = {
+					OR = {
+						terrain = drylands
+						terrain = desert
+					}
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_dryland_dwellers = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_jungle_dwellers }
+                any_directly_owned_province = {
+                    terrain = jungle
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_jungle_dwellers = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_wetlanders }
+                any_directly_owned_province = {
+                    terrain = wetlands
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_wetlanders = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_hidden_cities }
+                any_directly_owned_province = {
+                    terrain = jungle
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_hidden_cities = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_ancient_miners } }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_ancient_miners
+                MIN_YEARS = 5
+                MAX_YEARS = 10
+            }
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_castle_keepers }
+                any_directly_owned_province = {
+                    has_holding_type = castle_holding
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_castle_keepers = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_city_keepers }
+                any_held_title = {
+                    tier = tier_county
+                    any_county_province = {
+                        has_holding_type = city_holding
+                        T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                    }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_city_keepers = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_maritime_mercantilism }
+                any_directly_owned_province = {
+                    is_coastal = yes
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_cultural_boon_tradition_maritime_mercantilism = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_monastic_communities } }
+            E_kCAFG_cultural_boon_tradition_monastic_communities = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_tgp_mountain_island }
+                any_directly_owned_province = {
+					OR = {
+						terrain = mountains
+						terrain = forest
+					}
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_tgp_mountain_island
+                YEARS = 10
+                CONDITION = "OR = { terrain = mountains terrain = forest }"
+            }
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_intensive_farming }
+                any_directly_owned_province = {
+					OR = {
+						terrain = farmlands
+						terrain = terraced_hills
+					}
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_intensive_farming
+                YEARS = 10
+                CONDITION = "OR = { terrain = farmlands terrain = terraced_hills }"
+            }
+        }
+        ## REGIONAL
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_lords_of_the_elephant } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = war_elephant SCALE = 0.25 }
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_caravaneers }
+                any_directly_owned_province = { terrain = desert }
+            }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_caravaneers
+                YEARS = 15
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_horse_lords } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = horse_archers SCALE = 0.7 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_saharan_nomads } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_saharan_nomads
+                YEARS = 12
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_himalayan_settlers } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = mountaineer SCALE = 0.75 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_desert_nomads } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_desert_nomads
+                YEARS = 11
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_mountaineer_ruralism } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = zbrojnosh SCALE = 0.8 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_mpo_iron_cavalry } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = cataphract_archers SCALE = 0.25 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_mpo_wolves_of_the_deep_steppe } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = mangudai SCALE = 0.6 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_devoted_horsemanship } }
+            random_list = {
+                5 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = horse_archers SCALE = 0.8 } }
+                5 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = tarkhan SCALE = 0.8 } }
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_mpo_northern_tribes } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = maturkan_warriors SCALE = 1 }
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_tgp_rice_cultivators }
+                any_directly_owned_province = {
+					terrain = terraced_hills
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_tgp_rice_cultivators
+                YEARS = 10
+                CONDITION = "terrain = terraced_hills"
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_tgp_defiant_ambushers } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = emishi_horse_archers SCALE = 0.65 }
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_tgp_hydraulic_builders }
+                any_directly_owned_province = {
+                    OR = {
+					    terrain = terraced_hills
+					    terrain = wetlands
+                    }
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_tgp_hydraulic_builders
+                YEARS = 10
+                CONDITION = "OR = { terrain = terraced_hills terrain = wetlands }"
+            }
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_tgp_fortified_strongholds }
+                any_directly_owned_province = {
+					has_holding_type = temple_citadel_holding
+                    T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                }
+            }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_tgp_fortified_strongholds
+                YEARS = 10
+                CONDITION = "has_holding_type = temple_citadel_holding"
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_tgp_esoteric_power } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = pesilat_warriors SCALE = 1 }
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_tgp_barangay_confederations }
+			    is_confederation_member = yes
+            }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_tgp_barangay_confederations
+                YEARS = 10
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_tgp_court_machinations } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_tgp_court_machinations
+                YEARS = 10
+            }
+        }
+        ## RITUAL
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_sorcerous_metallurgy }
+                faith = { NOT = { has_doctrine_parameter = witchcraft_illegal } }
+            }
+            E_kCAFG_cultural_boon_tradition_sorcerous_metallurgy = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_medicinal_plants } }
+            E_kCAFG_cultural_boon_tradition_medicinal_plants = yes
+        }
+        30 = { # Reduced because it's not a great bonus to know languages
+            trigger = { scope:culture = { has_cultural_tradition = tradition_language_scholars } }
+            E_kCAFG_cultural_boon_tradition_language_scholars = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_tgp_warrior_monks } }
+            E_kCAFG_cultural_boon_tradition_warrior_monks = yes
+        }
+        ## SOCIETAL
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_chivalry } }
+            E_kCAFG_cultural_boon_tradition_chivalry = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_hard_working } }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_hard_working
+                YEARS = 10
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_loyal_soldiers } }
+            E_kCAFG_cultural_boon_tradition_loyal_soldiers = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_spartan } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_spartan
+                YEARS = 15
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_hunters } }
+            E_kCAFG_cultural_boon_tradition_hunters = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_seafaring } }
+            E_kCAFG_cultural_boon_tradition_seafaring = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_storytellers } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_storytellers
+                YEARS = 15
+            }
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_music_theory }
+				can_employ_court_position_type = court_musician_court_position
+            }
+            E_kCAFG_cultural_boon_tradition_music_theory = yes
+        }
+        50 = {
+            trigger = {
+                OR = {
+                    scope:culture = { has_cultural_tradition = tradition_poetry }
+                    scope:culture = { has_cultural_tradition = tradition_fp3_enlightened_magnates }
+                    scope:culture = { has_cultural_tradition = tradition_tgp_ephemeral_grace }
+                }
+				can_employ_court_position_type = court_poet_court_position
+            }
+            E_kCAFG_cultural_boon_tradition_poetry = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_mendicant_mystics } }
+            E_kCAFG_cultural_boon_tradition_mendicant_mystics = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_warrior_culture } }
+            E_kCAFG_cultural_boon_tradition_warrior_culture = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_martial_admiration } }
+            E_kCAFG_cultural_boon_tradition_martial_admiration = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_philosopher_culture } }
+            E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = learning }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_welcoming } }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_welcoming
+                YEARS = 20
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_charitable } }
+            save_scope_value_as = { name = boon_type value = flag:gold_gift }
+            add_gold = {
+                value = major_gold_value
+                multiply = { 1 1.2 }
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_practiced_pirates } }
+            save_scope_value_as = { name = boon_type value = flag:gold_loot }
+            add_gold = {
+                value = major_gold_value
+                multiply = { 0.8 1 }
+            }
+            add_prestige = {
+                value = medium_prestige_loss
+                multiply = { 0.9 1.1 }
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_life_is_just_a_joke } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_life_is_just_a_joke
+                YEARS = 10
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_artisans } }
+            E_kCAFG_cultural_boon_tradition_artisans = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_tgp_imperial_peace } }
+            E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier = {
+                MODIFIER = PM_kCAFG_cultural_boon_tradition_tgp_imperial_peace
+                YEARS = 10
+            }
+        }
+        50 = {
+            trigger = {
+                scope:culture = { has_cultural_tradition = tradition_maritime_way_of_life }
+            }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_maritime_way_of_life
+                YEARS = 10
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_stratified_society } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = gakgung_archers SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_scholar_officials } }
+            E_kCAFG_cultural_boon_tradition_scholar_officials = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_cultivation } }
+            E_kCAFG_cultural_boon_tradition_mendicant_mystics = yes
+        }
+        # DLC
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp1_coastal_warriors } }
+            E_kCAFG_cultural_boon_tradition_fp1_coastal_warriors = yes
+        }
+        50 = {
+            trigger = {
+                scope:culture = {
+                    OR = {
+                        has_cultural_tradition = tradition_fp1_performative_honour
+                        has_cultural_tradition = tradition_fp1_the_right_to_prove
+                    }
+                }
+            }
+            modifier = {
+                factor = 0.15
+			    NOT = { dummy_female = { can_be_combatant_based_on_gender_trigger = { ARMY_OWNER = root } } }
+            }
+            E_kCAFG_cultural_boon_tradition_fp1_performative_honour = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp1_northern_stories } }
+            E_kCAFG_cultural_boon_tradition_fp1_northern_stories = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp1_trials_by_combat } }
+            E_kCAFG_cultural_boon_tradition_fp1_trials_by_combat = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp2_strategy_gamers } }
+            E_kCAFG_cultural_boon_tradition_fp2_strategy_gamers = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp2_ritualised_friendship } }
+            E_kCAFG_cultural_boon_tradition_fp2_ritualised_friendship = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp3_frontier_warriors } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = tarkhan SCALE = 0.7 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp3_irrigation_experts } }
+            E_kCAFG_cultural_boon_tradition_fp3_irrigation_experts = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp3_beacon_of_learning } }
+            E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = learning }
+            scope:impressive_character = { add_trait = scholar }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp3_pragmatic_creed } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = zupin_warrior SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_fp3_fierce_independence } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = tawashi SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_ep2_avid_falconers } }
+            E_kCAFG_cultural_boon_tradition_ep2_avid_falconers = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_ce1_ritual_washing } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_ce1_ritual_washing
+                YEARS = 10
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_ep3_indomitable_azatani } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = ayrudzi SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_ep3_audacious_cadets } }
+            E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = conrois SCALE = 1 }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_ep3_imperial_tagmata } }
+            E_kCAFG_cultural_boon_tradition_ep3_imperial_tagmata = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_ep3_palace_politics } }
+            E_kCAFG_cultural_boon_tradition_ep3_palace_politics = yes
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_tgp_bushido } }
+            random_list = {
+                5 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = japanese_horse_archers SCALE = 0.6 } }
+                5 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = samurai SCALE = 0.9 } }
+            }
+        }
+        50 = {
+            trigger = { scope:culture = { has_cultural_tradition = tradition_tgp_art_of_war } }
+            E_kCAFG_generic_cultural_boon_character_modifier = {
+                MODIFIER = CM_kCAFG_cultural_boon_tradition_tgp_art_of_war
+                YEARS = 10
+            }
+        }
+        # Fallback
+        10 = {
+            save_scope_value_as = { name = boon_type value = flag:gold_gift }
+            save_scope_value_as = {
+                name = gold_amount
+                value = {
+                    value = major_gold_value
+                    multiply = {
+                        scope:culture = { save_temporary_scope_as = kCAFG_culture }
+                        every_directly_owned_province = { add = V_kCAFG_province_culture_factor }
+                        divide = {
+                            every_directly_owned_province = { add = 1 }
+                            min = 1
+                        }
+                        multiply = 0.65
+                        add = 0.35
+                    }
+                    min = major_gold_min_value
+                    multiply = { 0.9 1.1 }
+                }
+            }
+            add_gold = scope:gold_amount
+        }
+    }
+}

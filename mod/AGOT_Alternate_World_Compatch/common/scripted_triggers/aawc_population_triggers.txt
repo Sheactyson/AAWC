@@ -1,0 +1,115 @@
+﻿aawc_population_is_top_liege_actor = {
+	top_liege = this
+	is_landed = yes
+	agot_is_dummy_character = no
+}
+
+aawc_population_valid_settlement_for_cohort_trigger = {
+	has_holding = yes
+	OR = {
+		has_holding_type = castle_holding
+		has_holding_type = tribal_holding
+		has_holding_type = city_holding
+		has_holding_type = church_holding
+		has_holding_type = nomad_holding
+		has_holding_type = herder_holding
+		has_holding_type = temple_citadel_holding
+		has_holding_type = pirate_den_holding
+		has_holding_type = settlement_holding
+	}
+}
+
+aawc_population_ai_below_settlement_limit = {
+	OR = {
+		AND = {
+			highest_held_title_tier = tier_county
+			OR = {
+				NOT = { has_variable = num_settled_wilderness }
+				var:num_settled_wilderness < 1
+			}
+		}
+		AND = {
+			highest_held_title_tier = tier_duchy
+			OR = {
+				NOT = { has_variable = num_settled_wilderness }
+				var:num_settled_wilderness < 2
+			}
+		}
+		AND = {
+			highest_held_title_tier = tier_kingdom
+			OR = {
+				NOT = { has_variable = num_settled_wilderness }
+				var:num_settled_wilderness < 3
+			}
+		}
+		AND = {
+			highest_held_title_tier = tier_empire
+			OR = {
+				NOT = { has_variable = num_settled_wilderness }
+				var:num_settled_wilderness < 4
+			}
+		}
+		AND = {
+			NOR = {
+				highest_held_title_tier = tier_duchy
+				highest_held_title_tier = tier_kingdom
+				highest_held_title_tier = tier_empire
+			}
+			OR = {
+				NOT = { has_variable = num_settled_wilderness }
+				var:num_settled_wilderness < 1
+			}
+		}
+	}
+}
+
+aawc_population_has_surplus_for_reclaim = {
+	aawc_population_is_top_liege_actor = yes
+	var:aawc_population_available >= scope:ruin.county.aawc_population_county_reclaim_cost_rh
+}
+
+aawc_population_has_surplus_for_colonize = {
+	aawc_population_is_top_liege_actor = yes
+	var:aawc_population_available >= scope:wilderness.county.aawc_population_county_colonize_cost_wh
+}
+
+aawc_population_can_pay_minor_blocker_clearance = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_minor_blocker_clearance_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= aawc_population_blocker_clearance_minor_cost
+		}
+	}
+}
+
+aawc_population_can_pay_standard_blocker_clearance = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_standard_blocker_clearance_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= aawc_population_blocker_clearance_standard_cost
+		}
+	}
+}
+
+aawc_population_can_pay_severe_blocker_clearance = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_severe_blocker_clearance_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= aawc_population_blocker_clearance_severe_cost
+		}
+	}
+}
+
+aawc_population_can_pay_deadly_blocker_clearance = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_deadly_blocker_clearance_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= aawc_population_blocker_clearance_deadly_cost
+		}
+	}
+}
+

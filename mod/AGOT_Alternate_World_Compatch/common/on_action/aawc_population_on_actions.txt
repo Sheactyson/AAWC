@@ -1,0 +1,176 @@
+﻿yearly_global_pulse = {
+	on_actions = {
+		aawc_population_yearly_pulse
+	}
+}
+
+quarterly_playable_pulse = {
+	on_actions = {
+		aawc_population_quarterly_scheduler_pulse
+	}
+}
+
+yearly_playable_pulse = {
+	on_actions = {
+		aawc_population_ai_yearly_playable_pulse
+	}
+}
+
+on_game_start_after_lobby = {
+	on_actions = {
+		aawc_population_on_startup_pulse
+	}
+}
+
+on_title_gain = {
+	on_actions = {
+		aawc_population_on_county_holder_gain_cadence
+	}
+}
+
+aawc_population_on_startup_pulse = {
+	effect = {
+		aawc_reforging_diag_phase_effect = { PHASE = 1 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP startup pulse begin: initializing landed non-dummy top-liege populations" }
+		aawc_regional_blocker_rollout_effect = yes
+		every_ruler = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+			}
+			aawc_no_guest_clear_host_effect = yes
+			# Initialize owned county holdings once, independently of all display refresh paths.
+			every_held_county = {
+				every_in_de_jure_hierarchy = {
+					limit = { tier = tier_barony }
+					title_province = { aawc_population_initialize_holding_demographics_effect = yes }
+				}
+			}
+			aawc_population_recalculate_character_effect = yes
+			if = {
+				limit = { NOT = { has_variable = aawc_population_monthly_tick_scheduled } }
+				# Spread ruler work across the month; the recurring 31-day event preserves the cohort.
+				trigger_event = { id = aawc_population_event.0100 days = { 1 30 } }
+				set_variable = { name = aawc_population_monthly_tick_scheduled value = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP startup pulse scheduled monthly population event" }
+			}
+		}
+		title:c_ruins.holder ?= {
+			# Delay eligibility reconciliation until native/AGOT startup conversion
+			# children have finished producing wilderness and typeless provinces.
+			trigger_event = { id = aawc_population_event.0101 days = 1 }
+			if = {
+				limit = { NOT = { has_variable = aawc_migration_world_tick_scheduled } }
+				# Keep synchronized migration away from the startup and yearly pulse days.
+				trigger_event = { id = aawc_population_event.0210 days = 16 }
+				set_variable = { name = aawc_migration_world_tick_scheduled value = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.93 startup scheduled world migration event" }
+			}
+		}
+		aawc_reforging_diag_phase_effect = { PHASE = 2 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP startup pulse completed" }
+	}
+}
+
+# County ownership changes move the province ledger between independently
+# phased character events. Recover the county immediately through the guarded
+# cohort-only path and start a 31-day chain when the new holder lacks one.
+aawc_population_on_county_holder_gain_cadence = {
+	trigger = {
+		current_date_is_start_date_trigger = no
+		is_landed = yes
+		agot_is_dummy_character = no
+		scope:title = { tier = tier_county }
+	}
+	effect = {
+		scope:title = { aawc_population_apply_county_holding_cadence_recovery_effect = yes }
+		if = {
+			limit = { NOT = { has_variable = aawc_population_monthly_tick_scheduled } }
+			trigger_event = { id = aawc_population_event.0100 days = 31 }
+			set_variable = { name = aawc_population_monthly_tick_scheduled value = 1 }
+		}
+	}
+}
+
+aawc_population_ai_yearly_playable_pulse = {
+	trigger = {
+		is_ai = yes
+		is_landed = yes
+		agot_is_dummy_character = no
+		NOT = { has_character_flag = aawc_ai_yearly_decision_recent }
+	}
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly playable pulse fired" }
+		add_character_flag = { flag = aawc_ai_yearly_decision_recent days = 335 }
+		aawc_population_ai_yearly_decision_effect = yes
+	}
+}
+
+aawc_population_quarterly_scheduler_pulse = {
+	effect = {
+		title:c_ruins.holder ?= {
+			if = {
+				limit = { NOT = { has_variable = aawc_migration_world_tick_scheduled } }
+				trigger_event = { id = aawc_population_event.0210 days = 16 }
+				set_variable = { name = aawc_migration_world_tick_scheduled value = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.93 quarterly recovery scheduled world migration event" }
+			}
+		}
+		if = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+				NOT = { has_variable = aawc_population_monthly_tick_scheduled }
+			}
+			trigger_event = { id = aawc_population_event.0100 days = { 1 30 } }
+			set_variable = { name = aawc_population_monthly_tick_scheduled value = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP quarterly recovery scheduled monthly population event" }
+		}
+	}
+}
+
+aawc_population_monthly_pulse = {
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP monthly pulse begin: manually fired monthly population pulse" }
+		aawc_population_reassert_dummy_ruin_wilderness_holders_effect = yes
+		every_ruler = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+			}
+			aawc_population_apply_monthly_growth_character_effect = yes
+		}
+		aawc_migration_update_world_effect = yes
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP monthly pulse completed" }
+	}
+}
+
+aawc_population_yearly_pulse = {
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP yearly safety pulse begin: checking recurring scheduler coverage" }
+		aawc_regional_blocker_ambient_yearly_effect = yes
+		aawc_population_reassert_dummy_ruin_wilderness_holders_effect = yes
+		every_ruler = {
+			limit = {
+				is_landed = yes
+				agot_is_dummy_character = no
+			}
+			aawc_no_guest_clear_host_effect = yes
+			if = {
+				limit = { NOT = { has_variable = aawc_population_monthly_tick_scheduled } }
+				trigger_event = { id = aawc_population_event.0100 days = { 1 30 } }
+				set_variable = { name = aawc_population_monthly_tick_scheduled value = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP yearly safety pulse scheduled monthly population event" }
+			}
+		}
+		title:c_ruins.holder ?= {
+			if = {
+				limit = { NOT = { has_variable = aawc_migration_world_tick_scheduled } }
+				trigger_event = { id = aawc_population_event.0210 days = 16 }
+				set_variable = { name = aawc_migration_world_tick_scheduled value = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.93 yearly recovery scheduled world migration event" }
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP yearly safety pulse completed" }
+	}
+}

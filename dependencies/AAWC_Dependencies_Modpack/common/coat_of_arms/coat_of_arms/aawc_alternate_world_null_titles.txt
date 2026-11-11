@@ -1,0 +1,17 @@
+# Remapped More Game Rules alternate-world null-title arms. These titles are
+# temporary implementation details and should never be visible to the player,
+# but retaining their solid-black arms preserves the complete source contract.
+e_aawc_aw_null = {
+	pattern = "pattern_solid.dds"
+	color1 = "black"
+}
+
+k_aawc_aw_null = {
+	pattern = "pattern_solid.dds"
+	color1 = "black"
+}
+
+d_aawc_aw_null = {
+	pattern = "pattern_solid.dds"
+	color1 = "black"
+}

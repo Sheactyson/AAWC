@@ -1,0 +1,209 @@
+d_kcafg_map_color_amount_none = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_012 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_025 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_037 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_050 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_062 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_075 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_087 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_100 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_112 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_125 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_137 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_150 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_162 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_175 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_187 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_200 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_212 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_225 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_237 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}
+
+d_kcafg_map_color_amount_250 = {
+	pattern = "pattern_solid.dds"
+	color1 = "red"
+	colored_emblem = {
+		texture = "ce_cross_05_maltese.dds"
+		color1 = "white"
+		color2 = "white"
+	}
+}

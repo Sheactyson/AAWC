@@ -1,0 +1,36 @@
+﻿# AAWC 1.9.49 load compatibility innovation stubs.
+#
+# These keep cross-mod vanilla/DLC scripted effects valid under the AGOT playset.
+
+innovation_legionnaires = {
+	skill = martial
+	group = culture_group_military
+	culture_era = culture_era_tribal
+	icon = @maa_01
+
+	ai_weight_for_fascination = {
+		value = 0
+	}
+}
+
+innovation_men_at_arms = {
+	skill = martial
+	group = culture_group_military
+	culture_era = culture_era_tribal
+	icon = @maa_02
+
+	ai_weight_for_fascination = {
+		value = 0
+	}
+}
+
+innovation_desert_tactics = {
+	skill = martial
+	group = culture_group_military
+	culture_era = culture_era_tribal
+	icon = @maa_01
+
+	ai_weight_for_fascination = {
+		value = 0
+	}
+}

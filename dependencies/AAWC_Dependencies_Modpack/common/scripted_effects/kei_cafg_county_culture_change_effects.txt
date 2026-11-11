@@ -1,0 +1,48 @@
+﻿# Root = County title
+# scope:old_culture = old culture
+E_kCAFG_on_county_culture_changed = {
+    if = {
+        limit = {
+            has_variable = kCAFG_county_culture_change_reason
+        }
+
+        # if = {
+        #     limit = { var:kCAFG_county_culture_change_reason = flag:kCAFG_default_reason }
+        #     debug_log = "Kei CAFG - Culture Change - Non-specific County Update - happened in county [THIS.Title.GetNameNoTooltip] - From [old_culture.GetNameNoTooltip] to [THIS.Title.GetProvince.GetCounty.GetCulture.GetNameNoTooltip]"
+        # }
+        # else_if = {
+        #     limit = { var:kCAFG_county_culture_change_reason = flag:kCAFG_replacement }
+        #     debug_log = "Kei CAFG - Culture Change - Replacement - happened in county [THIS.Title.GetNameNoTooltip] - From [old_culture.GetNameNoTooltip] to [THIS.Title.GetProvince.GetCounty.GetCulture.GetNameNoTooltip]"
+        # }
+        # else_if = {
+        #     limit = { var:kCAFG_county_culture_change_reason = flag:kCAFG_invasion }
+        #     debug_log = "Kei CAFG - Culture Change - Invasion - happened in county [THIS.Title.GetNameNoTooltip] - From [old_culture.GetNameNoTooltip] to [THIS.Title.GetProvince.GetCounty.GetCulture.GetNameNoTooltip]"
+        # }
+        # else_if = {
+        #     limit = { var:kCAFG_county_culture_change_reason = flag:kCAFG_task_promote_culture }
+        #     debug_log = "Kei CAFG - Culture Change - Steward Promote Task - happened in county [THIS.Title.GetNameNoTooltip] - From [old_culture.GetNameNoTooltip] to [THIS.Title.GetProvince.GetCounty.GetCulture.GetNameNoTooltip]"
+        # }
+        # else_if = {
+        #     limit = { var:kCAFG_county_culture_change_reason = flag:kCAFG_natural_evolution }
+        #     debug_log = "Kei CAFG - Culture Change - Natural Evolution - happened in county [THIS.Title.GetNameNoTooltip] - From [old_culture.GetNameNoTooltip] to [THIS.Title.GetProvince.GetCounty.GetCulture.GetNameNoTooltip]"
+        # }
+        # else = {
+        #     debug_log = "Kei CAFG - Culture Change - Unhandled - happened in county [THIS.Title.GetNameNoTooltip] - From [old_culture.GetNameNoTooltip] to [THIS.Title.GetProvince.GetCounty.GetCulture.GetNameNoTooltip]"
+        # }
+
+        remove_variable = kCAFG_county_culture_change_reason
+    }
+    else = {
+        #debug_log = "Kei CAFG - Culture Change -- Default Behaviour -- happened in county [THIS.Title.GetNameNoTooltip] - From [old_culture.GetNameNoTooltip] to [THIS.Title.GetProvince.GetCounty.GetCulture.GetNameNoTooltip]"
+    
+        culture = { save_temporary_scope_as = county_converting_culture }
+
+        # default conversion behaviour - we assume it's a mass majority conversion 
+        E_kCAFG_convert_culture_in_all_county_provinces = {
+            FACTOR = 0.65
+            VARIANCE = 0.1
+            CULTURE = scope:county_converting_culture
+            MAX = 1
+        }
+    }
+}

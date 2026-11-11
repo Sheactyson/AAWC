@@ -1,0 +1,168 @@
+﻿aawc_apply_valyria_region_special_restoration_effect = {
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE VALYRIA REGION wrapper entered" }
+	if = {
+		limit = {
+			this = title:c_kastaryia
+			OR = {
+				title:b_kastaryia_4.title_province = { has_building = tower_of_lyria_01 }
+				title:b_kastaryia_4.title_province = { has_building = tower_of_lyria_02 }
+				title:b_kastaryia_4.title_province = { has_building = aawc_c_kastaryia_ruined_01 }
+				title:b_kastaryia_4.title_province = { has_building = aawc_c_kastaryia_maintained_01 }
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE VALYRIA REGION applying c_kastaryia package" }
+		title:b_kastaryia_4.title_province = {
+			if = { limit = { has_building = aawc_c_kastaryia_maintained_01 } remove_building = aawc_c_kastaryia_maintained_01 }
+			if = { limit = { has_building = aawc_c_kastaryia_ruined_01 } remove_building = aawc_c_kastaryia_ruined_01 }
+			if = { limit = { has_building = tower_of_lyria_01 } remove_building = tower_of_lyria_01 }
+			if = { limit = { has_building = tower_of_lyria_02 } remove_building = tower_of_lyria_02 }
+			if = { limit = { has_building = valyria_volcano_03 } remove_building = valyria_volcano_03 }
+			add_special_building = aawc_c_kastaryia_ruined_01
+		}
+		aawc_apply_exact_current_county_ruin_blockers_effect = yes
+	}
+	if = {
+		limit = {
+			this = title:c_hills_of_nolos
+			OR = {
+				title:b_hills_of_nolos_1.title_province = { has_building = valyria_dead_volcano_01 }
+				title:b_hills_of_nolos_1.title_province = { has_building = aawc_c_hills_of_nolos_ruined_01 }
+				title:b_hills_of_nolos_1.title_province = { has_building = aawc_c_hills_of_nolos_maintained_01 }
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE VALYRIA REGION applying c_hills_of_nolos package" }
+		title:b_hills_of_nolos_1.title_province = {
+			if = { limit = { has_building = aawc_c_hills_of_nolos_maintained_01 } remove_building = aawc_c_hills_of_nolos_maintained_01 }
+			if = { limit = { has_building = aawc_c_hills_of_nolos_ruined_01 } remove_building = aawc_c_hills_of_nolos_ruined_01 }
+			if = { limit = { has_building = valyria_dead_volcano_01 } remove_building = valyria_dead_volcano_01 }
+			add_special_building = aawc_c_hills_of_nolos_ruined_01
+		}
+		aawc_apply_exact_current_county_ruin_blockers_effect = yes
+	}
+	if = {
+		limit = {
+			this = title:c_ilvonys
+			OR = {
+				title:b_ilvonys_1.title_province = { has_building = redwyrms_wrath_01 }
+				title:b_ilvonys_1.title_province = { has_building = redwyrms_wrath_02 }
+				title:b_ilvonys_1.title_province = { has_building = lokirian_barracks_01 }
+				title:b_ilvonys_1.title_province = { has_building = lokirian_barracks_02 }
+				title:b_ilvonys_1.title_province = { has_building = lokirian_barracks_03 }
+				title:b_ilvonys_1.title_province = { has_building = aawc_c_ilvonys_ruined_01 }
+				title:b_ilvonys_1.title_province = { has_building = aawc_c_ilvonys_maintained_01 }
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE VALYRIA REGION applying c_ilvonys package" }
+		title:b_ilvonys_1.title_province = {
+			if = { limit = { has_building = aawc_c_ilvonys_maintained_01 } remove_building = aawc_c_ilvonys_maintained_01 }
+			if = { limit = { has_building = aawc_c_ilvonys_ruined_01 } remove_building = aawc_c_ilvonys_ruined_01 }
+			if = { limit = { has_building = redwyrms_wrath_01 } remove_building = redwyrms_wrath_01 }
+			if = { limit = { has_building = redwyrms_wrath_02 } remove_building = redwyrms_wrath_02 }
+			if = { limit = { has_building = lokirian_barracks_01 } remove_building = lokirian_barracks_01 }
+			if = { limit = { has_building = lokirian_barracks_02 } remove_building = lokirian_barracks_02 }
+			if = { limit = { has_building = lokirian_barracks_03 } remove_building = lokirian_barracks_03 }
+			if = { limit = { has_building = valyria_volcano_01 } remove_building = valyria_volcano_01 }
+			add_special_building = aawc_c_ilvonys_ruined_01
+		}
+		aawc_apply_exact_current_county_ruin_blockers_effect = yes
+	}
+	if = {
+		limit = {
+			this = title:c_oreos
+			OR = {
+				title:b_oreos_1.title_province = { has_building = procrazion_01 }
+				title:b_oreos_1.title_province = { has_building = procrazion_02 }
+				title:b_oreos_1.title_province = { has_building = aawc_c_oreos_ruined_01 }
+				title:b_oreos_1.title_province = { has_building = aawc_c_oreos_maintained_01 }
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE VALYRIA REGION applying c_oreos package" }
+		title:b_oreos_1.title_province = {
+			if = { limit = { has_building = aawc_c_oreos_maintained_01 } remove_building = aawc_c_oreos_maintained_01 }
+			if = { limit = { has_building = aawc_c_oreos_ruined_01 } remove_building = aawc_c_oreos_ruined_01 }
+			if = { limit = { has_building = procrazion_01 } remove_building = procrazion_01 }
+			if = { limit = { has_building = procrazion_02 } remove_building = procrazion_02 }
+			add_special_building = aawc_c_oreos_ruined_01
+		}
+		title:b_oreos_2.title_province = {
+			if = { limit = { has_building = red_guard_training_compound_01 } remove_building = red_guard_training_compound_01 }
+			if = { limit = { has_building = red_guard_training_compound_02 } remove_building = red_guard_training_compound_02 }
+		}
+		title:b_oreos_3.title_province = {
+			if = { limit = { has_building = eternal_flame_temple_01 } remove_building = eternal_flame_temple_01 }
+			if = { limit = { has_building = eternal_flame_temple_02 } remove_building = eternal_flame_temple_02 }
+		}
+		title:b_oreos_4.title_province = {
+			if = { limit = { has_building = red_guard_barracks_01 } remove_building = red_guard_barracks_01 }
+			if = { limit = { has_building = red_guard_barracks_02 } remove_building = red_guard_barracks_02 }
+		}
+		aawc_apply_exact_current_county_ruin_blockers_effect = yes
+	}
+	if = {
+		limit = {
+			this = title:c_valyria
+			OR = {
+				title:b_valyria_5.title_province = { has_building = great_walls_of_valyria_01 }
+				title:b_valyria_5.title_province = { has_building = great_walls_of_valyria_02 }
+				title:b_valyria_5.title_province = { has_building = aawc_c_valyria_ruined_01 }
+				title:b_valyria_5.title_province = { has_building = aawc_c_valyria_maintained_01 }
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE VALYRIA REGION applying c_valyria package" }
+		title:b_valyria_1.title_province = {
+			if = { limit = { has_building = great_dragonkeep_of_valyria_01 } remove_building = great_dragonkeep_of_valyria_01 }
+			if = { limit = { has_building = great_dragonkeep_of_valyria_02 } remove_building = great_dragonkeep_of_valyria_02 }
+			if = { limit = { has_building = great_dragonkeep_of_valyria_03 } remove_building = great_dragonkeep_of_valyria_03 }
+			if = { limit = { has_building = great_dragonkeep_of_valyria_04 } remove_building = great_dragonkeep_of_valyria_04 }
+		}
+		title:b_valyria_2.title_province = {
+			if = { limit = { has_building = valyrian_gate_01 } remove_building = valyrian_gate_01 }
+			if = { limit = { has_building = valyrian_gate_02 } remove_building = valyrian_gate_02 }
+		}
+		title:b_valyria_3.title_province = {
+			if = { limit = { has_building = great_arena_of_valyria_01 } remove_building = great_arena_of_valyria_01 }
+			if = { limit = { has_building = great_arena_of_valyria_02 } remove_building = great_arena_of_valyria_02 }
+		}
+		title:b_valyria_4.title_province = {
+			if = { limit = { has_building = great_library_of_valyria_01 } remove_building = great_library_of_valyria_01 }
+			if = { limit = { has_building = great_library_of_valyria_02 } remove_building = great_library_of_valyria_02 }
+		}
+		title:b_valyria_5.title_province = {
+			if = { limit = { has_building = aawc_c_valyria_maintained_01 } remove_building = aawc_c_valyria_maintained_01 }
+			if = { limit = { has_building = aawc_c_valyria_ruined_01 } remove_building = aawc_c_valyria_ruined_01 }
+			if = { limit = { has_building = great_walls_of_valyria_01 } remove_building = great_walls_of_valyria_01 }
+			if = { limit = { has_building = great_walls_of_valyria_02 } remove_building = great_walls_of_valyria_02 }
+			if = { limit = { has_building = valyria_volcano_04 } remove_building = valyria_volcano_04 }
+			add_special_building = aawc_c_valyria_ruined_01
+		}
+		title:b_valyria_6.title_province = {
+			if = { limit = { has_building = great_temple_of_valyria_01 } remove_building = great_temple_of_valyria_01 }
+			if = { limit = { has_building = great_temple_of_valyria_02 } remove_building = great_temple_of_valyria_02 }
+			if = { limit = { has_building = great_temple_of_valyria_03 } remove_building = great_temple_of_valyria_03 }
+			if = { limit = { has_building = great_temple_of_valyria_04 } remove_building = great_temple_of_valyria_04 }
+		}
+		title:b_valyria_7.title_province = {
+			if = { limit = { has_building = royal_barracks_of_valyria_01 } remove_building = royal_barracks_of_valyria_01 }
+			if = { limit = { has_building = royal_barracks_of_valyria_02 } remove_building = royal_barracks_of_valyria_02 }
+		}
+		title:b_valyria_8.title_province = {
+			if = { limit = { has_building = great_harbor_of_valyria_01 } remove_building = great_harbor_of_valyria_01 }
+			if = { limit = { has_building = great_harbor_of_valyria_02 } remove_building = great_harbor_of_valyria_02 }
+			if = { limit = { has_building = great_harbor_of_valyria_03 } remove_building = great_harbor_of_valyria_03 }
+			if = { limit = { has_building = great_harbor_of_valyria_04 } remove_building = great_harbor_of_valyria_04 }
+		}
+		aawc_apply_exact_current_county_ruin_blockers_effect = yes
+	}
+	if = {
+		limit = {
+			NOR = {
+				this = title:c_kastaryia
+				this = title:c_hills_of_nolos
+				this = title:c_ilvonys
+				this = title:c_oreos
+				this = title:c_valyria
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE VALYRIA REGION no county-specific package matched current county" }
+	}
+}

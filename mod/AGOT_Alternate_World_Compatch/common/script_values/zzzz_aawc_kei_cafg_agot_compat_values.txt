@@ -1,0 +1,13 @@
+﻿# AAWC 1.9.51 Kei/CaFG AGOT compatibility shim.
+#
+# These vanilla holy-site conversion adders reference holy site IDs that are
+# not holy sites in AGOT. Override only the incompatible vanilla adders; the
+# surrounding Kei/CaFG conversion framework remains callable.
+
+V_kCAFG_faith_conversion_converting_faith_modifiers_VANILLA = {
+	value = 0
+}
+
+V_kCAFG_faith_conversion_converted_faith_modifiers_VANILLA = {
+	value = 0
+}

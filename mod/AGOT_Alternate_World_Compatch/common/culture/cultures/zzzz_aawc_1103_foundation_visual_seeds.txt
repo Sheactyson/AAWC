@@ -1,0 +1,1055 @@
+﻿# AAWC 1.10.3 foundation visual seeds. These cultures intentionally have no traditions.
+# Keep their temporary identity on Lost so AGOT heritage history cannot inject an era,
+# innovations, or traditions. Explicit graphics remain root-specific, and the finalizer
+# applies the player's selected real heritage and language after divergence.
+
+aawc_1103_seed_root_elder_races = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		ancient_races_coa_gfx
+	}
+ 	building_gfx = {
+		first_man_building_gfx
+		norse_building_gfx
+		western_building_gfx
+	}
+ 	clothing_gfx = {
+		western_clothing_gfx
+	}
+ 	unit_gfx = {
+		norse_unit_gfx
+		northern_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = mediterranean
+	}
+ 
+	name_list = name_list_wildling
+}
+
+aawc_1103_seed_root_andal = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		western_building_gfx
+	}
+ 	clothing_gfx = {
+		andal_clothing_gfx
+		western_clothing_gfx
+	}
+ 	unit_gfx = {
+		western_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		2 = essosi_andalosi_01
+		2 = essosi_andalosi_02
+		2 = essosi_andalosi_03
+		2 = essosi_andalosi_04
+		2 = essosi_andalosi_05
+		2 = essosi_andalosi_06
+		2 = essosi_andalosi_07
+		2 = essosi_andalosi_08
+		2 = essosi_andalosi_09
+		2 = essosi_andalosi_10
+		2 = essosi_andalosi_11
+		2 = essosi_andalosi_12
+		2 = essosi_andalosi_13
+		2 = essosi_andalosi_14
+		2 = essosi_andalosi_15
+		2 = essosi_andalosi_16
+		2 = essosi_andalosi_17
+		2 = essosi_andalosi_18
+		2 = essosi_andalosi_19
+		2 = essosi_andalosi_20
+		2 = essosi_andalosi_21
+		2 = essosi_andalosi_22
+		2 = essosi_andalosi_23
+		2 = essosi_andalosi_24
+		2 = essosi_andalosi_25
+		2 = essosi_andalosi_26
+		2 = essosi_andalosi_27
+		2 = essosi_andalosi_28
+		2 = essosi_andalosi_29
+		2 = essosi_andalosi_30
+		2 = essosi_andalosi_31
+		2 = essosi_andalosi_32
+		2 = essosi_andalosi_33
+		2 = essosi_andalosi_34
+		2 = essosi_andalosi_35
+		2 = essosi_andalosi_36
+		2 = essosi_andalosi_37
+		2 = essosi_andalosi_38
+		2 = essosi_andalosi_39
+		2 = essosi_andalosi_40
+		2 = essosi_andalosi_41
+		2 = essosi_andalosi_42
+		2 = essosi_andalosi_43
+		2 = essosi_andalosi_44
+		2 = essosi_andalosi_45
+		2 = essosi_andalosi_46
+		2 = essosi_andalosi_47
+		2 = essosi_andalosi_48
+		2 = essosi_andalosi_49
+		2 = essosi_andalosi_50
+	}
+ 
+	name_list = name_list_andal
+}
+
+aawc_1103_seed_root_first_man = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		wildling_coa_gfx
+		first_man_coa_gfx
+	}
+ 	building_gfx = {
+		first_man_building_gfx
+		norse_building_gfx
+		western_building_gfx
+	}
+ 	clothing_gfx = {
+		first_man_clothing_gfx
+		northern_clothing_gfx
+	}
+ 	unit_gfx = {
+		norse_unit_gfx
+		northern_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = Northmen_1
+		10 = Northmen_2
+		10 = Northmen_3
+		10 = Northmen_4
+		10 = Northmen_5
+		10 = Northmen_6
+		10 = Northmen_7
+		10 = Northmen_8
+		10 = Northmen_9
+		10 = Northmen_10
+		10 = Northmen_11
+		10 = Northmen_12
+		10 = Northmen_13
+		10 = Northmen_14
+		10 = Northmen_15
+		10 = Northmen_16
+		10 = Northmen_17
+		10 = Northmen_18
+		10 = Northmen_19
+		10 = Northmen_20
+		10 = Northmen_21
+	}
+ 	name_list = name_list_first_man
+}
+
+aawc_1103_seed_root_freecities = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		valyrian_coa_gfx
+	}
+ 	building_gfx = {
+		braavosi_building_gfx
+		mediterranean_building_gfx
+	}
+ 	clothing_gfx = {
+		braavosi_clothing_gfx
+		narrow_sea_clothing_gfx
+		valyrian_clothing_gfx
+		western_clothing_gfx
+	}
+ 	unit_gfx = {
+		braavosi_unit_gfx
+		iberian_christian_unit_gfx
+		western_unit_gfx
+	}
+ 	house_coa_frame = house_frame_val1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		2 = essosi_pentoshi_01
+		2 = essosi_pentoshi_02
+		2 = essosi_pentoshi_03
+		2 = essosi_pentoshi_04
+		2 = essosi_pentoshi_05
+		2 = essosi_pentoshi_06
+		2 = essosi_pentoshi_07
+		2 = essosi_pentoshi_08
+		2 = essosi_pentoshi_09
+		2 = essosi_pentoshi_10
+		2 = essosi_pentoshi_11
+		2 = essosi_pentoshi_12
+		2 = essosi_pentoshi_13
+		2 = essosi_pentoshi_14
+		2 = essosi_pentoshi_15
+		2 = essosi_pentoshi_16
+		2 = essosi_pentoshi_17
+		2 = essosi_pentoshi_18
+		2 = essosi_pentoshi_19
+		2 = essosi_pentoshi_20
+		2 = essosi_pentoshi_21
+		2 = essosi_pentoshi_22
+		2 = essosi_pentoshi_23
+		2 = essosi_pentoshi_24
+		2 = essosi_pentoshi_25
+		2 = essosi_pentoshi_26
+		2 = essosi_pentoshi_27
+		2 = essosi_pentoshi_28
+		2 = essosi_pentoshi_29
+		2 = essosi_pentoshi_30
+		2 = essosi_pentoshi_31
+		2 = essosi_pentoshi_32
+		2 = essosi_pentoshi_33
+		2 = essosi_pentoshi_34
+		2 = essosi_pentoshi_35
+		2 = essosi_pentoshi_36
+		2 = essosi_pentoshi_37
+		2 = essosi_pentoshi_38
+		2 = essosi_pentoshi_39
+		2 = essosi_pentoshi_40
+		2 = essosi_pentoshi_41
+		2 = essosi_pentoshi_42
+		2 = essosi_pentoshi_43
+		2 = essosi_pentoshi_44
+		2 = essosi_pentoshi_45
+		2 = essosi_pentoshi_46
+		2 = essosi_pentoshi_47
+		2 = essosi_pentoshi_48
+		2 = essosi_pentoshi_49
+		2 = essosi_pentoshi_50
+		2 = essosi_andalosi_01
+		2 = essosi_andalosi_02
+		2 = essosi_andalosi_03
+		2 = essosi_andalosi_04
+		2 = essosi_andalosi_05
+		2 = essosi_andalosi_06
+		2 = essosi_andalosi_07
+		2 = essosi_andalosi_08
+		2 = essosi_andalosi_09
+		2 = essosi_andalosi_10
+		2 = essosi_andalosi_11
+		2 = essosi_andalosi_12
+		2 = essosi_andalosi_13
+		2 = essosi_andalosi_14
+		2 = essosi_andalosi_15
+		2 = essosi_andalosi_16
+		2 = essosi_andalosi_17
+		2 = essosi_andalosi_18
+		2 = essosi_andalosi_19
+		2 = essosi_andalosi_20
+		2 = essosi_andalosi_21
+		2 = essosi_andalosi_22
+		2 = essosi_andalosi_23
+		2 = essosi_andalosi_24
+		2 = essosi_andalosi_25
+		2 = essosi_andalosi_26
+		2 = essosi_andalosi_27
+		2 = essosi_andalosi_28
+		2 = essosi_andalosi_29
+		2 = essosi_andalosi_30
+		2 = essosi_andalosi_31
+		2 = essosi_andalosi_32
+		2 = essosi_andalosi_33
+		2 = essosi_andalosi_34
+		2 = essosi_andalosi_35
+		2 = essosi_andalosi_36
+		2 = essosi_andalosi_37
+		2 = essosi_andalosi_38
+		2 = essosi_andalosi_39
+		2 = essosi_andalosi_40
+		2 = essosi_andalosi_41
+		2 = essosi_andalosi_42
+		2 = essosi_andalosi_43
+		2 = essosi_andalosi_44
+		2 = essosi_andalosi_45
+		2 = essosi_andalosi_46
+		2 = essosi_andalosi_47
+		2 = essosi_andalosi_48
+		2 = essosi_andalosi_49
+		2 = essosi_andalosi_50
+	}
+ 
+	name_list = name_list_braavosi
+}
+
+aawc_1103_seed_root_ghiscari = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		ghiscari_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		ghis_building_gfx
+		mena_building_gfx
+	}
+ 	clothing_gfx = {
+		ghiscari_clothing_gfx
+		iranian_clothing_gfx
+		mena_clothing_gfx
+	}
+ 	unit_gfx = {
+		indian_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = arab
+		6 = east_african
+	}
+ 
+	name_list = name_list_ghiscari
+}
+
+aawc_1103_seed_root_grasslands = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_herd
+ 
+	coa_gfx = {
+		dothraki_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		dothraki_building_gfx
+		steppe_building_gfx
+	}
+ 	clothing_gfx = {
+		dothraki_clothing_gfx
+		mongol_clothing_gfx
+	}
+ 	unit_gfx = {
+		dothraki_unit_gfx
+		mongol_unit_gfx
+	}
+ 	house_coa_frame = house_frame_round2
+ 	house_coa_mask_offset = { 0.0 -0.03 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = turkic
+	}
+ 
+	name_list = name_list_dothraki
+}
+
+aawc_1103_seed_root_hairyman = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		ibbenese_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		norse_building_gfx
+		western_building_gfx
+	}
+ 	clothing_gfx = {
+		ibbenese_clothing_gfx
+		ugro_permian_clothing_gfx 
+		northern_clothing_gfx
+	}
+ 	unit_gfx = {
+		northern_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		1 = essosi_ibbenese_01
+	}
+ 
+	name_list = name_list_ibbenese
+}
+
+aawc_1103_seed_root_hyrkoonan = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		hyrkoon_building_gfx
+		indian_building_gfx
+	}
+ 	clothing_gfx = {
+		mongol_clothing_gfx
+	}
+ 	unit_gfx = {
+		hyrkoon_unit_gfx
+		indian_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = indian
+		10 = asian_tibetan
+	}
+ 
+	name_list = name_list_hyrkoon
+}
+
+aawc_1103_seed_root_ironborn = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		ironborn_coa_gfx
+	}
+ 	building_gfx = {
+		ironmen_building_gfx
+		norse_building_gfx
+		western_building_gfx
+	}
+ 	clothing_gfx = {
+		ironborn_clothing_gfx
+		fp1_norse_clothing_gfx
+		northern_clothing_gfx
+	}
+ 	unit_gfx = {
+		ironborn_unit_gfx
+		norse_unit_gfx
+		northern_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = caucasian
+	}
+ 
+	name_list = name_list_ironborn
+}
+
+aawc_1103_seed_root_jadeislands = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		japanese_building_gfx
+	}
+ 	clothing_gfx = {
+		japanese_clothing_gfx
+	}
+ 	unit_gfx = {
+		japanese_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = asian_malay
+	}
+ 
+	name_list = name_list_placeholder_culture
+}
+
+aawc_1103_seed_root_mennight = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		yitish_building_gfx
+		chinese_building_gfx
+	}
+ 	clothing_gfx = { # DOE Placeholder
+		mongol_clothing_gfx
+	}
+ 	unit_gfx = {
+		mongol_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = { # DOE Placeholder
+		10 = asian_manchu_korean
+	}
+ 
+	name_list = name_list_placeholder_culture
+}
+
+aawc_1103_seed_root_moraqi = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		indian_building_gfx
+	}
+ 	clothing_gfx = {
+		indian_clothing_gfx
+	}
+ 	unit_gfx = {
+		indian_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = south_indian
+	}
+ 
+	name_list = name_list_placeholder_culture
+}
+
+aawc_1103_seed_root_nghai = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_herd
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		yitish_building_gfx
+		chinese_building_gfx
+	}
+ 	clothing_gfx = { # DOE Placeholder
+		mongol_clothing_gfx
+	}
+ 	unit_gfx = {
+		mongol_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = asian_mongol
+	}
+ 
+	name_list = name_list_jogos
+}
+
+aawc_1103_seed_root_qaathi = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		qartheen_building_gfx
+		indian_building_gfx
+	}
+ 	clothing_gfx = { # DOE Placeholder
+		iranian_clothing_gfx
+		mena_clothing_gfx
+	}
+ 	unit_gfx = {
+		iberian_muslim_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = { # DOE Placeholder
+		8 = arab
+		5 = mediterranean
+		5 = turkic_west
+	}
+ 
+	name_list = name_list_placeholder_culture
+}
+
+aawc_1103_seed_root_rhoynar = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		dornish_coa_gfx
+	}
+ 	building_gfx = {
+		dornish_building_gfx
+		mena_building_gfx
+	}
+ 	clothing_gfx = {
+		salt_dornish_clothing_gfx
+		mena_clothing_gfx
+		rhoynish_clothing_gfx
+	}
+ 	unit_gfx = {
+		dornish_unit_gfx
+		mena_unit_gfx
+	}
+ 	house_coa_frame = house_frame_round1
+ 	house_coa_mask_offset = { 0.0 -0.03 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = Salt_Dornish_1
+		10 = Salt_Dornish_2
+		10 = Salt_Dornish_3
+		10 = Salt_Dornish_4
+		10 = Salt_Dornish_5
+		10 = Salt_Dornish_6
+		10 = Salt_Dornish_7
+		10 = Salt_Dornish_8
+		10 = Salt_Dornish_9
+		10 = Salt_Dornish_10
+		10 = Salt_Dornish_11
+		10 = Salt_Dornish_12
+		10 = Salt_Dornish_13
+		10 = Salt_Dornish_14
+		10 = Salt_Dornish_15
+	}
+ 
+	name_list = name_list_salt_dornish
+}
+
+aawc_1103_seed_root_sarnori = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		sarnori_building_gfx
+		indian_building_gfx
+	}
+ 	clothing_gfx = { # DOE Placeholder
+		sarnori_clothing_gfx
+		iranian_clothing_gfx
+		mena_clothing_gfx
+	}
+ 	unit_gfx = {
+		iranian_unit_gfx
+		mena_unit_gfx
+	}
+ 	house_coa_frame = house_frame_oval1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 	
+	ethnicities = {
+		8 = arab
+		5 = mediterranean
+		5 = turkic_west
+	}
+ 
+	name_list = name_list_placeholder_culture
+}
+
+aawc_1103_seed_root_shadowlanders = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		yitish_building_gfx
+		chinese_building_gfx
+	}
+ 	clothing_gfx = { # DOE Placeholder
+		sarnori_clothing_gfx
+		iranian_clothing_gfx
+		mena_clothing_gfx
+	}
+ 	unit_gfx = {
+		iranian_unit_gfx
+		mena_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = asian_malay
+	}
+ 
+	name_list = name_list_placeholder_culture
+}
+
+aawc_1103_seed_root_sothoryi = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		summer_islander_building_gfx
+		southeast_asian_building_gfx
+	}
+ 	clothing_gfx = { # DOE Placeholder
+		sarnori_clothing_gfx
+		iranian_clothing_gfx
+		mena_clothing_gfx
+	}
+ 	unit_gfx = {
+		indian_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = african
+	}
+ 
+	name_list = name_list_sothoryi
+}
+
+aawc_1103_seed_root_summer = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		summer_islander_coa_gfx
+	}
+ 	building_gfx = {
+		summer_islander_building_gfx
+		southeast_asian_building_gfx
+	}
+ 	clothing_gfx = {
+		summer_islander_clothing_gfx
+		malay_clothing_gfx 
+		southeast_asian_clothing_gfx
+		african_clothing_gfx
+	}
+ 	unit_gfx = {
+		southeast_asian_unit_gfx
+		indian_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = { 
+		1 = summer_islander_jhalani_01
+		1 = summer_islander_jhalani_02
+		1 = summer_islander_jhalani_03
+		1 = summer_islander_jhalani_04
+		1 = summer_islander_jhalani_05
+		1 = summer_islander_jhalani_06
+		1 = summer_islander_jhalani_07
+		1 = summer_islander_jhalani_08
+		1 = summer_islander_jhalani_09
+		1 = summer_islander_jhalani_10
+		1 = summer_islander_jhalani_11
+		1 = summer_islander_jhalani_12
+		1 = summer_islander_jhalani_13
+		1 = summer_islander_jhalani_14
+		1 = summer_islander_jhalani_05
+		1 = summer_islander_jhalani_16
+		1 = summer_islander_jhalani_17
+		1 = summer_islander_jhalani_18
+		1 = summer_islander_jhalani_19
+		1 = summer_islander_jhalani_20
+		1 = summer_islander_jhalani_21
+		1 = summer_islander_jhalani_22
+		1 = summer_islander_jhalani_23
+		1 = summer_islander_jhalani_24
+		1 = summer_islander_jhalani_25
+		1 = summer_islander_jhalani_26
+		1 = summer_islander_jhalani_27
+		1 = summer_islander_jhalani_28
+		1 = summer_islander_jhalani_29
+		1 = summer_islander_jhalani_30
+		1 = summer_islander_jhalani_31
+		1 = summer_islander_jhalani_32
+		1 = summer_islander_jhalani_33
+		1 = summer_islander_jhalani_34
+		1 = summer_islander_jhalani_35
+		1 = summer_islander_jhalani_36
+		1 = summer_islander_jhalani_37
+		1 = summer_islander_jhalani_38
+		1 = summer_islander_jhalani_39
+		1 = summer_islander_jhalani_40
+		1 = summer_islander_jhalani_41
+		1 = summer_islander_jhalani_42
+		1 = summer_islander_jhalani_43
+		1 = summer_islander_jhalani_44
+		1 = summer_islander_jhalani_45
+		1 = summer_islander_jhalani_46
+		1 = summer_islander_jhalani_47
+		1 = summer_islander_jhalani_48
+		1 = summer_islander_jhalani_49
+		1 = summer_islander_jhalani_50
+	}
+ 
+	name_list = name_list_jhalan
+}
+
+aawc_1103_seed_root_valyrian = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_male_only
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		valyrian_coa_gfx
+	}
+ 	building_gfx = {
+		high_valyrian_building_gfx
+		mediterranean_building_gfx
+	}
+ 	clothing_gfx = {
+		high_valyrian_clothing_gfx
+		valyrian_clothing_gfx
+		western_clothing_gfx
+	}
+ 	unit_gfx = {
+		high_valyrian_unit_gfx
+		eastern_unit_gfx
+	}
+ 	house_coa_frame = house_frame_val1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		10 = high_valyrian_ethnicity_01
+		10 = high_valyrian_ethnicity_02
+		10 = high_valyrian_ethnicity_03
+		10 = high_valyrian_ethnicity_04
+		10 = high_valyrian_ethnicity_05
+		10 = high_valyrian_ethnicity_06
+		10 = high_valyrian_ethnicity_07
+		10 = high_valyrian_ethnicity_08
+		10 = high_valyrian_ethnicity_09
+		10 = high_valyrian_ethnicity_10
+		10 = high_valyrian_ethnicity_11
+		10 = high_valyrian_ethnicity_12
+		10 = high_valyrian_ethnicity_13
+		10 = high_valyrian_ethnicity_14
+		10 = high_valyrian_ethnicity_15
+		10 = high_valyrian_ethnicity_16
+		10 = high_valyrian_ethnicity_17
+		10 = high_valyrian_ethnicity_18
+		10 = high_valyrian_ethnicity_19
+		10 = high_valyrian_ethnicity_20
+		10 = high_valyrian_ethnicity_21
+		10 = high_valyrian_ethnicity_22
+	}
+ 
+	name_list = name_list_high_valyrian
+}
+
+aawc_1103_seed_root_wildling = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = {
+		wildling_coa_gfx
+		first_man_coa_gfx
+	}
+ 	building_gfx = {
+		wildling_building_gfx
+		norse_building_gfx
+		western_building_gfx
+	}
+ 	clothing_gfx = {
+		wildling_clothing_gfx
+		fp1_norse_clothing_gfx
+		west_slavic_clothing_gfx
+		northern_clothing_gfx
+		first_man_clothing_gfx
+	}
+ 	unit_gfx = {
+		wildling_unit_gfx
+		norse_unit_gfx
+		northern_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = {
+		2 = free_folk_thenn_01
+		2 = free_folk_thenn_02
+		2 = free_folk_thenn_03
+		2 = free_folk_thenn_04
+		2 = free_folk_thenn_05
+		2 = free_folk_thenn_06
+		2 = free_folk_thenn_07
+		2 = free_folk_thenn_08
+		2 = free_folk_thenn_09
+		2 = free_folk_thenn_10
+		2 = free_folk_thenn_11
+		2 = free_folk_thenn_12
+		2 = free_folk_thenn_13
+		2 = free_folk_thenn_14
+		2 = free_folk_thenn_15
+		2 = free_folk_thenn_16
+		2 = free_folk_thenn_17
+		2 = free_folk_thenn_18
+		2 = free_folk_thenn_19
+		2 = free_folk_thenn_20
+		2 = free_folk_thenn_21
+		2 = free_folk_thenn_22
+		2 = free_folk_thenn_23
+		2 = free_folk_thenn_24
+		2 = free_folk_thenn_25
+		2 = free_folk_thenn_26
+		2 = free_folk_thenn_27
+		2 = free_folk_thenn_28
+		2 = free_folk_thenn_29
+		2 = free_folk_thenn_30
+	}
+ 
+	name_list = name_list_wildling
+}
+
+aawc_1103_seed_root_yitish = {
+ color = { 0.20 0.20 0.20 }
+ ethos = ethos_spiritual
+ 	heritage = heritage_aawc_lost
+ 	language = language_agot_valyrian
+ 	martial_custom = martial_custom_equal
+ 	head_determination = head_determination_domain
+ 
+	coa_gfx = { # DOE Placeholder
+		sarnori_coa_gfx
+		andal_coa_gfx
+	}
+ 	building_gfx = {
+		yitish_building_gfx
+		chinese_building_gfx
+	}
+ 	clothing_gfx = { # DOE Placeholder
+		chinese_clothing_gfx
+	}
+ 	unit_gfx = {
+		chinese_unit_gfx
+	}
+ 	house_coa_frame = house_frame_andal1
+ 	house_coa_mask_offset = { 0.0 0.0 }
+ 	house_coa_mask_scale = { 0.79500034 0.79500034 }
+ 
+	ethnicities = { # DOE Placeholder
+		10 = asian_han_chinese
+	}
+ 
+	name_list = name_list_yiti
+}

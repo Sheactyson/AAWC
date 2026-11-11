@@ -1,0 +1,245 @@
+﻿################ b_ghoyan_drohe #################
+#### c_ghoyan_drohe - d_ghoyan_drohe ####
+
+################ b_ghumul #################
+#### c_ghoyan_drohe - d_ghoyan_drohe ####
+
+################ b_dipyl #################
+#### c_ghoyan_drohe - d_ghoyan_drohe ####
+
+################ b_nounlos #################
+#### c_ghoyan_drohe - d_ghoyan_drohe ####
+
+################ b_bupalos #################
+#### c_ghoyan_drohe - d_ghoyan_drohe ####
+
+################ b_hymlia_sar #################
+#### c_ghoyan_drohe - d_ghoyan_drohe ####
+
+################ b_rhake #################
+#### c_ghoyan_drohe - d_ghoyan_drohe ####
+
+################ b_rhusos #################
+#### c_rhusos - d_ghoyan_drohe ####
+
+################ b_wunmydou #################
+#### c_rhusos - d_ghoyan_drohe ####
+
+################ b_woulsenym ################
+#### c_rhusos - d_ghoyan_drohe ####
+
+################ b_rheabeal ################
+#### c_rhusos - d_ghoyan_drohe ####
+
+################ b_olrun ################
+#### c_rhusos - d_ghoyan_drohe ####
+
+################ b_gheliam ################
+#### c_rhusos - d_ghoyan_drohe ####
+
+################ b_llounkum ################
+#### c_llounkum - d_ghoyan_drohe ####
+
+################ b_nandanlia ################
+#### c_llounkum - d_ghoyan_drohe ####
+
+################ b_dalriam ################
+#### c_llounkum - d_ghoyan_drohe ####
+
+################ b_lytorhou ################
+#### c_llounkum - d_ghoyan_drohe ####
+
+################ b_ullou ################
+#### c_llounkum - d_ghoyan_drohe ####
+
+################ b_limris ################
+#### c_llounkum - d_ghoyan_drohe ####
+
+################ b_lol_sar ################
+#### c_lol_sar - d_fair_spine ####
+
+################ b_rheassyl ################
+#### c_lol_sar - d_fair_spine ####
+
+################ b_deadi ################
+#### c_lol_sar - d_fair_spine ####
+
+################ b_hylhyna ################
+#### c_lol_sar - d_fair_spine ####
+
+################ b_raywi ################
+#### c_lol_sar - d_fair_spine ####
+
+################ b_bohehan ################
+#### c_lol_sar - d_fair_spine ####
+
+################ b_rhiwys ################
+#### c_lol_sar - d_fair_spine ####
+
+################ b_bysy_mal ################
+#### c_bysy_mal - d_fair_spine ####
+
+################ b_lilpel ################
+#### c_bysy_mal - d_fair_spine ####
+
+################ b_ghiamil ################
+#### c_bysy_mal - d_fair_spine ####
+
+################ b_esmous ################
+#### c_bysy_mal - d_fair_spine ####
+
+################ b_lialmea ################
+#### c_bysy_mal - d_fair_spine ####
+
+################ b_nyhianrhil ################
+#### c_bysy_mal - d_fair_spine ####
+
+################ b_mous_aesly ################
+#### c_mous_aesly - d_fair_spine ####
+
+################ b_ghessea ################
+#### c_mous_aesly - d_fair_spine ####
+
+################ b_ewyl ################
+#### c_mous_aesly - d_fair_spine ####
+
+################ b_yweanus ################
+#### c_mous_aesly - d_fair_spine ####
+
+################ b_alnomos ################
+#### c_mous_aesly - d_fair_spine ####
+
+################ b_nearhia ################
+#### c_mous_aesly - d_fair_spine ####
+
+################ b_nuleanta ################
+#### c_nuleanta - d_fair_spine ####
+
+################ b_reagoun ################
+#### c_nuleanta - d_fair_spine ####
+
+################ b_rhelleam ################
+#### c_nuleanta - d_fair_spine ####
+
+################ b_rhimloumtas ################
+#### c_nuleanta - d_fair_spine ####
+
+################ b_gamia_noias ################
+#### c_gamia_noias - d_gamia_noias ####
+
+################ b_rhil ################
+#### c_gamia_noias - d_gamia_noias ####
+
+################ b_ghotsuwe ################
+#### c_gamia_noias - d_gamia_noias ####
+
+################ b_mysoy ################
+#### c_gamia_noias - d_gamia_noias ####
+
+################ b_olsy_mal ################
+#### c_gamia_noias - d_gamia_noias ####
+
+################ b_tosnoul ################
+#### c_gamia_noias - d_gamia_noias ####
+
+################ b_ditalea ################
+#### c_gamia_noias - d_gamia_noias ####
+
+################ b_duspasmus ################
+#### c_gamia_noias - d_gamia_noias ####
+
+################ b_panliam ################
+#### c_panliam - d_gamia_noias ####
+
+################ b_rehalia ################
+#### c_panliam - d_gamia_noias ####
+
+################ b_beasom ################
+#### c_panliam - d_gamia_noias ####
+
+################ b_murou ################
+#### c_panliam - d_gamia_noias ####
+
+################ b_llousrol ################
+#### c_panliam - d_gamia_noias ####
+
+################ b_lonoywou ################
+#### c_panliam - d_gamia_noias ####
+
+################ b_dhiro_bis ################
+### c_dhiro_bis - d_gamia_noias ####
+
+################ b_iluel_mem ################
+### c_dhiro_bis - d_gamia_noias ####
+
+################ b_ulea ################
+### c_dhiro_bis - d_gamia_noias ####
+
+################ b_wynholmea ################
+### c_dhiro_bis - d_gamia_noias ####
+
+################ b_hiholdos ################
+### c_dhiro_bis - d_gamia_noias ####
+
+################ b_rompu_sar ################
+### c_rompu_sar - d_gamia_noias ####
+
+################ b_rhiweal ################
+### c_rompu_sar - d_gamia_noias ####
+
+################ b_lhialhin ################
+### c_rompu_sar - d_gamia_noias ####
+
+################ b_rengammos ################
+### c_rompu_sar - d_gamia_noias ####
+
+################ b_bolludo_sar ################
+### c_bolludo_sar - d_the_grommet ####
+
+################ b_maishu ################
+### c_bolludo_sar - d_the_grommet ####
+
+################ b_angylly ################
+### c_bolludo_sar - d_the_grommet ####
+
+################ b_hiamlom ################
+### c_bolludo_sar - d_the_grommet ####
+
+################ b_rhyllea ################
+### c_bolludo_sar - d_the_grommet ####
+
+################ b_gonronia ################
+### c_bolludo_sar - d_the_grommet ####
+
+################ b_bemouslu ################
+### c_bolludo_sar - d_the_grommet ####
+
+################ b_lyn_mal ################
+### c_bolludo_sar - d_the_grommet ####
+
+################ b_hipoymian ################
+### c_hipoymian - d_the_grommet ####
+
+################ b_aonim ################
+### c_hipoymian - d_the_grommet ####
+
+################ b_rhialko ################
+### c_hipoymian - d_the_grommet ####
+
+################ b_ulrhi_mal ################
+### c_hipoymian - d_the_grommet ####
+
+################ b_kosdhoy ################
+### c_hipoymian - d_the_grommet ####
+
+################ b_deallarous ################
+### c_deallarous - d_the_grommet ####
+
+################ b_rinlamsy ################
+### c_deallarous - d_the_grommet ####
+
+################ b_walle ################
+### c_deallarous - d_the_grommet ####
+
+################ b_buleldeanos ################
+### c_deallarous - d_the_grommet ####

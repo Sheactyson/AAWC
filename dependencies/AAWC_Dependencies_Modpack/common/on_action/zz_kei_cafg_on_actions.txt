@@ -1,0 +1,17 @@
+﻿on_game_start_after_lobby = {
+    on_actions = {
+        on_kCAFG_start_late
+    }
+}
+
+on_kCAFG_start_late = {
+    effect = {
+		debug_log = "Kei CAFG - On Action - Late Start"
+
+        E_kCAFG_setup_all_counties = yes
+        trigger_event = kCAFG_monthly_global_events.0001
+        trigger_event = { on_action = kCAFG_on_counties_setup_finished }
+    }
+}
+
+kCAFG_on_counties_setup_finished = {}

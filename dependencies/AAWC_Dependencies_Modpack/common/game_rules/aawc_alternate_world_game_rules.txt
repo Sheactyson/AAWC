@@ -1,0 +1,107 @@
+﻿#Alternate World
+aawc_alt_world = { 
+	categories = { aawc_rules game_modes }
+	default = aawc_alt_world_enabled
+	aawc_alt_world_disabled = { 
+	}
+	aawc_alt_world_enabled = {
+	}
+}
+
+aawc_aw_random_rulers = {
+	categories = { aawc_rules game_modes }
+	default = aawc_aw_no_random_rulers
+	aawc_aw_no_random_rulers = {
+	}
+	aawc_aw_yes_random_rulers = {
+		#
+	}
+}
+
+aawc_aw_shattered_realms = {
+	categories = { aawc_rules game_modes titles }
+	# AAWC's three world modes all require the counties foundation. The
+	# runtime dispatcher also enforces this against saved/custom presets.
+	default = aawc_aw_count_shattered_realms
+
+	aawc_aw_no_shattered_realms = { }
+	aawc_aw_count_shattered_realms = {  }
+	aawc_aw_duke_shattered_realms = {  }
+	aawc_aw_king_shattered_realms = {  }
+	aawc_aw_emperor_shattered_realms = {  }
+}
+
+aawc_aw_shattered_realms_landless = {
+	categories = { aawc_rules game_modes titles }
+	default = aawc_aw_disabled_shattered_realms_landless
+
+	aawc_aw_disabled_shattered_realms_landless = { }
+	aawc_aw_enabled_shattered_realms_landless = {  }
+}
+
+aawc_aw_holdings = {
+	categories = { aawc_rules game_modes titles }
+	# AAWC's three world modes all require tribal holdings. The runtime
+	# dispatcher also enforces this against saved/custom presets.
+	default = aawc_aw_tribal_holdings
+	aawc_aw_default_holdings = { }
+	aawc_aw_nomad_holdings = { }
+	aawc_aw_tribal_holdings = { }
+	aawc_aw_feudal_holdings = { }
+	aawc_aw_random_ft_holdings = { }
+	aawc_aw_random_holdings = { }
+}
+
+aawc_aw_baronies = {
+	categories = { aawc_rules game_modes titles }
+	default = aawc_aw_baronies_default
+	aawc_aw_baronies_default = { }
+	aawc_aw_baronies_none = { }
+}
+
+aawc_aw_cultures = {
+	categories = { aawc_rules game_modes culture }
+	default = aawc_aw_cultures_historical
+	aawc_aw_cultures_historical = {
+	}
+	aawc_aw_cultures_random_historical = {
+		
+	}
+	aawc_aw_cultures_chaotic_historical = {
+		
+	}
+}
+
+aawc_aw_faiths = {
+	categories = { aawc_rules game_modes faith }
+	default = aawc_aw_faiths_historical
+	aawc_aw_faiths_historical = {
+	}
+	aawc_aw_faiths_random_historical = {
+		
+	}
+	aawc_aw_faiths_chaotic_historical = {
+		
+	}
+}
+
+aawc_aw_dejure = {
+	categories = { aawc_rules game_modes titles }
+	default = aawc_aw_dejure_default
+	aawc_aw_dejure_default = { }
+	aawc_aw_dejure_random_duchy = {  }
+}
+
+aawc_aw_development = {
+	categories = { aawc_rules game_modes titles }
+	default = aawc_aw_development_default
+	aawc_aw_development_default = { }
+	aawc_aw_development_random_25 = { }
+	aawc_aw_development_random_50 = { }
+	aawc_aw_development_random_100 = { }
+	aawc_aw_development_0 = { }
+	aawc_aw_development_25 = { }
+	aawc_aw_development_50 = { }
+	aawc_aw_development_100 = { }
+}
+

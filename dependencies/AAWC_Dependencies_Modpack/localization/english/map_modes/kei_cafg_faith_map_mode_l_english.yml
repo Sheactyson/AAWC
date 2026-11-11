@@ -1,0 +1,14 @@
+﻿l_english:
+kCAFG_FAITH_MAP_MODE_TOOLTIP_FALLBACK: "[ROOT.Province.GetName]"
+kCAFG_FAITH_MAP_MODE_TOOLTIP_PERCENTAGE: "Percentage of $kCAFG_FAITH_MAP_MODE_TOOLTIP_adherents$: $kCAFG_FAITH_MAP_MODE_TOOLTIP_factor_percent$"
+kCAFG_FAITH_MAP_MODE_TOOLTIP_FULL: "$kCAFG_FAITH_MAP_MODE_TOOLTIP_amount$ $kCAFG_FAITH_MAP_MODE_TOOLTIP_adherents$ ($kCAFG_FAITH_MAP_MODE_TOOLTIP_factor_percent$)"
+kCAFG_FAITH_MAP_MODE_TOOLTIP_NONE: "No $kCAFG_FAITH_MAP_MODE_TOOLTIP_adherents$"
+kCAFG_FAITH_MAP_MODE_TOOLTIP_adherents: "[GetPlayer.MakeScope.Var('kCAFG_UI_faith_map_mode_viewed_faith').Faith.GetAdherentNamePluralNoTooltip|e] in [ROOT.Province.GetName]"
+kCAFG_FAITH_MAP_MODE_TOOLTIP_factor_percent: "[GuiScope.SetRoot(ROOT.Province.MakeScope).AddScope('kCAFG_faith', GetPlayer.MakeScope.Var('kCAFG_UI_faith_map_mode_viewed_faith').Faith.MakeScope).ScriptValue('V_kCAFG_province_faith_factor_rounded')|%v0]"
+kCAFG_FAITH_MAP_MODE_TOOLTIP_amount: "[GuiScope.SetRoot(ROOT.Province.MakeScope).AddScope('kCAFG_faith', GetPlayer.MakeScope.Var('kCAFG_UI_faith_map_mode_viewed_faith').Faith.MakeScope).ScriptValue('V_kCAFG_province_faith_amount_rounded')|v0]"
+
+kCAFG_faith_map_mode_header: "Showing [faith|e]: [GetPlayer.MakeScope.Var('kCAFG_UI_faith_map_mode_viewed_faith').Faith.GetName]"
+
+kCAFG_faith_tension_show_map_mode_tt: "#T Show [faith_tension|e] Map Mode#!"
+kCAFG_FAITH_TENSION_MAP_MODE_TOOLTIP: "[faith_tension|e] in [ROOT.Province.GetName]: [ROOT.Province.MakeScope.Var('kCAFG_faith_tension').GetValue|v0%]\n[Concept('faith_tension_baseline', 'Baseline')|E]: [ROOT.Province.MakeScope.Var('kCAFG_target_faith_tension').GetValue|v0%]"
+kCAFG_faith_tension_map_mode_header: "Showing [faith_tension|e]"

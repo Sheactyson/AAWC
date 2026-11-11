@@ -1,0 +1,26 @@
+﻿kCAFG_accept_court_chaplain_conversion_suggestions_again = {
+	category = interaction_category_vassal
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	interface_priority = 50
+	icon = council
+
+	is_shown = {
+        scope:actor = { has_variable = kCAFG_ignore_court_chaplain_conversion_suggestions }
+		scope:recipient = {
+            is_councillor_of = scope:actor
+            is_performing_council_task = task_conversion
+        }
+	}
+
+	on_accept = {
+        custom_tooltip = kCAFG_accept_court_chaplain_conversion_suggestions_again_effect
+        hidden_effect = { scope:actor = { remove_variable = kCAFG_ignore_court_chaplain_conversion_suggestions } }
+	}
+
+	ai_accept = {
+		base = 100
+	}
+	
+	auto_accept = yes
+}

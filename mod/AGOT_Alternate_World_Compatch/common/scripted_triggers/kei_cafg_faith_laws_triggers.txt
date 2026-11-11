@@ -1,0 +1,253 @@
+﻿# Scope : character
+T_kCAFG_vassal_is_allowed_to_change_faith_tolerance_laws = {
+	NOT = { any_liege_or_above = { T_kCAFG_overrides_faith_tolerance_law = yes } }
+}
+
+T_kCAFG_has_any_realm_faith_intolerant_law = {
+	OR = {
+		has_realm_law = kCAFG_faith_intolerant_law
+		has_realm_law = kCAFG_faith_intolerant_law_fundamentalist
+		has_realm_law = kCAFG_faith_intolerant_law_pluralistic
+	}
+}
+
+T_kCAFG_has_any_realm_faith_indifferent_law = {
+	OR = {
+		has_realm_law = kCAFG_faith_indifferent_law
+		has_realm_law = kCAFG_faith_indifferent_law_fundamentalist
+		has_realm_law = kCAFG_faith_indifferent_law_pluralistic
+	}
+}
+
+T_kCAFG_has_any_realm_faith_tolerant_law = {
+	OR = {
+		has_realm_law = kCAFG_faith_tolerant_law
+		has_realm_law = kCAFG_faith_tolerant_law_fundamentalist
+		has_realm_law = kCAFG_faith_tolerant_law_pluralistic
+	}
+}
+
+# Scope : character
+T_kCAFG_should_start_with_intolerant_faith_law = {
+	always = no
+}
+
+# Scope : character
+T_kCAFG_should_start_with_tolerant_faith_law = {
+	always = no
+}
+
+T_kCAFG_can_title_have_faith_tolerance_law = {
+    NOT = { has_game_rule = kCAFG_tolerance_laws_off }
+    tier >= tier_county
+	NOT = { is_temporal_head_of_faith_trigger = yes }
+	exists = holder
+	holder = { government_has_flag = government_is_settled }
+}
+
+T_kCAFG_can_have_faith_tolerance_law = {
+    NOT = { has_game_rule = kCAFG_tolerance_laws_off }
+    primary_title.tier >= tier_county
+	government_has_flag = government_is_settled
+    NOT = { primary_title = { is_temporal_head_of_faith_trigger = yes } }
+}
+
+T_kCAFG_overrides_faith_tolerance_law = {
+	trigger_if = {
+		limit = { has_realm_law_flag = max_authority_level }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_tribal_authority = yes }
+		custom_description = {
+			text = kCAFG_overrides_culture_tolerance_law
+			OR = {
+				has_realm_law = tribal_authority_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_imperial_bureaucracy = yes }
+		custom_description = {
+			text = kCAFG_overrides_culture_tolerance_law
+			OR = {
+				has_realm_law = imperial_bureaucracy_2
+				has_realm_law = imperial_bureaucracy_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_meritocratic_bureaucracy = yes }
+		custom_description = {
+			text = kCAFG_overrides_culture_tolerance_law
+			OR = {
+				has_realm_law = meritocratic_bureaucracy_2
+				has_realm_law = meritocratic_bureaucracy_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_japanese_bureaucracy = yes }
+		custom_description = {
+			text = kCAFG_overrides_culture_tolerance_law
+			OR = {
+				has_realm_law = japanese_bureaucracy_2
+				has_realm_law = japanese_bureaucracy_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_celestial_bureaucracy = yes }
+		custom_description = {
+			text = kCAFG_overrides_culture_tolerance_law
+			OR = {
+				has_realm_law = celestial_bureaucracy_2
+				has_realm_law = celestial_bureaucracy_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_crown_authority = yes }
+		custom_description = {
+			text = kCAFG_overrides_culture_tolerance_law
+			OR = {
+				has_realm_law = crown_authority_2
+				has_realm_law = crown_authority_3
+			}
+		}
+	}
+	trigger_else = {
+		always = no
+	}
+}
+
+T_kCAFG_has_faith_tolerance_realm_law = {
+	NOT = { has_global_variable = kCAFG_ignore_tolerance_laws }
+	NOT = { has_character_flag = kCAFG_TMP_applying_faith_indifference_law }
+	OR = {
+		has_realm_law_flag = F_kCAFG_tolerant_to_other_faiths
+		has_character_flag = kCAFG_TMP_applying_faith_tolerance_law
+	}
+}
+
+T_kCAFG_has_faith_intolerance_realm_law = {
+	NOT = { has_global_variable = kCAFG_ignore_tolerance_laws }
+	NOT = { has_character_flag = kCAFG_TMP_applying_faith_indifference_law }
+	OR = {
+		has_realm_law_flag = F_kCAFG_intolerant_to_other_faiths
+		has_character_flag = kCAFG_TMP_applying_faith_intolerance_law
+	}
+}
+
+T_kCAFG_can_decrease_faith_tolerance_law_trigger = {
+	T_kCAFG_can_change_faith_tolerance_law_trigger = yes
+	custom_description = {
+		text = "no_powerful_vassal_with_negative_opinion"
+		NOT = {
+			any_vassal = {
+				is_powerful_vassal = yes
+				opposes_succession_law_change_trigger = yes
+			}
+		}
+	}
+}
+
+T_kCAFG_can_increase_faith_tolerance_law_trigger = {
+	T_kCAFG_can_change_faith_tolerance_law_trigger = yes
+	custom_description = {
+		text = "no_powerful_vassal_with_negative_opinion"
+		NOT = {
+			any_vassal = {
+				is_powerful_vassal = yes
+				opposes_succession_law_change_trigger = yes
+				NAND = {
+					NOT = { has_same_culture_as = liege }
+					ai_zeal < V_kCAFG_ai_law_change_negative_threshold
+				}
+			}
+		}
+	}
+}
+
+T_kCAFG_can_change_faith_tolerance_law_trigger = {
+	trigger_if = {
+		limit = { has_realm_law_flag = max_authority_level }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_tribal_authority = yes }
+		custom_description = {
+			text = "kCAFG_has_tribal_law_allowing_faith_tolerance_law_change"
+			OR = {
+				has_realm_law = tribal_authority_2
+				has_realm_law = tribal_authority_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_imperial_bureaucracy = yes }
+		custom_description = {
+			text = "kCAFG_has_imperial_bureaucracy_law_allowing_faith_tolerance_law_change"
+			OR = {
+				has_realm_law = imperial_bureaucracy_1
+				has_realm_law = imperial_bureaucracy_2
+				has_realm_law = imperial_bureaucracy_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_meritocratic_bureaucracy = yes }
+		custom_description = {
+			text = "kCAFG_has_meritocratic_bureaucracy_law_allowing_faith_tolerance_law_change"
+			OR = {
+				has_realm_law = meritocratic_bureaucracy_1
+				has_realm_law = meritocratic_bureaucracy_2
+				has_realm_law = meritocratic_bureaucracy_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_japanese_bureaucracy = yes }
+		custom_description = {
+			text = "kCAFG_has_japanese_bureaucracy_law_allowing_faith_tolerance_law_change"
+			OR = {
+				has_realm_law = japanese_bureaucracy_1
+				has_realm_law = japanese_bureaucracy_2
+				has_realm_law = japanese_bureaucracy_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_celestial_bureaucracy = yes }
+		custom_description = {
+			text = "kCAFG_has_celestial_bureaucracy_law_allowing_faith_tolerance_law_change"
+			OR = {
+				has_realm_law = celestial_bureaucracy_1
+				has_realm_law = celestial_bureaucracy_2
+				has_realm_law = celestial_bureaucracy_3
+			}
+		}
+	}
+	trigger_else_if = {
+		limit = { realm_law_use_crown_authority = yes }
+		custom_description = {
+			text = "kCAFG_has_crown_law_allowing_faith_tolerance_law_change"
+			OR = {
+				has_realm_law = crown_authority_1
+				has_realm_law = crown_authority_2
+				has_realm_law = crown_authority_3
+			}
+		}
+	}
+	trigger_else = {
+		always = yes
+	}
+	custom_description = {
+		subject = root
+		text = "kCAFG_has_faith_tolerance_law_cooldown"
+		NAND = {
+			has_variable = kCAFG_faith_tolerance_law_cooldown
+			NOT = { culture = { has_innovation = innovation_all_things } }
+		}
+	}
+}

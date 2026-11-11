@@ -1,0 +1,38 @@
+﻿# FAITH
+T_kCAFG_does_province_contain_faith = {
+	has_variable_list = kCAFG_province_faiths
+    is_target_in_variable_list = {
+        name = kCAFG_province_faiths
+        target = $FAITH$
+    }
+}
+
+T_kCAFG_does_province_contain_any_faith = {
+	has_variable_list = kCAFG_province_faiths
+    variable_list_size = {
+        name = kCAFG_province_faiths
+        value > 0
+    }
+}
+
+# VALUE
+T_kCAFG_province_faiths_count_at_least = {
+	has_variable_list = kCAFG_province_faiths
+    variable_list_size = {
+        name = kCAFG_province_faiths
+        value >= $VALUE$
+    }
+}
+
+# Only faith in province
+# FAITH
+T_kCAFG_province_only_faith = {
+    variable_list_size = {
+        name = kCAFG_province_faiths
+        value = 1
+    }
+    is_target_in_variable_list = {
+        name = kCAFG_province_faiths
+        target = $FAITH$
+    }
+}

@@ -1,0 +1,896 @@
+﻿# character just about to die in root scope
+# if a killer is know, it's set as scope:killer
+#Triggered by code
+
+on_death = {
+	events = {
+		agot_small_council.0002 # Cleans up Small Councillor
+		agot_kingsguard.1000 # KG Maintenance
+		agot_three_princes.9000 # Three Princes Maintenance
+		agot_widowed_events.999 #Check to see if widowed story cycle should begin
+		agot_valyrian_steel.0003
+		agot_valyrian_steel.9000
+		agot_dragonstone.0006
+		agot_dragon.0001
+		agot_dragon_death.0002
+	}
+	on_actions = {
+		agot_dummy_char_death_on_action
+		agot_after_death_on_action
+		nw_ranger_death
+		nw_ranger_history_on_lc_death
+		agot_mw_death_on_action
+		agot_landless_pirate_domicile_transfer
+		agot_landless_pirate_succession_variable_manager
+		agot_secret_hidden_artifact_on_action
+		agot_bells_of_war_qohor_election_manager
+		agot_bells_of_war_aegon_iv_tourney_manager
+	}
+}
+
+agot_dummy_char_death_on_action = {
+	trigger = {
+		OR = {
+			has_title = title:c_unknown
+			has_title = title:c_wilderness
+			has_title = title:c_ruins
+		}
+	}
+
+	effect = {
+		create_character = {
+			name = "Local_Rulers"
+			age = 20
+			gender = male
+			location = capital_county.title_province
+			faith = faith:fg_unknown
+			culture = culture:unknown_culture
+			dynasty = none
+			save_scope_as = new_dummy_holder
+		}
+		scope:new_dummy_holder = {
+			clear_traits = yes
+			add_trait = incapable
+			refund_all_perks = yes
+			add_diplomacy_lifestyle_perk_points = -10
+			add_stewardship_lifestyle_perk_points = -10
+			add_martial_lifestyle_perk_points = -10
+			add_learning_lifestyle_perk_points = -10
+			add_intrigue_lifestyle_perk_points = -10
+		}
+		set_designated_heir_unsafe = scope:new_dummy_holder
+	}
+}
+
+agot_after_death_on_action = {
+	trigger = {
+		always = yes
+	}
+	effect = {
+		if = {
+			limit = { has_trait = dragon }
+			save_scope_as = dead_dragon
+			if = {
+				limit = {
+					agot_has_dragon_storage_system_global_list = yes
+				}
+				every_in_global_list = {
+					variable = gl_dragon_variable_storage
+					limit = {
+						var:dragon_id ?= root
+					}
+					save_scope_as = dragon_var_story_val
+				}
+				every_in_list = {
+					variable = past_riders
+					scope:dragon_var_story_val = {
+						add_to_variable_list = {
+							name = past_riders
+							target = prev
+						}
+					}
+				}
+			}
+			if = {
+				limit = { scope:dead_dragon = { NOT = { has_trait = firewyrm } } }
+				every_player = {
+					limit = { always = yes }
+					send_interface_message = {
+						type = msg_dragon_death
+						title = {
+							first_valid = {
+								triggered_desc = {
+									trigger = {
+										agot_is_any_dragon_alive = no
+									}
+									desc = agot_dragon_maintenance.0904.t_last_dragon_died
+								}
+								triggered_desc = {
+									trigger = {
+										any_in_global_list = {
+											variable = living_dragons
+											count <= 5
+										}
+									}
+									desc = agot_dragon_maintenance.0904.t
+								}
+								triggered_desc = {
+									trigger = {
+										any_in_global_list = {
+											variable = living_dragons
+											count > 5
+										}
+									}
+									desc = agot_dragon_maintenance.0904.t_many_dragons_extant
+								}
+							}
+						}
+						desc = agot_dragon_maintenance_msg_dragon_death_placeholder
+						left_icon = scope:dead_dragon
+					}
+				}
+				agot_dragon_death_magic_effect = yes
+			}
+			else = {
+				if = {
+					limit = {
+						is_target_in_global_variable_list = {
+							name = living_dragons
+							target = root
+						}
+					}
+					remove_list_global_variable = {
+						name = living_dragons
+						target = root
+					}
+				}
+			}
+			agot_dead_dragon_effect = yes
+		}
+		else_if = {
+			limit = {
+				exists = var:current_dragon
+			}
+			random_equipped_character_artifact = {
+				limit = {
+					artifact_type = dragon_horn
+				}
+				clear_variable_list = tamed_dragons
+			}
+			save_scope_as = dead_rider
+			var:current_dragon = {
+				save_scope_as = dead_riders_dragon
+			}
+			scope:dead_riders_dragon = { trigger_event = { id = agot_dragon.0002 } } # Needs to fire on the dragon because of diseases causing on_death orders of operation trickery.
+		}
+		else_if = {
+			limit = {
+				is_human = yes
+				any_relation = {
+					type = agot_dragon
+				}
+			}
+			save_scope_as = dead_rider
+			random_relation = {
+				type = agot_dragon
+				save_scope_as = dead_riders_dragon
+			}
+			scope:dead_riders_dragon = { trigger_event = { id = agot_dragon.0002 } } # Needs to fire on the dragon because of diseases causing on_death orders of operation trickery.
+		}
+		save_scope_as = dead_relative
+		every_close_family_member = {
+			if = {
+				limit = { is_ruler = yes }
+				random_list = {
+					100 = {}
+					1 = {
+						trigger_event = {
+							id = agot_silent_sisters.0007 # Find Silent Sister defiling relative
+							days = { 5 7 }
+						}
+					}
+					1 = {
+						trigger_event = {
+							id = agot_silent_sisters.0005 # Find Silent Sister Aluring
+							days = { 2 4 }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+nw_ranger_death = {
+	trigger = {
+		any_owned_story = { story_type = nw_ranger_story}
+	}
+	effect = {
+		#Handle proper title history
+		title:d_dummy_nw_landless = { copy_title_history = title:d_nw_landless_first_ranger }
+		#LC unable to select new FR immediately
+		title:k_the_wall.holder = { add_character_flag = fr_assign_block }
+
+		save_scope_as = dead_first_ranger
+
+		ordered_courtier = {
+			limit = {
+				has_trait = nightswatch
+			}
+			order_by = prowess
+			save_scope_as = ranger_heir
+		}
+		if = {
+			limit = { NOT = { exists = scope:ranger_heir } }
+			create_character = {
+				location = title:c_castle_black.title_province
+				template = agot_black_brother_character
+				save_scope_as = ranger_heir
+			}
+		}
+		scope:ranger_heir = {
+			remove_trait = nightswatch
+			add_trait = nightswatch_temp
+			if = {
+				limit = { has_trait = disinherited }
+				remove_trait = disinherited
+				set_variable = {
+					name = is_disinherited
+					value = yes
+					days = 5
+				}
+			}
+			if = {
+				limit = { has_trait = eunuch_1 }
+				remove_trait = eunuch_1
+				set_variable = {
+					name = is_eunuch
+					value = yes
+					days = 5
+				}
+			}
+			if = {
+				limit = { has_trait = beardless_eunuch }
+				remove_trait = beardless_eunuch
+				set_variable = {
+					name = is_beardless_eunuch
+					value = yes
+					days = 5
+				}
+			}
+			if = {
+				limit = { has_trait = devoted }
+				remove_trait = devoted
+				set_variable = {
+					name = is_devoted
+					value = yes
+					days = 5
+				}
+			}
+			if = {
+				limit = { has_trait = order_member }
+				remove_trait = order_member
+				set_variable = {
+					name = is_order_member
+					value = yes
+					days = 5
+				}
+			}
+			if = {
+				limit = { has_trait = bastard }
+				remove_trait = bastard
+				set_variable = {
+					name = is_bastard
+					value = yes
+					days = 5
+				}
+			}
+			if = {
+				limit = { has_trait = bastard_founder }
+				remove_trait = bastard_founder
+				set_variable = {
+					name = is_bastard_founder
+					value = yes
+					days = 5
+				}
+			}
+			if = {
+				limit = { has_trait = maester }
+				remove_trait = maester
+				set_variable = {
+					name = is_maester
+					value = yes
+					days = 5
+				}
+			}
+			trigger_event = { id = agot_nw_ranger_events.8000 days = 1 }
+		}
+		set_designated_heir_unsafe = scope:ranger_heir
+
+		title:k_the_wall.holder = {
+			trigger_event = {
+				id = agot_nw_ranger_events.0001
+				days = 1
+			}
+		}
+
+		#Player will play as the LC
+		if = {
+			limit = {
+				has_multiple_players = no
+				is_ai = no
+				has_dlc_feature = landless_playable
+			}
+			set_player_character = title:k_the_wall.holder
+		}
+	}
+}
+
+nw_ranger_history_on_lc_death = {
+	trigger = {
+		title:k_the_wall.holder = this
+	}
+	effect = {
+		if = {
+			limit = { NOT = { title:k_the_wall.holder = title:d_nw_landless_first_ranger.holder } }
+			title:d_dummy_nw_landless = { copy_title_history = title:d_nw_landless_first_ranger }
+		}
+		title:d_nw_landless_first_ranger.holder = {
+			add_character_flag = {
+				flag = fr_becomes_lc
+				days = 7
+			}
+			add_character_flag = {
+				flag = fr_assign_block
+				days = 3
+			}
+			if = {
+				limit = { has_variable = previous_lc }
+				remove_variable = previous_lc
+
+				set_variable = {
+					name = previous_lc
+					value = title:k_the_wall.holder
+					days = 40
+				}
+			}
+			else_if = {
+				set_variable = {
+					name = previous_lc
+					value = title:k_the_wall.holder
+					days = 40
+				}
+			}
+		}
+	}
+}
+
+# remove dead ruler from story cycle list and add the new ruler
+# change pre-war-liege variables
+# story owner succession is dealt with in the respective story cycles this, this includes mw_rebel_leader_list
+agot_mw_death_on_action = {
+	trigger = {
+		OR = {
+			has_variable = agot_pwl_direct
+			any_liege_or_above = {
+				OR = {
+					agot_mw_crown_trigger = yes
+					has_variable = agot_pwl_direct
+					agot_mw_rebel_leader_trigger = yes
+				}
+			}
+			any_ruler = {
+				var:agot_pwl_direct ?= root
+			}
+		}
+	}
+	effect = {
+		### Fetch Scopes ###
+		agot_mw_fetch_crown_story_from_char_scope = { CHECK_CHAR = root }
+		agot_mw_fetch_rebel_story_from_char_scope = { CHECK_CHAR = root }
+		### Fetching Scope End ###
+
+		if = {
+			limit = {
+				NOT = { exists = scope:mw_crown_story }
+			}
+			debug_log = "ERROR MW_0100: Failed to fetch scope 'mw_crown_story'"
+			debug_log_date = yes
+		}
+		if = {
+			limit = {
+				NOT = { exists = scope:mw_rebel_story }
+			}
+			debug_log = "ERROR MW_0100: Failed to fetch scope 'mw_rebel_story'"
+			debug_log_date = yes
+		}
+
+		# Update mega war lists if necessary
+		if = {
+			limit = {
+				scope:mw_crown_story ?= {
+					OR = {
+						is_target_in_variable_list = { name = mw_loyalist_list target = root }
+						is_target_in_variable_list = { name = mw_neutral_list target = root }
+					}
+				}
+			}
+
+			every_heir = {
+				limit = {
+					any_heir_title = { tier > tier_barony }
+				}
+				if = {
+					limit = {
+						NOR = {
+							agot_mw_is_in_loyalist_list_trigger = { TARGET = scope:this_scope }	# don't add him, if he is already in loyalist list
+							agot_mw_is_in_neutral_list_trigger = { TARGET = scope:this_scope }	# don't add him, if he is already in neutral list
+							agot_mw_is_in_rebel_list_trigger = { TARGET = scope:this_scope }	# don't add him, if he is already in rebel list
+						}
+					}
+					scope:mw_crown_story ?= {
+						if = {
+							limit = { is_target_in_variable_list = { name = mw_loyalist_list target = root } }
+
+							add_to_variable_list = { name = mw_loyalist_list target = prev} # add new ruler
+						}
+						if = {
+							limit = { is_target_in_variable_list = { name = mw_neutral_list target = root } }
+
+							add_to_variable_list = { name = mw_neutral_list target = prev } # add new ruler
+						}
+					}
+				}
+				else_if = { # if primary heir already was in a list, we now mark this, so know whether we also need to update pre war liege below and whether to update de facto liege
+					limit = {
+						OR = {
+							agot_mw_is_in_loyalist_list_trigger = { TARGET = scope:this_scope }
+							agot_mw_is_in_neutral_list_trigger = { TARGET = scope:this_scope }
+							agot_mw_is_in_rebel_list_trigger = { TARGET = scope:this_scope }
+						}
+					}
+
+					set_variable = { name = mw_pwl_update_exempt days = 1 }
+				}
+			}
+			scope:mw_crown_story ?= { # remove dead ruler
+				remove_list_variable = { name = mw_loyalist_list target = root }
+				remove_list_variable = { name = mw_neutral_list target = root }
+				remove_list_variable = { name = mw_rebel_leader_list target = root }
+			}
+		}
+		else_if = {
+			limit = {
+				scope:mw_rebel_story ?= {
+					is_target_in_variable_list = { name = mw_rebel_supporter_list target = root }
+				}
+				exists = root.primary_heir
+			}
+			scope:mw_rebel_story ?= {
+				remove_list_variable = { name = mw_rebel_supporter_list target = root } # remove dead ruler
+				add_to_variable_list = { name = mw_rebel_supporter_list target = root.primary_heir } # add new ruler
+			}
+		}
+
+		# Update agot_pwl_direct and agot_pwl_top if necessary
+		if = {
+			limit = {
+				any_ruler = {
+					var:agot_pwl_direct ?= root
+				}
+			}
+
+			every_ruler = { # every ruler that has the variable with root as value
+				limit = {
+					NOT = { this = root.primary_heir }
+					OR = {
+						var:agot_pwl_direct ?= root
+						var:agot_pwl_top ?= root
+					}
+				}
+				if = {
+					limit = {
+						var:agot_pwl_direct ?= root
+						NOT = { this = root.primary_heir }
+					}
+					set_variable = { name = agot_pwl_direct value = root.primary_heir }
+				}
+				if = { # set pre war top liege
+					limit = {
+						var:agot_pwl_top ?= root
+						NOT = { this = root.primary_heir }
+					}
+					set_variable = { name = agot_pwl_top value = root.primary_heir }
+				}
+			}
+		}
+		every_heir = {
+			limit = {
+				any_heir_title = { tier = root.highest_held_title_tier }
+			}
+
+			if = { # we have a agot_pwl_direct set for dead char and may transfer it to heir
+				limit = {
+					NOT = { has_variable = mw_pwl_update_exempt }
+					OR = {
+						exists = root.var:agot_pwl_direct
+						exists = root.var:agot_pwl_top
+					}
+				}
+
+				if = {
+					limit = {
+						exists = root.var:agot_pwl_direct
+						NOT = { has_variable = mw_pwl_update_exempt }
+					}
+					set_variable = { name = agot_pwl_direct value = root.var:agot_pwl_direct }
+				}
+				if = { # we have a agot_pwl_direct set for dead char and may transfer it to heir
+					limit = {
+						exists = root.var:agot_pwl_top
+						NOT = { has_variable = mw_pwl_update_exempt }
+					}
+					set_variable = { name = agot_pwl_top value = root.var:agot_pwl_top }
+				}
+			}
+			else_if = { # there is no agot_pwl_direct set or we had heir being extempt from variable transfer --> we need to make sure his current can still be vassalized by his set agot_pwl_direct
+				limit = {
+					has_variable = mw_pwl_update_exempt
+				}
+				if = {
+					limit = { # if transferred title rank is greater or equal to agot_pwl_direct rank, then we need to step up agot_pwl_direct
+						exists = var:agot_pwl_direct.highest_held_title_tier
+						root.highest_held_title_tier >= var:agot_pwl_direct.highest_held_title_tier
+					}
+
+					set_variable = { name = agot_pwl_direct value = var:agot_pwl_direct.liege }
+					set_variable = { name = agot_pwl_top value = var:agot_pwl_top.liege }
+				}
+			}
+		}
+	}
+}
+
+agot_landless_pirate_domicile_transfer = {
+	trigger = {
+		any_held_title = {
+			agot_is_pirate_domicile_title_trigger = yes
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				player_heir ?= {
+					agot_pirate_landless_succession_jank_courtier_checker = { DYING_PIRATE = ROOT }
+					trigger_if = {
+						limit = {
+							has_variable = pirate_jank_succession_variable
+						}
+						var:pirate_jank_succession_variable = root
+					}
+				}
+			}
+			player_heir = {
+				set_variable = pirate_jank_succession_variable
+				save_scope_as = chosen_successor
+			}
+		}
+		else_if = { # Any Designated Pirate Ship Heirs
+			limit = {
+				any_courtier = {
+					var:pirate_jank_succession_variable ?= root
+					agot_pirate_landless_succession_jank_courtier_checker = { DYING_PIRATE = root }
+				}
+			}
+			random_courtier = {
+				limit = {
+					var:pirate_jank_succession_variable ?= root
+					agot_pirate_landless_succession_jank_courtier_checker = { DYING_PIRATE = root }
+				}
+				save_scope_as = chosen_successor
+			}
+		}
+		else_if = {
+			limit = {
+				any_child = {
+					agot_pirate_landless_succession_jank_courtier_checker = { DYING_PIRATE = root }
+					is_alive = yes
+				}
+			}
+			ordered_child = {
+				limit = {
+					is_alive = yes
+					agot_pirate_landless_succession_jank_courtier_checker = { DYING_PIRATE = root }
+					is_adult = yes
+				}
+				alternative_limit = {
+					is_alive = yes
+					agot_pirate_landless_succession_jank_courtier_checker = { DYING_PIRATE = root }
+				}
+				position = 0
+				order_by = prowess
+				set_variable = pirate_jank_succession_variable
+				save_scope_as = chosen_successor
+			}
+		}
+		else_if = { # Prioritize Primary Heirs
+			limit = {
+				exists = primary_heir
+			}
+			primary_heir = {
+				set_variable = pirate_jank_succession_variable
+				save_scope_as = chosen_successor
+			}
+		}
+		else = {
+			ordered_courtier = {
+				position = 0
+				order_by = prowess
+				set_variable = pirate_jank_succession_variable
+				save_scope_as = chosen_successor
+			}
+		}
+		if = {
+			limit = {
+				exists = scope:chosen_successor
+			}
+			# Maa Transfer
+			if = {
+				limit = {
+					is_landed = no
+					number_of_maa_regiments > 0
+				}
+				create_character = {
+					name = Aegon
+					gender = male
+					employer = title:c_ruins.holder
+					trait = agot_dummy_trait
+					random_traits = no
+					faith = faith:fots_seven
+					culture = culture:northman
+					dynasty = none
+					save_scope_as = pirate_dummy_to_transfer_maas
+				}
+				agot_create_pirate_domicile_effect = { PIRATE = scope:pirate_dummy_to_transfer_maas }
+				scope:pirate_dummy_to_transfer_maas = {
+					primary_title = {
+						set_variable = hide_in_ledger
+					}
+					if = {
+						limit = {
+							number_of_maa_regiments > 0
+						}
+						every_maa_regiment = {
+							destroy_maa_regiment = yes
+						}
+					}
+				}
+				every_maa_regiment = {
+					save_scope_as = maa_regiment_to_transfer
+					save_scope_value_as = {
+						name = maa_size_scope_value
+						value = scope:maa_regiment_to_transfer.maa_size
+					}
+					scope:pirate_dummy_to_transfer_maas = {
+						create_maa_regiment = {
+							type_of = scope:maa_regiment_to_transfer
+							check_can_recruit = no
+							size = 1
+						}
+						scope:maa_regiment_to_transfer = {
+							destroy_maa_regiment = yes
+						}
+					}
+				}
+			}
+			# Maa Transfer End
+			random_held_title = {
+				limit = {
+					agot_is_pirate_domicile_title_trigger = yes
+				}
+				save_scope_as = domicile_being_passed_down
+				create_title_and_vassal_change = {
+					type = granted
+					save_scope_as = change
+				}
+				change_title_holder_include_vassals = {
+					holder = scope:chosen_successor
+					change = scope:change
+				}
+			}
+			resolve_title_and_vassal_change = scope:change
+			agot_create_pirate_domicile_effect = { PIRATE = scope:chosen_successor }
+			# Maa transfer 2
+			clear_saved_scope = maa_size_scope_value
+			clear_saved_scope = maa_regiment_to_transfer
+			scope:pirate_dummy_to_transfer_maas ?= {
+				every_maa_regiment = {
+					save_scope_as = maa_regiment_to_transfer
+					save_scope_value_as = {
+						name = maa_size_scope_value
+						value = scope:maa_regiment_to_transfer.maa_size
+					}
+					scope:chosen_successor = {
+						create_maa_regiment = {
+							type_of = scope:maa_regiment_to_transfer
+							check_can_recruit = no
+							size = 1
+						}
+						scope:maa_regiment_to_transfer = {
+							destroy_maa_regiment = yes
+						}
+						add_character_modifier = {
+							modifier = maa_recruitment_boon
+							years = 3
+						}
+					}
+				}
+				every_held_title = {
+					save_scope_as = destroy_this_title
+					prev = {
+						destroy_title = scope:destroy_this_title
+					}
+				}
+				death = {
+					death_reason = death_raid
+				}
+			}
+			# Maa transfer 2 End
+			if = {
+				limit = {
+					is_landed = no
+				}
+				if = {
+					limit = {
+						gold > 0
+					}
+					pay_short_term_gold = { target = scope:chosen_successor gold = root.gold }
+				}
+				every_character_artifact = {
+					set_owner = scope:chosen_successor
+				}
+			}
+			save_scope_as = dying_pirate_predecessor
+			if = {
+				limit = {
+					is_ai = no
+				}
+				set_player_character = scope:chosen_successor
+			}
+			scope:chosen_successor = {
+				random_held_title = {
+					limit = {
+						has_variable = pirate_deletion
+					}
+					save_scope_as = DESTROY_THIS_PIRATE_SHIP
+					prev = {
+						destroy_title = scope:DESTROY_THIS_PIRATE_SHIP
+					}
+				}
+				remove_variable = pirate_jank_succession_variable
+				if = {
+					limit = {
+						any_held_title = {
+							this = scope:domicile_being_passed_down
+						}
+						scope:dying_pirate_predecessor = {
+							is_landed = no
+						}
+					}
+					trigger_event = agot_pirate_events.9000
+				}
+			}
+			# Law Transfer
+			if = {
+				limit = {
+					is_landed = yes
+				}
+				switch = {
+					trigger = has_realm_law
+					pirate_tax_rate_01 = {
+						scope:chosen_successor = {
+							add_realm_law = pirate_tax_rate_01
+						}
+					}
+					pirate_tax_rate_02 = {
+						scope:chosen_successor = {
+							add_realm_law = pirate_tax_rate_02
+						}
+					}
+					pirate_tax_rate_03 = {
+						scope:chosen_successor = {
+							add_realm_law = pirate_tax_rate_03
+						}
+					}
+					pirate_tax_rate_04 = {
+						scope:chosen_successor = {
+							add_realm_law = pirate_tax_rate_04
+						}
+					}
+				}
+			}
+			scope:chosen_successor = {
+				trigger_event = { id = agot_pirate_events.0003 days = 1 }
+			}
+		}
+	}
+}
+
+agot_landless_pirate_succession_variable_manager = {
+	trigger = {
+		var:pirate_jank_succession_variable ?= {
+			is_alive = yes
+		}
+	}
+	effect = {
+		save_scope_as = target
+		var:pirate_jank_succession_variable ?= {
+			remove_variable = appointed_pirate_jank_heir
+			send_interface_toast = {
+				type = event_toast_effect_neutral
+				title = pirate_ship_designated_heir_change
+				custom_tooltip = pirate_ship_designated_heir_is_no_longer_your_heir
+				right_icon = scope:target
+			}
+		}
+	}
+}
+
+agot_secret_hidden_artifact_on_action = {
+	trigger = {
+		OR = {
+			AND = {
+				exists = dynasty:dynn_Mopatis
+				exists = dynasty:dynn_Mopatis.dynasty_founder
+				house = dynasty:dynn_Mopatis.dynasty_founder.house
+				exists = global_var:blackfyre_hidden
+			}
+			AND = {
+				house = dynasty:dynn_Uller.dynasty_founder.house
+				exists = global_var:rhaenys_circlet_hidden
+			}
+		}
+		exists = primary_heir
+		primary_heir.house = root.house
+	}
+	effect = {
+		primary_heir = { add_secret = { type = secret_agot_hidden_artifact } }
+	}
+}
+
+agot_bells_of_war_qohor_election_manager = {
+	trigger = {
+		game_start_date = 8182.11.11
+		has_variable = BOW_qohor_election_death_manager
+	}
+
+	effect = {
+		title:c_ruins.holder = {
+			trigger_event = {
+				id = agot_bells_of_war.0030
+				days = 1
+			}
+		}
+	}
+}
+
+agot_bells_of_war_aegon_iv_tourney_manager = {
+	trigger = {
+		game_start_date = 8182.11.11
+		has_variable = BOW_aegon_iv_tourney_death_manager
+	}
+
+	effect = {
+		every_in_global_list = {
+			variable = BOW_psuedo_activity_death_manager
+			limit = {
+				has_character_flag = agot_in_bm_psuedo_activity
+			}
+			remove_character_flag = agot_in_bm_psuedo_activity
+			return_to_court = yes
+			return_home = yes
+		}
+		remove_character_modifier = agot_BOW_tourney_for_squires
+		clear_global_variable_list = BOW_psuedo_activity_death_manager
+	}
+}

@@ -1,0 +1,577 @@
+﻿# Duchy of Ghoyan Drohe
+################## Ghoyan Drohe - Ruin ##################
+9314 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = ruin_holding
+	7300.1.1 = {
+		buildings = {
+			medium_ruin_01
+			ruin_desolate_01
+		}
+	}
+}
+9315 = { holding = none }
+9316 = { holding = none }
+9317 = { holding = none }
+9318 = { holding = none }
+9319 = { holding = none }
+9320 = { holding = none }
+9321 = { holding = none }
+9322 = { holding = none }
+9323 = { holding = none }
+################## Sar Moyhan - Ruin ##################
+9306 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9307 = { holding = none }
+9308 = { holding = none }
+9309 = { holding = none }
+9310 = { holding = none }
+9311 = { holding = none }
+9312 = { holding = none }
+9313 = { holding = none }
+################## Golhuru - Ruin ##################
+9324 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9325 = { holding = none }
+9326 = { holding = none }
+9327 = { holding = none }
+9328 = { holding = none }
+# Duchy of Velvet Peak
+################## Velvet March ##################
+9288 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+		}
+	}
+}
+9289 = { holding = none }
+9290 = { holding = none }
+9291 = { holding = none }
+9292 = { holding = none }
+9293 = { holding = none }
+9294 = { holding = none }
+9295 = { holding = none }
+9296 = { holding = none }
+9297 = { holding = none }
+################## Sar Hyus ##################
+9298 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+		}
+	}
+}
+9299 = { holding = none }
+9300 = { holding = none }
+9301 = { holding = none }
+9302 = { holding = none }
+9303 = { holding = none }
+9304 = { holding = none }
+9305 = { holding = none }
+################## Ny Rhon Valley ##################
+9329 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+		}
+	}
+}
+9330 = { holding = none }
+9331 = { holding = none }
+9332 = { holding = none }
+9333 = { holding = none }
+9334 = { holding = none }
+9335 = { holding = none }
+9336 = { holding = none }
+9337 = { holding = none }
+################## Rhon Ty ##################
+9268 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+		}
+	}
+}
+9269 = { holding = none }
+9270 = { holding = none }
+9271 = { holding = none }
+9272 = { holding = none }
+9273 = { holding = none }
+9274 = { holding = none }
+9275 = { holding = none }
+################## Sar Lhorulys ##################
+9260 = {
+	culture = rhoynar_original
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+		}
+	}
+}
+9261 = { holding = none }
+9262 = { holding = none }
+9263 = { holding = none }
+9264 = { holding = none }
+9265 = { holding = none }
+9266 = { holding = none }
+9267 = { holding = none }
+# DUCHY OF NY SAR
+################## Ny Sar - Ruin ##################
+9233 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = ruin_holding
+	special_building_slot = agot_EE_nymeria_palace_01
+	7300.1.1 = {
+		buildings = {
+            large_ruin_01
+			ruin_renowned_01
+		}
+		special_building = agot_EE_nymeria_palace_01
+	}
+}
+9234 = { holding = none }
+9235 = { holding = none }
+9236 = { holding = none }
+9237 = { holding = none }
+9238 = { holding = none }
+9239 = { holding = none }
+9240 = { holding = none }
+9241 = { holding = none }
+9242 = { holding = none }
+################## Sar Drea - Ruin ##################
+9244 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9245 = { holding = none }
+9246 = { holding = none }
+9247 = { holding = none }
+9248 = { holding = none }
+9249 = { holding = none }
+9250 = { holding = none }
+9251 = { holding = none }
+################## Ar Geryas - Ruin ##################
+9252 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+	7300.1.1 = {
+		buildings = {
+			medium_ruin_01
+			ruin_desolate_01
+		}
+	}
+}
+9253 = { holding = none }
+9254 = { holding = none }
+9255 = { holding = none }
+9256 = { holding = none }
+9257 = { holding = none }
+9258 = { holding = none }
+9259 = { holding = none }
+# DUCHY OF AR NOY
+################## Ar Noy - Ruin ##################
+9149 = {
+	culture = qhoynar
+	religion = mother_rhoyne
+	holding = ruin_holding
+	7300.1.1 = {
+		buildings = {
+			medium_ruin_01
+			ruin_desolate_01
+		}
+	}
+}
+9150 = { holding = none }
+9151 = { holding = none }
+9152 = { holding = none }
+9153 = { holding = none }
+9154 = { holding = none }
+9155 = { holding = none }
+9156 = { holding = none }
+################## Glohulu - Ruin ##################
+9157 = {
+	culture = qhoynar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9158 = { holding = none }
+9159 = { holding = none }
+9160 = { holding = none }
+9161 = { holding = none }
+9162 = { holding = none }
+9163 = { holding = none }
+9164 = { holding = none }
+################## Sar Erilidyes - Ruin ##################
+9165 = {
+	culture = qhoynar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9166 = { holding = none }
+9167 = { holding = none }
+9168 = { holding = none }
+9169 = { holding = none }
+9170 = { holding = none }
+9171 = { holding = none }
+9172 = { holding = none }
+9173 = { holding = none }
+9174 = { holding = none }
+################## Sar Rhoy - Ruin ##################
+9276 = {
+	culture = sarar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9211 = { holding = none }
+9212 = { holding = none }
+9213 = { holding = none }
+################## Kolaut - Ruin ##################
+9210 = {
+	culture = qhoynar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9214 = { holding = none }
+9215 = { holding = none }
+9277 = { holding = none }
+9278 = { holding = none }
+9279 = { holding = none }
+9280 = { holding = none }
+9281 = { holding = none }
+9282 = { holding = none }
+9283 = { holding = none }
+9284 = { holding = none }
+9285 = { holding = none }
+9286 = { holding = none }
+9287 = { holding = none }
+9216 = { holding = none }
+9217 = { holding = none }
+9218 = { holding = none }
+################## Dagger Lake ##################
+9219 = {
+	culture = qhoynar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7996.12.16 = {
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_military_03
+		}
+	}
+}
+9220 = { holding = none }
+9221 = { holding = none }
+9222 = { holding = none }
+9223 = { holding = none }
+9224 = { holding = none }
+9227 = { holding = none }
+9225 = { holding = none }
+9228 = { holding = none }
+9229 = { holding = none }
+9230 = { holding = none }
+9231 = { holding = none }
+9232 = { holding = none }
+################## Mamemon ##################
+9226 = {
+	culture = qhoynar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+	7996.12.16 = {
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_military_03
+		}
+	}
+}
+################## Nekhsos ##################
+9175 = {
+	culture = qhoynar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+	7996.12.16 = {
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_military_03
+		}
+	}
+}
+9176 = { holding = none }
+9177 = { holding = none }
+9178 = { holding = none }
+9179 = { holding = none }
+9195 = { holding = none }
+9196 = { holding = none }
+9197 = { holding = none }
+9180 = { holding = none }
+9181 = { holding = none }
+9182 = { holding = none }
+9183 = { holding = none }
+9184 = { holding = none }
+9185 = { holding = none }
+9186 = { holding = none }
+9191 = { holding = none }
+9192 = { holding = none }
+9193 = { holding = none }
+9194 = { holding = none }
+9188 = { holding = none }
+################## Leyhiji ##################
+9187 = {
+	culture = qhoynar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+	7996.12.16 = {
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_military_03
+		}
+	}
+}
+9189 = { holding = none }
+9190 = { holding = none }
+################## Ar Selrys - Ruin ##################
+9198 = {
+	culture = qhoynar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9086 = { holding = none }
+9087 = { holding = none }
+9088 = { holding = none }
+################## Sobyrha - Ruin ##################
+9085 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9089 = { holding = none }
+9090 = { holding = none }
+9199 = { holding = none }
+9200 = { holding = none }
+9201 = { holding = none }
+9202 = { holding = none }
+9203 = { holding = none }
+9204 = { holding = none }
+9205 = { holding = none }
+9206 = { holding = none }
+9207 = { holding = none }
+9208 = { holding = none }
+9209 = { holding = none }
+9091 = { holding = none }
+9092 = { holding = none }
+9093 = { holding = none }
+################## Nor Salis - Ruin ##################
+9048 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9049 = { holding = none }
+9050 = { holding = none }
+9051 = { holding = none }
+9052 = { holding = none }
+9053 = { holding = none }
+9054 = { holding = none }
+################## Ar Muhoy - Ruin ##################
+9055 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9056 = { holding = none }
+9057 = { holding = none }
+9058 = { holding = none }
+9059 = { holding = none }
+9060 = { holding = none }
+9061 = { holding = none }
+9062 = { holding = none }
+9063 = { holding = none }
+################## Rhoyne Vale - Ruin ##################
+9064 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9065 = { holding = none }
+9066 = { holding = none }
+9067 = { holding = none }
+9068 = { holding = none }
+9069 = { holding = none }
+9070 = { holding = none }
+9071 = { holding = none }
+9072 = { holding = none }
+9073 = { holding = none }
+9074 = { holding = none }
+9075 = { holding = none }
+# DUCHY OF THE SORROWS
+################## Palace of Love - Ruin ##################
+9039 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = ruin_holding
+	special_building_slot = agot_EE_palace_of_love_01
+	7300.1.1 = {
+		buildings = {
+            large_ruin_01
+			ruin_renowned_01
+		}
+		special_building = agot_EE_palace_of_love_01
+	}
+}
+9040 = { holding = none }
+9041 = { holding = none }
+9042 = { holding = none }
+9043 = { holding = none }
+9044 = { holding = none }
+9045 = { holding = none }
+9046 = { holding = none }
+9047 = { holding = none }
+################## Gloomy Gate - Ruin ##################
+9076 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = ruin_holding
+	special_building_slot = agot_EE_bridge_of_dream_01
+	7300.1.1 = {
+		buildings = {
+			medium_ruin_01
+			ruin_desolate_01
+		}
+		special_building = agot_EE_bridge_of_dream_01
+	}
+}
+9077 = { holding = none }
+9078 = { holding = none }
+9079 = { holding = none }
+9080 = { holding = none }
+9081 = { holding = none }
+9082 = { holding = none }
+9083 = { holding = none }
+################## Lhorulu ##################
+9104 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+		}
+	}
+}
+9105 = { holding = none }
+9106 = { holding = none }
+9107 = { holding = none }
+9108 = { holding = none }
+9109 = { holding = none }
+9110 = { holding = none }
+9111 = { holding = none }
+9112 = { holding = none }
+9113 = { holding = none }
+9114 = { holding = none }
+9115 = { holding = none }
+9243 = { holding = none }
+# DUCHY OF GOLDEN BRIDGE
+################## Goldenbridge ##################
+9094 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = castle_holding
+	7824.1.1 = { buildings = { castle_02 } }
+	7996.12.16 = {
+		holding = pirate_den_holding
+		buildings = {
+			pirate_den_02
+			agot_pirate_military_03
+		}
+	}
+}
+9095 = { holding = none }
+9096 = { holding = none }
+9097 = { holding = none }
+9098 = { holding = none }
+9099 = { holding = none }
+9100 = { holding = none }
+9101 = { holding = none }
+9102 = { holding = none }
+9103 = { holding = none }
+################## Northfields ##################
+9116 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9117 = { holding = none }
+9118 = { holding = none }
+9119 = { holding = none }
+9120 = { holding = none }
+9121 = { holding = none }
+9122 = { holding = none }
+9123 = { holding = none }
+9124 = { holding = none }
+9125 = { holding = none }
+9126 = { holding = none }
+################## Garinoy ##################
+9127 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9128 = { holding = none }
+9129 = { holding = none }
+9130 = { holding = none }
+9131 = { holding = none }
+9132 = { holding = none }
+9133 = { holding = none }
+9134 = { holding = none }
+9135 = { holding = none }
+9136 = { holding = none }
+9137 = { holding = none }
+################## Nyssa ##################
+9138 = {
+	culture = chroyanar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+9139 = { holding = none }
+9140 = { holding = none }
+9141 = { holding = none }
+9142 = { holding = none }
+9143 = { holding = none }
+9144 = { holding = none }
+9145 = { holding = none }
+9146 = { holding = none }
+9147 = { holding = none }
+9148 = { holding = none }
+
+9084 = { holding = none }

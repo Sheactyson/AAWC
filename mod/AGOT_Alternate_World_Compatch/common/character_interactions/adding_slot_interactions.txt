@@ -1,0 +1,119 @@
+﻿# Private AAWC integration of Better Buyable Building Slot's useful contract.
+#
+# The interaction ID is retained because the county-view API opens it directly. AAWC owns the actual
+# rules: only established AGOT holdings may be expanded, protected alternate-
+# world holding types are excluded, and the AAWC-owned MAX_BUILDINGS cap is 21.
+
+adding_building_slot_interaction = {
+	category = interaction_category_uncategorized
+	hidden = yes
+	desc = adding_building_slot_interaction_desc
+	target_type = title
+	target_filter = recipient_domain_titles_including_leases
+	auto_accept = yes
+
+	is_shown = {
+		scope:actor = { this = scope:actor }
+	}
+
+	can_be_picked_title = {
+		scope:target = {
+			tier <= tier_county
+			exists = title_province
+			holder = {
+				OR = {
+					this = scope:actor
+					is_vassal_or_below_of = scope:actor
+				}
+			}
+			title_province = {
+				# Do not bypass AAWC's ruin, wilderness, unknown, nomadic, or
+				# settlement progression by purchasing normal building slots.
+				OR = {
+					has_holding_type = castle_holding
+					has_holding_type = city_holding
+					has_holding_type = church_holding
+					has_holding_type = temple_citadel_holding
+					has_holding_type = pirate_den_holding
+				}
+				building_slots < 21
+
+				# Preserve the source mod's development gates while correcting
+				# its apparent `99` typo for the ninth-and-later slot band.
+				trigger_if = {
+					limit = { building_slots >= 7 }
+					county = { development_level > 30 }
+				}
+				trigger_if = {
+					limit = { building_slots >= 8 }
+					county = { development_level > 60 }
+				}
+				trigger_if = {
+					limit = { building_slots >= 9 }
+					county = { development_level > 80 }
+				}
+			}
+		}
+	}
+
+	cost = {
+		gold = {
+			value = 300
+			if = {
+				limit = { scope:target.title_province = { building_slots > 4 } }
+				add = 300
+			}
+			if = {
+				limit = { scope:target.title_province = { building_slots > 5 } }
+				add = 600
+			}
+			if = {
+				limit = { scope:target.title_province = { building_slots > 6 } }
+				add = 1200
+			}
+			if = {
+				limit = { scope:target.title_province = { building_slots > 7 } }
+				add = 1800
+			}
+			if = {
+				limit = { scope:target.title_province = { building_slots > 10 } }
+				add = 2400
+			}
+			if = {
+				limit = { scope:target.title_province = { building_slots > 15 } }
+				add = 5000
+			}
+			if = {
+				limit = {
+					scope:target.title_province = {
+						building_slots > 5
+						county = { development_level >= 80 }
+					}
+				}
+				add = -750
+			}
+			else_if = {
+				limit = {
+					scope:target.title_province = {
+						building_slots > 4
+						county = { development_level >= 50 }
+					}
+				}
+				add = -250
+			}
+		}
+	}
+
+	on_accept = {
+		custom_tooltip = adding_building_slot_interaction_tt_a
+		scope:actor = {
+			send_interface_toast = {
+				title = adding_building_slot_interaction_notification
+				right_icon = scope:actor
+				scope:target.title_province = {
+					add_province_modifier = extra_building_slot
+				}
+			}
+		}
+	}
+}

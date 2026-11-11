@@ -1,0 +1,8 @@
+﻿dynn_aawc_stability = {
+	pattern = "pattern_solid.dds"
+	color1 = agot_black
+}
+
+house_aawc_stability = {
+	parent = "dynn_aawc_stability"
+}

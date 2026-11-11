@@ -1,0 +1,1492 @@
+﻿# DUCHY OF VOLANTIS
+################## Volantis Harbor ##################
+10491 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	# Special building for the harbor, reduced embarkation cost and stuff
+	special_building = agot_EE_volantis_harbor
+	7824.1.1 = {
+		buildings = {
+			city_05
+			agot_slave_camps_08
+			city_walls_04
+		}
+	}
+}
+################## Fishermonger's Square ##################
+10492 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_05
+			common_tradeport_07
+		}
+	}
+}
+################## Western Waterfront ##################
+10493 = {
+	holding = city_holding
+	special_building = agot_EE_the_long_bridge
+	7824.1.1 = {
+		buildings = {
+			city_04
+			common_tradeport_06
+		}
+	}
+}
+################## Eastern Waterfront ##################
+10494 = {
+	holding = city_holding
+	special_building = agot_EE_the_long_bridge
+	7824.1.1 = {
+		buildings = {
+			city_04
+			common_tradeport_06
+		}
+	}
+}
+################## Old Volantis ##################
+10490 = {
+	culture = essosi_valyrian
+	religion = valyrian_pan_freehold
+	holding = castle_holding
+	special_building = agot_EE_black_walls_of_old_volantis
+	duchy_capital_building = agot_EE_volantis_walls
+	7824.1.1 = {
+		buildings = {
+			castle_05
+			curtain_walls_06
+			agot_slave_camps_08
+		}
+	}
+}
+################## Black Dragon Square ##################
+10495 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_04
+		}
+	}
+}
+10500 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_04
+		}
+	}
+}
+################## Volantis Outskirts ##################
+10499 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_04
+			agot_slave_camps_08
+			city_walls_04
+		}
+	}
+}
+################## The Great Plaza ##################
+10496 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_05
+			agot_slave_camps_08
+		}
+	}
+}
+################## Temple of the Lord of Light ##################
+10498 = {
+	culture = essosi_valyrian
+	religion = rhllor_fc
+	holding = church_holding
+	special_building = agot_EE_temple_of_the_lord_of_light
+	7824.1.1 = {
+		buildings = {
+			temple_04
+		}
+	}
+}
+10497 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_04
+		}
+	}
+}
+10501 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_04
+		}
+	}
+}
+# DUCHY OF SARHOY
+################## Sarhoy - Ruin ##################
+10771 = {
+	culture = sarhar
+	religion = mother_rhoyne
+	holding = ruin_holding
+	7300.1.1 = {
+		buildings = {
+            large_ruin_01
+			ruin_renowned_01
+		}
+	}
+}
+10772 = { holding = none }
+10773 = { holding = none }
+10774 = { holding = none }
+10775 = { holding = none }
+10776 = { holding = none }
+################## Jelsah ##################
+10778 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_02
+			agot_slave_camps_03
+			city_walls_02
+		}
+	}
+}
+10779 = {
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+		}
+	}
+}
+10780 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_02
+		}
+	}
+}
+10781 = { holding = none }
+10782 = { holding = none }
+10783 = { holding = none }
+10784 = { holding = none }
+10785 = { holding = none }
+# DUCHY OF VOLON THERYS
+################## Volon Therys ##################
+10786 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_04
+			agot_slave_camps_07
+			city_walls_04
+		}
+	}
+}
+10787 = {
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_04
+		}
+	}
+}
+10788 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_03
+		}
+	}
+}
+10789 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_03
+		}
+	}
+}
+# Duchy of Valysar
+################## Valysar ##################
+10790 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_04
+			agot_slave_camps_06
+			city_walls_04
+		}
+	}
+}
+10791 = {
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_04
+		}
+	}
+}
+10792 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_03
+		}
+	}
+}
+10793 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_03
+		}
+	}
+}
+10794 = { holding = none }
+10795 = { holding = none }
+10796 = { holding = none }
+10797 = { holding = none }
+10798 = { holding = none }
+10799 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_03
+		}
+	}
+}
+# DUCHY OF ORANGE SHORE
+################## Vedys Lands ##################
+10830 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_04
+		}
+	}
+}
+10831 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_02
+		}
+	}
+}
+10832 = { holding = none }
+10833 = { holding = none }
+10834 = { holding = none }
+10835 = { holding = none }
+10836 = { holding = none }
+10837 = { holding = none }
+10838 = { holding = none }
+10839 = { holding = none }
+10840 = { holding = none }
+10841 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_02
+		}
+	}
+}
+################## Naqa Mell ##################
+10842 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_02
+			agot_slave_camps_03
+			city_walls_02
+		}
+	}
+}
+10843 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_01
+		}
+	}
+}
+10844 = { holding = none }
+10845 = { holding = none }
+10846 = { holding = none }
+10847 = { holding = none }
+10848 = { holding = none }
+10849 = { holding = none }
+10850 = { holding = none }
+10851 = {
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			city_01
+		}
+	}
+}
+################## Olvys Mell ##################
+10812 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_03
+			agot_slave_camps_05
+			city_walls_03
+		}
+	}
+}
+10813 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_03
+		}
+	}
+}
+10814 = {
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+}
+10815 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_02
+		}
+	}
+}
+10816 = { holding = none }
+10817 = { holding = none }
+10818 = { holding = none }
+10819 = { holding = none }
+10820 = { holding = none }
+################## Honors Port ##################
+10821 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_03
+			agot_slave_camps_04
+			city_walls_03
+		}
+	}
+}
+10822 = {
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+}
+10823 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_02
+		}
+	}
+}
+10824 = { holding = none }
+10825 = { holding = none }
+10826 = { holding = none }
+10827 = { holding = none }
+10828 = { holding = none }
+10829 = { holding = none }
+################## Plains of Maegys ##################
+10865 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_01
+		}
+	}
+}
+10866 = { holding = none }
+10867 = { holding = none }
+10868 = { holding = none }
+10869 = { holding = none }
+10870 = { holding = none }
+10871 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_01
+		}
+	}
+}
+10872 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_01
+		}
+	}
+}
+# DUCHY OF DREOS (Volantene Disputed Lands)
+################## Dreos ##################
+10852 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_03
+		}
+	}
+}
+10853 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_01
+		}
+	}
+}
+10854 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_02
+		}
+	}
+}
+10855 = { holding = none }
+10856 = { holding = none }
+10857 = { holding = none }
+10858 = { holding = none }
+################## Anyria ##################
+10859 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_04
+			agot_slave_camps_02
+			curtain_walls_03
+		}
+	}
+}
+10860 = { holding = none }
+10861 = { holding = none }
+10862 = { holding = none }
+10863 = { holding = none }
+10864 = { holding = none }
+################## Mavlys ##################
+10800 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_04
+			agot_slave_camps_05
+			curtain_walls_03
+		}
+	}
+}
+10801 = { holding = none }
+10802 = { holding = none }
+10803 = { holding = none }
+10804 = { holding = none }
+10805 = { holding = none }
+10806 = { holding = none }
+10807 = { holding = none }
+10808 = { holding = none }
+10809 = { holding = none }
+10810 = { holding = none }
+10811 = { holding = none }
+# DUCHY OF VALON SAR
+################## Valon Sar ##################
+10873 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_02
+			agot_slave_camps_03
+			city_walls_03
+		}
+	}
+}
+10874 = {
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+		}
+	}
+}
+10875 = { holding = none }
+10876 = { holding = none }
+10877 = { holding = none }
+10878 = { holding = none }
+10879 = { holding = none }
+10880 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_02
+		}
+	}
+}
+################## Ar Pharos ##################
+10881 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_04
+			agot_slave_camps_02
+			curtain_walls_03
+		}
+	}
+}
+10882 = { holding = none }
+10883 = { holding = none }
+10884 = { holding = none }
+10885 = { holding = none }
+10886 = { holding = none }
+10887 = { holding = none }
+10888 = { holding = none }
+################## Laboros ##################
+10889 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_04
+			agot_slave_camps_03
+			curtain_walls_02
+		}
+	}
+}
+10890 = { holding = none }
+10891 = { holding = none }
+10892 = { holding = none }
+10893 = { holding = none }
+10894 = { holding = none }
+10895 = { holding = none }
+################## Torynar ##################
+10896 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_02
+		}
+	}
+}
+10897 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_01
+		}
+	}
+}
+10898 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_01
+		}
+	}
+}
+10899 = { holding = none }
+10900 = { holding = none }
+################## Hypyris ##################
+10902 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_01
+			agot_slave_camps_02
+		}
+	}
+}
+10903 = { holding = none }
+10904 = { holding = none }
+10905 = { holding = none }
+10906 = { holding = none }
+10907 = { holding = none }
+10908 = { holding = none }
+10909 = { holding = none }
+10910 = { holding = none }
+################## Nor Meran ##################
+10911 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_01
+			agot_slave_camps_02
+		}
+	}
+}
+10912 = { holding = none }
+10913 = { holding = none }
+10914 = { holding = none }
+10915 = { holding = none }
+10916 = { holding = none }
+################## Ar Mynar ##################
+10919 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_02
+		}
+	}
+}
+10920 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_01
+		}
+	}
+}
+10917 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_01
+		}
+	}
+}
+10921 = { holding = none }
+10922 = { holding = none }
+10923 = { holding = none }
+10924 = { holding = none }
+10925 = { holding = none }
+10926 = { holding = none }
+10927 = { holding = none }
+10928 = { holding = none }
+10929 = { holding = none }
+10918 = { holding = none }
+################## Arlior Geron ##################
+10502 = {
+	culture = essosi_valyrian
+	religion = fc_pan_volantis
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+			agot_slave_camps_07
+			guild_halls_04
+		}
+	}
+}
+# Qelbarys
+10508 = {
+	culture = essosi_valyrian
+	religion = fc_pan_volantis
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_04
+			agot_slave_camps_05
+			guild_halls_04
+		}
+	}
+}
+10509 = { holding = none }
+10510 = { holding = none }
+10511 = { holding = none }
+10503 = { holding = none }
+10504 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_02
+		}
+	}
+}
+10505 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_03
+		}
+	}
+}
+10506 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_02
+		}
+	}
+}
+10512 = { holding = none }
+################## Rystana ##################
+10513 = {
+	culture = essosi_valyrian
+	religion = fc_pan_volantis
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_04
+			agot_slave_camps_05
+			guild_halls_04
+		}
+	}
+}
+10514 = { holding = none }
+10515 = { holding = none }
+10519 = { holding = none }
+10520 = { holding = none }
+################## Hemarhaeon ##################
+10518 = {
+	culture = essosi_valyrian
+	religion = fc_pan_volantis
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_04
+			agot_slave_camps_05
+			guild_halls_04
+		}
+	}
+}
+10521 = { holding = none }
+10522 = { holding = none }
+10523 = { holding = none }
+10516 = { holding = none }
+10517 = { holding = none }
+################## Little Valyria ##################
+10525 = {
+	culture = essosi_valyrian
+	religion = fc_pan_volantis
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_05
+		}
+	}
+}
+10526 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_02
+		}
+	}
+}
+10527 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_02
+		}
+	}
+}
+10528 = { holding = none }
+################## Morghos ##################
+10531 = {
+	culture = essosi_valyrian
+	religion = fc_pan_volantis
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_04
+		}
+	}
+}
+10532 = { holding = none }
+10533 = { holding = none }
+10534 = { holding = none }
+10535 = { holding = none }
+10536 = { holding = none }
+10529 = { holding = none }
+10530 = { holding = none }
+################## Zalmyzkes ##################
+10537 = {
+	culture = essosi_valyrian
+	religion = fc_pan_volantis
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_04
+		}
+	}
+}
+10538 = { holding = none }
+10539 = { holding = none }
+10540 = { holding = none }
+10541 = { holding = none }
+10542 = { holding = none }
+10543 = { holding = none }
+10544 = { holding = none }
+################## Vasyugys ##################
+10545 = {
+	culture = essosi_valyrian
+	religion = fc_pan_volantis
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_04
+		}
+	}
+}
+10546 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_02
+		}
+	}
+}
+10547 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_02
+		}
+	}
+}
+10548 = { holding = none }
+10549 = { holding = none }
+# DUCHY OF SELHORYS
+################## Sar Mell - Ruin ##################
+10550 = {
+	culture = mellar
+	religion = mother_rhoyne
+	holding = ruin_holding
+	7300.1.1 = {
+		buildings = {
+			medium_ruin_01
+			ruin_desolate_01
+		}
+	}
+}
+10551 = { holding = none }
+10552 = { holding = none }
+10558 = { holding = none }
+10559 = { holding = none }
+10560 = { holding = none }
+################## Mestoy - Ruin ##################
+10556 = {
+	culture = mellar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+10553 = { holding = none }
+10554 = { holding = none }
+10557 = { holding = none }
+10555 = { holding = none }
+################## Ar Voleys - Ruin ##################
+10563 = {
+	culture = mellar
+	religion = mother_rhoyne
+	holding = wilderness_holding
+}
+10564 = { holding = none }
+10565 = { holding = none }
+10566 = { holding = none }
+10567 = { holding = none }
+10568 = { holding = none }
+10561 = { holding = none }
+10562 = { holding = none }
+################## Selhorys ##################
+10569 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_03
+			city_walls_04
+		}
+	}
+}
+10570 = {
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_02
+		}
+	}
+}
+10571 = {
+	holding = church_holding
+	7824.1.1 = {
+		buildings = {
+			temple_02
+		}
+	}
+}
+10572 = { holding = none }
+10573 = { holding = none }
+10574 = { holding = none }
+10575 = { holding = none }
+10576 = { holding = none }
+10577 = { holding = none }
+10578 = { holding = none }
+10579 = { holding = none }
+10580 = { holding = none }
+################## Selhoru ##################
+10581 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10582 = { holding = none }
+10583 = { holding = none }
+10584 = { holding = none }
+10585 = { holding = none }
+10586 = { holding = none }
+10587 = { holding = none }
+10588 = { holding = none }
+10589 = { holding = none }
+10590 = { holding = none }
+10591 = { holding = none }
+10593 = { holding = none }
+10594 = { holding = none }
+10595 = { holding = none }
+10596 = { holding = none }
+10597 = { holding = none }
+10598 = { holding = none }
+10599 = { holding = none }
+################## Selovys ##################
+10592 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10600 = { holding = none }
+10602 = { holding = none }
+10603 = { holding = none }
+10604 = { holding = none }
+################## Oryniel ##################
+10601 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10605 = { holding = none }
+10606 = { holding = none }
+10608 = { holding = none }
+10609 = { holding = none }
+10610 = { holding = none }
+10611 = { holding = none }
+10612 = { holding = none }
+################## Kestoryuna ##################
+10607 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10613 = { holding = none }
+10614 = { holding = none }
+10615 = { holding = none }
+10616 = { holding = none }
+10617 = { holding = none }
+################## Death Swamps ##################
+10618 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10619 = { holding = none }
+10620 = { holding = none }
+10621 = { holding = none }
+10622 = { holding = none }
+10623 = { holding = none }
+10624 = { holding = none }
+10625 = { holding = none }
+10626 = { holding = none }
+10627 = { holding = none }
+10628 = { holding = none }
+10629 = { holding = none }
+################## Noksarys ##################
+10663 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10664 = { holding = none }
+10665 = { holding = none }
+10666 = { holding = none }
+10667 = { holding = none }
+10668 = { holding = none }
+################## Arosenyr ##################
+10630 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10631 = { holding = none }
+10632 = { holding = none }
+10633 = { holding = none }
+10634 = { holding = none }
+10635 = { holding = none }
+10669 = { holding = none }
+10670 = { holding = none }
+10671 = { holding = none }
+10672 = { holding = none }
+10673 = { holding = none }
+10674 = { holding = none }
+10659 = { holding = none }
+10641 = { holding = none }
+################## Nyturys ##################
+10640 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10642 = { holding = none }
+10643 = { holding = none }
+10644 = { holding = none }
+10645 = { holding = none }
+10657 = { holding = none }
+################## Altames ##################
+10658 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10660 = { holding = none }
+10661 = { holding = none }
+10662 = { holding = none }
+10647 = { holding = none }
+10636 = { holding = none }
+10637 = { holding = none }
+10638 = { holding = none }
+10639 = { holding = none }
+10648 = { holding = none }
+10649 = { holding = none }
+10650 = { holding = none }
+10651 = { holding = none }
+10655 = { holding = none }
+10656 = { holding = none }
+10654 = { holding = none }
+################## Morghanion ##################
+10646 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10652 = { holding = none }
+10653 = { holding = none }
+# Duchy of Volaena
+################## Volaena ##################
+10675 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10676 = { holding = none }
+10677 = { holding = none }
+10678 = { holding = none }
+10679 = { holding = none }
+10680 = { holding = none }
+10681 = { holding = none }
+10682 = { holding = none }
+10683 = { holding = none }
+10684 = { holding = none }
+10685 = { holding = none }
+10687 = { holding = none }
+10688 = { holding = none }
+10689 = { holding = none }
+10690 = { holding = none }
+10691 = { holding = none }
+10692 = { holding = none }
+################## Shulsera ##################
+10686 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10693 = { holding = none }
+10694 = { holding = none }
+10695 = { holding = none }
+10696 = { holding = none }
+10699 = { holding = none }
+10700 = { holding = none }
+10701 = { holding = none }
+10697 = { holding = none }
+10702 = { holding = none }
+10703 = { holding = none }
+10704 = { holding = none }
+10705 = { holding = none }
+################## Ounemyr ##################
+10698 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10706 = { holding = none }
+10707 = { holding = none }
+10708 = { holding = none }
+10709 = { holding = none }
+################## Ubyris ##################
+10710 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10711 = { holding = none }
+10712 = { holding = none }
+10713 = { holding = none }
+10714 = { holding = none }
+10715 = { holding = none }
+10716 = { holding = none }
+10717 = { holding = none }
+10718 = { holding = none }
+10721 = { holding = none }
+################## Numurys ##################
+10720 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10722 = { holding = none }
+10723 = { holding = none }
+10719 = { holding = none }
+################## Vysyria ##################
+10724 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10725 = { holding = none }
+10726 = { holding = none }
+10727 = { holding = none }
+10728 = { holding = none }
+10729 = { holding = none }
+10730 = { holding = none }
+10731 = { holding = none }
+10732 = { holding = none }
+10733 = { holding = none }
+10734 = { holding = none }
+10735 = { holding = none }
+10737 = { holding = none }
+10738 = { holding = none }
+10739 = { holding = none }
+################## Jotyr ##################
+10736 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10741 = { holding = none }
+10742 = { holding = none }
+10743 = { holding = none }
+10744 = { holding = none }
+10745 = { holding = none }
+10746 = { holding = none }
+10753 = { holding = none }
+10754 = { holding = none }
+10755 = { holding = none }
+################## Almaeys ##################
+10752 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10747 = { holding = none }
+10748 = { holding = none }
+################## Marzyskes ##################
+10740 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10749 = { holding = none }
+10750 = { holding = none }
+10751 = { holding = none }
+10764 = { holding = none }
+10765 = { holding = none }
+10766 = { holding = none }
+10767 = { holding = none }
+10756 = { holding = none }
+10757 = { holding = none }
+10758 = { holding = none }
+10759 = { holding = none }
+10760 = { holding = none }
+################## Maeros ##################
+10763 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	7824.1.1 = {
+		buildings = {
+			castle_03
+		}
+	}
+	7998.1.1 = {
+		culture = dothraki
+		religion = dothraki_faith
+		holding = tribal_holding
+	}
+}
+10768 = { holding = none }
+10769 = { holding = none }
+10770 = { holding = none }
+10761 = { holding = none }
+10762 = { holding = none }
+
+10507 = {
+	holding = city_holding
+	7824.1.1 = {
+		buildings = {
+			city_03
+		}
+	}
+}
+10901 = { holding = none }
+10777 = { holding = none }
+
+#maeza
+10524 = {
+	culture = volantene
+	religion = rhllor_fc
+	holding = castle_holding
+	100.1.1 = {
+		buildings = {
+			castle_02
+			agot_slave_camps_03
+		}
+	}
+}

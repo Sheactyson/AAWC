@@ -1,0 +1,75 @@
+﻿namespace = aawc_lineage
+
+# CK3 can attach generated court-fill characters after title inheritance
+# on-actions complete. These delayed passes remain scoped to that succession.
+aawc_lineage.0001 = {
+	type = character_event
+	hidden = yes
+
+	trigger = {
+		aawc_tribal_shatter_active = yes
+		is_alive = yes
+		is_landed = yes
+		agot_is_dummy_character = no
+		has_character_flag = aawc_lineage_inheritance_court_checked
+	}
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE beginning one-day delayed inheritance court reconciliation" }
+		aawc_lineage_reconcile_inherited_court_effect = yes
+	}
+}
+
+aawc_lineage.0002 = {
+	type = character_event
+	hidden = yes
+
+	trigger = {
+		aawc_tribal_shatter_active = yes
+		is_alive = yes
+		is_landed = yes
+		agot_is_dummy_character = no
+		has_character_flag = aawc_lineage_inheritance_court_checked
+	}
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE beginning seven-day delayed inheritance court reconciliation" }
+		aawc_lineage_reconcile_inherited_court_effect = yes
+	}
+}
+
+# Review ordinary court admissions after the transaction has finished. This
+# catches generated lowborn courtiers that enter through event or engine paths
+# without disturbing inherited noble courts or AAWC-approved characters.
+aawc_lineage.0003 = {
+	type = character_event
+	hidden = yes
+
+	trigger = {
+		aawc_tribal_shatter_active = yes
+		is_alive = yes
+		is_landed = no
+		is_lowborn = yes
+		NOT = { exists = father }
+		NOT = { exists = mother }
+		NOT = { has_character_flag = aawc_lineage_known_birth }
+		NOT = { has_character_flag = aawc_lineage_known_aawc_generation }
+		NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+		NOT = { has_character_flag = aawc_engine_pool_reserve }
+		NOT = { has_character_flag = aawc_lineage_known_mercenary }
+		NOT = { has_character_flag = aawc_artifact_market_keeper }
+		NOT = { any_player = { this = prev } }
+		exists = employer
+		employer = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { primary_title ?= { is_mercenary_company = yes } }
+		}
+	}
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed an unapproved parentless lowborn after court admission" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+		death = { death_reason = death_disappearance }
+	}
+}

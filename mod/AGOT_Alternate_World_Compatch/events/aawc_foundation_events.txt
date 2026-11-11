@@ -1,0 +1,409 @@
+﻿namespace = aawc_foundation
+
+# These events deliberately use CK3's actual culture-creation effect instead of
+# sending the player to the native divergence window. Faith creation remains a
+# native GUI operation, but the event selects the parent religion first so the
+# proper AGOT doctrine groups are available. The culture and faith invitations
+# are intentionally independent so their game-rule modes do not cross-trigger.
+
+# Each AI founder receives an individual hidden event. This makes that ruler
+# root before invoking the same immediate culture finalizer proven for players.
+aawc_foundation.0400 = {
+	type = character_event
+	hidden = yes
+
+	trigger = {
+		is_ai = yes
+		is_landed = yes
+		agot_is_dummy_character = no
+		has_character_flag = aawc_1103_ai_culture_foundation_queued
+		NOT = { has_character_flag = aawc_1103_ai_culture_foundation_completed }
+	}
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.3 AI individual founder culture event started" }
+		set_global_variable = { name = aawc_1103_culture_namer value = root }
+		aawc_1103_finalize_player_culture_foundation_effect = yes
+		remove_character_flag = aawc_1103_ai_culture_foundation_queued
+		add_character_flag = aawc_1103_ai_culture_foundation_completed
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.3 AI culture foundation completed through individual founder event" }
+	}
+}
+
+aawc_foundation.0001 = {
+	type = character_event
+	title = aawc_foundation.0001.t
+	desc = aawc_foundation.0001.desc
+	theme = realm
+
+	trigger = {
+		is_landed = yes
+		agot_is_dummy_character = no
+		NOT = { has_character_flag = aawc_1103_culture_foundation_invited }
+	}
+
+	immediate = {
+		add_character_flag = aawc_1103_culture_foundation_invited
+		add_character_flag = aawc_1103_foundation_culture_pending
+		set_global_variable = { name = aawc_1103_culture_namer value = root }
+	}
+
+	option = {
+		name = aawc_foundation.0001.a
+		# A text-widget placeholder is submitted as an empty custom value by CK3.
+		# The explicit default path therefore never reads the widget at all.
+		add_character_flag = aawc_1103_culture_name_uses_county
+		trigger_event = aawc_foundation.0100
+	}
+	option = {
+		name = aawc_foundation.0001.b
+		trigger_event = aawc_foundation.0003
+	}
+}
+
+# The custom-name path is intentionally separate from the capital-name default.
+# CK3 only writes a reliable custom text value after this explicit input action.
+aawc_foundation.0003 = {
+	type = character_event
+	title = aawc_foundation.0003.t
+	desc = aawc_foundation.0003.desc
+	theme = realm
+
+	widgets = {
+		widget = {
+			gui = "aawc_1103_culture_name_widget"
+			container = "dynamic_birth_name"
+			controller = {
+				type = text
+				data = {
+					key = aawc_1103_culture_name
+					default = { localization_key = aawc_foundation_culture_default_name }
+				}
+			}
+			setup_scope = { root = { save_scope_as = text_target } }
+		}
+	}
+
+	option = {
+		name = aawc_foundation.0003.a
+		set_variable = { name = aawc_1103_culture_name value = flag:custom }
+		trigger_event = aawc_foundation.0100
+	}
+	option = {
+		name = aawc_foundation.0003.b
+		add_character_flag = aawc_1103_culture_name_uses_county
+		trigger_event = aawc_foundation.0100
+	}
+}
+
+# Faith begins separately from culture. This event is only invited for Lost
+# Faith modes, and the culture rule never needs to traverse faith selection.
+aawc_foundation.0002 = {
+	type = character_event
+	title = aawc_foundation.0002.t
+	desc = aawc_foundation.0002.desc
+	theme = realm
+
+	trigger = {
+		is_landed = yes
+		agot_is_dummy_character = no
+		NOT = { has_character_flag = aawc_1103_faith_foundation_invited }
+	}
+
+	immediate = {
+		add_character_flag = aawc_1103_faith_foundation_invited
+		add_character_flag = aawc_1103_foundation_faith_pending
+	}
+
+	option = {
+		name = aawc_foundation.0002.a
+		trigger_event = aawc_foundation.0200
+	}
+}
+
+# Culture foundation: ethos -> roots -> one founding tradition.
+aawc_foundation.0100 = {
+	type = character_event
+	title = aawc_foundation.0100.t
+	desc = aawc_foundation.0100.desc
+	theme = realm
+
+	trigger = { has_character_flag = aawc_1103_foundation_culture_pending }
+
+	option = { name = aawc_foundation.0100.a custom_tooltip = aawc_foundation.0100.a.tt add_character_flag = aawc_1103_ethos_bellicose trigger_event = aawc_foundation.0101 }
+	option = { name = aawc_foundation.0100.b custom_tooltip = aawc_foundation.0100.b.tt add_character_flag = aawc_1103_ethos_bureaucratic trigger_event = aawc_foundation.0101 }
+	option = { name = aawc_foundation.0100.c custom_tooltip = aawc_foundation.0100.c.tt add_character_flag = aawc_1103_ethos_communal trigger_event = aawc_foundation.0101 }
+	option = { name = aawc_foundation.0100.d custom_tooltip = aawc_foundation.0100.d.tt add_character_flag = aawc_1103_ethos_courtly trigger_event = aawc_foundation.0101 }
+	option = { name = aawc_foundation.0100.e custom_tooltip = aawc_foundation.0100.e.tt add_character_flag = aawc_1103_ethos_egalitarian trigger_event = aawc_foundation.0101 }
+	option = { name = aawc_foundation.0100.f custom_tooltip = aawc_foundation.0100.f.tt add_character_flag = aawc_1103_ethos_spiritual trigger_event = aawc_foundation.0101 }
+}
+
+aawc_foundation.0101 = {
+	type = character_event
+	title = aawc_foundation.0101.t
+	desc = aawc_foundation.0101.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0101.a custom_tooltip = aawc_foundation.0101.a.tt add_character_flag = aawc_1103_roots_andal trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0101.b custom_tooltip = aawc_foundation.0101.b.tt add_character_flag = aawc_1103_roots_first_man trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0101.c custom_tooltip = aawc_foundation.0101.c.tt add_character_flag = aawc_1103_roots_freecities trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0101.d custom_tooltip = aawc_foundation.0101.d.tt add_character_flag = aawc_1103_roots_ghiscari trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0101.e custom_tooltip = aawc_foundation.0101.e.tt add_character_flag = aawc_1103_roots_grasslands trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0101.f trigger_event = aawc_foundation.0104 }
+}
+
+aawc_foundation.0104 = {
+	type = character_event
+	title = aawc_foundation.0104.t
+	desc = aawc_foundation.0104.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0104.a custom_tooltip = aawc_foundation.0104.a.tt add_character_flag = aawc_1103_roots_hairyman trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0104.b custom_tooltip = aawc_foundation.0104.b.tt add_character_flag = aawc_1103_roots_hyrkoonan trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0104.c custom_tooltip = aawc_foundation.0104.c.tt add_character_flag = aawc_1103_roots_ironborn trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0104.d custom_tooltip = aawc_foundation.0104.d.tt add_character_flag = aawc_1103_roots_jadeislands trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0104.e custom_tooltip = aawc_foundation.0104.e.tt add_character_flag = aawc_1103_roots_mennight trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0104.f custom_tooltip = aawc_foundation.0104.f.tt add_character_flag = aawc_1103_roots_moraqi trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0104.g trigger_event = aawc_foundation.0105 }
+	option = { name = aawc_foundation.0104.h trigger_event = aawc_foundation.0101 }
+}
+
+aawc_foundation.0105 = {
+	type = character_event
+	title = aawc_foundation.0105.t
+	desc = aawc_foundation.0105.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0105.a custom_tooltip = aawc_foundation.0105.a.tt add_character_flag = aawc_1103_roots_nghai trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0105.b custom_tooltip = aawc_foundation.0105.b.tt add_character_flag = aawc_1103_roots_qaathi trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0105.c custom_tooltip = aawc_foundation.0105.c.tt add_character_flag = aawc_1103_roots_rhoynar trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0105.d custom_tooltip = aawc_foundation.0105.d.tt add_character_flag = aawc_1103_roots_sarnori trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0105.e custom_tooltip = aawc_foundation.0105.e.tt add_character_flag = aawc_1103_roots_shadowlanders trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0105.f custom_tooltip = aawc_foundation.0105.f.tt add_character_flag = aawc_1103_roots_sothoryi trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0105.g trigger_event = aawc_foundation.0106 }
+	option = { name = aawc_foundation.0105.h trigger_event = aawc_foundation.0104 }
+}
+
+aawc_foundation.0106 = {
+	type = character_event
+	title = aawc_foundation.0106.t
+	desc = aawc_foundation.0106.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0106.a custom_tooltip = aawc_foundation.0106.a.tt add_character_flag = aawc_1103_roots_summer trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0106.b custom_tooltip = aawc_foundation.0106.b.tt add_character_flag = aawc_1103_roots_valyrian trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0106.c custom_tooltip = aawc_foundation.0106.c.tt add_character_flag = aawc_1103_roots_wildling trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0106.d custom_tooltip = aawc_foundation.0106.d.tt add_character_flag = aawc_1103_roots_yitish trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0106.e custom_tooltip = aawc_foundation.0106.e.tt add_character_flag = aawc_1103_roots_elder_races trigger_event = aawc_foundation.0102 }
+	option = { name = aawc_foundation.0106.f trigger_event = aawc_foundation.0105 }
+}
+
+aawc_foundation.0102 = {
+	type = character_event
+	title = aawc_foundation.0102.t
+	desc = aawc_foundation.0102.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0102.a custom_tooltip = aawc_foundation.0102.a.tt add_character_flag = aawc_1103_tradition_agrarian trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0102.b custom_tooltip = aawc_foundation.0102.b.tt add_character_flag = aawc_1103_tradition_forest_folk trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0102.c custom_tooltip = aawc_foundation.0102.c.tt add_character_flag = aawc_1103_tradition_hill_dwellers trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0102.d custom_tooltip = aawc_foundation.0102.d.tt add_character_flag = aawc_1103_tradition_mountain_homes trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0102.e custom_tooltip = aawc_foundation.0102.e.tt add_character_flag = aawc_1103_tradition_dryland_dwellers trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0102.f custom_tooltip = aawc_foundation.0102.f.tt add_character_flag = aawc_1103_tradition_wetlanders trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0102.g trigger_event = aawc_foundation.0103 }
+}
+
+aawc_foundation.0103 = {
+	type = character_event
+	title = aawc_foundation.0103.t
+	desc = aawc_foundation.0103.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0103.a custom_tooltip = aawc_foundation.0103.a.tt add_character_flag = aawc_1103_tradition_maritime_mercantilism trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0103.b custom_tooltip = aawc_foundation.0103.b.tt add_character_flag = aawc_1103_tradition_established_hospitality trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0103.c custom_tooltip = aawc_foundation.0103.c.tt add_character_flag = aawc_1103_tradition_legalistic trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0103.d custom_tooltip = aawc_foundation.0103.d.tt add_character_flag = aawc_1103_tradition_martial_admiration trigger_event = aawc_foundation.0107 }
+	option = { name = aawc_foundation.0103.e trigger_event = aawc_foundation.0102 }
+}
+
+# The choice pages never apply a culture directly. This final page gives the
+# player a plain-language recap and a clean opportunity to begin again.
+aawc_foundation.0107 = {
+	type = character_event
+	title = aawc_foundation.0107.t
+	desc = {
+		desc = aawc_foundation.0107.desc
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_ethos_bellicose } desc = aawc_foundation.0107.ethos_bellicose }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_ethos_bureaucratic } desc = aawc_foundation.0107.ethos_bureaucratic }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_ethos_communal } desc = aawc_foundation.0107.ethos_communal }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_ethos_courtly } desc = aawc_foundation.0107.ethos_courtly }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_ethos_egalitarian } desc = aawc_foundation.0107.ethos_egalitarian }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_ethos_spiritual } desc = aawc_foundation.0107.ethos_spiritual }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_andal } desc = aawc_foundation.0107.roots_andal }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_first_man } desc = aawc_foundation.0107.roots_first_man }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_freecities } desc = aawc_foundation.0107.roots_freecities }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_ghiscari } desc = aawc_foundation.0107.roots_ghiscari }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_grasslands } desc = aawc_foundation.0107.roots_grasslands }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_hairyman } desc = aawc_foundation.0107.roots_hairyman }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_hyrkoonan } desc = aawc_foundation.0107.roots_hyrkoonan }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_ironborn } desc = aawc_foundation.0107.roots_ironborn }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_jadeislands } desc = aawc_foundation.0107.roots_jadeislands }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_mennight } desc = aawc_foundation.0107.roots_mennight }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_moraqi } desc = aawc_foundation.0107.roots_moraqi }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_nghai } desc = aawc_foundation.0107.roots_nghai }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_qaathi } desc = aawc_foundation.0107.roots_qaathi }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_rhoynar } desc = aawc_foundation.0107.roots_rhoynar }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_sarnori } desc = aawc_foundation.0107.roots_sarnori }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_shadowlanders } desc = aawc_foundation.0107.roots_shadowlanders }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_sothoryi } desc = aawc_foundation.0107.roots_sothoryi }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_summer } desc = aawc_foundation.0107.roots_summer }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_valyrian } desc = aawc_foundation.0107.roots_valyrian }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_wildling } desc = aawc_foundation.0107.roots_wildling }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_yitish } desc = aawc_foundation.0107.roots_yitish }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_roots_elder_races } desc = aawc_foundation.0107.roots_elder_races }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_agrarian } desc = aawc_foundation.0107.tradition_agrarian }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_forest_folk } desc = aawc_foundation.0107.tradition_forest_folk }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_hill_dwellers } desc = aawc_foundation.0107.tradition_hill_dwellers }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_mountain_homes } desc = aawc_foundation.0107.tradition_mountain_homes }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_dryland_dwellers } desc = aawc_foundation.0107.tradition_dryland_dwellers }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_wetlanders } desc = aawc_foundation.0107.tradition_wetlanders }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_maritime_mercantilism } desc = aawc_foundation.0107.tradition_maritime_mercantilism }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_established_hospitality } desc = aawc_foundation.0107.tradition_established_hospitality }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_legalistic } desc = aawc_foundation.0107.tradition_legalistic }
+		triggered_desc = { trigger = { has_character_flag = aawc_1103_tradition_martial_admiration } desc = aawc_foundation.0107.tradition_martial_admiration }
+	}
+	theme = realm
+
+	option = { name = aawc_foundation.0107.a aawc_1103_finalize_player_culture_foundation_effect = yes }
+	option = { name = aawc_foundation.0107.b aawc_1103_clear_player_culture_foundation_choices_effect = yes trigger_event = aawc_foundation.0001 }
+}
+
+# Faith origin: this chooses the parent religion that controls the doctrine and
+# rite options shown by CK3's native Faith Creator. The pages cover every AGOT
+# religion type instead of forcing the founder into the Lost faith's doctrine set.
+aawc_foundation.0200 = {
+	type = character_event
+	title = aawc_foundation.0200.t
+	desc = aawc_foundation.0200.desc
+	theme = realm
+
+	trigger = { has_character_flag = aawc_1103_foundation_faith_pending }
+
+	option = { name = aawc_foundation.0200.a aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_seven } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0200.b aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_pact } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0200.c aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_flames } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0200.d aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_rhllor } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0200.e trigger_event = aawc_foundation.0201 }
+}
+
+aawc_foundation.0201 = {
+	type = character_event
+	title = aawc_foundation.0201.t
+	desc = aawc_foundation.0201.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0201.a aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_ways } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0201.b aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_chosen } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0201.c aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_churches } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0201.d aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_counsels } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0201.e trigger_event = aawc_foundation.0202 }
+	option = { name = aawc_foundation.0201.f trigger_event = aawc_foundation.0200 }
+}
+
+aawc_foundation.0202 = {
+	type = character_event
+	title = aawc_foundation.0202.t
+	desc = aawc_foundation.0202.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0202.a aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_courts } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0202.b aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_cults } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0202.c aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_first_gods } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0202.d aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_flocks } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0202.e trigger_event = aawc_foundation.0203 }
+	option = { name = aawc_foundation.0202.f trigger_event = aawc_foundation.0201 }
+}
+
+aawc_foundation.0203 = {
+	type = character_event
+	title = aawc_foundation.0203.t
+	desc = aawc_foundation.0203.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0203.a aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_graces } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0203.b aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_houses } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0203.c aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_liturgies } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0203.d aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_mother } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0203.e trigger_event = aawc_foundation.0204 }
+	option = { name = aawc_foundation.0203.f trigger_event = aawc_foundation.0202 }
+}
+
+aawc_foundation.0204 = {
+	type = character_event
+	title = aawc_foundation.0204.t
+	desc = aawc_foundation.0204.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0204.a aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_orders } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0204.b aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_others } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0204.c aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_shanties } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0204.d aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_songs } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0204.e trigger_event = aawc_foundation.0205 }
+	option = { name = aawc_foundation.0204.f trigger_event = aawc_foundation.0203 }
+}
+
+aawc_foundation.0205 = {
+	type = character_event
+	title = aawc_foundation.0205.t
+	desc = aawc_foundation.0205.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0205.a aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_temples } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0205.b aawc_1103_apply_player_faith_seed_effect = { FAITH = faith:aawc_lost_venerations } trigger_event = aawc_foundation.0299 }
+	option = { name = aawc_foundation.0205.c trigger_event = aawc_foundation.0204 }
+}
+
+aawc_foundation.0299 = {
+	type = character_event
+	title = aawc_foundation.0299.t
+	desc = aawc_foundation.0299.desc
+	theme = realm
+
+	option = { name = aawc_foundation.0299.a }
+}
+
+# A newly landed former adventurer may not expose a stable capital scope until
+# the next daily update. Reapply the selected seed after that update.
+aawc_foundation.0300 = {
+	type = character_event
+	hidden = yes
+
+	trigger = {
+		is_landed = yes
+		has_character_flag = aawc_1103_foundation_faith_seed_selected
+	}
+
+	immediate = {
+		every_courtier = { set_character_faith = root.faith }
+		capital_county = { set_county_faith = root.faith }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.6 delayed player faith seed synchronization completed" }
+	}
+}
+
+# Culture creation is synchronous, but the new capital produced by settlement
+# is not. Reapply the founder's resulting culture once that capital is stable.
+aawc_foundation.0301 = {
+	type = character_event
+	hidden = yes
+
+	trigger = {
+		is_landed = yes
+		has_character_flag = aawc_1103_foundation_culture_completed
+	}
+
+	immediate = {
+		every_courtier = { set_culture = root.culture }
+		capital_county = { set_county_culture = root.culture }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.6 delayed player culture synchronization completed" }
+	}
+}

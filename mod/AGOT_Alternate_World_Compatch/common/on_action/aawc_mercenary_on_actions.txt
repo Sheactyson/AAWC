@@ -1,0 +1,14 @@
+﻿# Root does not exist. Schedule one delayed annual maintenance batch away from Jan 1.
+yearly_global_pulse = {
+	on_actions = {
+		aawc_annual_maintenance_scheduler_pulse
+	}
+}
+
+aawc_annual_maintenance_scheduler_pulse = {
+	effect = {
+		title:c_ruins.holder ?= {
+			trigger_event = { id = aawc_startup.0008 days = 45 }
+		}
+	}
+}

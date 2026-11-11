@@ -1,0 +1,25 @@
+﻿# Generated stage-specific regional blocker population costs.
+# The holding-construction callback consumes this value for each paid level.
+
+@aawc_population_regional_blocker_200_cost = 200
+@aawc_population_regional_blocker_250_cost = 250
+@aawc_population_regional_blocker_300_cost = 300
+@aawc_population_regional_blocker_500_cost = 500
+@aawc_population_regional_blocker_750_cost = 750
+@aawc_population_regional_blocker_1000_cost = 1000
+@aawc_population_regional_blocker_1500_cost = 1500
+@aawc_population_regional_blocker_2000_cost = 2000
+@aawc_population_regional_blocker_2500_cost = 2500
+
+aawc_population_regional_blocker_clearance_construction_cost = {
+	value = 0
+	if = { limit = { has_construction_with_flag = aawc_blocker_population_cost_2500 } value = @aawc_population_regional_blocker_2500_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_population_cost_2000 } value = @aawc_population_regional_blocker_2000_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_population_cost_1500 } value = @aawc_population_regional_blocker_1500_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_population_cost_1000 } value = @aawc_population_regional_blocker_1000_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_population_cost_750 } value = @aawc_population_regional_blocker_750_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_population_cost_500 } value = @aawc_population_regional_blocker_500_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_population_cost_300 } value = @aawc_population_regional_blocker_300_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_population_cost_250 } value = @aawc_population_regional_blocker_250_cost }
+	else_if = { limit = { has_construction_with_flag = aawc_blocker_population_cost_200 } value = @aawc_population_regional_blocker_200_cost }
+}

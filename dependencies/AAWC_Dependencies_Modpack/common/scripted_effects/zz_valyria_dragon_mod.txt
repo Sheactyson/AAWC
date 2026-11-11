@@ -1,0 +1,45 @@
+﻿zz_agot_tame_dragon = {
+	agot_set_as_rider = { # Set rider
+		RIDER = $TAMER$
+		DRAGON = $DRAGON$
+	}
+	if = {
+		limit = {
+			$TAMER$ = {
+				has_relation_agot_dragon = $DRAGON$
+				$DRAGON$ = {
+					exists = var:cradlemate
+					var:cradlemate = $TAMER$
+					var:cradlemate = {
+						dynasty ?= { has_dynasty_perk = dragonrider_dynasty_legacy_1 }
+					}
+				}
+			}
+		}
+		$TAMER$ = {
+			add_trait_xp = {
+				trait = dragonrider
+				track = dragon_bond
+				value = 30
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			$TAMER$ = {
+				has_relation_agot_dragon = $DRAGON$
+			}
+		}
+		$TAMER$ = {
+			add_trait_xp = {
+				trait = dragonrider
+				track = dragon_bond
+				value = 100
+			}
+		}
+	}
+	agot_bond_dragon_relation_effect = { # Set as bonded if not
+		ACTOR = $TAMER$
+		DRAGON = $DRAGON$
+	}
+}

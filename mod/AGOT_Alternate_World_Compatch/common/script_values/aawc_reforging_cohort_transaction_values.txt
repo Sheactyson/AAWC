@@ -1,0 +1,198 @@
+﻿# Generated zero-safe transaction reads.
+
+aawc_reforging_tx_weight_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_weight } add = var:aawc_reforging_tx_weight } }
+}
+
+aawc_reforging_tx_capacity_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_capacity } add = var:aawc_reforging_tx_capacity } }
+}
+
+aawc_reforging_tx_allocation_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_allocation } add = var:aawc_reforging_tx_allocation } }
+}
+
+aawc_reforging_tx_active_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_active } add = var:aawc_reforging_tx_active } }
+}
+
+aawc_reforging_tx_quota_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_quota } add = var:aawc_reforging_tx_quota } }
+}
+
+aawc_reforging_tx_remainder_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_remainder } add = var:aawc_reforging_tx_remainder } }
+}
+
+aawc_reforging_tx_index_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_index } add = var:aawc_reforging_tx_index } }
+}
+
+aawc_reforging_tx_prepared_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_prepared } add = var:aawc_reforging_tx_prepared } }
+}
+
+aawc_reforging_tx_requested_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_requested } add = var:aawc_reforging_tx_requested } }
+}
+
+aawc_reforging_tx_remaining_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_remaining } add = var:aawc_reforging_tx_remaining } }
+}
+
+aawc_reforging_tx_total_capacity_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_total_capacity } add = var:aawc_reforging_tx_total_capacity } }
+}
+
+aawc_reforging_tx_weight_sum_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_weight_sum } add = var:aawc_reforging_tx_weight_sum } }
+}
+
+aawc_reforging_tx_budget_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_budget } add = var:aawc_reforging_tx_budget } }
+}
+
+aawc_reforging_tx_saturated_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_saturated } add = var:aawc_reforging_tx_saturated } }
+}
+
+aawc_reforging_tx_best_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_best } add = var:aawc_reforging_tx_best } }
+}
+
+aawc_reforging_tx_best_index_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_best_index } add = var:aawc_reforging_tx_best_index } }
+}
+
+aawc_reforging_tx_count_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_count } add = var:aawc_reforging_tx_count } }
+}
+
+aawc_reforging_tx_rounds_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_rounds } add = var:aawc_reforging_tx_rounds } }
+}
+
+aawc_reforging_tx_awards_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_awards } add = var:aawc_reforging_tx_awards } }
+}
+
+aawc_reforging_tx_valid_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_valid } add = var:aawc_reforging_tx_valid } }
+}
+
+aawc_reforging_tx_applied_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_applied } add = var:aawc_reforging_tx_applied } }
+}
+
+aawc_reforging_tx_migration_plan_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_plan } add = var:aawc_reforging_tx_migration_plan } }
+}
+
+aawc_reforging_tx_migration_internal_plan_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_internal_plan } add = var:aawc_reforging_tx_migration_internal_plan } }
+}
+
+aawc_reforging_tx_migration_county_plan_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_county_plan } add = var:aawc_reforging_tx_migration_county_plan } }
+}
+
+aawc_reforging_tx_migration_given_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_given } add = var:aawc_reforging_tx_migration_given } }
+}
+
+aawc_reforging_tx_migration_received_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_received } add = var:aawc_reforging_tx_migration_received } }
+}
+
+aawc_reforging_tx_migration_result_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_result } add = var:aawc_reforging_tx_migration_result } }
+}
+
+aawc_reforging_tx_migration_due_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_due } add = var:aawc_reforging_tx_migration_due } }
+}
+
+aawc_reforging_tx_migration_budget_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_budget } add = var:aawc_reforging_tx_migration_budget } }
+}
+
+aawc_reforging_tx_migration_matched_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_matched } add = var:aawc_reforging_tx_migration_matched } }
+}
+
+aawc_reforging_tx_migration_available_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_available } add = var:aawc_reforging_tx_migration_available } }
+}
+
+aawc_reforging_tx_migration_limit_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_limit } add = var:aawc_reforging_tx_migration_limit } }
+}
+
+aawc_reforging_tx_migration_edge_plan_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_edge_plan } add = var:aawc_reforging_tx_migration_edge_plan } }
+}
+
+aawc_reforging_tx_migration_internal_pending_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_internal_pending } add = var:aawc_reforging_tx_migration_internal_pending } }
+}
+
+aawc_reforging_tx_migration_outgoing_pending_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_migration_outgoing_pending } add = var:aawc_reforging_tx_migration_outgoing_pending } }
+}
+
+aawc_reforging_tx_whole_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_whole } add = var:aawc_reforging_tx_whole } }
+}
+
+aawc_reforging_tx_had_carry_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_had_carry } add = var:aawc_reforging_tx_had_carry } }
+}
+
+aawc_reforging_tx_saved_carry_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_saved_carry } add = var:aawc_reforging_tx_saved_carry } }
+}
+
+aawc_reforging_tx_cost_due_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_cost_due } add = var:aawc_reforging_tx_cost_due } }
+}
+
+aawc_reforging_tx_reserved_pending_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_reforging_tx_reserved_pending } add = var:aawc_reforging_tx_reserved_pending } }
+}
+aawc_reforging_tx_prepare_surplus_weight_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_population_surplus } add = var:aawc_population_surplus } }
+}
+aawc_reforging_tx_prepare_surplus_capacity_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_population_surplus } add = var:aawc_population_surplus } }
+	max = aawc_reforging_cohort_band_sum
+}
+aawc_reforging_tx_prepare_reserved_weight_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_population_reserved_available_to_spend } add = var:aawc_population_reserved_available_to_spend } }
+}
+aawc_reforging_tx_prepare_reserved_capacity_value = {
+	value = { value = { value = 0 if = { limit = { has_variable = aawc_population_reserved_available_to_spend } add = var:aawc_population_reserved_available_to_spend } } max = { value = 0 if = { limit = { has_variable = aawc_population_surplus } add = var:aawc_population_surplus } } }
+	max = aawc_reforging_cohort_band_sum
+}
+aawc_reforging_tx_prepare_maa_weight_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_population_maa_available_population_to_spend } add = var:aawc_population_maa_available_population_to_spend } }
+}
+aawc_reforging_tx_prepare_maa_capacity_value = {
+	value = { value = 0 if = { limit = { has_variable = aawc_population_maa_available_population_to_spend } add = var:aawc_population_maa_available_population_to_spend } }
+	max = aawc_reforging_cohort_band_sum
+}
+aawc_reforging_tx_migration_prepare_internal_give_capacity_value = {
+	value = aawc_reforging_tx_migration_limit_value
+	max = { value = { value = aawc_reforging_cohort_band_sum add = aawc_reforging_tx_migration_plan_value } subtract = { value = 0 if = { limit = { has_variable = aawc_population_expected } add = var:aawc_population_expected } } min = 0 floor = yes }
+}
+aawc_reforging_tx_migration_prepare_internal_receive_capacity_value = {
+	value = aawc_reforging_tx_migration_limit_value
+	max = { value = { value = 0 if = { limit = { has_variable = aawc_population_expected } add = var:aawc_population_expected } } subtract = { value = aawc_reforging_cohort_band_sum add = aawc_reforging_tx_migration_plan_value } min = 0 floor = yes }
+}
+aawc_reforging_tx_migration_prepare_county_give_capacity_value = {
+	value = aawc_reforging_tx_migration_limit_value
+	max = { value = { value = aawc_reforging_cohort_band_sum add = aawc_reforging_tx_migration_plan_value } subtract = { value = 0 if = { limit = { has_variable = aawc_migration_holding_protective_floor } add = var:aawc_migration_holding_protective_floor } } min = 0 floor = yes }
+}
+aawc_reforging_tx_migration_prepare_county_receive_capacity_value = {
+	value = aawc_reforging_tx_migration_limit_value
+	max = { value = { value = { value = 0 if = { limit = { has_variable = aawc_population_expected } add = var:aawc_population_expected } } multiply = 1.25 } subtract = { value = aawc_reforging_cohort_band_sum add = aawc_reforging_tx_migration_plan_value } min = 0 floor = yes }
+}

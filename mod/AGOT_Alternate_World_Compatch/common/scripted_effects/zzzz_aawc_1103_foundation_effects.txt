@@ -1,0 +1,536 @@
+﻿# Foundation setup. Player foundation events are interactive; AI foundations
+# run automatically in the same delayed startup phase.
+aawc_1103_invite_player_foundations_effect = {
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.6 player foundation invitation scan begin" }
+	every_player = {
+		limit = {
+			OR = {
+				is_landed = yes
+				AND = {
+					has_game_rule = aawc_age_of_silence
+					is_landless_adventurer = yes
+				}
+			}
+			agot_is_dummy_character = no
+			OR = {
+				has_game_rule = aawc_lost_faith_culture_enabled
+				has_game_rule = aawc_lost_faith_culture_faith_only
+				has_game_rule = aawc_lost_faith_culture_culture_only
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_character_flag = aawc_1103_culture_foundation_invited }
+				OR = {
+					has_game_rule = aawc_lost_faith_culture_enabled
+					has_game_rule = aawc_lost_faith_culture_culture_only
+				}
+			}
+			trigger_event = { id = aawc_foundation.0001 days = 3 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.6 player culture foundation invitation queued after landed-state stabilization" }
+		}
+		if = {
+			limit = {
+				NOT = { has_character_flag = aawc_1103_faith_foundation_invited }
+				OR = {
+					has_game_rule = aawc_lost_faith_culture_enabled
+					has_game_rule = aawc_lost_faith_culture_faith_only
+				}
+			}
+			trigger_event = { id = aawc_foundation.0002 days = 4 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.6 player faith foundation invitation queued after landed-state stabilization" }
+		}
+	}
+}
+
+aawc_1103_found_ai_culture_foundations_effect = {
+	every_ruler = {
+		limit = {
+			is_ai = yes
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { has_character_flag = aawc_1103_ai_culture_foundation_completed }
+			NOT = { has_character_flag = aawc_1103_ai_culture_foundation_queued }
+		}
+		# These are the exact options exposed in the player foundation events.
+		random_list = {
+			100 = { add_character_flag = aawc_1103_ethos_bellicose }
+			100 = { add_character_flag = aawc_1103_ethos_bureaucratic }
+			100 = { add_character_flag = aawc_1103_ethos_communal }
+			100 = { add_character_flag = aawc_1103_ethos_courtly }
+			100 = { add_character_flag = aawc_1103_ethos_egalitarian }
+			100 = { add_character_flag = aawc_1103_ethos_spiritual }
+		}
+		random_list = {
+			100 = { add_character_flag = aawc_1103_roots_andal }
+			100 = { add_character_flag = aawc_1103_roots_first_man }
+			100 = { add_character_flag = aawc_1103_roots_freecities }
+			100 = { add_character_flag = aawc_1103_roots_ghiscari }
+			100 = { add_character_flag = aawc_1103_roots_grasslands }
+			100 = { add_character_flag = aawc_1103_roots_hairyman }
+			100 = { add_character_flag = aawc_1103_roots_hyrkoonan }
+			100 = { add_character_flag = aawc_1103_roots_ironborn }
+			100 = { add_character_flag = aawc_1103_roots_jadeislands }
+			100 = { add_character_flag = aawc_1103_roots_mennight }
+			100 = { add_character_flag = aawc_1103_roots_moraqi }
+			100 = { add_character_flag = aawc_1103_roots_nghai }
+			100 = { add_character_flag = aawc_1103_roots_qaathi }
+			100 = { add_character_flag = aawc_1103_roots_rhoynar }
+			100 = { add_character_flag = aawc_1103_roots_sarnori }
+			100 = { add_character_flag = aawc_1103_roots_shadowlanders }
+			100 = { add_character_flag = aawc_1103_roots_sothoryi }
+			100 = { add_character_flag = aawc_1103_roots_summer }
+			100 = { add_character_flag = aawc_1103_roots_valyrian }
+			100 = { add_character_flag = aawc_1103_roots_wildling }
+			100 = { add_character_flag = aawc_1103_roots_yitish }
+			100 = { add_character_flag = aawc_1103_roots_elder_races }
+		}
+		random_list = {
+			100 = { add_character_flag = aawc_1103_tradition_agrarian }
+			100 = { add_character_flag = aawc_1103_tradition_forest_folk }
+			100 = { add_character_flag = aawc_1103_tradition_hill_dwellers }
+			100 = { add_character_flag = aawc_1103_tradition_mountain_homes }
+			100 = { add_character_flag = aawc_1103_tradition_dryland_dwellers }
+			100 = { add_character_flag = aawc_1103_tradition_wetlanders }
+			100 = { add_character_flag = aawc_1103_tradition_maritime_mercantilism }
+			100 = { add_character_flag = aawc_1103_tradition_established_hospitality }
+			100 = { add_character_flag = aawc_1103_tradition_legalistic }
+			100 = { add_character_flag = aawc_1103_tradition_martial_admiration }
+		}
+		add_character_flag = aawc_1103_culture_name_uses_county
+		add_character_flag = aawc_1103_ai_culture_foundation_queued
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.3 AI culture foundation queued for individual founder event" }
+		trigger_event = { id = aawc_foundation.0400 days = 1 }
+	}
+}
+
+# Divergence can preserve runtime mutations on a reusable visual seed. Clear every
+# tradition AAWC can assign so each founder starts from an empty tradition set.
+aawc_1103_clear_foundation_traditions_effect = {
+	if = {
+		limit = { has_cultural_tradition = tradition_agrarian }
+		remove_culture_tradition = tradition_agrarian
+	}
+	if = {
+		limit = { has_cultural_tradition = tradition_forest_folk }
+		remove_culture_tradition = tradition_forest_folk
+	}
+	if = {
+		limit = { has_cultural_tradition = tradition_hill_dwellers }
+		remove_culture_tradition = tradition_hill_dwellers
+	}
+	if = {
+		limit = { has_cultural_tradition = tradition_mountain_homes }
+		remove_culture_tradition = tradition_mountain_homes
+	}
+	if = {
+		limit = { has_cultural_tradition = tradition_dryland_dwellers }
+		remove_culture_tradition = tradition_dryland_dwellers
+	}
+	if = {
+		limit = { has_cultural_tradition = tradition_wetlanders }
+		remove_culture_tradition = tradition_wetlanders
+	}
+	if = {
+		limit = { has_cultural_tradition = tradition_maritime_mercantilism }
+		remove_culture_tradition = tradition_maritime_mercantilism
+	}
+	if = {
+		limit = { has_cultural_tradition = tradition_esteemed_hospitality }
+		remove_culture_tradition = tradition_esteemed_hospitality
+	}
+	if = {
+		limit = { has_cultural_tradition = tradition_legalistic }
+		remove_culture_tradition = tradition_legalistic
+	}
+	if = {
+		limit = { has_cultural_tradition = tradition_martial_admiration }
+		remove_culture_tradition = tradition_martial_admiration
+	}
+}
+
+# Culture divergence can already leave the selected pillar on the new culture.
+# Reapplying the identical pillar is a CK3 script error, so make the finalizer
+# idempotent without changing the selected foundation output.
+aawc_1103_set_foundation_pillar_if_needed_effect = {
+	if = {
+		limit = { NOT = { has_cultural_pillar = $PILLAR$ } }
+		set_culture_pillar = $PILLAR$
+	}
+}
+
+aawc_1103_finalize_player_culture_foundation_effect = {
+	# Restore the player-proven 1.10.3.8 flow. Creation converts this event
+	# root synchronously, so root.culture is the new divergence immediately.
+	save_scope_as = aawc_1103_founder
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.3 direct founder culture finalizer started" }
+	aawc_1103_prepare_player_culture_visual_seed_effect = yes
+	# Normalize the temporary source before divergence. This prevents inherited
+	# history from establishing a later era or carrying extra innovations forward.
+	culture = {
+		aawc_1102_reset_lost_culture_innovations_effect = yes
+		aawc_1103_clear_foundation_traditions_effect = yes
+	}
+	set_global_variable = { name = aawc_1103_culture_namer value = root }
+	create_divergent_culture_with_side_effects_excluding_cost = yes
+	culture = {
+		aawc_1103_finalize_created_foundation_culture_effect = yes
+	}
+}
+
+# Called synchronously from the founder's new culture scope. The saved founder
+# carries the player or AI selections used to finalize this specific culture.
+aawc_1103_finalize_created_foundation_culture_effect = {
+	save_scope_as = aawc_1103_created_culture
+	# Remove anything inherited from the reusable source, then add exactly the
+	# current founder's selected tradition through the exclusive branch below.
+	aawc_1103_clear_foundation_traditions_effect = yes
+		if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_culture_name_uses_county } }
+			set_culture_name = {
+				noun = aawc_foundation_culture_default_name
+				collective_noun = aawc_foundation_culture_default_name
+				prefix = aawc_foundation_culture_default_name
+			}
+		}
+		else = {
+			set_culture_name = {
+				noun = aawc_foundation_culture_name
+				collective_noun = aawc_foundation_culture_collective_noun
+				prefix = aawc_foundation_culture_prefix
+			}
+		}
+		if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_ethos_bellicose } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = ethos_bellicose }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_ethos_bureaucratic } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = ethos_bureaucratic }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_ethos_communal } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = ethos_communal }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_ethos_courtly } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = ethos_courtly }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_ethos_egalitarian } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = ethos_egalitarian }
+		}
+		else = { aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = ethos_spiritual } }
+
+		if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_andal } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_andal }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_andal }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_first_man } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_first_man }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_first_men }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_freecities } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_freecities }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_free_cities }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_ghiscari } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_ghiscari }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_ghis }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_grasslands } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_grasslands }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_dothraki }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_hairyman } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_hairyman }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_ib }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_hyrkoonan } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_hyrkoonan }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_hyrkoon }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_ironborn } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_ironman }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_westeros }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_jadeislands } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_jadeislands }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_leng }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_mennight } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_mennight }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_beyond_the_five_forts }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_moraqi } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_moraqi }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_moraq }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_nghai } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_nghai }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_jogos }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_qaathi } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_qaathi }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_qarth }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_rhoynar } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_rhoynar }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_rhoyne }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_sarnori } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_sarnori }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_sarnor }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_shadowlanders } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_shadowlanders }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_asshai }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_sothoryi } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_sothoryi }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_trade }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_summer } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_summer }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_summer }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_valyrian } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_valyrian }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_valyrian }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_wildling } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_wildling }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_first_men }
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_roots_yitish } }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_yitish }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_yiti }
+		}
+		else = {
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = heritage_elder_races }
+			aawc_1103_set_foundation_pillar_if_needed_effect = { PILLAR = language_agot_children }
+		}
+
+		if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_tradition_agrarian } }
+			add_culture_tradition = tradition_agrarian
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_tradition_forest_folk } }
+			add_culture_tradition = tradition_forest_folk
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_tradition_hill_dwellers } }
+			add_culture_tradition = tradition_hill_dwellers
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_tradition_mountain_homes } }
+			add_culture_tradition = tradition_mountain_homes
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_tradition_dryland_dwellers } }
+			add_culture_tradition = tradition_dryland_dwellers
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_tradition_wetlanders } }
+			add_culture_tradition = tradition_wetlanders
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_tradition_maritime_mercantilism } }
+			add_culture_tradition = tradition_maritime_mercantilism
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_tradition_established_hospitality } }
+			add_culture_tradition = tradition_esteemed_hospitality
+		}
+		else_if = {
+			limit = { scope:aawc_1103_founder = { has_character_flag = aawc_1103_tradition_legalistic } }
+			add_culture_tradition = tradition_legalistic
+		}
+		else = { add_culture_tradition = tradition_martial_admiration }
+
+	# Every founded culture starts with precisely Lost's six Bronze Age baseline
+	# innovations, independent of the selected seed's source culture.
+	aawc_1102_reset_lost_culture_innovations_effect = yes
+
+	scope:aawc_1103_founder = {
+		aawc_1103_apply_player_culture_foundation_effect = {
+			CULTURE = scope:aawc_1103_created_culture
+		}
+	}
+}
+
+aawc_1103_prepare_player_culture_visual_seed_effect = {
+	if = { limit = { has_character_flag = aawc_1103_roots_andal } set_culture = culture:aawc_1103_seed_root_andal }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_first_man } set_culture = culture:aawc_1103_seed_root_first_man }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_freecities } set_culture = culture:aawc_1103_seed_root_freecities }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_ghiscari } set_culture = culture:aawc_1103_seed_root_ghiscari }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_grasslands } set_culture = culture:aawc_1103_seed_root_grasslands }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_hairyman } set_culture = culture:aawc_1103_seed_root_hairyman }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_hyrkoonan } set_culture = culture:aawc_1103_seed_root_hyrkoonan }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_ironborn } set_culture = culture:aawc_1103_seed_root_ironborn }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_jadeislands } set_culture = culture:aawc_1103_seed_root_jadeislands }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_mennight } set_culture = culture:aawc_1103_seed_root_mennight }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_moraqi } set_culture = culture:aawc_1103_seed_root_moraqi }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_nghai } set_culture = culture:aawc_1103_seed_root_nghai }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_qaathi } set_culture = culture:aawc_1103_seed_root_qaathi }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_rhoynar } set_culture = culture:aawc_1103_seed_root_rhoynar }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_sarnori } set_culture = culture:aawc_1103_seed_root_sarnori }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_shadowlanders } set_culture = culture:aawc_1103_seed_root_shadowlanders }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_sothoryi } set_culture = culture:aawc_1103_seed_root_sothoryi }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_summer } set_culture = culture:aawc_1103_seed_root_summer }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_valyrian } set_culture = culture:aawc_1103_seed_root_valyrian }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_wildling } set_culture = culture:aawc_1103_seed_root_wildling }
+	else_if = { limit = { has_character_flag = aawc_1103_roots_yitish } set_culture = culture:aawc_1103_seed_root_yitish }
+	else = { set_culture = culture:aawc_1103_seed_root_elder_races }
+}
+
+aawc_1103_clear_player_culture_foundation_choices_effect = {
+	remove_character_flag = aawc_1103_culture_name_uses_county
+	remove_character_flag = aawc_1103_ethos_bellicose
+	remove_character_flag = aawc_1103_ethos_bureaucratic
+	remove_character_flag = aawc_1103_ethos_communal
+	remove_character_flag = aawc_1103_ethos_courtly
+	remove_character_flag = aawc_1103_ethos_egalitarian
+	remove_character_flag = aawc_1103_ethos_spiritual
+	remove_character_flag = aawc_1103_roots_andal
+	remove_character_flag = aawc_1103_roots_first_man
+	remove_character_flag = aawc_1103_roots_freecities
+	remove_character_flag = aawc_1103_roots_ghiscari
+	remove_character_flag = aawc_1103_roots_valyrian
+	remove_character_flag = aawc_1103_roots_rhoynar
+	remove_character_flag = aawc_1103_roots_grasslands
+	remove_character_flag = aawc_1103_roots_ironborn
+	remove_character_flag = aawc_1103_roots_hairyman
+	remove_character_flag = aawc_1103_roots_hyrkoonan
+	remove_character_flag = aawc_1103_roots_jadeislands
+	remove_character_flag = aawc_1103_roots_mennight
+	remove_character_flag = aawc_1103_roots_moraqi
+	remove_character_flag = aawc_1103_roots_nghai
+	remove_character_flag = aawc_1103_roots_qaathi
+	remove_character_flag = aawc_1103_roots_sarnori
+	remove_character_flag = aawc_1103_roots_shadowlanders
+	remove_character_flag = aawc_1103_roots_sothoryi
+	remove_character_flag = aawc_1103_roots_summer
+	remove_character_flag = aawc_1103_roots_wildling
+	remove_character_flag = aawc_1103_roots_yitish
+	remove_character_flag = aawc_1103_roots_elder_races
+	remove_character_flag = aawc_1103_tradition_agrarian
+	remove_character_flag = aawc_1103_tradition_martial_admiration
+	remove_character_flag = aawc_1103_tradition_legalistic
+	remove_character_flag = aawc_1103_tradition_established_hospitality
+	remove_character_flag = aawc_1103_tradition_forest_folk
+	remove_character_flag = aawc_1103_tradition_hill_dwellers
+	remove_character_flag = aawc_1103_tradition_mountain_homes
+	remove_character_flag = aawc_1103_tradition_dryland_dwellers
+	remove_character_flag = aawc_1103_tradition_wetlanders
+	remove_character_flag = aawc_1103_tradition_maritime_mercantilism
+}
+
+aawc_1103_apply_player_faith_seed_effect = {
+	set_character_faith = $FAITH$
+	add_character_modifier = {
+		modifier = aawc_1103_free_faith_foundation_modifier
+		days = -1
+	}
+	every_courtier = {
+		set_character_faith = $FAITH$
+	}
+	capital_county = {
+		set_county_faith = $FAITH$
+	}
+	add_character_flag = aawc_1103_foundation_faith_seed_selected
+	trigger_event = { id = aawc_foundation.0300 days = 1 }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.6 player faith origin selected and delayed capital synchronization queued; native Faith Creator remains free while foundation is pending" }
+}
+
+aawc_1103_apply_player_faith_foundation_effect = {
+	every_courtier_or_guest = {
+		set_character_faith = root.faith
+	}
+	capital_county = {
+		set_county_faith = root.faith
+	}
+	remove_character_flag = aawc_1103_foundation_faith_pending
+	remove_character_flag = aawc_1103_foundation_faith_seed_selected
+	remove_character_modifier = aawc_1103_free_faith_foundation_modifier
+	add_character_flag = aawc_1103_foundation_faith_completed
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.8 player faith foundation completed: founder, courtiers, guests, and capital county converted" }
+}
+
+aawc_1103_apply_player_culture_foundation_effect = {
+	# Divergence normally converts its creator, but an immediately landed former
+	# adventurer can miss that side effect. Assign it explicitly before syncing.
+	set_culture = $CULTURE$
+	every_courtier = {
+		set_culture = $CULTURE$
+	}
+	capital_county = {
+		set_county_culture = $CULTURE$
+	}
+	remove_character_flag = aawc_1103_foundation_culture_pending
+	remove_character_flag = aawc_1103_culture_foundation_creating
+	remove_character_flag = aawc_1103_culture_name_uses_county
+	remove_character_flag = aawc_1103_ethos_bellicose
+	remove_character_flag = aawc_1103_ethos_bureaucratic
+	remove_character_flag = aawc_1103_ethos_communal
+	remove_character_flag = aawc_1103_ethos_courtly
+	remove_character_flag = aawc_1103_ethos_egalitarian
+	remove_character_flag = aawc_1103_ethos_spiritual
+	remove_character_flag = aawc_1103_roots_andal
+	remove_character_flag = aawc_1103_roots_first_man
+	remove_character_flag = aawc_1103_roots_freecities
+	remove_character_flag = aawc_1103_roots_ghiscari
+	remove_character_flag = aawc_1103_roots_valyrian
+	remove_character_flag = aawc_1103_roots_rhoynar
+	remove_character_flag = aawc_1103_roots_grasslands
+	remove_character_flag = aawc_1103_roots_ironborn
+	remove_character_flag = aawc_1103_roots_hairyman
+	remove_character_flag = aawc_1103_roots_hyrkoonan
+	remove_character_flag = aawc_1103_roots_jadeislands
+	remove_character_flag = aawc_1103_roots_mennight
+	remove_character_flag = aawc_1103_roots_moraqi
+	remove_character_flag = aawc_1103_roots_nghai
+	remove_character_flag = aawc_1103_roots_qaathi
+	remove_character_flag = aawc_1103_roots_sarnori
+	remove_character_flag = aawc_1103_roots_shadowlanders
+	remove_character_flag = aawc_1103_roots_sothoryi
+	remove_character_flag = aawc_1103_roots_summer
+	remove_character_flag = aawc_1103_roots_wildling
+	remove_character_flag = aawc_1103_roots_yitish
+	remove_character_flag = aawc_1103_roots_elder_races
+	remove_character_flag = aawc_1103_tradition_agrarian
+	remove_character_flag = aawc_1103_tradition_martial_admiration
+	remove_character_flag = aawc_1103_tradition_legalistic
+	remove_character_flag = aawc_1103_tradition_established_hospitality
+	remove_character_flag = aawc_1103_tradition_forest_folk
+	remove_character_flag = aawc_1103_tradition_hill_dwellers
+	remove_character_flag = aawc_1103_tradition_mountain_homes
+	remove_character_flag = aawc_1103_tradition_dryland_dwellers
+	remove_character_flag = aawc_1103_tradition_wetlanders
+	remove_character_flag = aawc_1103_tradition_maritime_mercantilism
+	add_character_flag = aawc_1103_foundation_culture_completed
+	trigger_event = { id = aawc_foundation.0301 days = 1 }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.6 scripted player culture foundation completed with explicit founder assignment and delayed capital synchronization" }
+}

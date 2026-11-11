@@ -1,0 +1,34 @@
+﻿# AAWC 1.9.82 load compatibility heritage stubs.
+#
+# Some companion mods still validate vanilla heritage IDs after AGOT has replaced
+# the active heritage set. Keep those IDs present but hidden so external checks
+# can parse without adding usable cultures to AGOT gameplay.
+
+heritage_akan = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_arabic = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_austronesian = { type = heritage audio_parameter = european is_shown = { always = no } }
+heritage_berber = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_burman = { type = heritage audio_parameter = european is_shown = { always = no } }
+heritage_central_african = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_chinese = { type = heritage audio_parameter = chinese is_shown = { always = no } }
+heritage_korean = { type = heritage audio_parameter = mongol is_shown = { always = no } }
+heritage_buyeo = { type = heritage audio_parameter = mongol is_shown = { always = no } }
+heritage_dravidian = { type = heritage audio_parameter = indian is_shown = { always = no } }
+heritage_east_african = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_egyptian = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_hmongic = { type = heritage audio_parameter = chinese is_shown = { always = no } }
+heritage_indo_aryan = { type = heritage audio_parameter = indian is_shown = { always = no } }
+heritage_iranian = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_japonic = { type = heritage audio_parameter = mongol is_shown = { always = no } }
+heritage_ainuic = { type = heritage audio_parameter = mongol is_shown = { always = no } }
+heritage_mon_khmer = { type = heritage audio_parameter = european is_shown = { always = no } }
+heritage_sahelian = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_senegambian = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_somalian = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_syriac = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_tai = { type = heritage audio_parameter = chinese is_shown = { always = no } }
+heritage_tocharian = { type = heritage audio_parameter = mongol is_shown = { always = no } }
+heritage_viet = { type = heritage audio_parameter = chinese is_shown = { always = no } }
+heritage_west_african = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_bantu = { type = heritage audio_parameter = mena is_shown = { always = no } }
+heritage_yoruba = { type = heritage audio_parameter = mena is_shown = { always = no } }

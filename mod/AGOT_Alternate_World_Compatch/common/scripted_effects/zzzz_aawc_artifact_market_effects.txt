@@ -1,0 +1,129 @@
+﻿# AAWC keeps AGOT's artifact market functional, but its utility ruler must not
+# create an independent lineage, spouse, or court in a closed-lineage start.
+aawc_disable_artifact_market_effect = {
+	if = {
+		limit = {
+			aawc_tribal_shatter_active = yes
+			exists = global_var:agot_artifact_keeper
+		}
+		global_var:agot_artifact_keeper = {
+			if = {
+				limit = {
+					NOT = { has_character_modifier = aawc_stability_engine_health }
+				}
+				add_character_modifier = aawc_stability_engine_health
+			}
+			every_spouse = {
+				limit = { is_ai = yes }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed AGOT artifact keeper spouse while preserving the artifact market" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+				death = { death_reason = death_disappearance }
+			}
+			every_courtier = {
+				limit = {
+					is_ai = yes
+					agot_is_dummy_character = no
+					NOT = { aawc_is_engine_pool_reserve = yes }
+					NOT = { aawc_is_engine_pool_reserve_candidate = yes }
+					NOT = { dynasty = dynasty:dynn_aawc_stability }
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed AGOT artifact keeper courtier while preserving the artifact market" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+				death = { death_reason = death_disappearance }
+			}
+			set_house = house:house_aawc_stability
+			add_character_flag = aawc_artifact_market_keeper
+			add_character_flag = aawc_lineage_known_aawc_generation
+			add_character_flag = aawc_lineage_audited
+			add_character_flag = blocked_from_leaving
+			set_variable = { name = can_not_marry value = 1 }
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE artifact market preserved with a quarantined Stability keeper" }
+	}
+
+	# Remove survivors left in dummy courts by legacy builds that destroyed the
+	# Exchange title. Current builds no longer destroy that title.
+	title:c_wilderness.holder ?= {
+		every_courtier = {
+				limit = {
+					is_ai = yes
+					agot_is_dummy_character = no
+					NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+					NOT = { aawc_is_engine_pool_reserve = yes }
+					NOT = { aawc_is_engine_pool_reserve_candidate = yes }
+					NOT = { dynasty = dynasty:dynn_aawc_stability }
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed stranded non-dummy courtier from Wilderness dummy court" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			death = { death_reason = death_disappearance }
+		}
+	}
+	title:c_ruins.holder ?= {
+		every_courtier = {
+				limit = {
+					is_ai = yes
+					agot_is_dummy_character = no
+					NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+					NOT = { aawc_is_engine_pool_reserve = yes }
+					NOT = { aawc_is_engine_pool_reserve_candidate = yes }
+					NOT = { dynasty = dynasty:dynn_aawc_stability }
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE removed stranded non-dummy courtier from Ruins dummy court" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			death = { death_reason = death_disappearance }
+		}
+	}
+}
+
+# AGOT calls this effect whenever it creates or reloads the market keeper.
+# Preserve the native spouse behavior outside AAWC shattered starts.
+agot_create_artifact_market_spouse = {
+	if = {
+		limit = { NOT = { aawc_tribal_shatter_active = yes } }
+		if = {
+			limit = {
+				title:c_myr = {
+					holder = {
+						NOT = { government_has_flag = government_is_uninteractable }
+					}
+				}
+			}
+			title:c_myr = { save_scope_as = artifact_keeper_capital }
+		}
+		else = {
+			title:c_oldtown = { save_scope_as = artifact_keeper_capital }
+		}
+
+		if = {
+			limit = { global_var:agot_artifact_keeper = { is_female = yes } }
+			create_character = {
+				age = { 16 20 }
+				gender = male
+				trait = greedy
+				diplomacy = { 6 16 }
+				martial = { 8 15 }
+				stewardship = { 10 17 }
+				intrigue = { 8 16 }
+				culture = scope:artifact_keeper_capital.culture
+				faith = scope:artifact_keeper_capital.faith
+				after_creation = { marry_matrilineal = global_var:agot_artifact_keeper }
+				location = scope:artifact_keeper_capital.holder.location
+			}
+		}
+		else = {
+			create_character = {
+				age = { 16 30 }
+				gender = female
+				trait = greedy
+				diplomacy = { 6 16 }
+				martial = { 8 15 }
+				stewardship = { 10 17 }
+				intrigue = { 8 16 }
+				culture = scope:artifact_keeper_capital.culture
+				faith = scope:artifact_keeper_capital.faith
+				after_creation = { marry = global_var:agot_artifact_keeper }
+				location = scope:artifact_keeper_capital.holder.location
+			}
+		}
+	}
+}

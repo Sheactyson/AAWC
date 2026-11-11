@@ -1,0 +1,101 @@
+﻿# Kei TO DO: ordered instead of random
+
+E_kCAFG_populist_faction_setup_culture = {
+    if = {
+        limit = {
+            scope:founding_county.culture != faction_target.culture
+        }
+        #scope:founding_county = { debug_log = "Kei CAFG - county culture ([THIS.Title.GetProvince.GetCounty.GetCulture.GetNameNoTooltip]) is majority" }
+        set_variable = {
+            name = faction_culture
+            value = scope:founding_county.culture
+        }
+    }
+    else = {
+        # Find a suitable minority county culture for the faction
+        scope:founding_county = {
+            random_in_list = {
+                variable = kCAFG_county_cultures
+                limit = {
+                    root.faction_target.culture != this
+                    save_temporary_scope_as = kCAFG_culture
+                    prev = { V_kCAFG_county_culture_factor >= V_kCAFG_populist_faction_creation_minimum_minority_factor }
+                }
+
+                #debug_log = "Kei CAFG - found minority culture: ([THIS.Culture.GetNameNoTooltip])"
+                root = {
+                    set_variable = {
+                        name = faction_culture
+                        value = prev
+                    }
+                }
+            }
+        }
+        if = { # fallback for majority culture, even if it's the same as the faction target
+            limit = { NOT = { has_variable = faction_culture } }
+
+            set_variable = {
+                name = faction_culture
+                value = scope:founding_county.culture
+            }
+        }
+    }
+}
+
+E_kCAFG_populist_faction_setup_faith = {
+    if = {
+        limit = {
+            trigger_if = {
+                limit = { exists = faction_target.primary_title.state_faith }
+                scope:founding_county.faith != faction_target.primary_title.state_faith
+            }
+            trigger_else = { scope:founding_county.faith != faction_target.faith }
+        }
+        #scope:founding_county = { debug_log = "Kei CAFG - county faith ([THIS.Title.GetProvince.GetCounty.GetFaith.GetNameNoTooltip]) is majority" }
+        set_variable = {
+            name = faction_faith
+            value = scope:founding_county.faith
+        }
+    }
+    else = {
+        # Find a suitable minority county faith for the faction
+        scope:founding_county = {
+            random_in_list = {
+                variable = kCAFG_county_faiths
+                limit = {
+                    trigger_if = {
+                        limit = { exists = root.faction_target.primary_title.state_faith }
+                        scope:founding_county.faith != root.faction_target.primary_title.state_faith
+                    }
+                    trigger_else = { root.faction_target.faith != this }
+                    save_temporary_scope_as = kCAFG_faith
+                    scope:founding_county = { V_kCAFG_county_faith_factor >= V_kCAFG_populist_faction_creation_minimum_minority_factor }
+                }
+
+                #debug_log = "Kei CAFG - found minority faith: ([THIS.Faith.GetNameNoTooltip])"
+                root = {
+                    set_variable = {
+                        name = faction_faith
+                        value = prev
+                    }
+                }
+            }
+        }
+        if = { # fallback for majority faith, even if it's the same as the faction target
+            limit = { NOT = { has_variable = faction_faith } }
+
+            if = {
+                limit = {
+                    var:faction_culture = faction_target.culture
+                    scope:founding_county.faith = faction_target.faith
+                }
+                error_log = "Kei CAFG - Populist faction with same culture and faith as faction target. This should not happen"
+            }
+
+            set_variable = {
+                name = faction_faith
+                value = scope:founding_county.faith
+            }
+        }
+    }
+}

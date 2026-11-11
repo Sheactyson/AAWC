@@ -1,0 +1,339 @@
+﻿agot_has_paramountcy_title = {
+	any_held_title = {
+		has_variable = agot_is_paramountcy_realm
+	}
+}
+
+agot_is_valid_paramountcy_realm = {
+	primary_title.tier = tier_hegemony
+	agot_has_paramountcy_title = yes
+}
+
+agot_is_part_of_paramountcy_realm = {
+	OR = {
+		#Heggy
+		agot_has_paramountcy_title = yes
+
+		#Empire
+		liege ?= {
+			agot_has_paramountcy_title = yes
+		}
+		var:pre_war_liege ?= {
+			agot_has_paramountcy_title = yes
+		}
+
+		#Kingdom
+		liege ?= {
+			OR = {
+				liege ?= { agot_has_paramountcy_title = yes }
+				var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+			}
+		}
+		var:pre_war_liege ?= {
+			OR = {
+				liege ?= { agot_has_paramountcy_title = yes }
+				var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+			}
+		}
+
+		#Duchy
+		liege ?= {
+			OR = {
+				liege ?= {
+					OR = {
+						liege ?= { agot_has_paramountcy_title = yes }
+						var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+					}
+				}
+				var:pre_war_liege ?= {
+					OR = {
+						liege ?= { agot_has_paramountcy_title = yes }
+						var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+					}
+				}
+			}
+		}
+		var:pre_war_liege ?= {
+			OR = {
+				liege ?= {
+					OR = {
+						liege ?= { agot_has_paramountcy_title = yes }
+						var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+					}
+				}
+				var:pre_war_liege ?= {
+					OR = {
+						liege ?= { agot_has_paramountcy_title = yes }
+						var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+					}
+				}
+			}
+		}
+
+		#County
+		liege ?= {
+			OR = {
+				liege ?= {
+					OR = {
+						liege ?= {
+							OR = {
+								liege ?= { agot_has_paramountcy_title = yes }
+								var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+							}
+						}
+						var:pre_war_liege ?= {
+							OR = {
+								liege ?= { agot_has_paramountcy_title = yes }
+								var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+							}
+						}
+					}
+				}
+				var:pre_war_liege ?= {
+					OR = {
+						liege ?= {
+							OR = {
+								liege ?= { agot_has_paramountcy_title = yes }
+								var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+							}
+						}
+						var:pre_war_liege ?= {
+							OR = {
+								liege ?= { agot_has_paramountcy_title = yes }
+								var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+							}
+						}
+					}
+				}
+			}
+		}
+		var:pre_war_liege ?= {
+			OR = {
+				liege ?= {
+					OR = {
+						liege ?= {
+							OR = {
+								liege ?= { agot_has_paramountcy_title = yes }
+								var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+							}
+						}
+						var:pre_war_liege ?= {
+							OR = {
+								liege ?= { agot_has_paramountcy_title = yes }
+								var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+							}
+						}
+					}
+				}
+				var:pre_war_liege ?= {
+					OR = {
+						liege ?= {
+							OR = {
+								liege ?= { agot_has_paramountcy_title = yes }
+								var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+							}
+						}
+						var:pre_war_liege ?= {
+							OR = {
+								liege ?= { agot_has_paramountcy_title = yes }
+								var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+							}
+						}
+					}
+				}
+			}
+		}
+
+		#Barony
+		liege ?= {
+			OR = {
+				liege ?= {
+					OR = {
+						liege ?= {
+							OR = {
+								liege ?= {
+									OR = {
+										liege ?= { agot_has_paramountcy_title = yes }
+										var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+									}
+								}
+								var:pre_war_liege ?= {
+									OR = {
+										liege ?= { agot_has_paramountcy_title = yes }
+										var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+									}
+								}
+							}
+						}
+						var:pre_war_liege ?= {
+							OR = {
+								liege ?= {
+									OR = {
+										liege ?= { agot_has_paramountcy_title = yes }
+										var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+									}
+								}
+								var:pre_war_liege ?= {
+									OR = {
+										liege ?= { agot_has_paramountcy_title = yes }
+										var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+									}
+								}
+							}
+						}
+					}
+				}
+				var:pre_war_liege ?= {
+					OR = {
+						liege ?= {
+							OR = {
+								liege ?= {
+									OR = {
+										liege ?= { agot_has_paramountcy_title = yes }
+										var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+									}
+								}
+								var:pre_war_liege ?= {
+									OR = {
+										liege ?= { agot_has_paramountcy_title = yes }
+										var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+									}
+								}
+							}
+						}
+						var:pre_war_liege ?= {
+							OR = {
+								liege ?= {
+									OR = {
+										liege ?= { agot_has_paramountcy_title = yes }
+										var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+									}
+								}
+								var:pre_war_liege ?= {
+									OR = {
+										liege ?= { agot_has_paramountcy_title = yes }
+										var:pre_war_liege ?= { agot_has_paramountcy_title = yes }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+agot_is_valid_lp_feudal_government_target = {
+	NOT = {
+		AND = {
+			has_game_rule = aawc_aw_tribal_holdings
+			has_game_rule = aawc_alt_world_enabled
+			OR = {
+				has_game_rule = aawc_aw_count_shattered_realms
+				has_game_rule = aawc_aw_duke_shattered_realms
+				has_game_rule = aawc_aw_king_shattered_realms
+				has_game_rule = aawc_aw_emperor_shattered_realms
+			}
+		}
+	}
+	NOR = {
+		has_government = theocracy_government
+		government_has_flag = government_is_uninteractable
+		has_government = republic_government
+		has_government = kingsguard_government
+		government_has_flag = government_is_administrative
+	}
+	capital_province ?= { has_holding_type = castle_holding }
+	agot_is_part_of_paramountcy_realm = yes
+}
+
+agot_is_valid_for_lp_feudal_govt_when_converting_from_admin = {
+	NOR = {
+		has_government = theocracy_government
+		government_has_flag = government_is_uninteractable
+		has_government = republic_government
+		has_government = kingsguard_government
+	}
+	capital_province ?= { has_holding_type = castle_holding }
+	agot_is_part_of_paramountcy_realm = yes
+}
+
+agot_is_valid_pirate_government_target = {
+	NOT = {
+		AND = {
+			has_game_rule = aawc_aw_tribal_holdings
+			has_game_rule = aawc_alt_world_enabled
+			OR = {
+				has_game_rule = aawc_aw_count_shattered_realms
+				has_game_rule = aawc_aw_duke_shattered_realms
+				has_game_rule = aawc_aw_king_shattered_realms
+				has_game_rule = aawc_aw_emperor_shattered_realms
+			}
+		}
+	}
+	is_landed = yes
+	NOR = {
+		has_government = theocracy_government
+		government_has_flag = government_is_uninteractable
+		has_government = republic_government
+		has_government = kingsguard_government
+		government_has_flag = government_is_administrative
+		has_character_flag = should_not_be_a_pirate
+	}
+	capital_province ?= {
+		AND = {
+			geographical_region = world_stepstones
+			has_holding_type = pirate_den_holding
+		}
+	}
+}
+
+agot_is_valid_free_city_government_target = {
+	NOT = {
+		AND = {
+			has_game_rule = aawc_aw_tribal_holdings
+			has_game_rule = aawc_alt_world_enabled
+			OR = {
+				has_game_rule = aawc_aw_count_shattered_realms
+				has_game_rule = aawc_aw_duke_shattered_realms
+				has_game_rule = aawc_aw_king_shattered_realms
+				has_game_rule = aawc_aw_emperor_shattered_realms
+			}
+		}
+	}
+	is_landed = yes
+	NOR = {
+		has_government = theocracy_government
+		government_has_flag = government_is_uninteractable
+		has_government = kingsguard_government
+	}
+	capital_province ?= {
+		OR = {
+			has_holding_type = city_holding
+			has_holding_type = castle_holding
+		}
+	}
+}
+
+agot_is_a_republic = {
+	OR = {
+		government_has_flag = government_is_free_city
+		has_government = republic_government
+	}
+}
+
+agot_has_free_city_succession_law_type_general_check = {
+	OR = {
+		has_realm_law = free_city_election_succession_law
+		has_realm_law = norvos_regency_succession_law
+	}
+}
+
+agot_has_free_city_succession_law_type_independence_check = {
+	OR = {
+		has_realm_law = free_city_election_succession_law
+		has_realm_law = norvos_regency_succession_law
+	}
+	is_independent_ruler = yes
+}

@@ -1,0 +1,101 @@
+﻿# same scopes are available in these events as in the CBs' on_declaration, this just fires for all CBs instead of a specific CB.
+E_kCAFG_declared_war_faith_tension_effects = {
+    if = {
+        limit = {
+            scope:war = { using_holy_war_cb_trigger = yes }
+        }
+
+        scope:war.casus_belli = {
+            ordered_target_title = {
+                order_by = tier
+                max = 1
+                save_temporary_scope_as = highest_tiered_title # used by V_kCAFG_faith_tension_on_religious_war_declaration
+            }
+        }
+
+		scope:attacker = {
+            E_kCAFG_increase_scaled_faith_tension_in_realm_provinces = {
+                FAITH = scope:defender.faith
+                VALUE = V_kCAFG_faith_tension_on_religious_war_declaration
+                SCALE_MIN = 0.1
+            }
+        }
+    }
+}
+
+# scope is the joiner
+# scope:war is the war
+E_kCAFG_joined_war_faith_tension_effects = {
+    if = {
+        limit = {
+            scope:war = {
+                using_holy_war_cb_trigger = yes
+                is_attacker = root
+            }
+        }
+
+        scope:war.casus_belli = {
+            ordered_target_title = {
+                order_by = tier
+                max = 1
+                save_temporary_scope_as = highest_tiered_title # used by V_kCAFG_faith_tension_on_religious_war_join
+            }
+        }
+
+        E_kCAFG_increase_scaled_faith_tension_in_realm_provinces = {
+            FAITH = scope:war.primary_defender.faith
+            VALUE = V_kCAFG_faith_tension_on_religious_war_join
+            SCALE_MIN = 0.1
+        }
+    }
+}
+
+# Scope : war
+# warring_character
+E_kCAFG_ongoing_war_faith_tension_quarterly_change = {
+    casus_belli = {
+        ordered_target_title = {
+            order_by = tier
+            max = 1
+            save_temporary_scope_as = highest_tiered_title # used by V_kCAFG_faith_tension_on_religious_warring_quarterly
+        }
+    }
+
+    scope:warring_character = {
+        E_kCAFG_increase_scaled_faith_tension_in_realm_provinces = {
+            FAITH = scope:war.primary_defender.faith
+            VALUE = V_kCAFG_faith_tension_on_religious_warring_quarterly
+            SCALE_MIN = 0.1
+        }
+    }
+}
+
+# scope : character
+# FAITH : faith which has their tension increased
+# VALUE : script value or fixed point value which will be scaled depending on the faith 
+# SCALE_MIN : minimum scale for the increase
+E_kCAFG_increase_scaled_faith_tension_in_realm_provinces = {
+    $FAITH$ = { save_temporary_scope_as = kCAFG_faith }
+    every_realm_province = {
+        limit = { T_kCAFG_does_province_contain_faith = { FAITH = scope:kCAFG_faith } }
+        change_variable = {
+            name = kCAFG_faith_tension
+            add = {
+                # Base value
+                value = $VALUE$
+                # Scale
+                multiply = {
+                    value = $SCALE_MIN$
+                    add = {
+                        value = V_kCAFG_province_faith_factor
+                        multiply = {
+                            value = 1
+                            subtract = $SCALE_MIN$
+                        }
+                    }
+                }
+            }
+        }
+        E_kCAFG_on_province_faith_tension_updated = yes
+    }
+}

@@ -1,0 +1,11 @@
+﻿adopt_a_new_faith_for_persia_decision = {
+	ai_check_interval = 0
+	is_shown = {
+		always = no
+	}
+	is_valid = {
+		always = no
+	}
+	effect = {
+	}
+}

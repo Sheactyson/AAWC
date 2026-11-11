@@ -1,0 +1,57 @@
+﻿on_join_court = {
+	on_actions = { aawc_lineage_review_new_court_admission }
+}
+
+# Pool arrivals are rejected immediately. The recurring host cleanup remains
+# necessary for guests restored from old saves and guests installed directly by
+# scripted effects that do not fire this engine on_action.
+on_guest_arrived_from_pool = {
+	on_actions = { aawc_no_guest_reject_pool_arrival }
+}
+
+aawc_no_guest_reject_pool_arrival = {
+	trigger = {
+		exists = scope:host
+		is_pool_guest_of = scope:host
+	}
+	effect = {
+		aawc_no_guest_reject_pool_arrival_effect = yes
+	}
+}
+
+# Keep the disabled event IDs registered with CK3 so the event manager does not
+# report them as orphaned. This custom on_action has no caller and its trigger is
+# permanently false; the original random registries remain disabled.
+aawc_disabled_generated_character_event_registry = {
+	trigger = { always = no }
+	events = {
+		stewardship_general.5041
+		court_yearly.0101
+	}
+}
+
+aawc_lineage_review_new_court_admission = {
+	trigger = {
+		aawc_tribal_shatter_active = yes
+		is_landed = no
+		is_lowborn = yes
+		NOT = { exists = father }
+		NOT = { exists = mother }
+		NOT = { has_character_flag = aawc_lineage_known_birth }
+		NOT = { has_character_flag = aawc_lineage_known_aawc_generation }
+		NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+		NOT = { has_character_flag = aawc_engine_pool_reserve }
+		NOT = { has_character_flag = aawc_lineage_known_mercenary }
+		NOT = { has_character_flag = aawc_artifact_market_keeper }
+		NOT = { any_player = { this = prev } }
+		exists = scope:new_employer
+		scope:new_employer = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { primary_title ?= { is_mercenary_company = yes } }
+		}
+	}
+	effect = {
+		trigger_event = { id = aawc_lineage.0003 days = 1 }
+	}
+}

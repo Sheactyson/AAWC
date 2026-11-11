@@ -1,0 +1,2 @@
+﻿l_english:
+minority_disapproves_of_conversion_very_small_opinion: "[GetVassalStance( 'minority' ).GetTextIcon][GetVassalStance( 'minority' ).GetName] Disapproves of Conversion"

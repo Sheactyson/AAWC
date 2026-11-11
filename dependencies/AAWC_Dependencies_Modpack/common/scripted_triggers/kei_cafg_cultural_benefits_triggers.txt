@@ -1,0 +1,5 @@
+﻿T_kCAFG_is_province_eligible_for_cultural_benefits = {
+    has_variable = kCAFG_cultural_benefits_eligible
+    NOT = { has_variable = kCAFG_cultural_benefits_eligible_cooldown }
+    county.county_opinion >= V_kCAFG_cultural_benefits_minimum_county_opinion
+}

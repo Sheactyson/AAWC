@@ -1,0 +1,176 @@
+﻿namespace = agot_adventurers_events
+
+scripted_trigger aawc_aw_shattered_tribal_mode_active_trigger = {
+	has_game_rule = aawc_alt_world_enabled
+	has_game_rule = aawc_aw_tribal_holdings
+	OR = {
+		has_game_rule = aawc_aw_count_shattered_realms
+		has_game_rule = aawc_aw_duke_shattered_realms
+		has_game_rule = aawc_aw_king_shattered_realms
+		has_game_rule = aawc_aw_emperor_shattered_realms
+	}
+}
+
+scripted_trigger valid_stepstones_adventurer_target_trigger = {
+	NOT = { has_county_modifier = aawc_wh_candidate_marker }
+	NOT = { has_county_modifier = aawc_survivor_pocket_marker }
+	NOT = { has_county_modifier = aawc_rh_candidate_marker }
+	holder = {
+		agot_is_dummy_character = no
+		top_liege = {
+			agot_is_dummy_character = no
+			NOT = { government_has_flag = government_is_pirate_trigger_check }
+		}
+		NOR = {
+			#Plus any places already being attacked.
+			top_liege = {
+				any_character_war = { using_cb = pirate_adventurer_conquest }
+			}
+			#Or which have already earnt a ceasefire with this particular adventurer. Or any of their liege
+			OR = {
+				any_truce_holder = { this = scope:pirate_adventurer }
+				any_liege_or_above = {
+					any_truce_holder = { this = scope:pirate_adventurer }
+				}
+			}
+			#And finally anywhere that has earnt a little peace.
+			OR = {
+				has_character_modifier = proven_against_pirates_modifier
+				any_liege_or_above = { has_character_modifier = proven_against_pirates_modifier }
+			}
+		}
+		OR = {
+			is_ai = yes
+			#Filter out players, unless they're large enough to take the hit.
+			AND = {
+				is_ai = no
+				sub_realm_size >= 8
+			}
+		}
+	}
+}
+
+# Startup event, delaying the initial cycle.
+agot_adventurers_events.0001 = {
+	scope = none
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = { aawc_aw_shattered_tribal_mode_active_trigger = yes }
+			error_log = "AAWC PIRATE ADV BLOCK 0001 AW tribal shattered mode active; not scheduling Stepstones adventurer cycle"
+		}
+		else = {
+			error_log = "AAWC PIRATE ADV TRACE 0001 scheduling Stepstones adventurer cycle"
+			trigger_event = {
+				id = agot_adventurers_events.0002
+				years = 5
+			}
+		}
+	}
+}
+
+agot_adventurers_events.0002 = {
+	scope = none
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = { aawc_aw_shattered_tribal_mode_active_trigger = yes }
+			error_log = "AAWC PIRATE ADV BLOCK 0002 AW tribal shattered mode active; suppressing recurring Stepstones adventurer pulse"
+		}
+		else = {
+			error_log = "AAWC PIRATE ADV TRACE 0002 firing Stepstones adventurer wave"
+			#Launch the adventurer spawning events.
+			trigger_event = {
+				id = agot_adventurers_events.0003
+				days = { 0 365 }
+			}
+			#Trigger the next wave of events.
+			trigger_event = {
+				id = agot_adventurers_events.0002
+				days = { 1725 1910 }
+			}
+		}
+	}
+}
+
+agot_adventurers_events.0003 = {
+	scope = none
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = { aawc_aw_shattered_tribal_mode_active_trigger = yes }
+			error_log = "AAWC PIRATE ADV BLOCK 0003 AW tribal shattered mode active; suppressing Stepstones pirate adventurer target selection"
+		}
+		else = {
+			error_log = "AAWC PIRATE ADV TRACE 0003 selecting Stepstones adventurer target"
+			agot_get_potential_pirate_effect = yes
+			scope:potential_pirate = { save_scope_as = pirate_adventurer }
+			if = {
+				limit = {
+					any_county_in_region = {
+						region = world_stepstones
+						valid_stepstones_adventurer_target_trigger = yes
+					}
+				}
+				every_county_in_region = {
+					region = world_stepstones
+					limit = {
+						NOT = {
+							holder = { is_in_list = stepstones_targets_list }
+						}
+						valid_stepstones_adventurer_target_trigger = yes
+					}
+					add_to_list = stepstones_targets_list
+				}
+				random_in_list = {
+					list = stepstones_targets_list
+					weight = {
+						modifier = { add = stepstones_adventurer_target_title_priority_value }
+					}
+					save_scope_as = adventurer_target
+				}
+			}
+
+			#SORT WAR
+			if = {
+				limit = { exists = scope:adventurer_target }
+				error_log = "AAWC PIRATE ADV TRACE 0003 found Stepstones target; triggering war setup event 0004"
+				scope:pirate_adventurer = { trigger_event = agot_adventurers_events.0004 }
+			}
+			else = {
+				error_log = "AAWC PIRATE ADV TRACE 0003 no valid Stepstones target found"
+			}
+		}
+	}
+}
+
+#	Start the war (separate event to config scopes correctly).
+agot_adventurers_events.0004 = {
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = { aawc_aw_shattered_tribal_mode_active_trigger = yes }
+			error_log = "AAWC PIRATE ADV BLOCK 0004 AW tribal shattered mode active; skipping pirate_adventurer_start_war_effect"
+		}
+		else_if = {
+			limit = {
+				scope:adventurer_target = {
+					OR = {
+						has_county_modifier = aawc_wh_candidate_marker
+						has_county_modifier = aawc_survivor_pocket_marker
+						has_county_modifier = aawc_rh_candidate_marker
+					}
+				}
+			}
+			error_log = "AAWC PIRATE ADV BLOCK 0004 target county carries AAWC protected marker; skipping pirate adventurer war"
+		}
+		else = {
+			error_log = "AAWC PIRATE ADV TRACE 0004 launching pirate_adventurer_start_war_effect"
+			pirate_adventurer_start_war_effect = { PIRATE = root TARGET = scope:adventurer_target }
+		}
+	}
+}

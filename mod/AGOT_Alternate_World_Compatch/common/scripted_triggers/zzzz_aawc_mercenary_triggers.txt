@@ -1,0 +1,15 @@
+﻿aawc_mercenary_settled_county_trigger = {
+	exists = holder
+	holder = {
+		agot_is_dummy_character = no
+	}
+	exists = title_province
+	title_province = {
+		has_holding = yes
+		NOR = {
+			has_holding_type = ruin_holding
+			has_holding_type = wilderness_holding
+		}
+	}
+}
+

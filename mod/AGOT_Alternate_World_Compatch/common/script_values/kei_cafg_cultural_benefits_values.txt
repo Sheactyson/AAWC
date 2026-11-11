@@ -1,0 +1,14 @@
+﻿# AAWC 1.9.84 compatibility shadow.
+# Zero vanilla-only Kei/CaFG values whose source files validate missing AGOT database objects.
+
+V_kCAFG_cultural_province_modifier_culture_scale_min_20 = {
+	value = 0
+}
+
+V_kCAFG_cultural_province_modifier_culture_scale_min_25 = {
+	value = 0
+}
+
+V_kCAFG_cultural_benefits_trigger_chance = {
+	value = 0
+}

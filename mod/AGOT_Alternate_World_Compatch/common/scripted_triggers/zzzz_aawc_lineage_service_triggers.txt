@@ -1,0 +1,109 @@
+﻿can_be_councillor_basics_trigger = {
+	is_available_quick = {
+		adult = yes
+		incapable = no
+		imprisoned = no
+	}
+	is_at_war_with_liege = no
+	trigger_if = {
+		limit = { has_variable = block_hire_councillor }
+		NOT = { var:block_hire_councillor = liege }
+	}
+	custom_tooltip = {
+		text = not_travel_option_character
+		NOT = { has_character_flag = travel_option_added_character }
+	}
+
+	is_human = yes
+	agot_is_dummy_character = no
+	trigger_if = {
+		limit = { exists = liege_or_court_owner }
+		liege_or_court_owner = { agot_is_dummy_character = no }
+	}
+	trigger_if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		is_lowborn = no
+	}
+}
+
+base_court_position_validity_trigger = {
+	is_imprisoned = no
+	NOT = { is_at_war_with = $EMPLOYER$ }
+	custom_tooltip = {
+		text = not_travel_option_character
+		NOT = { has_character_flag = travel_option_added_character }
+	}
+	custom_tooltip = {
+		text = is_not_a_ceremonial_liege_trigger
+		tgp_is_ceremonial_liege_trigger = no
+	}
+
+	is_human = yes
+	trigger_if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		is_lowborn = no
+	}
+}
+
+is_diarch_valid_trigger = {
+	OR = {
+		is_human = yes
+		has_government = ruins_government
+	}
+	NOT = { has_character_flag = nw_ranger_title }
+	NOT = { has_character_flag = fuck_off_its_my_wedding_day }
+	is_alive = yes
+	OR = {
+		is_adult = yes
+		liege ?= { has_diarchy_parameter = diarchy_type_is_junior_emperorship }
+	}
+	OR = {
+		is_ai = no
+		NOT = { has_character_flag = cannot_be_diarch }
+	}
+	trigger_if = {
+		limit = { exists = liege }
+		trigger_if = {
+			limit = {
+				NOT = { liege = { has_diarchy_active_parameter = diarchy_is_co_rulership } }
+			}
+			NOT = { has_diarchy_parameter = diarchy_type_is_entrenched_regency }
+			regency_for_personal_reasons_trigger = no
+		}
+		trigger_if = {
+			limit = {
+				liege = {
+					has_diarchy_parameter = diarchy_is_vizierate
+					NOT = { government_has_flag = government_is_celestial }
+				}
+			}
+			diarch_matches_liege_faith_gender_preference_trigger = yes
+			highest_held_title_tier <= tier_barony
+		}
+		trigger_if = {
+			limit = {
+				NOT = { liege = { has_diarchy_active_parameter = diarchy_is_co_rulership } }
+			}
+			NOT = { is_at_war_with = liege }
+			NAND = {
+				is_travelling = yes
+				exists = current_travel_plan
+				trigger_if = {
+					limit = {
+						exists = scope:owner
+						exists = scope:target
+					}
+					travel_would_cause_regency_trigger = { REALM_HOLDER = scope:owner.liege }
+				}
+				trigger_else = {
+					travel_would_cause_regency_trigger = { REALM_HOLDER = liege }
+				}
+			}
+		}
+	}
+	tgp_is_ceremonial_liege_trigger = no
+	trigger_if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		is_lowborn = no
+	}
+}

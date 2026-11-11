@@ -1,0 +1,101 @@
+﻿template kCAFG_County_View_States
+{
+    state = {
+        name = _show
+        on_start = "[GetVariableSystem.Set('kCAFG_show_additional_province_windows', 'true')]"
+    }
+
+    state = {
+        name = _hide
+        on_start = "[GetVariableSystem.Clear('kCAFG_show_additional_province_windows')]"
+    }
+
+    widget = {
+        visible = "[GetVariableSystem.Exists('kCAFG_is_loaded_GUI')]"
+
+        state = {
+            name = kCAFG_ui_variables_update
+            trigger_when = "[Not(GetVariableSystem.HasValue( 'kCAFG_county_view_province', HoldingView.GetProvince.GetTitle.GetKey ))]"
+            on_finish = "[GetVariableSystem.Set( 'kCAFG_county_view_province', HoldingView.GetProvince.GetTitle.GetKey )]"
+            on_finish = "[GetScriptedGui( 'kCAFG_province_faiths_setup_variables_scripted_gui' ).Execute( GuiScope.SetRoot( HoldingView.GetProvince.MakeScope ).AddScope('local_player', GetPlayer.MakeScope).End)]"
+            on_finish = "[GetScriptedGui( 'kCAFG_province_cultures_setup_variables_scripted_gui' ).Execute( GuiScope.SetRoot( HoldingView.GetProvince.MakeScope ).AddScope('local_player', GetPlayer.MakeScope).End)]"
+        }
+    }
+}
+
+types kCAFG_ProvinceViewButtonsTypes
+{
+    type kCAFG_province_view_cf_buttons = margin_widget {
+        name = "kCAFG widget"
+        alwaystransparent = yes
+	    allow_outside = yes
+
+        background = { using = Background_Area_Dark }
+
+        # Observer and scripted guis don't seem to play nice
+        visible = "[And(Not(IsObserver), GetVariableSystem.Exists('kCAFG_is_loaded_GUI'))]"
+
+        flowcontainer = {
+            spacing = 4
+
+            datacontext = "[HoldingView.GetProvince.MakeScope]"
+            visible = "[Province.IsValid]"
+            
+            ## FAITH BUTTON
+            kCAFG_province_additional_button = {
+                datacontext = "[GetScriptedGui('kCAFG_province_faith_scripted_gui')]"
+
+                tooltip = "[SelectLocalization(ScriptedGui.IsShown(GuiScope.SetRoot(Province.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End), 'kCAFG_hide_province_faiths_button_tooltip', 'kCAFG_show_province_faiths_button_tooltip')]"
+
+                blockoverride "button_icon"
+                {
+                    texture = "gfx/interface/icons/character_interactions/religious.dds"
+                    color = { 1 1 1 1 }
+                }
+
+                blockoverride "number_tooltip"
+                {
+                    tooltip = "[SelectLocalization(ScriptedGui.IsShown(GuiScope.SetRoot(Province.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End), 'kCAFG_province_faiths_number_hide_tooltip', 'kCAFG_province_faiths_number_show_tooltip')]"
+                }
+                
+                blockoverride "number_datamodel"
+                {
+                    text = "[GetDataModelSize(Province.MakeScope.GetList('kCAFG_province_faiths'))]"
+                }
+            }
+
+            ## CULTURE BUTTON
+            kCAFG_province_additional_button = {
+                datacontext = "[GetScriptedGui('kCAFG_province_culture_scripted_gui')]"
+                
+                tooltip = "[SelectLocalization(ScriptedGui.IsShown(GuiScope.SetRoot(Province.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End), 'kCAFG_hide_province_cultures_button_tooltip', 'kCAFG_show_province_cultures_button_tooltip')]"
+
+                blockoverride "button_icon"
+                {
+                    texture = "gfx/interface/icons/character_interactions/icon_culture.dds"
+                    size = { 72% 72% }
+                    position = { 0 -1 }
+                    color = { 1 1 1 1 }
+                }
+
+                blockoverride "number_tooltip"
+                {
+                    tooltip = "[SelectLocalization(ScriptedGui.IsShown( GuiScope.SetRoot( Province.MakeScope ).AddScope('local_player', GetPlayer.MakeScope).End), 'kCAFG_province_cultures_number_hide_tooltip', 'kCAFG_province_cultures_number_show_tooltip')]"
+                }
+                
+                blockoverride "number_datamodel"
+                {
+                    text = "[GetDataModelSize(Province.MakeScope.GetList('kCAFG_province_cultures'))]"
+                }
+            }
+        }
+    }
+}
+
+template kCAFG_Province_View_Additional_Buttons
+{
+    kCAFG_province_view_cf_buttons = {
+        parentanchor = top|left
+        margin_top = 84
+    }
+}

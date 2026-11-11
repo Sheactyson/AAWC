@@ -1,0 +1,996 @@
+﻿aawc_cleanup_nonlandmark_default_ruins_to_wilderness_effect = {
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		every_county = {
+			limit = {
+				any_county_province = { has_holding_type = ruin_holding }
+				NOT = { aawc_county_has_authored_landmark_candidate = yes }
+			}
+			remove_county_modifier = aawc_rh_candidate_marker
+			every_county_province = {
+				limit = { has_holding = yes }
+				if = { limit = { has_building = small_ruin_01 } remove_building = small_ruin_01 }
+				if = { limit = { has_building = medium_ruin_01 } remove_building = medium_ruin_01 }
+				if = { limit = { has_building = large_ruin_01 } remove_building = large_ruin_01 }
+				if = { limit = { has_building = small_ruined_holding_01 } remove_building = small_ruined_holding_01 }
+				if = { limit = { has_building = medium_ruined_holding_01 } remove_building = medium_ruined_holding_01 }
+				if = { limit = { has_building = large_ruined_holding_01 } remove_building = large_ruined_holding_01 }
+				if = { limit = { has_building = ruin_renowned_01 } remove_building = ruin_renowned_01 }
+				if = {
+					limit = { NOT = { has_holding_type = wilderness_holding } }
+					set_holding_type = wilderness_holding
+				}
+			}
+		}
+	}
+}
+
+aawc_preclear_rh_candidate_buildings_effect = {
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		every_county = {
+			limit = {
+				exists = title_province
+				NOT = { title_province = { has_holding_type = wilderness_holding } }
+				NOT = { title_province = { has_holding_type = unknown_holding } }
+				OR = {
+					any_county_province = { has_special_building = yes }
+					any_county_province = { has_special_building_slot = yes }
+				}
+			}
+
+
+			every_county_province = {
+				limit = {
+					has_holding = yes
+					NOT = { has_holding_type = ruin_holding }
+					NOT = { has_holding_type = wilderness_holding }
+					NOT = { has_holding_type = unknown_holding }
+				}
+				agot_destroy_all_generic_buildings = yes
+				if = { limit = { has_building = small_ruin_01 } remove_building = small_ruin_01 }
+				if = { limit = { has_building = medium_ruin_01 } remove_building = medium_ruin_01 }
+				if = { limit = { has_building = large_ruin_01 } remove_building = large_ruin_01 }
+				if = { limit = { has_building = small_ruined_holding_01 } remove_building = small_ruined_holding_01 }
+				if = { limit = { has_building = medium_ruined_holding_01 } remove_building = medium_ruined_holding_01 }
+				if = { limit = { has_building = large_ruined_holding_01 } remove_building = large_ruined_holding_01 }
+				if = { limit = { has_building = ruin_renowned_01 } remove_building = ruin_renowned_01 }
+				if = { limit = { has_building = bandit_camps_01 } remove_building = bandit_camps_01 }
+				if = { limit = { has_building = lv_floods_01 } remove_building = lv_floods_01 }
+				if = { limit = { has_building = unexplored_caves_01 } remove_building = unexplored_caves_01 }
+				if = { limit = { has_building = noxious_gases_01_01 } remove_building = noxious_gases_01_01 }
+				if = { limit = { has_building = winterfell_03 } remove_building = winterfell_03 }
+				if = { limit = { has_building = winterfell_02 } remove_building = winterfell_02 }
+				if = { limit = { has_building = winterfell_01 } remove_building = winterfell_01 }
+				if = { limit = { has_building = aawc_c_winterfell_03 } remove_building = aawc_c_winterfell_03 }
+				if = { limit = { has_building = aawc_c_winterfell_02 } remove_building = aawc_c_winterfell_02 }
+				if = { limit = { has_building = aawc_c_winterfell_01 } remove_building = aawc_c_winterfell_01 }
+				if = { limit = { has_building = aawc_c_winterfell_maintained_01 } remove_building = aawc_c_winterfell_maintained_01 }
+				if = { limit = { has_building = aawc_c_winterfell_ruined_01 } remove_building = aawc_c_winterfell_ruined_01 }
+			}
+		}
+	}
+}
+
+aawc_legacy_add_ruin_blocker_one_retired_effect = {
+	if = {
+		limit = { aawc_county_has_type_port = yes }
+		title_province = { if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 } }
+	}
+	else_if = {
+		limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+		if = { limit = { this = title:c_winterfell } error_log = "AAWC BLOCKER1 Winterfell fortress path" }
+		title_province = { if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 } }
+	}
+	else = {
+		title_province = { if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 } }
+	}
+}
+
+aawc_legacy_add_ruin_blocker_two_retired_effect = {
+	if = {
+		limit = { aawc_county_has_type_port = yes }
+		title_province = { if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 } }
+	}
+	else_if = {
+		limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+		if = { limit = { this = title:c_winterfell } error_log = "AAWC BLOCKER2 Winterfell fortress path" }
+		title_province = { if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 } }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				aawc_county_has_type_extractive = yes
+				aawc_county_has_type_natural = yes
+			}
+		}
+		title_province = { if = { limit = { NOT = { has_building = noxious_gases_01_01 } } add_building = noxious_gases_01_01 } }
+	}
+	else = {
+		title_province = { if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 } }
+	}
+}
+
+aawc_legacy_add_ruin_blocker_three_retired_effect = {
+	if = {
+		limit = { aawc_county_has_type_port = yes }
+		title_province = { if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 } }
+	}
+	else_if = {
+		limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+		if = { limit = { this = title:c_winterfell } error_log = "AAWC BLOCKER3 Winterfell fortress path" }
+		title_province = { if = { limit = { NOT = { has_building = noxious_gases_01_01 } } add_building = noxious_gases_01_01 } }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				aawc_county_has_type_scholarly = yes
+				aawc_county_has_type_religious = yes
+			}
+		}
+		title_province = { if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 } }
+	}
+	else = {
+		title_province = { if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 } }
+	}
+}
+
+aawc_milestone_2_prescore_original_setup_effect = {
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC FLOW prescore_original_setup start" }
+		title:c_winterfell = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC PRESCORE Winterfell pre-loop reached" }
+			title_province = {
+				if = { limit = { has_special_building = yes } error_log = "AAWC PRESCORE Winterfell province has_special_building yes" }
+				if = { limit = { has_special_building_slot = yes } error_log = "AAWC PRESCORE Winterfell province has_special_building_slot yes" }
+			}
+		}
+
+		every_county = {
+			limit = { aawc_county_has_authored_landmark_candidate = yes }
+
+			remove_variable = aawc_ruin_score_cached
+			remove_variable = aawc_ruin_size_small_cached
+			remove_variable = aawc_ruin_size_medium_cached
+			remove_variable = aawc_ruin_size_large_cached
+			remove_variable = aawc_ruin_type_fortress_cached
+			set_variable = { name = aawc_ruin_score_cached value = 0 }
+			set_variable = { name = aawc_ruin_size_small_cached value = 0 }
+			set_variable = { name = aawc_ruin_size_medium_cached value = 0 }
+			set_variable = { name = aawc_ruin_size_large_cached value = 0 }
+			set_variable = { name = aawc_ruin_type_fortress_cached value = 0 }
+
+			save_scope_as = aawc_prescore_county
+
+			if = {
+				limit = { this = title:c_winterfell }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC PRESCORE Winterfell eligible county entered" }
+				title_province = {
+					if = { limit = { has_building = curtain_walls_06 } error_log = "AAWC PRESCORE Winterfell sees curtain_walls_06" }
+					if = { limit = { has_building = godswood_07 } error_log = "AAWC PRESCORE Winterfell sees godswood_07" }
+					if = { limit = { has_building = barracks_04 } error_log = "AAWC PRESCORE Winterfell sees barracks_04" }
+					if = { limit = { has_building = stables_02 } error_log = "AAWC PRESCORE Winterfell sees stables_02" }
+					if = { limit = { has_building = smiths_06 } error_log = "AAWC PRESCORE Winterfell sees smiths_06" }
+				}
+			}
+
+			if = {
+				limit = { NOT = { aawc_county_has_known_special_building = yes } }
+				change_variable = { name = aawc_ruin_score_cached add = -2 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell applied unknown-special penalty -2" }
+			}
+
+
+			if = {
+				limit = { this = title:c_winterfell }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC PRESCORE Winterfell checking original de jure capital bonuses" }
+				if = { limit = { exists = duchy } error_log = "AAWC PRESCORE Winterfell has original duchy scope" }
+				if = { limit = { exists = kingdom } error_log = "AAWC PRESCORE Winterfell has original kingdom scope" }
+				if = { limit = { exists = empire } error_log = "AAWC PRESCORE Winterfell has original empire scope" }
+				if = { limit = { duchy = { exists = title_capital_county } } error_log = "AAWC PRESCORE Winterfell duchy scope has title_capital_county" }
+				if = { limit = { kingdom = { exists = title_capital_county } } error_log = "AAWC PRESCORE Winterfell kingdom scope has title_capital_county" }
+				if = { limit = { empire = { exists = title_capital_county } } error_log = "AAWC PRESCORE Winterfell empire scope has title_capital_county" }
+			}
+			if = {
+				limit = {
+					exists = empire
+					empire = { title_capital_county = scope:aawc_prescore_county }
+				}
+				change_variable = { name = aawc_ruin_score_cached add = 8 }
+				set_variable = { name = aawc_ruin_dejure_empire_capital_cached value = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell original de jure empire capital bonus +8 (highest tier applied)" }
+			}
+			else_if = {
+				limit = {
+					exists = kingdom
+					kingdom = { title_capital_county = scope:aawc_prescore_county }
+				}
+				change_variable = { name = aawc_ruin_score_cached add = 5 }
+				set_variable = { name = aawc_ruin_dejure_kingdom_capital_cached value = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell original de jure kingdom capital bonus +5 (highest tier applied)" }
+			}
+			else_if = {
+				limit = {
+					exists = duchy
+					duchy = { title_capital_county = scope:aawc_prescore_county }
+				}
+				change_variable = { name = aawc_ruin_score_cached add = 2 }
+				set_variable = { name = aawc_ruin_dejure_duchy_capital_cached value = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell original de jure duchy capital bonus +2 (highest tier applied)" }
+			}
+			else = {
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell no original de jure capital bonus applied" }
+			}
+
+			if = {
+				limit = { aawc_county_has_wall4 = yes }
+				change_variable = { name = aawc_ruin_score_cached add = 4 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell wall score +4" }
+			}
+			else_if = {
+				limit = { aawc_county_has_wall2 = yes }
+				change_variable = { name = aawc_ruin_score_cached add = 2 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell wall score +2" }
+			}
+			else_if = {
+				limit = { aawc_county_has_wall1 = yes }
+				change_variable = { name = aawc_ruin_score_cached add = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell wall score +1" }
+			}
+
+			if = {
+				limit = { aawc_county_has_econ2 = yes }
+				change_variable = { name = aawc_ruin_score_cached add = 2 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell econ score +2" }
+			}
+			else_if = {
+				limit = { aawc_county_has_econ1 = yes }
+				change_variable = { name = aawc_ruin_score_cached add = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell econ score +1" }
+			}
+
+			if = {
+				limit = { aawc_county_has_prestige2 = yes }
+				change_variable = { name = aawc_ruin_score_cached add = 2 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell prestige score +2" }
+			}
+			else_if = {
+				limit = { aawc_county_has_prestige1 = yes }
+				change_variable = { name = aawc_ruin_score_cached add = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell prestige score +1" }
+			}
+
+			if = {
+				limit = { aawc_county_has_type2 = yes }
+				change_variable = { name = aawc_ruin_score_cached add = 2 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell type score +2" }
+			}
+			else_if = {
+				limit = { aawc_county_has_type1 = yes }
+				change_variable = { name = aawc_ruin_score_cached add = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell type score +1" }
+			}
+
+			if = {
+				limit = { aawc_county_has_type_fortress = yes }
+				set_variable = { name = aawc_ruin_type_fortress_cached value = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell cached type FORTRESS" }
+			}
+			if = {
+				limit = { this = title:c_winterfell }
+				if = { limit = { var:aawc_ruin_score_cached >= 0 } error_log = "AAWC PRESCORE Winterfell final numeric score at least 0" }
+				if = { limit = { var:aawc_ruin_score_cached >= 2 } error_log = "AAWC PRESCORE Winterfell final numeric score at least 2" }
+				if = { limit = { var:aawc_ruin_score_cached >= 4 } error_log = "AAWC PRESCORE Winterfell final numeric score at least 4" }
+				if = { limit = { var:aawc_ruin_score_cached >= 6 } error_log = "AAWC PRESCORE Winterfell final numeric score at least 6" }
+				if = { limit = { var:aawc_ruin_score_cached >= 8 } error_log = "AAWC PRESCORE Winterfell final numeric score at least 8" }
+				if = { limit = { var:aawc_ruin_score_cached >= 10 } error_log = "AAWC PRESCORE Winterfell final numeric score at least 10" }
+				if = { limit = { var:aawc_ruin_score_cached >= 12 } error_log = "AAWC PRESCORE Winterfell final numeric score at least 12" }
+			}
+			if = {
+				limit = { var:aawc_ruin_score_cached >= 12 }
+				set_variable = { name = aawc_ruin_size_large_cached value = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell cached size LARGE" }
+			}
+			else_if = {
+				limit = { var:aawc_ruin_score_cached >= 6 }
+				set_variable = { name = aawc_ruin_size_medium_cached value = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell cached size MEDIUM" }
+			}
+			else = {
+				set_variable = { name = aawc_ruin_size_small_cached value = 1 }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC PRESCORE Winterfell cached size SMALL" }
+			}
+		}
+		title:c_winterfell = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC FLOW prescore_original_setup end" }
+		}
+	}
+}
+
+aawc_milestone_2_convert_rh_to_lov_ruins_effect = {
+	aawc_reforging_diag_phase_effect = { PHASE = 20 }
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC FLOW convert_rh_to_lov_ruins start" }
+		aawc_cleanup_nonlandmark_default_ruins_to_wilderness_effect = yes
+
+		# Diagnostic: authored counties that are intentionally survivor pockets must not be
+		# converted into RH ruin-holder workflow.
+		every_county = {
+			limit = {
+				has_county_modifier = aawc_survivor_pocket_marker
+				aawc_county_has_authored_landmark_candidate = yes
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC FLOW convert_rh_to_lov_ruins survivor safeguard active for authored county" }
+		}
+
+		every_county = {
+			limit = {
+				OR = {
+					AND = {
+						has_county_modifier = aawc_rh_candidate_marker
+						aawc_county_has_authored_landmark_candidate = yes
+					}
+					AND = {
+						exists = title_province
+						OR = {
+							title_province = { has_holding_type = ruin_holding }
+							title_province = { has_holding_type = wilderness_holding }
+						}
+						aawc_county_has_authored_landmark_candidate = yes
+					}
+				}
+				exists = title_province
+				NOT = { title_province = { has_holding_type = unknown_holding } }
+				NOT = { title_province = { has_holding_type = settlement_holding } }
+				NOT = { any_county_province = { has_holding_type = settlement_holding } }
+				NOT = { has_county_modifier = aawc_survivor_pocket_marker }
+			}
+
+			save_scope_as = aawc_target_county
+			if = { limit = { holder ?= { this = title:c_ruins.holder } } error_log = "AAWC RH CONVERT holder source: c_ruins dummy" }
+			else_if = { limit = { holder ?= { this = title:c_wilderness.holder } } error_log = "AAWC RH CONVERT holder source: c_wilderness dummy" }
+			else = { error_log = "AAWC RH CONVERT holder source: non-dummy holder (will be retaken to c_ruins)" }
+			if = { limit = { this = title:c_valyria } error_log = "AAWC CONVERT touching c_valyria" }
+			if = { limit = { this = title:c_kastaryia } error_log = "AAWC CONVERT touching c_kastaryia" }
+			if = { limit = { this = title:c_hills_of_nolos } error_log = "AAWC CONVERT touching c_hills_of_nolos" }
+			if = { limit = { this = title:c_ilvonys } error_log = "AAWC CONVERT touching c_ilvonys" }
+			if = { limit = { this = title:c_oreos } error_log = "AAWC CONVERT touching c_oreos" }
+
+			# AAWC legitimacy repair: authored RH counties must enter the LoV ruin workflow as true ruin-held ruin_holding counties,
+			# not as normal holdings under a ruin dummy.
+			if = {
+				limit = { NOT = { holder ?= { this = title:c_ruins.holder } } }
+				hidden_effect = {
+					create_title_and_vassal_change = {
+						type = revoked
+						save_scope_as = aawc_ruin_legitimacy_change
+					}
+					change_title_holder = {
+						holder = title:c_ruins.holder
+						change = scope:aawc_ruin_legitimacy_change
+						take_baronies = yes
+					}
+					resolve_title_and_vassal_change = scope:aawc_ruin_legitimacy_change
+					generate_coa = yes
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RH LEGITIMACY retook county for ruin holder" }
+			}
+
+				every_county_province = {
+					limit = {
+						has_holding = yes
+						NOT = { has_holding_type = ruin_holding }
+						NOT = { has_holding_type = settlement_holding }
+					}
+					set_holding_type = ruin_holding
+				}
+
+			if = {
+				limit = { aawc_native_lov_rh_county = yes }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC PARITY preserving native LoV ruin flow for pre-authored LoV RH county" }
+				if = { limit = { this = title:c_valyria } error_log = "AAWC PARITY native LoV target c_valyria" }
+				if = { limit = { this = title:c_kastaryia } error_log = "AAWC PARITY native LoV target c_kastaryia" }
+				if = { limit = { this = title:c_hills_of_nolos } error_log = "AAWC PARITY native LoV target c_hills_of_nolos" }
+				if = { limit = { this = title:c_ilvonys } error_log = "AAWC PARITY native LoV target c_ilvonys" }
+				if = { limit = { this = title:c_oreos } error_log = "AAWC PARITY native LoV target c_oreos" }
+				title_province = {
+					if = { limit = { has_holding_type = ruin_holding } error_log = "AAWC CONVERT audit county capital ruin_holding" }
+					if = { limit = { has_holding_type = wilderness_holding } error_log = "AAWC CONVERT audit county capital wilderness_holding" }
+					if = { limit = { has_holding_type = settlement_holding } error_log = "AAWC CONVERT audit county capital settlement_holding" }
+					if = { limit = { has_building = large_ruin_01 } error_log = "AAWC CONVERT audit county has native large_ruin_01" }
+					if = { limit = { has_building = medium_ruin_01 } error_log = "AAWC CONVERT audit county has native medium_ruin_01" }
+					if = { limit = { has_building = small_ruin_01 } error_log = "AAWC CONVERT audit county has native small_ruin_01" }
+					if = { limit = { has_building = large_ruined_holding_01 } error_log = "AAWC CONVERT audit county unexpectedly has large_ruined_holding_01" }
+					if = { limit = { has_building = medium_ruined_holding_01 } error_log = "AAWC CONVERT audit county unexpectedly has medium_ruined_holding_01" }
+					if = { limit = { has_building = small_ruined_holding_01 } error_log = "AAWC CONVERT audit county unexpectedly has small_ruined_holding_01" }
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC PARITY native LoV applying AAWC special restoration chain" }
+				aawc_apply_generated_special_restoration_effect = yes
+				aawc_apply_valyria_region_special_restoration_effect = yes
+				aawc_apply_generic_lov_special_restoration_effect = yes
+				aawc_top_up_current_county_ruin_blockers_effect = yes
+				if = { limit = { this = title:c_valyria } error_log = "AAWC PARITY native LoV restored chain c_valyria" }
+				if = { limit = { this = title:c_kastaryia } error_log = "AAWC PARITY native LoV restored chain c_kastaryia" }
+				if = { limit = { this = title:c_hills_of_nolos } error_log = "AAWC PARITY native LoV restored chain c_hills_of_nolos" }
+				if = { limit = { this = title:c_ilvonys } error_log = "AAWC PARITY native LoV restored chain c_ilvonys" }
+				if = { limit = { this = title:c_oreos } error_log = "AAWC PARITY native LoV restored chain c_oreos" }
+			}
+			else = {
+				if = {
+					limit = { this = title:c_winterfell }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC FLOW convert Winterfell start" }
+					if = { limit = { var:aawc_ruin_size_large_cached >= 1 } error_log = "AAWC CONVERT Winterfell cached size LARGE" }
+					if = { limit = { var:aawc_ruin_size_medium_cached >= 1 } error_log = "AAWC CONVERT Winterfell cached size MEDIUM" }
+					if = { limit = { var:aawc_ruin_size_small_cached >= 1 } error_log = "AAWC CONVERT Winterfell cached size SMALL" }
+				}
+
+				if = {
+					limit = { NOT = { title_province = { has_holding_type = ruin_holding } } }
+					hidden_effect = {
+						create_title_and_vassal_change = {
+							type = revoked
+							save_scope_as = aawc_ruin_change
+						}
+						change_title_holder = {
+							holder = title:c_ruins.holder
+							change = scope:aawc_ruin_change
+							take_baronies = yes
+						}
+						resolve_title_and_vassal_change = scope:aawc_ruin_change
+						generate_coa = yes
+					}
+
+						every_county_province = {
+							limit = {
+								has_holding = yes
+								NOT = { has_holding_type = ruin_holding }
+							NOT = { has_holding_type = settlement_holding }
+							}
+							set_holding_type = ruin_holding
+						}
+					}
+
+				if = {
+					limit = { var:aawc_ruin_size_large_cached >= 1 }
+					if = { limit = { this = title:c_winterfell } error_log = "AAWC CONVERT Winterfell branch LARGE" }
+					title_province = {
+						if = { limit = { NOT = { has_building = large_ruin_01 } } add_building = large_ruin_01 }
+						if = { limit = { NOT = { has_building = large_ruined_holding_01 } } add_building = large_ruined_holding_01 }
+					}
+					aawc_add_ruin_blocker_one_effect = yes
+					aawc_add_ruin_blocker_two_effect = yes
+					aawc_add_ruin_blocker_three_effect = yes
+					if = {
+						limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+						if = { limit = { this = title:c_winterfell } error_log = "AAWC CONVERT Winterfell direct fortress blocker reinforcement" }
+						title_province = {
+							if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+							if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+							if = { limit = { NOT = { has_building = noxious_gases_01_01 } } add_building = noxious_gases_01_01 }
+						}
+					}
+				}
+				else_if = {
+					limit = { var:aawc_ruin_size_medium_cached >= 1 }
+					if = { limit = { this = title:c_winterfell } error_log = "AAWC CONVERT Winterfell branch MEDIUM" }
+					title_province = {
+						if = { limit = { NOT = { has_building = medium_ruin_01 } } add_building = medium_ruin_01 }
+						if = { limit = { NOT = { has_building = medium_ruined_holding_01 } } add_building = medium_ruined_holding_01 }
+					}
+					aawc_add_ruin_blocker_one_effect = yes
+					aawc_add_ruin_blocker_two_effect = yes
+				}
+				else = {
+					if = { limit = { this = title:c_winterfell } error_log = "AAWC CONVERT Winterfell branch SMALL_FALLBACK" }
+					title_province = {
+						if = { limit = { NOT = { has_building = small_ruin_01 } } add_building = small_ruin_01 }
+						if = { limit = { NOT = { has_building = small_ruined_holding_01 } } add_building = small_ruined_holding_01 }
+					}
+					aawc_add_ruin_blocker_one_effect = yes
+					aawc_add_ruin_blocker_two_effect = yes
+				}
+
+				if = {
+				limit = {
+					OR = {
+						var:aawc_ruin_size_large_cached >= 1
+						aawc_county_has_prestige2 = yes
+						AND = {
+							has_variable = aawc_ruin_dejure_empire_capital_cached
+							var:aawc_ruin_dejure_empire_capital_cached >= 1
+						}
+					}
+				}
+				title_province = { add_building = ruin_renowned_01 }
+				}
+				aawc_apply_generated_special_restoration_effect = yes
+				aawc_apply_valyria_region_special_restoration_effect = yes
+				aawc_apply_generic_lov_special_restoration_effect = yes
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC FLOW convert_rh_to_lov_ruins end" }
+	}
+
+	aawc_reforging_diag_phase_effect = { PHASE = 21 }
+}
+
+
+
+aawc_legacy_top_up_current_county_ruin_blockers_retired_effect = {
+	if = {
+		limit = {
+			OR = {
+				title_province = { has_building = large_ruined_holding_01 }
+				title_province = { has_building = medium_ruined_holding_01 }
+				title_province = { has_building = small_ruined_holding_01 }
+			}
+		}
+		if = {
+			limit = { title_province = { has_building = large_ruined_holding_01 } }
+			if = { limit = { this = title:c_winterfell } error_log = "AAWC GENERIC TOPUP current county LARGE start" }
+			if = {
+				limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+				title_province = {
+					if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+					if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+					if = { limit = { NOT = { has_building = noxious_gases_01_01 } } add_building = noxious_gases_01_01 }
+				}
+			}
+			else_if = {
+				limit = { aawc_county_has_type_port = yes }
+				title_province = {
+					if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 }
+					if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+					if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+				}
+			}
+			else = {
+				title_province = {
+					if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+					if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+					if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 }
+				}
+			}
+		}
+		else_if = {
+			limit = { title_province = { has_building = medium_ruined_holding_01 } }
+			if = {
+				limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+				title_province = {
+					if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+					if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+				}
+			}
+			else_if = {
+				limit = { aawc_county_has_type_port = yes }
+				title_province = {
+					if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 }
+					if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+				}
+			}
+			else = {
+				title_province = {
+					if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+					if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+				}
+			}
+		}
+		else_if = {
+			limit = { title_province = { has_building = small_ruined_holding_01 } }
+			if = {
+				limit = { aawc_county_has_type_port = yes }
+				title_province = { if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 } }
+			}
+			else_if = {
+				limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+				title_province = { if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 } }
+			}
+			else = {
+				title_province = { if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 } }
+			}
+		}
+		if = {
+			limit = { this = title:c_winterfell }
+			title_province = {
+				if = { limit = { has_building = large_ruined_holding_01 } error_log = "AAWC GENERIC TOPUP current county has large_ruined_holding_01" }
+				if = { limit = { has_building = bandit_camps_01 } error_log = "AAWC GENERIC TOPUP current county has bandit_camps_01" }
+				if = { limit = { has_building = unexplored_caves_01 } error_log = "AAWC GENERIC TOPUP current county has unexplored_caves_01" }
+				if = { limit = { has_building = noxious_gases_01_01 } error_log = "AAWC GENERIC TOPUP current county has noxious_gases_01_01" }
+				if = { limit = { has_building = lv_floods_01 } error_log = "AAWC GENERIC TOPUP current county has lv_floods_01" }
+			}
+		}
+	}
+}
+
+aawc_legacy_milestone_2_top_up_ruin_blockers_retired_effect = {
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		title:c_winterfell = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC FLOW topup Winterfell preloop state" }
+			if = { limit = { has_county_modifier = aawc_rh_candidate_marker } error_log = "AAWC FLOW topup Winterfell has RH marker preloop" }
+			title_province = {
+				if = { limit = { has_holding_type = ruin_holding } error_log = "AAWC FLOW topup Winterfell is ruin holding preloop" }
+				if = { limit = { has_building = large_ruined_holding_01 } error_log = "AAWC FLOW topup Winterfell has large_ruined_holding_01 preloop" }
+				if = { limit = { has_building = medium_ruined_holding_01 } error_log = "AAWC FLOW topup Winterfell has medium_ruined_holding_01 preloop" }
+				if = { limit = { has_building = small_ruined_holding_01 } error_log = "AAWC FLOW topup Winterfell has small_ruined_holding_01 preloop" }
+			}
+		}
+		every_county = {
+			limit = {
+				exists = title_province
+				title_province = { has_holding_type = ruin_holding }
+				OR = {
+					has_county_modifier = aawc_rh_candidate_marker
+					title_province = { has_building = large_ruined_holding_01 }
+					title_province = { has_building = medium_ruined_holding_01 }
+					title_province = { has_building = small_ruined_holding_01 }
+				}
+			}
+
+			# Large ruins should show 4 blocker buildings total: 1 ruined-holding blocker + 3 thematic blockers.
+			if = {
+				limit = { this = title:c_winterfell }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC FLOW topup Winterfell start" }
+				title_province = {
+					if = { limit = { has_building = large_ruined_holding_01 } error_log = "AAWC Winterfell has large_ruined_holding_01 before topup" }
+					if = { limit = { has_building = bandit_camps_01 } error_log = "AAWC Winterfell has bandit_camps_01 before topup" }
+					if = { limit = { has_building = unexplored_caves_01 } error_log = "AAWC Winterfell has unexplored_caves_01 before topup" }
+					if = { limit = { has_building = noxious_gases_01_01 } error_log = "AAWC Winterfell has noxious_gases_01_01 before topup" }
+				}
+			}
+			if = {
+				limit = { title_province = { has_building = large_ruined_holding_01 } }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC TOPUP Winterfell branch LARGE_RUINED_HOLDING (1 blocker + 3 thematic)" }
+				if = {
+					limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+					title_province = {
+						if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+						if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+						if = { limit = { NOT = { has_building = noxious_gases_01_01 } } add_building = noxious_gases_01_01 }
+					}
+				}
+				else_if = {
+					limit = { aawc_county_has_type_port = yes }
+					title_province = {
+						if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 }
+						if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+						if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+					}
+				}
+				else = {
+					title_province = {
+						if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+						if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+						if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 }
+					}
+				}
+			}
+			if = {
+				limit = { this = title:c_winterfell }
+				title_province = {
+					if = { limit = { has_building = large_ruined_holding_01 } error_log = "AAWC Winterfell has large_ruined_holding_01 after topup (ruined-holding blocker)" }
+					if = { limit = { has_building = bandit_camps_01 } error_log = "AAWC Winterfell has bandit_camps_01 after topup" }
+					if = { limit = { has_building = unexplored_caves_01 } error_log = "AAWC Winterfell has unexplored_caves_01 after topup" }
+					if = { limit = { has_building = noxious_gases_01_01 } error_log = "AAWC Winterfell has noxious_gases_01_01 after topup" }
+				}
+			}
+			# Medium ruins should show 3 blocker buildings total: ruined holding + 2 thematic blockers.
+			else_if = {
+				limit = { title_province = { has_building = medium_ruined_holding_01 } }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC TOPUP Winterfell branch MEDIUM_RUINED_HOLDING" }
+				if = {
+					limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+					title_province = {
+						if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+						if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+					}
+				}
+				else_if = {
+					limit = { aawc_county_has_type_port = yes }
+					title_province = {
+						if = { limit = { NOT = { has_building = lv_floods_01 } } add_building = lv_floods_01 }
+						if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+					}
+				}
+				else = {
+					title_province = {
+						if = { limit = { NOT = { has_building = unexplored_caves_01 } } add_building = unexplored_caves_01 }
+						if = { limit = { NOT = { has_building = bandit_camps_01 } } add_building = bandit_camps_01 }
+					}
+				}
+			}
+			# Small ruins should show 3 blocker buildings total: ruined holding + 2 thematic blockers.
+			else_if = {
+				limit = { title_province = { has_building = small_ruined_holding_01 } }
+				if = { limit = { this = title:c_winterfell } error_log = "AAWC TOPUP Winterfell branch SMALL_RUINED_HOLDING" }
+				aawc_add_ruin_blocker_one_effect = yes
+				aawc_add_ruin_blocker_two_effect = yes
+			}
+		}
+	}
+}
+
+aawc_milestone_2_reassert_native_lov_ruin_dummy_ownership_effect = {
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		every_county = {
+			limit = {
+				aawc_native_lov_rh_county = yes
+					NOT = { any_county_province = { has_holding_type = settlement_holding } }
+				OR = {
+					has_county_modifier = aawc_rh_candidate_marker
+					title_province = { has_holding_type = ruin_holding }
+					title_province = { has_building = large_ruined_holding_01 }
+					title_province = { has_building = medium_ruined_holding_01 }
+					title_province = { has_building = small_ruined_holding_01 }
+				}
+			}
+
+			if = { limit = { this = title:c_valyria } error_log = "AAWC RH REASSERT evaluating c_valyria" }
+			if = { limit = { this = title:c_kastaryia } error_log = "AAWC RH REASSERT evaluating c_kastaryia" }
+			if = { limit = { this = title:c_hills_of_nolos } error_log = "AAWC RH REASSERT evaluating c_hills_of_nolos" }
+			if = { limit = { this = title:c_ilvonys } error_log = "AAWC RH REASSERT evaluating c_ilvonys" }
+			if = { limit = { this = title:c_oreos } error_log = "AAWC RH REASSERT evaluating c_oreos" }
+
+			if = {
+				limit = { NOT = { holder ?= { this = title:c_ruins.holder } } }
+				hidden_effect = {
+					create_title_and_vassal_change = { type = revoked save_scope_as = aawc_rh_reassert_change }
+					change_title_holder = { holder = title:c_ruins.holder change = scope:aawc_rh_reassert_change take_baronies = yes }
+					resolve_title_and_vassal_change = scope:aawc_rh_reassert_change
+					generate_coa = yes
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RH REASSERT retook protected native LoV RH county for ruin holder" }
+			}
+
+				title_province = {
+					if = {
+						limit = {
+							NOT = { has_holding_type = ruin_holding }
+							NOT = { has_holding_type = settlement_holding }
+						}
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RH REASSERT forcing county capital back to ruin_holding" }
+						set_holding_type = ruin_holding
+					}
+					if = { limit = { has_holding_type = ruin_holding } error_log = "AAWC RH REASSERT county capital is ruin_holding after reassert" }
+				}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RH REASSERT reapplying AAWC special restoration chain" }
+			aawc_apply_generated_special_restoration_effect = yes
+			aawc_apply_valyria_region_special_restoration_effect = yes
+			aawc_apply_generic_lov_special_restoration_effect = yes
+			aawc_top_up_current_county_ruin_blockers_effect = yes
+		}
+	}
+}
+
+
+aawc_legacy_apply_exact_current_county_ruin_blockers_retired_effect = {
+	# Exact county-scoped reapply mirroring the old working Winterfell sequence,
+	# but using the current county's cached size/type instead of a hardcoded county package.
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY begin blocker apply" }
+	if = { limit = { var:aawc_ruin_size_large_cached >= 1 } error_log = "AAWC EXACT CURRENT COUNTY cache says size LARGE" }
+	if = { limit = { var:aawc_ruin_size_medium_cached >= 1 } error_log = "AAWC EXACT CURRENT COUNTY cache says size MEDIUM" }
+	if = {
+		limit = {
+			NOT = { var:aawc_ruin_size_large_cached >= 1 }
+			NOT = { var:aawc_ruin_size_medium_cached >= 1 }
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY cache says size SMALL_OR_UNSET" }
+	}
+	if = { limit = { var:aawc_ruin_type_fortress_cached >= 1 } error_log = "AAWC EXACT CURRENT COUNTY cache says type includes FORTRESS" }
+	if = { limit = { aawc_county_has_type_port = yes } error_log = "AAWC EXACT CURRENT COUNTY trigger says type includes PORT" }
+	title_province = {
+		if = { limit = { has_building = small_ruined_holding_01 } remove_building = small_ruined_holding_01 }
+		if = { limit = { has_building = medium_ruined_holding_01 } remove_building = medium_ruined_holding_01 }
+		if = { limit = { has_building = large_ruined_holding_01 } remove_building = large_ruined_holding_01 }
+		if = { limit = { has_building = bandit_camps_01 } remove_building = bandit_camps_01 }
+		if = { limit = { has_building = lv_floods_01 } remove_building = lv_floods_01 }
+		if = { limit = { has_building = unexplored_caves_01 } remove_building = unexplored_caves_01 }
+		if = { limit = { has_building = noxious_gases_01_01 } remove_building = noxious_gases_01_01 }
+	}
+	if = {
+		limit = { var:aawc_ruin_size_large_cached >= 1 }
+		title_province = { if = { limit = { has_free_building_slot = yes } add_building = large_ruined_holding_01 } }
+		if = {
+			limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch LARGE_FORTRESS" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = bandit_camps_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = unexplored_caves_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = noxious_gases_01_01 }
+			}
+		}
+		else_if = {
+			limit = { aawc_county_has_type_port = yes }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch LARGE_PORT" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = lv_floods_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = bandit_camps_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = unexplored_caves_01 }
+			}
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch LARGE_GENERIC" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = unexplored_caves_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = bandit_camps_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = lv_floods_01 }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:aawc_ruin_size_medium_cached >= 1 }
+		title_province = { if = { limit = { has_free_building_slot = yes } add_building = medium_ruined_holding_01 } }
+		if = {
+			limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch MEDIUM_FORTRESS" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = bandit_camps_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = unexplored_caves_01 }
+			}
+		}
+		else_if = {
+			limit = { aawc_county_has_type_port = yes }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch MEDIUM_PORT" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = lv_floods_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = bandit_camps_01 }
+			}
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch MEDIUM_GENERIC" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = unexplored_caves_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = bandit_camps_01 }
+			}
+		}
+	}
+	else = {
+		title_province = { if = { limit = { has_free_building_slot = yes } add_building = small_ruined_holding_01 } }
+		if = {
+			limit = { aawc_county_has_type_port = yes }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch SMALL_PORT" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = lv_floods_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = bandit_camps_01 }
+			}
+		}
+		else_if = {
+			limit = { var:aawc_ruin_type_fortress_cached >= 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch SMALL_FORTRESS" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = bandit_camps_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = unexplored_caves_01 }
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					aawc_county_has_type_extractive = yes
+					aawc_county_has_type_natural = yes
+				}
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch SMALL_RESOURCE" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = unexplored_caves_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = noxious_gases_01_01 }
+			}
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY branch SMALL_GENERIC" }
+			title_province = {
+				if = { limit = { has_free_building_slot = yes } add_building = unexplored_caves_01 }
+				if = { limit = { has_free_building_slot = yes } add_building = bandit_camps_01 }
+			}
+		}
+	}
+	if = {
+		limit = { this = title:c_winterfell }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY end state" }
+		title_province = {
+			if = { limit = { has_building = large_ruined_holding_01 } error_log = "AAWC EXACT CURRENT COUNTY has large_ruined_holding_01" }
+			if = { limit = { has_building = medium_ruined_holding_01 } error_log = "AAWC EXACT CURRENT COUNTY has medium_ruined_holding_01" }
+			if = { limit = { has_building = small_ruined_holding_01 } error_log = "AAWC EXACT CURRENT COUNTY has small_ruined_holding_01" }
+			if = { limit = { has_building = bandit_camps_01 } error_log = "AAWC EXACT CURRENT COUNTY has bandit_camps_01" }
+			if = { limit = { has_building = unexplored_caves_01 } error_log = "AAWC EXACT CURRENT COUNTY has unexplored_caves_01" }
+			if = { limit = { has_building = noxious_gases_01_01 } error_log = "AAWC EXACT CURRENT COUNTY has noxious_gases_01_01" }
+			if = { limit = { has_building = lv_floods_01 } error_log = "AAWC EXACT CURRENT COUNTY has lv_floods_01" }
+		}
+	}
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY end state audit complete" }
+	if = {
+		limit = { this = title:c_volandrys }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY entered legacy c_volandrys in-effect special reroute" }
+		title_province = {
+			if = { limit = { has_building = aawc_c_volandrys_maintained_01 } remove_building = aawc_c_volandrys_maintained_01 }
+			if = { limit = { has_building = aawc_c_volandrys_ruined_01 } remove_building = aawc_c_volandrys_ruined_01 }
+			if = { limit = { has_building = velakar_resort_01 } remove_building = velakar_resort_01 }
+			add_special_building = aawc_c_volandrys_ruined_01
+		}
+		aawc_top_up_current_county_ruin_blockers_effect = yes
+	}
+
+	if = {
+		limit = { this = title:c_seyrith }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC EXACT CURRENT COUNTY entered legacy c_seyrith in-effect special reroute" }
+		title_province = {
+			if = { limit = { has_building = aawc_c_seyrith_maintained_01 } remove_building = aawc_c_seyrith_maintained_01 }
+			if = { limit = { has_building = aawc_c_seyrith_ruined_01 } remove_building = aawc_c_seyrith_ruined_01 }
+			if = { limit = { has_building = lv_aurions_lost_expedition_01 } remove_building = lv_aurions_lost_expedition_01 }
+			add_special_building = aawc_c_seyrith_ruined_01
+		}
+		aawc_top_up_current_county_ruin_blockers_effect = yes
+	}
+
+
+
+
+
+
+
+
+		# Newly admitted LoV counties were moved into zz_aawc_generated_special_restoration_effects.txt so they use the same restoration registry as the existing rollout.
+
+
+}
+
+
+aawc_apply_generic_lov_special_restoration_effect = {
+	# Fallback for LoV landmark counties that were not covered by county-scoped generation.
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE GENERIC LOV wrapper entered" }
+	if = {
+		limit = { title:b_elyria1.title_province = { has_building = elyria_great_port_01 } }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE GENERIC LOV applying elyria_great_port package" }
+		title:b_elyria1.title_province = {
+			if = { limit = { has_building = aawc_lov_elyria_great_port_maintained_01 } remove_building = aawc_lov_elyria_great_port_maintained_01 }
+			if = { limit = { has_building = aawc_lov_elyria_great_port_ruined_01 } remove_building = aawc_lov_elyria_great_port_ruined_01 }
+			if = { limit = { has_building = elyria_great_port_01 } remove_building = elyria_great_port_01 }
+			add_special_building = aawc_lov_elyria_great_port_ruined_01
+		}
+		aawc_apply_exact_current_county_ruin_blockers_effect = yes
+	}
+	if = {
+		limit = { title:b_elyria1.title_province = { has_building = elyria_dragon_palace_01 } }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE GENERIC LOV applying elyria_dragon_palace package" }
+		title:b_elyria1.title_province = {
+			if = { limit = { has_building = aawc_lov_elyria_dragon_palace_maintained_01 } remove_building = aawc_lov_elyria_dragon_palace_maintained_01 }
+			if = { limit = { has_building = aawc_lov_elyria_dragon_palace_ruined_01 } remove_building = aawc_lov_elyria_dragon_palace_ruined_01 }
+			if = { limit = { has_building = elyria_dragon_palace_01 } remove_building = elyria_dragon_palace_01 }
+			add_special_building = aawc_lov_elyria_dragon_palace_ruined_01
+		}
+		aawc_apply_exact_current_county_ruin_blockers_effect = yes
+	}
+	if = {
+		limit = { title_province = { has_building = valyria_mines_01 } }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE GENERIC LOV applying valyria_mines package" }
+		title_province = {
+			if = { limit = { has_building = aawc_lov_valyria_mines_maintained_01 } remove_building = aawc_lov_valyria_mines_maintained_01 }
+			if = { limit = { has_building = aawc_lov_valyria_mines_ruined_01 } remove_building = aawc_lov_valyria_mines_ruined_01 }
+			if = { limit = { has_building = valyria_mines_01 } remove_building = valyria_mines_01 }
+			add_special_building = aawc_lov_valyria_mines_ruined_01
+		}
+		aawc_apply_exact_current_county_ruin_blockers_effect = yes
+	}
+	if = {
+		limit = { title_province = { has_building = valyria_mines_dormant_01 } }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE GENERIC LOV applying valyria_mines_dormant package" }
+		title_province = {
+			if = { limit = { has_building = aawc_lov_valyria_mines_dormant_maintained_01 } remove_building = aawc_lov_valyria_mines_dormant_maintained_01 }
+			if = { limit = { has_building = aawc_lov_valyria_mines_dormant_ruined_01 } remove_building = aawc_lov_valyria_mines_dormant_ruined_01 }
+			if = { limit = { has_building = valyria_mines_dormant_01 } remove_building = valyria_mines_dormant_01 }
+			add_special_building = aawc_lov_valyria_mines_dormant_ruined_01
+		}
+		aawc_apply_exact_current_county_ruin_blockers_effect = yes
+	}
+	if = {
+		limit = {
+			NOT = { title:b_elyria1.title_province = { has_building = elyria_great_port_01 } }
+			NOT = { title:b_elyria1.title_province = { has_building = elyria_dragon_palace_01 } }
+			NOT = { title_province = { has_building = valyria_mines_01 } }
+			NOT = { title_province = { has_building = valyria_mines_dormant_01 } }
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC RESTORE GENERIC LOV no fallback package matched current county" }
+	}
+}

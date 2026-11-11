@@ -1,0 +1,15 @@
+﻿at_war_count_or_above_landed_ruler = {
+	base = ruler
+	conditions = {
+        highest_held_title_tier >= tier_county
+        is_landed = yes
+        is_at_war = yes
+    }
+}
+
+province_w_barony = {
+	base = province
+	conditions = {
+        exists = barony
+    }
+}

@@ -1,0 +1,1801 @@
+﻿aawc_aw_chaotic_culture_effect = {
+	every_culture_global = {
+		add_to_list = cultures_list
+	}
+	every_county = {
+		random_in_list = {
+			list = cultures_list
+			save_temporary_scope_as = randomized_culture
+		}
+		set_county_culture = scope:randomized_culture
+	}
+}
+
+aawc_aw_random_culture_effect = {
+	#Variable setup - want to have a roughly equal distribution of provinces for all culture_groups
+	set_global_variable = {
+		name = num_cultures
+		value = 0
+	}
+	every_culture_global = {
+		add_to_list = cultures_list
+		change_global_variable = { name = num_cultures add = 1 }
+	}
+	random_in_list = {
+		list = cultures_list
+		save_temporary_scope_as = unlucky_culture
+	}
+	###
+	set_global_variable = {
+		name = num_land_provinces
+		value = 0
+	}
+	every_county = {
+		change_global_variable = { name = num_land_provinces add = 1 }
+		set_county_culture = scope:unlucky_culture
+	}
+	set_global_variable = {
+		name = ideal_provs_per_culture
+		value = global_var:num_land_provinces
+	}
+	change_global_variable = { name = ideal_provs_per_culture divide = global_var:num_cultures }
+	#Spread cultures
+	every_in_list = {
+		list = cultures_list
+		save_temporary_scope_as = scoped_culture
+		random_county = {
+			limit = { 
+				culture = scope:unlucky_culture
+				any_neighboring_county = {
+					culture = { has_same_culture_heritage = scope:scoped_culture }
+				}
+			}
+			alternative_limit = { #Across water
+				culture = scope:unlucky_culture
+				any_title_to_title_neighboring_and_across_water_county = { culture = { has_same_culture_heritage = scope:scoped_culture } }
+			}
+			alternative_limit = { #Anywhere
+				culture = scope:unlucky_culture
+			}
+			set_county_culture = scope:scoped_culture
+			save_temporary_scope_as = origin_province
+		}
+		set_global_variable = { name = provinces_seeded value = 1 }
+		while = {
+			limit = {
+				global_var:provinces_seeded < global_var:ideal_provs_per_culture
+			}
+			#Pick a random county, preferring neighbors
+			random_county = {
+				limit = {
+					culture = scope:unlucky_culture
+					any_neighboring_county = {
+						culture = scope:scoped_culture
+					}
+				}
+				alternative_limit = { #Across water
+					culture = scope:unlucky_culture
+					any_title_to_title_neighboring_and_across_water_county = { culture = scope:scoped_culture }
+				}
+				#Should not be as common, but if the above two conditions fail, we look for a close county to the origin_province
+				alternative_limit = { 
+					culture = scope:unlucky_culture
+					squared_distance = { target = scope:origin_province value <= 200 }
+				}
+				alternative_limit = { 
+					culture = scope:unlucky_culture
+					squared_distance = { target = scope:origin_province value <= 500 }
+				}
+				alternative_limit = { 
+					culture = scope:unlucky_culture
+					squared_distance = { target = scope:origin_province value <= 1000 }
+				}
+				alternative_limit = { 
+					culture = scope:unlucky_culture
+					squared_distance = { target = scope:origin_province value <= 3000 }
+				}
+				alternative_limit = { 
+					culture = scope:unlucky_culture
+					squared_distance = { target = scope:origin_province value <= 5000 }
+				}
+				alternative_limit = { 
+					culture = scope:unlucky_culture
+					squared_distance = { target = scope:origin_province value <= 10000 }
+				}
+				alternative_limit = { #If all fails, do nothing and break the loop
+					this = scope:origin_province
+				}
+				if = {
+					limit = { this = scope:origin_province }
+					set_global_variable = { name = provinces_seeded value = global_var:ideal_provs_per_culture }
+				}
+				else = { set_county_culture = scope:scoped_culture }
+			}
+			change_global_variable = { name = provinces_seeded add = 1 }
+		}
+	}
+	#Unlucky culture gets disappeared
+	every_county = {
+		save_temporary_scope_as = scoped_county
+		limit = {
+			culture = scope:unlucky_culture
+		}
+		random_county = {
+			limit = {
+				NOT = { culture = scope:unlucky_culture }
+				any_neighboring_county = { this = scope:scoped_county }
+			}
+			alternative_limit = {
+				NOT = { culture = scope:unlucky_culture }				
+				any_title_to_title_neighboring_and_across_water_county = { this = scope:scoped_county }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:scoped_county value <= 200 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:scoped_county value <= 500 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:scoped_county value <= 1000 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:scoped_county value <= 3000 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:scoped_county value <= 5000 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:scoped_county value <= 10000 }
+			}
+			alternative_limit = {
+				NOT = { culture = scope:unlucky_culture }
+			}
+			culture = { save_temporary_scope_as = scoped_culture }
+		}
+		set_county_culture = scope:scoped_culture
+	}
+	#Unlucky culture gets reborn near same heritage somewhere, but remains small
+	set_global_variable = {
+		name = unlucky_culture_provinces
+		value = {
+			fixed_range = {
+				min = 1
+				max = global_var:ideal_provs_per_culture
+			}
+		}
+	}
+	while = {
+		limit = { global_var:unlucky_culture_provinces >= 1 }
+		random_county = {
+			limit = {
+				NOT = { culture = scope:unlucky_culture }
+				any_neighboring_county = {
+					culture = scope:scoped_culture
+				}
+			}
+			alternative_limit = { #Across water
+				NOT = { culture = scope:unlucky_culture }
+				any_title_to_title_neighboring_and_across_water_county = { culture = scope:scoped_culture }
+			}
+			#Should not be as common, but if the above two conditions fail, we look for a close county to the origin_province
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:unlucky_province value <= 200 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:unlucky_province value <= 500 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:unlucky_province value <= 1000 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:unlucky_province value <= 3000 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:unlucky_province value <= 5000 }
+			}
+			alternative_limit = { 
+				NOT = { culture = scope:unlucky_culture }
+				squared_distance = { target = scope:unlucky_province value <= 10000 }
+			}
+			alternative_limit = {
+				culture = { has_same_culture_heritage = scope:scoped_culture }
+			}
+			alternative_limit = { #Across water
+				NOT = { culture = scope:unlucky_culture }
+				any_title_to_title_neighboring_and_across_water_county = { culture = { has_same_culture_heritage = scope:scoped_culture } }
+			}
+			alternative_limit = { }
+			save_temporary_scope_as = unlucky_province
+			set_county_culture = scope:unlucky_culture
+		}
+		change_global_variable = { name = unlucky_culture_provinces add = -1 }
+	}
+}
+
+aawc_aw_chaotic_faith_effect = {
+	every_religion_global = {
+		every_faith = {
+			add_to_list = faiths_list
+		}
+	}
+	every_county = {
+		random_in_list = {
+			list = faiths_list
+			save_temporary_scope_as = randomized_faith
+		}
+		set_county_faith = scope:randomized_faith
+	}
+}
+
+aawc_aw_random_faith_effect = {
+	#Variable setup - want to have a roughly equal distribution of provinces for all faiths
+	set_global_variable = {
+		name = num_faiths
+		value = 0
+	}
+	every_religion_global = {
+		every_faith = {
+			add_to_list = faiths_list
+			change_global_variable = { name = num_faiths add = 1 }
+		}
+	}
+	random_in_list = {
+		list = faiths_list
+		save_temporary_scope_as = unlucky_faith
+	}
+	###
+	set_global_variable = {
+		name = num_land_provinces
+		value = 0
+	}
+	every_county = {
+		change_global_variable = { name = num_land_provinces add = 1 }
+		set_county_faith = scope:unlucky_faith
+	}
+	set_global_variable = {
+		name = ideal_provs_per_faith
+		value = global_var:num_land_provinces
+	}
+	change_global_variable = { name = ideal_provs_per_faith divide = global_var:num_faiths }
+	#Spread faiths
+	every_in_list = {
+		list = faiths_list
+		save_temporary_scope_as = scoped_faith
+		random_county = {
+			limit = { 
+				faith = scope:unlucky_faith
+				any_neighboring_county = {
+					faith.religion = scope:scoped_faith.religion
+				}
+			}
+			alternative_limit = { #Across water
+				faith = scope:unlucky_faith
+				any_title_to_title_neighboring_and_across_water_county = { faith.religion = scope:scoped_faith.religion }
+			}
+			alternative_limit = { #Anywhere
+				faith = scope:unlucky_faith
+			}
+			set_county_faith = scope:scoped_faith
+			save_temporary_scope_as = origin_province
+		}
+		set_global_variable = { name = provinces_seeded value = 1 }
+		while = {
+			limit = {
+				global_var:provinces_seeded < global_var:ideal_provs_per_faith
+			}
+			#Pick a random county, preferring neighbors
+			random_county = {
+				limit = {
+					faith = scope:unlucky_faith
+					any_neighboring_county = {
+						faith = scope:scoped_faith
+					}
+				}
+				alternative_limit = { #Across water
+					faith = scope:unlucky_faith
+					any_title_to_title_neighboring_and_across_water_county = { faith = scope:scoped_faith }
+				}
+				#Should not be as common, but if the above two conditions fail, we look for a close county to the origin_province
+				alternative_limit = { 
+					faith = scope:unlucky_faith
+					squared_distance = { target = scope:origin_province value <= 200 }
+				}
+				alternative_limit = { 
+					faith = scope:unlucky_faith
+					squared_distance = { target = scope:origin_province value <= 500 }
+				}
+				alternative_limit = { 
+					faith = scope:unlucky_faith
+					squared_distance = { target = scope:origin_province value <= 1000 }
+				}
+				alternative_limit = { 
+					faith = scope:unlucky_faith
+					squared_distance = { target = scope:origin_province value <= 3000 }
+				}
+				alternative_limit = { 
+					faith = scope:unlucky_faith
+					squared_distance = { target = scope:origin_province value <= 5000 }
+				}
+				alternative_limit = { 
+					faith = scope:unlucky_faith
+					squared_distance = { target = scope:origin_province value <= 10000 }
+				}
+				alternative_limit = { #If all fails, do nothing and break the loop
+					this = scope:origin_province
+				}
+				if = {
+					limit = { this = scope:origin_province }
+					set_global_variable = { name = provinces_seeded value = global_var:ideal_provs_per_faith }
+				}
+				else = { set_county_faith = scope:scoped_faith }
+			}
+			change_global_variable = { name = provinces_seeded add = 1 }
+		}
+	}
+	#Unlucky faith gets disappeared
+	every_county = {
+		save_temporary_scope_as = scoped_county
+		limit = {
+			faith = scope:unlucky_faith
+		}
+		random_county = {
+			limit = {
+				NOT = { faith = scope:unlucky_faith }
+				any_neighboring_county = { this = scope:scoped_county }
+			}
+			alternative_limit = {
+				NOT = { faith = scope:unlucky_faith }				
+				any_title_to_title_neighboring_and_across_water_county = { this = scope:scoped_county }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:scoped_county value <= 200 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:scoped_county value <= 500 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:scoped_county value <= 1000 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:scoped_county value <= 3000 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:scoped_county value <= 5000 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:scoped_county value <= 10000 }
+			}
+			alternative_limit = {
+				NOT = { faith = scope:unlucky_faith }
+			}
+			faith = { save_temporary_scope_as = scoped_faith }
+		}
+		set_county_faith = scope:scoped_faith
+	}
+	#Unlucky faith gets reborn near same heritage somewhere, but remains small
+	set_global_variable = {
+		name = unlucky_faith_provinces
+		value = {
+			fixed_range = {
+				min = 1
+				max = global_var:ideal_provs_per_faith
+			}
+		}
+	}
+	while = {
+		limit = { global_var:unlucky_faith_provinces >= 1 }
+		random_county = {
+			limit = {
+				NOT = { faith = scope:unlucky_faith }
+				any_neighboring_county = {
+					faith = scope:scoped_faith
+				}
+			}
+			alternative_limit = { #Across water
+				NOT = { faith = scope:unlucky_faith }
+				any_title_to_title_neighboring_and_across_water_county = { faith = scope:scoped_faith }
+			}
+			#Should not be as common, but if the above two conditions fail, we look for a close county to the origin_province
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:unlucky_province value <= 200 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:unlucky_province value <= 500 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:unlucky_province value <= 1000 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:unlucky_province value <= 3000 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:unlucky_province value <= 5000 }
+			}
+			alternative_limit = { 
+				NOT = { faith = scope:unlucky_faith }
+				squared_distance = { target = scope:unlucky_province value <= 10000 }
+			}
+			alternative_limit = {
+				faith.religion = scope:scoped_faith.religion
+			}
+			alternative_limit = { #Across water
+				NOT = { faith = scope:unlucky_faith }
+				any_title_to_title_neighboring_and_across_water_county = { faith.religion = scope:scoped_faith.religion }
+			}
+			alternative_limit = { }
+			save_temporary_scope_as = unlucky_province
+			set_county_faith = scope:unlucky_faith
+		}
+		change_global_variable = { name = unlucky_faith_provinces add = -1 }
+	}
+}
+
+aawc_aw_random_map_setup_effect = {
+	if = {
+		limit = { has_game_rule = aawc_aw_dejure_random_duchy } 
+		#Create new duchies, randomizing borders.
+		set_global_variable = {
+			name = num_land_provinces
+			value = 0
+		}
+		set_global_variable = {
+			name = num_new_duchies
+			value = 0
+		}
+		set_global_variable = {
+			name = num_new_kingdoms
+			value = 0
+		}
+		#Create duchies and assign counties
+		every_county = {
+			change_global_variable = { name = num_land_provinces add = 1 }
+			set_de_jure_liege_title = title:d_aawc_aw_null
+		}
+		while = {
+			limit = { global_var:num_land_provinces >= 1 }
+			#Get a random county to be the capital
+			random_county = {
+				limit = { de_jure_liege = title:d_aawc_aw_null }
+				save_scope_as = scoped_title
+			}
+			if = { #If we're surrounded, just get absorbed by a random neighbor...
+				limit = {
+					scope:scoped_title = {
+						is_coastal_county = no #Not ideal. Islands act strangely however
+						NOT = {
+							any_neighboring_county = {
+								de_jure_liege = title:d_aawc_aw_null
+							}
+						}
+					}
+				}
+				scope:scoped_title = {
+					random_neighboring_county = {
+						limit = { NOT = { de_jure_liege = title:d_aawc_aw_null } }
+						de_jure_liege = { save_scope_as = absorber_title }
+					}
+					set_de_jure_liege_title = scope:absorber_title
+				}
+			}
+			else = {
+				#Otherwise, create new duchy and start adding neighbors
+				aawc_aw_create_custom_duchy = yes
+				scope:scoped_title = { set_de_jure_liege_title = scope:new_title }
+				set_global_variable = {
+					name = preferred_dejure_size
+					value = {
+						fixed_range = {
+							min = 3
+							max = 6
+						}
+					}
+				}
+				while = {
+					limit = { global_var:preferred_dejure_size >= 1 }
+					#Prefer to grab neighboring counties that haven't been grabbed
+					if = {
+						limit = {
+							scope:scoped_title = {
+								any_neighboring_county = {
+									de_jure_liege = title:d_aawc_aw_null
+								}
+							}
+						}
+						scope:scoped_title = {
+							random_neighboring_county = {
+								limit = { de_jure_liege = title:d_aawc_aw_null }
+								save_temporary_scope_as = new_scoped_title
+								set_de_jure_liege_title = scope:new_title
+							}
+						}
+						scope:new_scoped_title = { save_scope_as = scoped_title }
+						change_global_variable = { name = preferred_dejure_size add = -1 }
+						change_global_variable = { name = num_land_provinces add = -1 }
+					}	
+					else = { #If no good neighbors, we end.
+						set_global_variable = { name = preferred_dejure_size value = 0 }
+					}
+				}
+			}
+			change_global_variable = { name = num_land_provinces add = -1 }
+		}
+		#Create kingdoms and assign duchies
+		every_in_list = {
+			list = aawc_aw_duchies
+			set_de_jure_liege_title = title:k_aawc_aw_null
+			change_global_variable = { name = num_new_duchies add = 1 }
+		}
+		while = {
+			limit = { global_var:num_new_duchies >= 1 }
+			#Get a random duchy to be the capital
+			random_in_list = {
+				list = aawc_aw_duchies
+				limit = { de_jure_liege = title:k_aawc_aw_null }
+				save_scope_as = scoped_title
+			}
+			if = { #If we're surrounded, just get absorbed by a random neighbor...
+				limit = {
+					scope:scoped_title = {
+						always = no #Temporarily disable
+						NOT = {
+							any_title_to_title_neighboring_duchy = {
+								de_jure_liege = title:k_aawc_aw_null
+							}
+						}
+					}
+				}
+				scope:scoped_title = {
+					random_title_to_title_neighboring_duchy = {
+						limit = { NOT = { de_jure_liege = title:k_aawc_aw_null } }
+						de_jure_liege = { save_scope_as = absorber_title }
+					}
+					set_de_jure_liege_title = scope:absorber_title
+				}
+			}
+			else = {
+				#Otherwise, create new kingdom and start adding neighbors
+				aawc_aw_create_custom_kingdom = yes
+				scope:scoped_title = { set_de_jure_liege_title = scope:new_title }
+				set_global_variable = {
+					name = preferred_dejure_size
+					value = {
+						fixed_range = {
+							min = 3
+							max = 10
+						}
+					}
+				}
+				while = {
+					limit = { global_var:preferred_dejure_size >= 1 }
+					#Prefer to grab neighbors that haven't been grabbed
+					if = {
+						limit = {
+							scope:scoped_title = {
+								any_title_to_title_neighboring_duchy = {
+									de_jure_liege = title:k_aawc_aw_null
+								}
+							}
+						}
+						scope:scoped_title = {
+							random_title_to_title_neighboring_duchy = {
+								limit = { de_jure_liege = title:k_aawc_aw_null }
+								save_temporary_scope_as = new_scoped_title
+								set_de_jure_liege_title = scope:new_title
+							}
+						}
+						scope:new_scoped_title = { save_scope_as = scoped_title }
+						change_global_variable = { name = preferred_dejure_size add = -1 }
+						change_global_variable = { name = num_new_duchies add = -1 }
+					}	
+					else = { #If no good neighbors, we end.
+						set_global_variable = { name = preferred_dejure_size value = 0 }
+					}
+				}
+			}
+			change_global_variable = { name = num_new_duchies add = -1 }
+		}
+		#Create empires and assign kingdoms
+		every_in_list = {
+				list = aawc_aw_kingdoms
+				set_de_jure_liege_title = title:e_aawc_aw_null
+				change_global_variable = { name = num_new_kingdoms add = 1 }
+			}
+			while = {
+				limit = { global_var:num_new_kingdoms >= 1 }
+				#Get a random kingdom to be the capital
+				random_in_list = {
+					list = aawc_aw_kingdoms
+					limit = { de_jure_liege = title:e_aawc_aw_null }
+					save_scope_as = scoped_title
+				}
+				if = { #If we're surrounded, just get absorbed by a random neighbor...
+					limit = {
+						scope:scoped_title = {
+							always = no #Temporarily disable
+							NOT = {
+								any_title_to_title_neighboring_kingdom = {
+									de_jure_liege = title:e_aawc_aw_null
+								}
+							}
+						}
+					}
+					scope:scoped_title = {
+						random_title_to_title_neighboring_kingdom = {
+							limit = { NOT = { de_jure_liege = title:e_aawc_aw_null } }
+							de_jure_liege = { save_scope_as = absorber_title }
+						}
+						set_de_jure_liege_title = scope:absorber_title
+					}
+				}
+				else = {
+					aawc_aw_create_custom_empire = yes
+					scope:scoped_title = { set_de_jure_liege_title = scope:new_title }
+					set_global_variable = {
+						name = preferred_dejure_size
+						value = {
+							fixed_range = {
+								min = 3
+								max = 12
+							}
+						}
+					}
+					while = {
+						limit = { global_var:preferred_dejure_size >= 1 }
+						#Prefer to grab neighbors that haven't been grabbed
+						if = {
+							limit = {
+								scope:scoped_title = {
+									any_title_to_title_neighboring_kingdom = {
+										de_jure_liege = title:e_aawc_aw_null
+									}
+								}
+							}
+							scope:scoped_title = {
+								random_title_to_title_neighboring_kingdom = {
+									limit = { de_jure_liege = title:e_aawc_aw_null }
+									save_temporary_scope_as = new_scoped_title
+									set_de_jure_liege_title = scope:new_title
+								}
+							}
+							scope:new_scoped_title = { save_scope_as = scoped_title }
+							change_global_variable = { name = preferred_dejure_size add = -1 }
+							change_global_variable = { name = num_new_kingdoms add = -1 }
+						}
+						#Empires can be seafaring
+						else_if = {
+							limit = {
+								scope:scoped_title = {
+									any_title_to_title_neighboring_and_across_water_kingdom = {
+										de_jure_liege = title:e_aawc_aw_null
+									}
+								}
+							}
+							scope:scoped_title = {
+								random_title_to_title_neighboring_and_across_water_kingdom = {
+									limit = { de_jure_liege = title:e_aawc_aw_null }
+									save_temporary_scope_as = new_scoped_title
+									set_de_jure_liege_title = scope:new_title
+								}
+							}
+							scope:new_scoped_title = { save_scope_as = scoped_title }
+							change_global_variable = { name = preferred_dejure_size add = -1 }
+							change_global_variable = { name = num_new_kingdoms add = -1 }
+						}
+						else = { #If no good neighbors, we end.
+							set_global_variable = { name = preferred_dejure_size value = 0 }
+						}
+					}
+				}
+				change_global_variable = { name = num_new_kingdoms add = -1 }
+			}
+		#TO DO: Absorb nonsensical one or two element duchies, kingdoms, empires after the above is complete
+	}
+}
+
+
+aawc_aw_create_custom_duchy = {
+	create_dynamic_title = {
+		tier = duchy
+		name = AAWC_NEW_TITLE_NAME
+	}
+	scope:new_title = {
+		set_coa = scope:scoped_title
+		set_color_from_title = scope:scoped_title
+		set_capital_county = scope:scoped_title
+		add_to_list = aawc_aw_duchies
+	}
+}
+
+aawc_aw_create_custom_kingdom = {
+	create_dynamic_title = {
+		tier = kingdom
+		name = AAWC_NEW_TITLE_NAME
+	}
+	scope:new_title = {
+		set_coa = scope:scoped_title
+		set_color_from_title = scope:scoped_title
+		set_capital_county = scope:scoped_title.capital_county
+		add_to_list = aawc_aw_kingdoms
+	}
+}
+
+aawc_aw_create_custom_empire = {
+	create_dynamic_title = {
+		tier = empire
+		name = AAWC_NEW_TITLE_NAME
+	}
+	scope:new_title = {
+		set_coa = scope:scoped_title
+		set_color_from_title = scope:scoped_title
+		set_capital_county = scope:scoped_title.capital_county
+		#add_to_list = aawc_aw_empires
+	}
+}
+
+aawc_aw_development_effect = {
+	every_county = { change_development_level = -100 }
+	if = {
+		limit = { 
+			OR = {
+				has_game_rule = aawc_aw_development_random_25 
+				has_game_rule = aawc_aw_development_random_50
+				has_game_rule = aawc_aw_development_random_100 
+			}
+		}
+		if = {
+			limit = { has_game_rule = aawc_aw_development_random_25 }
+			set_global_variable = { name = max_dev_range value = 25 }
+		}
+		else_if = {
+			limit = { has_game_rule = aawc_aw_development_random_50 }
+			set_global_variable = { name = max_dev_range value = 50 }
+		}
+		else = { 
+			set_global_variable = { name = max_dev_range value = 100 }
+		}
+		every_county = {
+			set_global_variable = {
+				name = dev_to_add
+				value = {
+					fixed_range = {
+						min = 0 
+						max = global_var:max_dev_range
+					}
+				}
+			}
+			change_development_level = global_var:dev_to_add
+			remove_global_variable = dev_to_add
+		}
+		remove_global_variable = max_dev_range
+	}
+	else_if = {
+		limit = {
+			has_game_rule = aawc_aw_development_25
+		}
+		every_county = { change_development_level = 25 }
+	}
+	else_if = {
+		limit = {
+			has_game_rule = aawc_aw_development_50
+		}
+		every_county = { change_development_level = 50 }
+	}
+	else_if = {
+		limit = {
+			has_game_rule = aawc_aw_development_100
+		}
+		every_county = { change_development_level = 100 }
+	}
+
+}
+
+#Replace all non-AI rulers by randoms, then kill them and their entire dynasties.
+aawc_aw_randomize_rulers = {
+	every_ruler = {
+		limit = {
+			NOT = { any_player = { this = prev } }
+		}
+		save_scope_as = i_ruler
+		#Create new random ruler
+		if = {
+			limit = { 
+				scope:i_ruler.capital_county.faith = {
+					has_doctrine = doctrine_gender_male_dominated
+				}
+			}
+			create_character = {
+				location = scope:i_ruler.capital_province
+				gender_female_chance = 0
+				culture = capital_county.culture
+				faith = capital_county.faith
+				random_traits = yes
+				age = 18
+				save_scope_as = lucky_new_ruler
+			}
+		}
+		else_if = {
+			limit = { 
+				scope:i_ruler.capital_county.faith = {
+					has_doctrine = doctrine_gender_female_dominated
+				}
+			}
+			create_character = {
+				location = scope:i_ruler.capital_province
+				culture = scope:i_ruler.capital_county.culture
+				faith = scope:i_ruler.capital_county.faith
+				gender_female_chance = 100
+				random_traits = yes
+				age = 18
+				save_scope_as = lucky_new_ruler
+			}
+		}
+		else = {
+			create_character = {
+				location = scope:i_ruler.capital_province
+				culture = scope:i_ruler.capital_county.culture
+				faith = scope:i_ruler.capital_county.faith
+				gender_female_chance = 50
+				random_traits = yes
+				age = 18
+				save_scope_as = lucky_new_ruler
+			}
+		}
+		
+		#Get rid of courtiers
+		aawc_aw_kill_historical_characters = yes
+		
+		#Give titles to newly created character
+		every_held_title = {
+			limit = { tier >= tier_county }
+			save_scope_as = i_title
+			scope:i_ruler = {
+				create_title_and_vassal_change = {
+					type = created
+					save_scope_as = change
+					add_claim_on_loss = no
+				}
+				scope:i_title = {
+					change_title_holder = {
+						holder = scope:lucky_new_ruler
+						change = scope:change
+					}
+				}
+				resolve_title_and_vassal_change = scope:change
+				remove_claim = scope:i_title
+			}
+		}
+		#Get rid of old ruler
+		death = {
+			killer = scope:lucky_new_ruler
+			death_reason = death_disappearance
+		}
+		# AAWC 1.10.1: generated shattered-start rulers remain alone.
+	}
+}
+
+#Kill off (most) historical characters and replace them with randoms.
+aawc_aw_kill_historical_characters = {
+	every_courtier_or_guest = {
+		limit = { 
+			is_alive = yes
+			NOT = { this = scope:i_ruler }
+			NOT = { this = scope:lucky_new_ruler }
+			OR = {
+				is_claimant = yes 
+				exists = father
+				exists = mother
+			}
+		}
+		death = {
+			killer = scope:lucky_new_ruler
+			death_reason = death_disappearance
+		}
+		if = {
+			limit = { exists = dynasty }
+			dynasty = {
+				every_dynasty_member = {
+					limit = { 
+						is_alive = yes
+						NOT = { any_player = { this = prev } } 
+						NOT = { this = scope:i_ruler }
+						OR = { 
+							is_landed = no
+							highest_held_title_tier < tier_county
+						}
+					}
+					death = {
+						killer = scope:lucky_new_ruler
+						death_reason = death_disappearance
+					}
+				}
+			}
+		}
+		#Catch parents if they are lowborn
+		if = { 
+			limit = { 
+				exists = father 
+				father = {
+					is_alive = yes
+					NOT = { any_player = { this = prev } }
+					OR = { 
+						is_landed = no
+						highest_held_title_tier < tier_county
+					}
+				}
+			} 
+			father = { 
+				death = {
+					killer = scope:lucky_new_ruler
+					death_reason = death_disappearance
+				}
+			}
+		}
+		if = { 
+			limit = { 
+				exists = mother 
+				mother = {
+					is_alive = yes
+					NOT = { any_player = { this = prev } }
+					OR = { 
+						is_landed = no
+						highest_held_title_tier < tier_county
+					}
+				}
+			} 
+			mother = { 
+				death = {
+					killer = scope:lucky_new_ruler
+					death_reason = death_disappearance
+				}
+			}
+		}
+
+	}
+	if = {
+		limit = { exists = dynasty }
+		dynasty = {
+			every_dynasty_member = { #catch dynasts in other courts
+				limit = { 
+					is_alive = yes
+					NOT = { any_player = { this = prev } }
+					NOT = { this = scope:i_ruler }
+					OR = {
+						is_landed = no
+						highest_held_title_tier < tier_county
+					}
+				}
+				death = {
+					killer = scope:lucky_new_ruler
+					death_reason = death_disappearance
+				}
+			}
+		}
+	}
+	if = { #If dynasty is different from father's
+		limit = { 
+			exists = father 
+			exists = father.dynasty
+		}
+		father.dynasty = {
+			every_dynasty_member = { #catch dynasts in other courts
+				limit = { 
+					is_alive = yes
+					NOT = { any_player = { this = prev } }
+					NOT = { this = scope:i_ruler }
+					OR = {
+						is_landed = no
+						highest_held_title_tier < tier_county
+					}
+				}
+				death = {
+					killer = scope:lucky_new_ruler
+					death_reason = death_disappearance
+				}
+			}
+		}
+	}
+	if = { #Get mother's side too
+		limit = { 
+			exists = mother 
+			exists = mother.dynasty
+		}
+		mother.dynasty = {
+			every_dynasty_member = { #catch dynasts in other courts
+				limit = { 
+					is_alive = yes
+					NOT = { any_player = { this = prev } }
+					NOT = { this = scope:i_ruler }
+					OR = {
+						is_landed = no
+						highest_held_title_tier < tier_county
+					}
+				}
+				death = {
+					killer = scope:lucky_new_ruler
+					death_reason = death_disappearance
+				}
+			}
+		}
+	}
+}
+
+aawc_aw_shattered_realms_effect = {
+	if = {
+		# Every AAWC world mode is authoritative for the former working
+		# count-shattered start, regardless of retained MGR rule selections.
+		limit = {
+			OR = {
+				NOT = { has_game_rule = aawc_aw_no_shattered_realms }
+				aawc_world_mode_requires_tribal_counties = yes
+			}
+		}
+		#hacky attempt to try and remove special troops until Paradox reveals/creates a command for disbanding armies...
+		#Might be better to deal with this directly in the history files, but would make this mod even less compatible with overhauls
+		every_ruler = {
+			limit = {
+				OR = {
+					this = character:6878 #Hæsteinn of Nantes
+					this = character:163111 #Ivar the Boneless
+					this = character:163112 #Halfdan
+					this = character:122 #Harald Godwineson
+					this = character:189029 #Kitti
+					this = character:3040 #Alp Arslan
+					this = character:248748 #Hummay
+					this = character:140 #William
+					this = character:102531  #Harald Hardrada
+				}
+				is_ai = yes #Player would get a game over automatically otherwise
+			}
+			save_scope_as = go_away_please
+			#First, try just getting rid of all their titles. Note: It appears to have done the trick.
+			random_neighboring_top_liege_realm_owner = { #If we don't give it to an existing ruler the game does not recognize the new holder for the next part
+				limit = {
+					#OR = {
+					#	faith = go_away_please.faith #To at least keep the area thematically similar
+					#	culture = go_away_please.culture
+					#}
+					NOR = {
+						OR = {
+							this = character:6878 #Hæsteinn
+							this = character:163111 #Ivar the Boneless
+							this = character:163112 #Halfdan
+							this = character:122 #Harald Godwineson
+							this = character:189029 #Kitti
+							this = character:3040 #Alp Arslan
+							this = character:248748 #Hummay
+							this = character:140 #William
+							this = character:102531  #Harald Hardrada
+						}
+						this = scope:go_away_please.player_heir
+					}
+				}
+				save_scope_as = lucky_new_ruler
+				scope:go_away_please = {
+					create_title_and_vassal_change = {
+						type = created
+						save_scope_as = change
+						add_claim_on_loss = no
+					}
+					every_held_title = {
+						limit = { tier >= tier_county }
+						change_title_holder = {
+							holder = scope:lucky_new_ruler
+							change = scope:change
+						}
+					}
+					resolve_title_and_vassal_change = scope:change
+				}				
+			}
+		}
+		# Narrate protected dummy holders before the generic shatter loop skips them.
+		every_ruler = {
+			limit = {
+				OR = {
+					agot_is_dummy_character = yes
+					this = title:c_ruins.holder
+					this = title:c_wilderness.holder
+				}
+				any_held_title = {
+					OR = {
+						this = title:c_valyria
+						this = title:c_kastaryia
+						this = title:c_hills_of_nolos
+						this = title:c_ilvonys
+						this = title:c_oreos
+					}
+				}
+			}
+			error_log = "AAWC AW SHATTER skipping dummy holder during shattered-realms redistribution"
+			every_held_title = {
+				limit = {
+					OR = {
+						this = title:c_valyria
+						this = title:c_kastaryia
+						this = title:c_hills_of_nolos
+						this = title:c_ilvonys
+						this = title:c_oreos
+					}
+				}
+				if = { limit = { this = title:c_valyria } error_log = "AAWC AW SHATTER protected target c_valyria" }
+				if = { limit = { this = title:c_kastaryia } error_log = "AAWC AW SHATTER protected target c_kastaryia" }
+				if = { limit = { this = title:c_hills_of_nolos } error_log = "AAWC AW SHATTER protected target c_hills_of_nolos" }
+				if = { limit = { this = title:c_ilvonys } error_log = "AAWC AW SHATTER protected target c_ilvonys" }
+				if = { limit = { this = title:c_oreos } error_log = "AAWC AW SHATTER protected target c_oreos" }
+			}
+		}
+
+		#Begin shattering realms
+		every_ruler = {
+			limit = {
+				NOR = {
+					agot_is_dummy_character = yes
+					this = title:c_ruins.holder
+					this = title:c_wilderness.holder
+					has_government = ruins_government
+					has_government = unknown_government
+					has_government = wilderness_government
+				}
+			}
+
+			save_scope_as = i_ruler
+			#Keep important characters important
+			if = {
+				limit = { 
+					highest_held_title_tier = tier_empire
+				}
+				add_character_flag = preferred_emperor
+			}
+			if = {
+				limit = { 
+					highest_held_title_tier >= tier_kingdom
+				}
+				add_character_flag = preferred_king
+			}
+			if = {
+				limit = { 
+					highest_held_title_tier >= tier_duchy 
+				}
+				add_character_flag = preferred_duke
+			}
+			#Release tributaries
+			every_tributary = { end_tributary = yes } #Taken care of elsewhere, but called again just in case.
+			#Release vassals
+			every_vassal = {
+				limit = {
+					highest_held_title_tier >= tier_county
+				}
+				create_title_and_vassal_change = {
+					type = independency
+					save_scope_as = change
+				}
+				change_liege_or_become_independent = {
+					CHANGE = scope:change
+					VASSAL = this
+				}
+				resolve_title_and_vassal_change = scope:change
+			}
+			#Destroy all empires, kingdoms AND duchies. The latter will be redistributed soon.
+			every_held_title = {
+				limit = {
+					tier >= tier_duchy
+					OR = {
+						is_landless_type_title = no
+						has_game_rule = aawc_aw_enabled_shattered_realms_landless
+						AND = { 
+							is_noble_family_title = yes
+							OR = { 
+								has_game_rule = aawc_aw_count_shattered_realms
+								has_game_rule = aawc_aw_duke_shattered_realms
+								aawc_world_mode_requires_tribal_counties = yes
+							}
+						}
+					}
+				}
+				scope:i_ruler = { 
+					destroy_title = prev 
+					remove_claim = prev
+				}
+			}
+			#Make everyone a one-county count by giving out excess counties to random characters.
+			every_held_title = {
+				limit = { 
+					tier = tier_county
+					NOT = { this = scope:i_ruler.capital_county }
+				}
+				save_scope_as = i_title
+				de_jure_liege = { add_to_list = possible_problem_duchies }
+				scope:i_ruler = {
+					#Create new random ruler - avoids issues later on
+					if = {
+						limit = { capital_county.faith = { has_doctrine = doctrine_gender_male_dominated } }
+						create_character = {
+							location = scope:i_ruler.capital_province
+							gender_female_chance = 0
+							culture = scope:i_title.culture
+							faith = scope:i_title.faith
+							random_traits = yes
+							age = 18
+							save_scope_as = lucky_new_ruler
+						}
+					}
+					else_if = {
+						limit = { capital_county.faith = { has_doctrine = doctrine_gender_female_dominated } }
+						create_character = {
+							location = scope:i_ruler.capital_province
+							culture = scope:i_title.culture
+							faith = scope:i_title.faith
+							gender_female_chance = 100
+							random_traits = yes
+							age = 18
+							save_scope_as = lucky_new_ruler
+						}
+					}
+					else = {
+						create_character = {
+							location = scope:i_ruler.capital_province
+							culture = scope:i_title.culture
+							faith = scope:i_title.faith
+							gender_female_chance = 50
+							random_traits = yes
+							age = 18
+							save_scope_as = lucky_new_ruler
+						}
+					}
+					create_title_and_vassal_change = {
+						type = created
+						save_scope_as = change
+						add_claim_on_loss = no
+					}
+					scope:i_title = {
+						change_title_holder = {
+							holder = scope:lucky_new_ruler
+							change = scope:change
+						}
+					}
+					resolve_title_and_vassal_change = scope:change
+					remove_claim = scope:i_title
+				}
+			}
+		}
+		
+		#Dukes
+		if = {
+			limit = {
+				NOR = {
+					has_game_rule = aawc_aw_count_shattered_realms
+					aawc_world_mode_requires_tribal_counties = yes
+				}
+			}
+			
+			#To ensure newly created rulers are caught too...
+			every_ruler = {
+				limit = { 
+					highest_held_title_tier = tier_county
+				}
+				add_to_list = shattered_count_list
+			}
+			#Now duchies are granted somewhat randomly - preferring pre-existing dukes. Doesn't catch all counts... what *is* the list size limit?
+			ordered_in_list = {
+				list = shattered_count_list
+				max = 99999 #actual limit is much lower than this, but looks greater than 8 bit.
+				check_range_bounds = no #needed?
+				
+				order_by = {
+					value = 1
+					if = {
+						limit = { has_character_flag = preferred_duke }
+						add = 100
+					}					
+					if = {
+						limit = { NOT = { has_government = herder_government } }
+						add = 1
+					}
+					#Disadvantage these
+					if = {
+						limit = { any_held_title = { is_landless_type_title = yes } }
+						add = -100
+					}
+				}
+				save_scope_as = i_ruler
+				if = {
+					limit = { 
+						any_realm_de_jure_duchy = {
+							NOT = { exists = holder }
+						}
+					}
+					every_realm_de_jure_duchy = { #THERE SHOULD ONLY BE ONLY ONE
+						save_scope_as = i_title
+					}
+					create_title_and_vassal_change = {
+						type = created
+						save_scope_as = change
+						add_claim_on_loss = no
+					}
+					scope:i_title = {
+						change_title_holder = {
+							holder = scope:i_ruler
+							change = scope:change
+						}
+					}
+					resolve_title_and_vassal_change = scope:change
+				}
+			}
+			#De-jure vassalize everyone
+			every_ruler = {
+				limit = { highest_held_title_tier >= tier_duchy }
+				save_scope_as = i_ruler
+				primary_title = {
+					every_dejure_vassal_title_holder = {
+						limit = { highest_held_title_tier = tier_county }
+						create_title_and_vassal_change = {
+							type = swear_fealty
+							save_scope_as = change
+							add_claim_on_loss = no
+						}
+						change_liege = {
+							liege = scope:i_ruler
+							change = scope:change
+						}
+						resolve_title_and_vassal_change = scope:change
+					}
+				}
+			}
+			###WORKAROUND FOR UNRECOGNIZED INDIE RULERS###
+		}
+
+		#Kings
+		if = {
+			limit = { 
+				AND = {
+					NOT = { aawc_world_mode_requires_tribal_counties = yes }
+					OR = {
+						has_game_rule = aawc_aw_king_shattered_realms 
+						has_game_rule = aawc_aw_emperor_shattered_realms
+					}
+				}
+			}
+			
+			every_ruler = {
+				limit = { highest_held_title_tier = tier_duchy }
+				add_to_list = shattered_duke_list
+			}
+			#Now duchies are granted somewhat randomly - preferring pre-existing dukes
+			ordered_in_list = {
+				list = shattered_duke_list
+				max = 99999 #Is there a default limit?
+				check_range_bounds = no #needed?
+				
+				order_by = {
+					value = 1
+					#Add more params here later
+					if = {
+						limit = { has_character_flag = preferred_king }
+						add = 100
+					}
+					if = {
+						limit = { NOT = { has_government = herder_government } }
+						add = 1
+					}
+					#Disadvantage these
+					if = {
+						limit = { any_held_title = { is_landless_type_title = yes } }
+						add = -100
+					}
+				}
+				save_scope_as = i_ruler
+				if = {
+					limit = { 
+						any_realm_de_jure_kingdom = {
+							NOT = { exists = holder }
+						}
+					}
+					every_realm_de_jure_kingdom = { #THERE SHOULD ONLY BE ONLY ONE
+						save_scope_as = i_title
+					}
+					create_title_and_vassal_change = {
+						type = created
+						save_scope_as = change
+						add_claim_on_loss = no
+					}
+					scope:i_title = {
+						change_title_holder = {
+							holder = scope:i_ruler
+							change = scope:change
+						}
+					}
+					resolve_title_and_vassal_change = scope:change
+				}
+			}
+			#De-jure vassalize everyone
+			every_ruler = {
+				limit = { highest_held_title_tier >= tier_kingdom }
+				save_scope_as = i_ruler
+				primary_title = {
+					every_dejure_vassal_title_holder = {
+						limit = { 
+							is_independent_ruler = yes
+						}
+						create_title_and_vassal_change = {
+							type = swear_fealty
+							save_scope_as = change
+						}
+						change_liege = {
+							liege = scope:i_ruler
+							change = scope:change
+						}
+						resolve_title_and_vassal_change = scope:change
+					}
+				}
+			}
+		}
+		#Emperors...
+		if = {
+			limit = {
+				has_game_rule = aawc_aw_emperor_shattered_realms
+				NOT = { aawc_world_mode_requires_tribal_counties = yes }
+			}
+			
+			#To ensure newly created rulers are caught too...
+			every_ruler = {
+				limit = { highest_held_title_tier = tier_kingdom }
+				add_to_list = shattered_king_list
+			}
+			#Prefer pre-existing emperors
+			ordered_in_list = {
+				list = shattered_king_list
+				max = 1000 #Not many are needed
+				check_range_bounds = no #needed?
+				
+				order_by = {
+					value = 1
+					#Add more params here later
+					if = {
+						limit = { has_character_flag = preferred_emperor }
+						add = 100
+					}
+					if = {
+						limit = { NOT = { has_government = herder_government } }
+						add = 1
+					}
+					if = {
+						limit = { any_held_title = { is_landless_type_title = yes } }
+						add = -100
+					}
+				}
+				save_scope_as = i_ruler
+				if = {
+					limit = { 
+						any_realm_de_jure_empire = {
+							NOT = { exists = holder }
+						}
+					}
+					every_realm_de_jure_empire = { #THERE SHOULD ONLY BE ONLY ONE
+						save_scope_as = i_title
+					}
+					create_title_and_vassal_change = {
+						type = created
+						save_scope_as = change
+						add_claim_on_loss = no
+					}
+					scope:i_title = {
+						change_title_holder = {
+							holder = scope:i_ruler
+							change = scope:change
+						}
+					}
+					resolve_title_and_vassal_change = scope:change
+				}
+			}
+			#De-jure vassalize everyone
+			every_ruler = {
+				limit = { highest_held_title_tier = tier_empire }
+				save_scope_as = i_ruler
+				primary_title = {
+					every_dejure_vassal_title_holder = {
+						limit = { 
+							is_independent_ruler = yes
+						}
+						create_title_and_vassal_change = {
+							type = swear_fealty
+							save_scope_as = change
+						}
+						change_liege = {
+							liege = scope:i_ruler
+							change = scope:change
+						}
+						resolve_title_and_vassal_change = scope:change
+					}
+				}
+			}
+		}		
+		aawc_aw_post_shatter_effects = yes
+	}
+}
+
+aawc_aw_post_shatter_effects = {
+	#Catch any duke or higher tier herder and make them nomadic
+	every_ruler = {
+		limit = { 
+			highest_held_title_tier >= tier_duchy 
+			has_government = herder_government
+		}
+		capital_barony ?= { title_province = { set_holding_type = nomad_holding } }
+		change_government = nomad_government
+	}
+	#Vassal herders become tributaries of their liege if they're nomadic as in vanilla
+	every_ruler = {
+		limit = { 
+			has_government = herder_government
+			is_independent_ruler = no
+			top_liege ?= { has_government = nomad_government }
+		}
+		top_liege = { save_scope_as = suzerain }
+		break_subject_contract_and_establish_tributary_effect = { SUZERAIN = scope:suzerain TRIBUTARY = this }
+	}
+}
+
+aawc_aw_de_jure_vassalize_effect = { #Intended for duke vs counts, use on duke scope
+	#save_scope_as = i_ruler
+	primary_title = {
+		every_dejure_vassal_title_holder = {
+			limit = { highest_held_title_tier = tier_county }
+			create_title_and_vassal_change = {
+				type = swear_fealty
+				save_scope_as = change
+			}
+			change_liege = {
+				liege = scope:i_ruler
+				change = scope:change
+			}
+			resolve_title_and_vassal_change = scope:change
+		}
+	}
+}
+
+aawc_aw_barony_effect = {
+	if = {
+		limit = { has_game_rule = aawc_aw_baronies_none }
+		every_province = {
+			if = { 
+				limit = { 
+					is_county_capital = no
+					has_holding = yes
+					NOR = {
+						has_holding_type = ruin_holding
+						has_holding_type = wilderness_holding
+						has_holding_type = unknown_holding
+					}
+				}
+				remove_holding = yes 
+			}
+		}
+		#Experimental anti-crash fix
+		every_living_character = {
+			limit = { 
+				is_ruler = yes
+				highest_held_title_tier = tier_barony
+			}
+			death = natural
+		}
+	}
+}
+
+aawc_aw_holdings_effect = {
+	if = { 
+		# Every AAWC world mode owns the former tribal-holdings precondition,
+		# even when a retained MGR setting selects another holding type.
+		limit = {
+			OR = {
+				has_game_rule = aawc_aw_tribal_holdings
+				aawc_world_mode_requires_tribal_counties = yes
+			}
+		}
+		# Normalize holdings before applying the required government to each eligible county.
+		aawc_setup_convert_tribal_counties_effect = yes
+	}
+	else_if = {
+		limit = { has_game_rule = aawc_aw_feudal_holdings }
+		every_barony = { 
+			if = {
+				limit = { 
+					NOT = { title_province = { has_holding_type = castle_holding } }
+					NOR = {
+						title_province = { has_holding_type = ruin_holding }
+						title_province = { has_holding_type = wilderness_holding }
+						title_province = { has_holding_type = unknown_holding }
+					}
+					is_capital_barony = yes
+					#NOT = { holder.primary_title = { is_landless_type_title = no } }
+				}
+				title_province = { set_holding_type = castle_holding }
+				holder = { change_government = feudal_government }
+			}
+		}
+	}
+	else_if = {
+		limit = { has_game_rule = aawc_aw_nomad_holdings }
+		every_barony = { 
+			if = {
+				limit = { 
+					NOT = { title_province = { has_holding_type = nomad_holding } }
+					NOT = { title_province = { has_holding_type = herder_holding } }
+					NOR = {
+						title_province = { has_holding_type = ruin_holding }
+						title_province = { has_holding_type = wilderness_holding }
+						title_province = { has_holding_type = unknown_holding }
+					}
+					is_capital_barony = yes
+					#NOT = { holder.primary_title = { is_landless_type_title = no } }
+				}
+				title_province = { set_holding_type = nomad_holding }
+				holder = { 
+					change_government = nomad_government
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { has_game_rule = aawc_aw_random_ft_holdings }
+		every_barony = { 
+			limit = {
+				NOR = {
+					title_province = { has_holding_type = ruin_holding }
+					title_province = { has_holding_type = wilderness_holding }
+					title_province = { has_holding_type = unknown_holding }
+				}
+			}
+			random_list = {
+				50 = { #Make tribal
+					if = {
+						limit = { 
+							NOT = { title_province = { has_holding_type = tribal_holding } }
+							is_capital_barony = yes
+							#NOT = { holder.primary_title = { is_landless_type_title = no } }
+						}
+						title_province = { set_holding_type = tribal_holding }
+						holder = { change_government = tribal_government }
+					}
+					#else_if = { #Tribals can co-exist with church holdings, we remove everything else.
+					#	limit = {
+					#		is_capital_barony = no
+					#		title_province = { has_holding = yes }
+					#		NOT = { title_province = { has_holding_type = church_holding } }
+					#	}
+					#	title_province = { remove_holding = yes }
+					#}
+				}
+				50 = { #Make feudal
+					if = {
+						limit = { 
+							NOT = { title_province = { has_holding_type = castle_holding } }
+							is_capital_barony = yes
+							#NOT = { holder.primary_title = { is_landless_type_title = no } }
+						}
+						title_province = { set_holding_type = castle_holding }
+						holder = { change_government = feudal_government }
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { has_game_rule = aawc_aw_random_holdings }
+		every_barony = { 
+			limit = {
+				NOR = {
+					title_province = { has_holding_type = ruin_holding }
+					title_province = { has_holding_type = wilderness_holding }
+					title_province = { has_holding_type = unknown_holding }
+				}
+			}
+			random_list = {
+				1 = { #Make tribal
+					if = {
+						limit = { 
+							NOT = { title_province = { has_holding_type = tribal_holding } }
+							is_capital_barony = yes
+							NOT = { holder.primary_title = { is_landless_type_title = no } }
+						}
+						title_province = { set_holding_type = tribal_holding }
+						holder = { change_government = tribal_government }
+					}
+					#else_if = { #Tribals can co-exist with church holdings, we remove everything else.
+					#	limit = {
+					#		is_capital_barony = no
+					#		NOT = { title_province = { has_holding_type = church_holding } }
+					#		title_province = { has_holding = yes }
+					#	}
+					#	title_province = { remove_holding = yes }
+					#	#holder = { change_government = tribal_government }
+					#}
+				}
+				1 = { #Make feudal
+					if = {
+						limit = { 
+							NOT = { title_province = { has_holding_type = castle_holding } }
+							is_capital_barony = yes
+							NOT = { holder.primary_title = { is_landless_type_title = no } }
+						}
+						title_province = { set_holding_type = castle_holding }
+						holder = { change_government = feudal_government }
+					}
+				}
+				1 = { #Make republic
+					if = {
+						limit = { 
+							NOT = { title_province = { has_holding_type = city_holding } }
+							is_capital_barony = yes
+							NOT = { holder.primary_title = { is_landless_type_title = no } }
+						}
+						title_province = { set_holding_type = city_holding }
+						holder = { 
+							change_government = republic_government
+						}
+					}
+				}
+				1 = { #Make theocracy
+					if = {
+						limit = { 
+							NOT = { title_province = { has_holding_type = church_holding } }
+							is_capital_barony = yes
+							NOT = { holder.primary_title = { is_landless_type_title = no } }
+						}
+						title_province = { set_holding_type = church_holding }
+						holder = { 
+							change_government = theocracy_government
+						}
+					}
+				}
+				1 = { #Make nomadic
+					if = {
+						limit = { 
+							NOT = { title_province = { has_holding_type = church_holding } }
+							is_capital_barony = yes
+							NOT = { holder.primary_title = { is_landless_type_title = no } }
+						}
+						title_province = { set_holding_type = nomad_holding }
+						holder = { 
+							change_government = nomad_government
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+aawc_aw_clear_vars = {
+	#clear_variable_list = cultures_list
+	#clear_variable_list = faiths_list
+	remove_global_variable = unlucky_faith_provinces
+	remove_global_variable = unlucky_culture_provinces
+	remove_global_variable = num_cultures
+	remove_global_variable = num_faiths
+	remove_global_variable = num_land_provinces
+	remove_global_variable = preferred_dejure_size
+	remove_global_variable = provinces_seeded
+	remove_global_variable = num_new_duchies
+	remove_global_variable = num_new_kingdoms
+}

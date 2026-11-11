@@ -1,0 +1,50 @@
+﻿aawc_1102_apply_lost_faith_culture_effect = {
+	if = {
+		limit = {
+			aawc_tribal_shatter_active = yes
+			OR = {
+				has_game_rule = aawc_lost_faith_culture_enabled
+				has_game_rule = aawc_lost_faith_culture_faith_only
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.2 Lost Faith override begin" }
+		set_global_variable = { name = aawc_1102_lost_faith_characters value = 0 }
+		set_global_variable = { name = aawc_1102_lost_faith_counties value = 0 }
+		every_living_character = {
+			set_character_faith = faith:aawc_lost_faith
+			change_global_variable = { name = aawc_1102_lost_faith_characters add = 1 }
+		}
+		every_county = {
+			set_county_faith = faith:aawc_lost_faith
+			change_global_variable = { name = aawc_1102_lost_faith_counties add = 1 }
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.2 Lost Faith override summary follows" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+
+	if = {
+		limit = {
+			aawc_tribal_shatter_active = yes
+			OR = {
+				has_game_rule = aawc_lost_faith_culture_enabled
+				has_game_rule = aawc_lost_faith_culture_culture_only
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.2 Lost Culture override begin" }
+		set_global_variable = { name = aawc_1102_lost_culture_characters value = 0 }
+		set_global_variable = { name = aawc_1102_lost_culture_counties value = 0 }
+		every_living_character = {
+			set_culture = culture:aawc_lost_culture
+			change_global_variable = { name = aawc_1102_lost_culture_characters add = 1 }
+		}
+		every_county = {
+			set_county_culture = culture:aawc_lost_culture
+			change_global_variable = { name = aawc_1102_lost_culture_counties add = 1 }
+		}
+		culture:aawc_lost_culture = {
+			aawc_1102_reset_lost_culture_innovations_effect = yes
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.2 Lost Culture override summary follows" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+}

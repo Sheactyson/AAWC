@@ -1,0 +1,72 @@
+﻿# Scope : county 
+# FACTOR : base factor conversion
+# VARIANCE : randomization added to the base factor for each province
+# CULTURE : culture to convert to
+# FAITH : faith to convert to
+E_kCAFG_county_randomized_invasion = {
+    every_county_province = {
+        save_temporary_scope_value_as = {
+            name = randomized_invasion_factor_to_convert
+            value = {
+                fixed_range = {
+                    min = {
+                        value = $FACTOR$
+                        subtract = {
+                            fixed_range = {
+                                min = 0
+                                max = $VARIANCE$
+                            }
+                        }
+                    }
+                    max = {
+                        value = $FACTOR$
+                        add = {
+                            fixed_range = {
+                                min = 0
+                                max = $VARIANCE$
+                            }
+                        }
+                    }
+                }
+                min = 0
+                max = 1
+            }
+        }
+
+        E_kCAFG_province_weighted_culture_conversion = {
+            FACTOR = scope:randomized_invasion_factor_to_convert
+            CULTURE = $CULTURE$
+        }
+        # Instant tension drift
+        set_variable = {
+            name = kCAFG_culture_tension
+            value = {
+                value = var:kCAFG_culture_tension
+                add = var:kCAFG_target_culture_tension
+                divide = 2
+            }
+        }
+        E_kCAFG_on_province_culture_tension_updated = yes
+
+        E_kCAFG_province_weighted_faith_conversion = {
+            FACTOR = scope:randomized_invasion_factor_to_convert
+            FAITH = $FAITH$
+        }
+        # Instant tension drift
+        set_variable = {
+            name = kCAFG_faith_tension
+            value = {
+                value = var:kCAFG_faith_tension
+                add = var:kCAFG_target_faith_tension
+                divide = 2
+            }
+        }
+        E_kCAFG_on_province_faith_tension_updated = yes
+    }
+
+    E_kCAFG_update_county_cultures_list = yes
+    E_kCAFG_update_county_culture = { REASON = flag:kCAFG_invasion }
+    
+    E_kCAFG_update_county_faiths_list = yes
+    E_kCAFG_update_county_faith = { REASON = flag:kCAFG_invasion }
+}

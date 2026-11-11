@@ -1,0 +1,1368 @@
+﻿# Legacy of Valyria overrides
+
+# Overriden from 00_agot_colonization_effects.txt
+add_random_wilderness_blocker_building = {
+	if = {
+		limit = {
+			NOT = { geographical_region = world_valyria_mainland }
+			NOT = { geographical_region = world_sothoryos }
+		}
+		random_list = {
+			1 = {
+				trigger = {
+					NOT = { has_building = bandits }
+					NOT = { geographical_region = world_westeros_beyond_the_wall }
+				}
+				add_building = bandits
+			}
+			1 = {
+				trigger = {
+					NOT = { has_building = wolf_den }
+				}
+				add_building = wolf_den
+			}
+			1 = {
+				trigger = {
+					NOT = { has_building = bear_den }
+				}
+				add_building = bear_den
+			}
+			1 = {
+				trigger = {
+					NOR = {
+						has_building = dense_growth
+						agot_is_glacier_terrain = yes
+						agot_is_frozen_flats_terrain = yes
+					}
+				}
+				modifier = {
+					OR = {
+						agot_is_forest_terrain = yes
+						agot_is_taiga_terrain = yes
+					}
+					add = 3
+				}
+				add_building = dense_growth
+			}
+			1 = {
+				trigger = {
+					NOR = {
+						has_building = flooded_lands
+						agot_is_glacier_terrain = yes
+						agot_is_frozen_flats_terrain = yes
+					}
+					OR = {
+						is_riverside_province = yes
+						is_coastal = yes
+					}
+				}
+				add_building = flooded_lands
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			geographical_region = world_sothoryos
+			has_free_building_slot = yes
+		}
+		# WEST - Basilisks
+		if = {
+			limit = {
+				geographical_region = world_sothoryos_west
+				has_free_building_slot = yes
+			}
+			random_list = {
+				1 = {
+					trigger = { NOT = { has_building_or_higher = ravenous_basilisk_1 } }
+					add_building = ravenous_basilisk_1
+				}
+				1 = {
+					trigger = { NOT = { has_building_or_higher = basilisk_1 } }
+					add_building = basilisk_1
+				}
+				1 = {}
+			}
+		}
+		# Basilisk Reaches - Basilisks
+		if = {
+			limit = {
+				kingdom = title:k_basilisk_point
+				has_free_building_slot = yes
+			}
+			random_list = {
+				1 = {
+					trigger = { NOT = { has_building_or_higher = ravenous_basilisk_1 } }
+					add_building = ravenous_basilisk_1
+					modifier = { # Much more common in Basilisk Point and Beaches of Prey
+						factor = 0
+						OR = {
+							duchy = title:d_basilisk_point
+							duchy = title:d_beach_of_prey
+						}
+					}
+				}
+				1 = {
+					trigger = { NOT = { has_building_or_higher = basilisk_1 } }
+					add_building = basilisk_1
+				}
+			}
+		}
+		# Wyvern Fields - Wyverns
+		if = {
+			limit = {
+				duchy = title:d_the_wyvern_fields
+				has_free_building_slot = yes
+			}
+			random_list = {
+				1 = {
+					trigger = { NOT = { has_building_or_higher = cos_wyvern_alpha_1 } }
+					add_building = cos_wyvern_alpha_1
+				}
+				2 = {
+					trigger = { NOT = { has_building_or_higher = cos_wyvern_1 } }
+					add_building = cos_wyvern_1
+				}
+			}
+		}
+		# Green Pass - Wyverns
+		if = {
+			limit = {
+				duchy = title:d_green_gate
+				has_free_building_slot = yes
+			}
+			random_list = {
+				1 = {
+					trigger = { NOT = { has_building_or_higher = cos_wyvern_alpha_1 } }
+					add_building = cos_wyvern_alpha_1
+				}
+				2 = {
+					trigger = { NOT = { has_building_or_higher = cos_wyvern_1 } }
+					add_building = cos_wyvern_1
+				}
+			}
+		}
+
+		# Yeen
+		if = {
+			limit = {
+				duchy = title:d_yeen
+				has_free_building_slot = yes
+			}
+			random_list = {
+				1 = {
+					trigger = { NOT = { has_building_or_higher = ghoulish_bat_1 } }
+					add_building = ghoulish_bat_1
+				}
+				1 = {
+					trigger = { NOT = { has_building_or_higher = cos_bat_1 } }
+					add_building = cos_bat_1
+				}
+				1 = {}
+			}
+		}
+
+		if = {
+			limit = { has_free_building_slot = yes }
+			random_list = {
+				1 = {
+					trigger = { NOT = { has_building_or_higher = ravenous_basilisk_1 } }
+					add_building = ravenous_basilisk_1
+				}
+				1 = {
+					trigger = { NOT = { has_building_or_higher = ghoulish_bat_1 } }
+					add_building = ghoulish_bat_1
+				}
+				1 = {
+					trigger = { NOT = { has_building_or_higher = basilisk_1 } }
+					add_building = basilisk_1
+				}
+				1 = {
+					trigger = { NOT = { has_building_or_higher = cos_bat_1 } }
+					add_building = cos_bat_1
+				}
+				1 = {
+					trigger = { NOT = { has_building_or_higher = cos_carn_plant_1 } }
+					add_building = cos_carn_plant_1
+				}
+				1 = {}
+
+				# Unimplemented
+				#1 = {
+				#	trigger = { NOT = { has_building_or_higher = cos_river_parasites_1 } }
+				#	add_building = cos_river_parasites_1
+				#}
+				#1 = {
+				#	trigger = { NOT = { has_building_or_higher = cos_titanic_beast_1 } }
+				#	add_building = cos_titanic_beast_1
+				#}
+				#1 = {
+				#	trigger = { NOT = { has_building_or_higher = cos_raptors_1 } }
+				#	add_building = cos_raptors_1
+				#}
+			}
+		}
+	}
+}
+
+# Overridden from AGOT 00_agot_colonization_effects.txt. Keep the proven AGOT
+# colonization lifecycle intact and finalize AAWC blockers only after the
+# wilderness holding has become a settlement/pirate den.
+ai_colonization_effect = {
+	$WILDERNESS$ = { save_scope_as = wilderness }
+	$ROOT_SCOPE$ = { save_scope_as = new_holder }
+
+	scope:wilderness.county = { save_scope_as = wilderness_holder_title }
+	scope:wilderness_holder_title.holder = { save_scope_as = wilderness_holder }
+
+	create_title_and_vassal_change = {
+		type = returned
+		save_scope_as = change
+	}
+
+	scope:wilderness_holder_title = {
+		change_title_holder = {
+			holder = scope:new_holder
+			change = scope:change
+			take_baronies = yes
+		}
+		set_county_faith = scope:new_holder.faith
+		if = {
+			limit = { culture = culture:unknown_culture }
+			if = {
+				limit = {
+					scope:new_holder.culture = culture:high_valyrian
+					has_game_rule = agot_hv_conversion_offshoots
+					title_province = { geographical_region = world_westeros }
+				}
+				set_county_culture = culture:westerosi_valyrian
+			}
+			else_if = {
+				limit = {
+					scope:new_holder.culture = culture:high_valyrian
+					has_game_rule = agot_hv_conversion_offshoots
+					NOT = {
+						title_province = { geographical_region = world_westeros }
+					}
+				}
+				set_county_culture = culture:essosi_valyrian
+			}
+			else = {
+				set_county_culture = scope:new_holder.culture
+			}
+		}
+	}
+
+	resolve_title_and_vassal_change = scope:change
+
+	scope:wilderness_holder_title = {
+		generate_coa = yes
+		scope:wilderness_holder_title = {
+			if = {
+				limit = {
+					scope:new_holder = { has_government = pirate_government }
+				}
+				every_county_province = {
+					limit = {
+						has_holding = yes
+						has_holding_type = wilderness_holding
+					}
+					set_holding_type = pirate_den_holding
+				}
+			}
+			else = {
+				every_county_province = {
+					limit = {
+						has_holding = yes
+						has_holding_type = wilderness_holding
+					}
+					set_holding_type = settlement_holding
+				}
+			}
+			every_county_province = {
+				limit = {
+					has_holding = yes
+					is_county_capital = no
+					has_holding_type = wilderness_holding
+				}
+				remove_holding = yes
+			}
+			every_county_province = {
+				barony = { generate_coa = yes }
+			}
+		}
+		title_province = {
+			aawc_finalize_new_colony_regional_blockers_effect = yes
+			if = {
+				limit = { scope:new_holder = { has_variable = aawc_population_pending_settlement_credit var:aawc_population_pending_settlement_credit > 0 } }
+				aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = scope:new_holder.var:aawc_population_pending_settlement_credit }
+			}
+			else = { aawc_reforging_cohort_ensure_production_ledger_effect = yes }
+		}
+	}
+	scope:new_holder = { remove_variable = aawc_population_pending_settlement_credit }
+
+	scope:wilderness_holder_title.holder = {
+		if = {
+			limit = { this = title:c_wilderness.holder }
+			hidden_effect = { remove_short_term_gold = colonize_cost_val }
+		}
+		else_if = {
+			limit = {
+				has_treasury = yes
+				treasury >= colonize_cost_val
+			}
+			remove_short_term_treasury = colonize_cost_val
+		}
+		else = {
+			remove_short_term_gold = colonize_cost_val
+		}
+		increase_variable = {
+			NAME = num_settled_wilderness
+			AMOUNT = 1
+		}
+		trigger_event = agot_colonization_events.0007
+	}
+
+	if = {
+		limit = {
+			exists = scope:wilderness_holder_title
+			scope:wilderness_holder_title.holder = {
+				any_character_struggle = {
+					involvement = involved
+					phase_has_catalyst = catalyst_new_colony_btw
+				}
+			}
+			scope:wilderness_holder_title = {
+				any_county_struggle = {
+					this = struggle:btw_struggle
+				}
+			}
+		}
+		scope:wilderness_holder_title.holder = {
+			every_character_struggle = {
+				involvement = involved
+				activate_struggle_catalyst = {
+					catalyst = catalyst_new_colony_btw
+					character = scope:wilderness_holder_title.holder
+				}
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			scope:new_holder = {
+				has_government = pirate_government
+				is_landed = yes
+			}
+		}
+		scope:new_holder = {
+			set_variable = {
+				name = colonization_cooldown
+				years = 4
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			scope:wilderness_holder_title.title_province = { geographical_region = difficult_colonization_region }
+		}
+		scope:new_holder = {
+			set_variable = {
+				name = colonization_cooldown
+				years = 4
+			}
+		}
+	}
+	else = {
+		scope:new_holder = {
+			set_variable = {
+				name = colonization_cooldown
+				years = 2
+			}
+		}
+	}
+}
+
+# Overriden from 00_agot_culture_effects.txt
+agot_high_valyrian_conversion = {
+	if = {
+		limit = {
+			has_culture = culture:high_valyrian
+			OR = {
+				is_lowborn = yes
+				agot_has_fake_dynasty = yes
+			}
+			#stop bastards from getting converted before they are assigned a house
+			trigger_if = {
+				limit = {
+					exists = mother
+					exists = mother.dynasty
+				}
+				NOT = { mother.culture = culture:high_valyrian }
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					employer ?= {
+						capital_province ?= {
+							NOT = { 
+								OR = {
+									geographical_region = world_westeros 
+									geographical_region = world_valyria_mainland
+								}
+							}
+						}
+					}
+					scope:new_employer ?= {
+						capital_province ?= {
+							NOT = { 
+								OR = {
+									geographical_region = world_westeros 
+									geographical_region = world_valyria_mainland
+								}
+							}
+						}
+					}
+					scope:host ?= {
+						capital_province ?= {
+							NOT = { 
+								OR = {
+									geographical_region = world_westeros 
+									geographical_region = world_valyria_mainland
+								}
+							}
+						}
+					}
+					location ?= {
+						county ?= {
+							title_province ?= {
+								NOT = { 
+									OR = {
+										geographical_region = world_westeros 
+										geographical_region = world_valyria_mainland
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			set_culture = culture:essosi_valyrian
+		}		
+		else = {
+			limit = {
+				OR = {
+					employer ?= {
+						capital_province ?= {
+							NOT = { geographical_region = world_valyria_mainland }
+						}
+					}
+					scope:new_employer ?= {
+						capital_province ?= {
+							NOT = { geographical_region = world_valyria_mainland }
+						}
+					}
+					scope:host ?= {
+						capital_province ?= {
+							NOT = { geographical_region = world_valyria_mainland }
+						}
+					}
+					location ?= {
+						county ?= {
+							title_province ?= {
+								NOT = { geographical_region = world_valyria_mainland }
+							}
+						}
+					}
+				}
+			}
+			set_culture = culture:westerosi_valyrian
+		}
+	}
+}
+
+# Overriden from 00_agot_effects.txt
+# - Added a tiny check to prevent error spam for buildings already there, particularly for CoB bookmark
+agot_add_building_if_possible = {
+	if = {
+		limit = {
+			has_holding = yes
+			has_free_building_slot = yes
+			NOT = { has_building = $BUILDING$ }
+		}
+		if = {
+			limit = { county = title:c_winterfell }
+			error_log = "AAWC BUILDING_HISTORY Winterfell attempt $BUILDING$ -> ADD"
+		}
+		add_building = $BUILDING$
+	}
+	else_if = {
+		limit = { county = title:c_winterfell }
+		error_log = "AAWC BUILDING_HISTORY Winterfell attempt $BUILDING$ -> SKIP"
+		if = { limit = { NOT = { has_holding = yes } } error_log = "AAWC BUILDING_HISTORY Winterfell skip reason no_holding" }
+		if = { limit = { NOT = { has_free_building_slot = yes } } error_log = "AAWC BUILDING_HISTORY Winterfell skip reason no_free_slot" }
+		if = { limit = { has_building = $BUILDING$ } error_log = "AAWC BUILDING_HISTORY Winterfell skip reason already_has_building" }
+	}
+}
+
+# Overriden from 00_agot_laamp_effects.txt
+agot_set_free_city_coas = {
+	if = {
+		limit = {
+			has_title = title:e_three_daughters
+		}
+		title:e_three_daughters = { set_coa = e_three_daughters }
+	}
+	if = {
+		limit = {
+			has_title = title:e_pentos
+		}
+		title:e_pentos = { set_coa = e_pentos }
+	}
+	if = {
+		limit = {
+			has_title = title:e_braavos
+			government_has_flag = government_is_administrative
+		}
+		title:e_braavos = { set_coa = e_braavos }
+	}
+	if = {
+		limit = {
+			has_title = title:e_volantis
+			agot_is_a_republic = yes
+		}
+		title:e_volantis = { set_coa = e_volantis }
+	}
+	if = {
+		limit = {
+			has_title = title:e_ghiscar
+			agot_is_a_republic = yes
+		}
+		title:e_ghiscar = { set_coa = e_ghiscar }
+	}
+	if = {
+		limit = {
+			has_title = title:k_volantis
+			agot_is_a_republic = yes
+		}
+		title:k_volantis = { set_coa = k_volantis }
+	}
+	if = {
+		limit = {
+			has_title = title:k_meereen
+			agot_is_a_republic = yes
+		}
+		title:k_meereen = { set_coa = k_meereen }
+	}
+	if = {
+		limit = {
+			has_title = title:k_norvos
+			agot_is_a_republic = yes
+		}
+		title:k_norvos = { set_coa = k_norvos }
+	}
+	if = {
+		limit = {
+			has_title = title:k_qohor
+			agot_is_a_republic = yes
+		}
+		title:k_qohor = { set_coa = k_qohor }
+	}
+	if = {
+		limit = {
+			has_title = title:k_lorath
+			agot_is_a_republic = yes
+		}
+		title:k_lorath = { set_coa = k_lorath }
+	}
+	if = {
+		limit = {
+			has_title = title:k_lys
+			agot_is_a_republic = yes
+		}
+		title:k_lys = { set_coa = k_lys }
+	}
+	if = {
+		limit = {
+			has_title = title:k_myr
+			agot_is_a_republic = yes
+		}
+		title:k_myr = { set_coa = k_myr }
+	}
+	if = {
+		limit = {
+			has_title = title:k_tyrosh
+			agot_is_a_republic = yes
+		}
+		title:k_tyrosh = { set_coa = k_tyrosh }
+	}
+	if = {
+		limit = {
+			has_title = title:k_pentos
+			agot_is_a_republic = yes
+		}
+		title:k_pentos = { set_coa = k_pentos }
+	}
+	if = {
+		limit = {
+			has_title = title:k_braavos
+			agot_is_a_republic = yes
+		}
+		title:k_braavos = { set_coa = k_braavos }
+	}
+}
+
+
+# Overriden from 00_agot_dragon_effects.txt
+agot_apply_dragon_aging_effect = {
+	$DRAGON$ = {
+		save_scope_as = dragon
+		if = {
+			limit = {
+				age < 11
+				NOT = { has_trait = dragon_destined } # destined get their initial maturing via story cycle in the 1st year
+			}
+			add_prowess_skill = 3
+			change_dragon_size = {
+				VALUE = 3
+			}
+		}
+		else_if = {
+			limit = {
+				age < 15
+				NOT = { has_trait = dragon_destined }
+			}
+			add_prowess_skill = 2
+			change_dragon_size = {
+				VALUE = 2
+			}
+		}
+		else = { # Maturing done
+			if = {
+				limit = { has_character_flag = in_dragonpit }
+				#Natural Pit check
+				if = {
+					limit = { var:pitted_dragon_location ?= { lv_has_mid_tier_dragon_pit_county = yes } }
+					# Growth is not as impinged compared to manmade pits, volcano magic
+					random_list = {
+						80 = {
+							add_prowess_skill = 1
+							change_dragon_size = { VALUE = 1 }
+						}
+						20 = {
+							add_prowess_skill = 2
+							change_dragon_size = { VALUE = 2 }
+						}
+					}
+				}
+				else_if = {
+					limit = { var:pitted_dragon_location ?= { zz_has_valyria_natural_dragon_pit_county = yes } }
+					# Growth is not as impinged compared to manmade pits, volcano magic
+					random_list = {
+						20 = {
+							add_prowess_skill = 1
+							change_dragon_size = { VALUE = 1 }
+						}
+						70 = {
+							add_prowess_skill = 2
+							change_dragon_size = { VALUE = 2 }
+						}
+						10 = {
+							add_prowess_skill = 3
+							change_dragon_size = { VALUE = 3 }
+						}
+					}
+				}
+				else = {
+					random_list = {
+						25 = {} # Older dragons in a dragonpit do not grow as well
+						65 = {
+							add_prowess_skill = 1
+							change_dragon_size = { VALUE = 1 }
+						}
+						10 = {
+							add_prowess_skill = 2
+							change_dragon_size = { VALUE = 2 }
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = var:current_rider
+						var:current_rider = {
+							has_trait_xp = {
+								trait = dragonrider
+								track = dragon_bond
+								value > 0
+							}
+						}
+						exists = var:pitted_dragon_location
+						trigger_if = {
+							limit = { var:current_rider = { is_landed = yes } }
+							NOT = { var:pitted_dragon_location = var:current_rider.capital_county }
+						}
+						trigger_else = {
+							trigger_if = {
+								limit = {
+									exists = var:current_rider.liege_or_court_owner
+									exists = var:current_rider.liege_or_court_owner.capital_county
+								}
+								NOT = { var:pitted_dragon_location = var:current_rider.liege_or_court_owner.capital_county }
+							}
+						}
+
+					}
+					var:current_rider ?= {
+						save_scope_as = rider
+						send_interface_toast = {
+							title = dragon_bond_weakening_toast
+							left_icon = scope:rider
+							right_icon = scope:dragon
+							add_trait_xp = {
+								trait = dragonrider
+								track = dragon_bond
+								value = -5
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { liege_or_court_owner.capital_province ?= { geographical_region = world_max_tier_dragon_growth } }
+				random_list = {
+					80 = {
+						add_prowess_skill = 2
+						change_dragon_size = { VALUE = 2 }
+					}
+					20 = {
+						add_prowess_skill = 3
+						change_dragon_size = { VALUE = 3 }
+					}
+				}
+			}
+			else_if = {
+				limit = { liege_or_court_owner.capital_province ?= { geographical_region = world_mid_tier_dragon_growth } }
+				random_list = {
+					60 = {
+						add_prowess_skill = 1
+						change_dragon_size = { VALUE = 1 }
+					}
+					40 = {
+						add_prowess_skill = 2
+						change_dragon_size = { VALUE = 2 }
+					}
+				}
+			}
+			else = {
+				random_list = {
+					10 = {}
+					65 = {
+						add_prowess_skill = 1
+						change_dragon_size = { VALUE = 1 }
+					}
+					25 = {
+						add_prowess_skill = 2
+						change_dragon_size = { VALUE = 2 }
+					}
+				}
+			}
+		}
+	}
+}
+
+# Overriden from 00_agot_dragonpit_effects.txt
+agot_create_generic_dragonpit_scripted_effect = {
+	$DRAGON_PIT_OWNER$ = {
+		trigger_event = agot_dragonkeepers.0001  # Creates the Head Dragonkeeper Character, Provides a Little Bit of Context to Player
+		#  Adds a variable to the county holding the dragonpit so that the decision cannot be taken again
+		if = {
+			limit = {
+				any_held_county = {
+					any_county_province = { lv_has_dragon_pit_building = yes }
+					NOT = { has_variable = has_dragonkeeper_order }
+				}
+			}
+			random_held_county = {
+				limit = {
+					any_county_province = { lv_has_dragon_pit_building = yes }
+					NOT = { has_variable = has_dragonkeeper_order }
+				}
+				set_variable = { name = has_dragonkeeper_order }
+			}
+			add_realm_law = dragonpit_close_family_law
+		}
+		if = {
+			limit = { has_ep1_dlc_trigger = yes }
+			hidden_effect = { set_amenity_level = { type = agot_dragonpit_amenities value = 3 } }
+			custom_tooltip = agot_dragonpit_amenities_level_set_to_three_tt
+		}
+	}
+}
+
+# Overriden from 00_agot_dragonpit_effects.txt
+agot_change_dragonpit_status = {
+	save_scope_as = dragon
+	scope:owner = {
+		if = {
+			limit = { agot_has_multiple_active_dragonpits = yes }
+			trigger_event = agot_choose_dragonpit_event.0001
+		}
+		else = { # If not, assume default AGOT logic
+			random_held_county = {
+				limit = {
+					OR = {
+						any_county_province = {
+							has_holding_type = castle_holding
+							has_building_or_higher = generic_dragon_pit_01
+						}
+						any_county_province = { lv_has_dragon_pit_building = yes }
+					}
+					has_variable = has_dragonkeeper_order
+				}
+				save_scope_as = dragon_pit_location
+			}
+			scope:dragon = {
+				if = {
+					limit = { has_character_flag = in_dragonpit }
+					agot_remove_from_dragonpit_effect = { DRAGON = root DRAGONPIT_HOLDER = scope:owner DRAGONPIT_COUNTY = scope:dragon_pit_location }
+				}
+				else_if = {
+					limit = { has_character_flag = owned_dragon }
+					agot_send_to_dragonpit_effect = { DRAGON = root DRAGONPIT_HOLDER = scope:owner DRAGONPIT_COUNTY = scope:dragon_pit_location }
+				}
+				else_if = {
+					limit = { NOT = { has_character_flag = owned_dragon } }
+					agot_force_wild_dragon_into_dragonpit_effect = { DRAGON = root DRAGONPIT_HOLDER = scope:owner DRAGONPIT_COUNTY = scope:dragon_pit_location }
+				}
+			}
+		}
+	}
+}
+
+# Overriden from 00_agot_dragonpit_effects.txt
+agot_change_dragonpit_status_ai = {
+	$OWNER$ = {
+		random_held_county = {
+			limit = {
+				OR = {
+					any_county_province = {
+						has_holding_type = castle_holding
+						has_building_or_higher = generic_dragon_pit_01
+					}
+					any_county_province = { lv_has_dragon_pit_building = yes }
+				}
+				has_variable = has_dragonkeeper_order
+			}
+			save_scope_as = dragon_pit_location
+		}
+	}
+	$DRAGON_REC$ = {
+		if = {
+			limit = { has_character_flag = in_dragonpit }
+			agot_remove_from_dragonpit_effect = { DRAGON = $DRAGON_REC$ DRAGONPIT_HOLDER = $OWNER$ DRAGONPIT_COUNTY = scope:dragon_pit_location }
+		}
+		else_if = {
+			limit = { has_character_flag = owned_dragon }
+			agot_send_to_dragonpit_effect = { DRAGON = $DRAGON_REC$ DRAGONPIT_HOLDER = $OWNER$ DRAGONPIT_COUNTY = scope:dragon_pit_location }
+		}
+		else_if = {
+			limit = { NOT = { has_character_flag = owned_dragon } }
+			agot_force_wild_dragon_into_dragonpit_effect = { DRAGON = $DRAGON_REC$ DRAGONPIT_HOLDER = $OWNER$ DRAGONPIT_COUNTY = scope:dragon_pit_location }
+		}
+	}
+}
+
+# DO NOT IMPLEMENT YET
+# Just keep ready for future firewyrm stuff
+#
+# Overriden from 00_agot_dragonpit_effects
+#agot_force_wild_dragon_into_dragonpit_effect = {
+#	$DRAGON$ = {
+#		save_scope_as = wild_dragon
+#		if = {
+#			limit = { lv_is_firewyrm = yes }
+#			save_scope_as = firewyrm
+#		}
+#	}
+#	$DRAGONPIT_HOLDER$ = {
+#		if = {
+#			limit = { exists = scope:firewyrm }
+#			# Dedicated event goes here
+#			trigger_event = agot_dragon_pits.1200
+#		}
+#		else = { trigger_event = agot_dragon_pits.1200 }
+#	}
+#	$DRAGONPIT_COUNTY$ = {
+#
+#	}
+#}
+
+# Overridden from 00_administrative_effects.txt
+change_to_administrative_effect = {
+	save_scope_as = governor
+	if = {
+		limit = { exists = scope:new_liege }
+		scope:new_liege = { save_scope_as = governor_liege }
+	}
+	else = {
+		top_liege = { save_scope_as = governor_liege }
+	}
+	# Set the correct government
+	if = {
+		limit = {
+			OR = {
+				NOT = { government_allows = administrative }
+				AND = {
+					government_allows = administrative
+					scope:governor_liege = { government_has_flag = government_is_japan_administrative }
+					NOT = { government_has_flag = government_is_japan_administrative }
+				}
+				AND = {
+					government_allows = administrative
+					scope:governor_liege = { government_has_flag = government_is_meritocratic }
+					NOT = { government_has_flag = government_is_meritocratic }
+				}
+				AND = {
+					government_allows = administrative
+					scope:governor_liege = { government_has_flag = government_is_celestial }
+					NOT = { government_has_flag = government_is_celestial }
+				}
+				AND = {
+					government_allows = administrative
+					scope:governor_liege = { government_has_flag = government_is_steppe_admin }
+					NOT = { government_has_flag = government_is_steppe_admin }
+				}
+			}
+		}
+		# Only case where Estate type is shared between Admin and non-Admin
+		if = {
+			limit = {
+				NAND = {
+					government_has_flag = government_is_japan_feudal
+					scope:governor_liege = { government_has_flag = government_is_japan_administrative }
+				}
+			}
+			save_scope_as = new_admin
+		}
+		# If we are greek, let's ensure we become administrative
+		if = {
+			limit = {
+				NOT = { exists = scope:has_selected_a_government }
+				scope:governor_liege = {
+					this = scope:governor # not vassal of some other admin liege
+					culture = {
+						OR = {
+							this = culture:greek
+							any_parent_culture_or_above = { this = culture:greek }
+						}
+					}
+				}
+			}
+			save_scope_value_as = {
+				name = has_selected_a_government
+				value = flag:administrative
+			}
+		}
+		# Change government
+		# We first check if you have a selected government, then if you are independent, then what your liege has
+		if = { # Ritsuryo
+			limit = {
+				trigger_if = {
+					limit = {
+						exists = scope:has_selected_a_government
+					}
+					scope:has_selected_a_government = flag:japan_administrative
+				}
+				trigger_else_if = {
+					limit = {
+						top_liege = this
+					}
+					has_tgp_dlc_trigger = yes
+					tgp_can_become_japan_administrative_trigger = yes
+				}
+				trigger_else = {
+					scope:governor_liege = { government_has_flag = government_is_japan_administrative }
+				}
+			}
+			tgp_domicile_conversion_when_changing_government_type = {
+				NEW_DOMICILE_TYPE = japanese_manor
+				NEW_GOVERNMENT_TYPE = japan_administrative_government
+			}
+			change_government = japan_administrative_government
+		}
+		else_if = { # Celestial
+			limit = {
+				trigger_if = {
+					limit = {
+						exists = scope:has_selected_a_government
+					}
+					scope:has_selected_a_government = flag:celestial
+				}
+				trigger_else_if = {
+					limit = {
+						scope:governor_liege ?= this
+					}
+					has_tgp_dlc_trigger = yes
+					OR = {
+						tgp_can_become_celestial_trigger = yes
+						#This is Mongol breakup and they are hegemon
+						#AGOT Disabled
+						# AND = {
+						# 	exists = scope:great_yuan_ruler
+						# 	this = scope:great_yuan_ruler
+						# 	primary_title = title:h_china
+						# }
+					}
+				}
+				trigger_else = {
+					scope:governor_liege = { government_has_flag = government_is_celestial }
+				}
+			}
+			capital_province = {
+				if = {
+					limit = {
+						OR = {
+							has_holding_type = tribal_holding
+							has_holding_type = herder_holding
+							has_holding_type = nomad_holding
+						}
+					}
+					set_holding_type = castle_holding
+				}
+			}
+			tgp_domicile_conversion_when_changing_government_type = {
+				NEW_DOMICILE_TYPE = east_asian_estate
+				NEW_GOVERNMENT_TYPE = celestial_government
+			}
+			change_government = celestial_government
+		}
+		else_if = { # Meritocratic Khanate
+			limit = {
+				trigger_if = {
+					limit = {
+						exists = scope:has_selected_a_government
+					}
+					# There's a separate decision to go from Nomad to Meritocratic Khanate, so you cannot pick it from here
+					always = no
+				}
+				trigger_else = {
+					scope:governor_liege = { government_has_flag = government_is_steppe_admin }
+				}
+			}
+			capital_province = {
+				if = {
+					limit = {
+						OR = {
+							has_holding_type = tribal_holding
+							has_holding_type = herder_holding
+							has_holding_type = nomad_holding
+						}
+					}
+					set_holding_type = castle_holding
+				}
+			}
+			tgp_domicile_conversion_when_changing_government_type = {
+				NEW_DOMICILE_TYPE = east_asian_estate
+				NEW_GOVERNMENT_TYPE = steppe_admin_government
+			}
+			change_government = steppe_admin_government
+		}
+		else_if = { # Meritocratic
+			limit = {
+				trigger_if = {
+					limit = {
+						exists = scope:has_selected_a_government
+					}
+					scope:has_selected_a_government = flag:meritocratic
+				}
+				trigger_else_if = {
+					limit = {
+						scope:governor_liege ?= this
+					}
+					has_tgp_dlc_trigger = yes
+					tgp_should_become_meritocratic_trigger = yes
+				}
+				trigger_else = {
+					scope:governor_liege = { government_has_flag = government_is_meritocratic }
+				}
+			}
+			capital_province = {
+				if = {
+					limit = {
+						OR = {
+							has_holding_type = tribal_holding
+							has_holding_type = herder_holding
+							has_holding_type = nomad_holding
+						}
+					}
+					set_holding_type = castle_holding
+				}
+			}
+			tgp_domicile_conversion_when_changing_government_type = {
+				NEW_DOMICILE_TYPE = east_asian_estate
+				NEW_GOVERNMENT_TYPE = meritocratic_government
+			}
+			change_government = meritocratic_government
+		}
+		else_if = { # Oligarchic - (LEGACY OF VALYRIA)
+			limit = { scope:governor_liege = { government_has_flag = government_is_oligarchic } }
+			capital_province = {
+				if = {
+					limit = {
+						OR = {
+							has_holding_type = tribal_holding
+							has_holding_type = herder_holding
+							has_holding_type = nomad_holding
+						}
+					}
+					set_holding_type = castle_holding
+				}
+			}
+			tgp_domicile_conversion_when_changing_government_type = {
+				NEW_DOMICILE_TYPE = estate
+				NEW_GOVERNMENT_TYPE = oligarchic_government
+			}
+			change_government = oligarchic_government
+		}
+		else = { # Administrative
+			capital_province = {
+				if = {
+					limit = {
+						OR = {
+							has_holding_type = tribal_holding
+							has_holding_type = herder_holding
+							has_holding_type = nomad_holding
+						}
+					}
+					set_holding_type = castle_holding
+				}
+			}
+			add_character_flag = new_government_is_byz_admin
+			tgp_domicile_conversion_when_changing_government_type = {
+				NEW_DOMICILE_TYPE = estate
+				NEW_GOVERNMENT_TYPE = administrative_government
+			}
+			change_government = administrative_government 
+			remove_character_flag = new_government_is_byz_admin
+		}
+	}
+	# Set up a noble family title
+	if = {
+		limit = {
+			primary_title.tier >= min_appointment_tier
+			liege = {
+				scope:governor_liege = this
+				government_allows = administrative
+			}
+			house.house_head = {
+				top_liege = scope:governor_liege
+				NOT = {
+					any_held_title = { is_noble_family_title = yes }
+				}
+			}
+		}
+		create_noble_family_effect = { GOVERNMENT_GIVER = top_liege }
+	}
+	# Add the governor trait if applicable
+	hidden_effect = {
+		if = {
+			limit = {
+				is_governor = yes
+				NOT = { has_trait = governor }
+			}
+			add_trait = governor
+		}
+	}
+	# Set up the domicile
+	if = {
+		limit = {
+			exists = scope:new_admin
+			exists = domicile
+		}
+		domicile ?= {
+			set_up_domicile_estate_effect = yes
+		}
+	}
+	if = {
+		limit = {
+			has_treasury = yes
+		}
+		add_treasury = {
+			value = gold
+			min = 100
+		}
+	}
+}
+
+# Overriden from 07_dlc_ep3_scripted_effects.txt
+create_noble_family_effect = {
+	if = {
+		limit = {
+			NOT = {
+				AND = {
+					has_game_rule = aawc_alt_world_enabled
+					OR = {
+						has_game_rule = aawc_aw_count_shattered_realms
+						has_game_rule = aawc_aw_duke_shattered_realms
+						has_game_rule = aawc_aw_king_shattered_realms
+						has_game_rule = aawc_aw_emperor_shattered_realms
+					}
+				}
+			}
+		}
+
+	debug_log = create_noble_family_title
+	save_scope_as = new_noble_family_holder
+	$GOVERNMENT_GIVER$ = { save_scope_as = government_giver }
+	hidden_effect = { # NF can only be held by house heads
+		if = { # Start by checking that we are not the house head already
+			limit = {
+				exists = house.house_head
+				NOT = { house.house_head = scope:new_noble_family_holder }
+			}
+			if = { # If not, let's see if it would be reasonable to become house head...
+				limit = {
+					house.house_head ?= {
+						is_ai = yes # Don't steal house head from a player
+						OR = {
+							# Within same realm but less important
+							AND = {
+								top_liege = scope:new_noble_family_holder.top_liege
+								OR = {
+									is_ruler = no
+									highest_held_title_tier < scope:new_noble_family_holder.highest_held_title_tier
+								}
+							}
+							# Wanderer
+							NOT = { exists = liege }
+						}
+					}
+				}
+				house = { set_house_head = scope:new_noble_family_holder }
+			}
+			else = { # ... Otherwise, we create a cadet branch
+				create_cadet_branch = {}
+			}
+		}
+	}
+	scope:government_giver = {
+		if = {
+			limit = {
+				scope:new_noble_family_holder = {
+					NOT = {
+						any_held_title = { is_noble_family_title = yes }
+					}
+				}
+			}
+			switch = {
+				trigger = has_government
+				japan_administrative_government = { # Japan has count level NFs
+					scope:new_noble_family_holder = {
+						give_noble_family_title = {
+							name = noble_family_name
+							tier = county
+							article = DEFAULT_TITLE_NAME_ARTICLE
+							government = japan_administrative_government
+							save_scope_as = new_title
+						}
+					}
+				}
+				japan_feudal_government = { # Japan has count level NFs
+					scope:new_noble_family_holder = {
+						give_noble_family_title = {
+							name = noble_family_name
+							tier = county
+							article = DEFAULT_TITLE_NAME_ARTICLE
+							government = japan_feudal_government
+							save_scope_as = new_title
+						}
+					}
+				}
+				celestial_government = { # China has different government
+					scope:new_noble_family_holder = {
+						give_noble_family_title = {
+							name = noble_family_name
+							tier = county
+							article = DEFAULT_TITLE_NAME_ARTICLE
+							government = celestial_government
+							save_scope_as = new_title
+						}
+						trigger_event = {
+							id = tgp_china_career.0001
+							days = { 2 5 }
+						}
+					}
+				}
+				meritocratic_government = { # Meritocratic has different government
+					scope:new_noble_family_holder = {
+						give_noble_family_title = {
+							name = noble_family_name
+							tier = county
+							article = DEFAULT_TITLE_NAME_ARTICLE
+							government = meritocratic_government
+							save_scope_as = new_title
+						}
+					}
+				}
+				steppe_admin_government = { # Steppe Admin has different government
+					scope:new_noble_family_holder = {
+						give_noble_family_title = {
+							name = noble_family_name
+							tier = county
+							article = DEFAULT_TITLE_NAME_ARTICLE
+							government = steppe_admin_government
+							save_scope_as = new_title
+						}
+					}
+				}
+				#LEGACY OF VALYRIA ADDED
+				oligarchic_government = {
+					scope:new_noble_family_holder = {
+						give_noble_family_title = {
+							name = noble_family_name
+							tier = county
+							article = DEFAULT_TITLE_NAME_ARTICLE
+							government = oligarchic_government
+							save_scope_as = new_title
+						}
+					}
+				}
+				fallback = {
+					scope:new_noble_family_holder = {
+						give_noble_family_title = {
+							name = noble_family_name
+							tier = duchy
+							article = DEFAULT_TITLE_NAME_ARTICLE
+							government = administrative_government
+							save_scope_as = new_title
+						}
+					}
+				}
+			}
+		}
+		scope:new_title.holder ?= {
+			save_scope_as = noble_family_head
+			scope:new_title = { set_coa = scope:noble_family_head.house }
+		}
+		custom_description = { text = create_noble_family_tt }
+
+		#Notifications
+		every_player = {
+			limit = {
+				top_liege = scope:new_noble_family_holder.top_liege
+				this != scope:new_noble_family_holder
+				# China has hundreds of Noble Families, it gets spammy
+				NOT = { government_allows = merit }
+			}
+			trigger_event = {
+				id = ep3_emperor_yearly.2410
+				days = 1
+			}
+		}
+	}
+
+	debug_log_scopes = yes
+	}
+}

@@ -1,0 +1,673 @@
+﻿# Expensive ! Should only be used once at game start
+E_kCAFG_setup_all_counties = {
+    debug_log = "Kei CAFG - Setup All Counties - Start"
+
+    set_global_variable = { name = kCAFG_total_counties_num value = 0 } # vanilla has 2438 as of 1.12.4
+    set_global_variable = { name = kCAFG_total_provinces_num value = 0 } # vanilla has 8576 as of 1.12.4
+
+    hidden_effect = {
+        every_county = {
+            change_global_variable = { name = kCAFG_total_counties_num add = 1 }
+            E_kCAFG_setup_county = yes
+        }
+        # In case there was a change (we do it after to prevent this effect from altering the setup)
+        # every_county = {
+        #     E_kCAFG_update_county_cultures_list = yes
+        #     E_kCAFG_update_county_culture = { REASON = flag:kCAFG_default_reason }
+        #     E_kCAFG_update_county_faiths_list = yes
+        #     E_kCAFG_update_county_faith = { REASON = flag:kCAFG_default_reason }
+        # }
+        E_kCAFG_setup_all_holy_sites_counties = yes
+    }
+    
+    debug_log = "Kei CAFG - Setup All Counties - End"
+}
+
+E_kCAFG_setup_county = {
+    E_kCAFG_clear_all_county_faiths = yes
+    E_kCAFG_clear_all_county_cultures = yes
+    E_kCAFG_setup_default_county_provinces_faith = yes
+    E_kCAFG_setup_default_county_provinces_culture = yes
+
+    every_county_province = {
+        change_global_variable = { name = kCAFG_total_provinces_num add = 1 }
+        if = {
+            limit = { NOT = { has_game_rule = kCAFG_natural_culture_evolution_none } }
+            set_variable = {
+                name = kCAFG_natural_culture_evolution_progress
+                value = 0
+            }
+        }
+
+        if = {
+            limit = { NOT = { has_game_rule = kCAFG_natural_faith_evolution_none } }
+            set_variable = {
+                name = kCAFG_natural_faith_evolution_progress
+                value = 0
+            }
+        }
+
+        E_kCAFG_setup_province = yes
+    }
+
+    E_kCAFG_update_county_cultures_list = yes
+    E_kCAFG_update_county_faiths_list = yes
+}
+
+E_kCAFG_setup_province = {
+    save_temporary_scope_as = province_to_setup
+    clear_global_variable_list = tmp_visited_provinces
+    add_to_global_variable_list = { name = tmp_visited_provinces target = this }
+    #debug_log = "-- Evaluating [THIS.Province.GetNameNoTooltip] ([THIS.Province.GetID]) --"
+
+    ## Basic province neighbours setup (2 levels deep)
+    # Direct neighbours
+    every_neighboring_province = {
+
+        if = { 
+            limit = {
+                is_sea_province = no
+                exists = county
+                NOT = { is_target_in_global_variable_list = { name = tmp_visited_provinces target = this } }
+            }
+            add_to_global_variable_list = { name = tmp_visited_provinces target = this }
+        }
+
+        every_neighboring_province = {
+            if = {
+                limit = {
+                    is_sea_province = yes
+                }
+
+                # Sea goes even further
+                every_neighboring_province = {
+                    limit = {
+                        exists = county
+                        is_sea_province = no
+                        NOT = { is_target_in_global_variable_list = { name = tmp_visited_provinces target = this } }
+                    }
+                    add_to_global_variable_list = { name = tmp_visited_provinces target = this }
+                }
+            }
+            else = {
+                if = {
+                    limit = {
+                        exists = county
+                        NOT = { is_target_in_global_variable_list = { name = tmp_visited_provinces target = this } }
+                    }
+                }
+
+                add_to_global_variable_list = { name = tmp_visited_provinces target = this }
+            }
+
+        }
+    }
+
+    # Cleanup and distance variable setup
+    every_in_global_list = {
+        variable = tmp_visited_provinces
+        if = {
+            limit = { NOT = { exists = county } }
+            remove_list_global_variable = { name = tmp_visited_provinces target = this }
+        }
+        else = {
+            # cache value
+            set_variable = {
+                name = kCAFG_tmp_distance_factor
+                value = {
+                    value = "this.squared_distance(scope:province_to_setup)"
+                    divide = squared_distance_medium
+                    min = 0
+                }
+            }
+            if = {
+                limit = { var:kCAFG_tmp_distance_factor >= 1 }
+                remove_variable = kCAFG_tmp_distance_factor
+                remove_list_global_variable = { name = tmp_visited_provinces target = this }
+            }
+            else = {
+                # Ease in Quad
+                # set_variable = {
+                #     name = kCAFG_tmp_distance_factor
+                #     value = {
+                #         value = var:kCAFG_tmp_distance_factor
+                #         multiply = var:kCAFG_tmp_distance_factor
+                #     }
+                # }
+                # Ease in Quart
+                # set_variable = {
+                #     name = kCAFG_tmp_distance_factor
+                #     value = {
+                #         value = var:kCAFG_tmp_distance_factor
+                #         multiply = var:kCAFG_tmp_distance_factor
+                #         multiply = var:kCAFG_tmp_distance_factor
+                #         multiply = var:kCAFG_tmp_distance_factor
+                #     }
+                # }
+                # Ease out Quad
+                set_variable = {
+                    name = kCAFG_tmp_distance_factor
+                    value = {
+                        value = 1
+                        subtract = {
+                            value = 1
+                            subtract = var:kCAFG_tmp_distance_factor
+                            multiply = {
+                                value = 1
+                                subtract = var:kCAFG_tmp_distance_factor
+                            }
+                        }
+                        add = var:kCAFG_tmp_distance_factor
+                        divide = 2
+                        min = 0
+                        max = 1
+                    }
+                }
+            }
+        }
+    }
+
+    # Influences
+    clear_global_variable_list = tmp_visited_provinces_cultures
+    set_global_variable = { name = own_culture_influence value = 1 }
+    set_global_variable = { name = other_cultures_influence value = 0 }
+
+    clear_global_variable_list = tmp_visited_provinces_faiths
+    set_global_variable = { name = own_faith_influence value = 1 }
+    set_global_variable = { name = other_faiths_influence value = 0 }
+
+    remove_list_global_variable = { name = tmp_visited_provinces target = this }
+    every_in_global_list = {
+        variable = tmp_visited_provinces
+
+        if = {
+            limit = {
+                county.culture = scope:province_to_setup.county.culture
+            }
+
+            change_global_variable = {
+                name = own_culture_influence
+                add = {
+                    value = 1
+                    subtract = var:kCAFG_tmp_distance_factor
+                    min = 0
+                }
+            }
+        }
+        else = {
+            if = { 
+                limit = {
+                    NOT = { is_target_in_global_variable_list = { name = tmp_visited_provinces_cultures target = county.culture } }
+                }
+                add_to_global_variable_list = { name = tmp_visited_provinces_cultures target = county.culture }
+            }
+
+            change_global_variable = {
+                name = other_cultures_influence
+                add = {
+                    value = 1
+                    subtract = var:kCAFG_tmp_distance_factor
+                    min = 0
+                }
+            }
+        }
+
+        if = {
+            limit = {
+                county.faith = scope:province_to_setup.county.faith
+            }
+
+            change_global_variable = {
+                name = own_faith_influence
+                add = {
+                    value = 1
+                    subtract = var:kCAFG_tmp_distance_factor
+                    min = 0
+                }
+            }
+        }
+        else = {
+            if = { 
+                limit = {
+                    NOT = { is_target_in_global_variable_list = { name = tmp_visited_provinces_faiths target = county.faith } }
+                }
+                add_to_global_variable_list = { name = tmp_visited_provinces_faiths target = county.faith }
+            }
+
+            change_global_variable = {
+                name = other_faiths_influence
+                add = {
+                    value = 1
+                    subtract = var:kCAFG_tmp_distance_factor
+                    min = 0
+                }
+            }
+        }
+    }
+
+    if = {
+        limit = {
+            has_global_variable = own_culture_influence
+            has_global_variable = other_cultures_influence
+            OR = {
+                global_var:other_cultures_influence > 0
+                global_var:own_culture_influence > 0
+            }
+        }
+        set_global_variable = {
+            name = culture_influence_factor
+            value = {
+                value = global_var:other_cultures_influence
+                divide = {
+                    value = global_var:own_culture_influence
+                    add = global_var:other_cultures_influence
+                }
+                divide = {
+                    value = 0
+                    every_in_global_list = {
+                        variable = tmp_visited_provinces
+                        add = 1
+                    }
+                    min = 1
+                }
+            }
+        }
+    }
+    else = {
+        set_global_variable = {
+            name = culture_influence_factor
+            value = 1
+        }
+    }
+
+    if = {
+        limit = {
+            has_global_variable = own_faith_influence
+            has_global_variable = other_faiths_influence
+            OR = {
+                global_var:other_faiths_influence > 0
+                global_var:own_faith_influence > 0
+            }
+        }
+        set_global_variable = {
+            name = faith_influence_factor
+            value = {
+                value = global_var:other_faiths_influence
+                divide = {
+                    value = global_var:own_faith_influence
+                    add = global_var:other_faiths_influence
+                }
+                divide = {
+                    value = 0
+                    every_in_global_list = {
+                        variable = tmp_visited_provinces
+                        add = 1
+                    }
+                    min = 1
+                }
+            }
+        }
+    }
+    else = {
+        set_global_variable = {
+            name = faith_influence_factor
+            value = 1
+        }
+    }
+    
+    # debug_log = "- Cultures Influence -"
+    # debug_log = "Own Influence : [GetGlobalVariable('own_culture_influence').GetValue]"
+    # debug_log = "Others Influence : [GetGlobalVariable('other_cultures_influence').GetValue]"
+    # debug_log = "Final Foreign Factor : [GetGlobalVariable('culture_influence_factor').GetValue]"
+    # debug_log = "- Cultures Found -"
+    # every_in_global_list = {
+    #     variable = tmp_visited_provinces_cultures
+
+    #     debug_log = "Culture [THIS.Culture.GetNameNoTooltip]"
+    # }
+
+    #debug_log = "- Faiths Influence -"
+    # debug_log = "Own Influence : [GetGlobalVariable('own_faith_influence').GetValue]"
+    # debug_log = "Others Influence : [GetGlobalVariable('other_faiths_influence').GetValue]"
+    #debug_log = "Final Foreign Factor : [GetGlobalVariable('faith_influence_factor').GetValue]"
+    # debug_log = "- Faiths Found -"
+    # every_in_global_list = {
+    #     variable = tmp_visited_provinces_faiths
+
+    #     debug_log = "Faith [THIS.Faith.GetNameNoTooltip]"
+    # }
+
+    # debug_log = "- Provinces Visited -"
+    # every_in_global_list = {
+    #     variable = tmp_visited_provinces
+
+    #     debug_log = "Visited [THIS.Province.GetNameNoTooltip] ([THIS.Province.GetID]) - Distance: [THIS.Province.MakeScope.Var('kCAFG_tmp_distance_factor').GetValue]"
+    # }
+
+    # Convert Faiths
+    save_temporary_scope_as = kCAFG_converted_province # used by V_kCAFG_province_faith_setup_mult
+    every_in_global_list = {
+        variable = tmp_visited_provinces_faiths
+        set_global_variable = { name = kCAFG_tmp_faith_factor value = 0 }
+        save_temporary_scope_as = kCAFG_converting_faith # also used by V_kCAFG_province_faith_setup_mult
+        scope:province_to_setup.county.faith = { save_temporary_scope_as = kCAFG_converted_faith } # used by V_kCAFG_province_faith_setup_mult
+        scope:province_to_setup.county.culture = { save_temporary_scope_as = kCAFG_converted_culture } # used by V_kCAFG_province_faith_setup_mult
+
+        #debug_log = "-- Faith [THIS.Faith.GetNameNoTooltip] --"
+        every_in_global_list = {
+            limit = { faith = prev }
+            variable = tmp_visited_provinces
+
+            #debug_log = "       Visited [THIS.Province.GetNameNoTooltip] ([THIS.Province.GetID]) - Distance: [THIS.Province.MakeScope.Var('kCAFG_tmp_distance_factor').GetValue]"
+
+            change_global_variable = {
+                name = kCAFG_tmp_faith_factor
+                add = {
+                    value = V_kCAFG_setup_neighbour_influence_factor
+                    multiply = var:kCAFG_tmp_distance_factor
+                    if = {
+                        limit = { scope:province_to_setup.V_kCAFG_province_values_setup_scale > 0 }
+                        # Ratio between the two provinces absolute values (e.g. their population)
+                        multiply = {
+                            value = V_kCAFG_province_values_setup_scale
+                            divide = scope:province_to_setup.V_kCAFG_province_values_setup_scale
+                        }
+                    }
+                    min = 0
+                }
+            }
+            
+            #debug_log = "       Faith Convert Factor : [GetGlobalVariable('kCAFG_tmp_faith_factor').GetValue] --"
+        }
+
+        set_global_variable = {
+            name = kCAFG_tmp_faith_factor
+            value = {
+                value = global_var:kCAFG_tmp_faith_factor
+                multiply = scope:kCAFG_converting_faith.V_kCAFG_province_faith_setup_mult
+                multiply = { 0.85 1.15 } # Randomize a bit
+                multiply = global_var:faith_influence_factor
+            }
+        }
+
+        if = {
+            limit = { global_var:kCAFG_tmp_faith_factor >= V_kCAFG_absorption_threshold }
+
+            #debug_log = "Faith Convert Factor : [GetGlobalVariable('kCAFG_tmp_faith_factor').GetValue] --"
+
+            scope:province_to_setup = {
+                E_kCAFG_convert_province_faith_factor = {
+                    SOURCE = scope:province_to_setup.county.faith
+                    TARGET = scope:kCAFG_converting_faith
+                    FACTOR = global_var:kCAFG_tmp_faith_factor
+                }
+                # County is updated after
+            }
+        }
+
+        remove_global_variable = kCAFG_tmp_faith_factor
+    }
+
+    # Convert Cultures
+    save_temporary_scope_as = kCAFG_converted_province # used by V_kCAFG_province_culture_setup_mult
+    every_in_global_list = {
+        variable = tmp_visited_provinces_cultures
+        set_global_variable = { name = kCAFG_tmp_culture_factor value = 0 }
+        save_temporary_scope_as = kCAFG_converting_culture # also used by V_kCAFG_province_culture_setup_mult
+        scope:province_to_setup.county.culture = { save_temporary_scope_as = kCAFG_converted_culture } # used by V_kCAFG_province_culture_setup_mult
+        scope:province_to_setup.county.faith = { save_temporary_scope_as = kCAFG_converted_faith } # used by V_kCAFG_province_culture_setup_mult
+
+        #debug_log = "-- Culture [THIS.Culture.GetNameNoTooltip] --"
+        every_in_global_list = {
+            limit = { culture = prev }
+            variable = tmp_visited_provinces
+
+            #debug_log = "       Visited [THIS.Province.GetNameNoTooltip] ([THIS.Province.GetID]) - Distance: [THIS.Province.MakeScope.Var('kCAFG_tmp_distance_factor').GetValue]"
+
+            change_global_variable = {
+                name = kCAFG_tmp_culture_factor
+                add = {
+                    value = V_kCAFG_setup_neighbour_influence_factor
+                    multiply = var:kCAFG_tmp_distance_factor
+                    if = {
+                        limit = { scope:province_to_setup.V_kCAFG_province_values_setup_scale > 0 }
+                        # Ratio between the two provinces absolute values (e.g. their population)
+                        multiply = {
+                            value = V_kCAFG_province_values_setup_scale
+                            divide = scope:province_to_setup.V_kCAFG_province_values_setup_scale
+                        }
+                    }
+                    min = 0
+                }
+            }
+
+            #debug_log = "       Culture Convert Factor : [GetGlobalVariable('kCAFG_tmp_culture_factor').GetValue] --"
+        }
+
+        set_global_variable = {
+            name = kCAFG_tmp_culture_factor
+            value = {
+                value = global_var:kCAFG_tmp_culture_factor
+                multiply = scope:kCAFG_converting_culture.V_kCAFG_province_culture_setup_mult
+                multiply = { 0.85 1.15 } # Randomize a bit
+                multiply = global_var:culture_influence_factor
+            }
+        }
+
+        if = {
+            limit = { global_var:kCAFG_tmp_culture_factor >= V_kCAFG_absorption_threshold }
+
+            #debug_log = "Culture Convert Factor : [GetGlobalVariable('kCAFG_tmp_culture_factor').GetValue] --"
+
+            scope:province_to_setup = {
+                E_kCAFG_convert_province_culture_factor = {
+                    SOURCE = scope:province_to_setup.county.culture
+                    TARGET = scope:kCAFG_converting_culture
+                    FACTOR = global_var:kCAFG_tmp_culture_factor
+                }
+                # County is updated after
+            }
+        }
+
+        remove_global_variable = kCAFG_tmp_culture_factor
+    }
+
+    clear_global_variable_list = tmp_visited_provinces
+    clear_global_variable_list = tmp_visited_provinces_cultures
+    clear_global_variable_list = tmp_visited_provinces_faiths
+
+    remove_global_variable = own_culture_influence
+    remove_global_variable = other_cultures_influence
+    remove_global_variable = culture_influence_factor
+    remove_global_variable = own_faith_influence
+    remove_global_variable = other_faiths_influence
+    remove_global_variable = faith_influence_factor
+
+    ## Tensions
+    set_global_variable = kCAFG_ignore_tolerance_laws # For some reason the laws are wrongly evaluated when this part executes, so we ignore laws instead
+    E_kCAFG_update_province_target_culture_tension = yes
+    if = {
+        limit = { NOT = { has_variable = kCAFG_target_culture_tension } }
+        set_variable = {
+            name = kCAFG_target_culture_tension
+            value = 0
+        }
+    }
+    set_variable = {
+        name = kCAFG_culture_tension
+        value = {
+            value = var:kCAFG_target_culture_tension
+            # Randomize a bit
+            multiply = { 0.95 1.05 }
+            add = {
+                integer_range = { min = -3 max = 3 }
+                divide = 100
+            }
+            min = 0
+            max = 1
+        }
+    }
+    E_kCAFG_on_province_culture_tension_updated = yes
+    
+    E_kCAFG_update_province_target_faith_tension = yes
+    if = {
+        limit = { NOT = { has_variable = kCAFG_target_faith_tension } }
+        set_variable = {
+            name = kCAFG_target_faith_tension
+            value = 0
+        }
+    }
+    set_variable = {
+        name = kCAFG_faith_tension
+        value = {
+            value = var:kCAFG_target_faith_tension
+            # Randomize a bit
+            multiply = { 0.95 1.05 }
+            add = {
+                integer_range = { min = -3 max = 3 }
+                divide = 100
+            }
+            min = 0
+            max = 1
+        }
+    }
+    E_kCAFG_on_province_faith_tension_updated = yes
+    remove_global_variable = kCAFG_ignore_tolerance_laws
+}
+
+E_kCAFG_setup_all_holy_sites_counties = {
+    # Holy sites
+    every_religion_global = {
+        every_faith = {
+            limit = {
+                num_county_followers >= 1
+                NOT = { has_doctrine = doctrine_pilgrimage_forbidden }
+            }
+            ##debug_log = "-- FAITH: [THIS.Faith.GetNameNoTooltip]"
+
+            save_temporary_scope_as = tested_faith
+            every_holy_site = {
+                limit = { county.faith != scope:tested_faith }
+                title_province = {
+                    save_temporary_scope_as = kCAFG_converted_province # used by kCAFG_religions_values
+                    county.faith = { save_temporary_scope_as = kCAFG_converted_faith } # used by kCAFG_religions_values
+                    county.culture = { save_temporary_scope_as = kCAFG_converted_culture } # used by kCAFG_religions_values
+                    save_temporary_scope_value_as = {
+                        name = tmp_factor
+                        value = {
+                            if = {
+                                limit = { scope:tested_faith.num_county_followers <= V_kCAFG_world_counties_small_amount }
+                                add = {
+                                    value = scope:tested_faith.num_county_followers
+                                    divide = V_kCAFG_world_counties_small_amount
+                                }
+                            }
+                            else_if = {
+                                limit = { scope:tested_faith.num_county_followers <= V_kCAFG_world_counties_large_amount }
+                                add = 1
+                                add = {
+                                    value = scope:tested_faith.num_county_followers
+                                    subtract = V_kCAFG_world_counties_small_amount
+                                    divide = {
+                                        value = V_kCAFG_world_counties_large_amount
+                                        subtract = V_kCAFG_world_counties_small_amount
+                                    }
+                                }
+                            }
+                            else_if = {
+                                limit = { scope:tested_faith.num_county_followers <= V_kCAFG_world_counties_very_large_amount }
+                                add = 2
+                                add = {
+                                    value = scope:tested_faith.num_county_followers
+                                    subtract = V_kCAFG_world_counties_large_amount
+                                    divide = {
+                                        value = V_kCAFG_world_counties_very_large_amount
+                                        subtract = V_kCAFG_world_counties_large_amount
+                                    }
+                                }
+                            }
+                            else = {
+                                add = 3
+                            }
+
+                            divide = {
+                                value = 0
+                                if = {
+                                    limit = { county.faith.num_county_followers <= V_kCAFG_world_counties_small_amount }
+                                    add = {
+                                        value = county.faith.num_county_followers
+                                        divide = V_kCAFG_world_counties_small_amount
+                                    }
+                                }
+                                else_if = {
+                                    limit = { county.faith.num_county_followers <= V_kCAFG_world_counties_large_amount }
+                                    add = 1
+                                    add = {
+                                        value = county.faith.num_county_followers
+                                        subtract = V_kCAFG_world_counties_small_amount
+                                        divide = {
+                                            value = V_kCAFG_world_counties_large_amount
+                                            subtract = V_kCAFG_world_counties_small_amount
+                                        }
+                                    }
+                                }
+                                else_if = {
+                                    limit = { county.faith.num_county_followers <= V_kCAFG_world_counties_very_large_amount }
+                                    add = 2
+                                    add = {
+                                        value = county.faith.num_county_followers
+                                        subtract = V_kCAFG_world_counties_large_amount
+                                        divide = {
+                                            value = V_kCAFG_world_counties_very_large_amount
+                                            subtract = V_kCAFG_world_counties_large_amount
+                                        }
+                                    }
+                                }
+                                else = {
+                                    add = 3
+                                }
+                            }
+
+                            if = {
+                                limit = { scope:tested_faith.num_county_followers >= V_kCAFG_world_counties_larger_amount }
+                                min = 1
+                            }
+                            else = {
+                                min = 0
+                            }
+
+                            multiply = { 0.9 1.1 }
+
+                            if = {
+                                limit = { scope:tested_faith = { has_doctrine = doctrine_pilgrimage_mandatory } }
+                                multiply = 1.25
+                            }
+
+                            if = {
+                                limit = { has_holy_building = yes }
+                                multiply = 1.4
+                            }
+
+                            multiply = scope:tested_faith.V_kCAFG_province_faith_setup_mult
+                            multiply = V_kCAFG_county_setup_holy_site_followers_influence_factor
+                        }
+                    }
+
+                    if = {
+                        limit = { scope:tmp_factor >= V_kCAFG_absorption_threshold }
+
+                        #debug_log = "Holy Site Convert [THIS.Province.GetNameNoTooltip] from [THIS.Province.GetCounty.GetFaith.GetNameNoTooltip] with factor [THIS.Province.MakeScope.Var('tmp_factor').GetValue]"
+                        
+                        E_kCAFG_convert_province_faith_factor = {
+                            SOURCE = scope:kCAFG_converted_faith
+                            TARGET = scope:tested_faith
+                            FACTOR = scope:tmp_factor
+                        }
+
+                        E_kCAFG_update_province_target_faith_tension = yes
+                    }
+                }
+            }
+        }
+    }
+}

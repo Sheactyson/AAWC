@@ -1,0 +1,19 @@
+﻿# Scale applied to the county faith and culture effects (i.e. county population)
+# Should be equal to the sum of the provinces values (which should be at least 0)
+# Scope: county
+V_kCAFG_county_values_scale = {
+    every_county_province = { add = V_kCAFG_province_values_scale }
+    min = 1
+}
+
+V_kCAFG_presence_factor_color_R = {
+    value = 1.5
+}
+
+V_kCAFG_presence_factor_color_G = {
+    value = 127
+}
+
+V_kCAFG_presence_factor_color_B = {
+    value = 0
+}

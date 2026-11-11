@@ -1,0 +1,22 @@
+﻿l_english:
+crown_authority_1_effects: "$EFFECT_LIST_BULLET$#indent_newline:3 Can establish [tributaries|E]#!\n$EFFECT_LIST_BULLET$#indent_newline:3 Rulers can change between available Partition [succession_laws|E]#!\n$EFFECT_LIST_BULLET$[titles|E] can be revoked\n$EFFECT_LIST_BULLET$[vassals|E] can be retracted\n$EFFECT_LIST_BULLET$#indent_newline:3 Rulers can change between available [culture_tolerance_laws|E] and [faith_tolerance_laws|E]#!"
+crown_authority_2_effects: "$EFFECT_LIST_BULLET$#indent_newline:3 Rulers can change between all available [succession_laws|E]#!\n$EFFECT_LIST_BULLET$#indent_newline:3 [vassals|E] cannot wage [war|E] against other Vassals unless they use a [hook|E] on their [liege|E]#!\n$EFFECT_LIST_BULLET$#indent_newline:3 Vassals' [titles|E] cannot be inherited by Characters outside the [realm|E]#!\n$EFFECT_LIST_BULLET$#indent_newline:3 All Vassals who refuse Title revocation or Vassal retraction are considered [criminals|E]#!"
+imperial_bureaucracy_1_effects: "$EFFECT_LIST_BULLET$#indent_newline:3 Rulers can change between available Partition [succession_laws|E]#!\n$EFFECT_LIST_BULLET$[titles|E] can be revoked\n$EFFECT_LIST_BULLET$[vassals|E] can be retracted\n$EFFECT_LIST_BULLET$#indent_newline:3 Rulers can change between available [culture_tolerance_laws|E] and [faith_tolerance_laws|E]#!"
+imperial_bureaucracy_2_effects: "$EFFECT_LIST_BULLET$#indent_newline:3 Rulers can change between all available [succession_laws|E]#!\n$EFFECT_LIST_BULLET$#indent_newline:3 All Vassals who refuse Title revocation or Vassal retraction are considered [criminals|E]#!\n$EFFECT_LIST_BULLET$#high $demand_admin_interaction$#! cost is reduced\n$EFFECT_LIST_BULLET$#indent_newline:3 [vassals|E] have to use the same [Concept('culture_tolerance_law', 'Cultural')|E] and [Concept('faith_tolerance_law', 'Religious')|E] tolerance [laws|E] as their [liege|E]#!"
+tribal_authority_2_effects: "$EFFECT_LIST_BULLET$[titles|E] can be revoked\n$EFFECT_LIST_BULLET$[vassals|E] can be retracted\n$EFFECT_LIST_BULLET$#indent_newline:3 Rulers can change between available [culture_tolerance_laws|E] and [faith_tolerance_laws|E]#!"
+tribal_authority_3_effects: "$EFFECT_LIST_BULLET$#indent_newline:3 [independent|E] [tribal|E] rulers may settle, becoming [feudal|E] or [clan|E]#!\n$EFFECT_LIST_BULLET$#indent_newline:3 [vassals|E] have to use the same [Concept('culture_tolerance_law', 'Cultural')|E] and [Concept('faith_tolerance_law', 'Religious')|E] tolerance [laws|E] as their [liege|E]#!"
+LAW_ENACT_EFFECT_HEADER: "\n#S When this law is passed:#!"
+SUCCESSION_LAW_CHANGE_WINDOW_TITLE: "Change Law"
+SUCCESSION_LAW_CHANGE_WINDOW_POWERFUL_VASSALS_DESC: "All Powerful Vassals must approve in order to change this Law"
+I_HAVE_POWERFUL_VASSAL_WITH_NEGATIVE_OPINION: "You have one or more [powerful_vassals|E] who have a negative opinion of you and are blocking any change to this [law|E]"
+SUCCESSION_LAW_CHANGE_WINDOW_POWERFUL_APPROVE_TT: "#T Approves Law Change#!\n[Character.GetShortUIName] supports, or at least cannot oppose this [law|E] change.\n\n[Character.GetSheHe|U] approves due to either:\n$BULLET_WITH_TAB$Having a positive [opinion|E] of you\n$BULLET_WITH_TAB$Being [cowed|E] by you\n$BULLET_WITH_TAB$Being [imprisoned|E] (by anyone)"
+SUCCESSION_LAW_CHANGE_WINDOW_POWERFUL_OPPOSE_TT: "#T Opposes Law Change#!\n[Character.GetShortUIName] will prevent this [law|E] change.\n\nIn order to approve, [Character.GetShortUIName] must either:\n$BULLET_WITH_TAB$Have a positive [opinion|E] of you\n$BULLET_WITH_TAB$Be [cowed|E] by you\n$BULLET_WITH_TAB$Be [imprisoned|E] (by anyone)"
+SUCCESSION_TITLE_LAW_WARNING: "@alert_icon! Any title with special [title_law|E] will take precedence over your realm [law|E]"
+
+
+# ADD_LAWS_TOOLTIP: "#T Add $game_concept_title_specific_succession$ Law"
+# game_concept_title_succession: "Title Law"
+# game_concept_title_specific_succession: "Title-Specific"
+# game_concept_title_succession_desc: "This [title|E] has its own [laws|E], different from that of the holder's [realm|E]."
+# TITLE_VIEW_TITLE_ADD_LAW_LABEL: "Add $game_concept_title_specific_succession$ Law"
+# TITLE_VIEW_TITLE_ADD_LAW_INFO: "Add a [title_specific_succession|E] [law|E] to [Title.GetName].\n\nThis $game_concept_law$ will only apply to this specific [title|E] and not affect any other $game_concept_titles$ in your [realm|E].\n\n[rulers|E] of at least [king|E]-[title_rank|E] may take the $adopt_special_succession_decision$ [decision|E] instead, if they have access to a cultural elective $game_concept_succession$."

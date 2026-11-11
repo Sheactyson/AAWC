@@ -1,0 +1,25 @@
+﻿vbox = {
+	name = "aawc_1103_culture_name_widget"
+	layoutpolicy_horizontal = expanding
+	margin = { 5 0 }
+	spacing = 10
+	minimumsize = { 220 -1 }
+	margin_right = 70
+	margin_left = -50
+
+	editbox_standard_with_label = {
+		layoutpolicy_horizontal = expanding
+		blockoverride "editbox_properties"
+		{
+			name = "enter_text"
+			ontextedited = "[EventWindowWidgetEnterText.OnEdit]"
+		}
+
+		blockoverride "editbox_label"
+		{
+			text = aawc_foundation_culture_name_prompt
+		}
+	}
+
+	expand = {}
+}

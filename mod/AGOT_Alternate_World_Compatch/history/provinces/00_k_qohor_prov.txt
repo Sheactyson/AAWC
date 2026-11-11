@@ -1,0 +1,926 @@
+﻿#################### b_darkwood_magisterium ####################
+############### c_foresters_quarter - d_qohor ###############
+
+#################### b_blackened_foundry ####################
+############### c_foresters_quarter - d_qohor ###############
+
+#################### b_sanguine_pyramid ####################
+############### c_foresters_quarter - d_qohor ###############
+
+#################### b_axemans_gate ####################
+############### c_foresters_quarter - d_qohor ###############
+
+#################### b_silverhorn ####################
+############### c_artisans_quarter - d_qohor ###############
+
+#################### b_lashport ####################
+############### c_artisans_quarter - d_qohor ###############
+
+#################### b_buckforge ####################
+############### c_hunters_quarter - d_qohor ###############
+
+#################### b_crimson_steps ####################
+############### c_hunters_quarter - d_qohor ###############
+
+#################### b_brokers_gate ####################
+############### c_hunters_quarter - d_qohor ###############
+
+################### b_ajghembar ####################
+########### c_ajghembar - d_lumber_road ###########
+
+################### b_hunjeyon ####################
+########### c_ajghembar - d_lumber_road ###########
+
+################### b_edhirjennon ####################
+########### c_ajghembar - d_lumber_road ###########
+
+################### b_elvajogu ####################
+########### c_ajghembar - d_lumber_road ###########
+
+################### b_negastrer ####################
+########### c_ajghembar - d_lumber_road ###########
+
+################### b_giltwelba ####################
+########### c_ajghembar - d_lumber_road ###########
+
+################### b_qasheghjenis ####################
+########### c_ajghembar - d_lumber_road ###########
+
+################### b_goatswood ####################
+########### c_goatswood - d_lumber_road ###########
+
+################### b_gajewemes ####################
+########### c_goatswood - d_lumber_road ###########
+
+################### b_jodhegires ####################
+########### c_goatswood - d_lumber_road ###########
+
+################### b_rosgur ####################
+########### c_goatswood - d_lumber_road ###########
+
+################### b_sebhagho ####################
+########### c_goatswood - d_lumber_road ###########
+
+################### b_qask ####################
+########### c_goatswood - d_lumber_road ###########
+
+################### b_op_glogjestiri ####################
+########### c_op_glogjestiri - d_lumber_road ###########
+
+################### b_noje ####################
+########### c_op_glogjestiri - d_lumber_road ###########
+
+################### b_bogabel ####################
+########### c_op_glogjestiri - d_lumber_road ###########
+
+################### b_ruptwerzer ####################
+########### c_op_glogjestiri - d_lumber_road ###########
+
+################### b_gomesarik ####################
+########### c_op_glogjestiri - d_lumber_road ###########
+
+################### b_sablewood ####################
+########### c_sablewood - d_lumber_road ###########
+
+################### b_meresagho ####################
+########### c_sablewood - d_lumber_road ###########
+
+################### b_mikshik ####################
+########### c_sablewood - d_lumber_road ###########
+
+################### b_hojejas ####################
+########### c_sablewood - d_lumber_road ###########
+
+################### b_jehonges ####################
+########### c_sablewood - d_lumber_road ###########
+
+################### b_ebhujajedwes ####################
+########### c_sablewood - d_lumber_road ###########
+
+################### b_hornguard ####################
+########### c_hornguard - d_sentinel_woods ###########
+
+################### b_harror ####################
+########### c_hornguard - d_sentinel_woods ###########
+
+################### b_swengotja ####################
+########### c_hornguard - d_sentinel_woods ###########
+
+################### b_brabhaghea ####################
+########### c_hornguard - d_sentinel_woods ###########
+
+################### b_egmalbron ####################
+########### c_hornguard - d_sentinel_woods ###########
+
+################### b_grojjenkos ####################
+########### c_grojjenkos - d_sentinel_woods ###########
+
+################### b_onyx_shore ####################
+########### c_grojjenkos - d_sentinel_woods ###########
+
+################### b_gyilmer ####################
+########### c_grojjenkos - d_sentinel_woods ###########
+
+################### b_edhroyo ####################
+########### c_grojjenkos - d_sentinel_woods ###########
+
+################### b_erdobhus ####################
+########### c_grojjenkos - d_sentinel_woods ###########
+
+################### b_bagyiri  ####################
+########### c_grojjenkos - d_sentinel_woods ###########
+
+################### b_rigenirswes ####################
+########## c_rigenirswes - d_sentinel_woods ###########
+
+################### b_oregho ####################
+########## c_rigenirswes - d_sentinel_woods ###########
+
+################### b_rush_bett ####################
+########## c_rigenirswes - d_sentinel_woods ###########
+
+################### b_ogyigazma ####################
+########## c_rigenirswes - d_sentinel_woods ###########
+
+################### b_medhemagho ####################
+########## c_rigenirswes - d_sentinel_woods ###########
+
+################### b_edhrorus ####################
+########## c_edhrorus - d_sentinel_woods ###########
+
+################### b_gyiheyvos ####################
+########## c_edhrorus - d_sentinel_woods ###########
+
+################### b_andayo ####################
+########## c_edhrorus - d_sentinel_woods ###########
+
+################### b_marnimir ####################
+########## c_edhrorus - d_sentinel_woods ###########
+
+################### b_azandur ####################
+########## c_edhrorus - d_sentinel_woods ###########
+
+################### b_biraghos_mar ####################
+########## c_edhrorus - d_sentinel_woods ###########
+
+################### b_ebony_lake ####################
+########## c_ebony_lake - d_nazejan ###########
+
+################### b_banihokton ####################
+########## c_ebony_lake - d_nazejan ###########
+
+################### b_iresbar ####################
+########## c_ebony_lake - d_nazejan ###########
+
+################### b_gabhabhar ####################
+########## c_ebony_lake - d_nazejan ###########
+
+################### b_gajebhar ####################
+########## c_ebony_lake - d_nazejan ###########
+
+################### b_gosibhar ####################
+########## c_ebony_lake - d_nazejan ###########
+
+################### b_harjjer ####################
+########## c_ebony_lake - d_nazejan ###########
+
+################### b_ojepnon ####################
+########## c_ojepnon - d_nazejan ###########
+
+################### b_aktorekshegqiri ####################
+########## c_ojepnon - d_nazejan ###########
+
+################### b_bigajelmo ####################
+########## c_ojepnon - d_nazejan ###########
+
+################### b_bolmortus ####################
+########## c_ojepnon - d_nazejan ###########
+
+################### b_bugagqohor ####################
+########## c_ojepnon - d_nazejan ###########
+
+################### b_vaervjer ####################
+########## c_ojepnon - d_nazejan ###########
+
+################### b_jet_streams ####################
+########## c_jet_streams - d_nazejan ###########
+
+################### b_serhirandis ####################
+########## c_jet_streams - d_nazejan ###########
+
+################### b_pagashen ####################
+########## c_jet_streams - d_nazejan ###########
+
+################### b_qoberajt ####################
+########## c_jet_streams - d_nazejan ###########
+
+################### b_peobu ####################
+########## c_jet_streams - d_nazejan ###########
+
+################### b_sontaenis ####################
+########## c_sontaenis - d_nazejan ###########
+
+################### b_dwehaertores ####################
+########## c_sontaenis - d_nazejan ###########
+
+################### b_dagonon ####################
+########## c_sontaenis - d_nazejan ###########
+
+################### b_darot ####################
+########## c_sontaenis - d_nazejan ###########
+
+################### b_stogjedon ####################
+########## c_sontaenis - d_nazejan ###########
+
+################### b_sajngeris ####################
+########## c_sontaenis - d_nazejan ###########
+
+################### b_sasanae ####################
+########## c_sontaenis - d_nazejan ###########
+
+################### b_lemer ####################
+########## c_lemer - d_storskupsqoa ###########
+
+################### b_sarek ####################
+########## c_lemer - d_storskupsqoa ###########
+
+################### b_dweridhoni ####################
+########## c_lemer - d_storskupsqoa ###########
+
+################### b_gosagqelbar ####################
+########## c_lemer - d_storskupsqoa ###########
+
+################### b_edhayqelbar ####################
+########## c_lemer - d_storskupsqoa ###########
+
+################### b_abrhu ####################
+########## c_lemer - d_storskupsqoa ###########
+
+################### b_bedirbleno ####################
+########## c_bedirbleno - d_storskupsqoa ###########
+
+################### b_aepmobhun ####################
+########## c_bedirbleno - d_storskupsqoa ###########
+
+################### b_joghekvo ####################
+########## c_bedirbleno - d_storskupsqoa ###########
+
+################### b_sentusajepto ####################
+########## c_bedirbleno - d_storskupsqoa ###########
+
+################### b_aurions_descent ####################
+########## c_aurions_descent - d_storskupsqoa ###########
+
+################### b_dibvesqors ####################
+########## c_aurions_descent - d_storskupsqoa ###########
+
+################### b_fespezayo ####################
+########## c_aurions_descent - d_storskupsqoa ###########
+
+################### b_mers ####################
+########## c_aurions_descent - d_storskupsqoa ###########
+
+################### b_tudhip ####################
+########## c_aurions_descent - d_storskupsqoa ###########
+
+################### b_poyanna ####################
+########## c_poyanna - d_storskupsqoa ###########
+
+################### b_musmame ####################
+########## c_poyanna - d_storskupsqoa ###########
+
+################### b_bajmyizyo ####################
+########## c_poyanna - d_storskupsqoa ###########
+
+################### b_rhaz ####################
+########## c_poyanna - d_storskupsqoa ###########
+
+################### b_mummers_muster ###################
+########## c_poyanna - d_storskupsqoa ###########
+
+################### b_sqabho ###################
+########## c_poyanna - d_storskupsqoa ###########
+
+################### b_ziruspakto ###################
+########## c_ziruspakto - d_ziruspakto ###########
+
+################### b_hifge ###################
+########## c_ziruspakto - d_ziruspakto ###########
+
+################### b_hoz ###################
+########## c_ziruspakto - d_ziruspakto ###########
+
+################### b_ogik ###################
+########## c_ziruspakto - d_ziruspakto ###########
+
+################### b_zeshkavge ###################
+########## c_ziruspakto - d_ziruspakto ###########
+
+################### b_pajedmaz ###################
+########## c_ziruspakto - d_ziruspakto ###########
+
+################### b_ineghabi ###################
+########## c_ziruspakto - d_ziruspakto ###########
+
+################### b_dwekswevne ###################
+########## c_ziruspakto - d_ziruspakto ###########
+
+################### b_orsorsfu ###################
+########## c_bleno_hobhris - d_ziruspakto ###########
+
+################### b_ajks ###################
+########## c_bleno_hobhris - d_ziruspakto ###########
+
+################### b_dakmjefzun ###################
+########## c_bleno_hobhris - d_ziruspakto ###########
+
+################### b_borvo ###################
+########## c_bleno_hobhris - d_ziruspakto ###########
+
+################### b_bleno_hobhris ###################
+########## c_bleno_hobhris - d_ziruspakto ###########
+
+################### b_idon ###################
+########## c_bleno_hobhris - d_ziruspakto ###########
+
+################### b_gukyem ###################
+########## c_bleno_hobhris - d_ziruspakto ###########
+
+################### b_qogsosnon ###################
+########## c_qogsosnon - d_ziruspakto ###########
+
+################### b_lis ###################
+########## c_qogsosnon - d_ziruspakto ###########
+
+################### b_jagjebaj ###################
+########## c_qogsosnon - d_ziruspakto ###########
+
+################### b_ivaez ###################
+########## c_qogsosnon - d_ziruspakto ###########
+
+################### b_unnu ###################
+########## c_qogsosnon - d_ziruspakto ###########
+
+################### b_yebin ###################
+########## c_qogsosnon - d_ziruspakto ###########
+
+################### b_oz ###################
+########## c_qogsosnon - d_ziruspakto ###########
+
+################### b_haghgarso ###################
+########## c_haghgarso - d_rhoskiyun ###########
+
+################### b_medheyiz ###################
+########## c_haghgarso - d_rhoskiyun ###########
+
+################### b_ajgfungo ###################
+########## c_haghgarso - d_rhoskiyun ###########
+
+################### b_ighsta ###################
+########## c_haghgarso - d_rhoskiyun ###########
+
+################### b_zighvet ###################
+########## c_haghgarso - d_rhoskiyun ###########
+
+################### b_dufhohau ###################
+########## c_haghgarso - d_rhoskiyun ###########
+
+################### b_lugedhar ###################
+########## c_lugedhar - d_rhoskiyun ###########
+
+################### b_nojjo ###################
+########## c_lugedhar - d_rhoskiyun ###########
+
+################### b_rhesyo ###################
+########## c_lugedhar - d_rhoskiyun ###########
+
+################### b_sam ###################
+########## c_lugedhar - d_rhoskiyun ###########
+
+################### b_turhidske ###################
+########## c_lugedhar - d_rhoskiyun ###########
+
+################### b_iye ###################
+########## c_lugedhar - d_rhoskiyun ###########
+
+################### b_nuzkorsyiks ###################
+########## c_nuzkorsyiks - d_rhoskiyun ###########
+
+################### b_obho ###################
+########## c_nuzkorsyiks - d_rhoskiyun ###########
+
+################### b_akvo ###################
+########## c_nuzkorsyiks - d_rhoskiyun ###########
+
+################### b_ers ###################
+########## c_nuzkorsyiks - d_rhoskiyun ###########
+
+################### b_qami ###################
+########## c_nuzkorsyiks - d_rhoskiyun ###########
+
+################### b_bubsanhoghshe ###################
+########## c_bubsanhoghshe - d_darkwash_watch ###########
+
+################### b_efozo ###################
+########## c_bubsanhoghshe - d_darkwash_watch ###########
+
+################### b_fabhrhiye ###################
+########## c_bubsanhoghshe - d_darkwash_watch ###########
+
+################### b_ghoz ###################
+########## c_bubsanhoghshe - d_darkwash_watch ###########
+
+################### b_rhel ###################
+########## c_bubsanhoghshe - d_darkwash_watch ###########
+
+################### b_rhebhippoa ###################
+########## c_rhebhippoa - d_darkwash_watch ###########
+
+################### b_ogoam ###################
+########## c_rhebhippoa - d_darkwash_watch ###########
+
+################### b_zuspegeks ###################
+########## c_rhebhippoa - d_darkwash_watch ###########
+
+################### b_shotteska ###################
+########## c_rhebhippoa - d_darkwash_watch ###########
+
+################### b_oor ###################
+########## c_rhebhippoa - d_darkwash_watch ###########
+
+################### b_lakzizsho ###################
+########## c_lakzizsho - d_darkwash_watch ###########
+
+################### b_pajem ###################
+########## c_lakzizsho - d_darkwash_watch ###########
+
+################### b_dot ###################
+########## c_lakzizsho - d_darkwash_watch ###########
+
+################### b_keumez ###################
+########## c_lakzizsho - d_darkwash_watch ###########
+
+################### b_hesqe ###################
+########## c_lakzizsho - d_darkwash_watch ###########
+
+################### b_miske ###################
+########## c_lakzizsho - d_darkwash_watch ###########
+
+################### b_erodhunavar ###################
+########## b_erodhunavar - d_erodhunavar ###########
+
+################### b_bosvjeghos ###################
+########## b_erodhunavar - d_erodhunavar ###########
+
+################### b_fom ###################
+########## b_erodhunavar - d_erodhunavar ###########
+
+################### b_ghajs ###################
+########## b_erodhunavar - d_erodhunavar ###########
+
+################### b_metso ###################
+########## b_erodhunavar - d_erodhunavar ###########
+
+################### b_megzaye ###################
+########## b_erodhunavar - d_erodhunavar ###########
+
+################### b_ova ###################
+########## b_erodhunavar - d_erodhunavar ###########
+
+################### b_qafinvaom ###################
+########## c_scorched_bend - d_erodhunavar ###########
+
+################### b_nuyedhu ###################
+########## c_scorched_bend - d_erodhunavar ###########
+
+################### b_irar ###################
+########## c_scorched_bend - d_erodhunavar ###########
+
+################### b_rhazoafo ###################
+########## c_scorched_bend - d_erodhunavar ###########
+
+################### b_tishiha ###################
+########## c_scorched_bend - d_erodhunavar ###########
+
+################### b_skobuz ###################
+########## c_scorched_bend - d_erodhunavar ###########
+
+################### b_vermillion_forest ###################
+########## c_vermillion_forest - d_erodhunavar ###########
+
+################### b_voat ###################
+########## c_vermillion_forest - d_erodhunavar ###########
+
+################### b_valsweghhesham ###################
+########## c_vermillion_forest - d_erodhunavar ###########
+
+################### b_spoa ###################
+########## c_vermillion_forest - d_erodhunavar ###########
+
+################### b_ippe ###################
+########## c_vermillion_forest - d_erodhunavar ###########
+
+################### b_dudingha ###################
+########## c_vermillion_forest - d_erodhunavar ###########
+
+################### b_gqenedhar ###################
+########## c_gqenedhar - d_erodhunavar ###########
+
+################### b_aksaj ###################
+########## c_gqenedhar - d_erodhunavar ###########
+
+################### b_emtofki ###################
+########## c_gqenedhar - d_erodhunavar ###########
+
+################### b_osnip ###################
+########## c_gqenedhar - d_erodhunavar ###########
+
+################### b_ikdo ###################
+########## c_gqenedhar - d_erodhunavar ###########
+
+################### b_rhone ###################
+########## c_gqenedhar - d_erodhunavar ###########
+
+################### b_wrought_forest ###################
+########## c_wrought_forest - d_erodhunavar ###########
+
+################### b_obhasko ###################
+########## c_wrought_forest - d_erodhunavar ###########
+
+################### b_islu ###################
+########## c_wrought_forest - d_erodhunavar ###########
+
+################### b_sifrjekkat ###################
+########## c_wrought_forest - d_erodhunavar ###########
+
+################### b_zesilsi ###################
+########## c_zesilsi - d_grjevuros  ###########
+
+################### b_sebjodhru ###################
+########## c_zesilsi - d_grjevuros  ###########
+
+################### b_iksoa ###################
+########## c_zesilsi - d_grjevuros  ###########
+
+################### b_non ###################
+########## c_zesilsi - d_grjevuros  ###########
+
+################### b_ghodhan ###################
+########## c_zesilsi - d_grjevuros  ###########
+
+################### b_dashiz ###################
+########## c_zesilsi - d_grjevuros  ###########
+
+################### b_aojo ###################
+########## c_zesilsi - d_grjevuros  ###########
+
+################### b_arboreal_hold ###################
+########## c_rerskafspo - d_grjevuros  ###########
+
+################### b_mingo ###################
+########## c_rerskafspo - d_grjevuros  ###########
+
+################### b_gefi ###################
+########## c_rerskafspo - d_grjevuros  ###########
+
+################### b_onna ###################
+########## c_rerskafspo - d_grjevuros  ###########
+
+################### b_eppoo ###################
+########## c_rerskafspo - d_grjevuros  ###########
+
+################### b_joshdu ###################
+########## c_rerskafspo - d_grjevuros  ###########
+
+################### b_vadho ###################
+########## c_rerskafspo - d_grjevuros  ###########
+
+################### b_beyboljeno ###################
+########## c_beyboljeno - d_grjevuros  ###########
+
+################### b_apshu ###################
+########## c_beyboljeno - d_grjevuros  ###########
+
+################### b_leghtweghe ###################
+########## c_beyboljeno - d_grjevuros  ###########
+
+################### b_agegha ###################
+########## c_beyboljeno - d_grjevuros  ###########
+
+################### b_mirs ###################
+########## c_beyboljeno - d_grjevuros  ###########
+
+################### b_yunnud ###################
+########## c_beyboljeno - d_grjevuros  ###########
+
+################### b_rojn ###################
+########## c_beyboljeno - d_grjevuros  ###########
+
+################### b_toagyu ###################
+########## c_screamers_folly - d_grjevuros  ###########
+
+################### b_shegsaj ###################
+########## c_screamers_folly - d_grjevuros  ###########
+
+################### b_yasma ###################
+########## c_screamers_folly - d_grjevuros  ###########
+
+################### b_sho ###################
+########## c_screamers_folly - d_grjevuros  ###########
+
+################### b_yintirs ###################
+########## c_screamers_folly - d_grjevuros  ###########
+
+################### b_vuya ###################
+########## c_screamers_folly - d_grjevuros  ###########
+
+################### b_tabhajepto ###################
+########## c_tabhajepto - d_orsajks ##########
+
+################### b_raghagha ###################
+########## c_tabhajepto - d_orsajks ##########
+
+################### b_quniste ###################
+########## c_tabhajepto - d_orsajks ##########
+
+################### b_soniros ###################
+########## c_tabhajepto - d_orsajks ##########
+
+################### b_iyobvedsqus ###################
+########## c_tabhajepto - d_orsajks ##########
+
+################### b_yefpo ###################
+########## c_tabhajepto - d_orsajks ##########
+
+################### b_skam ###################
+########## c_tabhajepto - d_orsajks ##########
+
+################### b_skimagyibho ###################
+########## c_skimagyibho - d_orsajks ##########
+
+################### b_voazku ###################
+########## c_skimagyibho - d_orsajks ##########
+
+################### b_zon ###################
+########## c_skimagyibho - d_orsajks ##########
+
+################### b_burmulste ###################
+########## c_skimagyibho - d_orsajks ##########
+
+################### b_follo ###################
+########## c_skimagyibho - d_orsajks ##########
+
+################### b_bemyasfez ###################
+########## c_bemyasfez - d_orsajks ##########
+
+################### b_gibusqo ###################
+########## c_bemyasfez - d_orsajks ##########
+
+################### b_kes ###################
+########## c_bemyasfez - d_orsajks ##########
+
+################### b_ovoget ###################
+########## c_bemyasfez - d_orsajks ##########
+
+################### b_wisqaye ###################
+########## c_bemyasfez - d_orsajks ##########
+
+################### b_visidigoresayo ###################
+########## c_visidigoresayo - d_orsajks ##########
+
+################### b_ughinagaros ###################
+########## c_visidigoresayo - d_orsajks ##########
+
+################### b_vapshogmu ###################
+########## c_visidigoresayo - d_orsajks ##########
+
+################### b_iyu ###################
+########## c_visidigoresayo - d_orsajks ##########
+
+################### b_wigae ###################
+########## c_visidigoresayo - d_orsajks ##########
+
+################### b_yaghorsosten ###################
+########## c_yaghorsosten - d_clawed_mountains ##########
+
+################### b_sqez ###################
+########## c_yaghorsosten - d_clawed_mountains ##########
+
+################### b_velrhipgha ###################
+########## c_yaghorsosten - d_clawed_mountains ##########
+
+################### b_udhaz ###################
+########## c_yaghorsosten - d_clawed_mountains ##########
+
+################### b_jeghe ###################
+########## c_yaghorsosten - d_clawed_mountains ##########
+
+################### b_pezskun ###################
+########## c_yaghorsosten - d_clawed_mountains ##########
+
+################### b_ridigores ###################
+########## c_yaghorsosten - d_clawed_mountains ##########
+
+################### b_gryesgores ###################
+########## c_gryesgores - d_clawed_mountains ##########
+
+################### b_dwedni ###################
+########## c_gryesgores - d_clawed_mountains ##########
+
+################### b_tajenaros ###################
+########## c_gryesgores - d_clawed_mountains ##########
+
+################### b_fen ###################
+########## c_gryesgores - d_clawed_mountains ##########
+
+################### b_ghofda ###################
+########## c_gryesgores - d_clawed_mountains ##########
+
+################### b_lezmuznon ###################
+########## c_gryesgores - d_clawed_mountains ##########
+
+################### b_idnu ###################
+########## c_gryesgores - d_clawed_mountains ##########
+
+################### b_kezagghofrha ###################
+########## c_kezagghofrha - d_clawed_mountains ##########
+
+################### b_ougutsu ###################
+########## c_kezagghofrha - d_clawed_mountains ##########
+
+################### b_ogajja ###################
+########## c_kezagghofrha - d_clawed_mountains ##########
+
+################### b_zazut ###################
+########## c_kezagghofrha - d_clawed_mountains ##########
+
+################### b_rhezebhrhez ###################
+########## c_rhezebhrhez - d_clawed_mountains ##########
+
+################### b_nom ###################
+########## c_rhezebhrhez - d_clawed_mountains ##########
+
+################### b_shebrajri ###################
+########## c_rhezebhrhez - d_clawed_mountains ##########
+
+################### b_vaje ###################
+########## c_rhezebhrhez - d_clawed_mountains ##########
+
+################### b_yighe ###################
+########## c_rhezebhrhez - d_clawed_mountains ##########
+
+################### b_shriveling_bark ###################
+########## c_splintered_shore - d_clawed_mountains ##########
+
+################### b_yajesham ###################
+########## c_splintered_shore - d_clawed_mountains ##########
+
+################### b_sikkars ###################
+########## c_splintered_shore - d_clawed_mountains ##########
+
+################### b_bun ###################
+########## c_splintered_shore - d_clawed_mountains ##########
+
+################### b_rebhak ###################
+########## c_splintered_shore - d_clawed_mountains ##########
+
+################### b_hevanavar ###################
+########## c_hevanavar - d_hevanavar ##########
+
+################### b_anosot ###################
+########## c_hevanavar - d_hevanavar ##########
+
+################### b_fismoam ###################
+########## c_hevanavar - d_hevanavar ##########
+
+################### b_jesyo ###################
+########## c_hevanavar - d_hevanavar ##########
+
+################### b_hezskobas ###################
+########## c_hevanavar - d_hevanavar ##########
+
+################### b_nuyou ###################
+########## c_hevanavar - d_hevanavar ##########
+
+################### b_retjoat ###################
+########## c_hevanavar - d_hevanavar ##########
+
+################### b_uroswem ###################
+########## c_uroswem - d_hevanavar ##########
+
+################### b_darkhold ###################
+########## c_uroswem - d_hevanavar ##########
+
+################### b_wisjo ###################
+########## c_uroswem - d_hevanavar ##########
+
+################### b_bloodstained_quarry ###################
+########## c_uroswem - d_hevanavar ##########
+
+################### b_sadhavshe ###################
+########## c_uroswem - d_hevanavar ##########
+
+################### b_rishedhar ###################
+########## c_rishedhar - d_hevanavar ##########
+
+################### b_berhjefur ###################
+########## c_rishedhar - d_hevanavar ##########
+
+################### b_qaz ###################
+########## c_rishedhar - d_hevanavar ##########
+
+################### b_issaghe ###################
+########## c_rishedhar - d_hevanavar ##########
+
+################### b_raked_woods ###################
+########## c_rishedhar - d_hevanavar ##########
+
+################### b_tosshirghuks ###################
+########## c_tosshirghuks - d_hevanavar ##########
+
+################### b_shet ###################
+########## c_tosshirghuks - d_hevanavar ##########
+
+################### b_huvne ###################
+########## c_tosshirghuks - d_hevanavar ##########
+
+################### b_ors ###################
+########## c_tosshirghuks - d_hevanavar ##########
+
+################### b_lidhrho ###################
+########## c_nomads_encroach - d_the_crucible ##########
+
+################### b_gyobsqiri ###################
+########## c_nomads_encroach - d_the_crucible ##########
+
+################### b_the_killing_field ###################
+########## c_nomads_encroach - d_the_crucible ##########
+
+################### b_rhofyi ###################
+########## c_nomads_encroach - d_the_crucible ##########
+
+################### b_ojello ###################
+########## c_nomads_encroach - d_the_crucible ##########
+
+################### b_ughad ###################
+########## c_nomads_encroach - d_the_crucible ##########
+
+################### b_soashqe ###################
+########## c_nomads_encroach - d_the_crucible ##########
+
+################### b_blubberport ###################
+########## c_shiverness - d_the_crucible ##########
+
+################### b_urshe ###################
+########## c_shiverness - d_the_crucible ##########
+
+################### b_yona ###################
+########## c_shiverness - d_the_crucible ##########
+
+################### b_tedsopjesyez ###################
+########## c_shiverness - d_the_crucible ##########
+
+################### b_ghipghu ###################
+########## c_shiverness - d_the_crucible ##########
+
+################### b_kedhirers ###################
+########## c_shiverness - d_the_crucible ##########
+
+################### b_ghu ###################
+########## c_ghu - d_the_crucible ##########
+
+################### b_laghdibho ###################
+########## c_ghu - d_the_crucible ##########
+
+################### b_raghilri ###################
+########## c_ghu - d_the_crucible ##########
+
+################### b_jenon ###################
+########## c_ghu - d_the_crucible ##########
+
+################### b_zegye ###################
+########## c_ghu - d_the_crucible ##########
+
+################### b_the_perch ###################
+########## c_the_perch - d_the_crucible ##########
+
+################### b_takshirsle ###################
+########## c_the_perch - d_the_crucible ##########
+
+################### b_whalefin ###################
+########## c_the_perch - d_the_crucible ##########
+
+################### b_reshu ###################
+########## c_the_perch - d_the_crucible ##########
+
+################### b_begentiks ###################
+########## c_the_perch - d_the_crucible ##########
+
+################### b_senaghon ###################
+########## c_senaghon - d_the_crucible ##########
+
+################### b_konaras ###################
+########## c_senaghon - d_the_crucible ##########
+
+################### b_zodhrhez ###################
+########## c_senaghon - d_the_crucible ##########

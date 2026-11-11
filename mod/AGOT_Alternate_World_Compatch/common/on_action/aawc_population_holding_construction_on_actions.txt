@@ -1,0 +1,219 @@
+﻿on_building_started = {
+	on_actions = {
+		aawc_population_on_new_holding_started
+		aawc_population_on_blocker_clearance_started
+	}
+}
+
+on_building_cancelled = {
+	on_actions = {
+		aawc_population_on_new_holding_cancelled
+		aawc_population_on_blocker_clearance_cancelled
+	}
+}
+
+on_building_completed = {
+	on_actions = {
+		aawc_population_on_new_holding_completed
+		aawc_population_on_blocker_clearance_completed
+	}
+}
+
+aawc_population_on_new_holding_started = {
+	effect = {
+		if = {
+			limit = { NOT = { exists = scope:character } }
+			root.county.holder = { save_scope_as = character }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log = "AAWC POP 1.9.32 new holding start: no payer scope, using county holder" }
+		}
+		if = {
+			limit = {
+				exists = scope:character
+				has_holding = no
+				OR = {
+					has_construction_with_flag = castle
+					has_construction_with_flag = city
+					has_construction_with_flag = temple
+					has_construction_with_flag = tribe
+				}
+			}
+			set_variable = { name = aawc_population_new_holding_reserved_cost value = aawc_population_new_holding_construction_cost }
+			set_variable = { name = aawc_population_new_holding_under_construction value = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 new holding start detected" }
+			if = { limit = { has_construction_with_flag = castle } error_log = "AAWC POP 1.9.32 new holding type: castle" }
+			if = { limit = { has_construction_with_flag = city } error_log = "AAWC POP 1.9.32 new holding type: city" }
+			if = { limit = { has_construction_with_flag = temple } error_log = "AAWC POP 1.9.32 new holding type: temple" }
+			if = { limit = { has_construction_with_flag = tribe } error_log = "AAWC POP 1.9.32 new holding type: tribal" }
+			if = {
+				limit = { var:aawc_population_new_holding_reserved_cost > 0 }
+				scope:character.top_liege = {
+					aawc_population_recalculate_character_effect = yes
+					if = {
+						limit = { var:aawc_population_available < root.var:aawc_population_new_holding_reserved_cost }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 warning: new holding started without enough available population" }
+					}
+					aawc_population_add_reserved_amount_effect = { COST = root.var:aawc_population_new_holding_reserved_cost }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 reserved population for new holding construction" }
+				}
+			}
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 warning: new holding construction had no recognized population cost" }
+			}
+		}
+	}
+}
+
+aawc_population_on_new_holding_cancelled = {
+	effect = {
+		if = {
+			limit = { NOT = { exists = scope:character } }
+			root.county.holder = { save_scope_as = character }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log = "AAWC POP 1.9.32 new holding cancel: no payer scope, using county holder" }
+		}
+		if = {
+			limit = {
+				exists = scope:character
+				has_variable = aawc_population_new_holding_under_construction
+				has_variable = aawc_population_new_holding_reserved_cost
+				var:aawc_population_new_holding_reserved_cost > 0
+			}
+			scope:character.top_liege = {
+				aawc_population_release_reserved_amount_effect = { COST = root.var:aawc_population_new_holding_reserved_cost }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 released reserved population for cancelled new holding" }
+			}
+			remove_variable = aawc_population_new_holding_reserved_cost
+			remove_variable = aawc_population_new_holding_under_construction
+		}
+	}
+}
+
+aawc_population_on_blocker_clearance_started = {
+	effect = {
+		if = {
+			limit = { NOT = { exists = scope:character } }
+			root.county.holder = { save_scope_as = character }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log = "AAWC POP 1.10.5.17 blocker start: no payer scope, using county holder" }
+		}
+		if = {
+			limit = {
+				exists = scope:character
+				has_construction_with_flag = aawc_blocker_clearance
+				NOT = { has_variable = aawc_population_blocker_clearance_under_construction }
+			}
+			set_variable = {
+				name = aawc_population_blocker_clearance_reserved_cost
+				value = aawc_population_blocker_clearance_construction_cost
+			}
+			if = {
+				limit = { var:aawc_population_blocker_clearance_reserved_cost > 0 }
+				set_variable = { name = aawc_population_blocker_clearance_under_construction value = 1 }
+				scope:character.top_liege = {
+					aawc_population_recalculate_character_effect = yes
+					if = {
+						limit = { var:aawc_population_available < root.var:aawc_population_blocker_clearance_reserved_cost }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.10.5.17 warning: blocker clearance started without enough available population" }
+					}
+					aawc_population_add_reserved_amount_effect = { COST = root.var:aawc_population_blocker_clearance_reserved_cost }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.10.5.17 reserved population for blocker clearance" }
+				}
+			}
+			else = {
+				remove_variable = aawc_population_blocker_clearance_reserved_cost
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.10.5.17 warning: blocker clearance had no recognized population cost" }
+			}
+		}
+	}
+}
+
+aawc_population_on_blocker_clearance_cancelled = {
+	effect = {
+		if = {
+			limit = { NOT = { exists = scope:character } }
+			root.county.holder = { save_scope_as = character }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log = "AAWC POP 1.10.5.17 blocker cancel: no payer scope, using county holder" }
+		}
+		if = {
+			limit = {
+				exists = scope:character
+				has_variable = aawc_population_blocker_clearance_under_construction
+				has_variable = aawc_population_blocker_clearance_reserved_cost
+				var:aawc_population_blocker_clearance_reserved_cost > 0
+			}
+			scope:character.top_liege = {
+				aawc_population_release_reserved_amount_effect = { COST = root.var:aawc_population_blocker_clearance_reserved_cost }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.10.5.17 released reserved population for cancelled blocker clearance" }
+			}
+			remove_variable = aawc_population_blocker_clearance_reserved_cost
+			remove_variable = aawc_population_blocker_clearance_under_construction
+		}
+	}
+}
+
+aawc_population_on_blocker_clearance_completed = {
+	effect = {
+		if = {
+			limit = { NOT = { exists = scope:character } }
+			root.county.holder = { save_scope_as = character }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log = "AAWC POP 1.10.5.17 blocker complete: no payer scope, using county holder" }
+		}
+		if = {
+			limit = {
+				exists = scope:character
+				has_variable = aawc_population_blocker_clearance_under_construction
+				has_variable = aawc_population_blocker_clearance_reserved_cost
+				var:aawc_population_blocker_clearance_reserved_cost > 0
+			}
+			scope:character.top_liege = {
+				aawc_population_consume_reserved_amount_effect = { COST = root.var:aawc_population_blocker_clearance_reserved_cost }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.10.5.17 consumed reserved population for completed blocker clearance" }
+			}
+			remove_variable = aawc_population_blocker_clearance_reserved_cost
+			remove_variable = aawc_population_blocker_clearance_under_construction
+		}
+	}
+}
+
+aawc_population_on_new_holding_completed = {
+	effect = {
+		# Applies to ordinary building upgrades as well as newly created holdings.
+		# The next dynamic refresh rebuilds capacity and growth-rating inputs once.
+		if = {
+			limit = { has_holding = yes }
+			aawc_population_mark_holding_static_dirty_effect = yes
+		}
+		if = {
+			limit = { NOT = { exists = scope:character } }
+			root.county.holder = { save_scope_as = character }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log = "AAWC POP 1.9.32 new holding complete: no payer scope, using county holder" }
+		}
+		if = {
+			limit = {
+				exists = scope:character
+				has_variable = aawc_population_new_holding_under_construction
+				has_variable = aawc_population_new_holding_reserved_cost
+				var:aawc_population_new_holding_reserved_cost > 0
+			}
+			aawc_reforging_diag_caller_effect = { CALLER = 4 }
+			scope:character.top_liege = {
+				aawc_population_consume_reserved_amount_effect = { COST = root.var:aawc_population_new_holding_reserved_cost }
+				aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = root.var:aawc_population_new_holding_reserved_cost }
+			}
+			aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = scope:character.top_liege.var:aawc_population_last_settlement_credit }
+			scope:character.top_liege = { remove_variable = aawc_population_pending_settlement_credit }
+			set_variable = { name = aawc_population_expected value = aawc_population_holding_expected }
+			set_variable = { name = aawc_population_total value = var:aawc_population_current }
+			set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+			change_variable = {
+				name = aawc_population_surplus
+				add = {
+					value = var:aawc_population_expected
+					multiply = -1
+				}
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP Stage 1 seeded completed new holding from the confirmed source-debit receipt" }
+			if = { limit = { scope:character.top_liege.var:aawc_population_last_consume_unmet > 0 } error_log = "AAWC POP Stage 1 new holding completion had insufficient source population; destination credit was reduced fail-closed" }
+			remove_variable = aawc_population_new_holding_reserved_cost
+			remove_variable = aawc_population_new_holding_under_construction
+		}
+	}
+}

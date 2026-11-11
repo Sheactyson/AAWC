@@ -1,0 +1,210 @@
+﻿namespace = kCAFG_cultural_benefits_events
+
+kCAFG_cultural_benefits_events.0001 = {
+    type = character_event
+
+	trigger = {
+		exists = scope:province
+		exists = scope:culture
+		scope:culture != root.culture
+	}
+
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:talent_acquisition }
+				desc = kCAFG_cultural_benefits_events.0001.t.unclear
+			}
+			desc = kCAFG_cultural_benefits_events.0001.t
+		}
+	}
+	
+	desc = {
+		desc = kCAFG_cultural_benefits_events.0001.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:gift }
+				desc = kCAFG_cultural_benefits_events.0001.desc.gift
+			}
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:gold_gift }
+				desc = kCAFG_cultural_benefits_events.0001.desc.gold_gift
+			}
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:impressive_character }
+				desc = kCAFG_cultural_benefits_events.0001.desc.impressive_character
+			}
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:talent_acquisition }
+				desc = kCAFG_cultural_benefits_events.0001.desc.talent_acquisition
+			}
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:provinces_modifier }
+				desc = kCAFG_cultural_benefits_events.0001.desc.province_modifier
+			}
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:character_modifier }
+				desc = kCAFG_cultural_benefits_events.0001.desc.character_modifier
+			}
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:maa_refill_gift }
+				desc = kCAFG_cultural_benefits_events.0001.desc.maa_refill_gift
+			}
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:esteemed_hospitality }
+				desc = kCAFG_cultural_benefits_events.0001.desc.esteemed_hospitality
+			}
+			triggered_desc = {
+				trigger = { exists = scope:boon_type scope:boon_type = flag:gold_loot }
+				desc = kCAFG_cultural_benefits_events.0001.desc.gold_loot
+			}
+		}
+	}
+
+	theme = cultural_festival
+
+	override_background = {
+		trigger = { exists = scope:background_terrain_scope }
+		reference = terrain_scope
+	}
+
+	left_portrait = {
+		character = scope:introduced_character
+		trigger = { exists = scope:introduced_character }
+		animation = throne_room_bow_1
+	}
+
+	center_portrait = {
+		character = scope:introduced_character_2
+		trigger = { exists = scope:introduced_character_2 }
+	}
+
+	lower_left_portrait = {
+		character = scope:introduced_character_3
+		trigger = { exists = scope:introduced_character_3 }
+	}
+
+	right_portrait = {
+		character = root
+		animation = personality_rational
+	}
+
+	artifact = {
+		target = scope:newly_created_artifact
+		position = lower_center_portrait
+		trigger = { exists = scope:newly_created_artifact }
+	}
+
+	immediate = {
+		scope:province ?= {
+			save_scope_as = background_terrain_scope # background illustration
+			save_scope_as = location # used by character creation effects
+		}
+
+		clear_saved_scope = boon_type
+		hidden_effect = { E_kCAFG_apply_random_cultural_boon = yes }
+
+		#set_variable = { name = kCAFG_tmp_display value = scope:boon_type }
+        #debug_log = "kCAFG - Cultural Benefits - Triggered for [THIS.Char.GetNameNoTooltip] with culture [culture.GetNameNoTooltip] in province [province.GetNameNoTooltip] with boon type [THIS.Var('kCAFG_tmp_display').GetFlagName]"
+
+		if = {
+			limit = { is_ai = yes }
+			if = {
+				limit = { exists = scope:boon_type scope:boon_type = flag:impressive_character }
+				add_courtier = scope:impressive_character
+			}
+		}
+	}
+
+    option = {
+		name = {
+			text = {
+				first_valid = {
+					triggered_desc = {
+						trigger = {
+							exists = scope:boon_type
+							OR = {
+								scope:boon_type = flag:gift
+								scope:boon_type = flag:gold_gift
+								scope:boon_type = flag:gold_loot
+							}
+						}
+						desc = kCAFG_cultural_benefits_events.0001.a.gift
+					}
+					triggered_desc = {
+						trigger = { exists = scope:boon_type scope:boon_type = flag:impressive_character }
+						desc = kCAFG_cultural_benefits_events.0001.a.impressive_character
+					}
+					triggered_desc = {
+						trigger = { exists = scope:boon_type scope:boon_type = flag:talent_acquisition }
+						desc = kCAFG_cultural_benefits_events.0001.a.talent_acquisition
+					}
+					triggered_desc = {
+						trigger = { exists = scope:boon_type scope:boon_type = flag:esteemed_hospitality }
+						desc = kCAFG_cultural_benefits_events.0001.a.esteemed_hospitality
+					}
+					desc = kCAFG_cultural_benefits_events.0001.a
+				}
+			}
+		}
+
+		if = {
+			limit = { exists = scope:boon_type }
+
+			switch = {
+				trigger = scope:boon_type
+				flag:gold_gift = { show_as_tooltip = { add_gold = scope:gold_amount } }
+				flag:maa_refill_gift = {
+					if = {
+						limit = { exists = scope:maa_refilled }
+						show_as_tooltip = { custom_tooltip = E_kCAFG_cultural_boon_tradition_maa_refill_tt }
+					}
+
+					if = {
+						limit = { exists = scope:maa_gifted }
+						show_as_tooltip = { custom_tooltip = E_kCAFG_cultural_boon_tradition_maa_gift_tt }
+					}
+				}
+				flag:character_modifier = {
+					show_as_tooltip = { custom_tooltip = E_kCAFG_cultural_boon_character_modifier_tt }
+				}
+				flag:provinces_modifier = {
+					show_as_tooltip = {
+						every_in_list = {
+							list = affected_provinces
+							custom_tooltip = E_kCAFG_cultural_boon_province_modifier_tt
+						}
+					}
+				}
+				flag:counties_modifier = {
+					show_as_tooltip = {
+						every_in_list = {
+							list = affected_counties
+							custom_tooltip = E_kCAFG_cultural_boon_county_modifier_tt
+						}
+					}
+				}
+			}
+		}
+
+		if = {
+			limit = { exists = scope:newly_created_artifact }
+			show_as_tooltip = { custom_tooltip = gain_artifact_tt }
+		}
+
+		if = {
+			limit = {
+				exists = scope:boon_type
+				scope:boon_type = flag:esteemed_hospitality
+				exists = scope:introduced_character
+				exists = scope:introduced_character_2
+				exists = scope:introduced_character_3
+			}
+			show_as_tooltip = {
+				add_courtier = scope:introduced_character
+				add_courtier = scope:introduced_character_2
+				add_courtier = scope:introduced_character_3
+			}
+		}
+    }
+}

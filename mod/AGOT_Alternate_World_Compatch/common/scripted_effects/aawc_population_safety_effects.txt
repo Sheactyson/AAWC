@@ -1,0 +1,69 @@
+﻿aawc_population_reassert_dummy_ruin_wilderness_holders_effect = {
+	title:c_wilderness.holder ?= {
+		save_temporary_scope_as = aawc_safety_wilderness_dummy
+	}
+	title:c_ruins.holder ?= {
+		save_temporary_scope_as = aawc_safety_ruins_dummy
+	}
+
+	if = {
+		limit = { exists = scope:aawc_safety_wilderness_dummy }
+		every_county = {
+			limit = {
+				tier = tier_county
+				exists = title_province
+				exists = holder
+				title_province = { has_holding_type = wilderness_holding }
+				holder = { agot_is_dummy_character = no }
+				NOT = { has_county_modifier = aawc_rh_candidate_marker }
+				NOT = { aawc_native_lov_rh_county = yes }
+				NOT = { has_county_modifier = aawc_survivor_pocket_marker }
+				NOT = { has_variable = aawc_sh_lock }
+				NOT = { holder ?= { this = scope:aawc_safety_wilderness_dummy } }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC SAFETY 1.9.93 found non-dummy ruler holding true wilderness_holding county; reasserting wilderness dummy" }
+			hidden_effect = {
+				create_title_and_vassal_change = {
+					type = revoked
+					save_scope_as = aawc_safety_wilderness_change
+				}
+				change_title_holder = {
+					holder = scope:aawc_safety_wilderness_dummy
+					change = scope:aawc_safety_wilderness_change
+					take_baronies = yes
+				}
+				resolve_title_and_vassal_change = scope:aawc_safety_wilderness_change
+				generate_coa = yes
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC SAFETY 1.9.93 reasserted wilderness_holding county to wilderness dummy holder" }
+		}
+	}
+
+	if = {
+		limit = { exists = scope:aawc_safety_ruins_dummy }
+		every_county = {
+			limit = {
+				tier = tier_county
+				exists = title_province
+				exists = holder
+				title_province = { has_holding_type = ruin_holding }
+				NOT = { holder ?= { this = scope:aawc_safety_ruins_dummy } }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC SAFETY 1.9.93 found non-ruins holder on true ruin_holding county; reasserting ruins dummy" }
+			hidden_effect = {
+				create_title_and_vassal_change = {
+					type = revoked
+					save_scope_as = aawc_safety_ruins_change
+				}
+				change_title_holder = {
+					holder = scope:aawc_safety_ruins_dummy
+					change = scope:aawc_safety_ruins_change
+					take_baronies = yes
+				}
+				resolve_title_and_vassal_change = scope:aawc_safety_ruins_change
+				generate_coa = yes
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC SAFETY 1.9.93 reasserted ruin_holding county to ruins dummy holder" }
+		}
+	}
+}

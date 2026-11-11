@@ -1,0 +1,515 @@
+﻿#Game Start Effect - Human
+agot_birthplace_game_start = {
+	save_scope_as = the_character
+	#Remove Birthplace Variable if exists on game start
+	if = {
+		limit = { has_variable = agot_birthplace }
+		remove_variable = agot_birthplace
+	}
+	#Canon Characters (only special cases, most handled dynamically)
+	if = {
+		limit = { agot_has_canon_birthplace = yes }
+		agot_canon_birthplace_effect = yes
+	}
+	#If character is relative of the local ruler set this location
+	else_if = {
+		limit = {
+			exists = location.county.holder.culture
+			location.county.holder.culture ?= scope:the_character.culture
+			NOT = { government_has_flag = government_is_nw }
+			exists = dynasty
+			OR = {
+				location.county.holder.dynasty ?= scope:the_character.dynasty
+				AND = {
+					is_landed = yes
+					highest_held_title_tier = tier_barony
+				}
+			}
+			OR = {
+				location.culture ?= scope:the_character.culture
+				is_independent_ruler = yes
+			}
+		}
+		set_variable = {
+			name = agot_birthplace
+			value = location
+		}
+	}
+	#If not, then generic location
+	else = { agot_birthplace_effect = yes }
+}
+
+#Set Generic Location
+agot_birthplace_effect = {
+	save_scope_as = the_character
+	#Only set location if not set already
+	if = {
+		limit = {
+			NOT = { has_variable = agot_birthplace }
+		}
+		#Set the location of the house head
+		if = {
+			limit = {
+				is_lowborn = no
+				exists = house
+				house.house_head != scope:the_character
+				house.house_head = {
+					is_landed = yes
+					NOT = { government_has_flag = government_is_nw }
+				}
+			}
+			scope:the_character = {
+				set_variable = {
+					name = agot_birthplace
+					value = house.house_head.capital_province
+				}
+			}
+		}
+		#Set the location of a random house member
+		else_if = {
+			limit = {
+				is_lowborn = no
+				house ?= {
+					any_house_member = {
+						NOT = { this = scope:the_character }
+						is_landed = yes
+						NOT = { government_has_flag = government_is_nw }
+					}
+				}
+			}
+			house = {
+				random_house_member = {
+					limit = {
+						NOT = { this = scope:the_character }
+						is_landed = yes
+						NOT = { government_has_flag = government_is_nw }
+					}
+					scope:the_character = {
+						set_variable = {
+							name = agot_birthplace
+							value = prev.capital_province
+						}
+					}
+				}
+			}
+		}
+		#Set the location of the dynast
+		else_if = {
+			limit = {
+				exists = dynasty
+				dynasty.dynast != scope:the_character
+				dynasty.dynast = {
+					is_landed = yes
+					NOT = { government_has_flag = government_is_nw }
+				}
+			}
+			scope:the_character = {
+				set_variable = {
+					name = agot_birthplace
+					value = dynasty.dynast.capital_province
+				}
+			}
+		}
+		#Set the location of a random dynasty member
+		else_if = {
+			limit = {
+				exists = dynasty
+				dynasty = {
+					any_dynasty_member = {
+						this != scope:the_character
+						is_landed = yes
+						NOT = { government_has_flag = government_is_nw }
+					}
+				}
+			}
+			dynasty = {
+				random_dynasty_member = {
+					limit = {
+						this != scope:the_character
+						is_landed = yes
+						NOT = { government_has_flag = government_is_nw }
+					}
+					scope:the_character = {
+						set_variable = {
+							name = agot_birthplace
+							value = prev.capital_province
+						}
+					}
+				}
+			}
+		}
+		#Set the current location for lowborn non-NW rulers
+		else_if = {
+			limit = {
+				exists = location
+				is_lowborn = yes
+				is_landed = yes
+				NOT = { government_has_flag = government_is_nw }
+			}
+			set_variable = {
+				name = agot_birthplace
+				value = location
+			}
+		}
+		#Set a random location in the current de-jure kingdom
+		else_if = {
+			limit = {
+				exists = location
+				exists = location.culture
+				culture = location.culture
+				is_landed = no
+			}
+			culture = {
+				random_culture_county = {
+					limit = { kingdom = scope:the_character.location.kingdom }
+					random_county_province = {
+						save_scope_as = random_location
+						scope:the_character = {
+							set_variable = {
+								name = agot_birthplace
+								value = scope:random_location
+							}
+						}
+					}
+				}
+			}
+		}
+		#Set a random location
+		else_if = {
+			limit = {
+				culture = { culture_number_of_counties >= 1 }
+			}
+			culture = {
+				random_culture_county = {
+					random_county_province = {
+						save_scope_as = random_location
+						scope:the_character = {
+							set_variable = {
+								name = agot_birthplace
+								value = scope:random_location
+							}
+						}
+					}
+				}
+			}
+		}
+		#Set the current location only when one exists; no invented birthplace.
+		else_if = {
+			limit = { exists = location }
+			set_variable = {
+				name = agot_birthplace
+				value = location
+			}
+		}
+	}
+}
+
+#Set Canon Location - Human
+agot_canon_birthplace_effect = {
+
+	##### FIRE AND BLOOD Era Characters #####
+
+	## LOCATION: King's Landing/Red Keep
+	if = {
+		limit = {
+			OR = {
+				this = character:Targaryen_61 # Daemon Targaryen
+				this = character:Targaryen_60 # Viserys Targaryen
+				this = character:Targaryen_63 # Rhaenyra Targaryen
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_the_red_keep }
+	}
+	## LOCATION: Dragonstone
+	else_if = {
+		limit = {
+			OR = {
+				this = character:Targaryen_59 # Rhaenys Targaryen
+				this = character:Hammer_1 # Hugh Hammer
+				this = character:White_1 # Ulf White
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_dragonstone }
+	}
+
+	##### BLACK DRAGON Era Characters #####
+
+	## LOCATION: Flea Bottom
+	else_if = {
+		limit = { this = character:Tall_1 } # Duncan Tall
+		agot_set_birthplace = { LOCATION = b_flea_bottom }
+	}
+	## LOCATION: Pennytree
+	else_if = {
+		limit = {
+			OR = {
+				this = character:Pennytree_2 # Arlan of Pennytree
+				this = character:Pennytree_3 # Arlan of Pennytree's sister (Jeyne)
+				this = character:Pennytree_4 # Arlan of Pennytree's nephew (Roger)
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_pennytree }
+	}
+
+	##### THE UNLIKELY REIGN Era Characters #####
+
+	## LOCATION: Oldstones
+	else_if = {
+		limit = { this = character:Targaryen_hh_10 } # Jenny of Oldstones
+		agot_set_birthplace = { LOCATION = b_oldstones }
+	}
+
+	##### UNMAKING THE REALM Era Characters #####
+
+	## LOCATION: Flea Bottom
+	else_if = {
+		limit = {
+			OR = {
+				this = character:Seaworth_1 # Davos Seaworth
+				this = character:Seaworth_2 # Dale Seaworth
+				this = character:Seaworth_3 # Allard Seaworth
+				this = character:Seaworth_4 # Matthos Seaworth
+				this = character:Seaworth_5 # Maric Seaworth
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_flea_bottom }
+	}
+	## LOCATION: Storm's End
+	else_if = {
+		limit = {
+			OR = {
+				this = character:Baratheon_2 # Robert Baratheon
+				this = character:Baratheon_3 # Stannis Baratheon
+				this = character:Baratheon_4 # Renly Baratheon
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_storms_end }
+	}
+	## LOCATION: Dragonstone
+	else_if = {
+		limit = {
+			OR = {
+				this = character:Targaryen_9 # THE Daenerys Targaryen
+				this = character:Targaryen_10 # Aegon Targaryen (Rhaegar's child)
+				this = character:Targaryen_11 # Rhaenys Targaryen (Rhaegar's child)
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_dragonstone }
+	}
+	## LOCATION: King's Landing/Red Keep
+	else_if = {
+		limit = {
+			OR = {
+				this = character:Targaryen_8 # Viserys Targaryen (the Beggar King)
+				this = character:Targaryen_120 # Maester Aemon Targaryen
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_the_red_keep }
+	}
+	## LOCATION: Summerhall
+	else_if = {
+		limit = {
+			this = character:Targaryen_3 # Rhaegar Targaryen
+		}
+		agot_set_birthplace = { LOCATION = b_summerhall }
+	}
+}
+
+agot_set_birthplace = {
+	set_variable = {
+		name = agot_birthplace
+		value = title:$LOCATION$.title_province
+	}
+}
+
+#Game Start Effect - Dragon
+agot_dragon_birthplace_game_start = {
+	save_scope_as = the_character
+	#Remove Birthplace Variable if exists on game start
+	if = {
+		limit = { has_variable = agot_birthplace }
+		remove_variable = agot_birthplace
+	}
+	#Canon Dragons
+	if = {
+		limit = {
+			agot_has_canon_dragon_birthplace = yes
+		}
+		agot_canon_dragon_birthplace_effect = yes
+	}
+	#If dragon has owner set their location
+	else_if = {
+		limit = {
+			any_relation = {
+				type = agot_dragon
+				is_alive = yes
+				exists = location
+			}
+		}
+		random_relation = {
+			type = agot_dragon
+			limit = {
+				is_alive = yes
+				exists = location
+			}
+			save_scope_as = dragon_owner
+			scope:the_character = {
+				set_variable = {
+					name = agot_birthplace
+					value = scope:dragon_owner.location
+				}
+			}
+		}
+	}
+	#If not, then generic location
+	else = { agot_birthplace_effect = yes }
+}
+
+#Set Canon Location - Dragon
+agot_canon_dragon_birthplace_effect = {
+
+	## LOCATION: Valyria.. so for now the furthest possible
+	if = {
+		limit = {
+			OR = {
+				this = character:dragon_ancestor_5
+				this = character:dragon_ancestor_1
+				this = character:dragon_ancestor_6
+				this = character:dragon_essovius
+				this = character:dragon_valryon
+				this = character:dragon_ghiscar
+				this = character:dragon_vermithrax
+				this = character:dragon_anogaros
+				this = character:dragon_balerion
+				this = character:dragon_nessarion
+				this = character:dragon_archonei
+				this = character:dragon_ancestor_2
+				this = character:dragon_vassarion
+				this = character:dragon_ancestor_3
+				this = character:dragon_rovax
+				this = character:dragon_ancestor_4
+				this = character:dragon_neltharion
+				this = character:dragon_pythax
+				this = character:dragon_terrax
+				this = character:dragon_nagga
+				this = character:dragon_urrax
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_castian }
+	}
+	## LOCATION: Dragonstone
+	else_if = {
+		limit = {
+			OR = {
+				this = character:dragon_meraxes
+				this = character:dragon_vhagar
+				this = character:dragon_quicksilver
+				this = character:dragon_serporoth
+				this = character:dragon_cannibal
+				this = character:dragon_maegor_2
+				this = character:dragon_maegor_3
+				this = character:dragon_maegor_4
+				this = character:dragon_maegor_6
+				this = character:dragon_maegor_5
+				this = character:dragon_maegor_7
+				this = character:dragon_maegor_8
+				this = character:dragon_maegor_9
+				this = character:dragon_maegor_10
+				this = character:dragon_maegor_11
+				this = character:dragon_maegor_12
+				this = character:dragon_aenys_1
+				this = character:dragon_aenys_2
+				this = character:dragon_caraxes
+				this = character:dragon_aerea_1
+				this = character:dragon_aerea_2
+				this = character:dragon_aerea_3
+				this = character:dragon_sheepstealer
+				this = character:dragon_daenerys_1
+				this = character:dragon_grey_ghost
+				this = character:dragon_sunfyre
+				this = character:dragon_aemond_1
+				this = character:dragon_aemond_2
+				this = character:dragon_aemond_3
+				this = character:dragon_seasmoke
+				this = character:dragon_moondancer
+				this = character:dragon_rhaena_1
+				this = character:dragon_stormcloud
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_dragonstone }
+	}
+	## LOCATION: King's Landing
+	else_if = {
+		limit = {
+			OR = {
+				this = character:dragon_dreamfyre
+				this = character:dragon_vermithor
+				this = character:dragon_silverwing
+				this = character:dragon_meleys
+				this = character:dragon_tessarion
+				this = character:dragon_syrax
+				this = character:dragon_shrykos
+				this = character:dragon_morghul
+				this = character:dragon_vermax
+				this = character:dragon_arrax
+				this = character:dragon_tyraxes
+				this = character:dragon_laena_1
+				this = character:dragon_the_last
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_the_red_keep }
+	}
+	## LOCATION: Vale
+	else_if = {
+		limit = {
+			this = character:dragon_morning
+		}
+		agot_set_birthplace = { LOCATION = b_the_eyrie }
+	}
+	## LOCATION: Harrenhal
+	else_if = {
+		limit = {
+			this = character:dragon_nightfyre
+		}
+		agot_set_birthplace = { LOCATION = b_harrenhal }
+	}
+	## LOCATION: Dothraki Sea / Lhazar.. so for now the furthest possible
+	else_if = {
+		limit = {
+			OR = {
+				this = character:dragon_drogon
+				this = character:dragon_rhaegal
+				this = character:dragon_viserion
+			}
+		}
+		agot_set_birthplace = { LOCATION = b_mosa }
+	}
+}
+
+agot_set_new_birthplace_dynasty_name = {
+	save_scope_as = new_dynast
+
+	set_global_variable = {
+		name = agot_birthplace_name
+		value = scope:new_dynast.var:agot_birthplace
+	}
+
+	scope:new_dynast.house ?= {
+		set_house_name = AGOT_BIRTHPLACE_BASED_HOUSE_NAME
+	}
+	scope:new_dynast.dynasty ?= {
+		set_dynasty_name = AGOT_BIRTHPLACE_BASED_HOUSE_NAME
+	}
+
+	scope:new_dynast.var:agot_birthplace.barony = {
+		set_variable = agot_birthplace_used
+	}
+
+	remove_global_variable = agot_birthplace_name
+
+	#Remove Birthplace Based Surname from Lowborns
+	if = {
+		limit = { has_character_flag = birthplace_surname }
+		remove_character_flag = birthplace_surname
+	}
+}

@@ -1,0 +1,5 @@
+﻿l_english:
+  adding_building_slot_interaction:0 "Expand Holding"
+  adding_building_slot_interaction_desc:0 "#F Invest in the holding to create space for another building.#!"
+  adding_building_slot_interaction_notification:0 "Holding Expanded"
+  adding_building_slot_interaction_tt_a:0 "This holding gains one additional building slot. Expansion beyond seven, eight, and nine slots requires more than 30, 60, and 80 county development respectively."

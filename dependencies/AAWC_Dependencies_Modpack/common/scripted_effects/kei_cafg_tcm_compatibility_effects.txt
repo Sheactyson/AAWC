@@ -1,0 +1,1 @@
+﻿E_kCAFG_task_conversion_struggle_VANILLA_B = { }

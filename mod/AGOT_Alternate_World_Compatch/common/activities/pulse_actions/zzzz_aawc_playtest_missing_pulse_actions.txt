@@ -1,0 +1,19 @@
+﻿# AAWC 1.9.82 playtest compatibility pulse-action stubs.
+#
+# Some activity files reference this key when the full education pulse-action
+# source is not present in the external playset's validation layer.
+
+apa_studied_confucian_classics = {
+	icon = learning
+
+	is_valid = {
+		always = no
+	}
+
+	weight = {
+		value = 0
+	}
+
+	effect = {
+	}
+}

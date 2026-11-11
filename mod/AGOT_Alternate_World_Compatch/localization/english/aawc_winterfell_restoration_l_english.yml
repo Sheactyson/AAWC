@@ -1,0 +1,16 @@
+﻿l_english:
+ building_type_winterfell_ruined_01:0 "Winterfell in Ruins"
+ building_winterfell_ruined_01:0 "Winterfell in Ruins"
+ winterfell_ruined_01:0 "Winterfell in Ruins"
+ building_type_winterfell_ruined_01_desc:0 "The ancient seat of House Stark has been reclaimed from total desolation, but its walls are fractured, its yards are unsafe, and its strength is only beginning to return. It can shelter men once more, yet restoring Winterfell will demand years of labor and immense expense."
+ building_winterfell_ruined_01_desc:0 "The ancient seat of House Stark has been reclaimed from total desolation, but its walls are fractured, its yards are unsafe, and its strength is only beginning to return. It can shelter men once more, yet restoring Winterfell will demand years of labor and immense expense."
+ winterfell_ruined_01_desc:0 "The ancient seat of House Stark has been reclaimed from total desolation, but its walls are fractured, its yards are unsafe, and its strength is only beginning to return. It can shelter men once more, yet restoring Winterfell will demand years of labor and immense expense."
+
+ building_type_winterfell_maintained_01:0 "Winterfell Under Maintenance"
+ building_winterfell_maintained_01:0 "Winterfell Under Maintenance"
+ winterfell_maintained_01:0 "Winterfell Under Maintenance"
+ building_type_winterfell_maintained_01_desc:0 "Winterfell is standing again. The worst collapses have been stabilized, key halls are habitable, and the defenses are serviceable, but the castle remains unfinished. A final, monumental restoration is still required before Winterfell can truly reclaim its legendary stature."
+ building_winterfell_maintained_01_desc:0 "Winterfell is standing again. The worst collapses have been stabilized, key halls are habitable, and the defenses are serviceable, but the castle remains unfinished. A final, monumental restoration is still required before Winterfell can truly reclaim its legendary stature."
+ winterfell_maintained_01_desc:0 "Winterfell is standing again. The worst collapses have been stabilized, key halls are habitable, and the defenses are serviceable, but the castle remains unfinished. A final, monumental restoration is still required before Winterfell can truly reclaim its legendary stature."
+
+ reconstruct_winterfell_ruin_tooltip:0 "This holding is in ruins, but we can restore it to a self-sustaining colony. You will begin planning an expedition to reclaim this land.\n\nEstimated costs: [gold_i]500"

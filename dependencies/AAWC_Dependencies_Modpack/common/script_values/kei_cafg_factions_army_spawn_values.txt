@@ -1,0 +1,69 @@
+﻿kCAFG_populist_faction_power = {
+    value = county_levies_to_raise
+    add = {
+        value = county_maa_to_raise
+        multiply = 100
+    }
+}
+
+county_levies_to_raise = {
+	value = total_county_levies
+    add = building_max_garrison
+    divide = 2
+
+	# Will summon between 45% and 125% of total county strength depending on how much they hate you
+	multiply = {
+		value = county_opinion
+		multiply = -0.01
+        divide = 1.25
+        min = 0.2
+        add = 0.25
+	}
+    multiply = V_kCAFG_faction_county_army_spawn_mult
+}
+
+county_maa_to_raise = {
+	value = total_county_levies
+
+    divide = 100 # convert levies to MAA stacks
+	
+	# Based on county levy strength, summon an appropiate number of MAAs that scales with popular opinion.
+	multiply = {
+		value = county_opinion
+		multiply = -0.003
+	}
+    multiply = V_kCAFG_faction_county_army_spawn_mult
+	round = yes
+	min = 1
+}
+
+#Scope : county
+V_kCAFG_faction_county_army_spawn_mult = {
+    value = 1.1 # Small compensation for the fact that counties cannot join multiple factions
+
+    if = {
+        limit = {
+            exists = scope:faction
+            scope:faction = { has_variable = faction_faith }
+        }
+        scope:faction.var:faction_faith = { save_temporary_scope_as = kCAFG_faith }
+        multiply = {
+            value = V_kCAFG_county_faith_factor
+            divide = 0.9
+            add = 0.1
+        }
+    }
+
+    if = {
+        limit = {
+            exists = scope:faction
+            scope:faction = { has_variable = faction_culture }
+        }
+        scope:faction.var:faction_culture = { save_temporary_scope_as = kCAFG_culture }
+        multiply = {
+            value = V_kCAFG_county_culture_factor
+            divide = 0.9
+            add = 0.1
+        }
+    }
+}

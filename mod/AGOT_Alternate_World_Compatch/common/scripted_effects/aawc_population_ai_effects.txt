@@ -1,0 +1,844 @@
+﻿aawc_population_ai_reset_diagnostic_variables_effect = {
+	set_variable = { name = aawc_ai_diag_pass_active value = 1 }
+	set_variable = { name = aawc_ai_diag_posture value = 0 }
+	set_variable = { name = aawc_ai_diag_owned_empty_slots value = 0 }
+	set_variable = { name = aawc_ai_diag_owned_settlements value = 0 }
+	set_variable = { name = aawc_ai_diag_ready_settlements value = 0 }
+	set_variable = { name = aawc_ai_diag_blocked_settlements value = 0 }
+	set_variable = { name = aawc_ai_diag_external_candidates value = 0 }
+	set_variable = { name = aawc_ai_diag_internal_pop_cost value = 0 }
+	set_variable = { name = aawc_ai_diag_internal_gold_cost value = 0 }
+	set_variable = { name = aawc_ai_diag_internal_starting_pop value = 0 }
+	set_variable = { name = aawc_ai_diag_external_pop_cost value = 0 }
+	set_variable = { name = aawc_ai_diag_external_gold_cost value = 0 }
+	set_variable = { name = aawc_ai_diag_result value = 0 }
+	# Result codes: 1 conversion, 2 internal settlement, 3 external colonization,
+	# 10 no action, 20 internal blocked, 21 external blocked, 30 posture skipped internal, 31 posture skipped external.
+}
+
+aawc_population_ai_audit_character_effect = {
+	if = {
+		limit = {
+			is_ai = yes
+			is_landed = yes
+			agot_is_dummy_character = no
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 audit begin" }
+		set_variable = { name = aawc_ai_owned_empty_slots value = 0 }
+		set_variable = { name = aawc_ai_owned_settlements value = 0 }
+		set_variable = { name = aawc_ai_ready_settlements value = 0 }
+		set_variable = { name = aawc_ai_blocked_settlements value = 0 }
+		set_variable = { name = aawc_ai_external_reclaim_candidates value = 0 }
+
+		every_held_county = {
+			limit = { tier = tier_county }
+			every_in_de_jure_hierarchy = {
+				limit = { tier = tier_barony }
+				title_province = {
+					if = {
+						limit = {
+							has_holding = no
+							is_county_capital = no
+							county = { holder = root }
+						}
+						root = { change_variable = { name = aawc_ai_owned_empty_slots add = 1 } }
+						root = { change_variable = { name = aawc_ai_diag_owned_empty_slots add = 1 } }
+					}
+					if = {
+						limit = {
+							has_holding_type = settlement_holding
+							county = { holder = root }
+						}
+						root = { change_variable = { name = aawc_ai_owned_settlements add = 1 } }
+						root = { change_variable = { name = aawc_ai_diag_owned_settlements add = 1 } }
+						if = {
+							limit = {
+								has_building_with_flag = {
+									flag = obstacle
+									count = 0
+								}
+								county = { development_level >= 3 }
+								has_building = settlement_03
+								has_ongoing_construction = no
+							}
+							root = { change_variable = { name = aawc_ai_ready_settlements add = 1 } }
+							root = { change_variable = { name = aawc_ai_diag_ready_settlements add = 1 } }
+						}
+						else = {
+							root = { change_variable = { name = aawc_ai_blocked_settlements add = 1 } }
+							root = { change_variable = { name = aawc_ai_diag_blocked_settlements add = 1 } }
+						}
+					}
+					if = {
+						limit = {
+							has_holding_type = tribal_holding
+							is_county_capital = no
+							county = { holder = root }
+							has_ongoing_construction = no
+							root = { NOT = { government_has_flag = government_is_tribal } }
+						}
+						root = { change_variable = { name = aawc_ai_ready_settlements add = 1 } }
+						root = { change_variable = { name = aawc_ai_diag_ready_settlements add = 1 } }
+					}
+				}
+			}
+		}
+
+		every_sub_realm_county = {
+			every_title_to_title_neighboring_and_across_water_county = {
+				limit = {
+					aawc_county_is_valid_agot_ai_colonization_target = yes
+					NOT = { has_county_modifier = block_settlement_ability }
+				}
+				root = { change_variable = { name = aawc_ai_external_reclaim_candidates add = 1 } }
+				root = { change_variable = { name = aawc_ai_diag_external_candidates add = 1 } }
+			}
+		}
+
+		if = { limit = { var:aawc_population_available >= 1000 } error_log = "AAWC AI 1.9.95 audit resource state: population surplus can fund at least the cheapest owned-county settlement" }
+		else = { error_log = "AAWC AI 1.9.95 audit resource state: population surplus below cheapest owned-county settlement" }
+		if = { limit = { gold >= 250 } error_log = "AAWC AI 1.9.95 audit resource state: gold can fund at least the cheapest owned-county settlement" }
+		else = { error_log = "AAWC AI 1.9.95 audit resource state: gold below cheapest owned-county settlement" }
+		if = { limit = { is_at_war = yes } error_log = "AAWC AI 1.9.95 audit context: ruler is at war; settlement spending should be conservative" }
+		else = { error_log = "AAWC AI 1.9.95 audit context: ruler is at peace; settlement spending is safer" }
+		if = { limit = { var:aawc_ai_ready_settlements > 0 } error_log = "AAWC AI 1.9.95 audit found settlement ready for AAWC conversion" }
+		if = { limit = { var:aawc_ai_blocked_settlements > 0 } error_log = "AAWC AI 1.9.95 audit found settlement still blocked by blockers, development, upgrade level, or construction" }
+		if = { limit = { var:aawc_ai_owned_empty_slots > 0 } error_log = "AAWC AI 1.9.95 audit found owned non-capital empty slots for internal settlement establishment" }
+		if = { limit = { var:aawc_ai_external_reclaim_candidates > 0 } error_log = "AAWC AI 1.9.95 audit found adjacent wilderness/ruin candidates for external reclaim/colonization" }
+
+		remove_variable = aawc_ai_owned_empty_slots
+		remove_variable = aawc_ai_owned_settlements
+		remove_variable = aawc_ai_ready_settlements
+		remove_variable = aawc_ai_blocked_settlements
+		remove_variable = aawc_ai_external_reclaim_candidates
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 audit complete" }
+	}
+}
+
+aawc_population_ai_convert_selected_settlement_effect = {
+	if = {
+		limit = {
+			is_ai = yes
+			is_landed = yes
+			agot_is_dummy_character = no
+			exists = scope:aawc_ai_selected_settlement_province
+			scope:aawc_ai_selected_settlement_province = {
+				county = { holder = root }
+				OR = {
+					AND = {
+						has_holding_type = settlement_holding
+						has_building_with_flag = {
+							flag = obstacle
+							count = 0
+						}
+						county = { development_level >= 3 }
+						has_building = settlement_03
+						has_ongoing_construction = no
+					}
+					AND = {
+						has_holding_type = tribal_holding
+						is_county_capital = no
+						has_ongoing_construction = no
+					}
+				}
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 conversion selected eligible settlement" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+		scope:aawc_ai_selected_settlement_province = {
+			if = { limit = { has_holding_type = settlement_holding } set_variable = { name = aawc_population_preconversion_settlement value = 1 } }
+			if = { limit = { has_holding_type = tribal_holding } set_variable = { name = aawc_population_preconversion_tribal value = 1 } }
+		}
+		if = {
+			limit = {
+				government_has_flag = government_is_tribal
+				scope:aawc_ai_selected_settlement_province = { has_variable = aawc_population_preconversion_settlement }
+			}
+			scope:aawc_ai_selected_settlement_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 conversion result: tribal government chose tribal_holding" }
+				set_holding_type = tribal_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				scope:aawc_ai_selected_settlement_province = { is_county_capital = yes }
+				has_government = republic_government
+			}
+			scope:aawc_ai_selected_settlement_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 conversion result: republic capital settlement chose city_holding" }
+				set_holding_type = city_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				scope:aawc_ai_selected_settlement_province = { is_county_capital = yes }
+				has_government = theocracy_government
+			}
+			scope:aawc_ai_selected_settlement_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 conversion result: theocracy capital settlement chose church_holding" }
+				set_holding_type = church_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		else_if = {
+			limit = { scope:aawc_ai_selected_settlement_province = { is_county_capital = yes } }
+			scope:aawc_ai_selected_settlement_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 conversion result: non-tribal capital settlement chose castle_holding" }
+				set_holding_type = castle_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					scope:aawc_ai_selected_settlement_province = {
+						county = {
+							any_in_de_jure_hierarchy = {
+								tier = tier_barony
+								title_province = { has_holding_type = city_holding }
+							}
+						}
+					}
+				}
+			}
+			scope:aawc_ai_selected_settlement_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 conversion result: diversified county by adding first city_holding" }
+				set_holding_type = city_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					scope:aawc_ai_selected_settlement_province = {
+						county = {
+							any_in_de_jure_hierarchy = {
+								tier = tier_barony
+								title_province = { has_holding_type = church_holding }
+							}
+						}
+					}
+				}
+			}
+			scope:aawc_ai_selected_settlement_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 conversion result: diversified county by adding first church_holding" }
+				set_holding_type = church_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_trait = ambitious
+					has_trait = brave
+					martial >= 12
+					ai_boldness >= high_positive_ai_value
+				}
+			}
+			scope:aawc_ai_selected_settlement_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 conversion result: martial/expansionist AI chose extra castle_holding after basic diversification" }
+				set_holding_type = castle_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		else = {
+			scope:aawc_ai_selected_settlement_province = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 conversion result: default balanced AI chose city_holding after basic diversification" }
+				set_holding_type = city_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		aawc_population_resync_settlement_tracker_effect = yes
+		aawc_population_recalculate_character_effect = yes
+		set_variable = { name = aawc_ai_diag_result value = 1 }
+		if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY AI completed a settlement conversion action" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+}
+
+aawc_population_ai_establish_selected_owned_settlement_effect = {
+	if = {
+		limit = {
+			is_ai = yes
+			is_landed = yes
+			agot_is_dummy_character = no
+			aawc_population_ai_below_settlement_limit = yes
+			exists = scope:aawc_ai_selected_empty_province
+			scope:aawc_ai_selected_empty_province = {
+				has_holding = no
+				is_county_capital = no
+				county = { holder = root }
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 internal settlement selected owned empty barony" }
+		set_variable = { name = aawc_ai_owned_settlement_population_cost value = 0 }
+		set_variable = { name = aawc_ai_owned_settlement_gold_cost value = 0 }
+		set_variable = { name = aawc_ai_owned_settlement_starting_population value = 0 }
+		save_scope_value_as = {
+			name = aawc_ai_owned_settlement_population_cost
+			value = scope:aawc_ai_selected_empty_province.aawc_population_owned_settlement_population_cost
+		}
+		save_scope_value_as = {
+			name = aawc_ai_owned_settlement_gold_cost
+			value = scope:aawc_ai_selected_empty_province.aawc_population_owned_settlement_gold_cost
+		}
+		save_scope_value_as = {
+			name = aawc_ai_owned_settlement_starting_population
+			value = scope:aawc_ai_selected_empty_province.aawc_population_owned_settlement_starting_population
+		}
+		save_scope_value_as = {
+			name = aawc_ai_diag_internal_pop_cost
+			value = scope:aawc_ai_selected_empty_province.aawc_population_owned_settlement_population_cost
+		}
+		save_scope_value_as = {
+			name = aawc_ai_diag_internal_gold_cost
+			value = scope:aawc_ai_selected_empty_province.aawc_population_owned_settlement_gold_cost
+		}
+		save_scope_value_as = {
+			name = aawc_ai_diag_internal_starting_pop
+			value = scope:aawc_ai_selected_empty_province.aawc_population_owned_settlement_starting_population
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+		if = {
+			limit = {
+				var:aawc_population_available >= scope:aawc_ai_owned_settlement_population_cost
+				gold >= scope:aawc_ai_owned_settlement_gold_cost
+				OR = {
+					NOT = { is_at_war = yes }
+					has_trait = ambitious
+					ai_boldness >= very_high_positive_ai_value
+				}
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 internal settlement resource gate passed" }
+			if = { limit = { is_at_war = yes } error_log = "AAWC AI 1.9.95 internal settlement allowed during war by expansionist personality" }
+			else = { error_log = "AAWC AI 1.9.95 internal settlement allowed during peace" }
+			remove_short_term_gold = scope:aawc_ai_owned_settlement_gold_cost
+			aawc_population_add_reserved_amount_effect = { COST = scope:aawc_ai_owned_settlement_population_cost }
+			aawc_population_consume_reserved_amount_effect = { COST = scope:aawc_ai_owned_settlement_population_cost }
+			aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = scope:aawc_ai_owned_settlement_starting_population }
+			scope:aawc_ai_selected_empty_province = {
+				set_holding_type = settlement_holding
+				aawc_reforging_diag_caller_effect = { CALLER = 5 }
+			aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = root.var:aawc_population_last_settlement_credit }
+				set_variable = { name = aawc_population_expected value = aawc_population_holding_expected }
+				set_variable = { name = aawc_population_total value = var:aawc_population_current }
+				set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+				change_variable = {
+					name = aawc_population_surplus
+					add = {
+						value = var:aawc_population_expected
+						multiply = -1
+					}
+				}
+				aawc_place_initial_regional_blockers_effect = yes
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI internal settlement created, seeded population, and placed four regional blocker chains" }
+			}
+			remove_variable = aawc_population_pending_settlement_credit
+			increase_variable = {
+				NAME = num_settled_wilderness
+				AMOUNT = 1
+			}
+			aawc_population_resync_settlement_tracker_effect = yes
+			aawc_population_recalculate_character_effect = yes
+			set_variable = { name = aawc_ai_yearly_action_taken value = 1 }
+			set_variable = { name = aawc_ai_diag_result value = 2 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY AI completed an internal settlement action" }
+		}
+		else = {
+			set_variable = { name = aawc_ai_diag_result value = 20 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 internal settlement blocked by population, gold, war caution, or validation gate" }
+		}
+		remove_variable = aawc_ai_owned_settlement_population_cost
+		remove_variable = aawc_ai_owned_settlement_gold_cost
+		remove_variable = aawc_ai_owned_settlement_starting_population
+	}
+}
+
+aawc_population_ai_colonize_selected_external_target_effect = {
+	if = {
+		limit = {
+			is_ai = yes
+			is_landed = yes
+			agot_is_dummy_character = no
+			aawc_population_ai_below_settlement_limit = yes
+			NOT = { has_variable = aawc_ai_yearly_action_taken }
+			exists = scope:aawc_ai_selected_external_county
+			scope:aawc_ai_selected_external_county = {
+				aawc_county_is_valid_agot_ai_colonization_target = yes
+				NOT = { has_county_modifier = block_settlement_ability }
+				title_province = {
+					OR = {
+						has_holding_type = ruin_holding
+						has_holding_type = wilderness_holding
+					}
+				}
+			}
+			above_settlement_limit = no
+			NOT = { has_variable = colonization_cooldown }
+			NOT = { any_owned_story = { story_type = story_conqueror } }
+			NOT = { government_has_flag = government_is_nw }
+			NOT = { government_has_flag = government_is_uninteractable }
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 external colonization selected candidate" }
+		scope:aawc_ai_selected_external_county = {
+			title_province = { save_scope_as = aawc_ai_selected_external_province }
+		}
+		set_variable = { name = aawc_ai_external_population_cost value = 0 }
+		set_variable = { name = aawc_ai_external_gold_cost value = 0 }
+		if = {
+			limit = {
+				scope:aawc_ai_selected_external_province = { has_holding_type = ruin_holding }
+			}
+			save_scope_value_as = {
+				name = aawc_ai_external_population_cost
+				value = scope:aawc_ai_selected_external_county.aawc_population_county_reclaim_cost_rh
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 external candidate classified as ruin reclaim" }
+		}
+		else = {
+			save_scope_value_as = {
+				name = aawc_ai_external_population_cost
+				value = scope:aawc_ai_selected_external_county.aawc_population_county_colonize_cost_wh
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 external candidate classified as wilderness colonization" }
+		}
+		save_scope_value_as = {
+			name = aawc_ai_external_gold_cost
+			value = 200
+		}
+		save_scope_value_as = {
+			name = aawc_ai_diag_external_pop_cost
+			value = scope:aawc_ai_external_population_cost
+		}
+		save_scope_value_as = {
+			name = aawc_ai_diag_external_gold_cost
+			value = scope:aawc_ai_external_gold_cost
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+		if = {
+			limit = {
+				var:aawc_population_available >= scope:aawc_ai_external_population_cost
+				gold >= scope:aawc_ai_external_gold_cost
+				OR = {
+					NOT = { is_at_war = yes }
+					has_trait = ambitious
+					has_trait = brave
+					ai_boldness >= very_high_positive_ai_value
+				}
+				NOR = {
+					var:lv_settlement_state ?= flag:planning
+					any_owned_story = {
+						story_type = lv_settlement_story_cycle
+						is_target_in_variable_list = {
+							name = lv_settlement_expeditions
+							target = scope:aawc_ai_selected_external_province
+						}
+					}
+				}
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 external colonization resource/context gate passed" }
+			remove_short_term_gold = scope:aawc_ai_external_gold_cost
+			aawc_population_add_reserved_amount_effect = {
+				COST = scope:aawc_ai_external_population_cost
+			}
+			aawc_population_consume_reserved_amount_effect = {
+				COST = scope:aawc_ai_external_population_cost
+			}
+			aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = 100 }
+			scope:aawc_ai_selected_external_county = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes aawc_county_should_use_lov_ai_reclaim_flow = yes } error_log = "AAWC AI 1.9.95 external target has native LoV RH routing marker" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes aawc_county_should_use_agot_colonization_flow = yes } error_log = "AAWC AI 1.9.95 external target has AGOT colonization routing marker" }
+			}
+			save_scope_as = liege
+			lv_settlement_establish_effect = {
+				PROVINCE = scope:aawc_ai_selected_external_province
+				ACTOR = root
+			}
+			set_variable = { name = aawc_ai_yearly_action_taken value = 1 }
+			aawc_population_recalculate_character_effect = yes
+			set_variable = { name = aawc_ai_diag_result value = 3 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY AI completed an external colonization action" }
+		}
+		else = {
+			set_variable = { name = aawc_ai_diag_result value = 21 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 external colonization blocked by population, gold, war caution, active expedition, cooldown, or validation gate" }
+		}
+		remove_variable = aawc_ai_external_population_cost
+		remove_variable = aawc_ai_external_gold_cost
+	}
+}
+
+aawc_population_ai_set_marshal_posture_effect = {
+	set_variable = { name = aawc_ai_yearly_posture value = 1 }
+	set_variable = { name = aawc_ai_diag_posture value = 1 }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly posture selected: Marshal/Conqueror, saving resources for MAA and war" }
+}
+
+aawc_population_ai_set_builder_posture_effect = {
+	set_variable = { name = aawc_ai_yearly_posture value = 2 }
+	set_variable = { name = aawc_ai_diag_posture value = 2 }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly posture selected: Steward/Builder, prioritizing owned-county settlement" }
+}
+
+aawc_population_ai_set_explorer_posture_effect = {
+	set_variable = { name = aawc_ai_yearly_posture value = 3 }
+	set_variable = { name = aawc_ai_diag_posture value = 3 }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly posture selected: Diplomat/Explorer, prioritizing external reclaim/colonization" }
+}
+
+aawc_population_ai_set_schemer_posture_effect = {
+	set_variable = { name = aawc_ai_yearly_posture value = 4 }
+	set_variable = { name = aawc_ai_diag_posture value = 4 }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly posture selected: Intrigue/Schemer, saving resources for politics and schemes" }
+}
+
+aawc_population_ai_choose_yearly_posture_effect = {
+	if = { limit = { has_variable = aawc_ai_yearly_posture } remove_variable = aawc_ai_yearly_posture }
+
+	if = {
+		limit = {
+			OR = {
+				has_trait = education_stewardship
+				has_trait = diligent
+				has_trait = temperate
+				stewardship >= 12
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly posture weights: stewardship/building leaning" }
+		random_list = {
+			15 = { aawc_population_ai_set_marshal_posture_effect = yes }
+			55 = { aawc_population_ai_set_builder_posture_effect = yes }
+			20 = { aawc_population_ai_set_explorer_posture_effect = yes }
+			10 = { aawc_population_ai_set_schemer_posture_effect = yes }
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_trait = education_diplomacy
+				has_trait = gregarious
+				has_trait = compassionate
+				diplomacy >= 12
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly posture weights: diplomacy/exploration leaning" }
+		random_list = {
+			15 = { aawc_population_ai_set_marshal_posture_effect = yes }
+			20 = { aawc_population_ai_set_builder_posture_effect = yes }
+			55 = { aawc_population_ai_set_explorer_posture_effect = yes }
+			10 = { aawc_population_ai_set_schemer_posture_effect = yes }
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_trait = education_martial
+				has_trait = education_martial_prowess
+				has_trait = brave
+				has_trait = wrathful
+				martial >= 12
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly posture weights: martial/conquest leaning" }
+		random_list = {
+			55 = { aawc_population_ai_set_marshal_posture_effect = yes }
+			20 = { aawc_population_ai_set_builder_posture_effect = yes }
+			15 = { aawc_population_ai_set_explorer_posture_effect = yes }
+			10 = { aawc_population_ai_set_schemer_posture_effect = yes }
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_trait = education_intrigue
+				has_trait = deceitful
+				has_trait = paranoid
+				has_trait = greedy
+				intrigue >= 12
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly posture weights: intrigue/scheming leaning" }
+		random_list = {
+			15 = { aawc_population_ai_set_marshal_posture_effect = yes }
+			15 = { aawc_population_ai_set_builder_posture_effect = yes }
+			15 = { aawc_population_ai_set_explorer_posture_effect = yes }
+			55 = { aawc_population_ai_set_schemer_posture_effect = yes }
+		}
+	}
+	else = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly posture weights: balanced fallback" }
+		random_list = {
+			25 = { aawc_population_ai_set_marshal_posture_effect = yes }
+			25 = { aawc_population_ai_set_builder_posture_effect = yes }
+			25 = { aawc_population_ai_set_explorer_posture_effect = yes }
+			25 = { aawc_population_ai_set_schemer_posture_effect = yes }
+		}
+	}
+}
+
+aawc_population_ai_yearly_decision_effect = {
+	if = {
+		limit = {
+			is_ai = yes
+			is_landed = yes
+			agot_is_dummy_character = no
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly decision pass begin" }
+		if = { limit = { has_variable = aawc_ai_yearly_action_taken } remove_variable = aawc_ai_yearly_action_taken }
+		aawc_population_ai_reset_diagnostic_variables_effect = yes
+		aawc_population_recalculate_character_effect = yes
+		aawc_population_resync_settlement_tracker_effect = yes
+		aawc_population_ai_audit_character_effect = yes
+		aawc_population_ai_choose_yearly_posture_effect = yes
+
+		every_held_county = {
+			limit = { tier = tier_county }
+			every_in_de_jure_hierarchy = {
+				limit = { tier = tier_barony }
+				title_province = {
+					if = {
+						limit = {
+							county = { holder = root }
+							OR = {
+								AND = {
+									has_holding_type = settlement_holding
+									has_building_with_flag = {
+										flag = obstacle
+										count = 0
+									}
+									county = { development_level >= 3 }
+									has_building = settlement_03
+									has_ongoing_construction = no
+								}
+								AND = {
+									has_holding_type = tribal_holding
+									is_county_capital = no
+									has_ongoing_construction = no
+									root = { NOT = { government_has_flag = government_is_tribal } }
+								}
+							}
+						}
+						add_to_list = aawc_ai_ready_settlement_candidates
+					}
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				any_in_list = {
+					list = aawc_ai_ready_settlement_candidates
+				}
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly decision priority: converting ready settlement before founding new one" }
+			ordered_in_list = {
+				list = aawc_ai_ready_settlement_candidates
+				order_by = {
+					value = 0
+					if = { limit = { is_county_capital = yes } add = 100 }
+					if = { limit = { has_building = settlement_03 } add = 10 }
+				}
+				save_scope_as = aawc_ai_selected_settlement_province
+			}
+			aawc_population_ai_convert_selected_settlement_effect = yes
+		}
+		else = {
+			every_held_county = {
+				limit = { tier = tier_county }
+				every_in_de_jure_hierarchy = {
+					limit = { tier = tier_barony }
+					title_province = {
+						if = {
+							limit = {
+								has_holding = no
+								is_county_capital = no
+								county = { holder = root }
+							}
+							add_to_list = aawc_ai_owned_empty_slot_candidates
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_in_list = {
+						list = aawc_ai_owned_empty_slot_candidates
+					}
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly decision priority: considering internal owned-county settlement before external expansion" }
+				ordered_in_list = {
+					list = aawc_ai_owned_empty_slot_candidates
+					order_by = {
+						value = 0
+						add = county.development_level
+						if = { limit = { county = { any_county_province = { has_holding_type = castle_holding } } } add = 5 }
+					}
+					save_scope_as = aawc_ai_selected_empty_province
+				}
+				if = {
+					limit = {
+						var:aawc_ai_yearly_posture = 2
+						aawc_population_ai_below_settlement_limit = yes
+					}
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly decision Builder posture chose to found internal settlement" }
+					aawc_population_ai_establish_selected_owned_settlement_effect = yes
+				}
+				else = {
+					set_variable = { name = aawc_ai_diag_result value = 30 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+					if = { limit = { var:aawc_ai_yearly_posture = 2 NOT = { aawc_population_ai_below_settlement_limit = yes } } error_log = "AAWC AI 1.9.95 yearly decision Builder posture at settlement limit, focusing existing settlements instead" }
+					if = { limit = { var:aawc_ai_yearly_posture = 1 } error_log = "AAWC AI 1.9.95 yearly decision Marshal posture skipped internal settlement spending" }
+					if = { limit = { var:aawc_ai_yearly_posture = 3 } error_log = "AAWC AI 1.9.95 yearly decision Explorer posture skipped internal settlement spending" }
+					if = { limit = { var:aawc_ai_yearly_posture = 4 } error_log = "AAWC AI 1.9.95 yearly decision Schemer posture skipped internal settlement spending" }
+				}
+			}
+			if = {
+				limit = { NOT = { has_variable = aawc_ai_yearly_action_taken } }
+				aawc_population_resync_settlement_tracker_effect = yes
+				every_sub_realm_county = {
+					every_title_to_title_neighboring_and_across_water_county = {
+						limit = {
+							aawc_county_is_valid_agot_ai_colonization_target = yes
+							NOR = {
+								has_county_modifier = block_settlement_ability
+								holder = root
+							}
+							# Beyond-the-Wall AI should only expand there if culturally/geographically appropriate.
+							trigger_if = {
+								limit = {
+									title_province ?= {
+										geographical_region = world_westeros_beyond_the_wall
+									}
+								}
+								root = {
+									OR = {
+										culture = { agot_is_wildling_culture = yes }
+										capital_county.title_province ?= {
+											geographical_region = world_westeros_beyond_the_wall
+										}
+									}
+								}
+							}
+							# Pirate-region targets require aggressive/pirate personality.
+							trigger_if = {
+								limit = {
+									title_province ?= {
+										geographical_region = historical_pirate_region
+									}
+								}
+								root = {
+									OR = {
+										government_has_flag = government_is_pirate
+										has_trait = ambitious
+										AND = {
+											ai_boldness >= very_high_positive_ai_value
+											ai_rationality >= high_positive_ai_value
+										}
+									}
+								}
+							}
+							# Valyria mainland stays locked until its subregion is restored.
+							trigger_if = {
+								limit = { title_province ?= { geographical_region = world_valyria_mainland } }
+								title_province = { lv_valyria_subregion_restored = yes }
+							}
+							trigger_else = { always = yes }
+						}
+						add_to_list = aawc_ai_external_colonization_candidates
+					}
+				}
+				if = {
+					limit = {
+						any_in_list = {
+							list = aawc_ai_external_colonization_candidates
+						}
+					}
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly decision found external wilderness/ruin candidates" }
+					ordered_in_list = {
+						list = aawc_ai_external_colonization_candidates
+						order_by = {
+							value = 0
+							if = { limit = { title_province = { has_holding_type = ruin_holding } } add = 10 }
+							every_neighboring_county = {
+								limit = { holder = root }
+								add = 2
+							}
+							every_neighboring_county = {
+								limit = {
+									holder = root
+									duchy = prev.duchy
+								}
+								add = 16
+							}
+							every_neighboring_county = {
+								limit = {
+									holder = root
+									kingdom = prev.kingdom
+								}
+								add = 8
+							}
+							every_neighboring_county = {
+								limit = {
+									holder = root
+									empire = prev.empire
+								}
+								add = 4
+							}
+						}
+						save_scope_as = aawc_ai_selected_external_county
+					}
+					if = {
+						limit = {
+							var:aawc_ai_yearly_posture = 3
+							aawc_population_ai_below_settlement_limit = yes
+						}
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly decision Explorer posture chose external colonization" }
+						aawc_population_ai_colonize_selected_external_target_effect = yes
+					}
+					else = {
+						set_variable = { name = aawc_ai_diag_result value = 31 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+						if = { limit = { var:aawc_ai_yearly_posture = 3 NOT = { aawc_population_ai_below_settlement_limit = yes } } error_log = "AAWC AI 1.9.95 yearly decision Explorer posture at settlement limit, focusing existing settlements instead" }
+						if = { limit = { var:aawc_ai_yearly_posture = 1 } error_log = "AAWC AI 1.9.95 yearly decision Marshal posture skipped external colonization spending" }
+						if = { limit = { var:aawc_ai_yearly_posture = 2 } error_log = "AAWC AI 1.9.95 yearly decision Builder posture skipped external colonization spending" }
+						if = { limit = { var:aawc_ai_yearly_posture = 4 } error_log = "AAWC AI 1.9.95 yearly decision Schemer posture skipped external colonization spending" }
+					}
+				}
+				else = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly decision found no external wilderness/ruin candidates" }
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { has_variable = aawc_ai_yearly_action_taken } }
+			if = { limit = { var:aawc_ai_diag_result = 0 } set_variable = { name = aawc_ai_diag_result value = 10 } }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly decision completed with no settlement or colonization action selected" }
+		}
+		if = { limit = { has_variable = aawc_ai_yearly_action_taken } remove_variable = aawc_ai_yearly_action_taken }
+		if = { limit = { has_variable = aawc_ai_yearly_posture } remove_variable = aawc_ai_yearly_posture }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 yearly decision pass complete" }
+	}
+}

@@ -1,0 +1,493 @@
+{
+  "version": "1.11.2.3",
+  "date": "2026-11-09",
+  "passed": true,
+  "scope": "Frozen Stage 2 deterministic behavioral regression and package verification; no desktop/runtime actions",
+  "evidence_class": "PACKAGE_EXTRACTED_SOURCE_VM_AND_STATIC_NOT_NATIVE_CK3",
+  "critical_acceptance": {
+    "six_conditions_contribution_tradeoffs_capacity_pressure_age_specific_demography_and_stage1_ledger": "PASS",
+    "bounds_contribution_parity_structural_effective_separation_and_pressure_thresholds": "PASS",
+    "ordinary_births_below_deaths_near_125_percent_for_fresh_and_evolved_mixed_age_ledgers": "PASS",
+    "no_hard_capacity_deletion": "PASS",
+    "within_scope_defects_repaired_or_explicit_no_defect_disposition": "PASS: validation fixture repaired; no gameplay defect reproduced in contracted mixed-age scenarios",
+    "exact_source_archive_manifest_and_crc": "PASS 341/341",
+    "master_records_automated_scope_and_limits_without_rendered_claim": "PASS"
+  },
+  "package": {
+    "passed": true,
+    "installation_checked": false,
+    "version": "1.11.2.3",
+    "counts": {
+      "source": 341,
+      "archive": 341,
+      "installed": null,
+      "manifest": 341
+    },
+    "versions": {
+      "source_inner": "1.11.2.3",
+      "source_outer": "1.11.2.3",
+      "archive_inner": "1.11.2.3",
+      "archive_outer": "1.11.2.3"
+    },
+    "source_to_archive": {
+      "missing": [],
+      "extra": [],
+      "changed": []
+    },
+    "source_to_install": null,
+    "manifest": {
+      "malformed_lines": [],
+      "missing": [],
+      "extra": [],
+      "changed": []
+    },
+    "archive": {
+      "path": "C:\\Users\\sheac\\AAWC\\versions\\1.11.2\\AGOT_Alternate_World_Compatch_1.11.2.3.zip",
+      "sha256": "5AE4CEA55990F9F6CAD49EA1B8FE4832EDBF7942E5B3FEC4A3630F0F8200D766",
+      "bad_crc_entry": null
+    },
+    "manifest_file": {
+      "path": "C:\\Users\\sheac\\AAWC\\versions\\1.11.2\\AGOT_Alternate_World_Compatch_1.11.2.3.manifest.sha256",
+      "sha256": "147C26ACFE8644A9C4235EE80F5229F7448AA796E88F20309099FED57AAC1C57"
+    }
+  },
+  "behavioral_run": {
+    "passed": true,
+    "tests": 10,
+    "failures": [],
+    "evidence_class": "SOURCE_VM_NOT_NATIVE_CK3",
+    "archive": "versions\\1.11.2\\AGOT_Alternate_World_Compatch_1.11.2.2.zip",
+    "archive_sha256": "D9D64E6F13A4400B09B153330D56C258EE437ACEC5B11EFC0928446810345E34",
+    "contribution_table_sha256": "B01668F7E30DBEC30CDD252B900F2ACF3ECEB30BE3AE1B41494BF0AA43867A3D",
+    "scenarios": {
+      "contribution_execution": {
+        "levels": 666,
+        "upgrade_chains": 141
+      },
+      "loss_accounting": {
+        "raid_action_completion": {
+          "external_deaths": 15,
+          "external_fraction": 0.15,
+          "ordinary_deaths_next_12_months": 1
+        },
+        "siege_completion": {
+          "external_deaths": 30,
+          "external_fraction": 0.3,
+          "ordinary_deaths_next_12_months": 0
+        },
+        "county_occupied": {
+          "external_deaths": 10,
+          "external_fraction": 0.1,
+          "ordinary_deaths_next_12_months": 1
+        }
+      },
+      "dimension_sweep": {
+        "score_vectors": 606,
+        "mortality_bands_per_vector": 13
+      },
+      "monthly_feedback_100_years": {
+        "excellent": {
+          "checkpoints": [
+            {
+              "month": 1,
+              "population": 6029,
+              "birth_demand": 31.99838,
+              "death_demand": 2.9041
+            },
+            {
+              "month": 120,
+              "population": 9494,
+              "birth_demand": 35.43243,
+              "death_demand": 4.63595
+            },
+            {
+              "month": 300,
+              "population": 12435,
+              "birth_demand": 20.74383,
+              "death_demand": 18.98363
+            },
+            {
+              "month": 600,
+              "population": 12486,
+              "birth_demand": 19.30273,
+              "death_demand": 19.88067
+            },
+            {
+              "month": 900,
+              "population": 12370,
+              "birth_demand": 21.26792,
+              "death_demand": 21.28498
+            },
+            {
+              "month": 1200,
+              "population": 12392,
+              "birth_demand": 21.0308,
+              "death_demand": 20.96714
+            }
+          ],
+          "bands": [
+            1161,
+            1139,
+            1123,
+            1063,
+            1003,
+            1001,
+            943,
+            882,
+            823,
+            762,
+            702,
+            583,
+            1207
+          ],
+          "evolved_age_profiles_at_125_percent": [
+            {
+              "month": 1,
+              "birth_demand": 8.37777,
+              "death_demand": 11.49505
+            },
+            {
+              "month": 120,
+              "birth_demand": 9.50877,
+              "death_demand": 18.93886
+            },
+            {
+              "month": 300,
+              "birth_demand": 18.19722,
+              "death_demand": 20.06433
+            },
+            {
+              "month": 600,
+              "birth_demand": 18.7348,
+              "death_demand": 20.10623
+            },
+            {
+              "month": 900,
+              "birth_demand": 16.64035,
+              "death_demand": 23.83856
+            },
+            {
+              "month": 1200,
+              "birth_demand": 17.0767,
+              "death_demand": 23.01209
+            }
+          ]
+        },
+        "neutral": {
+          "checkpoints": [
+            {
+              "month": 1,
+              "population": 6020,
+              "birth_demand": 26.4,
+              "death_demand": 6.43624
+            },
+            {
+              "month": 120,
+              "population": 8329,
+              "birth_demand": 28.43454,
+              "death_demand": 8.88001
+            },
+            {
+              "month": 300,
+              "population": 10444,
+              "birth_demand": 24.1873,
+              "death_demand": 19.57399
+            },
+            {
+              "month": 600,
+              "population": 10719,
+              "birth_demand": 20.85143,
+              "death_demand": 21.51495
+            },
+            {
+              "month": 900,
+              "population": 10531,
+              "birth_demand": 22.22663,
+              "death_demand": 22.17516
+            },
+            {
+              "month": 1200,
+              "population": 10535,
+              "birth_demand": 22.15358,
+              "death_demand": 22.06025
+            }
+          ],
+          "bands": [
+            1137,
+            1092,
+            1033,
+            939,
+            917,
+            878,
+            819,
+            759,
+            732,
+            678,
+            560,
+            441,
+            550
+          ]
+        },
+        "poor": {
+          "checkpoints": [
+            {
+              "month": 1,
+              "population": 5973,
+              "birth_demand": 6.56079,
+              "death_demand": 32.91578
+            },
+            {
+              "month": 120,
+              "population": 4202,
+              "birth_demand": 5.33954,
+              "death_demand": 14.78326
+            },
+            {
+              "month": 300,
+              "population": 2834,
+              "birth_demand": 3.69661,
+              "death_demand": 9.73556
+            },
+            {
+              "month": 600,
+              "population": 1661,
+              "birth_demand": 2.41785,
+              "death_demand": 4.9392
+            },
+            {
+              "month": 900,
+              "population": 994,
+              "birth_demand": 1.44304,
+              "death_demand": 3.32648
+            },
+            {
+              "month": 1200,
+              "population": 651,
+              "birth_demand": 1.02957,
+              "death_demand": 1.43845
+            }
+          ],
+          "bands": [
+            17,
+            70,
+            75,
+            75,
+            75,
+            75,
+            75,
+            76,
+            39,
+            33,
+            19,
+            18,
+            4
+          ]
+        },
+        "excellent_overfull": {
+          "checkpoints": [
+            {
+              "month": 1,
+              "population": 14974,
+              "birth_demand": 14.53229,
+              "death_demand": 39.79802
+            },
+            {
+              "month": 120,
+              "population": 12937,
+              "birth_demand": 13.05361,
+              "death_demand": 26.84624
+            },
+            {
+              "month": 300,
+              "population": 12333,
+              "birth_demand": 21.48668,
+              "death_demand": 21.76493
+            },
+            {
+              "month": 600,
+              "population": 12369,
+              "birth_demand": 21.40714,
+              "death_demand": 21.1323
+            },
+            {
+              "month": 900,
+              "population": 12406,
+              "birth_demand": 20.79714,
+              "death_demand": 20.73511
+            },
+            {
+              "month": 1200,
+              "population": 12408,
+              "birth_demand": 20.84675,
+              "death_demand": 20.76459
+            }
+          ],
+          "bands": [
+            1107,
+            1126,
+            1149,
+            1104,
+            1040,
+            1007,
+            948,
+            888,
+            828,
+            768,
+            708,
+            589,
+            1146
+          ]
+        }
+      },
+      "real_infrastructure_swap": {
+        "population": 4000,
+        "military_capacity": 3469,
+        "improved_capacity": 5671,
+        "military_birth_death_demand": [
+          3.5464,
+          15.17062
+        ],
+        "improved_birth_death_demand": [
+          18.77884,
+          2.40005
+        ],
+        "improved_buildings": [
+          "cereal_fields_08",
+          "hospices_04",
+          "longhouses_02"
+        ],
+        "resident_ledger_unchanged": true
+      },
+      "independent_structural_oracle": {
+        "sustenance": 55,
+        "habitation": 72,
+        "opportunity": 68,
+        "health": 56,
+        "security": 50,
+        "amenities": 56
+      },
+      "ledger_accounting": {
+        "initial_populations": [
+          0,
+          1,
+          2,
+          13,
+          125,
+          10000
+        ],
+        "months_each": 12
+      }
+    },
+    "limitations": [
+      "Five-decimal SourceVM arithmetic; native environment predicates are supplied by fixtures.",
+      "The production monthly wrapper executes, with its known 27-day guard expiry explicitly supplied once per simulated month.",
+      "100-year closed-holding scenarios exclude migration and native event dispatch; no final long-term calibration certification.",
+      "125% checks cover fresh and six evolved mixed-age populations, not every arbitrary age composition.",
+      "No installed payload, launcher, CK3 runtime, save, performance or rendered UI certification."
+    ]
+  },
+  "candidate_behavioral_equivalence": {
+    "executed_archive_version": "1.11.2.2",
+    "produced_archive_version": "1.11.2.3",
+    "identical_non_descriptor_files": 339,
+    "changed_files": [
+      "AGOT_Alternate_World_Compatch.mod",
+      "AGOT_Alternate_World_Compatch/descriptor.mod"
+    ],
+    "each_descriptor_diff_is_only_version_substitution": true,
+    "interpretation": "The extracted-archive behavioral result applies exactly to the produced gameplay payload; no duplicate century-length run was needed for descriptor-only changes."
+  },
+  "checks": [
+    {
+      "command": "python -B scripts/test_aawc_stage2_behavioral_regression.py --archive versions/1.11.2/AGOT_Alternate_World_Compatch_1.11.2.2.zip --report workspace/AAWC_REFORGING_STAGE2_BEHAVIORAL_BASELINE_1_11_2_2.json",
+      "tests": 10,
+      "result": "PASS",
+      "evidence_moved_to": "behavioral_run"
+    },
+    {
+      "command": "python -B -m unittest -v test_aawc_stage2_conditions test_aawc_stage2_demographic_integration test_aawc_stage2_hospice_tooltip_consistency test_aawc_cohort_bounded_arithmetic",
+      "working_directory": "scripts",
+      "tests": 37,
+      "result": "PASS"
+    },
+    {
+      "command": "python -B scripts/generate_aawc_stage2_conditions.py --check --audit-sources",
+      "result": "PASS",
+      "levels": 666,
+      "chains": 141
+    },
+    {
+      "command": "python -B scripts/build_aawc_release.py",
+      "result": "PASS",
+      "files": 341
+    },
+    {
+      "command": "python -B scripts/verify_aawc_release_candidate.py --workspace workspace --archive versions/1.11.2/AGOT_Alternate_World_Compatch_1.11.2.3.zip --manifest versions/1.11.2/AGOT_Alternate_World_Compatch_1.11.2.3.manifest.sha256 --version 1.11.2.3 --report workspace/AAWC_REFORGING_STAGE2_PACKAGE_VALIDATION.json",
+      "result": "PASS",
+      "files": 341,
+      "evidence_moved_to": "package"
+    }
+  ],
+  "unique_focused_tests_passed": 47,
+  "defects_and_repairs": [
+    {
+      "kind": "validation_fixture",
+      "failure": "The prior agricultural fixture used longhouses_08, which does not exist in the effective stack or contribution table. Its housing contribution was silently absent.",
+      "repair": "Use longhouses_02 and validate scenario building IDs against the contribution table before initialization.",
+      "before_capacity": 5020,
+      "after_capacity": 5671,
+      "corrected_population_100_birth_demand": 0.46947,
+      "corrected_population_100_death_demand": 0.05995,
+      "gameplay_source_change": false
+    },
+    {
+      "kind": "new_test_harness_development",
+      "failure": "A direct internal authority tick does not synchronize the scalar production mirror; the initial new tests incorrectly expected it to.",
+      "repair": "Execute the existing production monthly wrapper with explicit 27-day guard expiry fixture. No production bug was found."
+    }
+  ],
+  "age_composition_boundary_probe": {
+    "population": 10000,
+    "capacity": 8000,
+    "all_residents_age_20_24": true,
+    "all_structural_conditions": 100,
+    "monthly_birth_demand": 34.9074,
+    "monthly_death_demand": 5.95166,
+    "disposition": "Nonrepresentative age composition can transiently grow at 125%. Mixed-age sustainability acceptance is not a universal age-independent instantaneous cap. No demographic redesign was silently introduced."
+  },
+  "changed_assumptions": [
+    "The prior agricultural fixture did not actually include residential infrastructure; corrected quantitative evidence supersedes that interpretation.",
+    "The 125% sustainability result is explicitly bounded to ordinary mixed-age populations, including six evolved profiles; it is not universal across arbitrary age vectors."
+  ],
+  "required_new_follow_on_work": [],
+  "downstream_disposition": {
+    "existing_rendered_runtime_task": "STILL_REQUIRED; target 1.11.2.3 with this archive/manifest receipt, prove the loaded payload and inspect native behavior/UI. It is not complete.",
+    "obsolete_evidence": "Do not cite the old 5020-capacity fixture as including housing, or treat previous static PASS as rendered validation.",
+    "stage3_catalogue": "OUT_OF_SCOPE; no catalogue or demographic redesign added",
+    "missing_authoritative_guidance": "Missing Section 10 remainder still limits final long-horizon calibration; it does not block these frozen deterministic checks."
+  },
+  "hygiene": {
+    "python_bytecode_remaining": 0,
+    "removed_preexisting_bytecode_files": 2,
+    "policy_exception": "None in this phase; old two-file cleanup exception is superseded",
+    "useful_regressions_retained": true
+  },
+  "sha256": {
+    "scripts/test_aawc_stage2_behavioral_regression.py": "F25DC93122DBAD38708D78E15C5B5C6D7DA16B610A5B2685F70DB9129539E66D",
+    "scripts/test_aawc_stage2_demographic_integration.py": "75339270CF0C5DEC1738D320B9AE270D75E09EBA6657A6E8AAFB00FDEC854E7E",
+    "scripts/test_aawc_cohort_bounded_arithmetic.py": "45C65AA4E07C40344BA45242CD7C72DAD68748271A15422F9AA0ED419933A902",
+    "workspace/AGOT_Alternate_World_Compatch.mod": "99F8C2C1D5783DE1841FF0ED63DAAF2EEC633AAAE5C201F88C89F2D3BDC9976E",
+    "workspace/AGOT_Alternate_World_Compatch/descriptor.mod": "0DE0C527A24F3C2B64AF5C403B3B59E4EA1A4ED30613DF403397ABAE42065B59"
+  },
+  "limitations": [
+    "Five-decimal SourceVM arithmetic; native environment predicates are supplied by fixtures.",
+    "The production monthly wrapper executes, with its known 27-day guard expiry explicitly supplied once per simulated month.",
+    "100-year closed-holding scenarios exclude migration and native event dispatch; no final long-term calibration certification.",
+    "125% checks cover fresh and six evolved mixed-age populations, not every arbitrary age composition.",
+    "No installed payload, launcher, CK3 runtime, save, performance or rendered UI certification.",
+    "Existing source-level hospice/UI checks passed; no tooltip was rendered.",
+    "Loss adapters and disjoint holding predicates were executed; native on_action delivery, expiry and event multiplicity remain unverified.",
+    "No live installation, CK3/AGOT/Dependencies source, launcher profile, saved campaign, or historical release was modified.",
+    "Final long-horizon calibration guidance beyond the supplied truncated Section 10 is unavailable."
+  ]
+}

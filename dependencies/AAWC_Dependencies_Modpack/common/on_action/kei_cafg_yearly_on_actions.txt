@@ -1,0 +1,54 @@
+﻿yearly_global_pulse = {
+    on_actions = {
+		kCAFG_check_setup
+		kCAFG_yearly_global_pulse
+    }
+}
+
+five_year_playable_pulse = {
+    on_actions = {
+		kCAFG_five_year_playable_pulse
+    }
+}
+
+#Handle existing game saves
+kCAFG_check_setup = {
+    trigger = {
+		NOT = { has_global_variable = kCAFG_is_loaded_v2 }
+	}
+    effect = {
+        set_global_variable = kCAFG_is_loaded_v2
+
+        if = {
+            limit = { has_global_variable = kCAFG_is_loaded }
+            E_kCAFG_v1_conversion = yes
+        }
+        else = {
+            set_global_variable = kCAFG_is_loaded
+            E_kCAFG_setup_all_counties = yes
+        }
+    }
+}
+
+kCAFG_yearly_global_pulse = {
+    effect = {
+        if = {
+            limit = { has_global_variable = kCAFG_is_loaded_v2 }
+            E_kCAFG_natural_culture_evolution_yearly = yes
+            E_kCAFG_natural_faith_evolution_yearly = yes
+        }
+        trigger_event = kCAFG_monthly_global_events.0001
+    }
+}
+
+kCAFG_five_year_playable_pulse = {
+    effect = {
+        if = {
+            limit = {
+                has_global_variable = kCAFG_is_loaded_v2
+                NOT = { has_game_rule = kCAFG_cultural_benefits_off }
+            }
+            E_kCAFG_try_trigger_cultural_benefits = yes
+        }
+    }
+}

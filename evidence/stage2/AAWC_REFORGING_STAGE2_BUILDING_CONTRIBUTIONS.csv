@@ -1,0 +1,667 @@
+building,chain,level,sustenance,habitation,opportunity,health,security,amenities,space_percent,purpose,source
+cereal_fields_01,cereal_fields,1,5,0,1,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+cereal_fields_02,cereal_fields,2,7.5,0,1.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+cereal_fields_03,cereal_fields,3,10,0,2,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+cereal_fields_04,cereal_fields,4,12.5,0,2.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+cereal_fields_05,cereal_fields,5,15,0,3,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+cereal_fields_06,cereal_fields,6,17.5,0,3.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+cereal_fields_07,cereal_fields,7,20,0,4,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+cereal_fields_08,cereal_fields,8,22.5,0,4.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+farm_estates_01,farm_estates,1,5,0,1,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+farm_estates_02,farm_estates,2,7.5,0,1.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+farm_estates_03,farm_estates,3,10,0,2,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+farm_estates_04,farm_estates,4,12.5,0,2.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+farm_estates_05,farm_estates,5,15,0,3,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+farm_estates_06,farm_estates,6,17.5,0,3.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+farm_estates_07,farm_estates,7,20,0,4,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+farm_estates_08,farm_estates,8,22.5,0,4.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_farms_01,hill_farms,1,5,0,1,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_farms_02,hill_farms,2,7.5,0,1.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_farms_03,hill_farms,3,10,0,2,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_farms_04,hill_farms,4,12.5,0,2.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_farms_05,hill_farms,5,15,0,3,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_farms_06,hill_farms,6,17.5,0,3.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_farms_07,hill_farms,7,20,0,4,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_farms_08,hill_farms,8,22.5,0,4.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+paddy_fields_01,paddy_fields,1,5,0,1,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+paddy_fields_02,paddy_fields,2,7.5,0,1.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+paddy_fields_03,paddy_fields,3,10,0,2,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+paddy_fields_04,paddy_fields,4,12.5,0,2.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+paddy_fields_05,paddy_fields,5,15,0,3,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+paddy_fields_06,paddy_fields,6,17.5,0,3.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+paddy_fields_07,paddy_fields,7,20,0,4,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+paddy_fields_08,paddy_fields,8,22.5,0,4.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+orchards_01,orchards,1,5,0,1,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+orchards_02,orchards,2,7.5,0,1.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+orchards_03,orchards,3,10,0,2,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+orchards_04,orchards,4,12.5,0,2.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+orchards_05,orchards,5,15,0,3,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+orchards_06,orchards,6,17.5,0,3.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+orchards_07,orchards,7,20,0,4,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+orchards_08,orchards,8,22.5,0,4.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+pastures_01,pastures,1,5,0,1,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+pastures_02,pastures,2,7.5,0,1.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+pastures_03,pastures,3,10,0,2,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+pastures_04,pastures,4,12.5,0,2.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+pastures_05,pastures,5,15,0,3,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+pastures_06,pastures,6,17.5,0,3.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+pastures_07,pastures,7,20,0,4,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+pastures_08,pastures,8,22.5,0,4.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+plantations_01,plantations,1,5,0,1,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+plantations_02,plantations,2,7.5,0,1.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+plantations_03,plantations,3,10,0,2,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+plantations_04,plantations,4,12.5,0,2.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+plantations_05,plantations,5,15,0,3,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+plantations_06,plantations,6,17.5,0,3.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+plantations_07,plantations,7,20,0,4,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+plantations_08,plantations,8,22.5,0,4.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_steppe_farms_01,agot_steppe_farms,1,5,0,1,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_steppe_farms_02,agot_steppe_farms,2,7.5,0,1.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_steppe_farms_03,agot_steppe_farms,3,10,0,2,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_steppe_farms_04,agot_steppe_farms,4,12.5,0,2.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_steppe_farms_05,agot_steppe_farms,5,15,0,3,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_steppe_farms_06,agot_steppe_farms,6,17.5,0,3.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_steppe_farms_07,agot_steppe_farms,7,20,0,4,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_steppe_farms_08,agot_steppe_farms,8,22.5,0,4.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_urban_farms_01,agot_urban_farms,1,5,0,1,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_urban_farms_02,agot_urban_farms,2,7.5,0,1.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_urban_farms_03,agot_urban_farms,3,10,0,2,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_urban_farms_04,agot_urban_farms,4,12.5,0,2.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_urban_farms_05,agot_urban_farms,5,15,0,3,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_urban_farms_06,agot_urban_farms,6,17.5,0,3.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_urban_farms_07,agot_urban_farms,7,20,0,4,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_urban_farms_08,agot_urban_farms,8,22.5,0,4.5,0,0,0,0,Food production and agricultural livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hunting_grounds_01,hunting_grounds,1,3,0,1,0,0,1,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hunting_grounds_02,hunting_grounds,2,4.5,0,1.5,0,0,1.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hunting_grounds_03,hunting_grounds,3,6,0,2,0,0,2,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hunting_grounds_04,hunting_grounds,4,7.5,0,2.5,0,0,2.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hunting_grounds_05,hunting_grounds,5,9,0,3,0,0,3,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hunting_grounds_06,hunting_grounds,6,10.5,0,3.5,0,0,3.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hunting_grounds_07,hunting_grounds,7,12,0,4,0,0,4,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hunting_grounds_08,hunting_grounds,8,13.5,0,4.5,0,0,4.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hillside_grazing_01,hillside_grazing,1,3,0,1,0,0,1,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hillside_grazing_02,hillside_grazing,2,4.5,0,1.5,0,0,1.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hillside_grazing_03,hillside_grazing,3,6,0,2,0,0,2,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hillside_grazing_04,hillside_grazing,4,7.5,0,2.5,0,0,2.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hillside_grazing_05,hillside_grazing,5,9,0,3,0,0,3,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hillside_grazing_06,hillside_grazing,6,10.5,0,3.5,0,0,3.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hillside_grazing_07,hillside_grazing,7,12,0,4,0,0,4,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hillside_grazing_08,hillside_grazing,8,13.5,0,4.5,0,0,4.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+camel_farms_01,camel_farms,1,3,0,1,0,0,1,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+camel_farms_02,camel_farms,2,4.5,0,1.5,0,0,1.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+camel_farms_03,camel_farms,3,6,0,2,0,0,2,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+camel_farms_04,camel_farms,4,7.5,0,2.5,0,0,2.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+camel_farms_05,camel_farms,5,9,0,3,0,0,3,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+camel_farms_06,camel_farms,6,10.5,0,3.5,0,0,3.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+camel_farms_07,camel_farms,7,12,0,4,0,0,4,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+camel_farms_08,camel_farms,8,13.5,0,4.5,0,0,4.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+apiaries_01,apiaries,1,3,0,1,0,0,1,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+apiaries_02,apiaries,2,4.5,0,1.5,0,0,1.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+apiaries_03,apiaries,3,6,0,2,0,0,2,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+apiaries_04,apiaries,4,7.5,0,2.5,0,0,2.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+apiaries_05,apiaries,5,9,0,3,0,0,3,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+apiaries_06,apiaries,6,10.5,0,3.5,0,0,3.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+apiaries_07,apiaries,7,12,0,4,0,0,4,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+apiaries_08,apiaries,8,13.5,0,4.5,0,0,4.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_vineyard_01,agot_vineyard,1,3,0,1,0,0,1,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_vineyard_02,agot_vineyard,2,4.5,0,1.5,0,0,1.5,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_vineyard_03,agot_vineyard,3,6,0,2,0,0,2,0,Local food and pastoral or processing livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watermills_01,watermills,1,4,0,2,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watermills_02,watermills,2,6,0,3,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watermills_03,watermills,3,8,0,4,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watermills_04,watermills,4,10,0,5,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watermills_05,watermills,5,12,0,6,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watermills_06,watermills,6,14,0,7,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watermills_07,watermills,7,16,0,8,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watermills_08,watermills,8,18,0,9,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+windmills_01,windmills,1,4,0,2,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+windmills_02,windmills,2,6,0,3,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+windmills_03,windmills,3,8,0,4,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+windmills_04,windmills,4,10,0,5,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+windmills_05,windmills,5,12,0,6,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+windmills_06,windmills,6,14,0,7,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+windmills_07,windmills,7,16,0,8,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+windmills_08,windmills,8,18,0,9,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stilted_granaries_01,stilted_granaries,1,4,0,2,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stilted_granaries_02,stilted_granaries,2,6,0,3,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stilted_granaries_03,stilted_granaries,3,8,0,4,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stilted_granaries_04,stilted_granaries,4,10,0,5,0,0,0,0,Food processing and storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+qanats_01,qanats,1,3,1,0,4,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+qanats_02,qanats,2,4.5,1.5,0,6,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+qanats_03,qanats,3,6,2,0,8,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+qanats_04,qanats,4,7.5,2.5,0,10,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+qanats_05,qanats,5,9,3,0,12,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+qanats_06,qanats,6,10.5,3.5,0,14,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+qanats_07,qanats,7,12,4,0,16,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+qanats_08,qanats,8,13.5,4.5,0,18,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+waterworks_01,waterworks,1,3,1,0,4,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+waterworks_02,waterworks,2,4.5,1.5,0,6,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+waterworks_03,waterworks,3,6,2,0,8,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+waterworks_04,waterworks,4,7.5,2.5,0,10,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+waterworks_05,waterworks,5,9,3,0,12,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+waterworks_06,waterworks,6,10.5,3.5,0,14,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+waterworks_07,waterworks,7,12,4,0,16,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+waterworks_08,waterworks,8,13.5,4.5,0,18,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+water_temples_01,water_temples,1,3,1,0,4,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+water_temples_02,water_temples,2,4.5,1.5,0,6,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+water_temples_03,water_temples,3,6,2,0,8,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+water_temples_04,water_temples,4,7.5,2.5,0,10,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+sacred_pool_01,sacred_pool,1,3,1,0,4,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+sacred_pool_02,sacred_pool,2,4.5,1.5,0,6,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+sacred_pool_03,sacred_pool,3,6,2,0,8,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+sacred_pool_04,sacred_pool,4,7.5,2.5,0,10,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+sacred_pool_05,sacred_pool,5,9,3,0,12,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+sacred_pool_06,sacred_pool,6,10.5,3.5,0,14,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+sacred_pool_07,sacred_pool,7,12,4,0,16,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+sacred_pool_08,sacred_pool,8,13.5,4.5,0,18,0,0,0,Water access and sanitation,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_glass_gardens_01,agot_glass_gardens,1,7,0,1,4,0,1,0,Protected food production and care resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_glass_gardens_02,agot_glass_gardens,2,10.5,0,1.5,6,0,1.5,0,Protected food production and care resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_glass_gardens_03,agot_glass_gardens,3,14,0,2,8,0,2,0,Protected food production and care resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+longhouses_01,longhouses,1,0,6,1,0,0,0,2,Residential shelter and settlement construction,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+longhouses_02,longhouses,2,0,9,1.5,0,0,0,3,Residential shelter and settlement construction,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+construction_guilds_01,construction_guilds,1,0,6,1,0,0,0,2,Residential shelter and settlement construction,common/buildings/00_agot_settlement_buildings.txt
+tribal_construction_guilds_01,tribal_construction_guilds,1,0,6,1,0,0,0,2,Residential shelter and settlement construction,common/buildings/00_agot_settlement_buildings.txt
+guild_halls_01,guild_halls,1,0,0,5,0,0,1,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+guild_halls_02,guild_halls,2,0,0,7.5,0,0,1.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+guild_halls_03,guild_halls,3,0,0,10,0,0,2,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+guild_halls_04,guild_halls,4,0,0,12.5,0,0,2.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+guild_halls_05,guild_halls,5,0,0,15,0,0,3,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+guild_halls_06,guild_halls,6,0,0,17.5,0,0,3.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+guild_halls_07,guild_halls,7,0,0,20,0,0,4,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+guild_halls_08,guild_halls,8,0,0,22.5,0,0,4.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+market_villages_01,market_villages,1,0,0,5,0,0,1,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+market_villages_02,market_villages,2,0,0,7.5,0,0,1.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+trading_outposts_01,trading_outposts,1,0,0,5,0,0,1,0,Commerce administration and local livelihoods,common/buildings/00_agot_settlement_buildings.txt
+tribal_trading_outposts_01,tribal_trading_outposts,1,0,0,5,0,0,1,0,Commerce administration and local livelihoods,common/buildings/00_agot_settlement_buildings.txt
+caravanserai_01,caravanserai,1,0,0,5,0,0,1,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+caravanserai_02,caravanserai,2,0,0,7.5,0,0,1.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+caravanserai_03,caravanserai,3,0,0,10,0,0,2,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+caravanserai_04,caravanserai,4,0,0,12.5,0,0,2.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+caravanserai_05,caravanserai,5,0,0,15,0,0,3,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+caravanserai_06,caravanserai,6,0,0,17.5,0,0,3.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+caravanserai_07,caravanserai,7,0,0,20,0,0,4,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+caravanserai_08,caravanserai,8,0,0,22.5,0,0,4.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_economic_01,agot_pirate_economic,1,0,0,5,0,0,1,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_economic_02,agot_pirate_economic,2,0,0,7.5,0,0,1.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_economic_03,agot_pirate_economic,3,0,0,10,0,0,2,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_economic_04,agot_pirate_economic,4,0,0,12.5,0,0,2.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_economic_05,agot_pirate_economic,5,0,0,15,0,0,3,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_economic_06,agot_pirate_economic,6,0,0,17.5,0,0,3.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+tax_assessor_01,tax_assessor,1,0,0,5,0,0,1,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+tax_assessor_02,tax_assessor,2,0,0,7.5,0,0,1.5,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+tax_assessor_03,tax_assessor,3,0,0,10,0,0,2,0,Commerce administration and local livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+common_tradeport_01,common_tradeport,1,2,0,5,0,0,1,0,Port trade and access to imported necessities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+common_tradeport_02,common_tradeport,2,3,0,7.5,0,0,1.5,0,Port trade and access to imported necessities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+common_tradeport_03,common_tradeport,3,4,0,10,0,0,2,0,Port trade and access to imported necessities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+common_tradeport_04,common_tradeport,4,5,0,12.5,0,0,2.5,0,Port trade and access to imported necessities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+common_tradeport_05,common_tradeport,5,6,0,15,0,0,3,0,Port trade and access to imported necessities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+common_tradeport_06,common_tradeport,6,7,0,17.5,0,0,3.5,0,Port trade and access to imported necessities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+common_tradeport_07,common_tradeport,7,8,0,20,0,0,4,0,Port trade and access to imported necessities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+common_tradeport_08,common_tradeport,8,9,0,22.5,0,0,4.5,0,Port trade and access to imported necessities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+colony_port_01,colony_port,1,2,0,5,0,0,1,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/lv_colony_buildings.txt
+elyria_great_port_01,elyria_great_port,1,2,0,5,0,0,1,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_harbor_of_valyria_01,great_harbor_of_valyria,1,2,0,5,0,0,1,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_harbor_of_valyria_02,great_harbor_of_valyria,2,3,0,7.5,0,0,1.5,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_harbor_of_valyria_03,great_harbor_of_valyria,3,4,0,10,0,0,2,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_harbor_of_valyria_04,great_harbor_of_valyria,4,5,0,12.5,0,0,2.5,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+darkreach_quay_01,darkreach_quay,1,2,0,5,0,0,1,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/gogossos_special_buildings.txt
+darkreach_quay_02,darkreach_quay,2,3,0,7.5,0,0,1.5,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/gogossos_special_buildings.txt
+darkreach_quay_03,darkreach_quay,3,4,0,10,0,0,2,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/gogossos_special_buildings.txt
+agot_port_of_lys_01,agot_port_of_lys,1,2,0,5,0,0,1,0,Port trade and access to imported necessities,common/buildings/00_agot_special_buildings_essos.txt
+agot_pentos_harbor_01,agot_pentos_harbor,1,2,0,5,0,0,1,0,Port trade and access to imported necessities,common/buildings/00_agot_special_buildings_essos.txt
+agot_magister_harbor_01,agot_magister_harbor,1,2,0,5,0,0,1,0,Port trade and access to imported necessities,common/buildings/00_agot_special_buildings_essos.txt
+agot_EE_volantis_harbor,agot_EE_volantis_harbor,1,2,0,5,0,0,1,0,Port trade and access to imported necessities,AAWC_Dependencies_Modpack/common/buildings/lv_essos_special_buildings.txt
+hospices_01,hospices,1,0,0,0,6,0,0,0,Care and ordinary disease resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hospices_02,hospices,2,0,0,0,9,0,0,0,Care and ordinary disease resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hospices_03,hospices,3,0,0,0,12,0,0,0,Care and ordinary disease resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hospices_04,hospices,4,0,0,0,15,0,0,0,Care and ordinary disease resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hospices_05,hospices,5,0,0,0,18,0,0,0,Care and ordinary disease resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hospices_06,hospices,6,0,0,0,21,0,0,0,Care and ordinary disease resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hospices_07,hospices,7,0,0,0,24,0,0,0,Care and ordinary disease resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hospices_08,hospices,8,0,0,0,27,0,0,0,Care and ordinary disease resilience,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+scriptorium_01,scriptorium,1,0,0,2,1,0,3,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+scriptorium_02,scriptorium,2,0,0,3,1.5,0,4.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+scriptorium_03,scriptorium,3,0,0,4,2,0,6,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+scriptorium_04,scriptorium,4,0,0,5,2.5,0,7.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+scriptorium_05,scriptorium,5,0,0,6,3,0,9,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+scriptorium_06,scriptorium,6,0,0,7,3.5,0,10.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+scriptorium_07,scriptorium,7,0,0,8,4,0,12,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+scriptorium_08,scriptorium,8,0,0,9,4.5,0,13.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+monastic_schools_01,monastic_schools,1,0,0,2,1,0,3,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+monastic_schools_02,monastic_schools,2,0,0,3,1.5,0,4.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+monastic_schools_03,monastic_schools,3,0,0,4,2,0,6,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+monastic_schools_04,monastic_schools,4,0,0,5,2.5,0,7.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+monastic_schools_05,monastic_schools,5,0,0,6,3,0,9,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+monastic_schools_06,monastic_schools,6,0,0,7,3.5,0,10.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+monastic_schools_07,monastic_schools,7,0,0,8,4,0,12,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+monastic_schools_08,monastic_schools,8,0,0,9,4.5,0,13.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_scholastic_guilds_01,agot_scholastic_guilds,1,0,0,2,1,0,3,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_scholastic_guilds_02,agot_scholastic_guilds,2,0,0,3,1.5,0,4.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_scholastic_guilds_03,agot_scholastic_guilds,3,0,0,4,2,0,6,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+examination_hall_01,examination_hall,1,0,0,2,1,0,3,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+examination_hall_02,examination_hall,2,0,0,3,1.5,0,4.5,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+examination_hall_03,examination_hall,3,0,0,4,2,0,6,0,Education and civic institutions; limited care knowledge,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+great_library_of_valyria_01,great_library_of_valyria,1,0,0,2,1,0,3,0,Education and civic institutions; limited care knowledge,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_library_of_valyria_02,great_library_of_valyria,2,0,0,3,1.5,0,4.5,0,Education and civic institutions; limited care knowledge,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+the_citadel_01,the_citadel,1,0,0,3,8,2,3,0,Maester education care and fortified institution,common/buildings/00_agot_special_buildings.txt
+the_citadel_02,the_citadel,2,0,0,4.5,12,3,4.5,0,Maester education care and fortified institution,common/buildings/00_agot_special_buildings.txt
+breweries_01,breweries,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+breweries_02,breweries,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+breweries_03,breweries,3,0,0,2,0,0,10,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+breweries_04,breweries,4,0,0,2.5,0,0,12.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+breweries_05,breweries,5,0,0,3,0,0,15,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+breweries_06,breweries,6,0,0,3.5,0,0,17.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+breweries_07,breweries,7,0,0,4,0,0,20,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+breweries_08,breweries,8,0,0,4.5,0,0,22.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+leisure_palace_01,leisure_palace,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+leisure_palace_02,leisure_palace,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+leisure_palace_03,leisure_palace,3,0,0,2,0,0,10,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+royal_garden_01,royal_garden,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+royal_garden_02,royal_garden,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+royal_garden_03,royal_garden,3,0,0,2,0,0,10,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+godswood_01,godswood,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+godswood_02,godswood,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+godswood_03,godswood,3,0,0,2,0,0,10,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+godswood_04,godswood,4,0,0,2.5,0,0,12.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+godswood_05,godswood,5,0,0,3,0,0,15,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+godswood_06,godswood,6,0,0,3.5,0,0,17.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+godswood_07,godswood,7,0,0,4,0,0,20,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+godswood_08,godswood,8,0,0,4.5,0,0,22.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+megalith_01,megalith,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+megalith_02,megalith,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+megalith_03,megalith,3,0,0,2,0,0,10,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+megalith_04,megalith,4,0,0,2.5,0,0,12.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+megalith_05,megalith,5,0,0,3,0,0,15,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+megalith_06,megalith,6,0,0,3.5,0,0,17.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+megalith_07,megalith,7,0,0,4,0,0,20,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+megalith_08,megalith,8,0,0,4.5,0,0,22.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+great_megalith_01,great_megalith,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+citadel_shrine_01,citadel_shrine,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+citadel_shrine_02,citadel_shrine,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+citadel_shrine_03,citadel_shrine,3,0,0,2,0,0,10,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+citadel_shrine_04,citadel_shrine,4,0,0,2.5,0,0,12.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+citadel_shrine_05,citadel_shrine,5,0,0,3,0,0,15,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+citadel_shrine_06,citadel_shrine,6,0,0,3.5,0,0,17.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+citadel_shrine_07,citadel_shrine,7,0,0,4,0,0,20,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+citadel_shrine_08,citadel_shrine,8,0,0,4.5,0,0,22.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+vihara_halls_01,vihara_halls,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+vihara_halls_02,vihara_halls,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+vihara_halls_03,vihara_halls,3,0,0,2,0,0,10,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+vihara_halls_04,vihara_halls,4,0,0,2.5,0,0,12.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+vihara_halls_05,vihara_halls,5,0,0,3,0,0,15,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+vihara_halls_06,vihara_halls,6,0,0,3.5,0,0,17.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+vihara_halls_07,vihara_halls,7,0,0,4,0,0,20,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+vihara_halls_08,vihara_halls,8,0,0,4.5,0,0,22.5,0,Communal cultural or religious amenities,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+great_arena_of_valyria_01,great_arena_of_valyria,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_arena_of_valyria_02,great_arena_of_valyria,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+velakar_resort_01,velakar_resort,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+velakar_resort_02,velakar_resort,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+holy_site_great_sept_01,holy_site_great_sept,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,common/buildings/00_agot_special_buildings.txt
+generic_great_sept_01,generic_great_sept,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,common/buildings/00_agot_special_buildings.txt
+holy_site_starry_sept_01,holy_site_starry_sept,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,common/buildings/00_agot_special_buildings.txt
+great_temple_of_valyria_01,great_temple_of_valyria,1,0,0,1,0,0,5,0,Communal cultural or religious amenities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_temple_of_valyria_02,great_temple_of_valyria,2,0,0,1.5,0,0,7.5,0,Communal cultural or religious amenities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_temple_of_valyria_03,great_temple_of_valyria,3,0,0,2,0,0,10,0,Communal cultural or religious amenities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_temple_of_valyria_04,great_temple_of_valyria,4,0,0,2.5,0,0,12.5,0,Communal cultural or religious amenities,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+royal_forest_01,royal_forest,1,2,0,0,0,0,3,-2,Hunting amenity reserves land from civilian settlement,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+royal_forest_02,royal_forest,2,3,0,0,0,0,4.5,-3,Hunting amenity reserves land from civilian settlement,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+royal_forest_03,royal_forest,3,4,0,0,0,0,6,-4,Hunting amenity reserves land from civilian settlement,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+burial_site_01,burial_site,1,0,0,0,3,0,1,-1,Sanitary burial provision occupies land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+burial_site_02,burial_site,2,0,0,0,4.5,0,1.5,-1.5,Sanitary burial provision occupies land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+burial_site_03,burial_site,3,0,0,0,6,0,2,-2,Sanitary burial provision occupies land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+charnel_grounds_01,charnel_grounds,1,0,0,0,3,0,1,-1,Sanitary burial provision occupies land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+charnel_grounds_02,charnel_grounds,2,0,0,0,4.5,0,1.5,-1.5,Sanitary burial provision occupies land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+charnel_grounds_03,charnel_grounds,3,0,0,0,6,0,2,-2,Sanitary burial provision occupies land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+tower_of_silence_01,tower_of_silence,1,0,0,0,3,0,1,-1,Sanitary burial provision occupies land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+barracks_01,barracks,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+barracks_02,barracks,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+barracks_03,barracks,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+barracks_04,barracks,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+barracks_05,barracks,5,0,-6,6,0,9,0,-6,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+barracks_06,barracks,6,0,-7,7,0,10.5,0,-7,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+barracks_07,barracks,7,0,-8,8,0,12,0,-8,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+barracks_08,barracks,8,0,-9,9,0,13.5,0,-9,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_camps_01,military_camps,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_camps_02,military_camps,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_camps_03,military_camps,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_camps_04,military_camps,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_camps_05,military_camps,5,0,-6,6,0,9,0,-6,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_camps_06,military_camps,6,0,-7,7,0,10.5,0,-7,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_camps_07,military_camps,7,0,-8,8,0,12,0,-8,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_camps_08,military_camps,8,0,-9,9,0,13.5,0,-9,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+regimental_grounds_01,regimental_grounds,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+regimental_grounds_02,regimental_grounds,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+regimental_grounds_03,regimental_grounds,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+regimental_grounds_04,regimental_grounds,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+regimental_grounds_05,regimental_grounds,5,0,-6,6,0,9,0,-6,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+regimental_grounds_06,regimental_grounds,6,0,-7,7,0,10.5,0,-7,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+regimental_grounds_07,regimental_grounds,7,0,-8,8,0,12,0,-8,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+regimental_grounds_08,regimental_grounds,8,0,-9,9,0,13.5,0,-9,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+war_camps_01,war_camps,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+war_camps_02,war_camps,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+warrior_lodges_01,warrior_lodges,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+warrior_lodges_02,warrior_lodges,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+warrior_lodges_03,warrior_lodges,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+warrior_lodges_04,warrior_lodges,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+warrior_lodges_05,warrior_lodges,5,0,-6,6,0,9,0,-6,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+warrior_lodges_06,warrior_lodges,6,0,-7,7,0,10.5,0,-7,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+warrior_lodges_07,warrior_lodges,7,0,-8,8,0,12,0,-8,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+warrior_lodges_08,warrior_lodges,8,0,-9,9,0,13.5,0,-9,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stables_01,stables,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stables_02,stables,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stables_03,stables,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stables_04,stables,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stables_05,stables,5,0,-6,6,0,9,0,-6,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stables_06,stables,6,0,-7,7,0,10.5,0,-7,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stables_07,stables,7,0,-8,8,0,12,0,-8,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stables_08,stables,8,0,-9,9,0,13.5,0,-9,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+elephant_pens_01,elephant_pens,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+elephant_pens_02,elephant_pens,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+elephant_pens_03,elephant_pens,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+elephant_pens_04,elephant_pens,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+elephant_pens_05,elephant_pens,5,0,-6,6,0,9,0,-6,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+elephant_pens_06,elephant_pens,6,0,-7,7,0,10.5,0,-7,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+elephant_pens_07,elephant_pens,7,0,-8,8,0,12,0,-8,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+elephant_pens_08,elephant_pens,8,0,-9,9,0,13.5,0,-9,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+horse_pastures_01,horse_pastures,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+horse_pastures_02,horse_pastures,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+horse_pastures_03,horse_pastures,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+horse_pastures_04,horse_pastures,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+horse_pastures_05,horse_pastures,5,0,-6,6,0,9,0,-6,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+horse_pastures_06,horse_pastures,6,0,-7,7,0,10.5,0,-7,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+horse_pastures_07,horse_pastures,7,0,-8,8,0,12,0,-8,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+horse_pastures_08,horse_pastures,8,0,-9,9,0,13.5,0,-9,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+jousting_lists_01,jousting_lists,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+jousting_lists_02,jousting_lists,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+jousting_lists_03,jousting_lists,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+archery_ranges_01,archery_ranges,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+archery_ranges_02,archery_ranges,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+archery_ranges_03,archery_ranges,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_academy_01,military_academy,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_academy_02,military_academy,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+military_academy_03,military_academy,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+royal_armory_01,royal_armory,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+royal_armory_02,royal_armory,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+royal_armory_03,royal_armory,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+siege_works_01,siege_works,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+siege_works_02,siege_works,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+siege_works_03,siege_works,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+kora_kora_yards_01,kora_kora_yards,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+kora_kora_yards_02,kora_kora_yards,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+kora_kora_yards_03,kora_kora_yards,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+kora_kora_yards_04,kora_kora_yards,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wantilan_01,wantilan,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wantilan_02,wantilan,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wantilan_03,wantilan,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wantilan_04,wantilan,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_military_01,agot_pirate_military,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_military_02,agot_pirate_military,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_military_03,agot_pirate_military,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_military_04,agot_pirate_military,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_military_05,agot_pirate_military,5,0,-6,6,0,9,0,-6,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_military_06,agot_pirate_military,6,0,-7,7,0,10.5,0,-7,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_troop_01,agot_pirate_troop,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_troop_02,agot_pirate_troop,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_troop_03,agot_pirate_troop,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_troop_04,agot_pirate_troop,4,0,-5,5,0,7.5,0,-5,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_troop_05,agot_pirate_troop,5,0,-6,6,0,9,0,-6,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_troop_06,agot_pirate_troop,6,0,-7,7,0,10.5,0,-7,Military livelihoods and security compete with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+local_militia_01,local_militia,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,common/buildings/00_agot_settlement_buildings.txt
+tribal_local_militia_01,tribal_local_militia,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,common/buildings/00_agot_settlement_buildings.txt
+royal_barracks_of_valyria_01,royal_barracks_of_valyria,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+royal_barracks_of_valyria_02,royal_barracks_of_valyria,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+red_guard_barracks_01,red_guard_barracks,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+red_guard_barracks_02,red_guard_barracks,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+red_guard_training_compound_01,red_guard_training_compound,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+red_guard_training_compound_02,red_guard_training_compound,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+lokirian_barracks_01,lokirian_barracks,1,0,-2,2,0,3,0,-2,Military livelihoods and security compete with civilian space,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+lokirian_barracks_02,lokirian_barracks,2,0,-3,3,0,4.5,0,-3,Military livelihoods and security compete with civilian space,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+lokirian_barracks_03,lokirian_barracks,3,0,-4,4,0,6,0,-4,Military livelihoods and security compete with civilian space,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+ramparts_01,ramparts,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+ramparts_02,ramparts,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+ramparts_03,ramparts,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+ramparts_04,ramparts,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+ramparts_05,ramparts,5,0,0,0,0,18,0,-6,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+ramparts_06,ramparts,6,0,0,0,0,21,0,-7,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+ramparts_07,ramparts,7,0,0,0,0,24,0,-8,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+ramparts_08,ramparts,8,0,0,0,0,27,0,-9,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+curtain_walls_01,curtain_walls,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+curtain_walls_02,curtain_walls,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+curtain_walls_03,curtain_walls,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+curtain_walls_04,curtain_walls,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+curtain_walls_05,curtain_walls,5,0,0,0,0,18,0,-6,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+curtain_walls_06,curtain_walls,6,0,0,0,0,21,0,-7,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+curtain_walls_07,curtain_walls,7,0,0,0,0,24,0,-8,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+curtain_walls_08,curtain_walls,8,0,0,0,0,27,0,-9,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watchtowers_01,watchtowers,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watchtowers_02,watchtowers,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watchtowers_03,watchtowers,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watchtowers_04,watchtowers,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watchtowers_05,watchtowers,5,0,0,0,0,18,0,-6,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watchtowers_06,watchtowers,6,0,0,0,0,21,0,-7,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watchtowers_07,watchtowers,7,0,0,0,0,24,0,-8,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+watchtowers_08,watchtowers,8,0,0,0,0,27,0,-9,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_forts_01,hill_forts,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_forts_02,hill_forts,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_forts_03,hill_forts,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_forts_04,hill_forts,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_forts_05,hill_forts,5,0,0,0,0,18,0,-6,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_forts_06,hill_forts,6,0,0,0,0,21,0,-7,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_forts_07,hill_forts,7,0,0,0,0,24,0,-8,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+hill_forts_08,hill_forts,8,0,0,0,0,27,0,-9,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+outposts_01,outposts,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+outposts_02,outposts,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+outposts_03,outposts,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+outposts_04,outposts,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+outposts_05,outposts,5,0,0,0,0,18,0,-6,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+outposts_06,outposts,6,0,0,0,0,21,0,-7,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+outposts_07,outposts,7,0,0,0,0,24,0,-8,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+outposts_08,outposts,8,0,0,0,0,27,0,-9,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+palisades_01,palisades,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+palisades_02,palisades,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+city_walls_01,city_walls,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+city_walls_02,city_walls,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+city_walls_03,city_walls,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+city_walls_04,city_walls,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+building_moat_01,building_moat,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+building_moat_02,building_moat,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+building_moat_03,building_moat,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+building_moat_04,building_moat,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+building_moat_05,building_moat,5,0,0,0,0,18,0,-6,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+building_moat_06,building_moat,6,0,0,0,0,21,0,-7,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+building_moat_07,building_moat,7,0,0,0,0,24,0,-8,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+building_moat_08,building_moat,8,0,0,0,0,27,0,-9,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+march_01,march,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+march_02,march,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+march_03,march,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+idjang_forts_01,idjang_forts,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+idjang_forts_02,idjang_forts,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+idjang_forts_03,idjang_forts,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+idjang_forts_04,idjang_forts,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+stockades_01,stockades,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,common/buildings/00_agot_settlement_buildings.txt
+tribal_stockades_01,tribal_stockades,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,common/buildings/00_agot_settlement_buildings.txt
+agot_pirate_control_01,agot_pirate_control,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_control_02,agot_pirate_control,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_control_03,agot_pirate_control,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_control_04,agot_pirate_control,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_control_05,agot_pirate_control,5,0,0,0,0,18,0,-6,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_control_06,agot_pirate_control,6,0,0,0,0,21,0,-7,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_fortification_01,agot_pirate_fortification,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_fortification_02,agot_pirate_fortification,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_fortification_03,agot_pirate_fortification,3,0,0,0,0,12,0,-4,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_fortification_04,agot_pirate_fortification,4,0,0,0,0,15,0,-5,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_fortification_05,agot_pirate_fortification,5,0,0,0,0,18,0,-6,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_fortification_06,agot_pirate_fortification,6,0,0,0,0,21,0,-7,Physical defenses reserve settlement land,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+great_walls_of_valyria_01,great_walls_of_valyria,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+great_walls_of_valyria_02,great_walls_of_valyria,2,0,0,0,0,9,0,-3,Physical defenses reserve settlement land,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+agot_EE_volantis_walls,agot_EE_volantis_walls,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AAWC_Dependencies_Modpack/common/buildings/lv_essos_special_buildings.txt
+agot_EE_black_walls_of_old_volantis,agot_EE_black_walls_of_old_volantis,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,AAWC_Dependencies_Modpack/common/buildings/lv_essos_special_buildings.txt
+seven_gates_01,seven_gates,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,common/buildings/00_agot_special_buildings.txt
+the_bloody_gate_01,the_bloody_gate,1,0,0,0,0,6,0,-2,Physical defenses reserve settlement land,common/buildings/00_agot_special_buildings.txt
+quarries_01,quarries,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+quarries_02,quarries,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+quarries_03,quarries,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+quarries_04,quarries,4,0,-2.5,12.5,-7.5,0,0,-5,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+quarries_05,quarries,5,0,-3,15,-9,0,0,-6,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+quarries_06,quarries,6,0,-3.5,17.5,-10.5,0,0,-7,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+quarries_07,quarries,7,0,-4,20,-12,0,0,-8,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+quarries_08,quarries,8,0,-4.5,22.5,-13.5,0,0,-9,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+peat_quarries_01,peat_quarries,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+peat_quarries_02,peat_quarries,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+peat_quarries_03,peat_quarries,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+peat_quarries_04,peat_quarries,4,0,-2.5,12.5,-7.5,0,0,-5,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+peat_quarries_05,peat_quarries,5,0,-3,15,-9,0,0,-6,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+peat_quarries_06,peat_quarries,6,0,-3.5,17.5,-10.5,0,0,-7,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+peat_quarries_07,peat_quarries,7,0,-4,20,-12,0,0,-8,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+peat_quarries_08,peat_quarries,8,0,-4.5,22.5,-13.5,0,0,-9,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+colony_quarries_01,colony_quarries,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/lv_colony_buildings.txt
+agot_gold_mines_01,agot_gold_mines,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_gold_mines_02,agot_gold_mines,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_gold_mines_03,agot_gold_mines,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_gold_mines_04,agot_gold_mines,4,0,-2.5,12.5,-7.5,0,0,-5,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_gold_mines_05,agot_gold_mines,5,0,-3,15,-9,0,0,-6,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_gold_mines_06,agot_gold_mines,6,0,-3.5,17.5,-10.5,0,0,-7,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_gold_mines_07,agot_gold_mines,7,0,-4,20,-12,0,0,-8,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_gold_mines_08,agot_gold_mines,8,0,-4.5,22.5,-13.5,0,0,-9,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_silver_mines_01,agot_silver_mines,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_silver_mines_02,agot_silver_mines,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_silver_mines_03,agot_silver_mines,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_silver_mines_04,agot_silver_mines,4,0,-2.5,12.5,-7.5,0,0,-5,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_silver_mines_05,agot_silver_mines,5,0,-3,15,-9,0,0,-6,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_silver_mines_06,agot_silver_mines,6,0,-3.5,17.5,-10.5,0,0,-7,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_silver_mines_07,agot_silver_mines,7,0,-4,20,-12,0,0,-8,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_silver_mines_08,agot_silver_mines,8,0,-4.5,22.5,-13.5,0,0,-9,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_iron_island_mines_01,agot_iron_island_mines,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_iron_island_mines_02,agot_iron_island_mines,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_iron_island_mines_03,agot_iron_island_mines,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_iron_island_mines_04,agot_iron_island_mines,4,0,-2.5,12.5,-7.5,0,0,-5,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_iron_island_mines_05,agot_iron_island_mines,5,0,-3,15,-9,0,0,-6,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_iron_island_mines_06,agot_iron_island_mines,6,0,-3.5,17.5,-10.5,0,0,-7,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_iron_island_mines_07,agot_iron_island_mines,7,0,-4,20,-12,0,0,-8,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_iron_island_mines_08,agot_iron_island_mines,8,0,-4.5,22.5,-13.5,0,0,-9,Extraction livelihoods with dust illness and land competition,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+generic_gold_mines_01,generic_gold_mines,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_gold_mines_02,generic_gold_mines,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_gold_mines_03,generic_gold_mines,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_gold_mines_04,generic_gold_mines,4,0,-2.5,12.5,-7.5,0,0,-5,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_silver_mines_01,generic_silver_mines,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_silver_mines_02,generic_silver_mines,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_silver_mines_03,generic_silver_mines,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_silver_mines_04,generic_silver_mines,4,0,-2.5,12.5,-7.5,0,0,-5,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_copper_mines_01,generic_copper_mines,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_copper_mines_02,generic_copper_mines,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_copper_mines_03,generic_copper_mines,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+generic_copper_mines_04,generic_copper_mines,4,0,-2.5,12.5,-7.5,0,0,-5,Extraction livelihoods with dust illness and land competition,common/buildings/00_special_mines.txt
+valyria_mines_01,valyria_mines,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+valyria_mines_02,valyria_mines,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+valyria_mines_03,valyria_mines,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/lv_valyria_special_buildings.txt
+gold_mine_1,gold_mine,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/sothoryos_special_buildings.txt
+gold_mine_2,gold_mine,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/sothoryos_special_buildings.txt
+bloodstone_mines_1,bloodstone_mines,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/sothoryos_special_buildings.txt
+bloodstone_mines_2,bloodstone_mines,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/sothoryos_special_buildings.txt
+glittering_pits_01,glittering_pits,1,0,-1,5,-3,0,0,-2,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/gogossos_special_buildings.txt
+glittering_pits_02,glittering_pits,2,0,-1.5,7.5,-4.5,0,0,-3,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/gogossos_special_buildings.txt
+glittering_pits_03,glittering_pits,3,0,-2,10,-6,0,0,-4,Extraction livelihoods with dust illness and land competition,AAWC_Dependencies_Modpack/common/buildings/gogossos_special_buildings.txt
+smiths_01,smiths,1,0,0,5,-2,0,0,-1,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+smiths_02,smiths,2,0,0,7.5,-3,0,0,-1.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+smiths_03,smiths,3,0,0,10,-4,0,0,-2,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+smiths_04,smiths,4,0,0,12.5,-5,0,0,-2.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+smiths_05,smiths,5,0,0,15,-6,0,0,-3,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+smiths_06,smiths,6,0,0,17.5,-7,0,0,-3.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+smiths_07,smiths,7,0,0,20,-8,0,0,-4,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+smiths_08,smiths,8,0,0,22.5,-9,0,0,-4.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+blacksmiths_01,blacksmiths,1,0,0,5,-2,0,0,-1,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+blacksmiths_02,blacksmiths,2,0,0,7.5,-3,0,0,-1.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+blacksmiths_03,blacksmiths,3,0,0,10,-4,0,0,-2,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wind_furnace_01,wind_furnace,1,0,0,5,-2,0,0,-1,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wind_furnace_02,wind_furnace,2,0,0,7.5,-3,0,0,-1.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wind_furnace_03,wind_furnace,3,0,0,10,-4,0,0,-2,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wind_furnace_04,wind_furnace,4,0,0,12.5,-5,0,0,-2.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wind_furnace_05,wind_furnace,5,0,0,15,-6,0,0,-3,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wind_furnace_06,wind_furnace,6,0,0,17.5,-7,0,0,-3.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wind_furnace_07,wind_furnace,7,0,0,20,-8,0,0,-4,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+wind_furnace_08,wind_furnace,8,0,0,22.5,-9,0,0,-4.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+dragon_kiln_01,dragon_kiln,1,0,0,5,-2,0,0,-1,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+dragon_kiln_02,dragon_kiln,2,0,0,7.5,-3,0,0,-1.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+dragon_kiln_03,dragon_kiln,3,0,0,10,-4,0,0,-2,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+workshops_01,workshops,1,0,0,5,-2,0,0,-1,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+workshops_02,workshops,2,0,0,7.5,-3,0,0,-1.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+workshops_03,workshops,3,0,0,10,-4,0,0,-2,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+workshops_04,workshops,4,0,0,12.5,-5,0,0,-2.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+workshops_05,workshops,5,0,0,15,-6,0,0,-3,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+workshops_06,workshops,6,0,0,17.5,-7,0,0,-3.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+workshops_07,workshops,7,0,0,20,-8,0,0,-4,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+workshops_08,workshops,8,0,0,22.5,-9,0,0,-4.5,Manufacturing livelihoods with smoke and workspace,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+logging_camps_01,logging_camps,1,0,1,3,-1,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+logging_camps_02,logging_camps,2,0,1.5,4.5,-1.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+logging_camps_03,logging_camps,3,0,2,6,-2,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+logging_camps_04,logging_camps,4,0,2.5,7.5,-2.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+logging_camps_05,logging_camps,5,0,3,9,-3,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+logging_camps_06,logging_camps,6,0,3.5,10.5,-3.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+logging_camps_07,logging_camps,7,0,4,12,-4,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+logging_camps_08,logging_camps,8,0,4.5,13.5,-4.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+colony_forestry_01,colony_forestry,1,0,1,3,-1,0,0,0,Timber or forest extraction supports construction and livelihoods,AAWC_Dependencies_Modpack/common/buildings/lv_colony_buildings.txt
+agot_ironwood_01,agot_ironwood,1,0,1,3,-1,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_ironwood_02,agot_ironwood,2,0,1.5,4.5,-1.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_ironwood_03,agot_ironwood,3,0,2,6,-2,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_ironwood_04,agot_ironwood,4,0,2.5,7.5,-2.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_ironwood_05,agot_ironwood,5,0,3,9,-3,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_ironwood_06,agot_ironwood,6,0,3.5,10.5,-3.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_ironwood_07,agot_ironwood,7,0,4,12,-4,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_ironwood_08,agot_ironwood,8,0,4.5,13.5,-4.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_amber_collection_01,agot_amber_collection,1,0,1,3,-1,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_amber_collection_02,agot_amber_collection,2,0,1.5,4.5,-1.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_amber_collection_03,agot_amber_collection,3,0,2,6,-2,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_amber_collection_04,agot_amber_collection,4,0,2.5,7.5,-2.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_amber_collection_05,agot_amber_collection,5,0,3,9,-3,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_amber_collection_06,agot_amber_collection,6,0,3.5,10.5,-3.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_amber_collection_07,agot_amber_collection,7,0,4,12,-4,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_amber_collection_08,agot_amber_collection,8,0,4.5,13.5,-4.5,0,0,0,Timber or forest extraction supports construction and livelihoods,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+murex_farm_01,murex_farm,1,1,0,4,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+murex_farm_02,murex_farm,2,1.5,0,6,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+murex_farm_03,murex_farm,3,2,0,8,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+murex_farm_04,murex_farm,4,2.5,0,10,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+murex_farm_05,murex_farm,5,3,0,12,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+murex_farm_06,murex_farm,6,3.5,0,14,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+murex_farm_07,murex_farm,7,4,0,16,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+murex_farm_08,murex_farm,8,4.5,0,18,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+spice_plantation_01,spice_plantation,1,1,0,4,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+spice_plantation_02,spice_plantation,2,1.5,0,6,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+spice_plantation_03,spice_plantation,3,2,0,8,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+spice_plantation_04,spice_plantation,4,2.5,0,10,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+spice_plantation_05,spice_plantation,5,3,0,12,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+spice_plantation_06,spice_plantation,6,3.5,0,14,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+spice_plantation_07,spice_plantation,7,4,0,16,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+spice_plantation_08,spice_plantation,8,4.5,0,18,0,0,0,0,Specialized cash crop trade; limited staple food benefit,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_supply_01,agot_pirate_supply,1,5,0,1,0,0,0,0,Supply storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_supply_02,agot_pirate_supply,2,7.5,0,1.5,0,0,0,0,Supply storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_supply_03,agot_pirate_supply,3,10,0,2,0,0,0,0,Supply storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_supply_04,agot_pirate_supply,4,12.5,0,2.5,0,0,0,0,Supply storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_supply_05,agot_pirate_supply,5,15,0,3,0,0,0,0,Supply storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_pirate_supply_06,agot_pirate_supply,6,17.5,0,3.5,0,0,0,0,Supply storage,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_lighthouse_01,agot_lighthouse,1,0,0,3,0,3,0,0,Safer port access and trade,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_lighthouse_02,agot_lighthouse,2,0,0,4.5,0,4.5,0,0,Safer port access and trade,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_lighthouse_03,agot_lighthouse,3,0,0,6,0,6,0,0,Safer port access and trade,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_camps_01,agot_slave_camps,1,0,-3,1,-3,-2,-2,-2,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_camps_02,agot_slave_camps,2,0,-4.5,1.5,-4.5,-3,-3,-3,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_camps_03,agot_slave_camps,3,0,-6,2,-6,-4,-4,-4,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_camps_04,agot_slave_camps,4,0,-7.5,2.5,-7.5,-5,-5,-5,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_camps_05,agot_slave_camps,5,0,-9,3,-9,-6,-6,-6,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_camps_06,agot_slave_camps,6,0,-10.5,3.5,-10.5,-7,-7,-7,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_camps_07,agot_slave_camps,7,0,-12,4,-12,-8,-8,-8,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_camps_08,agot_slave_camps,8,0,-13.5,4.5,-13.5,-9,-9,-9,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_martial_01,agot_slave_martial,1,0,-3,1,-3,-2,-2,-2,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_martial_02,agot_slave_martial,2,0,-4.5,1.5,-4.5,-3,-3,-3,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_martial_03,agot_slave_martial,3,0,-6,2,-6,-4,-4,-4,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_stewardship_01,agot_slave_stewardship,1,0,-3,1,-3,-2,-2,-2,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_stewardship_02,agot_slave_stewardship,2,0,-4.5,1.5,-4.5,-3,-3,-3,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_stewardship_03,agot_slave_stewardship,3,0,-6,2,-6,-4,-4,-4,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_diplomacy_01,agot_slave_diplomacy,1,0,-3,1,-3,-2,-2,-2,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_diplomacy_02,agot_slave_diplomacy,2,0,-4.5,1.5,-4.5,-3,-3,-3,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_diplomacy_03,agot_slave_diplomacy,3,0,-6,2,-6,-4,-4,-4,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_intrigue_01,agot_slave_intrigue,1,0,-3,1,-3,-2,-2,-2,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_intrigue_02,agot_slave_intrigue,2,0,-4.5,1.5,-4.5,-3,-3,-3,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_intrigue_03,agot_slave_intrigue,3,0,-6,2,-6,-4,-4,-4,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_learning_01,agot_slave_learning,1,0,-3,1,-3,-2,-2,-2,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_learning_02,agot_slave_learning,2,0,-4.5,1.5,-4.5,-3,-3,-3,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+agot_slave_learning_03,agot_slave_learning,3,0,-6,2,-6,-4,-4,-4,Coercive labor compounds degrade resident welfare,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt
+generic_dragon_pit_01,generic_dragon_pit,1,0,-1,1,-1,0,0,-3,Specialized enclosure competes with civilian space,AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt

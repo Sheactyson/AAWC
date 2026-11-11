@@ -1,0 +1,100 @@
+﻿kCAFG_appease_cultural_tensions = {
+	court_position_types = { cultural_emissary_court_position }
+
+	# Monthly cost for the task
+	cost = {
+		round = no
+		gold = {
+			add = {
+				value = monthly_court_position_task_cost
+				multiply = 3
+				desc = COURT_POSITION_TASK_COST_BREAKDOWN_BASE
+				format = "BASE_VALUE_FORMAT_DECIMALS_PLUS_NEGATIVE"
+			}
+		}
+	}
+
+	is_shown = {
+		is_landed_or_landless_administrative = yes
+	}
+
+	is_valid_showing_failures_only = {
+        custom_tooltip = {
+			text = kCAFG_appease_cultural_tensions_has_any_valid_province_tt
+			scope:liege = {
+				any_realm_province = {
+					has_variable = kCAFG_culture_tension
+					var:kCAFG_culture_tension >= 0.01
+				}
+			}
+        }
+	}
+
+	on_start = {
+		custom_tooltip = kCAFG_appease_cultural_tensions_tt
+	}
+
+	on_monthly = {
+		random = {
+			chance = {
+				value = 17
+				add = {
+					value = "aptitude(cultural_emissary_court_position)"
+					multiply = 3
+				}
+			}
+			scope:liege = {
+				random_realm_province = {
+					limit = {
+						has_variable = kCAFG_culture_tension
+						var:kCAFG_culture_tension >= 0.01
+					}
+
+					weight = {
+						base = 20
+						modifier = {
+							add = {
+								value = var:kCAFG_culture_tension
+								multiply = 200
+
+								if = {
+									limit = {
+										barony = {
+											exists = holder
+											holder = scope:liege
+										}
+									}
+									add = 15
+									multiply = 2
+								}
+							}
+						}
+					}
+
+					save_scope_as = affected_province
+				}
+				send_interface_toast = {
+					type = event_royal_court_good_with_text
+					title = kCAFG_appease_cultural_tensions_notification_title
+					desc = kCAFG_appease_cultural_tensions_notification_desc
+					left_icon = root
+                    
+                    scope:affected_province = {
+                        custom_tooltip = {
+                            text = kCAFG_appease_cultural_tensions_effect_tt
+                            change_variable = {
+                                name = kCAFG_culture_tension
+                                subtract = V_kCAFG_appease_cultural_tensions_decrease
+                            }
+                            E_kCAFG_on_province_culture_tension_updated = yes
+                        }
+                    }
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		value = ai_compassion
+	}
+}

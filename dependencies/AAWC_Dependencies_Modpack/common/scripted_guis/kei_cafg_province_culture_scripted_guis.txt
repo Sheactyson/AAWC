@@ -1,0 +1,486 @@
+﻿# We use a variable inside the player so that the setting will be saved in between sessions
+kCAFG_province_culture_scripted_gui = {
+	scope = province
+	saved_scopes = { local_player }
+
+	is_shown = {
+		has_global_variable = kCAFG_is_loaded_v2
+		exists = this
+		exists = scope:local_player
+		scope:local_player = { has_variable = kCAFG_UI_province_cultures_visible }
+		T_kCAFG_does_province_contain_any_culture = yes
+	}
+
+	is_valid = {
+		exists = this
+		T_kCAFG_does_province_contain_any_culture = yes
+	}
+
+	effect = {
+		if = {
+			limit = { scope:local_player = { has_variable = kCAFG_UI_province_cultures_visible } }
+			scope:local_player = { remove_variable = kCAFG_UI_province_cultures_visible }
+		}
+		else = {
+			scope:local_player = {
+				set_variable = kCAFG_UI_province_cultures_visible
+				remove_variable = kCAFG_UI_province_faiths_visible # Cannot have the two windows visible at the same time for now
+			}
+		}
+	}
+}
+
+kCAFG_province_culture_update_request_scripted_gui = {
+	scope = province
+	is_valid = {
+		has_variable = kCAFG_culture_UI_update_requested
+	}
+
+	effect = {
+		remove_variable = kCAFG_culture_UI_update_requested
+	}
+}
+
+kCAFG_province_cultures_setup_variables_scripted_gui = {
+	scope = province
+	saved_scopes = { local_player }
+
+	effect = {
+		save_temporary_scope_as = kCAFG_province
+
+		if = {
+			limit = {
+				exists = scope:local_player
+				scope:local_player = { has_variable = kCAFG_UI_viewed_province }
+			}
+			scope:local_player.var:kCAFG_UI_viewed_province = { save_temporary_scope_as = kCAFG_previous_province }
+		}
+
+		if = {
+			limit = { exists = scope:kCAFG_previous_province }
+			scope:kCAFG_previous_province = {
+				# Subtract viewer count
+				if = {
+					limit = { has_variable = kCAFG_UI_viewers }
+					change_variable = { name = kCAFG_UI_viewers subtract = 1 }
+				}
+				else = {
+					set_variable = { name = kCAFG_UI_viewers value = 0 }
+				}
+
+				# Remove from viewed list if no viewers left
+				if = {
+					limit = {
+						OR = {
+							NOT = { has_variable = kCAFG_UI_viewers }
+							var:kCAFG_UI_viewers <= 0
+						}
+					}
+
+					remove_list_global_variable = {
+						name = kCAFG_UI_viewed_provinces
+						target = this
+					}
+					
+					clear_variable_list = kCAFG_UI_ordered_province_culture_structs
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				exists = scope:local_player
+			}
+
+			# Add to viewed list
+			scope:local_player = {
+				set_variable = {
+					name = kCAFG_UI_viewed_province
+					value = scope:kCAFG_province
+				}
+			}
+		}
+		
+		if = {
+			limit = { has_variable = kCAFG_UI_viewers }
+			change_variable = { name = kCAFG_UI_viewers add = 1 }
+		}
+		else = {
+			set_variable = { name = kCAFG_UI_viewers value = 1 }
+		}
+
+		add_to_global_variable_list = {
+			name = kCAFG_UI_viewed_provinces
+			target = scope:kCAFG_province
+		}
+
+		clear_variable_list = kCAFG_UI_ordered_province_culture_structs
+		save_temporary_scope_as = kCAFG_province # used by V_kCAFG_culture_tension_target_baseline_complete
+		county.holder.culture = { save_temporary_scope_as = kCAFG_target_culture } # used by V_kCAFG_culture_tension_target_baseline_complete
+		ordered_in_list = {
+			variable = kCAFG_province_culture_structs
+			order_by = var:factor
+			max = V_kCAFG_max_UI_display
+			check_range_bounds = no
+
+			save_temporary_scope_as = ordered_struct
+
+			scope:kCAFG_province = {
+				add_to_variable_list = {
+					name = kCAFG_UI_ordered_province_culture_structs
+					target = scope:ordered_struct
+				}
+			}
+		}
+	}
+}
+
+kCAFG_is_task_promote_culture_possible_scripted_gui = {
+	scope = character
+	saved_scopes = { kCAFG_province }
+
+	is_valid = {
+		exists = yes
+		save_temporary_scope_as = councillor
+		scope:kCAFG_province.county = { save_temporary_scope_as = county }
+		liege = { save_temporary_scope_as = councillor_liege }
+		scope:councillor_liege = {
+			custom_description = {
+				text = "kCAFG_does_not_have_realm_law_preventing_task_promote_culture"
+				scope:councillor_liege = {
+					NOT = { has_realm_law_flag = F_kCAFG_tolerant_to_other_cultures }
+				}
+			}
+		}
+		scope:kCAFG_province = { T_kCAFG_task_promote_culture_can_convert_province = yes }
+	}
+
+	effect = {
+		save_temporary_scope_as = councillor
+		scope:kCAFG_province.county = { save_temporary_scope_as = county }
+		liege = { save_temporary_scope_as = councillor_liege }
+		if = {
+			limit = {
+				scope:kCAFG_province = { T_kCAFG_task_promote_culture_can_convert_province = yes }
+			}
+		}
+	}
+}
+
+kCAFG_is_promoting_in_province_county_scripted_gui = {
+	scope = character
+	saved_scopes = { kCAFG_province }
+
+	is_valid = {
+		exists = yes
+		is_performing_council_task = task_promote_culture
+		councillor_task_target = scope:kCAFG_province.county.title_province
+	}
+	effect = {}
+}
+
+
+kCAFG_task_promote_culture_province_focus_scripted_gui = {
+	scope = character
+	saved_scopes = { kCAFG_province }
+
+	is_valid = {
+		exists = yes
+		# Is province in councillor liege's realm
+		scope:kCAFG_province.county = {
+			OR = {
+				holder = root.liege
+				holder = { target_is_liege_or_above = root.liege }
+			}
+		}
+	}
+
+	is_shown = {
+		exists = yes
+		has_variable = kCAFG_task_promote_culture_focused_province
+		var:kCAFG_task_promote_culture_focused_province = scope:kCAFG_province
+	}
+
+	effect = {
+		if = {
+			limit = {
+				exists = yes
+				is_councillor = yes
+				scope:kCAFG_province = { exists = yes }
+			}
+			if = {
+				limit = {
+					# Is councillor converting
+					is_performing_council_task = task_promote_culture
+					councillor_task_target = scope:kCAFG_province.county.title_province
+				}
+				if = {
+					limit = {
+						NAND = {
+							has_variable = kCAFG_task_promote_culture_focused_province
+							var:kCAFG_task_promote_culture_focused_province = scope:kCAFG_province
+						}
+					}
+					remove_variable = kCAFG_task_promote_culture_focused_province
+					set_council_task = {
+						task_type = task_promote_culture
+						target = scope:kCAFG_province.county.title_province
+					}
+					set_variable = {
+						name = kCAFG_task_promote_culture_focused_province
+						value = scope:kCAFG_province
+					}
+				}
+			}
+			else = {
+				remove_variable = kCAFG_task_promote_culture_focused_province
+				set_council_task = {
+					task_type = task_promote_culture
+					target = scope:kCAFG_province.county.title_province
+				}
+				set_variable = {
+					name = kCAFG_task_promote_culture_focused_province
+					value = scope:kCAFG_province
+				}
+			}
+		}
+	}
+}
+
+kCAFG_is_task_accept_culture_possible_scripted_gui = {
+	scope = character
+	saved_scopes = { kCAFG_culture kCAFG_province }
+
+	is_valid = {
+		exists = yes
+		save_temporary_scope_as = councillor
+		scope:kCAFG_province.county = { save_temporary_scope_as = county }
+		liege = { save_temporary_scope_as = councillor_liege }
+		custom_description = {
+			text = "kCAFG_does_not_have_realm_law_preventing_task_accept_culture"
+			scope:councillor_liege = {
+				NOT = { has_realm_law_flag = F_kCAFG_intolerant_to_other_cultures }
+			}
+		}
+		scope:kCAFG_culture = { T_kCAFG_task_accept_culture_can_target_culture = yes }
+	}
+
+	effect = {
+		save_temporary_scope_as = councillor
+		scope:kCAFG_province.county = { save_temporary_scope_as = county }
+		liege = { save_temporary_scope_as = councillor_liege }
+		if = {
+			limit = {
+				scope:kCAFG_culture = { T_kCAFG_task_accept_culture_can_target_culture = yes }
+			}
+		}
+	}
+}
+
+kCAFG_is_accepting_culture_scripted_gui = {
+	scope = character
+	saved_scopes = { culture }
+
+	is_valid = {
+		exists = yes
+		is_performing_council_task = task_kCAFG_accept_culture
+		has_variable = kCAFG_task_accept_culture_focused_culture
+		var:kCAFG_task_accept_culture_focused_culture = scope:culture
+	}
+	effect = {}
+}
+
+kCAFG_task_accept_culture_culture_focus_scripted_gui = {
+	scope = character
+	saved_scopes = { culture kCAFG_province }
+
+	is_valid = {
+		exists = yes
+		liege = {
+			exists = yes
+			NOT = { government_has_flag = government_is_landless_adventurer }
+			culture != scope:culture
+		}
+		# Is province in councillor liege's realm
+		scope:kCAFG_province.county = {
+			OR = {
+				holder = root.liege
+				holder = { target_is_liege_or_above = root.liege }
+			}
+		}
+	}
+
+	is_shown = {
+		exists = yes
+		has_variable = kCAFG_task_accept_culture_focused_culture
+		exists = var:kCAFG_task_accept_culture_focused_culture
+		var:kCAFG_task_accept_culture_focused_culture = scope:culture
+	}
+
+	effect = {
+		if = {
+			limit = {
+				exists = yes
+				is_councillor = yes
+				scope:kCAFG_province = { exists = yes }
+			}
+			if = {
+				limit = {
+					# Is councillor converting
+					is_performing_council_task = task_kCAFG_accept_culture
+					councillor_task_target = scope:kCAFG_province.county.title_province
+				}
+				if = {
+					limit = {
+						NAND = {
+							has_variable = kCAFG_task_accept_culture_focused_culture
+							var:kCAFG_task_accept_culture_focused_culture = scope:culture
+						}
+					}
+					remove_variable = kCAFG_task_accept_culture_focused_culture
+					set_council_task = {
+						task_type = task_kCAFG_accept_culture
+						target = scope:kCAFG_province.county.title_province
+					}
+					set_variable = {
+						name = kCAFG_task_accept_culture_focused_culture
+						value = scope:culture
+					}
+				}
+			}
+			else = {
+				remove_variable = kCAFG_task_accept_culture_focused_culture
+				set_council_task = {
+					task_type = task_kCAFG_accept_culture
+					target = scope:kCAFG_province.county.title_province
+				}
+				set_variable = {
+					name = kCAFG_task_accept_culture_focused_culture
+					value = scope:culture
+				}
+			}
+		}
+	}
+}
+
+kCAFG_province_culture_can_holder_speak_language = {
+	scope = province
+	saved_scopes = { culture }
+
+	is_valid = {
+		county.holder = {
+			knows_language_of_culture = scope:culture
+		}
+	}
+
+	effect = {}
+}
+
+### DEBUG ###
+
+kCAFG_DEBUG_province_culture_convert = {
+	scope = province
+	saved_scopes = { culture local_player amount }
+
+	is_shown = {
+		scope:local_player.culture != scope:culture
+	}
+
+	is_valid = {
+		NOT = { T_kCAFG_province_only_culture = { CULTURE = scope:local_player.culture } }
+	}
+
+	effect = {
+		E_kCAFG_convert_province_culture_factor = {
+			SOURCE = scope:culture
+			TARGET = scope:local_player.culture
+			FACTOR = scope:amount
+		}
+		
+		E_kCAFG_update_province_target_culture_tension = yes
+		county = {
+			E_kCAFG_update_county_cultures_list = yes
+			E_kCAFG_update_county_culture = { REASON = flag:kCAFG_default_reason }
+		}
+	}
+}
+
+kCAFG_DEBUG_province_culture_reverse_convert = {
+	scope = province
+	saved_scopes = { culture local_player amount }
+
+	is_shown = {
+		scope:local_player.culture != scope:culture
+	}
+
+	is_valid = {
+		T_kCAFG_does_province_contain_culture = { CULTURE = scope:local_player.culture }
+	}
+
+	effect = {
+		E_kCAFG_convert_province_culture_factor = {
+			SOURCE = scope:local_player.culture
+			TARGET = scope:culture
+			FACTOR = scope:amount
+		}
+		
+		E_kCAFG_update_province_target_culture_tension = yes
+		county = {
+			E_kCAFG_update_county_cultures_list = yes
+			E_kCAFG_update_county_culture = { REASON = flag:kCAFG_default_reason }
+		}
+	}
+}
+
+kCAFG_DEBUG_province_culture_info_scripted_gui = {
+	scope = province
+	saved_scopes = { culture local_player }
+
+	is_shown = {
+		OR = {
+			AND = {
+				exists = scope:local_player
+				NOT = { scope:local_player.culture = scope:culture }
+			}
+			AND = {
+				exists = global_var:kCAFG_debug_marked_char
+				NOT = { global_var:kCAFG_debug_marked_char.culture = scope:culture }
+			}
+		}
+	}
+}
+
+kCAFG_province_active_culture_tolerance_law = {
+	scope = province
+
+	effect = {
+		county.holder = {
+			if = {
+				limit = { is_independent_ruler = yes }
+				save_temporary_scope_as = law_enforcer
+			}
+			else = {
+				# Get the first liege whose law applies
+				ordered_liege_or_above = {
+					position = 0
+					order_by = primary_title.tier
+					limit = { T_kCAFG_overrides_culture_tolerance_law = yes }
+					save_temporary_scope_as = law_enforcer
+				}
+
+				# Default to county holder
+				if = {
+					limit = { NOT = { exists = scope:law_enforcer } }
+					save_temporary_scope_as = law_enforcer
+				}
+			}
+		}
+
+		if = {
+			limit = { exists = scope:law_enforcer }
+			scope:law_enforcer = {
+				custom_tooltip = kCAFG_province_cultures_tolerance_law_enforcer_tt
+			}
+		}
+	}
+}

@@ -1,0 +1,140 @@
+﻿# Island regions - no land path from the continent
+# The AI needs these to optimize path finding
+#
+# NOTE: do not add any regions here that are NOT islands
+#
+# Island regions can be declared with one or more of the following fields:
+#	duchies = { }, takes county title names declared in landed_titles.txt
+#	counties = { }, takes county title names declared in landed_titles.txt
+#	provinces = { }, takes province id numbers declared in /history/provinces
+
+island_region_skagos = {
+	counties = { c_drihisesk c_veksdaenk c_dreggan_arer c_sudyktig }
+}
+
+island_region_rom_pursk = {
+	counties = { c_rom_pursk }
+}
+
+island_region_molksyr = {
+	counties = { c_molksyr }
+}
+
+island_region_skane = {
+	provinces = { 1630 1631 1632 }
+}
+
+island_region_kirs_du = {
+	provinces = { 1633 }
+}
+
+island_region_the_sisters = {
+	duchies = {	d_the_sisters }
+}
+
+island_region_bear_island = {
+	duchies = {	d_bear_island }
+}
+
+island_region_wyk = {
+	duchies = {	
+		d_east_wyk
+		d_hardstone_hills 
+		d_old_wyk 		
+	}
+}
+
+island_region_harlaw = {
+	duchies = { d_harlaw }
+}
+
+island_region_orkmont = {
+	duchies = { d_orkmont }
+}
+
+island_region_saltcliffe = {
+	duchies = { d_saltcliffe }
+}
+
+island_region_lonely_light = {
+	duchies = { d_lonely_light }
+}
+
+island_region_blacktyde = {
+		duchies = { d_blacktyde }
+}
+
+island_region_pyke = {
+	duchies = { d_pyke }
+}
+
+island_region_tarth = {
+	duchies = {	d_tarth }
+}
+
+island_region_the_paps = {
+	counties = { c_the_paps }
+}
+
+island_region_blackwave = {
+	provinces = { 2702 }
+}
+
+island_region_rushcrest = {
+	provinces = { 725 }
+}
+
+island_region_riisvark = {
+	counties = {
+		c_riis_du
+	}
+}
+
+island_region_dragonstone = {
+	counties = { c_dragonstone c_high_tide c_driftmark }
+}
+
+island_region_blackmark = {
+	counties = { c_blackmark } 
+}
+
+island_region_longbar = {
+	counties = { c_longbar }
+}
+
+island_region_sweetport_sound = {
+	counties = { c_sweetport_sound }
+}
+
+island_region_estermont_isles = {
+	counties = { c_estermont c_pikerock c_tudbury_island c_lestermarks }
+}
+
+island_region_wrathrock = {
+	counties = { c_wrathrock }
+}
+
+island_region_severisles = {
+	provinces = { 4669 4670 }
+}
+
+island_region_holf_of_man = {
+	provinces = { 4671 4672 }
+}
+
+island_region_ghaston_grey = {
+	counties = { c_ghaston_grey }
+}
+
+island_region_the_arbor = {
+	counties = { c_stonecrab_cape c_wynegarde c_starfish_harbor c_peachtree c_vinetown }
+	provinces = { 4150 }
+}
+
+island_region_mermaid_rocks = {
+	provinces = { 4148 4149 }
+}
+
+island_region_dagger_lake = {
+	counties = {       }
+}

@@ -1,0 +1,168 @@
+﻿aawc_tribal_shatter_active = {
+	OR = {
+		# Every AAWC world mode owns its required world foundation. Preserve
+		# the former count-shattered, tribal-holdings contract even when the
+		# retained MGR-derived settings have different names or selections.
+		aawc_world_mode_requires_tribal_counties = yes
+		AND = {
+			has_game_rule = aawc_alt_world_enabled
+			has_game_rule = aawc_aw_tribal_holdings
+			OR = {
+				has_game_rule = aawc_aw_count_shattered_realms
+				has_game_rule = aawc_aw_duke_shattered_realms
+				has_game_rule = aawc_aw_king_shattered_realms
+				has_game_rule = aawc_aw_emperor_shattered_realms
+			}
+		}
+	}
+}
+
+aawc_world_mode_requires_tribal_counties = {
+	OR = {
+		has_game_rule = aawc_ruined_world
+		has_game_rule = aawc_age_of_reclamation
+		has_game_rule = aawc_age_of_silence
+	}
+}
+
+
+aawc_native_lov_rh_county = {
+	OR = {
+		this = title:c_valyria
+		this = title:c_kastaryia
+		this = title:c_hills_of_nolos
+		this = title:c_ilvonys
+		this = title:c_oreos
+	}
+}
+
+aawc_runtime_ruin_warden_handoff_protected_county = {
+	exists = title_province
+	NOT = { has_county_modifier = aawc_survivor_pocket_marker }
+	OR = {
+		has_county_modifier = aawc_rh_candidate_marker
+		aawc_native_lov_rh_county = yes
+		title_province = { has_holding_type = ruin_holding }
+		title_province = { has_building = large_ruined_holding_01 }
+		title_province = { has_building = medium_ruined_holding_01 }
+		title_province = { has_building = small_ruined_holding_01 }
+		title_province = { has_building_or_higher = small_ruin_01 }
+		title_province = { has_building_or_higher = medium_ruin_01 }
+		title_province = { has_building_or_higher = large_ruin_01 }
+		title_province = { has_building = jungle_ruin_01 }
+		title_province = { has_building = jungle_ruin_deep_01 }
+		title_province = { has_building_with_flag = special_building_enabled_in_ruin_county }
+	}
+}
+
+
+aawc_county_should_use_agot_colonization_flow = {
+	OR = {
+		# Authored RH counties use AGOT flow even if they are in mixed holding state.
+		AND = {
+			aawc_county_has_authored_landmark_candidate = yes
+			OR = {
+				title_province = { has_holding_type = ruin_holding }
+				title_province = { has_holding_type = wilderness_holding }
+				# Ruin-warden held authored RH counties should stay on AGOT routing even if holding type drifted.
+				holder = {
+					OR = {
+						has_trait = ruin
+						agot_is_dummy_character = yes
+					}
+				}
+				# Catch AGOT ruin chains that can live on settlement capitals.
+				title_province = { has_building_or_higher = small_ruin_01 }
+				title_province = { has_building_or_higher = medium_ruin_01 }
+				title_province = { has_building_or_higher = large_ruin_01 }
+				title_province = { has_building = jungle_ruin_01 }
+				title_province = { has_building = jungle_ruin_deep_01 }
+				# Catch AAWC generated ruin wrapper chains regardless of holding type.
+				title_province = { has_building_with_flag = special_building_enabled_in_ruin_county }
+			}
+		}
+
+		# Milestone 3: true wilderness counties should always use AGOT colonization flow.
+		AND = {
+			title_province = { has_holding_type = wilderness_holding }
+			holder = {
+				OR = {
+					this = title:c_wilderness.holder
+					has_trait = wilderness
+					government_has_flag = government_is_wilderness
+				}
+			}
+		}
+	}
+}
+
+aawc_county_should_use_lov_ai_reclaim_flow = {
+	AND = {
+		# Keep this intentionally narrow: only native LoV RH hard targets should be forced
+		# onto the LoV AI reclaim path. Broad RH-marker + region gating caused global
+		# ruin-warden handoff regressions in runtime testing.
+		aawc_native_lov_rh_county = yes
+		title_province = {
+			province_owner = { agot_is_dummy_character = yes }
+		}
+		OR = {
+			title_province = { has_holding_type = ruin_holding }
+			title_province = { has_building = large_ruined_holding_01 }
+			title_province = { has_building = medium_ruined_holding_01 }
+			title_province = { has_building = small_ruined_holding_01 }
+		}
+	}
+}
+
+aawc_county_is_valid_agot_ai_colonization_target = {
+	title_province = {
+		province_owner = { agot_is_dummy_character = yes }
+		OR = {
+			has_holding_type = ruin_holding
+			has_holding_type = wilderness_holding
+		}
+	}
+	OR = {
+		holder = { government_has_flag = government_is_wilderness }
+		AND = {
+			aawc_county_should_use_agot_colonization_flow = yes
+		}
+	}
+}
+
+aawc_province_should_use_agot_colonization_flow = {
+	county = { aawc_county_should_use_agot_colonization_flow = yes }
+}
+
+aawc_is_engine_pool_reserve = {
+	is_pool_character = yes
+	is_landed = no
+	agot_is_dummy_character = no
+	has_character_flag = aawc_engine_pool_reserve
+}
+
+# Used only by the two-day startup pass. Later parentless pool characters can
+# belong to real game systems and must not be adopted into Stability.
+aawc_is_engine_pool_reserve_candidate = {
+	is_pool_character = yes
+	is_landed = no
+	is_lowborn = yes
+	agot_is_dummy_character = no
+	NOT = { exists = father }
+	NOT = { exists = mother }
+	NOT = { has_character_flag = aawc_1101_generated_start_courtier }
+	NOT = { has_character_flag = aawc_lineage_known_birth }
+	NOT = { exists = employer }
+	NOT = { has_character_flag = aawc_lineage_known_aawc_generation }
+}
+
+aawc_diagnostics_summary_enabled = {
+	OR = {
+		has_game_rule = aawc_diagnostics_summary
+		has_game_rule = aawc_diagnostics_verbose
+	}
+}
+
+aawc_diagnostics_verbose_enabled = {
+	has_game_rule = aawc_diagnostics_verbose
+}

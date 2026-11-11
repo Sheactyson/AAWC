@@ -1,0 +1,29 @@
+﻿# AAWC-owned late override for the dependency setup conversion.
+#
+# The dependency effect converts only each eligible county capital. Historical
+# non-capital holdings therefore survived the tribal-shatter setup as occupied,
+# often without a valid main building. In AAWC's alternate-world tribal start,
+# those slots are supposed to be uncolonized. Finish all holding changes before
+# government conversion. Holding removal and government conversion intentionally
+# use different eligibility rules: every owned county loses occupied subordinate
+# holdings, while the existing conversion trigger continues to protect special
+# holding/government lifecycles.
+aawc_setup_convert_tribal_counties_effect = {
+	every_barony = { aawc_setup_prepare_tribal_holding_effect = yes }
+	every_barony = {
+		limit = {
+			is_capital_barony = yes
+			county = { exists = holder }
+		}
+		county = {
+			every_county_province = {
+				limit = {
+					is_county_capital = no
+					has_holding = yes
+				}
+				remove_holding = yes
+			}
+		}
+	}
+	every_barony = { aawc_setup_apply_tribal_government_effect = yes }
+}

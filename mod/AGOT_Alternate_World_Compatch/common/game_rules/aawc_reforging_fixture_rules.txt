@@ -1,0 +1,7 @@
+﻿# Test infrastructure only. Never enable for a production certification campaign.
+aawc_reforging_fixture_mode = {
+    categories = { aawc_rules }
+    default = aawc_reforging_fixtures_disabled
+    aawc_reforging_fixtures_disabled = { }
+    aawc_reforging_disposable_fixtures = { }
+}

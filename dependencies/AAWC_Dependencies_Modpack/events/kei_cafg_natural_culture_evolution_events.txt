@@ -1,0 +1,12 @@
+﻿namespace = kei_cafg_natural_culture_evolution_events
+
+# Culture evolution event
+kei_cafg_natural_culture_evolution_events.0001 = {
+	scope = none
+    hidden = yes
+    immediate = {
+        scope:province = {
+            E_kCAFG_province_natural_culture_evolution = yes
+        }
+    }
+}

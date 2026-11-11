@@ -1,0 +1,14 @@
+﻿on_game_start = {
+    on_actions = {
+        on_kCAFG_start_early
+    }
+}
+
+on_kCAFG_start_early = {
+    effect = {
+		debug_log = "Kei CAFG - On Action - Early Start"
+        
+        set_global_variable = kCAFG_is_loaded
+        set_global_variable = kCAFG_is_loaded_v2
+    }
+}

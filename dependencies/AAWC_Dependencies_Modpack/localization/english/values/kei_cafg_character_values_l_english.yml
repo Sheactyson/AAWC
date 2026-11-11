@@ -1,0 +1,8 @@
+﻿l_english:
+kCAFG_tradition_malleable_invaders_tt: "[GetCultureTradition('tradition_malleable_invaders').GetName]"
+kCAFG_tradition_steppe_tolerance_tt: "[GetCultureTradition('tradition_steppe_tolerance').GetName]"
+kCAFG_fp1_adventure_legacy_3_tt: "[GetDynastyPerk('fp1_adventure_legacy_3').GetName]"
+kCAFG_special_buildings_tt: "[special_buildings|E]"
+kCAFG_tradition_african_tolerance_tt: "[GetCultureTradition('tradition_african_tolerance').GetName]"
+kCAFG_tenet_adaptive_tt: "[GetFaithDoctrine('tenet_adaptive').GetBaseName]"
+kCAFG_struggle_phase_iberia_compromise_tt: "[iberian_struggle|E] - [struggle_phase_iberia_compromise|E]"

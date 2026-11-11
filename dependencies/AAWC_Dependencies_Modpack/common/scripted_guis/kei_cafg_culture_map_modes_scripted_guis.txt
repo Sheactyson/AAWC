@@ -1,0 +1,127 @@
+﻿kCAFG_culture_map_mode = {
+    scope = culture
+
+	saved_scopes = { local_player }
+
+	effect = {
+		if = {
+			limit = {
+				exists = scope:local_player
+		        NOT = {
+					is_target_in_global_variable_list = {
+						name = kCAFG_UI_map_mode_changing
+						target = scope:local_player
+					}
+				}
+            }
+			add_to_global_variable_list = {
+				name = kCAFG_UI_map_mode_changing
+				target = scope:local_player
+			}
+			add_to_global_variable_list = {
+				name = kCAFG_UI_viewing_culture_map_mode
+				target = scope:local_player
+			}
+
+			scope:local_player = {
+				set_variable = {
+					name = kCAFG_UI_culture_map_mode_viewed_culture
+					value = root
+				}
+			}
+
+			E_kCAFG_update_culture_map_mode = yes
+
+			remove_list_global_variable = {
+				name = kCAFG_UI_map_mode_changing
+				target = scope:local_player
+			}
+		}
+	}
+	is_shown = {
+		is_target_in_global_variable_list = {
+			name = kCAFG_UI_viewing_culture_map_mode
+			target = scope:local_player
+		}
+	}
+	is_valid = {
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = kCAFG_UI_map_mode_changing
+				target = scope:local_player
+			}
+		}
+	}
+}
+
+kCAFG_culture_tension_map_mode = {
+    scope = character
+
+	effect = {
+		if = {
+			limit = {
+		        NOT = {
+					is_target_in_global_variable_list = {
+						name = kCAFG_UI_map_mode_changing
+						target = root
+					}
+				}
+            }
+			add_to_global_variable_list = {
+				name = kCAFG_UI_map_mode_changing
+				target = root
+			}
+
+			E_kCAFG_update_culture_tension_map_mode = yes
+
+			remove_list_global_variable = {
+				name = kCAFG_UI_map_mode_changing
+				target = root
+			}
+		}
+	}
+	is_valid = {
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = kCAFG_UI_map_mode_changing
+				target = root
+			}
+		}
+	}
+}
+
+kCAFG_culture_map_mode_player_is_viewing_culture = {
+	scope = culture
+
+	saved_scopes = { local_player }
+
+	is_valid = {
+		exists = scope:local_player
+		scope:local_player = {
+			has_variable = kCAFG_UI_culture_map_mode_viewed_culture
+			var:kCAFG_UI_culture_map_mode_viewed_culture = root
+		}
+	}
+}
+
+# kCAFG_culture_map_mode_update_if_necessary = {
+#     scope = culture
+
+# 	effect = {
+# 		if = {
+# 			limit = {
+# 		        NOT = { exists = global_var:kCAFG_UI_map_mode_changing }
+# 		        exists = global_var:kCAFG_custom_map_mode
+# 				global_var:kCAFG_custom_map_mode = flag:kCAFG_culture_map_mode
+#             }
+# 			set_global_variable = {
+# 				name = kCAFG_UI_map_mode_changing
+# 				value = 1
+# 			}
+
+# 			E_kCAFG_update_culture_map_modes = yes
+			
+# 			remove_global_variable = kCAFG_UI_map_mode_changing
+# 		}
+# 	}
+# }

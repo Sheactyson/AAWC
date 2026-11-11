@@ -1,0 +1,267 @@
+﻿# Diagnostic-only evidence. Summary/Verbose enable it; Off adds no saved state.
+# Never resets, rounds, relocates or repairs any resident, cohort or carry.
+# Sequence markers order synchronous calls, not assumptions about on_action ordering.
+aawc_reforging_diag_phase_effect = {
+    if = {
+        limit = { aawc_diagnostics_summary_enabled = yes }
+        if = { limit = { NOT = { has_global_variable = aawc_reforging_diag_sequence } } set_global_variable = { name = aawc_reforging_diag_sequence value = 0 } }
+        change_global_variable = { name = aawc_reforging_diag_sequence add = 1 }
+        if = {
+            limit = { NOT = { has_global_variable = aawc_reforging_diag_phase_$PHASE$_visits } }
+            set_global_variable = { name = aawc_reforging_diag_phase_$PHASE$_visits value = 0 }
+            set_global_variable = { name = aawc_reforging_diag_phase_$PHASE$_first_sequence value = global_var:aawc_reforging_diag_sequence }
+        }
+        change_global_variable = { name = aawc_reforging_diag_phase_$PHASE$_visits add = 1 }
+        set_global_variable = { name = aawc_reforging_diag_phase value = $PHASE$ }
+        set_global_variable = { name = aawc_reforging_diag_phase_$PHASE$_sequence value = global_var:aawc_reforging_diag_sequence }
+        set_global_variable = { name = aawc_reforging_diag_phase_$PHASE$_date value = current_date }
+        debug_log = "AAWC DIAG phase marker date=[GetCurrentDate.GetStringLong]"
+    }
+}
+
+aawc_reforging_diag_caller_effect = {
+    if = { limit = { aawc_diagnostics_summary_enabled = yes } set_variable = { name = aawc_reforging_diag_pending_caller value = $CALLER$ } }
+}
+
+aawc_reforging_diag_initialize_effect = {
+    if = {
+        limit = { aawc_diagnostics_summary_enabled = yes }
+        if = { limit = { NOT = { has_global_variable = aawc_reforging_diag_sequence } } set_global_variable = { name = aawc_reforging_diag_sequence value = 0 } }
+        change_global_variable = { name = aawc_reforging_diag_sequence add = 1 }
+        if = { limit = { NOT = { has_variable = aawc_reforging_diag_init_calls } } set_variable = { name = aawc_reforging_diag_init_calls value = 0 } }
+        change_variable = { name = aawc_reforging_diag_init_calls add = 1 }
+        if = {
+            limit = { NOT = { has_variable = aawc_reforging_diag_init_sequence } }
+            set_variable = { name = aawc_reforging_diag_init_sequence value = global_var:aawc_reforging_diag_sequence }
+            set_variable = { name = aawc_reforging_diag_init_date value = current_date }
+            set_variable = { name = aawc_reforging_diag_init_phase value = 0 }
+            if = { limit = { has_global_variable = aawc_reforging_diag_phase } set_variable = { name = aawc_reforging_diag_init_phase value = global_var:aawc_reforging_diag_phase } }
+            set_variable = { name = aawc_reforging_diag_init_caller value = 0 }
+            if = { limit = { has_variable = aawc_reforging_diag_pending_caller } set_variable = { name = aawc_reforging_diag_init_caller value = var:aawc_reforging_diag_pending_caller } }
+            set_variable = { name = aawc_reforging_diag_init_requested value = $POPULATION$ }
+            set_variable = { name = aawc_reforging_diag_init_class value = aawc_reforging_diag_holding_class }
+            set_variable = { name = aawc_reforging_diag_init_dummy value = aawc_reforging_diag_county_dummy }
+            set_variable = { name = aawc_reforging_diag_init_had_ledger value = 0 }
+            if = { limit = { has_variable = aawc_reforging_cohort_production_initialized } set_variable = { name = aawc_reforging_diag_init_had_ledger value = 1 } }
+        }
+        remove_variable = aawc_reforging_diag_pending_caller
+    }
+}
+
+# Called before and after the accepted tick, inside its duplicate/reentrant guard.
+# First failure snapshot survives later successful ticks and save/reload.
+aawc_reforging_diag_check_effect = {
+    if = {
+        limit = { aawc_diagnostics_summary_enabled = yes }
+        if = {
+            limit = { NOT = { has_variable = aawc_reforging_diag_checks } }
+            set_variable = { name = aawc_reforging_diag_checks value = 0 }
+            set_variable = { name = aawc_reforging_diag_failures value = 0 }
+            set_variable = { name = aawc_reforging_diag_invariant_failures value = 0 }
+            set_variable = { name = aawc_reforging_diag_accounting_failures value = 0 }
+            set_variable = { name = aawc_reforging_diag_fractional_observations value = 0 }
+        }
+        change_variable = { name = aawc_reforging_diag_checks add = 1 }
+        set_variable = { name = aawc_reforging_diag_last_date value = current_date }
+        set_variable = { name = aawc_reforging_diag_last_tick value = var:aawc_reforging_cohort_tick_count }
+        set_variable = { name = aawc_reforging_diag_last_stage value = $STAGE$ }
+        set_variable = { name = aawc_reforging_diag_last_invariant value = aawc_reforging_cohort_stage1_invariant_status }
+        set_variable = { name = aawc_reforging_diag_last_fractional value = aawc_reforging_diag_fractional_status }
+        set_variable = { name = aawc_reforging_diag_last_accounting value = 1 }
+        if = { limit = { var:aawc_reforging_diag_last_stage = 2 } set_variable = { name = aawc_reforging_diag_last_accounting value = aawc_reforging_cohort_last_tick_accounting_status } }
+        if = { limit = { var:aawc_reforging_diag_last_invariant = 0 } change_variable = { name = aawc_reforging_diag_invariant_failures add = 1 } }
+        if = { limit = { var:aawc_reforging_diag_last_accounting = 0 } change_variable = { name = aawc_reforging_diag_accounting_failures add = 1 } }
+        if = { limit = { var:aawc_reforging_diag_last_fractional = 1 } change_variable = { name = aawc_reforging_diag_fractional_observations add = 1 } }
+        if = {
+            limit = { OR = { var:aawc_reforging_diag_last_invariant = 0 var:aawc_reforging_diag_last_accounting = 0 } }
+            change_variable = { name = aawc_reforging_diag_failures add = 1 }
+            set_variable = { name = aawc_reforging_diag_last_failure_date value = current_date }
+            set_variable = { name = aawc_reforging_diag_last_failure_tick value = var:aawc_reforging_cohort_tick_count }
+            if = {
+                limit = { NOT = { has_variable = aawc_reforging_diag_first_failure_date } }
+                set_variable = { name = aawc_reforging_diag_first_failure_date value = current_date }
+                set_variable = { name = aawc_reforging_diag_first_failure_tick value = var:aawc_reforging_cohort_tick_count }
+                set_variable = { name = aawc_reforging_diag_first_failure_stage value = $STAGE$ }
+                set_variable = { name = aawc_reforging_diag_first_invariant value = var:aawc_reforging_diag_last_invariant }
+                set_variable = { name = aawc_reforging_diag_first_accounting value = var:aawc_reforging_diag_last_accounting }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_00_04 } set_variable = { name = aawc_reforging_diag_first_cohort_age_00_04 value = var:aawc_reforging_cohort_age_00_04 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_05_09 } set_variable = { name = aawc_reforging_diag_first_cohort_age_05_09 value = var:aawc_reforging_cohort_age_05_09 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_10_14 } set_variable = { name = aawc_reforging_diag_first_cohort_age_10_14 value = var:aawc_reforging_cohort_age_10_14 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_15_19 } set_variable = { name = aawc_reforging_diag_first_cohort_age_15_19 value = var:aawc_reforging_cohort_age_15_19 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_20_24 } set_variable = { name = aawc_reforging_diag_first_cohort_age_20_24 value = var:aawc_reforging_cohort_age_20_24 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_25_29 } set_variable = { name = aawc_reforging_diag_first_cohort_age_25_29 value = var:aawc_reforging_cohort_age_25_29 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_30_34 } set_variable = { name = aawc_reforging_diag_first_cohort_age_30_34 value = var:aawc_reforging_cohort_age_30_34 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_35_39 } set_variable = { name = aawc_reforging_diag_first_cohort_age_35_39 value = var:aawc_reforging_cohort_age_35_39 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_40_44 } set_variable = { name = aawc_reforging_diag_first_cohort_age_40_44 value = var:aawc_reforging_cohort_age_40_44 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_45_49 } set_variable = { name = aawc_reforging_diag_first_cohort_age_45_49 value = var:aawc_reforging_cohort_age_45_49 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_50_54 } set_variable = { name = aawc_reforging_diag_first_cohort_age_50_54 value = var:aawc_reforging_cohort_age_50_54 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_55_59 } set_variable = { name = aawc_reforging_diag_first_cohort_age_55_59 value = var:aawc_reforging_cohort_age_55_59 } }
+                if = { limit = { has_variable = aawc_reforging_cohort_age_60_plus } set_variable = { name = aawc_reforging_diag_first_cohort_age_60_plus value = var:aawc_reforging_cohort_age_60_plus } }
+                if = { limit = { has_variable = aawc_reforging_military_age_15_19 } set_variable = { name = aawc_reforging_diag_first_military_age_15_19 value = var:aawc_reforging_military_age_15_19 } }
+                if = { limit = { has_variable = aawc_reforging_military_age_20_24 } set_variable = { name = aawc_reforging_diag_first_military_age_20_24 value = var:aawc_reforging_military_age_20_24 } }
+                if = { limit = { has_variable = aawc_reforging_military_age_25_29 } set_variable = { name = aawc_reforging_diag_first_military_age_25_29 value = var:aawc_reforging_military_age_25_29 } }
+                if = { limit = { has_variable = aawc_reforging_military_age_30_34 } set_variable = { name = aawc_reforging_diag_first_military_age_30_34 value = var:aawc_reforging_military_age_30_34 } }
+                if = { limit = { has_variable = aawc_reforging_military_age_35_39 } set_variable = { name = aawc_reforging_diag_first_military_age_35_39 value = var:aawc_reforging_military_age_35_39 } }
+                if = { limit = { has_variable = aawc_reforging_military_age_40_44 } set_variable = { name = aawc_reforging_diag_first_military_age_40_44 value = var:aawc_reforging_military_age_40_44 } }
+                if = { limit = { has_variable = aawc_reforging_military_age_45_49 } set_variable = { name = aawc_reforging_diag_first_military_age_45_49 value = var:aawc_reforging_military_age_45_49 } }
+                if = { limit = { has_variable = aawc_reforging_military_age_50_54 } set_variable = { name = aawc_reforging_diag_first_military_age_50_54 value = var:aawc_reforging_military_age_50_54 } }
+                if = { limit = { has_variable = aawc_reforging_military_age_55_59 } set_variable = { name = aawc_reforging_diag_first_military_age_55_59 value = var:aawc_reforging_military_age_55_59 } }
+                if = { limit = { has_variable = aawc_reforging_birth_fraction } set_variable = { name = aawc_reforging_diag_first_birth_fraction value = var:aawc_reforging_birth_fraction } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_00_04 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_00_04 value = var:aawc_reforging_mortality_fraction_age_00_04 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_05_09 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_05_09 value = var:aawc_reforging_mortality_fraction_age_05_09 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_10_14 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_10_14 value = var:aawc_reforging_mortality_fraction_age_10_14 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_15_19 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_15_19 value = var:aawc_reforging_mortality_fraction_age_15_19 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_20_24 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_20_24 value = var:aawc_reforging_mortality_fraction_age_20_24 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_25_29 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_25_29 value = var:aawc_reforging_mortality_fraction_age_25_29 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_30_34 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_30_34 value = var:aawc_reforging_mortality_fraction_age_30_34 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_35_39 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_35_39 value = var:aawc_reforging_mortality_fraction_age_35_39 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_40_44 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_40_44 value = var:aawc_reforging_mortality_fraction_age_40_44 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_45_49 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_45_49 value = var:aawc_reforging_mortality_fraction_age_45_49 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_50_54 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_50_54 value = var:aawc_reforging_mortality_fraction_age_50_54 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_55_59 } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_55_59 value = var:aawc_reforging_mortality_fraction_age_55_59 } }
+                if = { limit = { has_variable = aawc_reforging_mortality_fraction_age_60_plus } set_variable = { name = aawc_reforging_diag_first_mortality_fraction_age_60_plus value = var:aawc_reforging_mortality_fraction_age_60_plus } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_00_04 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_00_04 value = var:aawc_reforging_aging_fraction_age_00_04 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_05_09 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_05_09 value = var:aawc_reforging_aging_fraction_age_05_09 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_10_14 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_10_14 value = var:aawc_reforging_aging_fraction_age_10_14 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_15_19 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_15_19 value = var:aawc_reforging_aging_fraction_age_15_19 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_20_24 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_20_24 value = var:aawc_reforging_aging_fraction_age_20_24 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_25_29 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_25_29 value = var:aawc_reforging_aging_fraction_age_25_29 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_30_34 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_30_34 value = var:aawc_reforging_aging_fraction_age_30_34 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_35_39 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_35_39 value = var:aawc_reforging_aging_fraction_age_35_39 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_40_44 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_40_44 value = var:aawc_reforging_aging_fraction_age_40_44 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_45_49 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_45_49 value = var:aawc_reforging_aging_fraction_age_45_49 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_50_54 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_50_54 value = var:aawc_reforging_aging_fraction_age_50_54 } }
+                if = { limit = { has_variable = aawc_reforging_aging_fraction_age_55_59 } set_variable = { name = aawc_reforging_diag_first_aging_fraction_age_55_59 value = var:aawc_reforging_aging_fraction_age_55_59 } }
+                if = { limit = { has_variable = aawc_reforging_military_aging_fraction_age_15_19 } set_variable = { name = aawc_reforging_diag_first_military_aging_fraction_age_15_19 value = var:aawc_reforging_military_aging_fraction_age_15_19 } }
+                if = { limit = { has_variable = aawc_reforging_military_aging_fraction_age_20_24 } set_variable = { name = aawc_reforging_diag_first_military_aging_fraction_age_20_24 value = var:aawc_reforging_military_aging_fraction_age_20_24 } }
+                if = { limit = { has_variable = aawc_reforging_military_aging_fraction_age_25_29 } set_variable = { name = aawc_reforging_diag_first_military_aging_fraction_age_25_29 value = var:aawc_reforging_military_aging_fraction_age_25_29 } }
+                if = { limit = { has_variable = aawc_reforging_military_aging_fraction_age_30_34 } set_variable = { name = aawc_reforging_diag_first_military_aging_fraction_age_30_34 value = var:aawc_reforging_military_aging_fraction_age_30_34 } }
+                if = { limit = { has_variable = aawc_reforging_military_aging_fraction_age_35_39 } set_variable = { name = aawc_reforging_diag_first_military_aging_fraction_age_35_39 value = var:aawc_reforging_military_aging_fraction_age_35_39 } }
+                if = { limit = { has_variable = aawc_reforging_military_aging_fraction_age_40_44 } set_variable = { name = aawc_reforging_diag_first_military_aging_fraction_age_40_44 value = var:aawc_reforging_military_aging_fraction_age_40_44 } }
+                if = { limit = { has_variable = aawc_reforging_military_aging_fraction_age_45_49 } set_variable = { name = aawc_reforging_diag_first_military_aging_fraction_age_45_49 value = var:aawc_reforging_military_aging_fraction_age_45_49 } }
+                if = { limit = { has_variable = aawc_reforging_military_aging_fraction_age_50_54 } set_variable = { name = aawc_reforging_diag_first_military_aging_fraction_age_50_54 value = var:aawc_reforging_military_aging_fraction_age_50_54 } }
+                if = { limit = { has_variable = aawc_reforging_military_aging_fraction_age_55_59 } set_variable = { name = aawc_reforging_diag_first_military_aging_fraction_age_55_59 value = var:aawc_reforging_military_aging_fraction_age_55_59 } }
+                error_log = "AAWC DIAG first invariant/accounting failure date=[GetCurrentDate.GetStringLong]; inspect saved aawc_reforging_diag fields"
+                # error/game logging can cease while debug heartbeats still write.
+                # Mirror only the first failure; saved diagnostics remain authoritative.
+                debug_log = "AAWC DIAG first invariant/accounting failure date=[GetCurrentDate.GetStringLong]; inspect saved aawc_reforging_diag fields"
+            }
+        }
+    }
+}
+
+# One bounded world heartbeat per twelve successful migration-event entries.
+# Saved count/date advance even when native script logging stops; no world scan.
+aawc_reforging_diag_heartbeat_effect = {
+    if = {
+        limit = { aawc_diagnostics_summary_enabled = yes }
+        if = {
+            limit = { NOT = { has_global_variable = aawc_reforging_diag_world_pulses } }
+            set_global_variable = { name = aawc_reforging_diag_world_pulses value = 0 }
+            set_global_variable = { name = aawc_reforging_diag_world_since_log value = 11 }
+            set_global_variable = { name = aawc_reforging_diag_world_heartbeats value = 0 }
+        }
+        change_global_variable = { name = aawc_reforging_diag_world_pulses add = 1 }
+        change_global_variable = { name = aawc_reforging_diag_world_since_log add = 1 }
+        set_global_variable = { name = aawc_reforging_diag_world_last_date value = current_date }
+        if = {
+            limit = { global_var:aawc_reforging_diag_world_since_log >= 12 }
+            set_global_variable = { name = aawc_reforging_diag_world_since_log value = 0 }
+            change_global_variable = { name = aawc_reforging_diag_world_heartbeats add = 1 }
+            # Native debug emission can stop after sustained output while the
+            # error/game route remains live. Mirror this sparse record; coverage
+            # counts the largest single channel and never sums the two copies.
+            error_log = "AAWC DIAG world heartbeat date=[GetCurrentDate.GetStringLong]"
+            debug_log = "AAWC DIAG world heartbeat date=[GetCurrentDate.GetStringLong]"
+        }
+    }
+}
+
+# Only the disposable opt-in fixture cleanup calls this, never production.
+aawc_reforging_diag_test_cleanup_effect = {
+	remove_variable = aawc_reforging_diag_accounting_failures
+	remove_variable = aawc_reforging_diag_checks
+	remove_variable = aawc_reforging_diag_failures
+	remove_variable = aawc_reforging_diag_first_accounting
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_00_04
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_05_09
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_10_14
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_15_19
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_20_24
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_25_29
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_30_34
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_35_39
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_40_44
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_45_49
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_50_54
+	remove_variable = aawc_reforging_diag_first_aging_fraction_age_55_59
+	remove_variable = aawc_reforging_diag_first_birth_fraction
+	remove_variable = aawc_reforging_diag_first_cohort_age_00_04
+	remove_variable = aawc_reforging_diag_first_cohort_age_05_09
+	remove_variable = aawc_reforging_diag_first_cohort_age_10_14
+	remove_variable = aawc_reforging_diag_first_cohort_age_15_19
+	remove_variable = aawc_reforging_diag_first_cohort_age_20_24
+	remove_variable = aawc_reforging_diag_first_cohort_age_25_29
+	remove_variable = aawc_reforging_diag_first_cohort_age_30_34
+	remove_variable = aawc_reforging_diag_first_cohort_age_35_39
+	remove_variable = aawc_reforging_diag_first_cohort_age_40_44
+	remove_variable = aawc_reforging_diag_first_cohort_age_45_49
+	remove_variable = aawc_reforging_diag_first_cohort_age_50_54
+	remove_variable = aawc_reforging_diag_first_cohort_age_55_59
+	remove_variable = aawc_reforging_diag_first_cohort_age_60_plus
+	remove_variable = aawc_reforging_diag_first_failure_date
+	remove_variable = aawc_reforging_diag_first_failure_stage
+	remove_variable = aawc_reforging_diag_first_failure_tick
+	remove_variable = aawc_reforging_diag_first_invariant
+	remove_variable = aawc_reforging_diag_first_military_age_15_19
+	remove_variable = aawc_reforging_diag_first_military_age_20_24
+	remove_variable = aawc_reforging_diag_first_military_age_25_29
+	remove_variable = aawc_reforging_diag_first_military_age_30_34
+	remove_variable = aawc_reforging_diag_first_military_age_35_39
+	remove_variable = aawc_reforging_diag_first_military_age_40_44
+	remove_variable = aawc_reforging_diag_first_military_age_45_49
+	remove_variable = aawc_reforging_diag_first_military_age_50_54
+	remove_variable = aawc_reforging_diag_first_military_age_55_59
+	remove_variable = aawc_reforging_diag_first_military_aging_fraction_age_15_19
+	remove_variable = aawc_reforging_diag_first_military_aging_fraction_age_20_24
+	remove_variable = aawc_reforging_diag_first_military_aging_fraction_age_25_29
+	remove_variable = aawc_reforging_diag_first_military_aging_fraction_age_30_34
+	remove_variable = aawc_reforging_diag_first_military_aging_fraction_age_35_39
+	remove_variable = aawc_reforging_diag_first_military_aging_fraction_age_40_44
+	remove_variable = aawc_reforging_diag_first_military_aging_fraction_age_45_49
+	remove_variable = aawc_reforging_diag_first_military_aging_fraction_age_50_54
+	remove_variable = aawc_reforging_diag_first_military_aging_fraction_age_55_59
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_00_04
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_05_09
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_10_14
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_15_19
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_20_24
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_25_29
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_30_34
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_35_39
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_40_44
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_45_49
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_50_54
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_55_59
+	remove_variable = aawc_reforging_diag_first_mortality_fraction_age_60_plus
+	remove_variable = aawc_reforging_diag_fractional_observations
+	remove_variable = aawc_reforging_diag_init_caller
+	remove_variable = aawc_reforging_diag_init_calls
+	remove_variable = aawc_reforging_diag_init_class
+	remove_variable = aawc_reforging_diag_init_date
+	remove_variable = aawc_reforging_diag_init_dummy
+	remove_variable = aawc_reforging_diag_init_had_ledger
+	remove_variable = aawc_reforging_diag_init_phase
+	remove_variable = aawc_reforging_diag_init_requested
+	remove_variable = aawc_reforging_diag_init_sequence
+	remove_variable = aawc_reforging_diag_invariant_failures
+	remove_variable = aawc_reforging_diag_last_accounting
+	remove_variable = aawc_reforging_diag_last_date
+	remove_variable = aawc_reforging_diag_last_failure_date
+	remove_variable = aawc_reforging_diag_last_failure_tick
+	remove_variable = aawc_reforging_diag_last_fractional
+	remove_variable = aawc_reforging_diag_last_invariant
+	remove_variable = aawc_reforging_diag_last_stage
+	remove_variable = aawc_reforging_diag_last_tick
+	remove_variable = aawc_reforging_diag_pending_caller
+}

@@ -1,0 +1,70 @@
+﻿namespace = aawc_title_guard
+
+# Runs after the originating title-manager transaction has completed.
+aawc_title_guard.0001 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		if = {
+			limit = {
+				aawc_tribal_shatter_active = yes
+				exists = scope:aawc_deferred_rh_guard_title
+				scope:aawc_deferred_rh_guard_title = {
+					tier = tier_county
+					aawc_runtime_ruin_warden_handoff_protected_county = yes
+					exists = holder
+					holder = root
+				}
+				NOT = { this = title:c_ruins.holder }
+				is_vassal_or_below_of = title:c_ruins.holder
+				NOR = {
+					var:lv_settlement_state ?= flag:planning
+					any_owned_story = {
+						story_type = lv_settlement_story_cycle
+						is_target_in_variable_list = {
+							name = lv_settlement_expeditions
+							target = scope:aawc_deferred_rh_guard_title.title_province
+						}
+					}
+				}
+			}
+			scope:aawc_deferred_rh_guard_title = {
+				hidden_effect = {
+					create_title_and_vassal_change = {
+						type = revoked
+						save_scope_as = aawc_runtime_rh_title_guard_change
+					}
+					change_title_holder = {
+						holder = title:c_ruins.holder
+						change = scope:aawc_runtime_rh_title_guard_change
+						take_baronies = yes
+					}
+					resolve_title_and_vassal_change = scope:aawc_runtime_rh_title_guard_change
+					generate_coa = yes
+				}
+				title_province = {
+					if = {
+						limit = { NOT = { has_holding_type = ruin_holding } }
+						set_holding_type = ruin_holding
+					}
+				}
+				aawc_apply_generated_special_restoration_effect = yes
+				aawc_apply_valyria_region_special_restoration_effect = yes
+				aawc_apply_generic_lov_special_restoration_effect = yes
+				aawc_top_up_current_county_ruin_blockers_effect = yes
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC TITLE GUARD completed deferred protected RH retake" }
+			if = {
+				limit = {
+					is_alive = yes
+					is_landed = no
+					is_pool_character = yes
+					agot_is_dummy_character = no
+					is_ai = yes
+				}
+				death = { death_reason = death_vanished }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC TITLE GUARD deleted escaped protected-RH grant recipient after deferred retake" }
+			}
+		}
+	}
+}

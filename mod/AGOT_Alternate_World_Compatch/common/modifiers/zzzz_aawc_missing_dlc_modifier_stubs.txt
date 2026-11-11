@@ -1,0 +1,193 @@
+﻿# AAWC 1.9.49 load compatibility stubs.
+#
+# CK3 1.19 validates modifier database references even when the referenced DLC
+# content is not present in the active playset. These zero-value definitions keep
+# cross-mod/vanilla compatibility references typed without restoring DLC effects.
+
+religious_settler_influx = {
+	development_growth_factor = 0
+}
+
+miasma_ignored = {
+	development_growth_factor = 0
+}
+
+disastrous_cull = {
+	development_growth_factor = 0
+}
+
+draconian_lockdown = {
+	development_growth_factor = 0
+}
+
+trusted_ruler = {
+	development_growth_factor = 0
+}
+
+hungarian_resettlement_modifier = {
+	development_growth_factor = 0
+}
+
+magyar_appreciation_modifier = {
+	development_growth_factor = 0
+}
+
+reclaim_britannia_culture_modifier = {
+	development_growth_factor = 0
+}
+
+fp1_mann_pirate_capital_modifier = {
+	development_growth_factor = 0
+}
+
+pandidakterion_university_modifier = {
+	development_growth_factor = 0
+}
+
+fp2_jewish_community_denied_modifier = {
+	development_growth_factor = 0
+}
+
+enthusiastic_nomad_settlement_saharan_modifier = {
+	development_growth_factor = 0
+}
+
+nomad_settlement_saharan_modifier = {
+	development_growth_factor = 0
+}
+
+promote_culture_beth_nahrain_modifier = {
+	development_growth_factor = 0
+}
+
+hold_court_distracted_tutor_modifier = {
+	monthly_prestige = 0
+}
+
+medicating_with_leeches_bad = {
+	monthly_prestige = 0
+}
+
+ce1_commoners_in_graves = {
+	monthly_prestige = 0
+}
+
+pleas_ignored = {
+	monthly_prestige = 0
+}
+
+free_boats = {
+	monthly_prestige = 0
+}
+
+miracle_worker = {
+	monthly_prestige = 0
+}
+
+out_of_touch = {
+	monthly_prestige = 0
+}
+
+herbalist_suspicions = {
+	monthly_prestige = 0
+}
+
+avenger_of_the_martyrs = {
+	monthly_prestige = 0
+}
+
+resurging_saoshyant = {
+	monthly_dynasty_prestige_mult = 0
+}
+
+fp3_azariqa_ascendancy_modifier = {
+	monthly_prestige = 0
+}
+
+fp3_rekindler_of_iran_modifier = {
+	monthly_dynasty_prestige_mult = 0
+}
+
+fp3_flame_of_iran_modifier = {
+	monthly_prestige = 0
+}
+
+fp2_lenient_towards_foreign_merchants_modifier = {
+	monthly_prestige = 0
+}
+
+fp2_epitaph_modifier = {
+	monthly_prestige = 0
+}
+
+tolerance_gospel_modifier = {
+	monthly_prestige = 0
+}
+
+claimed_mantle_of_maitreya_modifier = {
+	monthly_prestige = 0
+}
+
+fp3_promoted_persian_scripture_modifier = {
+	monthly_prestige = 0
+}
+
+fp2_council_conversion_modifier = {
+	monthly_prestige = 0
+}
+
+fp2_struggle_hostility_house_combined_modifier = {
+	monthly_prestige = 0
+}
+
+fp2_struggle_hostility_house_faith_modifier = {
+	monthly_prestige = 0
+}
+
+defiant_high_king_conversion_boost_modifier = {
+	monthly_prestige = 0
+}
+
+defiant_high_queen_conversion_boost_modifier = {
+	monthly_prestige = 0
+}
+
+dead_boats = {
+	supply_limit_mult = 0
+}
+
+clear_beaches = {
+	supply_limit_mult = 0
+}
+
+contaminated_beaches = {
+	supply_limit_mult = 0
+}
+
+pestilent_beaches = {
+	supply_limit_mult = 0
+}
+
+respected_dead = {
+	supply_limit_mult = 0
+}
+
+corpse_piles = {
+	supply_limit_mult = 0
+}
+
+dismissed_peasantry = {
+	supply_limit_mult = 0
+}
+
+fears_allayed = {
+	supply_limit_mult = 0
+}
+
+fears_ignored = {
+	supply_limit_mult = 0
+}
+
+elevate_mann_and_the_isles_modifier = {
+	supply_limit_mult = 0
+}

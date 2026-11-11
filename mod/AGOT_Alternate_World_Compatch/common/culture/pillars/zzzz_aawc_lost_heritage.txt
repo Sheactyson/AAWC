@@ -1,0 +1,9 @@
+﻿heritage_aawc_lost = {
+	type = heritage
+
+	is_shown = {
+		always = yes
+	}
+
+	audio_parameter = byzantine
+}

@@ -1,0 +1,39 @@
+﻿# Values that were initially from vanilla
+
+# Councillor
+# Factors are based on skill bonus
+V_kCAFG_steward_promote_culture_friend_factor = { value = council_friend_impact_percentage divide = 100 }
+V_kCAFG_steward_promote_culture_best_friend_factor = { value = council_best_friend_impact_percentage divide = 100 }
+V_kCAFG_steward_promote_culture_rival_factor = { value = council_rival_impact_percentage divide = 100 }
+V_kCAFG_steward_promote_culture_nemesis_factor = { value = council_nemesis_impact_percentage divide = 100 }
+V_kCAFG_steward_promote_culture_erudition_legacy_5_factor = { value = erudition_legacy_5_percentage divide = 100 }
+V_kCAFG_steward_promote_culture_family_business_councillors_factor = { value = family_business_councillors_percentage divide = 100 }
+V_kCAFG_steward_promote_culture_consulted_house_councillors_factor = { value = consulted_house_councillors_percentage divide = 100 }
+
+# Factors are based on total base bonus (base + skill if councillor task, 1 if natural conversion)
+# Converting Culture
+V_kCAFG_culture_conversion_east_settling_factor = 0.15
+
+# Converted Culture
+V_kCAFG_culture_conversion_hybrid_culture_vs_parents_factor = 1.5
+V_kCAFG_culture_conversion_divergent_culture_vs_parents_factor = 1.3
+V_kCAFG_culture_conversion_easier_to_culture_change_with_heritage_factor = 0.3
+V_kCAFG_culture_conversion_resistant_to_culture_change_without_heritage_factor = -0.5
+V_kCAFG_culture_conversion_resistant_to_culture_change_factor = -0.5
+V_kCAFG_culture_conversion_reclaimed_brittania_factor = 0.75
+V_kCAFG_culture_conversion_easy_factor = 0.5
+
+# Converted Faith
+V_kCAFG_culture_conversion_communal_identity_factor = 0.5
+V_kCAFG_culture_conversion_easier_to_convert_culture_in_same_faith_mountains_factor = 0.5
+
+# County
+V_kCAFG_culture_conversion_6210_architect_factor = 0.2
+V_kCAFG_culture_conversion_easier_to_convert_county_factor = 0.25
+V_kCAFG_culture_conversion_resistant_to_culture_change_due_to_struggle_phase_factor = -0.5
+V_kCAFG_culture_conversion_accepting_of_culture_change_due_to_struggle_phase_factor = 0.5
+V_kCAFG_culture_conversion_local_traditions_respected_factor = -0.75
+V_kCAFG_culture_conversion_allowed_nomad_settlement_factor = -0.8
+V_kCAFG_culture_conversion_court_8190_vassal_factor = -0.1
+V_kCAFG_culture_conversion_shuubiyya_factor = -0.75
+V_kCAFG_culture_conversion_beth_nahrain_factor = 0.75

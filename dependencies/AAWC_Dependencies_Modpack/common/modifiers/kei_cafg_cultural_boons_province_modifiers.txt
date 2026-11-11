@@ -1,0 +1,250 @@
+﻿PM_kCAFG_cultural_boon_tradition_strength_in_numbers = {
+    icon = martial_positive
+	levy_size = 0.75
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_stand_and_fight = {
+    icon = martial_positive
+    defender_holding_advantage = 4
+    stationed_maa_toughness_mult = 0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_adaptive_skirmishing = {
+    icon = martial_positive
+    stationed_skirmishers_toughness_mult = 0.25
+    stationed_skirmishers_damage_mult = 0.15
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_republican_legacy = {
+	icon = economy_positive
+    tax_mult = 0.25
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_hereditary_hierarchy = {
+	icon = economy_positive
+    county_opinion_add = 20
+    tax_mult = 0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_collective_lands = {
+	icon = county_modifier_development_positive
+    development_growth_factor = 0.4
+    monthly_county_control_growth_factor = -0.5
+    county_opinion_add = 40
+    build_speed = -0.125
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_agrarian = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.25
+    development_growth_factor = 0.15
+	development_decline_factor = -0.15
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_pastoralists = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.15
+    development_growth = 0.15
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_parochialism = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.1
+    development_growth_factor = 0.1
+    city_holding_build_gold_cost = -0.2
+    monthly_county_control_growth_factor = -0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_hill_dwellers = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.2
+    development_growth_factor = 0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_forest_folk = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.2
+    development_growth_factor = 0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_mountain_homes = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.2
+    development_growth_factor = 0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_dryland_dwellers = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.2
+    development_growth_factor = 0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_jungle_dwellers = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.2
+    development_growth_factor = 0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_wetlanders = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.2
+    development_growth_factor = 0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_hidden_cities = {
+	icon = county_modifier_development_positive
+    defender_holding_advantage = 10
+    tax_mult = 0.1
+	development_decline_factor = -0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_ancient_miners = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.4
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_castle_keepers = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.2
+    castle_holding_build_speed = -0.2
+	development_decline_factor = -0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_city_keepers = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.2
+    city_holding_build_speed = -0.2
+	development_decline_factor = -0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_maritime_mercantilism = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.25
+    development_growth_factor = 0.3
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_hard_working = {
+	icon = county_modifier_development_positive
+    development_growth_factor = 0.6
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_seafaring = {
+	icon = compass_positive
+	monthly_county_control_growth_add = 0.25
+	levy_size = 0.1
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_welcoming = {
+    icon = social_positive
+    travel_danger = -40
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_fp2_ritualised_friendship = {
+    icon = social_positive
+    stacking = yes
+    county_opinion_add = 30
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_fp3_irrigation_experts = {
+	icon = county_modifier_development_positive
+    tax_mult = 0.2
+    development_growth_factor = 0.25
+	development_decline_factor = -0.1
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_tgp_rice_cultivators = {
+	icon = county_modifier_development_positive
+    development_growth_factor = 0.35
+	development_decline_factor = -0.15
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_tgp_imperial_peace = {
+	icon = martial_positive
+    defender_holding_advantage = 15
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_tgp_hydraulic_builders = {
+	icon = county_modifier_development_positive
+    development_growth_factor = 0.1
+	build_gold_cost = -0.25
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_20 }
+}
+
+PM_kCAFG_cultural_boon_tradition_tgp_fortified_strongholds = {
+	icon = county_modifier_development_positive
+    temple_citadel_holding_holding_build_gold_cost = -0.15
+    temple_citadel_holding_holding_build_speed = -0.2
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_tgp_mountain_island = {
+	icon = county_modifier_development_positive
+    travel_danger = -20
+	build_gold_cost = -0.15
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}
+
+PM_kCAFG_cultural_boon_tradition_intensive_farming = {
+	icon = county_modifier_development_positive
+    levy_size = 0.2
+	development_growth_factor = 0.2
+	tax_mult = 0.1
+
+    scale = { value = V_kCAFG_cultural_province_modifier_culture_scale_min_25 }
+}

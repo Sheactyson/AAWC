@@ -1,0 +1,5 @@
+﻿kei_cafg_granularity_factor_struct = {
+	on_setup = {}
+	on_end = {}
+	on_owner_death = {}
+}

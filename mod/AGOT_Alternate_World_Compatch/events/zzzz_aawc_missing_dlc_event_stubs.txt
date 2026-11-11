@@ -1,0 +1,53 @@
+﻿# AAWC 1.9.49 load compatibility event stubs.
+#
+# These hidden no-op events satisfy references from vanilla/DLC compatibility
+# scripts when their original DLC event files are absent from the active playset.
+
+namespace = major_decisions
+namespace = almohad
+namespace = ep3_story_cycle_harrying
+namespace = fp3_struggle
+namespace = agot_colonization_events
+namespace = tgp_japan_decision
+
+major_decisions.2002 = {
+	type = character_event
+	hidden = yes
+	immediate = { }
+}
+
+almohad.0002 = {
+	type = character_event
+	hidden = yes
+	immediate = { }
+}
+
+almohad.1001 = {
+	type = character_event
+	hidden = yes
+	immediate = { }
+}
+
+ep3_story_cycle_harrying.0004 = {
+	type = character_event
+	hidden = yes
+	immediate = { }
+}
+
+fp3_struggle.0072 = {
+	type = character_event
+	hidden = yes
+	immediate = { }
+}
+
+agot_colonization_events.1595 = {
+	type = character_event
+	hidden = yes
+	immediate = { }
+}
+
+tgp_japan_decision.9001 = {
+	type = character_event
+	hidden = yes
+	immediate = { }
+}

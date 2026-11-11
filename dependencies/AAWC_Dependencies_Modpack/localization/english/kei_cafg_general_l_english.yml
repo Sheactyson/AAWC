@@ -1,0 +1,22 @@
+﻿l_english:
+kCAFG_mod_name: "Kei - Culture and Faith Granularity"
+kCAFG_mod_short_name: "C&FG"
+kCAFG_mod_desc: "Mod that allows [baronies|E] to contain more [cultures|E] and [faiths|E] in varying and dynamic amounts."
+kCAFG_mod_name_w_desc_tt: "#T $kCAFG_mod_name$#!\n$kCAFG_mod_desc$"
+kCAFG_wrong_setup: "@warning_icon! #warning The Mod#! #tooltip:kCAFG_mod_name_w_desc_tt #color_goldy_yellow $kCAFG_mod_name$#!#! #warning didn't setup properly. It may malfunction.#!"
+
+any_county_province:0 "Any County Province:"
+not_any_county_province:0 "No County Province:"
+ANY_COUNTY_PROVINCE: "Any County Province:"
+NOT_ANY_COUNTY_PROVINCE: "No County Province:"
+any_county_province_count_greater_or_equal: "Any [county|E] [barony|E] equal or greater than:"
+any_county_province_count_less_or_equal: "Any [county|E] [barony|E] equal or lesser than:"
+any_county_province_count_equal: "Any [county|E] [barony|E] equal to:"
+every_struggle_detractor: "Every Detractor"
+
+kCAFG_MODIFIER_DEFINITION_VALUE_COUNTY_WIDE_MAXIMUM: " \t#weak #tooltip:kCAFG_MODIFIER_DEFINITION_VALUE_COUNTY_WIDE_MAXIMUM_tt County-wide Maximum#!#!"
+kCAFG_MODIFIER_DEFINITION_VALUE_COUNTY_WIDE_MAXIMUM_tt: "This value is scaled based on the [barony|E] proportion in relation to its [county|E] (e.g. a province accounting for 20% of its county would apply only 20% of the effects)."
+
+BREAKDOWN_FORMAT_PERCENTAGE_POSITIVE_IS_BAD_2_DECIMALS: "$KEY$: $VALUE|=-2%$"
+BREAKDOWN_FORMAT_PERCENTAGE_POSITIVE_IS_BAD: "$KEY$: $VALUE|=-0%$"
+BREAKDOWN_FORMAT_PERCENTAGE: "$KEY$: $VALUE|=+0%$"

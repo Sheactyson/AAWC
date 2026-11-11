@@ -1,0 +1,9 @@
+﻿V_kei_window_faith_size = {
+    if = {
+        limit = { has_global_variable = AGOT_is_loaded }
+        value = 787
+    }
+    else = {
+        value = 595
+    }
+}

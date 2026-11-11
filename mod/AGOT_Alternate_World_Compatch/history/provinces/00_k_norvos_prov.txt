@@ -1,0 +1,689 @@
+﻿################ b_barbate_fortress ################
+############## c_garaktiy - d_norvos ###############
+
+################# b_carillon_walls #################
+############## c_garaktiy - d_norvos ###############
+
+################# b_sinners_steps ##################
+############ c_the_high_city - d_norvos ############
+
+################# b_resevoir_falls #################
+############ c_the_high_city - d_norvos ############
+
+################## b_prayers_call ##################
+############ c_the_high_city - d_norvos ############
+
+################# b_brewery_grove ##################
+########### c_the_lower_city - d_norvos ############
+
+################ b_rivermans_haunt #################
+########### c_the_lower_city - d_norvos ############
+
+################ b_palisade_quarter ################
+########### c_the_lower_city - d_norvos ############
+
+################### b_shear_run ####################
+######### c_maazilri_range - d_kevele_kiy ##########
+
+#################### b_sorewood ####################
+######### c_maazilri_range - d_kevele_kiy ##########
+
+################## b_kings_ashes ###################
+######### c_maazilri_range - d_kevele_kiy ##########
+
+################### b_roulyagiy ####################
+######### c_maazilri_range - d_kevele_kiy ##########
+
+##################### b_dervun #####################
+######### c_maazilri_range - d_kevele_kiy ##########
+
+############### b_georoulyagu_gorge ################
+######### c_maazilri_range - d_kevele_kiy ##########
+
+#################### b_lakeside ####################
+############ c_pirshdrun - d_kevele_kiy ############
+
+################### b_gyemblenu ####################
+############ c_pirshdrun - d_kevele_kiy ############
+
+##################### b_rrich ######################
+############ c_pirshdrun - d_kevele_kiy ############
+
+#################### b_seovyeoh ####################
+############ c_pirshdrun - d_kevele_kiy ############
+
+################# b_booming_falls ##################
+############ c_gyeshaak - d_kevele_kiy #############
+
+################### b_rimbrousta ###################
+############ c_gyeshaak - d_kevele_kiy #############
+
+################# b_tanners_perch ##################
+############ c_gyeshaak - d_kevele_kiy #############
+
+################### b_temlytsah ####################
+############ c_gyeshaak - d_kevele_kiy #############
+
+#################### b_rroshun #####################
+############ c_gyeshaak - d_kevele_kiy #############
+
+################### b_thoqelbah ####################
+######## c_thoqelbah_rapids - d_kevele_kiy #########
+
+#################### b_aakothah ####################
+######## c_thoqelbah_rapids - d_kevele_kiy #########
+
+################## b_meoryushilye ##################
+######## c_thoqelbah_rapids - d_kevele_kiy #########
+
+################## b_matchstrike ###################
+######## c_thoqelbah_rapids - d_kevele_kiy #########
+
+##################### b_loneon #####################
+######## c_thoqelbah_rapids - d_kevele_kiy #########
+
+################## b_shoz_kaanal ###################
+########## c_the_twintears - d_the_noyne ###########
+
+################### b_shakoshor ####################
+########## c_the_twintears - d_the_noyne ###########
+
+##################### b_illriy #####################
+########## c_the_twintears - d_the_noyne ###########
+
+################## b_iyun_ureoun ###################
+########## c_the_twintears - d_the_noyne ###########
+
+################# b_somber_kyekeo #################
+########## c_the_twintears - d_the_noyne ###########
+
+################### b_tolmlyiyu ####################
+############ c_tolmlyiyu - d_the_noyne #############
+
+################ b_whistling_ridge #################
+############ c_tolmlyiyu - d_the_noyne #############
+
+#################### b_zugillyu ####################
+############ c_tolmlyiyu - d_the_noyne #############
+
+#################### b_zheoshen ####################
+############ c_tolmlyiyu - d_the_noyne #############
+
+################ b_clawmark_timbers ################
+############ c_tolmlyiyu - d_the_noyne #############
+
+################### b_denhollow ####################
+############ c_piryezlye - d_the_noyne #############
+
+#################### b_lyilyous ####################
+############ c_piryezlye - d_the_noyne #############
+
+################## b_galleysight ###################
+############ c_piryezlye - d_the_noyne #############
+
+#################### b_enzhshun ####################
+############ c_piryezlye - d_the_noyne #############
+
+#################### b_ozletagu ####################
+############ c_piryezlye - d_the_noyne #############
+
+#################### b_redpack #####################
+############ c_piryezlye - d_the_noyne #############
+
+#################### b_maatishi ####################
+############ c_piryezlye - d_the_noyne #############
+
+#################### b_typeo_eo ####################
+########## c_cutters_stream - d_the_noyne ##########
+
+################## b_rutting_moat ##################
+########## c_cutters_stream - d_the_noyne ##########
+
+################### b_shuvelkriy ###################
+########## c_cutters_stream - d_the_noyne ##########
+
+#################### b_veroktun ####################
+######### c_pilgrims_respite - d_irughagyu #########
+
+#################### b_deomasho ####################
+######### c_pilgrims_respite - d_irughagyu #########
+
+#################### b_shekshir ####################
+######### c_pilgrims_respite - d_irughagyu #########
+
+################### b_emberwatch ###################
+######### c_pilgrims_respite - d_irughagyu #########
+
+#################### b_peozhovo ####################
+######### c_pilgrims_respite - d_irughagyu #########
+
+##################### b_fervor #####################
+######### c_pilgrims_respite - d_irughagyu #########
+
+#################### b_vilybaaz ####################
+############# c_vilybaaz - d_irughagyu #############
+
+################### b_old_gyetho ###################
+############# c_vilybaaz - d_irughagyu #############
+
+#################### b_zhakish #####################
+############# c_vilybaaz - d_irughagyu #############
+
+#################### b_dark_sky ####################
+############# c_vilybaaz - d_irughagyu #############
+
+#################### b_trokshoh ####################
+############# c_vilybaaz - d_irughagyu #############
+
+################### b_syetekiviy ###################
+########### c_shendraazma - d_irughagyu ############
+
+#################### b_maulroot ####################
+########### c_shendraazma - d_irughagyu ############
+
+################# b_mount_devotion #################
+########### c_shendraazma - d_irughagyu ############
+
+################### b_andalview ####################
+########### c_shendraazma - d_irughagyu ############
+
+#################### b_naakorgo ####################
+########### c_shendraazma - d_irughagyu ############
+
+################### b_svachoktun ###################
+########### c_shendraazma - d_irughagyu ############
+
+###################### b_zhas ######################
+############ c_zhas_ryek - d_irughagyu #############
+
+################## b_the_buttress ##################
+############ c_zhas_ryek - d_irughagyu #############
+
+#################### b_sheogozh ####################
+############ c_zhas_ryek - d_irughagyu #############
+
+################### b_moushumbah ###################
+############ c_zhas_ryek - d_irughagyu #############
+
+################### b_vash_cyea ####################
+############ c_zhas_ryek - d_irughagyu #############
+
+############### b_blessed_bish_kveh ################
+####### c_lake_mashagash - d_limestone_hills #######
+
+################# b_vayresye_spire #################
+####### c_lake_mashagash - d_limestone_hills #######
+
+################### b_zaldryezh ####################
+####### c_lake_mashagash - d_limestone_hills #######
+
+#################### b_boar_gap ####################
+####### c_lake_mashagash - d_limestone_hills #######
+
+#################### b_lroktiy #####################
+####### c_lake_mashagash - d_limestone_hills #######
+
+################### b_rrevurlyu ####################
+####### c_lake_mashagash - d_limestone_hills #######
+
+################## b_groundwater ###################
+####### c_lake_mashagash - d_limestone_hills #######
+
+################### b_cherry_pit ###################
+########## c_vishisye - d_limestone_hills ##########
+
+################### b_kavatvashe ###################
+########## c_vishisye - d_limestone_hills ##########
+
+#################### b_vusvash #####################
+########## c_vishisye - d_limestone_hills ##########
+
+#################### b_enetegu #####################
+########## c_vishisye - d_limestone_hills ##########
+
+################### b_barebottom ###################
+########## c_vishisye - d_limestone_hills ##########
+
+################## b_gryke_castle ##################
+##### c_whistling_fissure - d_limestone_hills ######
+
+##################### b_kapash #####################
+##### c_whistling_fissure - d_limestone_hills ######
+
+################### b_gashen_am ####################
+##### c_whistling_fissure - d_limestone_hills ######
+
+##################### b_egylys #####################
+##### c_whistling_fissure - d_limestone_hills ######
+
+################### b_iroushinu ####################
+############## c_qeobeoziy - d_neath_canals ###############
+
+################### b_volyblenu ####################
+############## c_qeobeoziy - d_neath_canals ###############
+
+#################### b_barreban ####################
+############## c_qeobeoziy - d_neath_canals ###############
+
+################ b_recitation_hill #################
+############## c_qeobeoziy - d_neath_canals ###############
+
+############## b_ishakryus_monastery ###############
+############## c_qeobeoziy - d_neath_canals ###############
+
+##################### b_kazizh #####################
+############## c_loutamouri - d_neath_canals ##############
+
+################## b_orgeltolbah ###################
+############## c_loutamouri - d_neath_canals ##############
+
+################### b_threadbare ###################
+############## c_loutamouri - d_neath_canals ##############
+
+#################### b_grimweft ####################
+############## c_loutamouri - d_neath_canals ##############
+
+################## b_ogyeshikagu ###################
+############## c_loutamouri - d_neath_canals ##############
+
+################### b_maghyenish ###################
+############## c_loutamouri - d_neath_canals ##############
+
+################### b_quicklime ####################
+############### c_amosheo - d_neath_canals ################
+
+################### b_hreoblenu ####################
+############### c_amosheo - d_neath_canals ################
+
+################# b_hermits_grotto #################
+############### c_amosheo - d_neath_canals ################
+
+################## b_marrbah_pit ###################
+############### c_amosheo - d_neath_canals ################
+
+#################### b_gyetken #####################
+############### c_amosheo - d_neath_canals ################
+
+################## b_rhupagoktun ###################
+###### c_junyriit - d_bear_valley ######
+
+###################### b_bearded_fork ######################
+###### c_junyriit - d_bear_valley ######
+
+################## b_nyovesblenu ###################
+###### c_junyriit - d_bear_valley ######
+
+##################### b_kastri #####################
+###### c_junyriit - d_bear_valley ######
+
+################### b_sirakurlyu ###################
+###### c_junyriit - d_bear_valley ######
+
+################## b_vathetebish ###################
+###### c_junyriit - d_bear_valley ######
+
+################### b_nebranniy ####################
+###### c_junyriit - d_bear_valley ######
+
+#################### b_dluknush ####################
+###### c_the_maze_pass - d_bear_valley ######
+
+################### b_rinekeshe ####################
+###### c_the_maze_pass - d_bear_valley ######
+
+#################### b_tatecye #####################
+###### c_the_maze_pass - d_bear_valley ######
+
+#################### b_perigash ####################
+###### c_the_maze_pass - d_bear_valley ######
+
+#################### b_tevashe #####################
+###### c_the_maze_pass - d_bear_valley ######
+
+################### b_veotha_riy ###################
+###### c_the_maze_pass - d_bear_valley ######
+
+##################### b_nalye ######################
+###### c_qarlomunt - d_bear_valley ######
+
+#################### b_den_pens ####################
+###### c_qarlomunt - d_bear_valley ######
+
+#################### b_kourine #####################
+###### c_qarlomunt - d_bear_valley ######
+
+#################### b_gyenush #####################
+###### c_qarlomunt - d_bear_valley ######
+
+################### b_sheouyiiy ####################
+###### c_lourtiymat - d_bear_valley ######
+
+#################### b_rathyen #####################
+###### c_lourtiymat - d_bear_valley ######
+
+################### b_breqilbaah ###################
+###### c_lourtiymat - d_bear_valley ######
+
+################### b_viy_selby ####################
+###### c_lourtiymat - d_bear_valley ######
+
+#################### b_negezhog ####################
+###### c_lourtiymat - d_bear_valley ######
+
+##################### b_mlyss ######################
+###### c_runsiyeon - d_bear_valley ######
+
+##################### b_vuthos #####################
+###### c_runsiyeon - d_bear_valley ######
+
+################### b_hrottokton ###################
+###### c_runsiyeon - d_bear_valley ######
+
+################### b_ermyustead ###################
+###### c_runsiyeon - d_bear_valley ######
+
+##################### b_nethon #####################
+###### c_runsiyeon - d_bear_valley ######
+
+#################### b_skoshus #####################
+###### c_runsiyeon - d_bear_valley ######
+
+#################### b_osyengnu ####################
+########## c_mount_norvo - d_bear_valley ###########
+
+#################### b_shegarih ####################
+########## c_mount_norvo - d_bear_valley ###########
+
+#################### b_kuvariy #####################
+########## c_mount_norvo - d_bear_valley ###########
+
+#################### b_lyrlaksa ####################
+########## c_mount_norvo - d_bear_valley ###########
+
+#################### b_boterlyu ####################
+########## c_mount_norvo - d_bear_valley ###########
+
+#################### b_vostmont ####################
+############ c_nethobah - d_norvole_kiy ############
+
+#################### b_izouldah ####################
+############ c_nethobah - d_norvole_kiy ############
+
+################### b_lyuchtagu ####################
+############ c_nethobah - d_norvole_kiy ############
+
+################## b_naagiravesh ###################
+############ c_nethobah - d_norvole_kiy ############
+
+#################### b_foukeriy ####################
+############ c_nethobah - d_norvole_kiy ############
+
+################### b_zhinkarreo ###################
+############ c_nethobah - d_norvole_kiy ############
+
+#################### b_drenthon ####################
+############ c_nethobah - d_norvole_kiy ############
+
+################### b_zhonsyeoh ####################
+############ c_nethobah - d_norvole_kiy ############
+
+################## b_kyezarothiy ###################
+############ c_the_norvovale - d_norvole_kiy ############
+
+################### b_seo_zhaak ####################
+############ c_the_norvovale - d_norvole_kiy ############
+
+#################### b_deomalyu ####################
+############ c_the_norvovale - d_norvole_kiy ############
+
+##################### b_rrines #####################
+############ c_the_norvovale - d_norvole_kiy ############
+
+################### b_shivarlla ####################
+############ c_the_norvovale - d_norvole_kiy ############
+
+##################### b_shevoa #####################
+############ c_the_norvovale - d_norvole_kiy ############
+
+#################### b_gyentiy #####################
+############ c_the_norvovale - d_norvole_kiy ############
+
+#################### b_drakarih ####################
+################ c_eusaritra - d_esauritra_eon #################
+
+################### b_lanteopsa ####################
+################ c_eusaritra - d_esauritra_eon #################
+
+################## b_irrennothou ###################
+################ c_eusaritra - d_esauritra_eon #################
+
+################### b_ryetalbash ###################
+################ c_eusaritra - d_esauritra_eon #################
+
+#################### b_baranniy ####################
+################ c_eusaritra - d_esauritra_eon #################
+
+#################### b_moushou #####################
+################ c_eusaritra - d_esauritra_eon #################
+
+#################### b_ryenesh #####################
+################ c_eusaritra - d_esauritra_eon #################
+
+################### b_ourrothiy ####################
+################# c_curimithon_cane - d_esauritra_eon #################
+
+################### b_koleoseril ###################
+################# c_curimithon_cane - d_esauritra_eon #################
+
+################### b_gyeshikagu ###################
+################# c_curimithon_cane - d_esauritra_eon #################
+
+##################### b_gaomun #####################
+################# c_curimithon_cane - d_esauritra_eon #################
+
+################### b_lentaazman ###################
+################# c_uristyeriy - d_esauritra_eon #################
+
+##################### b_milrun #####################
+################# c_uristyeriy - d_esauritra_eon #################
+
+#################### b_mazhagun ####################
+################# c_uristyeriy - d_esauritra_eon #################
+
+#################### b_keloktun ####################
+################# c_uristyeriy - d_esauritra_eon #################
+
+#################### b_reomoniy ####################
+################# c_mariditra - d_esauritra_eon #################
+
+################### b_nutkyushun ###################
+################# c_mariditra - d_esauritra_eon #################
+
+##################### b_vedri ######################
+################# c_mariditra - d_esauritra_eon #################
+
+################## b_kostoubirye ###################
+################# c_mariditra - d_esauritra_eon #################
+
+################## b_bashungaave ###################
+################# c_mariditra - d_esauritra_eon #################
+
+################### b_mlyzhelok ####################
+################# c_seradarih - d_esauritra_eon #################
+
+#################### b_kyyavil #####################
+################# c_seradarih - d_esauritra_eon #################
+
+#################### b_chiviles ####################
+################# c_seradarih - d_esauritra_eon #################
+
+#################### b_gyournu #####################
+################# c_seradarih - d_esauritra_eon #################
+
+################### b_daomblyrun ###################
+################# c_seradarih - d_esauritra_eon #################
+
+###################### b_seradarih_kiy #######################
+################# c_seradarih - d_esauritra_eon #################
+
+#################### b_obagolyu ####################
+############ c_aks_kiy - d_vardyghagyu ############
+
+################### b_rheogarun ####################
+############ c_aks_kiy - d_vardyghagyu ############
+
+################### b_shakoshora ###################
+############ c_aks_kiy - d_vardyghagyu ############
+
+################### b_shaghereo ####################
+############ c_aks_kiy - d_vardyghagyu ############
+
+##################### b_lyumeo #####################
+############ c_aks_kiy - d_vardyghagyu ############
+
+#################### b_agyuthah ####################
+############ c_ermarys - d_vardyghagyu ############
+
+##################### b_koukyu #####################
+############ c_ermarys - d_vardyghagyu ############
+
+################### b_nershikiss ###################
+############ c_ermarys - d_vardyghagyu ############
+
+#################### b_kem_bel #####################
+############ c_ermarys - d_vardyghagyu ############
+
+################## b_geveogenesh ###################
+############ c_ermarys - d_vardyghagyu ############
+
+#################### b_mirrilyu ####################
+############ c_ermarys - d_vardyghagyu ############
+
+##################### b_lyryun #####################
+############ c_ermarys - d_vardyghagyu ############
+
+##################### b_vreoh ######################
+############ c_drywind_heights - d_vardyghagyu ############
+
+#################### b_maarunes ####################
+############ c_drywind_heights - d_vardyghagyu ############
+
+################### b_osyengagu ####################
+############ c_drywind_heights - d_vardyghagyu ############
+
+##################### b_egenka #####################
+############ c_drywind_heights - d_vardyghagyu ############
+
+################## b_garakyushun ###################
+############ c_drywind_heights - d_vardyghagyu ############
+
+################### b_zhaqorrun ####################
+######## c_soqhoyn_yot - d_soqhoyn_eon ########
+
+#################### b_zhoumonu ####################
+######## c_soqhoyn_yot - d_soqhoyn_eon ########
+
+#################### b_voreomyu ####################
+######## c_soqhoyn_yot - d_soqhoyn_eon ########
+
+#################### b_sheteres ####################
+######## c_soqhoyn_yot - d_soqhoyn_eon ########
+
+#################### b_zantirun ####################
+######## c_soqhoyn_yot - d_soqhoyn_eon ########
+
+#################### b_rourbah #####################
+######## c_soqhoyn_yot - d_soqhoyn_eon ########
+
+#################### b_pemokton ####################
+######## c_turtles_drift - d_soqhoyn_eon ########
+
+#################### b_kostillo ####################
+######## c_turtles_drift - d_soqhoyn_eon ########
+
+##################### b_kishun #####################
+######## c_turtles_drift - d_soqhoyn_eon ########
+
+################### b_mourqitto ####################
+######## c_turtles_drift - d_soqhoyn_eon ########
+
+################### b_luslesneo ####################
+######## c_turtles_drift - d_soqhoyn_eon ########
+
+##################### b_elunun #####################
+######## c_turtles_drift - d_soqhoyn_eon ########
+
+################### b_koznageoh ####################
+######## c_daorughagyu - d_soqhoyn_eon ########
+
+##################### b_qittun #####################
+######## c_daorughagyu - d_soqhoyn_eon ########
+
+################## b_boshilthyen ###################
+######## c_daorughagyu - d_soqhoyn_eon ########
+
+################### b_milakshih ####################
+######## c_daorughagyu - d_soqhoyn_eon ########
+
+#################### b_gyemdolo ####################
+######## c_daorughagyu - d_soqhoyn_eon ########
+
+#################### b_lrroktun ####################
+##### c_high_rib - d_norvos_rib #####
+
+##################### b_georun #####################
+##### c_high_rib - d_norvos_rib #####
+
+#################### b_qeorriy #####################
+##### c_high_rib - d_norvos_rib #####
+
+################### b_sirakella ####################
+##### c_high_rib - d_norvos_rib #####
+
+#################### b_syeorun #####################
+##### c_high_rib - d_norvos_rib #####
+
+#################### b_azantiy #####################
+##### c_oshegysh - d_norvos_rib #####
+
+#################### b_braazma #####################
+##### c_oshegysh - d_norvos_rib #####
+
+#################### b_vanntysh ####################
+##### c_oshegysh - d_norvos_rib #####
+
+##################### b_daorus #####################
+##### c_oshegysh - d_norvos_rib #####
+
+################### b_jaothazmen ###################
+##### c_cudoyen - d_norvos_rib #####
+
+################## b_bish_nyoktun ##################
+##### c_cudoyen - d_norvos_rib #####
+
+#################### b_souveri #####################
+##### c_cudoyen - d_norvos_rib #####
+
+################### b_migyiblenu ###################
+##### c_cudoyen - d_norvos_rib #####
+
+################### b_olvodraagu ###################
+##### c_cudoyen - d_norvos_rib #####
+
+################### b_chuishokte ###################
+##### c_the_ribpoint - d_norvos_rib #####
+
+################### b_kelyvabah ####################
+##### c_the_ribpoint - d_norvos_rib #####
+
+################### b_garakoposh ###################
+##### c_the_ribpoint - d_norvos_rib #####
+
+#################### b_melynegu ####################
+##### c_the_ribpoint - d_norvos_rib #####
+
+#################### b_arghuriy ####################
+##### c_the_ribpoint - d_norvos_rib #####
+
+#################### b_nusvinlu ####################
+##### c_the_ribpoint - d_norvos_rib #####

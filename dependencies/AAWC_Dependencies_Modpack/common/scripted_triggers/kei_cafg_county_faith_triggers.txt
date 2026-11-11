@@ -1,0 +1,8 @@
+﻿# FAITH
+T_kCAFG_does_county_contain_faith = {
+	has_variable_list = kCAFG_county_faiths
+    is_target_in_variable_list = {
+        name = kCAFG_county_faiths
+        target = $FAITH$
+    }
+}

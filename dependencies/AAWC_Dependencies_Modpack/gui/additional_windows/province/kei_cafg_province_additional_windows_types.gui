@@ -1,0 +1,547 @@
+types kCAFG_Windows
+{
+    type kCAFG_province_additional_window = widget {
+        size = { 100% 100% }
+        
+        datacontext = "[GetVariableSystem]"
+        visible = "[And(Not(IsObserver), And(And(GetVariableSystem.Exists('kCAFG_is_loaded_GUI'), And(VariableSystem.Exists('county_view_open'), VariableSystem.Exists('kCAFG_show_additional_province_windows'))), VariableSystem.Exists('kCAFG_county_view_province')))]"
+		visible_at_creation = no
+        layer = bottom
+
+        state = {
+            name = _show
+
+            using = Animation_FadeIn_Standard
+            position_x = 0
+            position_y = 0
+        }
+
+        state = {
+            name = _hide
+
+            using = Animation_FadeOut_Standard
+            position_x = -120
+            position_y = 60
+        }
+
+        window = {
+            size = { 430 306 }
+            position = { 640 -4 }
+            movable = no
+            allow_outside = yes
+            parentanchor = bottom|left
+            layer = bottom
+
+            datacontext = "[GetTitleByKey(VariableSystem.Get('kCAFG_county_view_province')).GetProvince]"
+            visible = "[And(Province.IsValid, ScriptedGui.IsShown(GuiScope.SetRoot(Province.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End))]"
+
+            using = Window_Background_Subwindow
+            
+            state = {
+                name = _show
+
+                using = Animation_FadeIn_Standard
+                position_x = 640
+            }
+
+            state = {
+                name = _hide
+
+                using = Animation_FadeOut_Standard
+                position_x = 280
+            }
+
+            block "content" {
+                kCAFG_province_granularity_content = {}
+            }
+        }
+    }
+
+    type kCAFG_province_granularity_content = vbox {
+        block "update_state" {}
+        
+        block "header" {
+            widget = {
+                name = "header"
+                size = { 100% 48 }
+                layoutpolicy_horizontal = expanding
+
+                block "header_illustration" {
+                    widget = {
+                        parentanchor = top|hcenter
+                        name = "header_illustration"
+
+                        size = { 100% 110 }
+
+                        background = {
+                            fittype = centercrop
+
+                            alpha = 0.8
+
+                            texture = "gfx/interface/illustrations/window_headers/header_my_realm.dds"
+
+                            modify_texture = {
+                                texture = "gfx/interface/illustrations/window_headers/mask_header_illustration.dds"
+                                blend_mode = alphamultiply
+                            }
+
+                            modify_texture = {
+                                name = "mask"
+                                texture = "gfx/interface/component_masks/mask_title_big_top.dds"
+                                spriteType = Corneredtiled
+                                spriteborder = { 160 0 }
+                                blend_mode = alphamultiply
+                                alpha = 0.5
+                            }
+                        }
+                    }
+                }
+
+                block "header_background" {
+                    icon = {
+                        size = { 100% 100% }
+                        name = "header_bg"
+                        using = Background_Window_Header_Pattern
+                    }
+                }
+
+                header_text = {
+                    name = "header_text"
+                    parentanchor = top|hcenter
+                    position = { 0 3 }
+                    default_format = "#glow_color:{0,0,0,0.5}"
+                    block "header_text" { }
+                }
+
+                block "additional_header_content"
+                {
+                    buttons_window_control = {
+                        parentanchor = top|right
+
+                        blockoverride "button_close"
+                        {
+                            onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                        }
+                    }
+                }
+            }
+        }
+
+        widget = {
+            layoutpolicy_horizontal = expanding
+            size = { 0 44 }
+
+            vbox = {
+                layoutpolicy_vertical = expanding
+                layoutpolicy_horizontal = expanding
+                block "header_margins" {
+                    margin_left = 32
+                    margin_right = 4
+                    margin_top = 4
+                }
+                expand = {}
+                hbox = {
+                    layoutpolicy_vertical = expanding
+                    layoutpolicy_horizontal = expanding
+                    margin_right = 5
+
+                    block "sub_header_pre_widgets" {}
+
+                    flowcontainer = {
+						spacing = 4
+                        widget = {
+                            name = "tension_widget"
+                            size = { 200 44 }
+
+                            widget = {
+                                size = { 100% 24 }
+                                position = { 0 -3 }
+
+                                flowcontainer = {
+                                    button = {
+                                        size = { 24 24 }
+                                        highlight_icon = {
+											parentanchor = center
+                                            size = { 100% 100% }
+                                            texture = "gfx/interface/icons/portraits/faction_member.dds"
+                                        }
+
+                                        block "tension_map_mode_button" {}
+                                        
+                                        using = tooltip_ne
+                                    }
+
+                                    text_single = {
+                                        parentanchor = bottom|left
+                                        default_format = "#high"
+                                        align = nobaseline
+                                        block "tension_title_text" {}
+                                    }
+                                }
+
+                                widget = {
+                                    parentanchor = right|bottom
+                                    position = { 0 -2 }
+                                    size = { 40 16 }
+                                    alwaystransparent = yes
+
+                                    background = {
+                                        texture = "gfx/interface/component_tiles/solid_black_label.dds"
+                                        spritetype = Corneredtiled
+                                        spriteborder = { 36 36 }
+                                        texture_density = 1.8
+                                        margin = { 2 2 }
+                                    }
+                                    
+                                    text_single = {
+                                        parentanchor = center
+                                        position = { 0 0 }
+                                        default_format = "#high"
+                                        align = nobaseline
+                                        block "tension_percentage_text" {}
+                                    }
+                                }
+                            }
+
+                            using = tooltip_ne
+
+                            block "tension_tooltip" {}
+
+                            progressbar_red = {
+                                size = { 100% 16 }
+                                position = { 0 -6 }
+                                parentanchor = left|bottom
+                                max = 1
+                                block "tension_value" {}
+                            }
+
+                            container = {
+                                parentanchor = left|bottom
+                                block "tension_target_position" {}
+                                alwaystransparent = yes
+
+                                icon = {
+                                    size = { 4 14 }
+                                    position = { 0 -7 }
+                                    parentanchor = center
+                                    alwaystransparent = yes
+                                    texture = "gfx/interface/window_factions/faction_progress_threshold.dds"
+                                    
+                                    block "tension_target_icon" {}
+                                }
+                            }
+
+                            block "tension_widget" {}
+                        }
+                        block "attached_widgets" {}
+                    }
+
+                    expand = {}
+
+                    block "sub_header_widgets" {}
+                }
+                expand = {}
+            }
+        }
+
+        scrollbox = {
+            block "scrollbox_size" {
+                size = { 100% 200 }
+                layoutpolicy_horizontal = expanding
+            }
+
+            scrollbarpolicy_vertical = as_needed
+            scrollbarpolicy_horizontal = always_off
+            scrollbaralign_vertical = right
+
+            blockoverride "scrollbox_background_fade" {}
+
+            blockoverride "scrollbox_margins" {
+                block "scrollbox_margins_override" {
+                    margin = { 4 0 }
+                    margin_left = 10
+                }
+            }
+
+            blockoverride "scrollbox_content"
+            {
+                vbox = {
+                    name = "elements"
+                    layoutpolicy_horizontal = expanding
+                    visible = "[Not(IsObserver)]"
+
+                    block "list_datamodel" {}
+
+                    item = {
+                        kCAFG_province_granularity_element = {}
+                    }
+                }
+
+                vbox = {
+                    name = "elements_obs"
+                    layoutpolicy_horizontal = expanding
+                    visible = "[IsObserver]"
+
+                    block "list_datamodel_observer" {}
+
+                    item = {
+                        kCAFG_province_granularity_element = {}
+                    }
+                }
+            }
+        }
+    }
+
+    type kCAFG_province_granularity_element = widget {
+        name = "province_element_info_button"
+        layoutpolicy_horizontal = expanding
+        size = { 0 50 }
+        block "list_item_datacontext" {}
+
+        background = {
+            using = Background_Area
+        }
+
+        divider_light = {
+            size = { 100% 3 }
+            parentanchor = bottom
+            position = { 0 1 }
+        }
+
+        hbox = {
+            name = "province_element_info_content"
+            margin = { 10 5 }
+
+            block "list_item_content" {}
+
+            divider_light = {
+                layoutpolicy_vertical = expanding
+                alpha = 0.8
+            }
+            
+            kCAFG_amount_detailed = {
+                layoutpolicy_vertical = expanding
+                visible = "[And(Not(IsObserver), GetGlobalVariable('kCAFG_province_values_scale_overriden').IsSet)]"
+
+                blockoverride "amount_text"
+                {
+                    raw_text = "[Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_amount_rounded')|v0]"
+                }
+                
+                blockoverride "amount_percentage_text"
+                {
+                    raw_text = "[Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_factor_rounded')|v0%]"
+                }
+
+                tooltip = "kCAFG_province_cultures_window_amount_description"
+            }
+
+            kCAFG_amount_percentage_only = {
+                margin_left = 6
+                min_width = 72
+                visible = "[And(Not(IsObserver), Not(GetGlobalVariable('kCAFG_province_values_scale_overriden').IsSet))]"
+                blockoverride "amount_percentage_text"
+                {
+                    raw_text = "[Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_factor_rounded')|v0%]"
+                }
+            }
+
+            kCAFG_amount_detailed = {
+                layoutpolicy_vertical = expanding
+                visible = "[And(IsObserver, GetGlobalVariable('kCAFG_province_values_scale_overriden').IsSet)]"
+
+                blockoverride "amount_text"
+                {
+                    raw_text = "[Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_amount_rounded')|v0]"
+                }
+
+                blockoverride "amount_percentage_text"
+                {
+                    raw_text = "[Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_factor')|v0%]"
+                }
+
+                tooltip = "kCAFG_province_cultures_window_amount_description"
+            }
+
+            kCAFG_amount_percentage_only = {
+                margin_left = 8
+                min_width = 72
+                visible = "[And(IsObserver, Not(GetGlobalVariable('kCAFG_province_values_scale_overriden').IsSet))]"
+                blockoverride "amount_percentage_text"
+                {
+                    raw_text = "[Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_factor')|v2%]"
+                }
+            }
+        }
+
+        block "additional_item_content" {}
+    }
+
+    type kCAFG_opinion_icon = icon {
+        size = { 100% 100% }
+        parentanchor = center
+        texture = "gfx/interface/icons/icon_opinion.dds"
+    }
+
+    type kCAFG_province_focus_button = widget {
+        size = { 40 40 }
+        visible = "[Not(IsObserver)]"
+        block "data_context" {}
+
+        widget = {
+            size = { 100% 100% }
+            visible = "[Character.IsValid]"
+
+            widget = {
+                size = { 100% 100% }
+
+                visible = "[And(Character.IsValid, ScriptedGui.IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))]"
+
+                icon = {
+                    visible = "[And(Character.IsValid, ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))]"
+                    texture = "gfx/particles/halo.dds"
+                    parentanchor = center
+                    size = { 50 50 }
+                    color = { 1 0.85 0.6 1 }
+                }
+
+                button_round = {
+                    parentanchor = center
+                    size = { 44 44 }
+                    gfxtype = togglepushbuttongfx
+                    effectname = "NoHighlight"
+
+                    block "main_button" {}
+
+                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End)]"
+                    
+                    onrightclick = "[OpenGameViewData('council_window', GetPlayer.GetID)]"
+                    button_ignore = none
+
+                    using = tooltip_ne
+
+                    tooltipwidget = {
+                        container = {
+                            alwaystransparent = no
+                            container = {
+                                alwaystransparent = no
+                                
+                                object_tooltip_pop_out = {
+                                    blockoverride "title_text" {
+                                        margin = { 0 8 }
+                                        block "tooltip_title" {}
+                                        default_format = "#T"
+                                    }
+
+                                    blockoverride "description_text" {
+                                        block "tooltip_description" {}
+                                    }
+
+                                    blockoverride "extra_data_after_description" {
+                                        block "additional_description" {}
+
+                                        textbox = {
+                                            block "tooltip_already_focused" {}
+                                            name = "already_focused_desc"
+                                            layoutpolicy_horizontal = expanding
+                                            using = DefaultTooltipText
+                                            multiline = yes
+                                            fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                            alwaystransparent = no
+                                        }
+
+                                        textbox = {
+                                            name = "task_will_be_aborted_desc"
+                                            block "tooltip_warning_task_will_be_aborted" {}
+                                            layoutpolicy_horizontal = expanding
+                                            using = DefaultTooltipText
+                                            multiline = yes
+                                            fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                            alwaystransparent = no
+                                        }
+
+                                        textbox = {
+                                            name = "cannot_convert_desc"
+                                            block "tooltip_cannot_execute_task" {}
+                                            layoutpolicy_horizontal = expanding
+                                            using = DefaultTooltipText
+                                            multiline = yes
+                                            fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                            alwaystransparent = no
+                                        }
+                                    }
+
+                                    
+                                }
+                            }
+                        }
+                    }
+
+                    upframe = 1
+                    downframe = 1
+                    uphoverframe = 2
+                    disableframe = 6
+
+                    button_normal = {
+                        name = "potential_task"
+                        parentanchor = center
+                        widgetanchor = center
+                        effectname = "NoHighlight"
+                        gfxtype = togglepushbuttongfx
+                        shaderfile = "gfx/FX/pdxgui_pushbutton.shader"
+                        block "task_button" {}
+                        alwaystransparent = yes
+                        size = { 36 36 }
+                    }
+                }
+
+                icon = {
+                    size = { 64 64 }
+                    position = { 15 -37 }
+                    parentanchor = center
+                    visible = "[And(Character.IsValid, ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))]"
+                    texture = "gfx/interface/icons/traits/_stars_1.dds"
+                }
+            }
+
+            
+        }
+
+        # Disabled button here to avoid scripted guis error with invalid character scopes
+        widget = {
+            size = { 100% 100% }
+
+            visible = "[Not(Character.IsValid)]"
+
+            button_round = {
+                parentanchor = center
+                size = { 44 44 }
+                gfxtype = togglepushbuttongfx
+                effectname = "NoHighlight"
+
+                enabled = no
+
+                using = tooltip_ne
+
+                block "disabled_button_tooltip" {}
+
+                upframe = 1
+                downframe = 1
+                uphoverframe = 2
+                disableframe = 6
+
+                button_normal = {
+                    name = "potential_task"
+                    parentanchor = center
+                    widgetanchor = center
+                    effectname = "NoHighlight"
+                    gfxtype = togglepushbuttongfx
+                    shaderfile = "gfx/FX/pdxgui_pushbutton.shader"
+                    block "task_button" {}
+                    alwaystransparent = yes
+                    size = { 36 36 }
+                }
+            }
+        }
+    }
+}

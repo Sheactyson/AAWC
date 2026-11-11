@@ -1,0 +1,69 @@
+﻿# Values that were initially from vanilla
+
+# Councillor
+# Factors are based on skill bonus
+V_kCAFG_court_chaplain_conversion_friend_factor = { value = council_friend_impact_percentage divide = 100 }
+V_kCAFG_court_chaplain_conversion_best_friend_factor = { value = council_best_friend_impact_percentage divide = 100 }
+V_kCAFG_court_chaplain_conversion_rival_factor = { value = council_rival_impact_percentage divide = 100 }
+V_kCAFG_court_chaplain_conversion_nemesis_factor = { value = council_nemesis_impact_percentage divide = 100 }
+V_kCAFG_court_chaplain_conversion_zealous_proselytizer_factor = { value = zealous_proselytizer_percentage divide = 100 }
+V_kCAFG_court_chaplain_conversion_erudition_legacy_5_factor = { value = erudition_legacy_5_percentage divide = 100 }
+V_kCAFG_court_chaplain_conversion_family_business_councillors_factor = { value = family_business_councillors_percentage divide = 100 }
+V_kCAFG_court_chaplain_conversion_consulted_house_councillors_factor = { value = consulted_house_councillors_percentage divide = 100 }
+
+# Liege
+V_kCAFG_court_chaplain_conversion_savior_factor = 0.75
+V_kCAFG_court_chaplain_conversion_divine_blood_factor = 0.25
+
+# Converting Faith
+V_kCAFG_faith_conversion_pluralism_fundamentalist_proselytization_bonus = 0.2
+V_kCAFG_faith_conversion_pluralism_pluralistic_proselytization_malus = -0.3
+V_kCAFG_faith_conversion_tenet_false_conversion_sanction_sanction_malus = 0.2
+V_kCAFG_faith_conversion_tenet_reincarnation_malus = 0.2
+V_kCAFG_faith_conversion_tenet_dharmic_pacifism_malus = 0.2
+V_kCAFG_faith_conversion_tenet_adaptive_conversion_malus = 0.3
+V_kCAFG_faith_conversion_culture_harder_to_convert_county_faith_malus = 0.3
+V_kCAFG_faith_conversion_culture_more_easily_converted_bonus = 0.3
+V_kCAFG_faith_conversion_tenet_pastoral_isolation_malus = 0.3
+V_kCAFG_faith_conversion_mendicant_preachers_conversion_active_bonus = 0.3
+V_kCAFG_faith_conversion_tenet_communal_identity_bonus = 0.5
+V_kCAFG_faith_conversion_tenet_communal_identity_malus = -0.5
+
+# Converted Faith
+V_kCAFG_faith_conversion_tenet_false_conversion_sanction_factor = 0.3
+V_kCAFG_faith_conversion_easier_to_convert_in_mountains_factor = 0.5
+
+V_kCAFG_faith_conversion_holy_site_jerusalem_factor = 0.2
+V_kCAFG_faith_conversion_holy_site_kerala_factor = 0.5
+V_kCAFG_faith_conversion_holy_site_iona_factor = 0.3
+V_kCAFG_faith_conversion_holy_site_cordoba_factor = 0.2
+
+V_kCAFG_faith_conversion_fp3_struggle_shia_caliphate_ending_factor = 0.5
+V_kCAFG_faith_conversion_fp3_struggle_strengthen_caliphate_ending_factor = 0.5
+
+V_kCAFG_faith_conversion_tenet_reincarnation_resistance_factor = -0.2
+V_kCAFG_faith_conversion_tenet_dharmic_pacifism_resistance_factor = -0.2
+V_kCAFG_faith_conversion_tenet_adaptive_conversion_resistance_factor = -0.3
+V_kCAFG_faith_conversion_tenet_pastoral_isolation_factor = -0.3
+V_kCAFG_faith_conversion_harder_to_convert_faith_away_in_mountains_factor = -0.75
+V_kCAFG_faith_conversion_syncretic_with_religion_factor = -0.75
+
+V_kCAFG_faith_conversion_defiant_high_monarch_conversion_boost_factor = 1.25
+
+V_kCAFG_faith_conversion_holy_site_wadi_el_milk_factor = -0.5
+V_kCAFG_faith_conversion_holy_site_visoki_factor = -0.5
+V_kCAFG_faith_conversion_fp2_lyonese_monk_factor = 0.5
+
+# Converted Culture
+V_kCAFG_faith_conversion_culture_more_easily_converted_factor = 0.3
+V_kCAFG_faith_conversion_culture_harder_to_convert_factor = -0.3
+
+# County
+V_kCAFG_faith_conversion_governance_1074_local_faith_respected_modifier_factor = -0.15
+V_kCAFG_faith_conversion_governance_1074_population_fled_persecution_modifier_factor = 0.15
+V_kCAFG_faith_conversion_court_6090_almoners_county_modifier_factor = 0.1
+V_kCAFG_faith_conversion_hold_court_8200_vassal_modifier_factor = 0.1
+V_kCAFG_faith_conversion_petition_liege_county_control_modifier_factor = 0.1
+V_kCAFG_faith_conversion_county_faith_conversion_in_region_proceeds_faster_factor = 0.25
+V_kCAFG_faith_conversion_county_faith_conversion_in_region_proceeds_slower_factor = -0.25
+V_kCAFG_faith_conversion_learning_encouraged_conversion_factor = 0.25

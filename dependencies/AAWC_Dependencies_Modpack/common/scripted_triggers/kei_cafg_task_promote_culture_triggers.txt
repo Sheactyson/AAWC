@@ -1,0 +1,376 @@
+﻿# Scope : province
+T_kCAFG_task_promote_culture_can_convert_province = {
+    custom_tooltip = {
+        text = kCAFG_task_promote_culture_no_culture_to_convert
+        any_in_list = {
+            variable = kCAFG_province_cultures
+            scope:councillor_liege.culture != this
+            NOT = {
+                # text = hold_court_8130_conversion_tt
+                scope:councillor_liege = {
+                    is_alive = yes
+                    has_variable = hold_court_8130_culture_block
+                    var:hold_court_8130_culture_block = prev
+                }
+            }
+        }
+    }
+
+    # AI ONLY
+    trigger_if = {
+        limit = { scope:councillor_liege = { is_ai = yes } }
+
+        trigger_if = {
+            limit = {
+                scope:councillor_liege = {
+					has_character_flag = vassal_directive_convert_culture
+					vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+				}
+            }
+            T_kCAFG_task_promote_culture_ai_would_suggest = yes
+        }
+        trigger_else = {
+            T_kCAFG_task_promote_culture_ai_wants_to_convert_province = yes
+        }
+    }
+}
+
+# Scope : province
+# councillor : character
+# councillor_liege : character
+# Would councillor suggest promoting this province to liege
+T_kCAFG_task_promote_culture_ai_would_suggest = {
+    # Tension is problematic
+    AND = {
+        has_variable = kCAFG_target_culture_tension
+        var:kCAFG_target_culture_tension > V_kCAFG_AI_suggestion_task_promotion_tension_threshold
+    }
+    # Not too slowed down
+    OR = {
+        AND = {
+	        scope:councillor_liege.culture = { save_temporary_scope_as = kCAFG_converting_culture }
+            V_kCAFG_steward_promotion_small_minorities_mult >= V_kCAFG_AI_suggestion_task_promotion_minorities_speed_factor_threshold
+        }
+        V_kCAFG_steward_promotion_bonuses_game_rules_excluded_months_to_finish < V_kCAFG_AI_suggestion_task_promotion_duration_threshold_months
+    }
+}
+
+# Scope : province
+# councillor_liege : character
+T_kCAFG_task_promote_culture_ai_wants_to_convert_province = {
+    T_kCAFG_task_promote_culture_ai_wants_to_convert_province_already_established = yes
+    T_kCAFG_task_promote_culture_ai_wants_to_convert_province_VANILLA = yes
+}
+
+T_kCAFG_task_promote_culture_ai_wants_to_convert_province_already_established = {
+    custom_tooltip = {
+		text = kCAFG_task_promote_culture_ai_condition_established_enough
+        NOT = {
+            # If our culture is well established in this province
+            any_in_list = {
+                variable = kCAFG_province_culture_structs
+                scope:councillor_liege.culture = var:culture
+                var:factor > 0.5
+                # If there is no non-very small minority left
+                V_kCAFG_struct_inverted_factor < scope:councillor_liege.V_kCAFG_ai_stop_task_culture_promote_threshold
+            }
+        }
+    }
+}
+
+# Scope : province
+T_kCAFG_task_promote_culture_ai_wants_to_convert_province_VANILLA = {
+    custom_tooltip = {
+		text = kCAFG_task_promote_culture_ai_hre_princes
+        OR = {
+            scope:councillor_liege = {
+                AND = { # AI Directives override this
+                    has_character_flag = vassal_directive_convert_culture
+                    vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+                }
+            }
+            NAND = { # Princes in the HRE tend to not convert each other's cultures
+                exists = title:e_hre.holder
+                scope:councillor_liege.top_liege = title:e_hre.holder
+                OR = {
+                    scope:councillor_liege.culture = culture:czech
+                    scope:councillor_liege.culture = { has_cultural_pillar = heritage_central_germanic }
+                }
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    this = culture:czech
+                    has_cultural_pillar = heritage_central_germanic
+                }
+            }
+        }
+    }
+    
+    custom_tooltip = {
+		text = kCAFG_task_promote_culture_ai_high_acceptance
+        OR = {
+            any_in_list = {
+                variable = kCAFG_province_cultures
+                scope:councillor_liege.culture != this
+                cultural_acceptance = { target = scope:councillor_liege.culture value < 50 }
+            }
+            scope:councillor_liege.culture = { # All AI's are motivated to spread new Hybrid/Divergent cultures
+                OR = {
+                    is_hybrid_culture = yes
+                    is_divergent_culture = yes
+                }
+                NOT = { # Leave the Welsh alone!
+                    this = culture:anglo_saxon
+                }
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    save_temporary_scope_as = kCAFG_province_culture_to_check
+                    scope:councillor_liege.culture = {
+                        any_parent_culture = {
+                            this = scope:kCAFG_province_culture_to_check
+                        }
+                    }
+                }
+            }
+            AND = {
+                # Scottish rulers should convert counties of 'old' cultures to the new one.
+                scope:councillor_liege.culture = culture:scottish
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    OR = {
+                        this = culture:anglo_saxon
+                        this = culture:gaelic
+                        this = culture:cumbrian
+                        this = culture:pictish
+                    }
+                }
+            }
+            AND = {
+                # English rulers should convert counties of 'old' cultures to the new one.
+                scope:councillor_liege.culture = culture:english
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    OR = {
+                        this = culture:anglo_saxon
+                        this = culture:norman
+                    }
+                }
+            }
+            AND = {
+                # German rulers want to convert the polabians
+                scope:councillor_liege.culture = { has_cultural_pillar = heritage_central_germanic }
+                NOT = { scope:councillor_liege.primary_title = title:e_hre }
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    this = culture:polabian
+                }
+            }
+            AND = {
+                # Japanese rulers should convert Emishi counties
+                scope:councillor_liege.culture = culture:japanese
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    this = culture:emishi
+                }
+            }
+        }
+    }
+    
+    custom_tooltip = {
+		text = kCAFG_task_promote_culture_ai_vassal_count
+        OR = {
+            scope:councillor_liege = { is_independent_ruler = yes }
+            scope:councillor_liege.primary_title.tier > tier_county
+            AND = { # High tension overrule
+                has_variable = kCAFG_target_culture_tension
+                var:kCAFG_target_culture_tension > scope:councillor_liege.V_kCAFG_ai_count_vassal_culture_tension_conversion_threshold
+                NOT = { scope:councillor_liege = { has_realm_law_flag = F_kCAFG_tolerant_to_other_cultures } }
+            }
+            scope:councillor_liege.culture = { # All AI's are motivated to spread new Hybrid/Divergent cultures
+                OR = {
+                    is_hybrid_culture = yes
+                    is_divergent_culture = yes
+                }
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    save_temporary_scope_as = kCAFG_province_culture_to_check
+                    scope:councillor_liege.culture = {
+                        any_parent_culture = {
+                            this = scope:kCAFG_province_culture_to_check
+                        }
+                    }
+                }
+            }
+            AND = {
+                # Scottish rulers should convert counties of 'old' cultures to the new one.
+                scope:councillor_liege.culture = culture:scottish
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    OR = {
+                        this = culture:anglo_saxon
+                        this = culture:gaelic
+                        this = culture:cumbrian
+                        this = culture:pictish
+                    }
+                }
+            }
+            AND = {
+                # English rulers should convert counties of 'old' cultures to the new one.
+                scope:councillor_liege.culture = culture:english
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    OR = {
+                        this = culture:anglo_saxon
+                        this = culture:norman
+                    }
+                }
+            }
+            AND = {
+                # German rulers want to convert the polabians
+                scope:councillor_liege.culture = { has_cultural_pillar = heritage_central_germanic }
+                NOT = { scope:councillor_liege.primary_title = title:e_hre }
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    this = culture:polabian
+                }
+            }
+            AND = {
+                # Japanese rulers should convert Emishi counties
+                scope:councillor_liege.culture = culture:japanese
+                any_in_list = {
+                    variable = kCAFG_province_cultures
+                    scope:councillor_liege.culture != this
+                    this = culture:emishi
+                }
+            }
+        }
+    }
+    
+    custom_tooltip = {
+		text = kCAFG_task_promote_culture_ai_not_bordering
+        OR = {
+            scope:councillor_liege.capital_province = this
+            scope:councillor_liege = { V_kCAFG_culture_promotion_ai_personality_propensity_to_convert > 0.6 }
+            county = {
+                any_neighboring_county = {
+                    culture = scope:councillor_liege.culture # The AI only wants to convert counties bordering their own culture
+                }
+            }
+            
+            AND = {
+                NOT = {
+                    county = {
+                        any_neighboring_county = {
+                            culture = scope:councillor_liege.culture # The AI only wants to convert counties bordering their own culture
+                        }
+                    }
+                }
+                OR = {
+                    AND = { # The English want to convert the Anglo Saxons and Cumbrians
+                        scope:councillor_liege.culture = culture:english
+                        any_in_list = {
+                            variable = kCAFG_province_cultures
+                            scope:councillor_liege.culture != this
+                            OR = {
+                                this = culture:anglo_saxon
+                                this = culture:cumbrian
+                            }
+                        }
+                    }
+                    AND = { # The Scots want to convert the Anglo Saxons, Cumbrians and Gaelic
+                        scope:councillor_liege.culture = culture:scottish
+                        any_in_list = {
+                            variable = kCAFG_province_cultures
+                            scope:councillor_liege.culture != this
+                            OR = {
+                                this = culture:anglo_saxon
+                                this = culture:gaelic
+                                this = culture:cumbrian
+                                this = culture:pictish
+                            }
+                        }
+                    }
+                    AND = { # The Gaels want to convert the Picts and Cumbrians
+                        scope:councillor_liege.culture = culture:gaelic
+                        any_in_list = {
+                            variable = kCAFG_province_cultures
+                            scope:councillor_liege.culture != this
+                            OR = {
+                                this = culture:cumbrian
+                                this = culture:pictish
+                            }
+                        }
+                    }
+                    AND = { # The modern scandinavians want to convert the Norse
+                        OR = {
+                            scope:councillor_liege.culture = culture:swedish
+                            scope:councillor_liege.culture = culture:danish
+                            scope:councillor_liege.culture = culture:norwegian
+                        }
+                        any_in_list = {
+                            variable = kCAFG_province_cultures
+                            scope:councillor_liege.culture != this
+                            this = culture:norse
+                        }
+                    }
+                    AND = { # The Portuguese should want to convert Suebi
+                        scope:councillor_liege.culture = culture:portuguese
+                        any_in_list = {
+                            variable = kCAFG_province_cultures
+                            scope:councillor_liege.culture != this
+                            this = culture:suebi
+                        }
+                    }
+                    AND = { # The Iberians want to convert Visigothic
+                        scope:councillor_liege.culture = { has_cultural_pillar = heritage_iberian }
+                        NOT = { scope:councillor_liege.culture = culture:portuguese }
+                        any_in_list = {
+                            variable = kCAFG_province_cultures
+                            scope:councillor_liege.culture != this
+                            this = culture:visigothic
+                        }
+                    }
+                    AND = {
+                        # German rulers want to convert the polabians
+                        scope:councillor_liege.culture = { has_cultural_pillar = heritage_central_germanic }
+                        NOT = { scope:councillor_liege.primary_title = title:e_hre }
+                        any_in_list = {
+                            variable = kCAFG_province_cultures
+                            scope:councillor_liege.culture != this
+                            this = culture:polabian
+                        }
+                    }
+                    AND = {
+                        # Japanese rulers should convert Emishi counties
+                        scope:councillor_liege.culture = culture:japanese
+                        any_in_list = {
+                            variable = kCAFG_province_cultures
+                            scope:councillor_liege.culture != this
+                            this = culture:emishi
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+T_kCAFG_steward_promote_culture_ai_valid_for_intermittent_stop_VANILLA = {
+    NAND = { # ignore it if in Hostility with escalation
+        has_character_flag = agenda_towards_escalation
+        any_character_struggle = {
+            involvement = involved
+            is_struggle_type = iberian_struggle
+            is_struggle_phase = struggle_iberia_phase_hostility
+        }
+    }
+}

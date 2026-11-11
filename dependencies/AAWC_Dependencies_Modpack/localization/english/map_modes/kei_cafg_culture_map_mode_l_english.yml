@@ -1,0 +1,14 @@
+﻿l_english:
+kCAFG_CULTURE_MAP_MODE_TOOLTIP_FALLBACK: "[ROOT.Province.GetName]"
+kCAFG_CULTURE_MAP_MODE_TOOLTIP_PERCENTAGE: "Percentage of $kCAFG_CULTURE_MAP_MODE_TOOLTIP_adherents$: $kCAFG_CULTURE_MAP_MODE_TOOLTIP_factor_percent$"
+kCAFG_CULTURE_MAP_MODE_TOOLTIP_FULL: "$kCAFG_CULTURE_MAP_MODE_TOOLTIP_amount$ $kCAFG_CULTURE_MAP_MODE_TOOLTIP_adherents$ ($kCAFG_CULTURE_MAP_MODE_TOOLTIP_factor_percent$)"
+kCAFG_CULTURE_MAP_MODE_TOOLTIP_NONE: "No $kCAFG_CULTURE_MAP_MODE_TOOLTIP_adherents$"
+kCAFG_CULTURE_MAP_MODE_TOOLTIP_adherents: "[GetPlayer.MakeScope.Var('kCAFG_UI_culture_map_mode_viewed_culture').Culture.GetCollectiveNounNoTooltip|e] in [ROOT.Province.GetName]"
+kCAFG_CULTURE_MAP_MODE_TOOLTIP_factor_percent: "[GuiScope.SetRoot(ROOT.Province.MakeScope).AddScope('kCAFG_culture', GetPlayer.MakeScope.Var('kCAFG_UI_culture_map_mode_viewed_culture').Culture.MakeScope).ScriptValue('V_kCAFG_province_culture_factor_rounded')|%v0]"
+kCAFG_CULTURE_MAP_MODE_TOOLTIP_amount: "[GuiScope.SetRoot(ROOT.Province.MakeScope).AddScope('kCAFG_culture', GetPlayer.MakeScope.Var('kCAFG_UI_culture_map_mode_viewed_culture').Culture.MakeScope).ScriptValue('V_kCAFG_province_culture_amount_rounded')|v0]"
+
+kCAFG_culture_map_mode_header: "Showing [culture|e]: [GetPlayer.MakeScope.Var('kCAFG_UI_culture_map_mode_viewed_culture').Culture.GetName]"
+
+kCAFG_culture_tension_show_map_mode_tt: "#T Show [culture_tension|e] Map Mode#!"
+kCAFG_CULTURE_TENSION_MAP_MODE_TOOLTIP: "[culture_tension|e] in [ROOT.Province.GetName]: [ROOT.Province.MakeScope.Var('kCAFG_culture_tension').GetValue|v0%]\n[Concept('culture_tension_baseline', 'Baseline')|E]: [ROOT.Province.MakeScope.Var('kCAFG_target_culture_tension').GetValue|v0%]"
+kCAFG_culture_tension_map_mode_header: "Showing [culture_tension|e]"

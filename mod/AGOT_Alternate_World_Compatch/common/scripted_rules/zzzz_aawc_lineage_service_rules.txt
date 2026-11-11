@@ -1,0 +1,45 @@
+﻿can_be_knight = {
+	trigger_if = {
+		limit = { exists = liege }
+		liege = { save_temporary_scope_as = army_owner }
+	}
+	trigger_else = {
+		root.court_owner = { save_temporary_scope_as = army_owner }
+	}
+
+	trigger_if = {
+		limit = {
+			OR = {
+				is_ai = yes
+				NOT = { exists = liege }
+			}
+		}
+		can_be_knight_trigger = { ARMY_OWNER = scope:army_owner }
+	}
+	trigger_else = {
+		OR = {
+			is_adult = yes
+			AND = {
+				age >= 14
+				is_current_dragonrider_warfare = yes
+			}
+		}
+		is_clergy = no
+		is_alive = yes
+		is_imprisoned = no
+		NOT = { has_trait = incapable }
+		NOT = { has_trait = blind }
+		NOT = { has_trait = devoted }
+		NOT = { has_character_flag = cannot_be_knight_and_commander }
+	}
+
+	NOT = { has_character_flag = agot_is_at_unknown_place }
+	trigger_if = {
+		limit = { exists = commanding_army }
+		commanding_army.army_owner = scope:army_owner
+	}
+	trigger_if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		is_lowborn = no
+	}
+}

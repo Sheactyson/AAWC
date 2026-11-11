@@ -1,0 +1,285 @@
+﻿world_gogossos = {
+    duchies = {
+        d_the_western_isles
+		d_the_three_snakes
+		d_eastern_isles
+		d_gogossos
+    }
+}
+
+world_asshai = {
+	duchies = {
+		d_asshai
+		d_the_saffron_lands
+		d_chalysa
+		d_stygai
+		d_turatos
+		d_hattar
+		d_vyrokh
+		d_malior
+		d_razmai
+		d_maruza
+		d_ostiros
+	}
+}
+
+# Essos Expansion - Free Cities
+world_essos_volantis = {
+	duchies = {
+		d_volantis
+		d_little_valyria
+		d_sarhoy
+		d_volon_therys
+		d_orange_shore
+		d_dreos
+		d_valysar
+		d_valon_sar
+		d_sar_mell
+		d_selhorys
+		d_death_swamps
+		d_volaena
+		d_vysyria
+	}
+}
+
+# Rhoyne
+world_essos_rhoyne = {
+	duchies = {
+		d_the_sorrows
+		d_golden_bridge
+		d_ar_noy
+		d_ny_sar
+		d_dagger_lake
+		d_velvet_peak
+		d_ghoyan_drohe
+	}
+}
+
+# Northern Valyria
+world_essos_mantarys = {
+	duchies = {
+		d_mantarys
+		d_painted_valleys
+		d_demon_pass
+	}
+}
+
+world_essos_tolos = { duchies = { d_tolos } }
+
+world_essos_elyria = { duchies = { d_elyria } }
+
+world_essos_painted_mountains = {
+	regions = {
+		world_essos_mantarys
+		world_essos_tolos
+		# world_essos_elyria
+	}
+	duchies = {
+		d_anogaria
+		d_telyria
+		d_draconys
+		d_bhorash
+	}
+}
+
+# Slaver's Bay
+# Slaver's Bay Cities
+world_essos_meereen = {
+	duchies = {
+		d_meereen
+		d_great_pyramids
+		d_khyzai_pass
+		d_meereen_green_gate
+	}
+}
+
+world_essos_yunkai = {
+	duchies = {
+		d_yunkai
+		d_copper_hills
+	}
+}
+
+world_essos_astapor = {
+	duchies = {
+		d_astapor
+		d_worm_river
+	}
+}
+
+world_essos_new_ghis = {
+	duchies = {
+		d_ghis
+		d_new_ghis
+	}
+}
+
+world_essos_slavers_bay = {
+	regions = {
+		world_essos_meereen
+		world_essos_yunkai
+		world_essos_astapor
+		world_essos_new_ghis
+	}
+}
+
+world_essos_southern_free_cities = {
+	regions = {
+		world_essos_lys
+		world_essos_tyrosh
+		world_essos_myr
+		world_essos_disputed_lands
+		world_essos_volantis
+	}
+}
+
+world_essos = {
+	regions = {
+		world_essos_free_cities
+		world_stepstones
+		world_essos_rhoyne
+		world_valyria
+		world_essos_slavers_bay
+	}
+}
+
+world_misc = { #created to slot areas without full regions yet
+	duchies = {
+		d_vehar
+		d_manticore_isles
+	}
+}
+
+world_marahai = {
+	duchies = {
+		d_crescent_gates
+		d_shanvyr
+	}
+}
+
+## Dragon growth world regions
+
+world_mid_tier_dragon_growth = {
+	duchies = {
+		d_rhyos
+		d_orbar
+		d_jelmazmar
+		d_daervos
+		d_sombazbion
+		d_oros
+		d_vharomar
+		d_martivia
+		d_argava
+		d_telyria
+		d_port_of_sighs
+		d_zoglos
+		d_elyria
+		d_anogaria
+		d_draconys
+		d_bhorash
+		d_tolos
+		d_mantarys
+		d_painted_valleys
+		d_demon_pass
+		d_dragonstone
+		d_velos
+		d_little_valyria
+	}
+}
+
+world_max_tier_dragon_growth = {
+	duchies = {
+		d_jarqanor
+		d_gelios
+		d_egrys
+		d_aquos_dhaen
+		d_valyria
+		d_tyria
+		d_mhysa_faer
+		d_dragonfields
+		d_kastaryia
+		d_pyrys
+		d_nuqiria
+		d_crescent_gates
+		d_shanvyr
+	}
+}
+
+# Sothoryos
+world_sothoryos_west = {
+	duchies = {
+		d_greybeach
+		d_last_hope
+		d_backlum
+		d_chamer
+		d_great_kabil
+
+		d_basilisk_point
+		d_beach_of_prey
+		d_alaghom
+		d_laanas_shore
+
+		d_zamettar
+		d_aft_zamatt
+		d_arl_zamatt
+		d_wail_woods
+
+		d_bloodless_trees
+		d_fields_of_hunger
+		d_lesser_valley
+		d_yeen
+		
+		d_vine_home
+		d_bloodstone_walls
+		d_green_gate
+		d_the_wyvern_fields
+		d_bleeding_jungle
+		d_zyan_fogs
+	}
+}
+
+world_sothoryos_east = {
+	duchies = {
+		d_gorosh
+		d_goroi_pa
+		d_fever_hills
+		d_shore_of_floggs
+		d_puhekes_cudgel
+		d_missing_bay
+
+		d_wyvern_point
+		d_gimlet_point
+		d_mount_maunga
+		d_serpent_home
+	}
+}
+
+world_sothoryos = {
+	regions = {
+		world_sothoryos_west
+		world_sothoryos_east
+	}
+}
+
+world_great_swamp = {
+	counties = {
+		c_backlum
+		c_tepeu
+		c_atsi
+		c_thilsha
+		c_ahulom
+		c_huracan
+		c_ajtzak
+		c_ilsha
+		c_hobnil
+		c_zipacna
+		c_chamahez
+		c_chamer
+		c_itzel
+		c_biatol
+		c_hapikern
+		c_cabaguil
+		c_ah_tabai
+		c_kabil
+	}
+}

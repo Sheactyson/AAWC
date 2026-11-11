@@ -1,0 +1,15 @@
+# A newly generated ruler can appear after the initial every_ruler pass. The
+# delayed startup reconciliation is the first stable point at which missing
+# recurring character schedulers can be recovered without duplicating existing
+# chains. This is a scripted effect, not a top-level on-action definition.
+aawc_population_recover_missing_monthly_schedulers_effect = {
+	every_ruler = {
+		limit = {
+			is_landed = yes
+			agot_is_dummy_character = no
+			NOT = { has_variable = aawc_population_monthly_tick_scheduled }
+		}
+		trigger_event = { id = aawc_population_event.0100 days = { 1 30 } }
+		set_variable = { name = aawc_population_monthly_tick_scheduled value = 1 }
+	}
+}

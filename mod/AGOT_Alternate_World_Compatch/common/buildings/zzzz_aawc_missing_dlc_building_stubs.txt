@@ -1,0 +1,29 @@
+﻿# AAWC 1.9.49 load compatibility building stubs.
+
+horse_04 = {
+	type_icon = "icon_building_type_military.dds"
+	cost_gold = 0
+	construction_time = 1
+	can_construct_potential = { always = no }
+}
+
+horse_06 = {
+	type_icon = "icon_building_type_military.dds"
+	cost_gold = 0
+	construction_time = 1
+	can_construct_potential = { always = no }
+}
+
+horse_08 = {
+	type_icon = "icon_building_type_military.dds"
+	cost_gold = 0
+	construction_time = 1
+	can_construct_potential = { always = no }
+}
+
+militia_04 = {
+	type_icon = "icon_building_type_military.dds"
+	cost_gold = 0
+	construction_time = 1
+	can_construct_potential = { always = no }
+}

@@ -1,0 +1,123 @@
+﻿# AAWC compatibility shadow.
+# Keep Kei/CaFG court chaplain conversion callable under AGOT without
+# validating vanilla-only holy sites, regions, traditions, or doctrines.
+
+V_kCAFG_task_conversion_tension_increase_per_factor = 0.8
+V_kCAFG_AI_suggestion_task_conversion_minorities_speed_factor_threshold = 0.4
+V_kCAFG_AI_suggestion_task_conversion_duration_threshold_months = 8
+V_kCAFG_AI_suggestion_task_conversion_tension_threshold = 0.05
+V_kCAFG_court_chaplain_task_conversions_tension_increase = 0.15
+
+V_kCAFG_task_conversion_councillor_current_progress = {
+	value = 0
+	if = {
+		limit = {
+			exists = yes
+			has_variable = kCAFG_task_conversion_progress
+		}
+		add = var:kCAFG_task_conversion_progress
+	}
+}
+
+V_kCAFG_court_chaplain_conversion_bonuses_game_rules_excluded_months_to_finish = {
+	value = V_kCAFG_court_chaplain_conversion_bonuses_game_rules_excluded
+	save_temporary_value_as = kCAFG_bonuses
+	if = {
+		limit = { scope:kCAFG_bonuses > 0 }
+		value = {
+			value = 100
+			divide = scope:kCAFG_bonuses
+			ceiling = yes
+		}
+	}
+	else = { value = -1 }
+}
+
+V_kCAFG_court_chaplain_conversion_bonuses_months_to_finish = {
+	value = V_kCAFG_court_chaplain_conversion_bonuses
+	save_temporary_value_as = kCAFG_bonuses
+	if = {
+		limit = { scope:kCAFG_bonuses > 0 }
+		value = {
+			value = 100
+			divide = scope:kCAFG_bonuses
+			ceiling = yes
+		}
+	}
+	else = { value = -1 }
+}
+
+V_kCAFG_court_chaplain_conversion_bonuses_game_rules_excluded = {
+	add = {
+		value = kCAFG_court_chaplain_conversion_base
+		desc = COURT_CHAPLAIN_PROGRESS_BASE
+	}
+	add = {
+		value = scope:councillor.kCAFG_court_chaplain_conversion_monthly_increase
+		desc = SCALED_COUNCILLOR_LEARNING_VALUE
+	}
+	min = 0
+}
+
+V_kCAFG_court_chaplain_conversion_bonuses = {
+	value = V_kCAFG_court_chaplain_conversion_bonuses_game_rules_excluded
+	multiply = V_kCAFG_court_chaplain_conversion_game_rules_mult
+	min = 0
+}
+
+kCAFG_court_chaplain_conversion_base = {
+	value = 0.5
+}
+
+kCAFG_court_chaplain_conversion_monthly_increase = {
+	add = learning
+	divide = 10
+}
+
+V_kCAFG_faith_conversion_converting_character_modifiers = {
+	value = 0
+}
+
+V_kCAFG_chaplain_conversion_faith_fervor = {
+	value = 1
+}
+
+V_kCAFG_chaplain_conversion_syncretism_minimum_VANILLA = {
+	value = 0
+}
+
+V_kCAFG_court_chaplain_conversion_county_development_factor = {
+	value = 1
+}
+
+V_kCAFG_faith_conversion_converting_character_modifiers_mult = {
+	value = 1
+}
+
+V_kCAFG_faith_conversion_speed_tolerance_law_factor = {
+	value = 1
+}
+
+V_kCAFG_faith_conversion_converting_character_modifiers_mult_VANILLA = {
+	value = 1
+}
+
+V_kCAFG_court_chaplain_conversion_province_faith_tension_mult = {
+	value = 1
+}
+
+V_kCAFG_court_chaplain_conversion_small_minorities_mult = {
+	value = 1
+}
+
+V_kCAFG_court_chaplain_conversion_game_rules_mult = {
+	value = 1
+}
+
+V_kCAFG_court_chaplain_task_conversions_tension_decrease = {
+	value = 0
+}
+
+V_kCAFG_court_chaplain_conversion_default_focus_province_score = {
+	value = 0
+}

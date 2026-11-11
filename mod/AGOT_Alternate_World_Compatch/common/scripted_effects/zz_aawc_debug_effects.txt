@@ -1,0 +1,178 @@
+﻿aawc_on_title_gain_ruin_debug_effect = {
+	if = {
+		limit = {
+			aawc_tribal_shatter_active = yes
+			scope:title = { is_mercenary_company = yes }
+		}
+		if = {
+			limit = { NOT = { has_global_variable = aawc_lineage_mercenary_validations_scheduled } }
+			set_global_variable = { name = aawc_lineage_mercenary_validations_scheduled value = 0 }
+		}
+		change_global_variable = { name = aawc_lineage_mercenary_validations_scheduled add = 1 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY on_title_gain scheduled native company source validation" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+		trigger_event = { id = aawc_startup.0003 days = 1 }
+	}
+	if = {
+		limit = {
+			scope:title = {
+				tier = tier_county
+				OR = {
+					has_county_modifier = aawc_rh_candidate_marker
+					has_county_modifier = aawc_wh_candidate_marker
+					title_province = { has_holding_type = ruin_holding }
+					title_province = { has_holding_type = wilderness_holding }
+					title_province = { has_holding_type = settlement_holding }
+				}
+			}
+		}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC TITLE GAIN tracked county title transfer" }
+			if = { limit = { scope:transfer_type = flag:granted } error_log = "AAWC TITLE GAIN transfer_type=granted" }
+			if = { limit = { scope:transfer_type = flag:revoked } error_log = "AAWC TITLE GAIN transfer_type=revoked" }
+			if = { limit = { scope:transfer_type = flag:returned } error_log = "AAWC TITLE GAIN transfer_type=returned" }
+			if = { limit = { scope:transfer_type = flag:inherited } error_log = "AAWC TITLE GAIN transfer_type=inherited" }
+			if = { limit = { scope:transfer_type = flag:usurped } error_log = "AAWC TITLE GAIN transfer_type=usurped" }
+			if = { limit = { scope:transfer_type = flag:created } error_log = "AAWC TITLE GAIN transfer_type=created" }
+			if = { limit = { agot_is_dummy_character = yes } error_log = "AAWC TITLE GAIN new holder is dummy" }
+			else = { error_log = "AAWC TITLE GAIN new holder is non-dummy" }
+			if = { limit = { is_vassal_or_below_of = title:c_ruins.holder } error_log = "AAWC TITLE GAIN new holder is vassal/below c_ruins holder" }
+			if = { limit = { is_vassal_or_below_of = title:c_wilderness.holder } error_log = "AAWC TITLE GAIN new holder is vassal/below c_wilderness holder" }
+			if = { limit = { exists = scope:previous_holder scope:previous_holder = { agot_is_dummy_character = yes } } error_log = "AAWC TITLE GAIN previous holder was dummy" }
+			if = { limit = { exists = scope:previous_holder scope:previous_holder = { agot_is_dummy_character = no } } error_log = "AAWC TITLE GAIN previous holder was non-dummy" }
+			if = { limit = { exists = scope:previous_holder scope:previous_holder = { this = title:c_ruins.holder } } error_log = "AAWC TITLE GAIN previous holder was c_ruins dummy" }
+			if = {
+				limit = {
+					exists = scope:previous_holder
+					scope:previous_holder = {
+						NOT = { this = title:c_ruins.holder }
+						is_vassal_or_below_of = title:c_ruins.holder
+					}
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC TITLE GAIN previous holder was vassal/below c_ruins dummy" }
+			}
+		scope:title = {
+			if = { limit = { has_county_modifier = aawc_rh_candidate_marker } error_log = "AAWC TITLE GAIN county has RH marker" }
+			if = { limit = { has_county_modifier = aawc_wh_candidate_marker } error_log = "AAWC TITLE GAIN county has WH marker" }
+			if = { limit = { has_county_modifier = aawc_survivor_pocket_marker } error_log = "AAWC TITLE GAIN county has SH marker" }
+			if = { limit = { aawc_native_lov_rh_county = yes } error_log = "AAWC TITLE GAIN county is native LoV RH target" }
+			if = { limit = { this = title:c_valyria } error_log = "AAWC TITLE GAIN county c_valyria" }
+			if = { limit = { this = title:c_kastaryia } error_log = "AAWC TITLE GAIN county c_kastaryia" }
+			if = { limit = { this = title:c_hills_of_nolos } error_log = "AAWC TITLE GAIN county c_hills_of_nolos" }
+			if = { limit = { this = title:c_ilvonys } error_log = "AAWC TITLE GAIN county c_ilvonys" }
+			if = { limit = { this = title:c_oreos } error_log = "AAWC TITLE GAIN county c_oreos" }
+			title_province = {
+				if = { limit = { has_holding_type = ruin_holding } error_log = "AAWC TITLE GAIN capital holding type ruin_holding" }
+				if = { limit = { has_holding_type = wilderness_holding } error_log = "AAWC TITLE GAIN capital holding type wilderness_holding" }
+				if = { limit = { has_holding_type = settlement_holding } error_log = "AAWC TITLE GAIN capital holding type settlement_holding" }
+				if = { limit = { has_holding_type = unknown_holding } error_log = "AAWC TITLE GAIN capital holding type unknown_holding" }
+			}
+		}
+	}
+}
+
+aawc_on_title_lost_ruin_debug_effect = {
+	if = {
+		limit = {
+			scope:title = {
+				tier = tier_county
+				OR = {
+					has_county_modifier = aawc_rh_candidate_marker
+					has_county_modifier = aawc_wh_candidate_marker
+					title_province = { has_holding_type = ruin_holding }
+					title_province = { has_holding_type = wilderness_holding }
+					title_province = { has_holding_type = settlement_holding }
+				}
+			}
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC TITLE LOST tracked county title transfer" }
+		if = { limit = { scope:transfer_type = flag:granted } error_log = "AAWC TITLE LOST transfer_type=granted" }
+		if = { limit = { scope:transfer_type = flag:revoked } error_log = "AAWC TITLE LOST transfer_type=revoked" }
+		if = { limit = { scope:transfer_type = flag:returned } error_log = "AAWC TITLE LOST transfer_type=returned" }
+		if = { limit = { scope:transfer_type = flag:inherited } error_log = "AAWC TITLE LOST transfer_type=inherited" }
+		if = { limit = { scope:transfer_type = flag:usurped } error_log = "AAWC TITLE LOST transfer_type=usurped" }
+		if = { limit = { scope:transfer_type = flag:created } error_log = "AAWC TITLE LOST transfer_type=created" }
+		if = { limit = { agot_is_dummy_character = yes } error_log = "AAWC TITLE LOST old holder was dummy" }
+		else = { error_log = "AAWC TITLE LOST old holder was non-dummy" }
+		if = { limit = { this = title:c_ruins.holder } error_log = "AAWC TITLE LOST old holder is c_ruins dummy" }
+		if = { limit = { is_vassal_or_below_of = title:c_ruins.holder } error_log = "AAWC TITLE LOST old holder is vassal/below c_ruins dummy" }
+		if = {
+			limit = {
+				exists = scope:new_holder
+				scope:new_holder = { agot_is_dummy_character = yes }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC TITLE LOST new holder is dummy" }
+		}
+		if = {
+			limit = {
+				exists = scope:new_holder
+				scope:new_holder = { agot_is_dummy_character = no }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC TITLE LOST new holder is non-dummy" }
+		}
+		if = {
+			limit = {
+				exists = scope:new_holder
+				scope:new_holder = { is_vassal_or_below_of = title:c_ruins.holder }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC TITLE LOST new holder is vassal/below c_ruins dummy" }
+		}
+		scope:title = {
+			if = { limit = { has_county_modifier = aawc_rh_candidate_marker } error_log = "AAWC TITLE LOST county has RH marker" }
+			if = { limit = { has_county_modifier = aawc_wh_candidate_marker } error_log = "AAWC TITLE LOST county has WH marker" }
+			if = { limit = { has_county_modifier = aawc_survivor_pocket_marker } error_log = "AAWC TITLE LOST county has SH marker" }
+			if = { limit = { aawc_native_lov_rh_county = yes } error_log = "AAWC TITLE LOST county is native LoV RH target" }
+			if = { limit = { this = title:c_valyria } error_log = "AAWC TITLE LOST county c_valyria" }
+			if = { limit = { this = title:c_kastaryia } error_log = "AAWC TITLE LOST county c_kastaryia" }
+			if = { limit = { this = title:c_hills_of_nolos } error_log = "AAWC TITLE LOST county c_hills_of_nolos" }
+			if = { limit = { this = title:c_ilvonys } error_log = "AAWC TITLE LOST county c_ilvonys" }
+			if = { limit = { this = title:c_oreos } error_log = "AAWC TITLE LOST county c_oreos" }
+			title_province = {
+				if = { limit = { has_holding_type = ruin_holding } error_log = "AAWC TITLE LOST capital holding type ruin_holding" }
+				if = { limit = { has_holding_type = wilderness_holding } error_log = "AAWC TITLE LOST capital holding type wilderness_holding" }
+				if = { limit = { has_holding_type = settlement_holding } error_log = "AAWC TITLE LOST capital holding type settlement_holding" }
+				if = { limit = { has_holding_type = unknown_holding } error_log = "AAWC TITLE LOST capital holding type unknown_holding" }
+			}
+		}
+	}
+}
+
+aawc_debug_audit_sh_wh_integrity_effect = {
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AUDIT SH/WH begin" }
+		every_county = {
+			limit = {
+				has_variable = aawc_sh_lock
+				has_county_modifier = aawc_wh_candidate_marker
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AUDIT anomaly: SH-locked county still has WH marker" }
+		}
+		every_county = {
+			limit = {
+				has_variable = aawc_sh_lock
+				has_county_modifier = aawc_rh_candidate_marker
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AUDIT anomaly: SH-locked county still has RH marker" }
+		}
+		every_county = {
+			limit = {
+				has_variable = aawc_sh_lock
+				title_province = { has_holding_type = wilderness_holding }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AUDIT anomaly: SH-locked county has wilderness_holding capital" }
+		}
+		every_county = {
+			limit = {
+				has_variable = aawc_sh_lock
+				OR = {
+					holder ?= { this = title:c_wilderness.holder }
+					holder ?= { this = title:c_ruins.holder }
+					holder ?= { is_vassal_or_below_of = title:c_wilderness.holder }
+					holder ?= { is_vassal_or_below_of = title:c_ruins.holder }
+				}
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AUDIT anomaly: SH-locked county held by dummy/dummy-vassal" }
+		}
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AUDIT SH/WH end" }
+	}
+}

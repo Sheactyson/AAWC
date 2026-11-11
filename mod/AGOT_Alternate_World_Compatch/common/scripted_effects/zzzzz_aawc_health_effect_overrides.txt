@@ -1,0 +1,23 @@
+﻿# AAWC keeps court populations lineage-based. The vanilla physician search
+# schedules health.3001, which creates adult candidates directly for the
+# player's court. Preserve vanilla behavior outside an AAWC shattered world.
+find_court_physician_effect = {
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		custom_tooltip = aawc_generated_character_recruitment_disabled_tt
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC LINEAGE blocked generated court-physician search candidates" }
+	}
+	else = {
+		custom_tooltip = health.3101.e.tt
+		hidden_effect = {
+			if = {
+				limit = { is_ai = no }
+				add_character_flag = { flag = already_sick days = 30 }
+				add_character_flag = { flag = searching_for_physician days = court_physician_search_max }
+				trigger_event = {
+					id = health.3001 days = { court_physician_search_min court_physician_search_max }
+				}
+			}
+		}
+	}
+}

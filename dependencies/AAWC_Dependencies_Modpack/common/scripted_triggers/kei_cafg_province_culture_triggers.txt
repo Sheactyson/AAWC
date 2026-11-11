@@ -1,0 +1,38 @@
+﻿# CULTURE
+T_kCAFG_does_province_contain_culture = {
+	has_variable_list = kCAFG_province_cultures
+    is_target_in_variable_list = {
+        name = kCAFG_province_cultures
+        target = $CULTURE$
+    }
+}
+
+T_kCAFG_does_province_contain_any_culture = {
+	has_variable_list = kCAFG_province_cultures
+    variable_list_size = {
+        name = kCAFG_province_cultures
+        value > 0
+    }
+}
+
+# VALUE
+T_kCAFG_province_cultures_count_at_least = {
+	has_variable_list = kCAFG_province_cultures
+    variable_list_size = {
+        name = kCAFG_province_cultures
+        value >= $VALUE$
+    }
+}
+
+# Only culture in province
+# CULTURE
+T_kCAFG_province_only_culture = {
+    variable_list_size = {
+        name = kCAFG_province_cultures
+        value = 1
+    }
+    is_target_in_variable_list = {
+        name = kCAFG_province_cultures
+        target = $CULTURE$
+    }
+}

@@ -1,0 +1,21 @@
+﻿l_english:
+kCAFG_province_culture_tension_modifier: "[barony] [culture_tension|E] Effects"
+kCAFG_province_culture_tension_modifier_desc: "The [culture_tension|E] in this [barony] is making its [holding|E] harder to administrate and its population dissatisfied."
+kCAFG_province_culture_tension_no_holding_modifier: "[barony] [culture_tension|E] Effects"
+kCAFG_province_culture_tension_no_holding_modifier_desc: "The [culture_tension|E] in this [barony] is making its population dissatisfied."
+
+kCAFG_steward_settler_resistance_modifier: "$steward_settler_resistance_modifier$"
+kCAFG_steward_settler_resistance_modifier_desc: "This [barony] believes it needs neither the support, nor the extra duties imposed by the Steward of the realm."
+kCAFG_steward_welcome_administration_modifier: "$steward_welcome_administration_modifier$"
+kCAFG_steward_welcome_administration_modifier_desc: "This [barony] has received useful aid and support from the Steward of the realm."
+kCAFG_steward_realm_identity_modifier: "$steward_realm_identity_modifier$"
+kCAFG_steward_realm_identity_modifier_desc: "The peasants of this [barony] considers serving in the levy as an essential part of its duties."
+kCAFG_steward_population_mismanaged_modifier: "Mismanaged Population"
+kCAFG_steward_population_mismanaged_modifier_desc: "The inhabitants of this [barony] are greatly displeased with how the Steward of the realm has been treating them."
+kCAFG_steward_administration_embraced_modifier: "$steward_administration_embraced_modifier$"
+kCAFG_steward_administration_embraced_modifier_desc: "The inhabitants of this [barony] are pleased with the special attention the Steward of the realm has been providing them."
+
+kCAFG_steward_accept_culture_reduced_taxes_modifier: "$steward_accept_culture_reduced_taxes_modifier$"
+kCAFG_steward_accept_culture_reduced_development_spread_modifier: "$steward_accept_culture_reduced_development_spread_modifier$"
+kCAFG_steward_accept_culture_increased_opinion_modifier: "$steward_accept_culture_increased_opinion_modifier$"
+kCAFG_steward_accept_culture_increased_development_spread_modifier: "$steward_accept_culture_increased_development_spread_modifier$"

@@ -1,0 +1,217 @@
+﻿# Reforging 1.11 Stage 1A read-only cohort-ledger values.
+# These values are intentionally disconnected from live population writers.
+
+aawc_reforging_cohort_band_sum = {
+	value = 0
+	if = { limit = { has_variable = aawc_reforging_cohort_age_00_04 } add = var:aawc_reforging_cohort_age_00_04 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_05_09 } add = var:aawc_reforging_cohort_age_05_09 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_10_14 } add = var:aawc_reforging_cohort_age_10_14 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_15_19 } add = var:aawc_reforging_cohort_age_15_19 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_20_24 } add = var:aawc_reforging_cohort_age_20_24 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_25_29 } add = var:aawc_reforging_cohort_age_25_29 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_30_34 } add = var:aawc_reforging_cohort_age_30_34 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_35_39 } add = var:aawc_reforging_cohort_age_35_39 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_40_44 } add = var:aawc_reforging_cohort_age_40_44 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_45_49 } add = var:aawc_reforging_cohort_age_45_49 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_50_54 } add = var:aawc_reforging_cohort_age_50_54 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_55_59 } add = var:aawc_reforging_cohort_age_55_59 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_60_plus } add = var:aawc_reforging_cohort_age_60_plus }
+}
+
+aawc_reforging_adult_band_sum = {
+	value = 0
+	if = { limit = { has_variable = aawc_reforging_cohort_age_15_19 } add = var:aawc_reforging_cohort_age_15_19 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_20_24 } add = var:aawc_reforging_cohort_age_20_24 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_25_29 } add = var:aawc_reforging_cohort_age_25_29 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_30_34 } add = var:aawc_reforging_cohort_age_30_34 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_35_39 } add = var:aawc_reforging_cohort_age_35_39 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_40_44 } add = var:aawc_reforging_cohort_age_40_44 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_45_49 } add = var:aawc_reforging_cohort_age_45_49 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_50_54 } add = var:aawc_reforging_cohort_age_50_54 }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_55_59 } add = var:aawc_reforging_cohort_age_55_59 }
+}
+
+aawc_reforging_military_overlay_sum = {
+	value = 0
+	if = { limit = { has_variable = aawc_reforging_military_age_15_19 } add = var:aawc_reforging_military_age_15_19 }
+	if = { limit = { has_variable = aawc_reforging_military_age_20_24 } add = var:aawc_reforging_military_age_20_24 }
+	if = { limit = { has_variable = aawc_reforging_military_age_25_29 } add = var:aawc_reforging_military_age_25_29 }
+	if = { limit = { has_variable = aawc_reforging_military_age_30_34 } add = var:aawc_reforging_military_age_30_34 }
+	if = { limit = { has_variable = aawc_reforging_military_age_35_39 } add = var:aawc_reforging_military_age_35_39 }
+	if = { limit = { has_variable = aawc_reforging_military_age_40_44 } add = var:aawc_reforging_military_age_40_44 }
+	if = { limit = { has_variable = aawc_reforging_military_age_45_49 } add = var:aawc_reforging_military_age_45_49 }
+	if = { limit = { has_variable = aawc_reforging_military_age_50_54 } add = var:aawc_reforging_military_age_50_54 }
+	if = { limit = { has_variable = aawc_reforging_military_age_55_59 } add = var:aawc_reforging_military_age_55_59 }
+}
+
+aawc_reforging_civilian_available_adults = {
+	value = aawc_reforging_adult_band_sum
+	subtract = aawc_reforging_military_overlay_sum
+}
+
+# Returns one only when the complete pilot ledger exists, all counts are
+# nonnegative, every military subset is bounded by its parent band, and every
+# fractional carry is normalized to [0, 1).
+aawc_reforging_cohort_invariant_status = {
+	value = 0
+	if = {
+		limit = {
+			# Both initializers write their completion marker after the full ledger.
+			# Production holdings deliberately do not receive the test-fixture marker.
+			OR = {
+				has_variable = aawc_reforging_cohort_test_initialized
+				has_variable = aawc_reforging_cohort_production_initialized
+			}
+			has_variable = aawc_reforging_cohort_age_00_04
+			has_variable = aawc_reforging_cohort_age_05_09
+			has_variable = aawc_reforging_cohort_age_10_14
+			has_variable = aawc_reforging_cohort_age_15_19
+			has_variable = aawc_reforging_cohort_age_20_24
+			has_variable = aawc_reforging_cohort_age_25_29
+			has_variable = aawc_reforging_cohort_age_30_34
+			has_variable = aawc_reforging_cohort_age_35_39
+			has_variable = aawc_reforging_cohort_age_40_44
+			has_variable = aawc_reforging_cohort_age_45_49
+			has_variable = aawc_reforging_cohort_age_50_54
+			has_variable = aawc_reforging_cohort_age_55_59
+			has_variable = aawc_reforging_cohort_age_60_plus
+			has_variable = aawc_reforging_military_age_15_19
+			has_variable = aawc_reforging_military_age_20_24
+			has_variable = aawc_reforging_military_age_25_29
+			has_variable = aawc_reforging_military_age_30_34
+			has_variable = aawc_reforging_military_age_35_39
+			has_variable = aawc_reforging_military_age_40_44
+			has_variable = aawc_reforging_military_age_45_49
+			has_variable = aawc_reforging_military_age_50_54
+			has_variable = aawc_reforging_military_age_55_59
+			has_variable = aawc_reforging_birth_fraction
+			has_variable = aawc_reforging_mortality_fraction_age_00_04
+			has_variable = aawc_reforging_mortality_fraction_age_05_09
+			has_variable = aawc_reforging_mortality_fraction_age_10_14
+			has_variable = aawc_reforging_mortality_fraction_age_15_19
+			has_variable = aawc_reforging_mortality_fraction_age_20_24
+			has_variable = aawc_reforging_mortality_fraction_age_25_29
+			has_variable = aawc_reforging_mortality_fraction_age_30_34
+			has_variable = aawc_reforging_mortality_fraction_age_35_39
+			has_variable = aawc_reforging_mortality_fraction_age_40_44
+			has_variable = aawc_reforging_mortality_fraction_age_45_49
+			has_variable = aawc_reforging_mortality_fraction_age_50_54
+			has_variable = aawc_reforging_mortality_fraction_age_55_59
+			has_variable = aawc_reforging_mortality_fraction_age_60_plus
+			has_variable = aawc_reforging_aging_fraction_age_00_04
+			has_variable = aawc_reforging_aging_fraction_age_05_09
+			has_variable = aawc_reforging_aging_fraction_age_10_14
+			has_variable = aawc_reforging_aging_fraction_age_15_19
+			has_variable = aawc_reforging_aging_fraction_age_20_24
+			has_variable = aawc_reforging_aging_fraction_age_25_29
+			has_variable = aawc_reforging_aging_fraction_age_30_34
+			has_variable = aawc_reforging_aging_fraction_age_35_39
+			has_variable = aawc_reforging_aging_fraction_age_40_44
+			has_variable = aawc_reforging_aging_fraction_age_45_49
+			has_variable = aawc_reforging_aging_fraction_age_50_54
+			has_variable = aawc_reforging_aging_fraction_age_55_59
+
+			var:aawc_reforging_cohort_age_00_04 >= 0
+			var:aawc_reforging_cohort_age_05_09 >= 0
+			var:aawc_reforging_cohort_age_10_14 >= 0
+			var:aawc_reforging_cohort_age_15_19 >= 0
+			var:aawc_reforging_cohort_age_20_24 >= 0
+			var:aawc_reforging_cohort_age_25_29 >= 0
+			var:aawc_reforging_cohort_age_30_34 >= 0
+			var:aawc_reforging_cohort_age_35_39 >= 0
+			var:aawc_reforging_cohort_age_40_44 >= 0
+			var:aawc_reforging_cohort_age_45_49 >= 0
+			var:aawc_reforging_cohort_age_50_54 >= 0
+			var:aawc_reforging_cohort_age_55_59 >= 0
+			var:aawc_reforging_cohort_age_60_plus >= 0
+
+			var:aawc_reforging_military_age_15_19 >= 0
+			var:aawc_reforging_military_age_15_19 <= var:aawc_reforging_cohort_age_15_19
+			var:aawc_reforging_military_age_20_24 >= 0
+			var:aawc_reforging_military_age_20_24 <= var:aawc_reforging_cohort_age_20_24
+			var:aawc_reforging_military_age_25_29 >= 0
+			var:aawc_reforging_military_age_25_29 <= var:aawc_reforging_cohort_age_25_29
+			var:aawc_reforging_military_age_30_34 >= 0
+			var:aawc_reforging_military_age_30_34 <= var:aawc_reforging_cohort_age_30_34
+			var:aawc_reforging_military_age_35_39 >= 0
+			var:aawc_reforging_military_age_35_39 <= var:aawc_reforging_cohort_age_35_39
+			var:aawc_reforging_military_age_40_44 >= 0
+			var:aawc_reforging_military_age_40_44 <= var:aawc_reforging_cohort_age_40_44
+			var:aawc_reforging_military_age_45_49 >= 0
+			var:aawc_reforging_military_age_45_49 <= var:aawc_reforging_cohort_age_45_49
+			var:aawc_reforging_military_age_50_54 >= 0
+			var:aawc_reforging_military_age_50_54 <= var:aawc_reforging_cohort_age_50_54
+			var:aawc_reforging_military_age_55_59 >= 0
+			var:aawc_reforging_military_age_55_59 <= var:aawc_reforging_cohort_age_55_59
+
+			var:aawc_reforging_birth_fraction >= 0
+			var:aawc_reforging_birth_fraction < 1
+			var:aawc_reforging_mortality_fraction_age_00_04 >= 0
+			var:aawc_reforging_mortality_fraction_age_00_04 < 1
+			var:aawc_reforging_mortality_fraction_age_05_09 >= 0
+			var:aawc_reforging_mortality_fraction_age_05_09 < 1
+			var:aawc_reforging_mortality_fraction_age_10_14 >= 0
+			var:aawc_reforging_mortality_fraction_age_10_14 < 1
+			var:aawc_reforging_mortality_fraction_age_15_19 >= 0
+			var:aawc_reforging_mortality_fraction_age_15_19 < 1
+			var:aawc_reforging_mortality_fraction_age_20_24 >= 0
+			var:aawc_reforging_mortality_fraction_age_20_24 < 1
+			var:aawc_reforging_mortality_fraction_age_25_29 >= 0
+			var:aawc_reforging_mortality_fraction_age_25_29 < 1
+			var:aawc_reforging_mortality_fraction_age_30_34 >= 0
+			var:aawc_reforging_mortality_fraction_age_30_34 < 1
+			var:aawc_reforging_mortality_fraction_age_35_39 >= 0
+			var:aawc_reforging_mortality_fraction_age_35_39 < 1
+			var:aawc_reforging_mortality_fraction_age_40_44 >= 0
+			var:aawc_reforging_mortality_fraction_age_40_44 < 1
+			var:aawc_reforging_mortality_fraction_age_45_49 >= 0
+			var:aawc_reforging_mortality_fraction_age_45_49 < 1
+			var:aawc_reforging_mortality_fraction_age_50_54 >= 0
+			var:aawc_reforging_mortality_fraction_age_50_54 < 1
+			var:aawc_reforging_mortality_fraction_age_55_59 >= 0
+			var:aawc_reforging_mortality_fraction_age_55_59 < 1
+			var:aawc_reforging_mortality_fraction_age_60_plus >= 0
+			var:aawc_reforging_mortality_fraction_age_60_plus < 1
+			var:aawc_reforging_aging_fraction_age_00_04 >= 0
+			var:aawc_reforging_aging_fraction_age_00_04 < 1
+			var:aawc_reforging_aging_fraction_age_05_09 >= 0
+			var:aawc_reforging_aging_fraction_age_05_09 < 1
+			var:aawc_reforging_aging_fraction_age_10_14 >= 0
+			var:aawc_reforging_aging_fraction_age_10_14 < 1
+			var:aawc_reforging_aging_fraction_age_15_19 >= 0
+			var:aawc_reforging_aging_fraction_age_15_19 < 1
+			var:aawc_reforging_aging_fraction_age_20_24 >= 0
+			var:aawc_reforging_aging_fraction_age_20_24 < 1
+			var:aawc_reforging_aging_fraction_age_25_29 >= 0
+			var:aawc_reforging_aging_fraction_age_25_29 < 1
+			var:aawc_reforging_aging_fraction_age_30_34 >= 0
+			var:aawc_reforging_aging_fraction_age_30_34 < 1
+			var:aawc_reforging_aging_fraction_age_35_39 >= 0
+			var:aawc_reforging_aging_fraction_age_35_39 < 1
+			var:aawc_reforging_aging_fraction_age_40_44 >= 0
+			var:aawc_reforging_aging_fraction_age_40_44 < 1
+			var:aawc_reforging_aging_fraction_age_45_49 >= 0
+			var:aawc_reforging_aging_fraction_age_45_49 < 1
+			var:aawc_reforging_aging_fraction_age_50_54 >= 0
+			var:aawc_reforging_aging_fraction_age_50_54 < 1
+			var:aawc_reforging_aging_fraction_age_55_59 >= 0
+			var:aawc_reforging_aging_fraction_age_55_59 < 1
+		}
+		value = 1
+	}
+}
+
+# Exact fixture check used only by the explicit diagnostic effect.
+aawc_reforging_cohort_test_fixture_status = {
+	value = 0
+	if = {
+		limit = {
+			aawc_reforging_cohort_invariant_status = 1
+			aawc_reforging_cohort_band_sum = 100
+			aawc_reforging_adult_band_sum = 65
+			aawc_reforging_military_overlay_sum = 0
+			aawc_reforging_civilian_available_adults = 65
+		}
+		value = 1
+	}
+}

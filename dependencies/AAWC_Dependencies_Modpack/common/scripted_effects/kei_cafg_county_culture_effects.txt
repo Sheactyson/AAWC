@@ -1,0 +1,110 @@
+﻿# Scope : county
+E_kCAFG_setup_default_county_provinces_culture = {
+    save_temporary_scope_as = E_kCAFG_setup_default_county_provinces_culture_county
+	every_county_province = {
+        E_kCAFG_set_maximum_province_culture_factor = {
+            CULTURE = scope:E_kCAFG_setup_default_county_provinces_culture_county.culture
+        }
+    }
+}
+
+# Scope : county
+E_kCAFG_clear_all_county_cultures = {
+    every_county_province = {
+        E_kCAFG_clear_all_province_cultures = yes
+    }
+	clear_variable_list = kCAFG_county_cultures
+}
+
+## Very expensive
+# Scope : county
+# REASON : flag containing the update reason
+E_kCAFG_update_county_culture = {
+	hidden_effect = {
+        save_temporary_scope_as = kCAFG_county
+
+        # Set the culture to the highest total culture level
+        ordered_in_list = {
+            variable = kCAFG_county_cultures
+            order_by = {
+                value = 0
+                save_temporary_scope_as = kCAFG_culture # used by V_kCAFG_province_culture_amount
+                scope:kCAFG_county = {
+                    every_county_province = { add = V_kCAFG_province_culture_amount }
+                }
+            }
+            position = 0
+
+            if = {
+                limit = {
+                    scope:kCAFG_county.culture != this
+                }
+
+                scope:kCAFG_county = {
+                    if = { 
+                        limit = { NOT = { has_variable = kCAFG_county_culture_change_reason } }
+                        set_variable = { name = kCAFG_county_culture_change_reason value = $REASON$ } 
+                    }
+                    set_county_culture = prev
+                }
+            }
+        }
+    }
+}
+
+# Scope : county
+E_kCAFG_update_county_cultures_list = {
+	hidden_effect = {
+        save_temporary_scope_as = E_kCAFG_update_county_cultures_list_COUNTY
+        clear_variable_list = kCAFG_county_cultures
+        every_county_province = {
+            every_in_list = {
+                variable = kCAFG_province_cultures
+                scope:E_kCAFG_update_county_cultures_list_COUNTY = {
+                    add_to_variable_list = {
+                        name = kCAFG_county_cultures
+                        target = prev
+                    }
+                }
+            }
+        }
+    }
+}
+
+# CULTURE 
+E_kCAFG_replace_county_culture = {
+    E_kCAFG_clear_all_county_cultures = yes
+    every_county_province = {
+        E_kCAFG_set_maximum_province_culture_factor = {
+            CULTURE = $CULTURE$
+        }
+    }
+    add_to_variable_list = {
+        name = kCAFG_county_cultures
+        target = $CULTURE$
+    }
+    set_variable = { name = kCAFG_county_culture_change_reason value = flag:kCAFG_replacement } 
+    set_county_culture = $CULTURE$
+}
+
+# Scope : county 
+# FACTOR : base factor conversion
+# VARIANCE : randomization added to the base factor for each province
+# CULTURE : culture to convert to
+# MAX : maximum factor in province (i.e. keep minorities)
+E_kCAFG_convert_culture_in_all_county_provinces = {
+    $CULTURE$ = { save_scope_as = E_kCAFG_convert_culture_in_all_county_provinces_converting_culture } # used by localization
+    custom_tooltip = {
+		text = kCAFG_E_convert_culture_in_all_county_provinces_tt
+        every_county_province = {
+            E_kCAFG_province_randomized_weighted_culture_conversion = {
+                FACTOR = $FACTOR$
+                VARIANCE = $VARIANCE$
+                CULTURE = $CULTURE$
+                MAX = $MAX$
+            }
+        }
+        E_kCAFG_update_county_cultures_list = yes
+        E_kCAFG_update_county_culture = { REASON = flag:kCAFG_default_reason }
+    }
+}

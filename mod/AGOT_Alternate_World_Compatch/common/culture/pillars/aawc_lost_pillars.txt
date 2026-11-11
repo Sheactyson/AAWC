@@ -1,0 +1,7 @@
+﻿aawc_ethos_lost = {
+	type = ethos
+
+	ai_will_do = {
+		value = 1
+	}
+}

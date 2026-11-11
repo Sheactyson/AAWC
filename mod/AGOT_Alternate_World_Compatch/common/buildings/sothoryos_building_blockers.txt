@@ -1,0 +1,666 @@
+﻿ravenous_basilisk_1 = {
+	type_icon = "icon_building_basilisk.dds"
+	next_building = ravenous_basilisk_2
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.2 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.75
+		build_speed = 4 
+		supply_limit_mult = -0.5
+		tax_mult = -0.5
+		garrison_size = -0.5
+		levy_size = -0.5
+		travel_danger = 15
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+ravenous_basilisk_2 = {
+	type_icon = "icon_building_basilisk.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 350
+	cost_prestige = 350
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_deadly_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_deadly
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = {     
+		# Hmm  
+		#any_province  = {	
+		#	has_building = cos_corpse_mound_5
+		#}
+    }
+	
+	on_complete = {
+		# Begone!
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = ravenous_basilisk_2 }
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+ravenous_basilisk_tame = {
+	type_icon = "icon_building_basilisk.dds"
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+	
+	county_modifier = {
+		development_growth_factor  = 0.15
+		supply_limit_mult = 0.15
+		garrison_size = 0.15
+		levy_size = 0.15
+		travel_danger = -15
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+ghoulish_bat_1 = {
+	type_icon = "icon_building_bat.dds"
+	next_building = ghoulish_bat_2
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.3 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.75
+		build_speed = 4 
+		supply_limit_mult = -0.5
+		tax_mult = -0.5
+		garrison_size = -0.5
+		levy_size = -0.5
+		travel_danger = 15
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+ghoulish_bat_2 = {
+	type_icon = "icon_building_basilisk.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 350
+	cost_prestige = 350
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_deadly_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_deadly
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = {
+		# Hmm     
+		#any_province  = {	
+		#	has_building = bloodletters_hall_1
+		#}
+    }
+	
+	on_complete = {
+		# Begone!
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = ghoulish_bat_2 }
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+ghoulish_bat_tame = {
+	type_icon = "icon_building_bat.dds"
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.3 }
+
+	county_modifier = {
+		development_growth_factor  = 0.15
+		supply_limit_mult = 0.15
+		garrison_size = 0.15
+		levy_size = 0.15
+		travel_danger = -15
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+
+basilisk_1 = {
+	type_icon = "icon_building_basilisk.dds"
+	next_building = basilisk_2
+	
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.2 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.50
+		build_speed = 2 
+		supply_limit_mult = -0.25
+		tax_mult = -0.25
+		garrison_size = -0.25
+		levy_size = -0.25
+		travel_danger = 10
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+basilisk_2 = {
+	type_icon = "icon_building_basilisk.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 200
+	cost_prestige = 200
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_severe_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_severe
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	on_complete = {
+		# Begone!
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = basilisk_2 }
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_bat_1 = {
+	type_icon = "icon_building_bat.dds"
+	next_building = cos_bat_2
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.2 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.50
+		build_speed = 2 
+		supply_limit_mult = -0.25
+		tax_mult = -0.25
+		garrison_size = -0.25
+		levy_size = -0.25
+		travel_danger = 10
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_bat_2 = {
+	type_icon = "icon_building_basilisk.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 200
+	cost_prestige = 200
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_severe_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_severe
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	on_complete = {
+		# Begone!
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_bat_2 }
+	}
+	
+	#can_construct_potential = {       
+	#	any_province  = {	
+	#		has_building = bloodletters_hall_1
+	#	}
+    #}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_wyvern_1 = {
+	type_icon = "icon_building_wyvern.dds"
+	next_building = cos_wyvern_2
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.2 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.50
+		build_speed = 2 
+		supply_limit_mult = -0.25
+		tax_mult = -0.25
+		garrison_size = -0.25
+		levy_size = -0.25
+		travel_danger = 60
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_wyvern_2 = {
+	type_icon = "icon_building_wyvern.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 200
+	cost_prestige = 200
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_severe_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_severe
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	on_complete = {
+		# Begone!
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_wyvern_2 }
+	}
+	
+	#can_construct_potential = {       
+	#	any_province  = {	
+	#		has_building = bloodletters_hall_1
+	#	}
+    #}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_wyvern_alpha_1 = {
+	type_icon = "icon_building_wyvern_alpha.dds"
+	next_building = cos_wyvern_alpha_2
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.3 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.75
+		build_speed = 4 
+		supply_limit_mult = -0.50
+		tax_mult = -0.50
+		garrison_size = -0.50
+		levy_size = -0.50
+		travel_danger = 90
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_wyvern_alpha_2 = {
+	type_icon = "icon_building_wyvern_alpha.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 350
+	cost_prestige = 350
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_deadly_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_deadly
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = {       
+		#any_province  = {	
+		#	has_building = bloodletters_hall_1
+		#}
+    }
+
+	on_complete = {
+		# Duel!
+		save_scope_as = wyvern_location
+		scope:character = { trigger_event = cos_blocker.1001 }
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_carn_plant_1 = {
+	type_icon = "icon_building_carn_plant.dds"
+	next_building = cos_carn_plant_2
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.2 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.50
+		build_speed = 2 
+		supply_limit_mult = -0.25
+		tax_mult = -0.25
+		garrison_size = -0.25
+		levy_size = -0.25
+		travel_danger = 10
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_carn_plant_2 = {
+	type_icon = "icon_building_carn_plant.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 200
+	cost_prestige = 200
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_severe_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_severe
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+
+	on_complete = {
+		# Begone!
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_carn_plant_2 }
+	}
+	
+	can_construct_potential = {       
+		#any_province  = {	
+		#	has_building = bloodletters_hall_1
+		#}
+    }
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_river_parasites_1 = {
+	type_icon = "icon_building_carn_plant.dds"
+	next_building = cos_river_parasites_2
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.2 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.50
+		build_speed = 2 
+		supply_limit_mult = -0.25
+		tax_mult = -0.25
+		garrison_size = -0.25
+		levy_size = -0.25
+		travel_danger = 10
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_river_parasites_2 = {
+	type_icon = "icon_building_carn_plant.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 200
+	cost_prestige = 200
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_severe_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_severe
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = {       
+		#any_province  = {	
+		#	has_building = bloodletters_hall_1
+		#}
+    }
+
+	on_complete = {
+		# Begone!
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_river_parasites_2 }
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_titanic_beast_1 = {
+	type_icon = "icon_building_carn_plant.dds"
+	next_building = cos_titanic_beast_2
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.2 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.50
+		build_speed = 2 
+		supply_limit_mult = -0.25
+		tax_mult = -0.25
+		garrison_size = -0.25
+		levy_size = -0.25
+		travel_danger = 10
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_titanic_beast_2 = {
+	type_icon = "icon_building_carn_plant.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 350
+	cost_prestige = 350
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_deadly_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_deadly
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = {       
+		#any_province  = {	
+		#	has_building = bloodletters_hall_1
+		#}
+    }
+
+	on_complete = {
+		# Begone!
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_titanic_beast_2 }
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_raptors_1 = {
+	type_icon = "icon_building_carn_plant.dds"
+	next_building = cos_raptors_2
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = { always = no }
+
+	character_modifier = { health = -0.2 }
+	
+	county_modifier = {
+		development_growth_factor  = -0.50
+		build_speed = 2 
+		supply_limit_mult = -0.25
+		tax_mult = -0.25
+		garrison_size = -0.25
+		levy_size = -0.25
+		travel_danger = 10
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}
+
+cos_raptors_2 = {
+	type_icon = "icon_building_carn_plant.dds"
+	construction_time = very_quick_construction_time
+	cost_gold = 200
+	cost_prestige = 200
+
+	can_construct = {
+		scope:holder = { aawc_population_can_pay_severe_blocker_clearance = yes }
+	}
+
+	flag = aawc_blocker_clearance
+	flag = aawc_blocker_cost_severe
+	is_enabled = {
+		agot_generic_is_special_building_enabled = yes
+	}
+	
+	can_construct_potential = {       
+		#any_province  = {	
+		#	has_building = bloodletters_hall_1
+		#}
+    }
+
+	on_complete = {
+		# Begone!
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_raptors_2 }
+	}
+	
+	flag = obstacle
+	ai_value = {
+		base = 2000
+		directive_to_settle_wilderness_modifier = yes
+	}
+}

@@ -1,0 +1,23 @@
+﻿aawc_population_total_concept = {
+	texture = "gfx/interface/icons/county_crown.dds"
+}
+
+aawc_population_expected_concept = {
+	texture = "gfx/interface/icons/icon_gold.dds"
+}
+
+aawc_population_surplus_concept = {
+	texture = "gfx/interface/icons/development.dds"
+}
+
+aawc_population_reserved_concept = {
+	texture = "gfx/interface/icons/icon_levies.dds"
+}
+
+aawc_population_available_concept = {
+	texture = "gfx/interface/icons/icon_domain.dds"
+}
+
+aawc_regional_blockers_concept = {
+	texture = "gfx/interface/icons/development.dds"
+}

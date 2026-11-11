@@ -1,0 +1,238 @@
+﻿# Legacy of Valyria Settlement Character Interactions
+
+lv_begin_expedition = {
+	category = interaction_category_uncategorized
+	hidden = yes
+
+	desc = aawc_population_begin_expedition_desc
+
+	target_type = title
+	target_filter = recipient_realm_titles
+
+	auto_accept = yes
+
+	redirect = {
+		if = {
+			limit = { scope:target = { holder = title:c_ruins.holder } }
+			title:c_ruins.holder = { save_scope_as = recipient }
+		}
+		else_if = {
+			limit = { scope:target = { holder = title:c_wilderness.holder } }
+			title:c_wilderness.holder = { save_scope_as = recipient }
+		}
+	}
+
+	is_shown = { scope:recipient = { agot_is_dummy_character = yes } }
+
+	is_valid = {
+		scope:actor = {
+			is_ai = no
+			custom_tooltip = {
+				text = aawc_population_reclaim_cost_summary_tt
+				gold >= lv_settlement_cost
+			}
+			custom_tooltip = {
+				text = aawc_population_need_reclaim_surplus_interaction_tt
+				OR = {
+					AND = {
+						scope:target.title_province = { has_holding_type = ruin_holding }
+						var:aawc_population_available >= scope:target.title_province.county.aawc_population_county_reclaim_cost_rh
+					}
+					AND = {
+						scope:target.title_province = { has_holding_type = wilderness_holding }
+						var:aawc_population_available >= scope:target.title_province.county.aawc_population_county_colonize_cost_wh
+					}
+				}
+			}
+			custom_tooltip = {
+				text = aawc_population_top_liege_only_tt
+				aawc_population_is_top_liege_actor = yes
+			}
+			custom_tooltip = {
+				text = aawc_population_not_planning_tt
+				NOT = { var:lv_settlement_state ?= flag:planning }
+			}
+		}
+	}
+
+	has_valid_target = {
+		scope:target = {
+			custom_tooltip = {
+				text = aawc_population_target_must_be_county_tt
+				tier = tier_county
+			}
+			custom_tooltip = {
+				text = aawc_population_target_not_dummy_titles_tt
+				AND = {
+					NOT = { this = title:c_ruins }
+					NOT = { this = title:c_wilderness }
+				}
+			}
+			scope:actor = {
+				custom_tooltip = {
+					text = aawc_population_target_not_already_targeted_tt
+					NOT = {
+						any_owned_story = {
+							story_type = lv_settlement_story_cycle
+							is_target_in_variable_list = {
+								name = lv_settlement_expeditions
+								target = scope:target.title_province
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		scope:target.title_province = { save_scope_as = ruin }
+		error_log = "AAWC DEBUG lv_begin_expedition accepted"
+		scope:target = {
+			if = { limit = { holder = title:c_ruins.holder } error_log = "AAWC DEBUG lv_begin_expedition target holder is c_ruins dummy" }
+			if = { limit = { holder = title:c_wilderness.holder } error_log = "AAWC DEBUG lv_begin_expedition target holder is c_wilderness dummy" }
+		}
+		scope:ruin = {
+			if = { limit = { has_holding_type = ruin_holding } error_log = "AAWC DEBUG lv_begin_expedition ruin province holding_type=ruin_holding" }
+			if = { limit = { has_holding_type = wilderness_holding } error_log = "AAWC DEBUG lv_begin_expedition ruin province holding_type=wilderness_holding" }
+			if = { limit = { has_holding_type = settlement_holding } error_log = "AAWC DEBUG lv_begin_expedition ruin province holding_type=settlement_holding" }
+			if = { limit = { has_holding_type = unknown_holding } error_log = "AAWC DEBUG lv_begin_expedition ruin province holding_type=unknown_holding" }
+		}
+		scope:actor = {
+			aawc_population_recalculate_character_effect = yes
+			set_variable = {
+				name = lv_restore_ruins_tooltip
+				value = scope:ruin
+			}
+			if = {
+				limit = { scope:ruin = { has_holding_type = wilderness_holding } }
+				save_scope_value_as = {
+					name = aawc_population_settlement_cost
+					value = scope:ruin.county.aawc_population_county_colonize_cost_wh
+				}
+				set_variable = {
+					name = aawc_population_tooltip_colonize_cost_wh
+					value = scope:ruin.county.aawc_population_county_colonize_cost_wh
+				}
+				error_log = "AAWC DEBUG lv_begin_expedition classified target as wilderness colonization"
+			}
+			else = {
+				save_scope_value_as = {
+					name = aawc_population_settlement_cost
+					value = scope:ruin.county.aawc_population_county_reclaim_cost_rh
+				}
+				set_variable = {
+					name = aawc_population_tooltip_reclaim_cost_rh
+					value = scope:ruin.county.aawc_population_county_reclaim_cost_rh
+				}
+				error_log = "AAWC DEBUG lv_begin_expedition classified target as ruin reclamation"
+			}
+			set_variable = {
+				name = aawc_population_available_display
+				value = var:aawc_population_available
+			}
+			error_log = "AAWC DEBUG lv_begin_expedition set lv_restore_ruins_tooltip"
+			if = {
+				limit = { gold >= lv_settlement_cost }
+				error_log = "AAWC DEBUG lv_begin_expedition actor can afford lv_settlement_cost at accept"
+			}
+			else = {
+				error_log = "AAWC DEBUG lv_begin_expedition actor cannot afford lv_settlement_cost at accept"
+			}
+			if = {
+				limit = { # Must pass both resource gates before expedition setup.
+					var:lv_restore_ruins_tooltip ?= scope:ruin
+					gold >= lv_settlement_cost
+					var:aawc_population_available >= scope:aawc_population_settlement_cost
+				}
+				save_scope_value_as = {
+					name = lv_settlement_cost
+					value = lv_settlement_cost
+				}
+				error_log = "AAWC DEBUG lv_begin_expedition triggering lv_settlement_event.0001"
+				debug_log_scopes = yes
+				trigger_event = lv_settlement_event.0001
+			}
+			else = {
+				error_log = "AAWC DEBUG lv_begin_expedition blocked by insufficient gold and/or population surplus"
+				debug_log_scopes = yes
+			}
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+lv_abandon_settlement = {
+	category = interaction_category_uncategorized
+	hidden = yes
+
+	desc = lv_abandon_settlement_desc
+
+	target_type = title
+	target_filter = actor_domain_titles
+
+	auto_accept = yes
+
+	is_shown = { scope:actor = { this = scope:recipient } }
+
+	can_be_picked_title = {
+		scope:target = {
+			holder = scope:actor
+			trigger_if = {
+				limit = { tier <= tier_county }
+				title_province = { has_holding_type = settlement_holding }
+			}
+			trigger_else = {
+				custom_description = {
+					text = "feudalize_tribal_holding_interaction_title_not_county_or_below"
+					always = no
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			lv_abandon_settlement_effect = { COUNTY = scope:target }
+			if = {
+				limit = { is_ruler = no }
+				create_landless_adventurer_title_effect = {
+					REASON = flag:voluntary
+					FLAVOR_CHAR = scope:recipient
+				}
+			}
+		}
+	}
+
+	ai_will_do = { base = 150 }
+}
+
+lv_upgrade_settlement = {
+	category = interaction_category_uncategorized
+	hidden = yes
+
+	desc = lv_upgrade_settlement_desc
+
+	target_type = title
+	target_filter = actor_domain_titles
+
+	auto_accept = yes
+
+	is_shown = {
+		always = no
+	}
+
+	can_be_picked_title = {
+		always = no
+	}
+	has_valid_target = {
+		always = no
+	}
+
+	on_accept = {
+		error_log = "AAWC SETTLEMENT 1.9.91 blocked legacy lv_upgrade_settlement; use AAWC county GUI feudalize/tribalize buttons instead"
+	}
+
+	ai_will_do = { base = 0 }
+}

@@ -1,0 +1,1033 @@
+﻿# Legacy of Valyria
+lv_use_custom_colonization = {
+	scope = province
+	is_shown = {
+		NOT = { has_game_rule = lv_colonisation_agot }
+	}
+}
+
+# AAWC ownership/state predicate for county-view wilderness actions.
+# AGOT's stock predicate only checks the holder's wilderness trait.  That trait
+# can legitimately be replaced by another dummy trait when technical dummy
+# titles share a holder, as happened to the Wilderness ruler in older saves.
+aawc_is_colonizable_wilderness = {
+	scope = province
+	is_shown = {
+		exists = root
+		is_county_capital = yes
+		has_holding_type = wilderness_holding
+		county = {
+			NOR = {
+				this = title:c_unknown
+				this = title:c_ruins
+				this = title:c_wilderness
+			}
+			OR = {
+				holder ?= { agot_is_dummy_character = yes }
+				holder ?= { this = title:c_wilderness.holder }
+			}
+		}
+	}
+}
+
+aawc_is_restorable_ruin = {
+	scope = province
+	is_shown = {
+		NOR = {
+			has_building = settlement_01
+			has_building = settlement_02
+			has_building = settlement_03
+		}
+		OR = {
+			has_holding_type = ruin_holding
+			has_building_or_higher = small_ruin_01
+			has_building_or_higher = medium_ruin_01
+			has_building_or_higher = large_ruin_01
+			has_building = jungle_ruin_01
+			has_building = jungle_ruin_deep_01
+			has_building_with_flag = special_building_enabled_in_ruin_county
+		}
+	}
+}
+
+# Used for restoration cost calculation
+lv_restore_ruins_tooltip_show = {
+	scope = province
+	effect = {
+		aawc_population_cache_selected_holding_levy_debug_effect = yes
+		save_scope_as = ruin
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC DEBUG lv_restore_ruins_tooltip_show invoked" }
+		scope:actor = {
+			# Tooltip display needs current aggregates, not another deep realm/formula scan.
+			aawc_population_reaggregate_character_cached_effect = yes
+			set_variable = {
+				name = lv_restore_ruins_tooltip
+				value = scope:ruin
+			}
+			set_variable = {
+				name = aawc_population_tooltip_colonize_cost_wh
+				value = scope:ruin.county.aawc_population_county_colonize_cost_wh
+			}
+			set_variable = {
+				name = aawc_population_tooltip_reclaim_cost_rh
+				value = scope:ruin.county.aawc_population_county_reclaim_cost_rh
+			}
+			set_variable = {
+				name = aawc_population_tooltip_gold_cost
+				value = lv_settlement_cost
+			}
+			set_variable = {
+				name = aawc_population_available_display
+				value = var:aawc_population_available
+			}
+			set_variable = {
+				name = aawc_population_tooltip_colonize_missing_wh
+				value = var:aawc_population_tooltip_colonize_cost_wh
+			}
+			change_variable = {
+				name = aawc_population_tooltip_colonize_missing_wh
+				add = { value = var:aawc_population_available multiply = -1 }
+			}
+			if = {
+				limit = { var:aawc_population_tooltip_colonize_missing_wh < 0 }
+				set_variable = { name = aawc_population_tooltip_colonize_missing_wh value = 0 }
+			}
+			set_variable = {
+				name = aawc_population_tooltip_reclaim_missing_rh
+				value = var:aawc_population_tooltip_reclaim_cost_rh
+			}
+			change_variable = {
+				name = aawc_population_tooltip_reclaim_missing_rh
+				add = { value = var:aawc_population_available multiply = -1 }
+			}
+			if = {
+				limit = { var:aawc_population_tooltip_reclaim_missing_rh < 0 }
+				set_variable = { name = aawc_population_tooltip_reclaim_missing_rh value = 0 }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC DEBUG lv_restore_ruins_tooltip set on actor" }
+		}
+	}
+}
+lv_restore_ruins_tooltip_hide = {
+	scope = province
+	effect = { scope:actor = { remove_variable = lv_restore_ruins_tooltip } }
+}
+
+aawc_begin_lov_expedition_from_gui = {
+	scope = province
+
+	is_valid = {
+		exists = root
+		NOT = { has_holding_type = wilderness_holding }
+		scope:actor = {
+			custom_tooltip = {
+				text = aawc_population_reclaim_cost_summary_tt
+				gold >= lv_settlement_cost
+			}
+			custom_tooltip = {
+				text = aawc_population_need_reclaim_surplus_interaction_tt
+				var:aawc_population_available >= root.county.aawc_population_county_reclaim_cost_rh
+			}
+			custom_tooltip = {
+				text = aawc_population_top_liege_only_tt
+				aawc_population_is_top_liege_actor = yes
+			}
+			custom_tooltip = {
+				text = aawc_population_not_planning_tt
+				NOT = { var:lv_settlement_state ?= flag:planning }
+			}
+			custom_tooltip = {
+				text = aawc_population_target_not_already_targeted_tt
+				NOT = {
+					any_owned_story = {
+						story_type = lv_settlement_story_cycle
+						is_target_in_variable_list = {
+							name = lv_settlement_expeditions
+							target = root
+						}
+					}
+				}
+			}
+		}
+	}
+
+	effect = {
+		root = { save_scope_as = ruin }
+		scope:actor = {
+			aawc_population_recalculate_character_effect = yes
+			set_variable = {
+				name = lv_restore_ruins_tooltip
+				value = scope:ruin
+			}
+			set_variable = {
+				name = aawc_population_tooltip_reclaim_cost_rh
+				value = scope:ruin.county.aawc_population_county_reclaim_cost_rh
+			}
+			set_variable = {
+				name = aawc_population_tooltip_gold_cost
+				value = lv_settlement_cost
+			}
+			set_variable = {
+				name = aawc_population_available_display
+				value = var:aawc_population_available
+			}
+			if = {
+				limit = {
+					aawc_population_is_top_liege_actor = yes
+					scope:ruin = { NOT = { has_holding_type = wilderness_holding } }
+					NOT = { var:lv_settlement_state ?= flag:planning }
+					NOT = {
+						any_owned_story = {
+							story_type = lv_settlement_story_cycle
+							is_target_in_variable_list = {
+								name = lv_settlement_expeditions
+								target = scope:ruin
+							}
+						}
+					}
+					gold >= lv_settlement_cost
+					var:aawc_population_available >= scope:ruin.county.aawc_population_county_reclaim_cost_rh
+				}
+				save_scope_value_as = {
+					name = lv_settlement_cost
+					value = lv_settlement_cost
+				}
+				save_scope_value_as = {
+					name = aawc_population_settlement_cost
+					value = scope:ruin.county.aawc_population_county_reclaim_cost_rh
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC DEBUG aawc_begin_lov_expedition_from_gui triggering lv_settlement_event.0001" }
+				trigger_event = lv_settlement_event.0001
+			}
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC DEBUG aawc_begin_lov_expedition_from_gui blocked by resource or planning requirements" }
+			}
+		}
+	}
+}
+
+aawc_begin_lov_wilderness_expedition_from_gui = {
+	scope = province
+
+		is_valid = {
+			exists = root
+			has_holding_type = wilderness_holding
+			scope:actor.var:aawc_population_available >= root.county.aawc_population_county_colonize_cost_wh
+			scope:actor = {
+				custom_tooltip = {
+					text = aawc_population_reclaim_cost_summary_tt
+					gold >= lv_settlement_cost
+				}
+				custom_tooltip = {
+					text = aawc_population_need_colonize_surplus_wilderness_gui_tt
+					var:aawc_population_available >= root.county.aawc_population_county_colonize_cost_wh
+				}
+				custom_tooltip = {
+					text = aawc_population_top_liege_only_tt
+					aawc_population_is_top_liege_actor = yes
+			}
+			custom_tooltip = {
+				text = aawc_population_not_planning_tt
+				NOT = { var:lv_settlement_state ?= flag:planning }
+			}
+			custom_tooltip = {
+				text = aawc_population_target_not_already_targeted_tt
+				NOT = {
+					any_owned_story = {
+						story_type = lv_settlement_story_cycle
+						is_target_in_variable_list = {
+							name = lv_settlement_expeditions
+							target = root
+						}
+					}
+				}
+			}
+		}
+	}
+
+	effect = {
+		root = { save_scope_as = ruin }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC GUI RECLAIM 1.9.76 begin LoV wilderness expedition button" }
+		scope:actor = {
+			aawc_population_recalculate_character_effect = yes
+			set_variable = {
+				name = lv_restore_ruins_tooltip
+				value = scope:ruin
+			}
+			set_variable = {
+				name = aawc_population_tooltip_colonize_cost_wh
+				value = scope:ruin.county.aawc_population_county_colonize_cost_wh
+			}
+			set_variable = {
+				name = aawc_population_tooltip_gold_cost
+				value = lv_settlement_cost
+			}
+			set_variable = {
+				name = aawc_population_available_display
+				value = var:aawc_population_available
+			}
+			if = {
+				limit = {
+					aawc_population_is_top_liege_actor = yes
+					NOT = { var:lv_settlement_state ?= flag:planning }
+					NOT = {
+						any_owned_story = {
+							story_type = lv_settlement_story_cycle
+							is_target_in_variable_list = {
+								name = lv_settlement_expeditions
+								target = scope:ruin
+							}
+						}
+						}
+						gold >= lv_settlement_cost
+						var:aawc_population_available >= scope:ruin.county.aawc_population_county_colonize_cost_wh
+					}
+					save_scope_value_as = {
+						name = lv_settlement_cost
+						value = lv_settlement_cost
+					}
+					save_scope_value_as = {
+						name = aawc_population_settlement_cost
+						value = scope:ruin.county.aawc_population_county_colonize_cost_wh
+					}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC GUI RECLAIM 1.9.76 LoV wilderness validation passed; triggering lv_settlement_event.0001" }
+				trigger_event = lv_settlement_event.0001
+			}
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC GUI RECLAIM 1.9.76 LoV wilderness blocked by resource, planning, or story requirements" }
+			}
+		}
+	}
+}
+
+aawc_age_of_silence_settle_wilderness_from_gui = {
+	scope = province
+
+	is_shown = {
+		exists = root
+		is_county_capital = yes
+		has_holding_type = wilderness_holding
+		province_owner = { agot_is_dummy_character = yes }
+		scope:actor = {
+			has_game_rule = aawc_age_of_silence
+			is_landless_adventurer = yes
+			is_travelling = no
+			has_realm_law = aawc_camp_purpose_colonization
+			domicile = {
+				domicile_location = { county = root.county }
+			}
+		}
+	}
+
+	is_valid = {
+		exists = root
+		is_county_capital = yes
+		has_holding_type = wilderness_holding
+		province_owner = { agot_is_dummy_character = yes }
+		scope:actor = {
+			has_game_rule = aawc_age_of_silence
+			is_landless_adventurer = yes
+			is_travelling = no
+			has_realm_law = aawc_camp_purpose_colonization
+			domicile = {
+				domicile_location = { county = root.county }
+			}
+			NOT = { var:lv_settlement_state ?= flag:planning }
+			NOT = {
+				any_owned_story = {
+					story_type = lv_settlement_story_cycle
+					is_target_in_variable_list = {
+						name = lv_settlement_expeditions
+						target = root
+					}
+				}
+			}
+		}
+	}
+
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.4 Age of Silence Settle button founding local tribal holding directly" }
+		aawc_age_of_silence_found_tribal_holding_effect = {
+			PROVINCE = root
+			ACTOR = scope:actor
+		}
+	}
+}
+
+aawc_age_of_silence_colonizer_mode = {
+	scope = province
+
+	is_shown = {
+		exists = root
+		scope:actor = {
+			has_game_rule = aawc_age_of_silence
+			is_landless_adventurer = yes
+			has_realm_law = aawc_camp_purpose_colonization
+		}
+	}
+}
+
+	aawc_establish_owned_settlement_from_gui = {
+		scope = province
+
+	is_shown = {
+		exists = root
+		has_holding = no
+		is_county_capital = no
+		county = { holder = scope:actor }
+			scope:actor = {
+				is_ai = no
+				aawc_population_is_top_liege_actor = yes
+			}
+		}
+
+	is_valid = {
+		exists = root
+		has_holding = no
+		is_county_capital = no
+			county = { holder = scope:actor }
+			scope:actor = {
+				custom_tooltip = {
+					text = aawc_population_top_liege_only_tt
+					aawc_population_is_top_liege_actor = yes
+				}
+				custom_tooltip = {
+					text = aawc_population_need_owned_settlement_surplus_tt
+					var:aawc_population_available >= root.aawc_population_owned_settlement_population_cost
+			}
+			custom_tooltip = {
+				text = aawc_population_need_owned_settlement_gold_tt
+				gold >= root.aawc_population_owned_settlement_gold_cost
+			}
+		}
+	}
+
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.70 begin establish from county GUI" }
+		root = { save_scope_as = aawc_owned_settlement_province }
+		scope:actor = {
+			aawc_population_recalculate_character_effect = yes
+			save_scope_value_as = {
+				name = aawc_population_owned_settlement_population_cost
+				value = scope:aawc_owned_settlement_province.aawc_population_owned_settlement_population_cost
+			}
+			save_scope_value_as = {
+				name = aawc_population_owned_settlement_gold_cost
+				value = scope:aawc_owned_settlement_province.aawc_population_owned_settlement_gold_cost
+			}
+			save_scope_value_as = {
+				name = aawc_population_owned_settlement_starting_population
+				value = scope:aawc_owned_settlement_province.aawc_population_owned_settlement_starting_population
+			}
+			set_variable = {
+				name = aawc_population_tooltip_owned_settlement_cost
+				value = scope:aawc_population_owned_settlement_population_cost
+			}
+			set_variable = {
+				name = aawc_population_available_display
+				value = var:aawc_population_available
+			}
+			if = {
+					limit = {
+						aawc_population_is_top_liege_actor = yes
+						gold >= scope:aawc_population_owned_settlement_gold_cost
+						var:aawc_population_available >= scope:aawc_population_owned_settlement_population_cost
+					scope:aawc_owned_settlement_province = {
+						has_holding = no
+						is_county_capital = no
+						county = { holder = scope:actor }
+					}
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.70 validation passed" }
+				remove_short_term_gold = scope:aawc_population_owned_settlement_gold_cost
+				aawc_population_add_reserved_amount_effect = { COST = scope:aawc_population_owned_settlement_population_cost }
+				aawc_population_consume_reserved_amount_effect = { COST = scope:aawc_population_owned_settlement_population_cost }
+				aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = scope:aawc_population_owned_settlement_starting_population }
+				scope:aawc_owned_settlement_province = {
+					set_holding_type = settlement_holding
+					aawc_reforging_diag_caller_effect = { CALLER = 6 }
+			aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = scope:actor.var:aawc_population_last_settlement_credit }
+					set_variable = { name = aawc_population_expected value = aawc_population_holding_expected }
+					set_variable = { name = aawc_population_total value = var:aawc_population_current }
+					set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+					change_variable = {
+						name = aawc_population_surplus
+						add = {
+							value = var:aawc_population_expected
+							multiply = -1
+						}
+					}
+					aawc_place_initial_regional_blockers_effect = yes
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT created settlement_holding, seeded population, and placed four regional blocker chains" }
+				}
+					remove_variable = aawc_population_pending_settlement_credit
+				increase_variable = {
+					NAME = num_settled_wilderness
+					AMOUNT = 1
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 incremented num_settled_wilderness for non-capital owned settlement" }
+				trigger_event = agot_colonization_events.0007
+				aawc_population_resync_settlement_tracker_effect = yes
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.94 resynced settlement tracker after non-capital settlement creation" }
+				aawc_population_recalculate_character_effect = yes
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.70 completed establish from county GUI" }
+			}
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.70 blocked during effect validation" }
+			}
+			remove_variable = aawc_population_tooltip_owned_settlement_cost
+		}
+		}
+	}
+
+	aawc_tribalize_owned_settlement_from_gui = {
+		scope = province
+
+		is_shown = {
+			exists = root
+			has_holding_type = settlement_holding
+			is_county_capital = no
+			county = { holder = scope:actor }
+			scope:actor = {
+				is_ai = no
+				government_has_flag = government_is_tribal
+				aawc_population_is_top_liege_actor = yes
+			}
+		}
+
+		is_valid = {
+			exists = root
+			has_holding_type = settlement_holding
+			is_county_capital = no
+			county = { holder = scope:actor }
+			scope:actor = {
+				custom_tooltip = {
+					text = aawc_population_top_liege_only_tt
+					aawc_population_is_top_liege_actor = yes
+				}
+				custom_tooltip = {
+					text = aawc_population_tribalize_tribal_government_tt
+					government_has_flag = government_is_tribal
+				}
+			}
+			custom_tooltip = {
+				text = blockers_remain_in_settlement
+				has_building_with_flag = {
+					flag = obstacle
+					count = 0
+				}
+			}
+			custom_tooltip = {
+				text = less_than_three_development
+				county = { development_level >= 3 }
+			}
+			custom_tooltip = {
+				text = has_fully_upgraded_settlement_holding
+				has_building = settlement_03
+			}
+			custom_tooltip = {
+				text = aawc_population_feudalize_no_construction_tt
+				has_ongoing_construction = no
+			}
+		}
+
+		effect = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.91 begin non-capital settlement tribalize from county GUI" }
+			root = { save_scope_as = aawc_tribalize_owned_settlement_province }
+			scope:actor = {
+				if = {
+					limit = {
+						aawc_population_is_top_liege_actor = yes
+						government_has_flag = government_is_tribal
+						scope:aawc_tribalize_owned_settlement_province = {
+							has_holding_type = settlement_holding
+							is_county_capital = no
+							county = { holder = scope:actor }
+							has_building_with_flag = {
+								flag = obstacle
+								count = 0
+							}
+							county = { development_level >= 3 }
+							has_building = settlement_03
+							has_ongoing_construction = no
+						}
+					}
+					scope:aawc_tribalize_owned_settlement_province = {
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.91 non-capital settlement converting to tribal_holding from tribal government" }
+						set_holding_type = tribal_holding
+						aawc_population_refresh_holding_dynamic_effect = yes
+						county = { aawc_population_recalculate_county_effect = yes }
+					}
+					if = {
+						limit = {
+							has_variable = num_settled_wilderness
+							var:num_settled_wilderness > 0
+						}
+						decrease_variable = {
+							NAME = num_settled_wilderness
+							AMOUNT = 1
+						}
+						remove_wilderness_tracker_variable = yes
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.91 decremented num_settled_wilderness after non-capital tribalize" }
+					}
+					aawc_population_resync_settlement_tracker_effect = yes
+					aawc_population_recalculate_character_effect = yes
+				}
+				else = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.91 blocked during non-capital tribalize effect validation" }
+				}
+			}
+		}
+	}
+
+	aawc_owned_settlement_slot_managed_from_gui = {
+		scope = province
+
+		is_shown = {
+			exists = root
+			has_holding = no
+			is_county_capital = no
+			county = { holder = scope:actor }
+			scope:actor = {
+				is_ai = no
+				aawc_population_is_top_liege_actor = yes
+			}
+		}
+	}
+
+	aawc_feudalize_owned_settlement_from_gui = {
+		scope = province
+
+	is_shown = {
+		exists = root
+		has_holding_type = settlement_holding
+		is_county_capital = no
+		county = { holder = scope:actor }
+		scope:actor = {
+			is_ai = no
+			NOT = { government_has_flag = government_is_tribal }
+			aawc_population_is_top_liege_actor = yes
+		}
+	}
+
+	is_valid = {
+		exists = root
+		has_holding_type = settlement_holding
+		is_county_capital = no
+		county = { holder = scope:actor }
+		scope:actor = {
+			custom_tooltip = {
+				text = aawc_population_top_liege_only_tt
+				aawc_population_is_top_liege_actor = yes
+			}
+			custom_tooltip = {
+				text = aawc_population_feudalize_non_tribal_tt
+				NOT = { government_has_flag = government_is_tribal }
+			}
+		}
+		custom_tooltip = {
+			text = blockers_remain_in_settlement
+			has_building_with_flag = {
+				flag = obstacle
+				count = 0
+			}
+		}
+		custom_tooltip = {
+			text = less_than_three_development
+			county = { development_level >= 3 }
+		}
+		custom_tooltip = {
+			text = has_fully_upgraded_settlement_holding
+			has_building = settlement_03
+		}
+		custom_tooltip = {
+			text = aawc_population_feudalize_no_construction_tt
+			has_ongoing_construction = no
+		}
+	}
+
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.71 begin feudalize settlement from county GUI" }
+		root = { save_scope_as = aawc_feudalize_settlement_province }
+		scope:actor = {
+			if = {
+				limit = {
+					aawc_population_is_top_liege_actor = yes
+					NOT = { government_has_flag = government_is_tribal }
+					scope:aawc_feudalize_settlement_province = {
+						has_holding_type = settlement_holding
+						is_county_capital = no
+						county = { holder = scope:actor }
+						has_building_with_flag = {
+							flag = obstacle
+							count = 0
+						}
+						county = { development_level >= 3 }
+						has_building = settlement_03
+						has_ongoing_construction = no
+					}
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.71 validation passed; opening feudalize choice event" }
+				trigger_event = aawc_population_event.0200
+			}
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.71 blocked during feudalize effect validation" }
+			}
+		}
+	}
+}
+
+	aawc_feudalize_owned_tribal_from_gui = {
+		scope = province
+
+	is_shown = {
+		exists = root
+		has_holding_type = tribal_holding
+		is_county_capital = no
+		county = { holder = scope:actor }
+		scope:actor = {
+			is_ai = no
+			NOT = { government_has_flag = government_is_tribal }
+			aawc_population_is_top_liege_actor = yes
+		}
+	}
+
+	is_valid = {
+		exists = root
+		has_holding_type = tribal_holding
+		is_county_capital = no
+		county = { holder = scope:actor }
+		scope:actor = {
+			custom_tooltip = {
+				text = aawc_population_top_liege_only_tt
+				aawc_population_is_top_liege_actor = yes
+			}
+			custom_tooltip = {
+				text = aawc_population_feudalize_non_tribal_tt
+				NOT = { government_has_flag = government_is_tribal }
+			}
+		}
+		custom_tooltip = {
+			text = aawc_population_feudalize_no_construction_tt
+			has_ongoing_construction = no
+		}
+	}
+
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED TRIBAL 1.9.94 begin feudalize non-capital tribal holding from county GUI" }
+		root = { save_scope_as = aawc_feudalize_settlement_province }
+		scope:actor = {
+			if = {
+				limit = {
+					aawc_population_is_top_liege_actor = yes
+					NOT = { government_has_flag = government_is_tribal }
+					scope:aawc_feudalize_settlement_province = {
+						has_holding_type = tribal_holding
+						is_county_capital = no
+						county = { holder = scope:actor }
+						has_ongoing_construction = no
+					}
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED TRIBAL 1.9.94 validation passed; opening feudalize choice event" }
+				trigger_event = aawc_population_event.0200
+			}
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED TRIBAL 1.9.94 blocked during feudalize effect validation" }
+			}
+		}
+	}
+}
+
+	aawc_feudalize_capital_settlement_from_gui = {
+		scope = province
+
+	is_shown = {
+		exists = root
+		has_holding_type = settlement_holding
+		is_county_capital = yes
+		county = { holder = scope:actor }
+		scope:actor = {
+			is_ai = no
+			NOT = { government_has_flag = government_is_tribal }
+			aawc_population_is_top_liege_actor = yes
+		}
+	}
+
+	is_valid = {
+		exists = root
+		has_holding_type = settlement_holding
+		is_county_capital = yes
+		county = { holder = scope:actor }
+		scope:actor = {
+			custom_tooltip = {
+				text = aawc_population_top_liege_only_tt
+				aawc_population_is_top_liege_actor = yes
+			}
+			custom_tooltip = {
+				text = aawc_population_feudalize_non_tribal_tt
+				NOT = { government_has_flag = government_is_tribal }
+			}
+		}
+		custom_tooltip = {
+			text = blockers_remain_in_settlement
+			has_building_with_flag = {
+				flag = obstacle
+				count = 0
+			}
+		}
+		custom_tooltip = {
+			text = less_than_three_development
+			county = { development_level >= 3 }
+		}
+		custom_tooltip = {
+			text = has_fully_upgraded_settlement_holding
+			has_building = settlement_03
+		}
+		custom_tooltip = {
+			text = aawc_population_feudalize_no_construction_tt
+			has_ongoing_construction = no
+		}
+	}
+
+	effect = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 begin capital settlement feudalize from county GUI" }
+		root = { save_scope_as = aawc_feudalize_capital_settlement_province }
+		scope:actor = {
+			if = {
+				limit = {
+					aawc_population_is_top_liege_actor = yes
+					NOT = { government_has_flag = government_is_tribal }
+					scope:aawc_feudalize_capital_settlement_province = {
+						has_holding_type = settlement_holding
+						is_county_capital = yes
+						county = { holder = scope:actor }
+						has_building_with_flag = {
+							flag = obstacle
+							count = 0
+						}
+						county = { development_level >= 3 }
+						has_building = settlement_03
+						has_ongoing_construction = no
+					}
+				}
+				scope:aawc_feudalize_capital_settlement_province = {
+					if = {
+						limit = { scope:actor = { has_government = republic_government } }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 capital settlement converting to city_holding from republic government" }
+						set_holding_type = city_holding
+					}
+					else_if = {
+						limit = { scope:actor = { has_government = theocracy_government } }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 capital settlement converting to church_holding from theocracy government" }
+						set_holding_type = church_holding
+					}
+					else = {
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 capital settlement converting to castle_holding from feudal/clan/default government" }
+						set_holding_type = castle_holding
+					}
+					aawc_population_refresh_holding_dynamic_effect = yes
+					county = { aawc_population_recalculate_county_effect = yes }
+				}
+				if = {
+					limit = {
+						has_variable = num_settled_wilderness
+						var:num_settled_wilderness > 0
+					}
+					decrease_variable = {
+						NAME = num_settled_wilderness
+						AMOUNT = 1
+					}
+					remove_wilderness_tracker_variable = yes
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 decremented num_settled_wilderness after capital settlement feudalize" }
+				}
+				aawc_population_resync_settlement_tracker_effect = yes
+				aawc_population_recalculate_character_effect = yes
+			}
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 blocked during capital feudalize effect validation" }
+			}
+		}
+		}
+	}
+
+	aawc_tribalize_capital_settlement_from_gui = {
+		scope = province
+
+		is_shown = {
+			exists = root
+			has_holding_type = settlement_holding
+			is_county_capital = yes
+			county = { holder = scope:actor }
+			scope:actor = {
+				is_ai = no
+				government_has_flag = government_is_tribal
+				aawc_population_is_top_liege_actor = yes
+			}
+		}
+
+		is_valid = {
+			exists = root
+			has_holding_type = settlement_holding
+			is_county_capital = yes
+			county = { holder = scope:actor }
+			scope:actor = {
+				custom_tooltip = {
+					text = aawc_population_top_liege_only_tt
+					aawc_population_is_top_liege_actor = yes
+				}
+				custom_tooltip = {
+					text = aawc_population_tribalize_tribal_government_tt
+					government_has_flag = government_is_tribal
+				}
+			}
+			custom_tooltip = {
+				text = blockers_remain_in_settlement
+				has_building_with_flag = {
+					flag = obstacle
+					count = 0
+				}
+			}
+			custom_tooltip = {
+				text = less_than_three_development
+				county = { development_level >= 3 }
+			}
+			custom_tooltip = {
+				text = has_fully_upgraded_settlement_holding
+				has_building = settlement_03
+			}
+			custom_tooltip = {
+				text = aawc_population_feudalize_no_construction_tt
+				has_ongoing_construction = no
+			}
+		}
+
+		effect = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.88 begin capital settlement tribalize from county GUI" }
+			root = { save_scope_as = aawc_tribalize_capital_settlement_province }
+			scope:actor = {
+				if = {
+					limit = {
+						aawc_population_is_top_liege_actor = yes
+						government_has_flag = government_is_tribal
+						scope:aawc_tribalize_capital_settlement_province = {
+							has_holding_type = settlement_holding
+							is_county_capital = yes
+							county = { holder = scope:actor }
+							has_building_with_flag = {
+								flag = obstacle
+								count = 0
+							}
+							county = { development_level >= 3 }
+							has_building = settlement_03
+							has_ongoing_construction = no
+						}
+					}
+					scope:aawc_tribalize_capital_settlement_province = {
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.88 capital settlement converting to tribal_holding from tribal government" }
+						set_holding_type = tribal_holding
+						aawc_population_refresh_holding_dynamic_effect = yes
+						county = { aawc_population_recalculate_county_effect = yes }
+					}
+					if = {
+						limit = {
+							has_variable = num_settled_wilderness
+							var:num_settled_wilderness > 0
+						}
+						decrease_variable = {
+							NAME = num_settled_wilderness
+							AMOUNT = 1
+						}
+						remove_wilderness_tracker_variable = yes
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.88 decremented num_settled_wilderness after capital settlement tribalize" }
+					}
+					aawc_population_resync_settlement_tracker_effect = yes
+					aawc_population_recalculate_character_effect = yes
+				}
+				else = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.88 blocked during capital tribalize effect validation" }
+				}
+			}
+		}
+	}
+	lv_restore_ruins_tooltip_culture_valyrian_architecture = {
+		is_shown = {
+			scope:ruin ?= { county.culture = culture:high_valyrian }
+		culture = { has_building_gfx = high_valyrian_building_gfx }
+	}
+}
+lv_restore_ruins_tooltip_culture_hard_working = { is_shown = { culture = { has_cultural_tradition = tradition_hard_working } } }
+lv_restore_ruins_tooltip_culture_isolationist = { is_shown = { culture = { has_cultural_tradition = tradition_isolationist } } }
+lv_restore_ruins_tooltip_culture_republican_legacy = {
+	saved_scopes = { ruin }
+	is_shown = {
+		culture = { has_cultural_tradition = tradition_republican_legacy }
+		scope:ruin ?= { geographical_region = world_valyria_mainland }
+	}
+}
+lv_restore_ruins_tooltip_culture_valyrian = {
+	saved_scopes = { ruin }
+	is_shown = {
+		culture = { has_cultural_tradition = tradition_agot_high_valyrian }
+		scope:ruin ?= { geographical_region = world_valyria_mainland }
+	}
+}
+lv_restore_ruins_tooltip_culture_north_valyrian_1 = {
+	saved_scopes = { ruin }
+	is_shown = {
+		culture = { has_cultural_tradition = lv_tradition_north_valyrian_1 }
+		scope:ruin ?= { geographical_region = world_valyria_mainland }
+	}
+}
+lv_restore_ruins_tooltip_culture_north_valyrian_2 = {
+	saved_scopes = { ruin }
+	is_shown = {
+		culture = { has_cultural_tradition = lv_tradition_north_valyrian_2 }
+		scope:ruin ?= { geographical_region = world_valyria_mainland }
+	}
+}
+lv_restore_ruins_tooltip_culture_doom = {
+	saved_scopes = { ruin }
+	is_shown = {
+		culture = { has_cultural_tradition = tradition_agot_doom }
+		scope:ruin ?= { geographical_region = world_valyria_mainland }
+	}
+}
+
+lv_ruin_can_afford = { is_shown = { gold >= lv_settlement_cost } }
+
+lv_ruin_is_unique = {
+	scope = province
+	is_valid = {
+		has_holding_type = ruin_holding
+		OR = {
+			empire ?= title:e_valyria
+			empire ?= title:e_lands_of_long_summer
+		}
+	}
+}
+
+lv_ruin_has_blockers = {
+	scope = province
+	is_valid = { has_building_with_flag = obstacle }
+}
+
+lv_ruin_valyria_restoration_blocked = {
+	scope = province
+	is_valid = {
+		trigger_if = {
+			limit = {
+				# has_game_rule = lv_colonisation_expedition_required
+				geographical_region = world_valyria_mainland
+				has_holding_type = ruin_holding
+			}
+			always = no # DO NOT IMPLEMENT YET
+			#NOT = {
+			#	is_target_in_global_variable_list = {
+			#		name = discovered_valyria
+			#		target = scope:actor
+			#	}
+			#}
+		}
+		trigger_else = { always = no }
+	}
+}

@@ -1,0 +1,333 @@
+﻿@kCAFG_culture_tolerance_law_cooldown_years = 5
+
+kCAFG_culture_tolerance_law = {
+	default = kCAFG_culture_indifferent_law
+	flag = imperial_policy
+
+	kCAFG_culture_intolerant_law = {
+		modifier = {
+			different_culture_opinion = -20
+		    minority_different_culture_opinion = -30
+			glory_hound_same_culture_opinion = 30
+		}
+		
+		can_keep = {
+			trigger_if = { # To remove trigger tooltip
+				limit = {
+					NAND = {
+    					NOT = { has_game_rule = kCAFG_tolerance_laws_off }
+						T_kCAFG_can_have_culture_tolerance_law = yes
+						OR = {
+							is_independent_ruler = yes
+							OR = {
+								T_kCAFG_vassal_is_allowed_to_change_culture_tolerance_laws = yes
+								any_liege_or_above = { has_realm_law = kCAFG_culture_intolerant_law }
+							}
+						}
+					}
+				}
+				always = no
+			}
+		}
+		can_have = { T_kCAFG_can_have_culture_tolerance_law = yes }
+		can_pass = {
+            has_realm_law = kCAFG_culture_indifferent_law
+			T_kCAFG_can_decrease_culture_tolerance_law_trigger = yes
+			custom_tooltip = {
+				text = "kCAFG_allowed_to_change_tolerance_laws_tt"
+				OR = {
+					is_independent_ruler = yes
+					T_kCAFG_vassal_is_allowed_to_change_culture_tolerance_laws = yes
+				}
+			}
+		}
+		should_start_with = {
+			trigger_if = {
+				limit = { is_independent_ruler = no }
+				top_liege = { has_realm_law = kCAFG_culture_intolerant_law }
+			}
+			trigger_else = {
+                T_kCAFG_should_start_with_intolerant_culture_law = yes
+			}
+		}
+		flag = F_kCAFG_intolerant_to_other_cultures
+
+		pass_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+		revoke_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+
+        on_pass = {
+			set_variable = {
+				name = kCAFG_culture_tolerance_law_cooldown
+				years = @kCAFG_culture_tolerance_law_cooldown_years
+			}
+
+			# the flag is applied after the on_pass effects, but we need to update now
+			add_character_flag = kCAFG_TMP_applying_culture_intolerance_law
+			every_realm_county = {
+                every_county_province = {
+                    E_kCAFG_update_province_target_culture_tension = yes
+                }
+            }
+			remove_character_flag = kCAFG_TMP_applying_culture_intolerance_law
+        }
+
+        ai_will_do = {
+			if = {
+				limit = {
+                    has_realm_law = kCAFG_culture_indifferent_law
+                    ai_compassion < V_kCAFG_ai_law_change_negative_threshold
+                    ai_boldness > V_kCAFG_ai_law_change_threshold
+                }
+				value = 1
+			}
+		}
+	}
+
+    kCAFG_culture_indifferent_law = {
+		modifier = {}
+		can_keep = {
+			trigger_if = { # To remove trigger tooltip
+				limit = {
+					NAND = {
+    					NOT = { has_game_rule = kCAFG_tolerance_laws_off }
+						T_kCAFG_can_have_culture_tolerance_law = yes
+						OR = {
+							is_independent_ruler = yes
+							OR = {
+								T_kCAFG_vassal_is_allowed_to_change_culture_tolerance_laws = yes
+								any_liege_or_above = { has_realm_law = kCAFG_culture_indifferent_law }
+							}
+						}
+					}
+				}
+				always = no
+			}
+		}
+		can_have = { T_kCAFG_can_have_culture_tolerance_law = yes }
+		can_pass = {
+			trigger_if = {
+				limit = { has_realm_law = kCAFG_culture_intolerant_law }
+				T_kCAFG_can_increase_culture_tolerance_law_trigger = yes
+			}
+			trigger_else_if = {
+				limit = { has_realm_law = kCAFG_culture_tolerant_law }
+				T_kCAFG_can_decrease_culture_tolerance_law_trigger = yes
+			}
+			trigger_else = {
+				T_kCAFG_can_change_culture_tolerance_law_trigger = yes
+			}
+			custom_tooltip = {
+				text = "kCAFG_allowed_to_change_tolerance_laws_tt"
+				OR = {
+					is_independent_ruler = yes
+					T_kCAFG_vassal_is_allowed_to_change_culture_tolerance_laws = yes
+				}
+			}
+		}
+		should_start_with = {
+			trigger_if = {
+				limit = { is_independent_ruler = no }
+				top_liege = { has_realm_law = kCAFG_culture_indifferent_law }
+			}
+			trigger_else = {
+				NOR = {
+					T_kCAFG_should_start_with_intolerant_culture_law = yes
+					T_kCAFG_should_start_with_tolerant_culture_law = yes
+				}
+			}
+		}
+
+		pass_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+		revoke_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+
+        on_pass = {
+			set_variable = {
+				name = kCAFG_culture_tolerance_law_cooldown
+				years = @kCAFG_culture_tolerance_law_cooldown_years
+			}
+
+			# the flag is applied after the on_pass effects, but we need to update now
+			add_character_flag = kCAFG_TMP_applying_culture_indifference_law
+			every_realm_county = {
+                every_county_province = {
+                    E_kCAFG_update_province_target_culture_tension = yes
+                }
+            }
+			remove_character_flag = kCAFG_TMP_applying_culture_indifference_law
+        }
+
+		ai_will_do = {
+			if = {
+				limit = {
+                    OR = {
+                        AND = {
+                            has_realm_law = kCAFG_culture_intolerant_law
+                            ai_compassion > V_kCAFG_ai_law_change_threshold
+                    		ai_boldness < V_kCAFG_ai_law_change_negative_threshold
+                        }
+                        AND = {
+                            has_realm_law = kCAFG_culture_tolerant_law
+                            ai_compassion < V_kCAFG_ai_law_change_negative_threshold
+                    		ai_boldness > V_kCAFG_ai_law_change_threshold
+                        }
+                    }
+                }
+				value = 1
+			}
+		}
+	}
+
+    kCAFG_culture_tolerant_law = {
+		modifier = {
+			different_culture_opinion = 8
+		    minority_different_culture_opinion = 15
+			glory_hound_same_culture_opinion = -30
+		}
+		can_keep = {
+			trigger_if = { # To remove trigger tooltip
+				limit = {
+					NAND = {
+    					NOT = { has_game_rule = kCAFG_tolerance_laws_off }
+						T_kCAFG_can_have_culture_tolerance_law = yes
+						OR = {
+							is_independent_ruler = yes
+							OR = {
+								T_kCAFG_vassal_is_allowed_to_change_culture_tolerance_laws = yes
+								any_liege_or_above = { has_realm_law = kCAFG_culture_tolerant_law }
+							}
+						}
+					}
+				}
+				always = no
+			}
+		}
+		can_have = { T_kCAFG_can_have_culture_tolerance_law = yes }
+		can_pass = {
+            has_realm_law = kCAFG_culture_indifferent_law
+			T_kCAFG_can_increase_culture_tolerance_law_trigger = yes
+			custom_tooltip = {
+				text = "kCAFG_allowed_to_change_tolerance_laws_tt"
+				OR = {
+					is_independent_ruler = yes
+					T_kCAFG_vassal_is_allowed_to_change_culture_tolerance_laws = yes
+				}
+			}
+		}
+		should_start_with = {
+			trigger_if = {
+				limit = { is_independent_ruler = no }
+				top_liege = { has_realm_law = kCAFG_culture_tolerant_law }
+			}
+			trigger_else = {
+				T_kCAFG_should_start_with_tolerant_culture_law = yes
+			}
+		}
+		flag = F_kCAFG_tolerant_to_other_cultures
+
+		pass_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+		revoke_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+
+        on_pass = {
+			set_variable = {
+				name = kCAFG_culture_tolerance_law_cooldown
+				years = @kCAFG_culture_tolerance_law_cooldown_years
+			}
+			
+			# the flag is applied after the on_pass effects, but we need to update now
+			add_character_flag = kCAFG_TMP_applying_culture_tolerance_law
+			every_realm_county = {
+                every_county_province = {
+                    E_kCAFG_update_province_target_culture_tension = yes
+                }
+            }
+			remove_character_flag = kCAFG_TMP_applying_culture_tolerance_law
+        }
+		
+        ai_will_do = {
+			if = {
+				limit = {
+                    has_realm_law = kCAFG_culture_indifferent_law
+                    ai_compassion > V_kCAFG_ai_law_change_threshold
+                    ai_boldness < V_kCAFG_ai_law_change_negative_threshold
+                }
+				value = 1
+			}
+		}
+	}
+}
+
+# kCAFG_culture_tolerance_title_law = {
+# 	default = kCAFG_culture_indifferent_title_law
+
+# 	kCAFG_culture_intolerant_title_law = {
+# 		modifier = {
+# 			different_culture_opinion = -20
+# 		    minority_different_culture_opinion = -30
+# 			glory_hound_same_culture_opinion = 30
+# 		}
+# 		can_title_have = { T_kCAFG_can_title_have_culture_tolerance_law = yes }
+# 		can_pass = { T_kCAFG_can_change_culture_tolerance_law_trigger = yes }
+# 		flag = F_kCAFG_intolerant_to_other_cultures
+
+# 		pass_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+# 		revoke_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+
+#         on_pass = {
+# 			set_variable = {
+# 				name = kCAFG_culture_tolerance_law_cooldown
+# 				years = @kCAFG_culture_tolerance_law_cooldown_years
+# 			}
+# 			every_realm_county = {
+#                 every_county_province = {
+#                     E_kCAFG_update_province_target_culture_tension = yes
+#                 }
+#             }
+#         }
+# 	}
+
+#     kCAFG_culture_indifferent_title_law = {
+# 		modifier = {}
+# 		can_title_have = { T_kCAFG_can_title_have_culture_tolerance_law = yes }
+# 		can_pass = { T_kCAFG_can_change_culture_tolerance_law_trigger = yes }
+# 		pass_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+# 		revoke_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+
+#         on_pass = {
+# 			set_variable = {
+# 				name = kCAFG_culture_tolerance_law_cooldown
+# 				years = @kCAFG_culture_tolerance_law_cooldown_years
+# 			}
+# 			every_realm_county = {
+#                 every_county_province = {
+#                     E_kCAFG_update_province_target_culture_tension = yes
+#                 }
+#             }
+#         }
+# 	}
+
+#     kCAFG_culture_tolerant_title_law = {
+# 		modifier = {
+# 			different_culture_opinion = 10
+# 		    minority_different_culture_opinion = 20
+# 			glory_hound_same_culture_opinion = -30
+# 		}
+# 		can_title_have = { T_kCAFG_can_title_have_culture_tolerance_law = yes }
+# 		can_pass = { T_kCAFG_can_change_culture_tolerance_law_trigger = yes }
+# 		flag = F_kCAFG_tolerant_to_other_cultures
+
+# 		pass_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+# 		revoke_cost = { prestige = V_kCAFG_change_culture_tolerance_law_prestige_cost }
+
+#         on_pass = {
+# 			set_variable = {
+# 				name = kCAFG_culture_tolerance_law_cooldown
+# 				years = @kCAFG_culture_tolerance_law_cooldown_years
+# 			}
+# 			every_realm_county = {
+#                 every_county_province = {
+#                     E_kCAFG_update_province_target_culture_tension = yes
+#                 }
+#             }
+#         }
+# 	}
+# }

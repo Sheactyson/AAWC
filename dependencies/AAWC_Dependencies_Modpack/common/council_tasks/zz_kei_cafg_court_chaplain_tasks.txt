@@ -1,0 +1,601 @@
+﻿task_conversion = {
+	position = councillor_court_chaplain
+
+	asset = {
+		icon = "gfx/interface/icons/council_task_types/task_conversion.dds"
+		background = "gfx/interface/buttons/button_round_bg.dds"
+		frame = "gfx/interface/buttons/button_round_frame.dds"
+		glow = "gfx/particles/halo.dds"
+	}
+
+	task_type = task_type_county
+	county_target = realm
+	ai_county_target = realm
+	highlight_own_realm = yes
+
+	restart_on_finish = yes
+	task_progress = task_progress_value
+	task_current_value = scope:councillor.V_kCAFG_task_conversion_councillor_current_progress
+	task_max_value = 100
+
+	is_valid_showing_failures_only = {
+		custom_description = {
+			text = "kCAFG_does_not_have_realm_law_preventing_task_conversion"
+			scope:councillor_liege = {
+				NOT = { has_realm_law_flag = F_kCAFG_tolerant_to_other_faiths }
+			}
+		}
+	}
+
+	effect_desc = {
+		desc = kCAFG_task_conversion_effect_unassigned_warning
+		triggered_desc = {
+			trigger = {
+				scope:councillor = {
+					has_variable = kCAFG_task_conversion_focused_province
+				}
+				exists = scope:councillor.var:kCAFG_task_conversion_focused_province
+			}
+			desc = kCAFG_task_conversion_focused_province_tooltip
+		}
+		desc = kCAFG_task_conversion_effect_desc
+		desc = kCAFG_task_conversion_tension_increases
+		triggered_desc = {
+			trigger = {
+				scope:councillor_liege = {
+					any_vassal = {
+						has_vassal_stance = minority
+					}
+				}
+			}
+			desc = kCAFG_task_conversion_minority_disapproves_conversion_tooltip
+		}
+		# Kei : TO DO transfer county modifiers to province ones
+		desc = {
+			desc = council_task_possible_side_effects
+			triggered_desc = {
+				trigger = {
+					learning > mediocre_skill_rating
+				}
+				desc = task_conversion_opinion_gain
+			}
+			triggered_desc = {
+				trigger = {
+					learning > mediocre_skill_rating
+				}
+				desc = task_conversion_development_gain
+			}
+			triggered_desc = {
+				trigger = {
+					learning > mediocre_skill_rating
+				}
+				desc = task_conversion_levy_gain
+			}
+			triggered_desc = {
+				trigger = {
+					learning < high_skill_rating
+				}
+				desc = task_conversion_resistance_to_conversion
+			}
+			triggered_desc = {
+				trigger = {
+					learning < high_skill_rating
+				}
+				desc = task_conversion_opinion_loss
+			}
+		}
+	}
+
+	progress = {
+		value = 0
+		
+		if = {
+			limit = {
+				scope:councillor = {
+					has_variable = kCAFG_task_conversion_focused_province
+				}
+				exists = scope:councillor.var:kCAFG_task_conversion_focused_province
+				scope:councillor.var:kCAFG_task_conversion_focused_province.county = scope:county
+			}
+
+			scope:councillor.var:kCAFG_task_conversion_focused_province = {
+				value = V_kCAFG_court_chaplain_conversion_bonuses
+			}
+		}
+		# else = {
+			# scope:county.title_province = {
+			# 	value = V_kCAFG_court_chaplain_conversion_bonuses
+			# }
+		# }
+	}
+
+	potential_county = {
+		custom_tooltip = { # Tooltip won't work so a vague one it is
+			scope:county = {
+				any_county_province = {
+					T_kCAFG_task_conversion_can_convert_province = yes
+				}
+			}
+			text = kCAFG_task_conversion_no_province_can_be_converted
+		}
+		
+		trigger_if = {
+			limit = { scope:councillor = { has_variable = kCAFG_task_conversion_focused_province } }
+			trigger_if = {
+				limit = { scope:councillor.var:kCAFG_task_conversion_focused_province.county = scope:county }
+				scope:councillor.var:kCAFG_task_conversion_focused_province = { T_kCAFG_task_conversion_can_convert_province = yes }
+			}
+		}
+	}
+
+	ai_target_score = {
+		value = 0
+
+		if = {
+			limit = {
+				exists = scope:county
+				exists = scope:councillor
+				exists = scope:councillor_liege
+				scope:county = {
+					any_county_province = {
+						T_kCAFG_task_conversion_can_convert_province = yes
+					}
+				}
+			}
+			value = 10000
+
+			subtract = {
+				value = "scope:councillor_liege.capital_province.squared_distance(scope:county.title_province)"
+				divide = 10
+			}
+			min = 100
+
+			if = {
+				limit = { scope:county.holder != scope:councillor_liege }
+				divide = 2
+			}
+		}
+	}
+
+	on_start_task_county = {
+		scope:councillor = {
+			set_variable = {
+				name = kCAFG_task_conversion_progress
+				value = 0
+			}
+			remove_variable = kCAFG_court_chaplain_conversion_finish_focus
+		}
+		# Message for vassals
+		scope:county = { save_scope_as = set_county }
+		trigger_event = {
+			id = court_chaplain_task.8000
+			days = 2 # To ensure it fires after the halted message
+		}
+
+		if = {
+			limit = {
+				scope:councillor = {
+					NOT = { has_variable = kCAFG_task_conversion_focused_province_wanted }
+					NOT = { has_variable = kCAFG_task_conversion_focused_province }
+				}
+			}
+
+			scope:county = { E_kCAFG_task_conversion_set_default_focus = yes }
+		}
+
+		if = {
+			limit = { scope:councillor = { has_variable = kCAFG_task_conversion_focused_province_wanted } }
+			scope:councillor.var:kCAFG_task_conversion_focused_province_wanted = { save_temporary_scope_as = kCAFG_converted_province }
+		}
+		else_if = {
+			limit = { scope:councillor = { has_variable = kCAFG_task_conversion_focused_province } }
+			scope:councillor.var:kCAFG_task_conversion_focused_province = { save_temporary_scope_as = kCAFG_converted_province }
+		}
+		else = {
+			scope:county.title_province = { save_temporary_scope_as = kCAFG_converted_province }
+		}
+
+		#spawn a task contract to counter the missionary, if a nearby adventurer has the same faith as the county
+		if = {
+			limit = {
+				exists = scope:kCAFG_converted_province
+				any_pool_character = {
+					province = scope:kCAFG_converted_province
+					is_adult = yes
+					faith != scope:councillor_liege.faith
+					save_temporary_scope_as = employer
+					scope:kCAFG_converted_province = { T_kCAFG_does_province_contain_faith = { FAITH = scope:employer.faith } }
+				}
+			}
+			# Cache every 6 months for performance
+			if = {
+				limit = {
+					NOT = { has_global_variable = kCAFG_landless_rulers_list_built }
+				}
+
+				set_global_variable = {
+					name = kCAFG_landless_rulers_list_built
+					value = yes
+					days = 180
+				}
+
+				clear_global_variable_list = kCAFG_landless_rulers_list
+				every_ruler = {
+					limit = { has_government = landless_adventurer_government }
+					add_to_global_variable_list = {
+						name = kCAFG_landless_rulers_list
+						target = this
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					any_in_global_list = {
+						variable = kCAFG_landless_rulers_list
+
+						is_within_diplo_range = { CHARACTER = scope:councillor }
+						OR = {
+							faith != scope:councillor_liege.faith
+							has_trait = cynical
+						}
+						any_character_task_contract = {
+							task_contract_type = laamp_fight_faith_conversion_contract
+							count <= council_task_contracts_limit_value
+						}
+						NAND = {
+							exists = scope:employer
+							exists = scope:employer.location
+							any_task_contract = {
+								task_contract_type = laamp_fight_faith_conversion_contract
+								task_contract_location = scope:employer.location
+							}
+						}
+						save_temporary_scope_as = player_laamp
+					}
+				}
+					
+				scope:player_laamp = {
+					create_task_contract = {
+						task_contract_type = laamp_fight_faith_conversion_contract
+						task_contract_tier = scope:employer.task_contract_tier_value
+						location = scope:kCAFG_converted_province
+						task_contract_employer = scope:employer
+						target = scope:councillor
+						destination = scope:kCAFG_converted_province
+					}
+				}
+			}
+		}
+	}
+
+	on_cancel_task_county = {
+		# Message for vassals
+		trigger_event = {
+			id = court_chaplain_task.8001
+			days = 1 # To ensure it does not fire at the same time as the finish message (both cancel and finish are fired on_finish_task_county)
+		}
+		scope:councillor = {
+			remove_variable = kCAFG_task_conversion_focused_province
+			remove_variable = kCAFG_task_conversion_progress
+			remove_variable = kCAFG_task_conversion_ai_think_progress
+			remove_variable = kCAFG_court_chaplain_conversion_finish_focus
+		}
+	}
+
+	on_finish_task_county = {
+		scope:councillor = {
+			remove_variable = kCAFG_task_conversion_progress
+			remove_variable = kCAFG_task_conversion_ai_think_progress
+		}
+
+		# Minority disapproves
+		scope:councillor_liege = {
+			if = {
+				limit = {
+					any_vassal = {
+						has_vassal_stance = minority
+						faith != scope:councillor_liege.faith
+					}
+				}
+				custom_tooltip = minority_disapproves_conversion
+				hidden_effect = {
+					every_vassal = {
+						limit = {
+							has_vassal_stance = minority
+							faith != scope:councillor_liege.faith
+						}
+						add_opinion = {
+							target = scope:councillor_liege
+							modifier = minority_disapproves_of_conversion_very_small_opinion
+						}
+					}
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				scope:councillor = { has_variable = kCAFG_task_conversion_focused_province }
+				exists = scope:councillor.var:kCAFG_task_conversion_focused_province
+				scope:councillor.var:kCAFG_task_conversion_focused_province.county = scope:county
+			}
+
+			scope:councillor.var:kCAFG_task_conversion_focused_province = { save_temporary_scope_as = kCAFG_converted_province }
+		}
+		else = {
+			scope:county.title_province = { save_temporary_scope_as = kCAFG_converted_province }
+		}
+
+		# Transfer faith
+		scope:councillor_liege.faith = { save_temporary_scope_as = kCAFG_converting_faith }
+		scope:kCAFG_converted_province = {
+			random_in_list = {
+				variable = kCAFG_province_faiths
+				limit = { scope:kCAFG_converting_faith != this }
+
+				weight = {
+					base = 0
+					modifier = { add = V_kCAFG_province_faith_conversion_weight }
+				}
+
+				# Kei : Might make it more dynamic
+				save_temporary_scope_as = kCAFG_converted_faith
+				save_temporary_scope_value_as = {
+					name = converted_factor
+					value = {
+						fixed_range = {
+							min = 0.045
+							max = 0.055
+						}
+					}
+				}
+				set_local_variable = kCAFG_conversion_successful
+
+				scope:kCAFG_converted_province = {
+					E_kCAFG_convert_province_faith_factor = {
+						SOURCE = scope:kCAFG_converted_faith
+						TARGET = scope:kCAFG_converting_faith
+						FACTOR = scope:converted_factor
+					}
+					county = {
+						E_kCAFG_update_county_faiths_list = yes
+						faith = { save_temporary_scope_as = previous_faith }
+						E_kCAFG_update_county_faith = { REASON = flag:kCAFG_task_conversion }
+						if = {
+							limit = { faith != scope:previous_faith }
+							E_kCAFG_task_conversion_religious_exile = yes
+						}
+					}
+
+					E_kCAFG_update_province_target_faith_tension = yes
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				has_local_variable = kCAFG_conversion_successful
+			}
+
+			# Increase faith tension
+			scope:kCAFG_converted_province = {
+				#error_log = "Kei CAFG - task_conversion: conversion in [THIS.Province.GetNameNoTooltip]"
+				change_variable = {
+					name = kCAFG_faith_tension
+					add = {
+						value = V_kCAFG_task_conversion_tension_increase_per_factor
+						multiply = scope:converted_factor
+						if = {
+							limit = {
+								scope:kCAFG_converted_faith = {
+									faith_hostility_level = {
+										target = scope:kCAFG_converting_faith
+										value = faith_fully_accepted_level
+									}
+								}
+							}
+							multiply = 0.25
+						}
+						else_if = {
+							limit = {
+								scope:kCAFG_converted_faith = {
+									faith_hostility_level = {
+										target = scope:kCAFG_converting_faith
+										value = faith_astray_level
+									}
+								}
+							}
+							multiply = 0.75
+						}
+						else_if = {
+							limit = {
+								scope:kCAFG_converted_faith = {
+									faith_hostility_level = {
+										target = scope:kCAFG_converting_faith
+										value = faith_evil_level
+									}
+								}
+							}
+							multiply = 1.5
+						}
+					}
+				}
+				E_kCAFG_on_province_faith_tension_updated = yes
+			}
+
+			# County conversion is complete !
+			if = {
+				limit = {
+					scope:councillor = { has_council_position = councillor_court_chaplain }
+					scope:kCAFG_converted_province = {
+						T_kCAFG_province_only_faith = { FAITH = scope:councillor_liege.faith }
+					}
+				}
+
+				scope:councillor = { remove_variable = kCAFG_court_chaplain_conversion_finish_focus }
+
+				# Message for vassals
+				trigger_event = court_chaplain_task.8002
+
+				if = {
+					limit = { scope:councillor_liege = { is_ai = yes } }
+					scope:county = {
+						save_temporary_scope_as = kCAFG_set_default_focus_can_redirect # used by E_kCAFG_task_conversion_set_default_focus
+						E_kCAFG_task_conversion_set_default_focus = yes
+					}
+				}
+				else_if = {
+					limit = {
+						scope:councillor_liege = { has_variable = kCAFG_ignore_court_chaplain_conversion_suggestions }
+					}
+					scope:councillor = { start_default_task = yes }
+				}
+			}
+
+			E_kCAFG_task_conversion_struggle_VANILLA_B = yes
+
+			# Councillor makes a suggestion to player
+			scope:councillor_liege = {
+				if = {
+					limit = {
+						is_ai = no
+						NOT = { has_variable = kCAFG_ignore_court_chaplain_conversion_suggestions }
+						scope:councillor = {
+							NOT = { has_variable = kCAFG_court_chaplain_conversion_finish_focus }
+							has_variable = kCAFG_task_conversion_focused_province
+							var:kCAFG_task_conversion_focused_province = {
+								OR = {
+									T_kCAFG_province_only_faith = { FAITH = scope:councillor_liege.faith }
+									T_kCAFG_task_conversion_ai_would_suggest = no
+								}
+							}
+						}
+					}
+					trigger_event = kCAFG_court_chaplain_task_conversion.9001
+				}
+			}
+		}
+		else = {
+			error_log = "Kei CAFG - task_conversion: conversion failed"
+			scope:councillor = { start_default_task = yes }
+		}
+	}
+
+	on_monthly_county = {
+		scope:councillor = {
+			if = { # In case something went wrong (which I know can happen)
+				limit = {
+					OR = {
+						NOT = { has_variable = kCAFG_task_conversion_focused_province }
+                    	NOT = { councillor_task_target = var:kCAFG_task_conversion_focused_province.county.title_province }
+					}
+				}
+				
+				scope:county = { E_kCAFG_task_conversion_set_default_focus = yes }
+			}
+			if = {
+				limit = { NOT = { has_variable = kCAFG_task_conversion_progress } }
+				set_variable = {
+					name = kCAFG_task_conversion_progress
+					value = 0
+				}
+			}
+			if = {
+				limit = {
+					has_variable = kCAFG_task_conversion_focused_province
+					exists = scope:councillor.var:kCAFG_task_conversion_focused_province
+					scope:councillor.var:kCAFG_task_conversion_focused_province.county = scope:county
+				}
+				change_variable = {
+					name = kCAFG_task_conversion_progress
+					add = scope:councillor.var:kCAFG_task_conversion_focused_province.V_kCAFG_court_chaplain_conversion_bonuses
+				}
+		
+				if = {
+					limit = {
+						scope:councillor_liege = { is_ai = yes }
+					}
+
+					if = {
+						limit = { NOT = { has_variable = kCAFG_task_conversion_ai_think_progress } }
+						set_variable = {
+							name = kCAFG_task_conversion_ai_think_progress
+							value = 0
+						}
+					}
+
+					
+					change_variable = {
+						name = kCAFG_task_conversion_ai_think_progress
+						add = 1
+					}
+
+					if = {
+						limit = {
+							var:kCAFG_task_conversion_ai_think_progress >= 6
+						}
+						set_variable = {
+							name = kCAFG_task_conversion_ai_think_progress
+							value = 0
+						}
+
+						if = {
+							limit = {
+								var:kCAFG_task_conversion_focused_province = {
+									T_kCAFG_task_conversion_ai_wants_to_convert_province = no
+								}
+							}
+
+							if = {
+								limit = {
+									var:kCAFG_task_conversion_focused_province.county = {
+										any_county_province = {
+											T_kCAFG_task_conversion_can_convert_province = yes
+										}
+									}
+								}
+								
+								#debug_log = "Kei CAFG - task_conversion: AI - changing focused province"
+								var:kCAFG_task_conversion_focused_province.county = {
+									save_temporary_scope_as = kCAFG_set_default_focus_can_redirect # used by E_kCAFG_task_conversion_set_default_focus
+									E_kCAFG_task_conversion_set_default_focus = yes # will select province according to our faith factor
+								}
+							}
+							else = {
+								#debug_log = "Kei CAFG - task_conversion: AI - stopping conversion !"
+								start_default_task = yes
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	monthly_on_action = kCAFG_task_conversion_monthly_on_action
+
+	ai_will_do = {
+		value = 1000 # Always convert if possible
+
+		if = {	#Unless you're a crypto-religionist.
+			limit = {
+				scope:councillor_liege = {
+					any_secret = { type = secret_crypto_religionist }
+				}
+			}
+			multiply = 0
+		}
+
+		# AI directive
+		if = {
+			limit = {
+				scope:councillor_liege = {
+					has_character_flag = vassal_directive_convert_faith
+					vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+				}
+			}
+			add = 10000
+		}
+	}
+}

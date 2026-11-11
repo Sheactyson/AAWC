@@ -1,0 +1,26 @@
+﻿aawc_ruin_wilderness_generation = {
+	categories = { aawc_rules }
+	default = aawc_ruined_world
+
+	aawc_ruined_world = { }
+	aawc_age_of_reclamation = { }
+	aawc_age_of_silence = { }
+}
+
+aawc_lost_faith_culture = {
+	categories = { aawc_rules }
+	default = aawc_lost_faith_culture_disabled
+
+	aawc_lost_faith_culture_disabled = { }
+	aawc_lost_faith_culture_enabled = { }
+	aawc_lost_faith_culture_faith_only = { }
+	aawc_lost_faith_culture_culture_only = { }
+}
+
+aawc_diagnostic_logging = {
+	categories = { aawc_rules }
+	default = aawc_diagnostics_summary
+	aawc_diagnostics_disabled = { }
+	aawc_diagnostics_summary = { }
+	aawc_diagnostics_verbose = { }
+}

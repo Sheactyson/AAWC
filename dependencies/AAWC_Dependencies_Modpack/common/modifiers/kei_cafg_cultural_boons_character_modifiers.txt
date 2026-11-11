@@ -1,0 +1,153 @@
+﻿CM_kCAFG_cultural_boon_ethos_bellicose = { # Nerfed a bit because bellicose offers more things
+    icon = martial_positive
+	martial = 1
+	prowess = 1
+	army_damage_mult = 0.1
+	army_toughness_mult = 0.1
+}
+
+CM_kCAFG_cultural_boon_ethos_stoic = {
+    icon = intrigue_positive
+	intrigue = 1
+	stress_gain_mult = -0.2
+	negate_health_penalty_add = 0.25
+	enemy_hostile_scheme_phase_duration_add = minor_scheme_phase_duration_malus_value
+}
+
+CM_kCAFG_cultural_boon_ethos_bureaucratic = {
+    icon = stewardship_positive
+	stewardship = 1
+	tax_mult = 0.15
+	development_growth_factor = 0.25
+}
+
+CM_kCAFG_cultural_boon_ethos_spiritual = {
+    icon = learning_positive
+	learning = 1
+	cultural_head_fascination_mult = 0.1
+	monthly_piety_gain_mult = 0.25
+	monthly_county_control_growth_factor = 0.2
+}
+
+CM_kCAFG_cultural_boon_ethos_courtly = {
+    icon = diplomacy_positive
+	diplomacy = 1
+	courtier_and_guest_opinion = 15
+	monthly_prestige_gain_mult = 0.25
+	court_grandeur_baseline_add = 5
+}
+
+CM_kCAFG_cultural_boon_ethos_egalitarian = {
+    icon = social_positive
+	county_opinion_add = 15
+	vassal_opinion = 10
+	different_culture_opinion = 10
+	minority_different_culture_opinion = 10
+}
+
+CM_kCAFG_cultural_boon_tradition_frugal_armorsmiths = {
+    icon = martial_positive
+	army_maintenance_mult = -0.15
+	knight_effectiveness_mult = -0.2
+}
+
+CM_kCAFG_cultural_boon_tradition_swords_for_hire = {
+    icon = martial_positive
+	character_travel_speed_mult = 0.1
+	character_travel_safety_mult = 0.2
+}
+
+CM_kCAFG_cultural_boon_tradition_stalwart_defenders = {
+    icon = martial_positive
+	defender_advantage = 12
+}
+
+CM_kCAFG_cultural_boon_tradition_formation_fighting = {
+    icon = martial_positive
+	counter_efficiency = 0.15
+}
+
+CM_kCAFG_cultural_boon_tradition_metal_craftsmanship = {
+    icon = martial_positive
+	maa_toughness_add = 4
+	levy_toughness = 5
+}
+
+CM_kCAFG_cultural_boon_tradition_family_entrepreneurship = {
+    icon = family_positive
+	close_relative_opinion = 10
+	dynasty_house_opinion = 10
+	dynasty_opinion = 10
+}
+
+CM_kCAFG_cultural_boon_tradition_caravaneers = {
+    icon = travel_speed_positive
+	movement_speed = 0.1
+	character_travel_safety_mult = 0.1
+	character_travel_speed_mult = 0.1
+}
+
+CM_kCAFG_cultural_boon_tradition_saharan_nomads = {
+    icon = travel_speed_positive
+	movement_speed = 0.1
+	character_travel_speed = 10
+	desert_travel_danger = desert_high_danger_reduction
+	drylands_travel_danger = drylands_high_danger_reduction
+	desert_mountains_travel_danger = desert_mountains_high_danger_reduction
+}
+
+CM_kCAFG_cultural_boon_tradition_desert_nomads = {
+    icon = travel_speed_positive
+	movement_speed = 0.1
+	character_travel_speed = 10
+	desert_travel_danger = desert_high_danger_reduction
+	drylands_travel_danger = drylands_high_danger_reduction
+	desert_mountains_travel_danger = desert_mountains_high_danger_reduction
+}
+
+CM_kCAFG_cultural_boon_tradition_spartan = {
+	icon = county_modifier_development_positive
+	castle_holding_build_gold_cost = -0.1
+	castle_holding_holding_build_gold_cost = -0.1
+}
+
+CM_kCAFG_cultural_boon_tradition_storytellers = {
+	icon = legend_positive
+ 	owned_legend_spread_mult = 0.15
+}
+
+CM_kCAFG_cultural_boon_tradition_life_is_just_a_joke = {
+    icon = excrement_positive
+	stress_loss_mult = 0.05
+}
+
+CM_kCAFG_cultural_boon_tradition_ce1_ritual_washing = {
+    icon = health_positive
+	negate_health_penalty_add = 0.4
+	monthly_lifestyle_xp_gain_mult = 0.1
+}
+
+CM_kCAFG_cultural_boon_tradition_maritime_way_of_life = {
+    icon = compass_positive
+	embarkation_cost_mult = -0.25
+	naval_movement_speed_mult = 0.1
+	coastal_sea_travel_danger = low_sea_danger_reduction
+	sea_travel_danger = low_sea_danger_reduction
+}
+
+CM_kCAFG_cultural_boon_tradition_tgp_barangay_confederations = {
+    icon = diplomacy_positive
+	fellow_confederation_member_opinion = 20
+}
+
+CM_kCAFG_cultural_boon_tradition_tgp_art_of_war = {
+    icon = martial_positive
+	martial = 5
+	army_toughness_mult = 0.1
+	army_damage_mult = 0.1
+}
+
+CM_kCAFG_cultural_boon_tradition_tgp_court_machinations = {
+    icon = intrigue_positive
+	intrigue = 5
+}

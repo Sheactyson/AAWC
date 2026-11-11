@@ -1,0 +1,174 @@
+﻿# Generated terrain/context eligibility for AAWC regional blockers.
+# Province scope. Strongly physical categories are constrained; narrative contexts remain broadly usable.
+
+aawc_regional_blocker_profile_agricultural_or_barren = {
+	OR = { terrain = plains terrain = farmlands terrain = steppe terrain = drylands terrain = desert terrain = floodplains }
+}
+
+aawc_regional_blocker_profile_battlefield_or_frontier = {
+	always = yes
+}
+
+aawc_regional_blocker_profile_coastal = {
+	is_coastal = yes
+}
+
+aawc_regional_blocker_profile_deep_water = {
+	is_coastal = yes
+}
+
+aawc_regional_blocker_profile_forest_or_jungle = {
+	OR = { terrain = forest terrain = taiga terrain = jungle }
+}
+
+aawc_regional_blocker_profile_mountain_or_hills = {
+	OR = { terrain = mountains terrain = desert_mountains terrain = hills }
+}
+
+aawc_regional_blocker_profile_river_or_lake = {
+	OR = { terrain = wetlands terrain = floodplains terrain = jungle terrain = farmlands is_coastal = yes }
+}
+
+aawc_regional_blocker_profile_river_wetland_or_cold = {
+	OR = { terrain = wetlands terrain = floodplains terrain = taiga terrain = frozen_flats is_coastal = yes }
+}
+
+aawc_regional_blocker_profile_rocky_or_volcanic = {
+	OR = { terrain = mountains terrain = desert_mountains terrain = hills }
+}
+
+aawc_regional_blocker_profile_route_or_frontier = {
+	always = yes
+}
+
+aawc_regional_blocker_profile_ruin_or_arcane = {
+	always = yes
+}
+
+aawc_regional_blocker_profile_ruin_or_sacred = {
+	always = yes
+}
+
+aawc_regional_blocker_profile_ruin_or_settlement = {
+	always = yes
+}
+
+aawc_regional_blocker_profile_ruin_or_subterranean = {
+	always = yes
+}
+
+aawc_regional_blocker_profile_settled_land = {
+	always = yes
+}
+
+aawc_regional_blocker_profile_subterranean = {
+	OR = { terrain = mountains terrain = desert_mountains terrain = hills }
+}
+
+aawc_regional_blocker_profile_warm_or_wet_land = {
+	OR = { terrain = jungle terrain = wetlands terrain = floodplains terrain = desert terrain = drylands terrain = plains terrain = farmlands }
+}
+
+aawc_regional_blocker_profile_wetland_or_unstable = {
+	OR = { terrain = wetlands terrain = floodplains terrain = jungle terrain = drylands terrain = desert_mountains }
+}
+
+aawc_regional_blocker_profile_wild_land = {
+	always = yes
+}
+
+aawc_regional_blocker_region_beyond_the_wall = {
+	geographical_region = world_westeros_beyond_the_wall
+}
+
+aawc_regional_blocker_region_iron_islands = {
+	geographical_region = world_westeros_the_iron_islands
+}
+
+aawc_regional_blocker_region_crownlands_dragonstone = {
+	OR = { geographical_region = world_westeros_the_crownlands geographical_region = world_westeros_dragonstone_kingdom }
+}
+
+aawc_regional_blocker_region_the_north = {
+	geographical_region = world_westeros_the_north
+}
+
+aawc_regional_blocker_region_vale_of_arryn = {
+	geographical_region = world_westeros_the_vale
+}
+
+aawc_regional_blocker_region_riverlands = {
+	geographical_region = world_westeros_the_riverlands
+}
+
+aawc_regional_blocker_region_westerlands = {
+	geographical_region = world_westeros_the_westerlands
+}
+
+aawc_regional_blocker_region_reach = {
+	geographical_region = world_westeros_the_reach
+}
+
+aawc_regional_blocker_region_stormlands = {
+	geographical_region = world_westeros_the_stormlands
+}
+
+aawc_regional_blocker_region_dorne = {
+	geographical_region = world_westeros_dorne
+}
+
+aawc_regional_blocker_region_basilisk_isles = {
+	OR = { geographical_region = world_gogossos geographical_region = world_sothoryos_basilisk_isles }
+}
+
+aawc_regional_blocker_region_stepstones_disputed_lands = {
+	OR = { geographical_region = world_stepstones geographical_region = world_essos_disputed_lands_extended }
+}
+
+aawc_regional_blocker_region_old_valyria_demon_road = {
+	OR = { geographical_region = world_valyria geographical_region = world_valyria_mainland geographical_region = world_essos_painted_mountains }
+}
+
+aawc_regional_blocker_region_rhoyne_sarnor = {
+	geographical_region = world_essos_rhoyne
+}
+
+aawc_regional_blocker_region_slavers_bay_ghiscar = {
+	geographical_region = world_essos_slavers_bay
+}
+
+aawc_regional_blocker_region_asshai_shadow_lands = {
+	geographical_region = world_asshai
+}
+
+aawc_regional_blocker_region_summer_isles = {
+	geographical_region = world_summer_islands
+}
+
+aawc_regional_blocker_region_sothoryos = {
+	geographical_region = world_sothoryos
+}
+
+aawc_regional_blocker_region_qarth_red_waste = {
+	geographical_region = world_essos_qarth
+}
+
+aawc_regional_blocker_region_yi_ti_jogos_nhai = {
+	OR = { geographical_region = world_essos_yi_ti geographical_region = world_jade_sea geographical_region = world_marahai }
+}
+
+aawc_regional_blocker_region_dothraki_sea = {
+	geographical_region = world_essos_great_grass_sea
+}
+
+aawc_regional_blocker_region_free_cities = {
+	geographical_region = world_essos_free_cities
+}
+
+aawc_regional_blocker_region_lhazar = {
+	always = no
+}
+
+aawc_regional_blocker_region_ibben_shivering_sea = {
+	always = no
+}

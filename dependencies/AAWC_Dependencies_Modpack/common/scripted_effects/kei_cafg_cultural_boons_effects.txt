@@ -1,0 +1,2100 @@
+﻿########################
+## Martial Traditions ##
+########################
+
+# tradition_only_the_strong
+E_kCAFG_cultural_boon_tradition_only_the_strong = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+	        age = { 18 30 }
+            martial = { 2 5 }
+            prowess = { 14 16 }
+            random_traits_list = {
+                education_martial_prowess_2 = { weight = { base = 20 } }
+                education_martial_prowess_3 = { weight = { base = 30 } }
+                education_martial_prowess_4 = { weight = { base = 10 } }
+            }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                add_trait = lifestyle_blademaster
+                add_random_tiered_trait_xp_effect = {
+                    TRAIT = lifestyle_blademaster
+                    LEVEL_1 = yes
+                    LEVEL_3 = no
+                }
+                random = {
+                    chance = 15
+                    add_trait = lifestyle_hunter
+                    add_random_tiered_trait_track_xp_effect = {
+                        TRAIT = lifestyle_hunter
+                        TRACK = hunter
+                        LEVEL_1 = yes
+                        LEVEL_3 = no
+                    }
+                }
+                random = {
+                    chance = 80
+                    add_trait = tourney_participant
+                    add_random_tourney_participant_level_effect = yes
+                }
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_warriors_by_merit
+E_kCAFG_cultural_boon_tradition_warriors_by_merit = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+	        age = { 18 30 }
+            martial = { 4 7 }
+            prowess = { 12 16 }
+            random_traits_list = {
+                education_martial_prowess_2 = { weight = { base = 20 } }
+                education_martial_prowess_3 = { weight = { base = 30 } }
+                education_martial_prowess_4 = { weight = { base = 10 } }
+            }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                add_trait = lifestyle_blademaster
+                add_random_tiered_trait_xp_effect = {
+                    TRAIT = lifestyle_blademaster
+                    LEVEL_1 = yes
+                    LEVEL_3 = no
+                }
+                if = {
+                    limit = { NOT = { has_trait = gallant } }
+                    add_trait = gallant
+                }
+                add_prestige_level = 1
+                add_prestige = 500
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_warrior_monks
+E_kCAFG_cultural_boon_tradition_warrior_monks = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+	        age = { 18 30 }
+            martial = { 4 14 }
+            prowess = { 12 14 }
+            learning = { 6 13 }
+            random_traits_list = {
+                count = 1
+                scholar = { weight = { base = 20 } }
+                theologian = { weight = { base = 20 } }
+                lifestyle_mystic = { weight = { base = 20 } }
+                devoted = { weight = { base = 10 } }
+            }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                remove_trait = education_martial_2
+                remove_trait = education_martial_3
+                remove_trait = education_martial_4
+                random_list = {
+                    50 = { add_trait = education_learning_3 }
+                    90 = { add_trait = education_learning_4 }
+                    10 = { add_trait = education_learning_5 }
+                }
+                random_list = {
+                    30 = { add_trait = education_martial_prowess_1 }
+                    50 = { add_trait = education_martial_prowess_2 }
+                    60 = { add_trait = education_martial_prowess_3 }
+                    10 = { add_trait = education_martial_prowess_4 }
+                    80 = {}
+                }
+                random_list = {
+                    150 = {}
+                    50 = {
+                        trigger = { NOT = { religion = religion:islam_religion } }
+                        add_trait = pilgrim
+                    }
+                    50 = {
+                        trigger = { religion = religion:islam_religion }
+                        add_trait = hajjaj
+                    }
+                }
+                if = {
+                    limit = { has_trait = lifestyle_mystic }
+                    add_random_tiered_trait_xp_effect = {
+                        TRAIT = lifestyle_mystic
+                        LEVEL_1 = yes
+                        LEVEL_3 = yes
+                    }
+                }
+                add_piety_level = 1
+                add_piety = 500
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_talent_acquisition
+E_kCAFG_cultural_boon_tradition_talent_acquisition = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:talent_acquisition }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            gender_female_chance = root_soldier_female_chance
+	        dynasty = none
+	        age = { 18 30 }
+            prowess = { 18 22 }
+	        random_traits = yes
+            random_traits_list = {
+                count = 1
+                education_intrigue_1 = {}
+                education_intrigue_2 = {}
+                education_intrigue_3 = {}
+                education_intrigue_4 = {}
+            }
+            random_traits_list = {
+                count = 1
+                sadistic = {}
+                callous = {}
+                vengeful = {}
+                wrathful = {}
+                deceitful = {}
+            }
+            random_traits_list = {
+                count = 1
+                lustful = {}
+                chaste = {}
+                wrathful = {}
+                arrogant = {}
+                impatient = {}
+                ambitious = {}
+                stubborn = {}
+                fickle = {}
+            }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = talent_acquisition
+                save_scope_as = introduced_character
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                add_trait = gallowsbait
+                random_list = {
+                    1 = { add_trait_xp = { trait = gallowsbait track = bandit value = { 45 85 } } }
+                    1 = { add_trait_xp = { trait = gallowsbait track = trickster value = { 45 85 } } }
+                    1 = { add_trait_xp = { trait = gallowsbait track = thief value = { 45 85 } } }
+                    1 = { add_trait_xp = { trait = gallowsbait track = poacher value = { 45 85 } } }
+                    1 = { add_trait_xp = { trait = gallowsbait track = marauder value = { 45 85 } } }
+                }
+                random_list = {
+                    900 = {}
+                    99 = { add_trait = murderer }
+                    1 = {
+                        trigger = { NOT = { root.faith = { has_doctrine_parameter = cannibalism_legal } } }
+                        add_trait = cannibal
+                    }
+                }
+
+                reverse_add_opinion = {
+                    target = root
+                    modifier = gallowsbait_scum_opinion
+                    opinion = -30
+                }
+
+                random = {
+                    chance = 50
+                    add_trait = lifestyle_blademaster
+                    add_random_tiered_trait_xp_effect = {
+                        TRAIT = lifestyle_blademaster
+                        LEVEL_1 = yes
+                        LEVEL_3 = no
+                    }
+                }
+                add_prestige_level = -1
+                add_piety_level = -1
+                add_prestige = { -50 -150 }
+                add_piety = { -50 -150 }
+                force_character_skill_recalculation = yes
+            }
+        }
+
+        imprison = {
+            target = scope:talent_acquisition
+            type = dungeon
+        }
+    }
+}
+
+# tradition_reverence_for_veterans
+E_kCAFG_cultural_boon_tradition_reverence_for_veterans = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+	        age = { 48 62 }
+			health = { 5.5 6 }
+            martial = { 4 7 }
+            prowess = { 15 21 }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                remove_trait = education_martial_2
+                remove_trait = education_martial_3
+                remove_trait = education_martial_4
+                random_list = {
+                    60 = { add_trait = education_martial_3 }
+                    90 = { add_trait = education_martial_4 }
+                    20 = { add_trait = education_martial_5 }
+                }
+                random = {
+                    chance = 80
+                    add_trait = scarred
+                }
+                random_list = {
+                    90 = { add_trait = one_eyed add_prowess_skill = 1 }
+                    30 = { add_trait = one_legged add_prowess_skill = 2 }
+                    10 = { add_trait = wounded_1 add_trait = physique_good_3 }
+                }
+                if = {
+                    limit = { NOT = { has_trait = wounded_1 } }
+                    random_list = {
+                        90 = { add_trait = strong }
+                        30 = { add_trait = physique_good_1 }
+                        10 = { add_trait = physique_good_2 }
+                    }
+                }
+                random_list = {
+                    50 = { add_trait = education_martial_prowess_2 }
+                    60 = { add_trait = education_martial_prowess_3 }
+                    60 = { add_trait = education_martial_prowess_4 }
+                }
+                add_trait = lifestyle_blademaster
+                add_random_tiered_trait_xp_effect = {
+                    TRAIT = lifestyle_blademaster
+                    LEVEL_1 = yes
+                    LEVEL_3 = no
+                }
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_horse_breeder
+E_kCAFG_cultural_boon_tradition_horse_breeder = {
+    save_scope_value_as = { name = boon_type value = flag:maa_refill_gift }
+
+    hidden_effect = {
+        set_variable = {
+            name = cavalry_gift
+            value = {
+                value = { 25 75 }
+                add = {
+                    value = 0
+                    every_directly_owned_province = {
+                        limit = { T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture } }
+                        scope:culture = { prev = { add = V_kCAFG_province_prev_culture_amount } }
+                    }
+                    multiply = 100
+                }
+                max = 1000
+            }
+        }
+        save_scope_value_as = { name = gifted_amount value = var:cavalry_gift }
+    }
+
+    if = {
+        limit = {
+            var:cavalry_gift > 0
+            any_maa_regiment = {
+                maa_current_troops_count < maa_max_troops_count
+                OR = {
+                    is_unit_type = light_cavalry
+                    is_unit_type = heavy_cavalry
+                }
+            }
+        }
+        show_as_tooltip = { custom_tooltip = E_kCAFG_cultural_boon_tradition_maa_cavalry_refill_tt }
+    }
+
+    hidden_effect = {
+        while = {
+            limit = {
+                var:cavalry_gift > 0
+                any_maa_regiment = {
+                    maa_current_troops_count < maa_max_troops_count
+                    OR = {
+                        is_unit_type = light_cavalry
+                        is_unit_type = heavy_cavalry
+                    }
+                }
+            }
+        
+            random_maa_regiment = {
+                limit = {
+                    maa_current_troops_count < maa_max_troops_count
+                    OR = {
+                        is_unit_type = light_cavalry
+                        is_unit_type = heavy_cavalry
+                    }
+                }
+                set_local_variable = {
+                    name = refilled_amount
+                    value = {
+                        value = 100
+                        max = root.var:cavalry_gift
+                        max = {
+                            value = maa_max_troops_count
+                            subtract = maa_current_troops_count
+                        }
+                    }
+                }
+                change_maa_troops_count = {
+                    value = maa_current_troops_count
+                    add = local_var:refilled_amount
+                    max = maa_max_troops_count
+                }
+                root = {
+                    change_variable = {
+                        name = cavalry_gift
+                        subtract = local_var:refilled_amount
+                    }
+                }
+            }
+        }
+    }
+
+    if = {
+        limit = { var:cavalry_gift > 0 }
+
+        save_scope_value_as = { name = maa_refill_gift_name value = flag:light_horsemen }
+        show_as_tooltip = { custom_tooltip = E_kCAFG_cultural_boon_tradition_maa_gift_tt }
+        
+        hidden_effect = {
+            spawn_army = {
+                men_at_arms = {
+                    type = light_horsemen
+                    stacks = {
+                        value = root.var:cavalry_gift
+                        divide = 100
+                        floor = yes
+                        add = 1
+                    }
+                }
+                inheritable = no
+                location = scope:province
+                save_scope_as = new_army
+                name = kCAFG_horse_breeders_gift_name
+            }
+
+            while = {
+                limit = { var:cavalry_gift > 100 }
+                
+                change_variable = {
+                    name = cavalry_gift
+                    subtract = 100
+                }
+            }
+
+            # Not set if not at war, unfortunately
+            scope:new_army ?= {
+                random_army_maa_regiment = {
+                    change_maa_troops_count = root.var:cavalry_gift
+                }
+            }
+        }
+    }
+}
+
+######################
+## Realm Traditions ##
+######################
+
+# tradition_republican_legacy
+E_kCAFG_cultural_boon_tradition_republican_legacy = {
+    E_kCAFG_generic_cultural_boon_all_counties_provinces_of_culture_modifier_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_republican_legacy
+        YEARS = 15
+        CONDITION = "has_holding_type = city_holding"
+    }
+}
+
+# tradition_hereditary_hierarchy
+E_kCAFG_cultural_boon_tradition_hereditary_hierarchy = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_hereditary_hierarchy
+        YEARS = 15
+        CONDITION = "has_holding_type = castle_holding"
+    }
+}
+
+# tradition_esteemed_hospitality
+E_kCAFG_cultural_boon_tradition_esteemed_hospitality = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:esteemed_hospitality }
+
+        E_kCAFG_cultural_boon_tradition_esteemed_hospitality_create_character = yes
+
+        scope:created_character = { save_scope_as = introduced_character }
+
+        E_kCAFG_cultural_boon_tradition_esteemed_hospitality_create_character = yes
+
+        scope:created_character = { save_scope_as = introduced_character_2 }
+
+        E_kCAFG_cultural_boon_tradition_esteemed_hospitality_create_character = yes
+
+        scope:created_character = { save_scope_as = introduced_character_3 }
+
+        random_list = {
+            1 = { scope:introduced_character = { E_kCAFG_cultural_boon_tradition_esteemed_hospitality_boost_character = yes } }
+            1 = { scope:introduced_character_2 = { E_kCAFG_cultural_boon_tradition_esteemed_hospitality_boost_character = yes } }
+            1 = { scope:introduced_character_3 = { E_kCAFG_cultural_boon_tradition_esteemed_hospitality_boost_character = yes } }
+        }
+    }
+}
+
+E_kCAFG_cultural_boon_tradition_esteemed_hospitality_create_character = {
+    E_kCAFG_get_generated_character_random_province_faith = yes
+    create_character = {
+        template = kCAFG_cultural_benefits_character_base
+        dynasty = none
+        random_traits_list = {
+            education_diplomacy_3 = { weight = { base = 20 } }
+            education_diplomacy_4 = { weight = { base = 10 } }
+            education_martial_3 = { weight = { base = 20 } }
+            education_martial_4 = { weight = { base = 10 } }
+            education_stewardship_3 = { weight = { base = 20 } }
+            education_stewardship_4 = { weight = { base = 10 } }
+            education_intrigue_3 = { weight = { base = 20 } }
+            education_intrigue_4 = { weight = { base = 10 } }
+            education_learning_3 = { weight = { base = 20 } }
+            education_learning_4 = { weight = { base = 10 } }
+        }
+        
+        employer = root
+        after_creation = {
+            save_scope_as = created_character
+            E_kCAFG_add_grateful_opinion = yes
+            E_kei_character_creation_nudge_cultural_traits = yes
+            set_interesting_traits_and_modifiers_effect = yes
+            if = {
+                limit = { has_trait = shy }
+                remove_trait = shy
+                add_trait = gregarious
+            }
+            if = {
+                limit = { has_trait = paranoid }
+                remove_trait = paranoid
+                add_trait = trusting
+            }
+            if = {
+                limit = { has_trait = lazy }
+                remove_trait = lazy
+                add_trait = diligent
+            }
+            if = {
+                limit = { has_trait = craven }
+                remove_trait = craven
+                add_trait = brave
+            }
+            add_gold = { 1 32 }
+            force_character_skill_recalculation = yes
+        }
+    }
+}
+
+E_kCAFG_cultural_boon_tradition_esteemed_hospitality_boost_character = {
+    random_list = {
+        15 = {
+            add_gold = {
+                value = {
+                    integer_range = { min = root.medium_gold_value max = root.major_gold_value }
+                    multiply = 1.25
+                }
+            }
+        }
+
+        4 = { add_trait = intellect_good_2 }
+        1 = { add_trait = intellect_good_3 }
+        4 = { add_trait = beauty_good_2 }
+        1 = { add_trait = beauty_good_3 }
+        4 = { add_trait = physique_good_2 }
+        1 = { add_trait = physique_good_3 }
+    }
+}
+
+# tradition_gardening
+E_kCAFG_cultural_boon_tradition_gardening = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = kCAFG_cultural_benefits_character_base
+            dynasty = none
+            stewardship = { 12 14 }
+            random_traits_list = {
+                education_stewardship_3 = { weight = { base = 20 } }
+                education_stewardship_4 = { weight = { base = 10 } }
+            }
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                if = { limit = { NOT = { has_trait = lifestyle_gardener } } add_trait = lifestyle_gardener }
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_astute_diplomats
+E_kCAFG_cultural_boon_tradition_astute_diplomats = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = kCAFG_cultural_benefits_character_base
+            dynasty = none
+            diplomacy = { 12 14 }
+            random_traits_list = {
+                education_diplomacy_3 = { weight = { base = 10 } }
+                education_diplomacy_4 = { weight = { base = 20 } }
+                education_diplomacy_5 = { weight = { base = 10 } }
+            }
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                if = { limit = { NOT = { has_trait = diplomat } } add_trait = diplomat }
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_wedding_ceremonies
+E_kCAFG_cultural_boon_tradition_wedding_ceremonies = {
+    # NYI
+    # Would require editing vanilla files, lowering compatibility
+}
+
+# tradition_fervent_temple_builders
+E_kCAFG_cultural_boon_tradition_fervent_temple_builders = {
+    E_kCAFG_generic_cultural_boon_all_counties_of_culture_modifier = {
+        MODIFIER = CoM_kCAFG_cultural_boon_tradition_fervent_temple_builders
+        YEARS = 10
+    }
+}
+
+# tradition_agrarian
+E_kCAFG_cultural_boon_tradition_agrarian = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_agrarian
+        YEARS = 5
+        CONDITION = "OR = { terrain = farmlands terrain = floodplains }"
+    }
+}
+
+# tradition_pastoralists
+E_kCAFG_cultural_boon_tradition_pastoralists = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_pastoralists
+        YEARS = 5
+        CONDITION = "OR = { terrain = plains terrain = steppe geographical_region = world_steppe }"
+    }
+}
+
+# tradition_parochialism
+E_kCAFG_cultural_boon_tradition_parochialism = {
+    E_kCAFG_generic_cultural_boon_all_counties_provinces_of_culture_modifier_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_parochialism
+        YEARS = 15
+        CONDITION = "has_holding_type = city_holding"
+    }
+}
+
+# tradition_hill_dwellers
+E_kCAFG_cultural_boon_tradition_hill_dwellers = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_hill_dwellers
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "terrain = hills"
+    }
+}
+
+# tradition_forest_folk
+E_kCAFG_cultural_boon_tradition_forest_folk = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_forest_folk
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "OR = { terrain = forest terrain = taiga }"
+    }
+}
+
+# tradition_mountain_homes
+E_kCAFG_cultural_boon_tradition_mountain_homes = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_mountain_homes
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "OR = { terrain = mountains terrain = desert_mountains }"
+    }
+}
+
+# tradition_dryland_dwellers
+E_kCAFG_cultural_boon_tradition_dryland_dwellers = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_dryland_dwellers
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "OR = { terrain = drylands terrain = desert }"
+    }
+}
+
+# tradition_jungle_dwellers
+E_kCAFG_cultural_boon_tradition_jungle_dwellers = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_jungle_dwellers
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "terrain = jungle"
+    }
+}
+
+# tradition_wetlanders
+E_kCAFG_cultural_boon_tradition_wetlanders = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_wetlanders
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "terrain = wetlands"
+    }
+}
+
+# tradition_hidden_cities
+E_kCAFG_cultural_boon_tradition_hidden_cities = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_hidden_cities
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "terrain = jungle"
+    }
+}
+
+# tradition_castle_keepers
+E_kCAFG_cultural_boon_tradition_castle_keepers = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_castle_keepers
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "has_holding_type = castle_holding"
+    }
+}
+
+# tradition_city_keepers
+E_kCAFG_cultural_boon_tradition_city_keepers = {
+    E_kCAFG_generic_cultural_boon_all_counties_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_city_keepers
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "has_holding_type = city_holding"
+    }
+}
+
+# tradition_maritime_mercantilism
+E_kCAFG_cultural_boon_tradition_maritime_mercantilism = {
+    E_kCAFG_generic_cultural_boon_all_counties_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_maritime_mercantilism
+        MIN_YEARS = 5
+        MAX_YEARS = 10
+        CONDITION = "is_coastal = yes"
+    }
+}
+
+# tradition_monastic_communities
+E_kCAFG_cultural_boon_tradition_monastic_communities = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = kCAFG_cultural_benefits_character_base
+            dynasty = none
+            learning = { 12 14 }
+            random_traits_list = {
+                education_learning_3 = { weight = { base = 10 } }
+                education_learning_4 = { weight = { base = 20 } }
+                education_learning_5 = { weight = { base = 10 } }
+            }
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                if = { limit = { NOT = { has_trait = devoted } } add_trait = devoted }
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+#########################
+## Regional Traditions ##
+#########################
+
+
+
+#########################
+### Ritual Traditions ###
+#########################
+
+# tradition_sorcerous_metallurgy
+E_kCAFG_cultural_boon_tradition_sorcerous_metallurgy = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:gift }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = local_artisan_template
+            gender_female_chance = root_faith_dominant_gender_adjusted_female_chance
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            save_scope_as = local_artisan
+            after_creation = {
+                save_scope_as = local_artisan
+                save_scope_as = introduced_character
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                force_character_skill_recalculation = yes
+            }
+        }
+        save_scope_value_as = {
+            name = quality
+            value = {
+                integer_range = {
+                    min = 80
+                    max = 97
+                }
+                add = {
+                    value = root.primary_title.tier
+                    subtract = 2 # at least count
+                    multiply = 7
+                }
+            }
+        }
+        create_artifact_weapon_effect = {
+            OWNER = root
+            CREATOR = scope:local_artisan
+            SET_WEAPON_TYPE = flag:no # Will be randomized
+        }
+        scope:newly_created_artifact ?= {
+			add_scaled_artifact_modifier_minor_prestige_effect = yes
+            set_artifact_name = kCAFG_tradition_sorcerous_metallurgy_gift_name
+		    add_artifact_modifier = kCAFG_artifact_tradition_sorcerous_metallurgy_modifier
+        }
+    }
+}
+
+# tradition_medicinal_plants
+E_kCAFG_cultural_boon_tradition_medicinal_plants = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = kCAFG_cultural_benefits_character_base
+            dynasty = none
+            intrigue = { 8 12 }
+            learning = { 6 14 }
+            random_traits_list = {
+                education_intrigue_3 = { weight = { base = 15 } }
+                education_intrigue_4 = { weight = { base = 7 } }
+                education_learning_3 = { weight = { base = 20 } }
+                education_learning_4 = { weight = { base = 10 } }
+            }
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                if = { limit = { has_education_intrigue_trigger = yes } add_learning_skill = { 2 4 } }
+                if = { limit = { NOT = { has_trait = lifestyle_herbalist } } add_trait = lifestyle_herbalist }
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_language_scholars
+E_kCAFG_cultural_boon_tradition_language_scholars = {
+    E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = learning }
+    hidden_effect = {
+        scope:impressive_character = {
+            if = {
+                limit = { NOT = { knows_language_of_culture = root.culture } }
+                learn_language_of_culture = root.culture
+            }
+            scope:province.county = {
+                random_in_list = {
+                    variable = kCAFG_county_cultures
+                    limit = { scope:impressive_character = { NOT = { knows_language_of_culture = prev } } }
+                    scope:impressive_character = { learn_language_of_culture = prev }
+                }
+            }
+        }
+    }
+}
+
+# tradition_chivalry
+E_kCAFG_cultural_boon_tradition_chivalry = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+            dynasty = generate
+	        age = { 18 32 }
+            martial = { 2 9 }
+            prowess = { 11 15 }
+            random_traits_list = {
+                education_martial_prowess_1 = { weight = { base = 15 } }
+                education_martial_prowess_2 = { weight = { base = 30 } }
+                education_martial_prowess_3 = { weight = { base = 15 } }
+                education_martial_prowess_4 = { weight = { base = 10 } }
+            }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+                
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                random = {
+                    chance = 30
+                    add_trait = lifestyle_blademaster
+                    add_random_tiered_trait_xp_effect = {
+                        TRAIT = lifestyle_blademaster
+                        LEVEL_1 = yes
+                        LEVEL_3 = no
+                    }
+                }
+                random = { chance = 60 add_trait = gallant }
+                random = { chance = 30 add_trait = seducer }
+                random = { chance = 40 add_trait = lifestyle_poet }
+                random = {
+                    chance = 75
+                    add_trait = knight_errant
+                    add_trait_xp = {
+                        trait = knight_errant
+                        value = { 15 75 }
+                    }
+                    add_prestige = { 100 150 }
+                    add_prestige_level = 1
+                    add_prestige = { 150 250 }
+                }
+
+                # Fallback
+                if = {
+                    limit = {
+                        NOR = {
+                            has_trait = gallant
+                            has_trait = seducer
+                            has_trait = lifestyle_poet
+                            has_trait = knight_errant
+                        }
+                    }
+                    add_trait = gallant
+                }
+                add_prestige = { 50 175 }
+                
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_loyal_soldiers
+E_kCAFG_cultural_boon_tradition_loyal_soldiers = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+	        age = { 18 32 }
+            martial = { 2 12 }
+            prowess = { 12 15 }
+            random_traits_list = {
+                education_martial_prowess_2 = { weight = { base = 30 } }
+                education_martial_prowess_3 = { weight = { base = 15 } }
+                education_martial_prowess_4 = { weight = { base = 10 } }
+            }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                ## Improve chances of recruiting
+                add_opinion = {
+                    target = root
+                    modifier = grateful_opinion
+                    opinion = 80
+                }
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                random = {
+                    chance = 30
+                    add_trait = lifestyle_blademaster
+                    add_random_tiered_trait_xp_effect = {
+                        TRAIT = lifestyle_blademaster
+                        LEVEL_1 = yes
+                        LEVEL_3 = no
+                    }
+                }
+                add_trait = loyal
+                if = {
+                    limit = { NOT = { knows_language_of_culture = root.culture } }
+                    learn_language_of_culture = root.culture
+                }
+                
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_hunters
+E_kCAFG_cultural_boon_tradition_hunters = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = kCAFG_cultural_benefits_character_base
+            dynasty = none
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                add_diplomacy_skill = { 1 5 }
+                add_stewardship_skill = { 1 5 }
+                add_martial_skill = { 1 5 }
+                add_intrigue_skill = { 1 5 }
+                add_learning_skill = { 1 5 }
+                add_prowess_skill = { 3 5 }
+                if = {
+                    limit = { NOT = { has_trait = lifestyle_hunter } }
+                    add_trait = lifestyle_hunter
+                }
+                random_list = {
+                    1 = {
+                        add_random_tiered_trait_track_xp_effect = {
+                            TRAIT = lifestyle_hunter
+                            TRACK = hunter
+                            LEVEL_1 = no
+                            LEVEL_3 = yes
+                        }
+                        
+                        add_random_tiered_trait_track_xp_effect = {
+                            TRAIT = lifestyle_hunter
+                            TRACK = falconer
+                            LEVEL_1 = yes
+                            LEVEL_3 = no
+                        }
+                    }
+                    1 = {
+                        add_random_tiered_trait_track_xp_effect = {
+                            TRAIT = lifestyle_hunter
+                            TRACK = falconer
+                            LEVEL_1 = no
+                            LEVEL_3 = yes
+                        }
+                        
+                        add_random_tiered_trait_track_xp_effect = {
+                            TRAIT = lifestyle_hunter
+                            TRACK = hunter
+                            LEVEL_1 = yes
+                            LEVEL_3 = no
+                        }
+                    }
+                }
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_seafaring
+E_kCAFG_cultural_boon_tradition_seafaring = {
+    E_kCAFG_generic_cultural_boon_all_counties_provinces_of_culture_modifier_randomized_duration_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_seafaring
+        MIN_YEARS = 7
+        MAX_YEARS = 12
+        CONDITION = "is_coastal = yes"
+    }
+}
+
+# tradition_music_theory
+E_kCAFG_cultural_boon_tradition_music_theory = {
+    E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = diplomacy }
+    hidden_effect = {
+        scope:impressive_character = {
+            add_trait = gregarious
+            random = { chance = 50 add_trait = lifestyle_poet }
+            force_character_skill_recalculation = yes
+        }
+    }
+}
+
+# tradition_poetry
+E_kCAFG_cultural_boon_tradition_poetry = {
+    E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = diplomacy }
+    hidden_effect = {
+        scope:impressive_character = {
+            add_learning_skill = { 3 6 }
+            add_trait = lifestyle_poet
+            random = { chance = 50 add_trait = gregarious }
+            force_character_skill_recalculation = yes
+        }
+    }
+}
+
+# tradition_mendicant_mystics
+E_kCAFG_cultural_boon_tradition_mendicant_mystics = {
+    E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = learning }
+    hidden_effect = {
+        scope:impressive_character = {
+            add_trait = lifestyle_mystic
+            add_random_tiered_trait_xp_effect = {
+                TRAIT = lifestyle_mystic
+                LEVEL_1 = no
+                LEVEL_3 = yes
+            }
+            force_character_skill_recalculation = yes
+        }
+    }
+}
+
+# tradition_warrior_culture
+E_kCAFG_cultural_boon_tradition_warrior_culture = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+	        age = { 18 32 }
+            martial = { 4 13 }
+            prowess = { 10 13 }
+            random_traits_list = {
+                education_martial_prowess_2 = { weight = { base = 30 } }
+                education_martial_prowess_3 = { weight = { base = 15 } }
+                education_martial_prowess_4 = { weight = { base = 10 } }
+            }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                random = {
+                    chance = 30
+                    add_trait = lifestyle_blademaster
+                    add_random_tiered_trait_xp_effect = {
+                        TRAIT = lifestyle_blademaster
+                        LEVEL_1 = yes
+                        LEVEL_3 = no
+                    }
+                }
+
+                if = {
+                    limit = { has_trait = fickle }
+                    remove_trait = fickle
+                }
+                
+                random = {
+                    chance = 30
+                    add_trait = strong
+                }
+                if = {
+                    limit = { NOT = { knows_language_of_culture = root.culture } }
+                    learn_language_of_culture = root.culture
+                }
+                
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_martial_admiration
+E_kCAFG_cultural_boon_tradition_martial_admiration = {
+    E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = martial }
+    hidden_effect = {
+        scope:impressive_character = {
+            random_list = {
+                30 = { add_trait = education_martial_prowess_1 }
+                50 = { add_trait = education_martial_prowess_2 }
+                40 = { add_trait = education_martial_prowess_3 }
+                20 = { add_trait = education_martial_prowess_4 }
+            }
+            random = {
+                chance = 40
+                add_trait = lifestyle_blademaster
+                add_random_tiered_trait_xp_effect = {
+                    TRAIT = lifestyle_blademaster
+                    LEVEL_1 = yes
+                    LEVEL_3 = no
+                }
+            }
+            force_character_skill_recalculation = yes
+        }
+    }
+}
+
+# tradition_artisans
+E_kCAFG_cultural_boon_tradition_artisans = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:gift }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = local_artisan_template
+            gender_female_chance = root_faith_dominant_gender_adjusted_female_chance
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            save_scope_as = local_artisan
+            after_creation = {
+                save_scope_as = local_artisan
+                save_scope_as = introduced_character
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                force_character_skill_recalculation = yes
+            }
+        }
+        save_scope_value_as = {
+            name = quality
+            value = {
+                integer_range = {
+                    min = 60
+                    max = 91
+                }
+                add = {
+                    value = root.primary_title.tier
+                    subtract = 2 # at least count
+                    multiply = 10
+                }
+            }
+        }
+        random_list = {
+            10 = { create_artifact_tapestry_effect = { OWNER = root WEAVER = scope:local_artisan } }
+            1 = { create_artifact_box_small_effect = { OWNER = root CARPENTER = scope:local_artisan } }
+            1 = { create_artifact_box_medium_effect = { OWNER = root CARPENTER = scope:local_artisan } }
+            1 = { create_artifact_chest_effect = { OWNER = root CARPENTER = scope:local_artisan } }
+            1 = { create_artifact_sculpture_effect = { OWNER = root SCULPTER = scope:local_artisan } }
+            1 = { create_artifact_cabinet_effect = { OWNER = root CARPENTER = scope:local_artisan } }
+            1 = { create_artifact_throne_effect = { OWNER = root MAKER = scope:local_artisan } }
+            1 = {
+                trigger = {
+                    has_royal_court = yes
+                    eligible_for_scientific_apparatus_armillary_sphere_trigger = { CHARACTER = root }
+                }
+                create_artifact_fp2_armillary_sphere_effect = {
+                    OWNER = root
+                    MAKER = scope:local_artisan
+                }
+            }
+            1 = { create_artifact_urn_effect = { OWNER = root POTTER = scope:local_artisan } }
+            1 = { create_artifact_icon_effect = { OWNER = root CREATOR = scope:local_artisan } }
+        }
+        scope:newly_created_artifact ?= {
+            set_artifact_name = kCAFG_tradition_artisans_gift_name
+        }
+    }
+}
+
+######################
+######## DLCs ########
+######################
+
+# tradition_fp1_coastal_warriors
+E_kCAFG_cultural_boon_tradition_fp1_coastal_warriors = {
+    random_list = {
+        1 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = bondi SCALE = 1 } }
+        1 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = vigmen SCALE = 1 } }
+        1 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = varangian_veterans SCALE = 1 } }
+        1 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = huscarl SCALE = 1 } }
+    }
+}
+
+# tradition_fp1_performative_honour
+E_kCAFG_cultural_boon_tradition_fp1_performative_honour = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+            gender_female_chance = root_non_combatant_female_chance
+	        age = { 22 28 }
+            martial = { 4 10 }
+            prowess = { 12 14 }
+            random_traits_list = {
+                education_martial_prowess_2 = { weight = { base = 30 } }
+                education_martial_prowess_3 = { weight = { base = 15 } }
+                education_martial_prowess_4 = { weight = { base = 10 } }
+            }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                add_trait = shieldmaiden
+                random = {
+                    chance = 30
+                    add_trait = lifestyle_blademaster
+                    add_random_tiered_trait_xp_effect = {
+                        TRAIT = lifestyle_blademaster
+                        LEVEL_1 = yes
+                        LEVEL_3 = no
+                    }
+                }
+
+                if = {
+                    limit = { has_trait = fickle }
+                    remove_trait = fickle
+                }
+                
+                random = {
+                    chance = 30
+                    add_trait = strong
+                }
+
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_fp1_northern_stories
+E_kCAFG_cultural_boon_tradition_fp1_northern_stories = {
+    E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = diplomacy }
+    hidden_effect = {
+        scope:impressive_character = {
+            add_trait = lifestyle_poet
+            force_character_skill_recalculation = yes
+        }
+    }
+}
+
+# tradition_fp1_trials_by_combat
+E_kCAFG_cultural_boon_tradition_fp1_trials_by_combat = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+	        age = { 18 32 }
+            martial = { 4 8 }
+            prowess = { 8 10 }
+            random_traits_list = {
+                education_martial_prowess_1 = { weight = { base = 30 } }
+                education_martial_prowess_2 = { weight = { base = 20 } }
+                education_martial_prowess_3 = { weight = { base = 10 } }
+                education_martial_prowess_4 = { weight = { base = 5 } }
+            }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                add_trait = lifestyle_blademaster
+                add_random_tiered_trait_xp_effect = {
+                    TRAIT = lifestyle_blademaster
+                    LEVEL_1 = yes
+                    LEVEL_3 = no
+                }
+
+                if = {
+                    limit = { has_trait = craven }
+                    remove_trait = craven
+                    add_trait = brave
+                }
+
+                if = {
+                    limit = { has_trait = fickle }
+                    remove_trait = fickle
+                }
+                
+                random = {
+                    chance = 30
+                    add_trait = strong
+                }
+                
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_fp2_strategy_gamers
+E_kCAFG_cultural_boon_tradition_fp2_strategy_gamers = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = new_commander_character
+            gender_female_chance = root_soldier_female_chance
+	        age = { 18 28 }
+            martial = { 15 19 }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                remove_trait = education_martial_2
+                remove_trait = education_martial_3
+                remove_trait = education_martial_4
+                add_prowess_skill = -2
+                random_list = {
+                    90 = { add_trait = education_martial_4 }
+                    10 = { add_trait = education_martial_5 }
+                }
+                add_trait = tourney_participant
+                add_random_tiered_trait_track_xp_effect = {
+                    TRAIT = tourney_participant
+                    TRACK = wit
+                    LEVEL_1 = no
+                    LEVEL_3 = yes
+                }
+                E_kCAFG_add_cultural_tradition_commander_trait = yes
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_fp2_ritualised_friendship
+E_kCAFG_cultural_boon_tradition_fp2_ritualised_friendship = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_fp2_ritualised_friendship
+        YEARS = 10
+    }
+    scope:culture = {
+        change_cultural_acceptance = {
+            target = root.culture
+            value = {
+                integer_range = {
+                    min = miniscule_positive_culture_acceptance
+                    max = low_positive_culture_acceptance
+                }
+            }
+            desc = E_kCAFG_cultural_boon_cultural_acceptance_bonus_ritualized_friendship_tt
+        }
+    }
+}
+
+# tradition_fp3_irrigation_experts
+E_kCAFG_cultural_boon_tradition_fp3_irrigation_experts = {
+    E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+        MODIFIER = PM_kCAFG_cultural_boon_tradition_fp3_irrigation_experts
+        YEARS = 10
+        CONDITION = "OR = { terrain = drylands terrain = desert terrain = desert_mountains }"
+    }
+}
+
+# tradition_ep2_avid_falconers
+E_kCAFG_cultural_boon_tradition_ep2_avid_falconers = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = kCAFG_cultural_benefits_character_base
+            dynasty = none
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                add_diplomacy_skill = { 1 3 }
+                add_stewardship_skill = { 1 3 }
+                add_martial_skill = { 1 3 }
+                add_intrigue_skill = { 1 3 }
+                add_learning_skill = { 1 3 }
+                add_prowess_skill = { 3 5 }
+                if = {
+                    limit = { NOT = { has_trait = lifestyle_hunter } }
+                    add_trait = lifestyle_hunter
+                }
+                add_random_tiered_trait_track_xp_effect = {
+                    TRAIT = lifestyle_hunter
+                    TRACK = falconer
+                    LEVEL_1 = no
+                    LEVEL_3 = yes
+                }
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+# tradition_ep3_imperial_tagmata
+E_kCAFG_cultural_boon_tradition_ep3_imperial_tagmata = {
+    random_list = {
+        1 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = cataphract SCALE = 0.5 } }
+        1 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = akritai SCALE = 1 } }
+        1 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = ballistrai SCALE = 1 } }
+        1 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = skoutatoi SCALE = 1 } }
+    }
+}
+
+# tradition_ep3_palace_politics
+E_kCAFG_cultural_boon_tradition_ep3_palace_politics = {
+    random_list = {
+        1 = { E_kCAFG_generic_cultural_boon_MAA_gift = { MAA_TYPE = varangian_guards SCALE = 0.9 } }
+        1 = {
+            trigger = { can_employ_court_position_type = chief_eunuch_court_position }
+            hidden_effect = {
+                random_list = {
+                    1 = {
+                        E_kCAFG_generic_cultural_boon_impressive_character_male = { MAIN_SKILL = diplomacy }
+                        scope:impressive_character = { add_intrigue_skill = { 3 6 } }
+                    }
+                    1 = {
+                        E_kCAFG_generic_cultural_boon_impressive_character_male = { MAIN_SKILL = intrigue }
+                        scope:impressive_character = { add_diplomacy_skill = { 3 6 } }
+                    }
+                }
+                scope:impressive_character = {
+                    random_list = {
+                        1 = { add_trait = eunuch_1 }
+                        1 = { add_trait = beardless_eunuch }
+                    }
+                    force_character_skill_recalculation = yes
+                }
+            }
+        }
+    }
+}
+
+# tradition_scholar_officials
+E_kCAFG_cultural_boon_tradition_scholar_officials = {
+    E_kCAFG_generic_cultural_boon_impressive_character = { MAIN_SKILL = learning }
+    hidden_effect = {
+        scope:impressive_character = {
+            if = {
+                limit = { NOT = { knows_language_of_culture = culture:han } }
+                learn_language_of_culture = culture:han
+            }
+            if = {
+                limit = { NOT = { has_trait = confucian_education } }
+                add_trait = confucian_education
+            }
+            add_trait_xp = {
+                trait = confucian_education
+                value = {
+                    integer_range = {
+                        min = small_lifestyle_random_xp_low
+                        max = medium_lifestyle_random_xp_high
+                    }
+                }
+            }
+            add_trait = loyal
+            force_character_skill_recalculation = yes
+        }
+    }
+}
+
+######################
+######################
+######################
+
+E_kCAFG_generic_cultural_boon_knight = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = knight
+	        age = { 18 32 }
+            martial = { 4 8 }
+            prowess = { 8 10 }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                random = {
+                    chance = 20
+                    add_trait = lifestyle_blademaster
+                    add_random_tiered_trait_xp_effect = {
+                        TRAIT = lifestyle_blademaster
+                        LEVEL_1 = yes
+                        LEVEL_3 = no
+                    }
+                }
+                
+                random_list = {
+                    20 = { add_trait = education_martial_prowess_1 }
+                    50 = { add_trait = education_martial_prowess_2 }
+                    40 = { add_trait = education_martial_prowess_3 }
+                    15 = { add_trait = education_martial_prowess_4 }
+                    60 = {}
+                }
+
+                if = {
+                    limit = { has_trait = craven }
+                    remove_trait = craven
+                    add_trait = brave
+                }
+                
+                random = {
+                    chance = 10
+                    add_trait = strong
+                }
+                
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_commander = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = new_commander_character
+            gender_female_chance = root_soldier_female_chance
+	        age = { 18 32 }
+            martial = { 12 16 }
+            
+			culture = scope:culture
+            faith = scope:new_character_faith
+            location = scope:province
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                remove_trait = education_martial_2
+                remove_trait = education_martial_3
+                remove_trait = education_martial_4
+                random_list = {
+                    90 = { add_trait = education_martial_4 }
+                    10 = { add_trait = education_martial_5 }
+                }
+                E_kCAFG_add_cultural_tradition_commander_trait = yes
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_MAA_gift = {
+    save_scope_value_as = { name = boon_type value = flag:maa_refill_gift }
+	save_scope_value_as = { name = maa_refill_gift_name value = flag:$MAA_TYPE$ }
+
+    hidden_effect = {
+        set_variable = {
+            name = maa_gift
+            value = {
+                value = { 25 75 }
+                add = {
+                    value = 0
+                    every_directly_owned_province = {
+                        limit = { T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture } }
+                        scope:culture = { prev = { add = V_kCAFG_province_prev_culture_amount } }
+                        multiply = 0.8
+                        add = 0.2
+                        multiply = building_levies
+                        divide = 2
+                        multiply = {
+                            value = county.development_level
+                            divide = max_development_level
+                            multiply = 0.75
+                            add = 0.25
+                        }
+                    }
+                }
+                max = 1000
+                multiply = $SCALE$
+                min = 25
+            }
+        }
+        save_scope_value_as = { name = gifted_amount value = var:maa_gift }
+    }
+
+    if = {
+        limit = {
+            var:maa_gift > 0
+            any_maa_regiment = {
+                maa_current_troops_count < maa_max_troops_count
+                is_maa_type = $MAA_TYPE$
+            }
+        }
+        save_scope_value_as = { name = maa_refilled value = flag:yes }
+        show_as_tooltip = { custom_tooltip = E_kCAFG_cultural_boon_tradition_maa_refill_tt }
+    }
+
+    hidden_effect = {
+        while = {
+            limit = {
+                var:maa_gift > 0
+                any_maa_regiment = {
+                    maa_current_troops_count < maa_max_troops_count
+                    is_maa_type = $MAA_TYPE$
+                }
+            }
+        
+            random_maa_regiment = {
+                limit = {
+                    maa_current_troops_count < maa_max_troops_count
+                    is_maa_type = $MAA_TYPE$
+                }
+                set_local_variable = {
+                    name = refilled_amount
+                    value = {
+                        value = 100
+                        max = root.var:maa_gift
+                        max = {
+                            value = maa_max_troops_count
+                            subtract = maa_current_troops_count
+                        }
+                    }
+                }
+                change_maa_troops_count = {
+                    value = maa_current_troops_count
+                    add = local_var:refilled_amount
+                    max = maa_max_troops_count
+                }
+                root = {
+                    change_variable = {
+                        name = maa_gift
+                        subtract = local_var:refilled_amount
+                    }
+                }
+            }
+        }
+    }
+
+    if = {
+        limit = { var:maa_gift > 0 }
+
+        save_scope_value_as = { name = maa_gifted value = flag:yes }
+        show_as_tooltip = { custom_tooltip = E_kCAFG_cultural_boon_tradition_maa_gift_tt }
+        
+        hidden_effect = {
+            spawn_army = {
+                men_at_arms = {
+                    type = $MAA_TYPE$
+                    stacks = {
+                        value = root.var:maa_gift
+                        divide = 100
+                        floor = yes
+                        add = 1
+                    }
+                }
+                inheritable = no
+                location = scope:province
+                save_scope_as = new_army
+                name = kCAFG_cultural_maa_gift_name
+            }
+
+            while = {
+                limit = { var:maa_gift > 100 }
+                
+                change_variable = {
+                    name = maa_gift
+                    subtract = 100
+                }
+            }
+
+            # Not set if not at war, unfortunately
+            scope:new_army ?= {
+                random_army_maa_regiment = {
+                    change_maa_troops_count = root.var:maa_gift
+                }
+            }
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_impressive_character = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = kCAFG_cultural_benefits_character_base
+            dynasty = none
+            $MAIN_SKILL$ = { 10 14 }
+            random_traits_list = {
+                education_$MAIN_SKILL$_3 = { weight = { base = 20 } }
+                education_$MAIN_SKILL$_4 = { weight = { base = 10 } }
+                education_$MAIN_SKILL$_5 = { weight = { base = 3 } }
+            }
+            location = scope:province
+            save_scope_as = impressive_character
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_impressive_character_male = {
+    hidden_effect = {
+        save_scope_value_as = { name = boon_type value = flag:impressive_character }
+
+        E_kCAFG_get_generated_character_random_province_faith = yes
+        create_character = {
+            template = kCAFG_cultural_benefits_character_base
+	        gender = male
+            dynasty = none
+            $MAIN_SKILL$ = { 10 14 }
+            random_traits_list = {
+                education_$MAIN_SKILL$_3 = { weight = { base = 20 } }
+                education_$MAIN_SKILL$_4 = { weight = { base = 10 } }
+                education_$MAIN_SKILL$_5 = { weight = { base = 3 } }
+            }
+            location = scope:province
+            save_scope_as = impressive_character
+            after_creation = {
+                save_scope_as = impressive_character
+                save_scope_as = introduced_character
+
+                E_kCAFG_add_grateful_opinion = yes
+                E_kei_character_creation_nudge_cultural_traits = yes
+                set_interesting_traits_and_modifiers_effect = yes
+                force_character_skill_recalculation = yes
+            }
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_character_modifier = {
+    save_scope_value_as = { name = boon_type value = flag:character_modifier }
+    save_scope_value_as = { name = modifier value = flag:$MODIFIER$ }
+    save_scope_value_as = { name = modifier_duration value = $YEARS$ }
+    add_character_modifier = {
+        modifier = $MODIFIER$
+        years = $YEARS$
+    }
+}
+
+E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier = {
+    save_scope_value_as = { name = boon_type value = flag:provinces_modifier }
+    save_scope_value_as = { name = modifier value = flag:$MODIFIER$ }
+    save_scope_value_as = { name = modifier_duration value = $YEARS$ }
+    every_directly_owned_province = {
+        limit = { T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture } }
+        add_to_list = affected_provinces
+        add_province_modifier = {
+            modifier = $MODIFIER$
+            years = $YEARS$
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_all_counties_of_culture_modifier = {
+    save_scope_value_as = { name = boon_type value = flag:counties_modifier }
+    save_scope_value_as = { name = modifier value = flag:$MODIFIER$ }
+    save_scope_value_as = { name = modifier_duration value = $YEARS$ }
+    every_held_title = {
+        limit = {
+            tier = tier_county
+            T_kCAFG_does_county_contain_culture = { CULTURE = scope:culture }
+        }
+        add_to_list = affected_counties
+        add_county_modifier = {
+            modifier = $MODIFIER$
+            years = $YEARS$
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration = {
+    save_scope_value_as = { name = boon_type value = flag:provinces_modifier }
+    save_scope_value_as = { name = modifier value = flag:$MODIFIER$ }
+    save_scope_value_as = { name = modifier_duration value = $MIN_YEARS$ }
+    every_directly_owned_province = {
+        limit = { T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture } }
+        add_to_list = affected_provinces
+        add_province_modifier = {
+            modifier = $MODIFIER$
+            years = { $MIN_YEARS$ $MAX_YEARS$ }
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_all_counties_provinces_of_culture_modifier_conditional = {
+    save_scope_value_as = { name = boon_type value = flag:provinces_modifier }
+    save_scope_value_as = { name = modifier value = flag:$MODIFIER$ }
+    save_scope_value_as = { name = modifier_duration value = $YEARS$ }
+    every_held_title = {
+        limit = { tier = tier_county }
+        every_county_province = {
+            limit = {
+                T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                $CONDITION$
+            }
+            add_to_list = affected_provinces
+            add_province_modifier = {
+                modifier = $MODIFIER$
+                years = $YEARS$
+            }
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_all_counties_provinces_of_culture_modifier_randomized_duration_conditional = {
+    save_scope_value_as = { name = boon_type value = flag:provinces_modifier }
+    save_scope_value_as = { name = modifier value = flag:$MODIFIER$ }
+    save_scope_value_as = { name = modifier_duration value = $MIN_YEARS$ }
+    every_held_title = {
+        limit = { tier = tier_county }
+        every_county_province = {
+            limit = {
+                T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+                $CONDITION$
+            }
+            add_to_list = affected_provinces
+            add_province_modifier = {
+                modifier = $MODIFIER$
+                years = { $MIN_YEARS$ $MAX_YEARS$ }
+            }
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_conditional = {
+    save_scope_value_as = { name = boon_type value = flag:provinces_modifier }
+    save_scope_value_as = { name = modifier value = flag:$MODIFIER$ }
+    save_scope_value_as = { name = modifier_duration value = $YEARS$ }
+    every_directly_owned_province = {
+        limit = {
+            T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+            $CONDITION$
+        }
+        add_to_list = affected_provinces
+        add_province_modifier = {
+            modifier = $MODIFIER$
+            years = $YEARS$
+        }
+    }
+}
+
+E_kCAFG_generic_cultural_boon_provinces_of_culture_modifier_randomized_duration_conditional = {
+    save_scope_value_as = { name = boon_type value = flag:provinces_modifier }
+    save_scope_value_as = { name = modifier value = flag:$MODIFIER$ }
+    save_scope_value_as = { name = modifier_duration value = $MIN_YEARS$ }
+    every_directly_owned_province = {
+        limit = {
+            T_kCAFG_does_province_contain_culture = { CULTURE = scope:culture }
+            $CONDITION$
+        }
+        add_to_list = affected_provinces
+        add_province_modifier = {
+            modifier = $MODIFIER$
+            years = { $MIN_YEARS$ $MAX_YEARS$ }
+        }
+    }
+}
+
+E_kCAFG_add_grateful_opinion = {
+    ## Improve chances of recruiting
+    add_opinion = {
+        target = root
+        modifier = grateful_opinion
+        opinion = 50
+    }
+}
+
+E_kCAFG_get_generated_character_random_province_faith = {
+    scope:province = {
+        E_kCAFG_get_random_faith_from_this_province = {
+            SAVED_SCOPE = new_character_faith
+        }
+    }
+}
+
+E_kCAFG_add_cultural_tradition_commander_trait = {
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = winter_soldier_trait_more_common }
+            NOT = { has_trait = winter_soldier }
+        }
+        add_trait = winter_soldier
+    }
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = forest_fighter_trait_more_common }
+            NOT = { has_trait = forest_fighter }
+        }
+        add_trait = forest_fighter
+    }
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = rough_terrain_expert_trait_more_common }
+            NOT = { has_trait = rough_terrain_expert }
+        }
+        add_trait = rough_terrain_expert
+    }
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = desert_warrior_trait_more_common }
+            NOT = { has_trait = desert_warrior }
+        }
+        add_trait = desert_warrior
+    }
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = jungle_stalker_trait_more_common }
+            NOT = { has_trait = jungle_stalker }
+        }
+        add_trait = jungle_stalker
+    }
+}

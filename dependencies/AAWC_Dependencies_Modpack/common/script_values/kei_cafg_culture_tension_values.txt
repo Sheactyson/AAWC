@@ -1,0 +1,333 @@
+﻿V_kCAFG_culture_tension_minimum_for_modifier = 0.05 # Tension under this value will not have the province modifier effects
+
+V_kCAFG_cultural_acceptance_tension_factor = 0.75 # 0% cultural acceptance will have this tension as a baseline
+
+V_kCAFG_tradition_quarrelsome_baseline_tension_factor = 1.35
+V_kCAFG_holder_tradition_ruling_caste_baseline_tension_factor = 0.8
+
+V_kCAFG_cultural_emissary_baseline_culture_tension_reduction_max = 0.2
+
+V_kCAFG_appease_cultural_tensions_decrease = 0.1
+
+# Used by modifiers, how much tension is there relative to the province county
+V_kCAFG_province_culture_tension_scaled_relative_amount_modifier = {
+    value = V_kCAFG_province_culture_tension_scaled_relative_amount
+    switch = {
+        trigger = has_game_rule
+		kCAFG_tension_effects_impact_025 = { multiply = 0.25 }
+		kCAFG_tension_effects_impact_050 = { multiply = 0.50 }
+		kCAFG_tension_effects_impact_075 = { multiply = 0.75 }
+		kCAFG_tension_effects_impact_125 = { multiply = 1.25 }
+		kCAFG_tension_effects_impact_150 = { multiply = 1.50 }
+		kCAFG_tension_effects_impact_175 = { multiply = 1.75 }
+		kCAFG_tension_effects_impact_200 = { multiply = 2 }
+    }
+}
+
+# Used by modifiers, how much tension is there relative to the province county
+# Returns value between 0-1
+V_kCAFG_province_culture_tension_scaled_relative_amount = {
+    value = var:kCAFG_culture_tension
+    multiply = V_kCAFG_province_relative_values_scale
+}
+
+## Culture Tension Baseline for a specific culture
+# Returns value between 0-1
+# Scope : province
+# Scopes :
+# kCAFG_province
+# kCAFG_culture
+# kCAFG_target_culture
+V_kCAFG_province_culture_tension_target_baseline_culture_contribution = {
+    value = V_kCAFG_province_culture_factor
+    multiply = scope:kCAFG_culture.V_kCAFG_culture_tension_target_baseline_complete
+    max = 1
+}
+
+## Culture Tension Baseline for a specific culture
+# Returns value between 0-1
+# Scope : culture struct
+# kCAFG_province
+# kCAFG_target_culture
+V_kCAFG_province_culture_tension_target_baseline_culture_struct_contribution = {
+    value = var:factor
+    multiply = var:tension_baseline
+    max = 1
+}
+
+## Culture Tension Baseline for a specific culture
+# Returns value between 0-1
+# Scopes :
+# kCAFG_target_culture
+# province
+V_kCAFG_culture_tension_target_baseline_complete = {
+    value = V_kCAFG_culture_tension_target_baseline
+    if = {
+        limit = { exists = scope:kCAFG_province }
+        multiply = V_kCAFG_culture_tension_target_baseline_holder_factor
+    }
+    max = 1
+}
+
+## Culture Tension Baseline for a specific culture
+# Returns value between 0-1
+# Scopes : culture
+# kCAFG_target_culture
+# province
+V_kCAFG_culture_tension_target_baseline = {
+    value = 0
+
+    # Inverted cultural acceptance
+    add = {
+        value = 1
+        subtract = {
+            value = "cultural_acceptance(scope:kCAFG_target_culture)"
+            divide = 100 # no max value in defines or values ?
+        }
+        multiply = V_kCAFG_cultural_acceptance_tension_factor
+    }
+    
+    multiply = V_kCAFG_culture_tension_target_baseline_mult_VANILLA_B
+
+    min = 0
+    max = 1
+}
+
+# Scopes : culture
+V_kCAFG_culture_tension_target_baseline_mult_VANILLA_B = {
+    value = 1
+
+    if = {
+        limit = { has_cultural_tradition = tradition_quarrelsome }
+        multiply = V_kCAFG_tradition_quarrelsome_baseline_tension_factor
+    }
+}
+
+# Holder is taken into account
+# Scope : culture
+# kCAFG_target_culture
+# province
+V_kCAFG_culture_tension_target_baseline_holder_factor = {
+    value = 1
+
+    scope:kCAFG_province.county.holder = {
+        if = {
+            limit = { knows_language_of_culture = prev }
+            multiply = define:NCharacterOpinion|CULTURE_ACCEPTANCE_MULT_KNOWS_LANGUAGE
+        }
+
+        multiply = V_kCAFG_culture_tension_target_baseline_holder_factor_mult_VANILLA_B
+    }
+
+    scope:kCAFG_province = {
+        multiply = V_kCAFG_culture_tension_tolerance_law_factor
+    }
+}
+
+# Scopes : character
+V_kCAFG_culture_tension_target_baseline_holder_factor_mult_VANILLA_B = {
+    value = 1
+
+    if = {
+        limit = { culture = { has_cultural_tradition = tradition_ruling_caste } }
+        multiply = V_kCAFG_holder_tradition_ruling_caste_baseline_tension_factor
+    }
+
+    if = {
+        limit = { has_court_position = cultural_emissary_court_position }
+        multiply = {
+            value = 1
+            subtract = V_kCAFG_cultural_emissary_baseline_culture_tension_reduction_max
+        }
+    }
+
+    # if = {
+    #     limit = { exists = court_position:cultural_emissary_court_position }
+	# 	court_position:cultural_emissary_court_position ?= {
+    #         multiply = {
+    #             value = 1
+    #             subtract = {
+    #                 value = aptitude:cultural_emissary_court_position # 0-4
+    #                 divide = V_kCAFG_cultural_emissary_max_aptitude
+    #                 multiply = V_kCAFG_cultural_emissary_baseline_culture_tension_reduction_max
+    #             }
+    #         }
+    #     }
+    # }
+}
+
+V_kCAFG_culture_tension_difference_from_target = {
+    value = var:kCAFG_target_culture_tension
+    subtract = var:kCAFG_culture_tension
+}
+
+V_kCAFG_culture_tension_monthly_drift_factor = 0.075 # Tension will drift by this value multiplied by the difference with the baseline
+V_kCAFG_culture_tension_drift_minimum_value = 0.005
+V_kCAFG_culture_tension_drift_minimum_value_negative = {
+    value = V_kCAFG_culture_tension_drift_minimum_value
+    multiply = -1
+}
+
+# Scope : province
+V_kCAFG_culture_tension_monthly_change = {
+    value = 0
+    add = {
+        value = V_kCAFG_culture_tension_monthly_drift
+        desc = kCAFG_culture_tension_monthly_drift_tt
+		format = "BREAKDOWN_FORMAT_PERCENTAGE_POSITIVE_IS_BAD_2_DECIMALS"
+    }
+}
+
+V_kCAFG_culture_tension_monthly_change_desc = {
+    value = V_kCAFG_culture_tension_monthly_change
+    save_temporary_scope_as = kCAFG_province
+    add = {
+        county.holder = {
+            add = V_kCAFG_culture_tension_monthly_change_desc_warring_character
+            every_liege_or_above = {
+                add = V_kCAFG_culture_tension_monthly_change_desc_warring_character
+            }
+        }
+        desc = kCAFG_culture_tension_on_lieges_warring_cultures_tt
+        format = "BREAKDOWN_FORMAT_PERCENTAGE_POSITIVE_IS_BAD_2_DECIMALS"
+    }
+}
+
+# Scope : character
+# Required scope : kCAFG_province
+V_kCAFG_culture_tension_monthly_change_desc_warring_character = {
+    value = 0
+    save_temporary_scope_as = warring_character
+    if = {
+        limit = {
+            is_at_war = yes
+            any_character_war = {
+                primary_defender.culture != prev.culture
+                using_conquest_cb_trigger = yes
+                is_attacker = prev
+                primary_defender.culture = {
+                    save_temporary_scope_as = kCAFG_culture
+                    scope:kCAFG_province = {
+                        T_kCAFG_does_province_contain_culture = { CULTURE = scope:kCAFG_culture }
+                    }
+                }
+            }
+        }
+        ordered_character_war = {
+            limit = {
+                primary_defender.culture != prev.culture
+                using_conquest_cb_trigger = yes
+                is_attacker = prev
+                primary_defender.culture = {
+                    save_temporary_scope_as = kCAFG_culture
+                    scope:kCAFG_province = {
+                        T_kCAFG_does_province_contain_culture = { CULTURE = scope:kCAFG_culture }
+                    }
+                }
+            }
+            order_by = {
+                value = 0
+                casus_belli = {
+                    every_target_title = {
+                        if = { limit = { tier = tier_county } add = 1 }
+                        else_if = { limit = { tier = tier_duchy } add = 5 }
+                        else_if = { limit = { tier = tier_kingdom } add = 15 }
+                        else_if = { limit = { tier = tier_empire } add = 50 }
+                        else_if = { limit = { tier = tier_hegemony } add = 100 }
+                    }
+                }
+            }
+            primary_defender.culture = { save_temporary_scope_as = kCAFG_culture }
+            casus_belli = {
+                ordered_target_title = {
+                    order_by = tier
+                    max = 1
+                    save_temporary_scope_as = highest_tiered_title # used by V_kCAFG_culture_tension_on_conquest_warring_quarterly
+                }
+            }
+            scope:kCAFG_province = {
+                add = {
+                    value = V_kCAFG_culture_tension_on_conquest_warring_quarterly
+                    multiply = {
+                        value = 0.1
+                        add = {
+                            value = V_kCAFG_province_culture_factor
+                            multiply = {
+                                value = 1
+                                subtract = 0.1
+                            }
+                        }
+                    }
+                    divide = 3 # Quarterly to monthly
+                }
+            }
+        }
+    }
+}
+
+# Scope : province
+V_kCAFG_culture_tension_monthly_drift = {
+    value = 0
+    if = {
+        limit = {
+            OR = {
+                V_kCAFG_culture_tension_difference_from_target > V_kCAFG_culture_tension_drift_minimum_value
+                V_kCAFG_culture_tension_difference_from_target < V_kCAFG_culture_tension_drift_minimum_value_negative
+            }
+        }
+        value = V_kCAFG_culture_tension_difference_from_target
+        multiply = V_kCAFG_culture_tension_monthly_drift_factor
+        if = {
+            limit = { var:kCAFG_target_culture_tension > var:kCAFG_culture_tension }
+            min = V_kCAFG_culture_tension_drift_minimum_value
+        }
+        else_if = {
+            limit = { var:kCAFG_target_culture_tension < var:kCAFG_culture_tension }
+            max = V_kCAFG_culture_tension_drift_minimum_value_negative
+        }
+    }
+    else_if = {
+        limit = { var:kCAFG_culture_tension != var:kCAFG_target_culture_tension }
+        value = V_kCAFG_culture_tension_difference_from_target
+    }
+}
+
+
+# Scope : province
+# highest_tiered_title : title the war is targeting
+V_kCAFG_culture_tension_on_conquest_declaration = {
+    switch = {
+        trigger = scope:highest_tiered_title.tier
+        tier_county = { value = 0.1 }
+        tier_duchy = { value = 0.2 }
+        tier_kingdom = { value = 0.3 }
+        tier_empire = { value = 0.4 }
+        tier_hegemony = { value = 0.5 }
+    }
+}
+
+# Scope : province
+# highest_tiered_title : title the war is targeting
+V_kCAFG_culture_tension_on_conquest_join = {
+    switch = {
+        trigger = scope:highest_tiered_title.tier
+        tier_county = { value = 0.075 }
+        tier_duchy = { value = 0.15 }
+        tier_kingdom = { value = 0.225 }
+        tier_empire = { value = 0.3 }
+        tier_hegemony = { value = 0.375 }
+    }
+}
+
+# Scope : province
+# highest_tiered_title : title the war is targeting
+V_kCAFG_culture_tension_on_conquest_warring_quarterly = {
+    switch = {
+        trigger = scope:highest_tiered_title.tier
+        tier_county = { value = 0.02 }
+        tier_duchy = { value = 0.04 }
+        tier_kingdom = { value = 0.08 }
+        tier_empire = { value = 0.14 }
+        tier_hegemony = { value = 0.20 }
+    }
+}

@@ -1,0 +1,434 @@
+﻿V_kCAFG_tolerant_law_tension_factor = 0.5
+V_kCAFG_intolerant_law_tension_factor = 1.5
+
+V_kCAFG_intolerant_law_conversion_bonus = 0.30
+
+V_kCAFG_ai_law_change_threshold = 60
+V_kCAFG_ai_law_change_negative_threshold = {
+    value = V_kCAFG_ai_law_change_threshold
+    multiply = -1
+}
+
+V_kCAFG_tolerance_laws_game_rule_allowed_value = {
+	value = 0
+	if = {
+		limit = { NOT = { has_game_rule = kCAFG_tolerance_laws_off } }
+		add = 1
+	}
+}
+
+V_kCAFG_change_culture_tolerance_law_prestige_base = 75
+V_kCAFG_change_faith_tolerance_law_piety_base = 75
+
+V_kCAFG_change_culture_tolerance_law_prestige_cost = {
+	add = {
+		desc = "BASE_VALUE"
+		value = V_kCAFG_change_culture_tolerance_law_prestige_base
+		format = "BASE_VALUE_FORMAT"
+	}
+	# Realm Size Penalty: +10 Prestige cost per county controlled by you(r vassals)
+	if = {
+		limit = {
+			NOT = {
+				culture = { has_cultural_parameter = cheaper_to_change_laws }
+			}
+		}
+		add = {
+			desc = "realm_size"
+			format = "BREAKDOWN_FORMAT_REALM_SIZE_PRESTIGE_COST"
+			value = subrealm_size_modifier
+			#Rescale
+			multiply = V_kCAFG_change_culture_tolerance_law_prestige_base
+			divide = increase_crown_authority_prestige_base
+		}
+	}
+	if = { #Reduced penalty from Tradition (for tooltip)
+		limit = {
+			culture = { has_cultural_parameter = cheaper_to_change_laws }
+		}
+		add = {
+			desc = "realm_size"
+			format = "TRADITION_BREAKDOWN_LAW_REALM_SIZE_COST"
+			value = subrealm_size_modifier
+			#Rescale
+			multiply = V_kCAFG_change_culture_tolerance_law_prestige_base
+			divide = increase_crown_authority_prestige_base
+		}
+	}
+
+	# Learning Modifier (2% more expensive for each skill point below 8 Learning)
+	if = {
+		limit = {
+			learning < 8
+		}
+		add = {
+			desc = "poor_learning_law_cost_tooltip"
+			value = {
+				add = increase_crown_authority_prestige_base
+				add = subrealm_size_modifier
+				#Rescale
+				multiply = V_kCAFG_change_culture_tolerance_law_prestige_base
+				divide = increase_crown_authority_prestige_base
+			}
+			multiply = learning_law_cost_modifier
+		}
+	}
+	else_if = { # (2% less expensive for each skill point below 8 Learning)
+		limit = {
+			learning > 8
+		}
+		add = {
+			desc = "learning_law_cost_tooltip"
+			value = {
+				add = increase_crown_authority_prestige_base
+				add = subrealm_size_modifier
+				#Rescale
+				multiply = V_kCAFG_change_culture_tolerance_law_prestige_base
+				divide = increase_crown_authority_prestige_base
+			}
+			multiply = learning_law_cost_modifier
+		}
+	}
+
+	# Tenet Modifiers
+	if = {
+		limit = {
+			faith = {
+				has_doctrine_parameter = legalism_modified_law_costs
+			}
+		}
+		add = {
+			desc = "rite_legalism_law_cost_tooltip"
+			value = {
+				add = increase_crown_authority_prestige_base
+				add = subrealm_size_modifier
+				#Rescale
+				multiply = V_kCAFG_change_culture_tolerance_law_prestige_base
+				divide = increase_crown_authority_prestige_base
+			}
+			multiply = legalism_law_cost_modifier
+		}
+	}
+	multiply = kCAFG_law_cost_factor
+}
+
+# scope : Province
+V_kCAFG_culture_tension_tolerance_law_factor = {
+	value = 1
+	county.holder = {
+		# Default to county holder
+		save_temporary_scope_as = law_enforcer
+		if = {
+			limit = { is_independent_ruler = yes }
+			save_temporary_scope_as = law_enforcer
+		}
+		else = {
+			# Get the first liege whose law applies
+			ordered_liege_or_above = {
+				position = 0
+				order_by = primary_title.tier
+				limit = { T_kCAFG_overrides_culture_tolerance_law = yes }
+				save_temporary_scope_as = law_enforcer
+			}
+		}
+	}
+
+	if = {
+		limit = { exists = scope:law_enforcer }
+		scope:law_enforcer = {
+			if = {
+				limit = { T_kCAFG_has_culture_tolerance_realm_law = yes }
+				multiply = V_kCAFG_tolerant_law_tension_factor
+			}
+			else_if = {
+				limit = { T_kCAFG_has_culture_intolerance_realm_law = yes }
+				multiply = V_kCAFG_intolerant_law_tension_factor
+			}
+		}
+	}
+}
+
+# scope : Province
+V_kCAFG_culture_tolerance_law_value = {
+	value = 0
+	county.holder = {
+		if = {
+			limit = { is_independent_ruler = yes }
+			save_temporary_scope_as = law_enforcer
+		}
+		else = {
+			# Get the first liege whose law applies
+			ordered_liege_or_above = {
+				position = 0
+				order_by = primary_title.tier
+				limit = { T_kCAFG_overrides_culture_tolerance_law = yes }
+				save_temporary_scope_as = law_enforcer
+			}
+
+			# Default to county holder
+			if = {
+				limit = { NOT = { exists = scope:law_enforcer } }
+				save_temporary_scope_as = law_enforcer
+			}
+		}
+	}
+
+	if = {
+		limit = { exists = scope:law_enforcer }
+		scope:law_enforcer = {
+			if = {
+				limit = { T_kCAFG_has_culture_tolerance_realm_law = yes }
+				add = 1
+			}
+			else_if = {
+				limit = { T_kCAFG_has_culture_intolerance_realm_law = yes }
+				subtract = 1
+			}
+		}
+	}
+}
+
+V_kCAFG_change_faith_tolerance_law_piety_cost = {
+	add = {
+		desc = "BASE_VALUE"
+		value = V_kCAFG_change_faith_tolerance_law_piety_base
+		format = "BASE_VALUE_FORMAT"
+	}
+	# Realm Size Penalty: +10 Prestige cost per county controlled by you(r vassals)
+	if = {
+		limit = {
+			NOT = {
+				culture = { has_cultural_parameter = cheaper_to_change_laws }
+			}
+		}
+		add = {
+			desc = "realm_size"
+			format = "BREAKDOWN_FORMAT_REALM_SIZE_PRESTIGE_COST"
+			value = subrealm_size_modifier
+			#Rescale
+			multiply = V_kCAFG_change_faith_tolerance_law_piety_base
+			divide = increase_crown_authority_prestige_base
+		}
+	}
+	if = { #Reduced penalty from Tradition (for tooltip)
+		limit = {
+			culture = { has_cultural_parameter = cheaper_to_change_laws }
+		}
+		add = {
+			desc = "realm_size"
+			format = "TRADITION_BREAKDOWN_LAW_REALM_SIZE_COST"
+			value = subrealm_size_modifier
+			#Rescale
+			multiply = V_kCAFG_change_faith_tolerance_law_piety_base
+			divide = increase_crown_authority_prestige_base
+		}
+	}
+
+	# Learning Modifier (2% more expensive for each skill point below 8 Learning)
+	if = {
+		limit = {
+			learning < 8
+		}
+		add = {
+			desc = "poor_learning_law_cost_tooltip"
+			value = {
+				add = increase_crown_authority_prestige_base
+				add = subrealm_size_modifier
+				#Rescale
+				multiply = V_kCAFG_change_faith_tolerance_law_piety_base
+				divide = increase_crown_authority_prestige_base
+			}
+			multiply = learning_law_cost_modifier
+		}
+	}
+	else_if = { # (2% less expensive for each skill point below 8 Learning)
+		limit = {
+			learning > 8
+		}
+		add = {
+			desc = "learning_law_cost_tooltip"
+			value = {
+				add = increase_crown_authority_prestige_base
+				add = subrealm_size_modifier
+				#Rescale
+				multiply = V_kCAFG_change_faith_tolerance_law_piety_base
+				divide = increase_crown_authority_prestige_base
+			}
+			multiply = learning_law_cost_modifier
+		}
+	}
+
+	# Tenet Modifiers
+	if = {
+		limit = {
+			faith = {
+				has_doctrine_parameter = legalism_modified_law_costs
+			}
+		}
+		add = {
+			desc = "rite_legalism_law_cost_tooltip"
+			value = {
+				add = increase_crown_authority_prestige_base
+				add = subrealm_size_modifier
+				#Rescale
+				multiply = V_kCAFG_change_faith_tolerance_law_piety_base
+				divide = increase_crown_authority_prestige_base
+			}
+			multiply = legalism_law_cost_modifier
+		}
+	}
+	multiply = kCAFG_law_cost_factor
+}
+
+# scope : Province
+V_kCAFG_faith_tension_tolerance_law_factor = {
+	value = 1
+	county.holder = {
+		# Default to county holder
+		save_temporary_scope_as = law_enforcer
+		if = {
+			limit = { is_independent_ruler = yes }
+			save_temporary_scope_as = law_enforcer
+		}
+		else = {
+			# Get the first liege whose law applies
+			ordered_liege_or_above = {
+				position = 0
+				order_by = primary_title.tier
+				limit = { T_kCAFG_overrides_faith_tolerance_law = yes }
+				save_temporary_scope_as = law_enforcer
+			}
+		}
+	}
+
+	if = {
+		limit = { exists = scope:law_enforcer }
+		scope:law_enforcer = {
+			if = {
+				limit = { T_kCAFG_has_faith_tolerance_realm_law = yes }
+				multiply = V_kCAFG_tolerant_law_tension_factor
+			}
+			else_if = {
+				limit = { T_kCAFG_has_faith_intolerance_realm_law = yes }
+				multiply = V_kCAFG_intolerant_law_tension_factor
+			}
+		}
+	}
+}
+
+# scope : Province
+V_kCAFG_faith_tolerance_law_value = {
+	value = 0
+	county.holder = {
+		if = {
+			limit = { is_independent_ruler = yes }
+			save_temporary_scope_as = law_enforcer
+		}
+		else = {
+			# Get the first liege whose law applies
+			ordered_liege_or_above = {
+				position = 0
+				order_by = primary_title.tier
+				limit = { T_kCAFG_overrides_faith_tolerance_law = yes }
+				save_temporary_scope_as = law_enforcer
+			}
+
+			# Default to county holder
+			if = {
+				limit = { NOT = { exists = scope:law_enforcer } }
+				save_temporary_scope_as = law_enforcer
+			}
+		}
+	}
+
+	if = {
+		limit = { exists = scope:law_enforcer }
+		scope:law_enforcer = {
+			if = {
+				limit = { T_kCAFG_has_faith_tolerance_realm_law = yes }
+				add = 1
+			}
+			else_if = {
+				limit = { T_kCAFG_has_faith_intolerance_realm_law = yes }
+				subtract = 1
+			}
+		}
+	}
+}
+
+kCAFG_law_cost_factor = {
+	value = 1
+	if = {
+		limit = {
+			faith = {
+				has_doctrine_parameter = natural_primitivism_law_cost_increase
+			}
+		}
+		multiply = {
+			desc = "rite_primitivism_law_cost_tooltip"
+			value = natural_primitivism_modifier
+		}
+	}
+	if = {
+		limit = {
+			is_independent_ruler = no
+			vassal_contract_has_flag = locked_to_partition
+		}
+		multiply = {
+			desc = "succession_rights_forced_partition"
+			value = 1.25 # succession_rights_contract_law_cost = 0.25
+		}
+	}
+	if = {
+		limit = {
+			faith = {
+				has_doctrine_parameter = religious_legal_pronouncements_law_cost_reduction
+			}
+		}
+		multiply = {
+			desc = "rite_pronouncements_law_cost_tooltip"
+			value = 0.9 # religious_legal_pronouncements_modifier = -0.1
+		}
+	}
+
+	# Apply All-Things cooldown breaker multiplier.
+	if = {
+		limit = {
+			has_variable = crown_authority_cooldown
+			culture = { has_innovation = innovation_all_things }
+		}
+		# If the tally exists, multiply by that.
+		if = {
+			limit = { has_variable = authority_cooldown_break_tally }
+			multiply = {
+				desc = "breaking_authority_cooldown"
+				value = var:authority_cooldown_break_tally
+			}
+		}
+		# Otherwise, multiply by the stock tally base.
+		else = {
+			multiply = {
+				desc = "breaking_authority_cooldown"
+				value = authority_cooldown_breaker_value
+			}
+		}
+	}
+
+	# Character Modifier Bonuses
+	if = {
+		limit = { has_character_modifier = yearly_benevolent_forgiveness_modifier }
+		multiply = {
+			desc = "character_modifiers_law_cost_tooltip"
+			value = 0.9 # yearly_benevolent_forgiveness_modifier = -10%
+		}
+	}
+
+	# Character Modifier Maluses
+	if = {
+		limit = { has_character_modifier = vassal_distrust_modifier }
+		multiply = {
+			desc = "character_modifiers_law_cost_tooltip"
+			value = 1.1 # vassal_distrust_modifier = +10%
+		}
+	}
+}

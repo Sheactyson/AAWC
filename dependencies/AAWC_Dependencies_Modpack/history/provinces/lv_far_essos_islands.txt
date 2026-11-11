@@ -1,0 +1,124 @@
+﻿################## isle of manticores #####################
+8544 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { large_ruin_01 }
+	}
+}
+8545 = { holding = none }
+8546 = { holding = none }
+8547 = { holding = none }
+
+################## maritani #####################
+8548 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8549 = { holding = none }
+8550 = { holding = none }
+################## salkare #####################
+8551 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8552 = { holding = none }
+################## zanpur #####################
+8511 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+	100.1.1 = {
+		buildings = { large_ruin_01 }
+		duchy_capital_building = zanpur_volcano_01
+	}
+}
+################## yovesh #####################
+8512 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+	100.1.1 = {
+		buildings = { large_ruin_01 }
+		special_building = yovesh_volcano_01
+	}
+}
+################## zonar #####################
+8513 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8514 = { holding = none }
+8515 = { holding = none }
+8516 = { holding = none }
+################## orlath #####################
+8517 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8518 = { holding = none }
+8519 = { holding = none }
+8520 = { holding = none }
+################## lirhai #####################
+8521 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8522 = { holding = none }
+################## qinle #####################
+8523 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8524 = { holding = none }
+8525 = { holding = none }
+8526 = { holding = none }
+################## kaharim #####################
+8527 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8528 = { holding = none }
+8529 = { holding = none }
+################## saolum #####################
+8530 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8531 = { holding = none }
+8532 = { holding = none }
+################## vinet #####################
+8533 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8534 = { holding = none }
+8535 = { holding = none }
+8536 = { holding = none }
+################## xarhai #####################
+8537 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8538 = { holding = none }
+8539 = { holding = none }
+################## nyrak #####################
+8540 = {
+	culture = high_valyrian
+	religion = valyrian_pan_freehold
+	holding = wilderness_holding
+}
+8541 = { holding = none }
+8542 = { holding = none }
+8543 = { holding = none }

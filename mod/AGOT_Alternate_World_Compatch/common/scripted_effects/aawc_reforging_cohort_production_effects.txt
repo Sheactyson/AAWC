@@ -1,0 +1,850 @@
+﻿# Reforging 1.11 Milestone 1 production adapters.
+#
+# The thirteen age bands are authoritative. aawc_population_current is retained
+# only as a compatibility mirror for the established AAWC/AGOT/LoV interfaces.
+# Every production population mutation enters through one of the bounded
+# adapters below and finishes by reconciling bands, military overlays, the
+# seven cohort mirrors and the legacy aggregate mirrors.
+
+# This is the sole sanctioned writer of the legacy holding aggregate.
+aawc_reforging_cohort_sync_legacy_population_effect = {
+	set_variable = { name = aawc_population_current value = aawc_reforging_cohort_band_sum }
+	set_variable = { name = aawc_population_total value = var:aawc_population_current }
+	set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+	if = {
+		limit = { has_variable = aawc_population_expected }
+		change_variable = {
+			name = aawc_population_surplus
+			add = { value = var:aawc_population_expected multiply = -1 }
+		}
+	}
+}
+
+# Invalid province classes cannot retain resident or holding-conversion state.
+# Capacity/building caches and durable diagnostics are deliberately preserved.
+aawc_reforging_cohort_clear_ineligible_settlement_effect = {
+	if = {
+		limit = { NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes } }
+		remove_variable = aawc_reforging_round_mortality_pending
+		remove_variable = aawc_reforging_round_aging_pending
+		remove_variable = aawc_reforging_round_military_aging_pending
+		remove_variable = aawc_reforging_round_resident_import_fraction
+		remove_variable = aawc_reforging_round_population_debit_pending
+		remove_variable = aawc_reforging_round_population_death_pending
+		remove_variable = aawc_reforging_round_target_fraction
+		remove_variable = aawc_reforging_cohort_age_00_04_credit_pending
+		remove_variable = aawc_reforging_cohort_age_00_04_debit_pending
+		remove_variable = aawc_reforging_cohort_age_00_04_death_pending
+		remove_variable = aawc_reforging_cohort_age_05_09_credit_pending
+		remove_variable = aawc_reforging_cohort_age_05_09_debit_pending
+		remove_variable = aawc_reforging_cohort_age_05_09_death_pending
+		remove_variable = aawc_reforging_cohort_age_10_14_credit_pending
+		remove_variable = aawc_reforging_cohort_age_10_14_debit_pending
+		remove_variable = aawc_reforging_cohort_age_10_14_death_pending
+		remove_variable = aawc_reforging_cohort_age_15_19_credit_pending
+		remove_variable = aawc_reforging_cohort_age_15_19_debit_pending
+		remove_variable = aawc_reforging_cohort_age_15_19_death_pending
+		remove_variable = aawc_reforging_cohort_age_20_24_credit_pending
+		remove_variable = aawc_reforging_cohort_age_20_24_debit_pending
+		remove_variable = aawc_reforging_cohort_age_20_24_death_pending
+		remove_variable = aawc_reforging_cohort_age_25_29_credit_pending
+		remove_variable = aawc_reforging_cohort_age_25_29_debit_pending
+		remove_variable = aawc_reforging_cohort_age_25_29_death_pending
+		remove_variable = aawc_reforging_cohort_age_30_34_credit_pending
+		remove_variable = aawc_reforging_cohort_age_30_34_debit_pending
+		remove_variable = aawc_reforging_cohort_age_30_34_death_pending
+		remove_variable = aawc_reforging_cohort_age_35_39_credit_pending
+		remove_variable = aawc_reforging_cohort_age_35_39_debit_pending
+		remove_variable = aawc_reforging_cohort_age_35_39_death_pending
+		remove_variable = aawc_reforging_cohort_age_40_44_credit_pending
+		remove_variable = aawc_reforging_cohort_age_40_44_debit_pending
+		remove_variable = aawc_reforging_cohort_age_40_44_death_pending
+		remove_variable = aawc_reforging_cohort_age_45_49_credit_pending
+		remove_variable = aawc_reforging_cohort_age_45_49_debit_pending
+		remove_variable = aawc_reforging_cohort_age_45_49_death_pending
+		remove_variable = aawc_reforging_cohort_age_50_54_credit_pending
+		remove_variable = aawc_reforging_cohort_age_50_54_debit_pending
+		remove_variable = aawc_reforging_cohort_age_50_54_death_pending
+		remove_variable = aawc_reforging_cohort_age_55_59_credit_pending
+		remove_variable = aawc_reforging_cohort_age_55_59_debit_pending
+		remove_variable = aawc_reforging_cohort_age_55_59_death_pending
+		remove_variable = aawc_reforging_cohort_age_60_plus_credit_pending
+		remove_variable = aawc_reforging_cohort_age_60_plus_debit_pending
+		remove_variable = aawc_reforging_cohort_age_60_plus_death_pending
+		remove_variable = aawc_reforging_military_age_15_19_classify_pending
+		remove_variable = aawc_reforging_military_age_15_19_release_pending
+		remove_variable = aawc_reforging_military_age_20_24_classify_pending
+		remove_variable = aawc_reforging_military_age_20_24_release_pending
+		remove_variable = aawc_reforging_military_age_25_29_classify_pending
+		remove_variable = aawc_reforging_military_age_25_29_release_pending
+		remove_variable = aawc_reforging_military_age_30_34_classify_pending
+		remove_variable = aawc_reforging_military_age_30_34_release_pending
+		remove_variable = aawc_reforging_military_age_35_39_classify_pending
+		remove_variable = aawc_reforging_military_age_35_39_release_pending
+		remove_variable = aawc_reforging_military_age_40_44_classify_pending
+		remove_variable = aawc_reforging_military_age_40_44_release_pending
+		remove_variable = aawc_reforging_military_age_45_49_classify_pending
+		remove_variable = aawc_reforging_military_age_45_49_release_pending
+		remove_variable = aawc_reforging_military_age_50_54_classify_pending
+		remove_variable = aawc_reforging_military_age_50_54_release_pending
+		remove_variable = aawc_reforging_military_age_55_59_classify_pending
+		remove_variable = aawc_reforging_military_age_55_59_release_pending
+		remove_variable = aawc_reforging_mortality_fraction_age_00_04_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_05_09_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_10_14_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_15_19_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_20_24_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_25_29_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_30_34_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_35_39_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_40_44_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_45_49_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_50_54_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_55_59_backlog
+		remove_variable = aawc_reforging_mortality_fraction_age_60_plus_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_00_04_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_05_09_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_10_14_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_15_19_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_20_24_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_25_29_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_30_34_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_35_39_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_40_44_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_45_49_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_50_54_backlog
+		remove_variable = aawc_reforging_aging_fraction_age_55_59_backlog
+		remove_variable = aawc_reforging_military_aging_fraction_age_15_19_backlog
+		remove_variable = aawc_reforging_military_aging_fraction_age_20_24_backlog
+		remove_variable = aawc_reforging_military_aging_fraction_age_25_29_backlog
+		remove_variable = aawc_reforging_military_aging_fraction_age_30_34_backlog
+		remove_variable = aawc_reforging_military_aging_fraction_age_35_39_backlog
+		remove_variable = aawc_reforging_military_aging_fraction_age_40_44_backlog
+		remove_variable = aawc_reforging_military_aging_fraction_age_45_49_backlog
+		remove_variable = aawc_reforging_military_aging_fraction_age_50_54_backlog
+		remove_variable = aawc_reforging_military_aging_fraction_age_55_59_backlog
+		remove_variable = aawc_reforging_round_checkpoint_version
+		remove_variable = aawc_reforging_cohort_age_00_04
+		remove_variable = aawc_reforging_cohort_age_05_09
+		remove_variable = aawc_reforging_cohort_age_10_14
+		remove_variable = aawc_reforging_cohort_age_15_19
+		remove_variable = aawc_reforging_cohort_age_20_24
+		remove_variable = aawc_reforging_cohort_age_25_29
+		remove_variable = aawc_reforging_cohort_age_30_34
+		remove_variable = aawc_reforging_cohort_age_35_39
+		remove_variable = aawc_reforging_cohort_age_40_44
+		remove_variable = aawc_reforging_cohort_age_45_49
+		remove_variable = aawc_reforging_cohort_age_50_54
+		remove_variable = aawc_reforging_cohort_age_55_59
+		remove_variable = aawc_reforging_cohort_age_60_plus
+		remove_variable = aawc_reforging_military_age_15_19
+		remove_variable = aawc_reforging_military_age_20_24
+		remove_variable = aawc_reforging_military_age_25_29
+		remove_variable = aawc_reforging_military_age_30_34
+		remove_variable = aawc_reforging_military_age_35_39
+		remove_variable = aawc_reforging_military_age_40_44
+		remove_variable = aawc_reforging_military_age_45_49
+		remove_variable = aawc_reforging_military_age_50_54
+		remove_variable = aawc_reforging_military_age_55_59
+		remove_variable = aawc_reforging_birth_fraction
+		remove_variable = aawc_reforging_mortality_fraction_age_00_04
+		remove_variable = aawc_reforging_mortality_fraction_age_05_09
+		remove_variable = aawc_reforging_mortality_fraction_age_10_14
+		remove_variable = aawc_reforging_mortality_fraction_age_15_19
+		remove_variable = aawc_reforging_mortality_fraction_age_20_24
+		remove_variable = aawc_reforging_mortality_fraction_age_25_29
+		remove_variable = aawc_reforging_mortality_fraction_age_30_34
+		remove_variable = aawc_reforging_mortality_fraction_age_35_39
+		remove_variable = aawc_reforging_mortality_fraction_age_40_44
+		remove_variable = aawc_reforging_mortality_fraction_age_45_49
+		remove_variable = aawc_reforging_mortality_fraction_age_50_54
+		remove_variable = aawc_reforging_mortality_fraction_age_55_59
+		remove_variable = aawc_reforging_mortality_fraction_age_60_plus
+		remove_variable = aawc_reforging_aging_fraction_age_00_04
+		remove_variable = aawc_reforging_aging_fraction_age_05_09
+		remove_variable = aawc_reforging_aging_fraction_age_10_14
+		remove_variable = aawc_reforging_aging_fraction_age_15_19
+		remove_variable = aawc_reforging_aging_fraction_age_20_24
+		remove_variable = aawc_reforging_aging_fraction_age_25_29
+		remove_variable = aawc_reforging_aging_fraction_age_30_34
+		remove_variable = aawc_reforging_aging_fraction_age_35_39
+		remove_variable = aawc_reforging_aging_fraction_age_40_44
+		remove_variable = aawc_reforging_aging_fraction_age_45_49
+		remove_variable = aawc_reforging_aging_fraction_age_50_54
+		remove_variable = aawc_reforging_aging_fraction_age_55_59
+		remove_variable = aawc_reforging_military_aging_fraction_age_15_19
+		remove_variable = aawc_reforging_military_aging_fraction_age_20_24
+		remove_variable = aawc_reforging_military_aging_fraction_age_25_29
+		remove_variable = aawc_reforging_military_aging_fraction_age_30_34
+		remove_variable = aawc_reforging_military_aging_fraction_age_35_39
+		remove_variable = aawc_reforging_military_aging_fraction_age_40_44
+		remove_variable = aawc_reforging_military_aging_fraction_age_45_49
+		remove_variable = aawc_reforging_military_aging_fraction_age_50_54
+		remove_variable = aawc_reforging_military_aging_fraction_age_55_59
+		remove_variable = aawc_reforging_cohort_children_mirror
+		remove_variable = aawc_reforging_cohort_young_adults_mirror
+		remove_variable = aawc_reforging_cohort_older_adults_mirror
+		remove_variable = aawc_reforging_cohort_elderly_mirror
+		remove_variable = aawc_reforging_cohort_total_mirror
+		remove_variable = aawc_reforging_military_total_mirror
+		remove_variable = aawc_reforging_civilian_adults_mirror
+		remove_variable = aawc_reforging_cohort_requested_tick
+		remove_variable = aawc_reforging_cohort_last_tick
+		remove_variable = aawc_reforging_cohort_tick_count
+		remove_variable = aawc_reforging_cohort_monthly_tick_recent
+		remove_variable = aawc_reforging_cohort_last_before_total
+		remove_variable = aawc_reforging_cohort_last_births
+		remove_variable = aawc_reforging_cohort_last_deaths
+		remove_variable = aawc_reforging_cohort_last_external_deaths
+		remove_variable = aawc_reforging_cohort_external_deaths_total
+		remove_variable = aawc_reforging_cohort_last_aged
+		remove_variable = aawc_reforging_cohort_last_military_aged
+		remove_variable = aawc_reforging_cohort_last_military_retired
+		remove_variable = aawc_reforging_cohort_last_military_trained
+		remove_variable = aawc_reforging_military_training_fraction
+		remove_variable = aawc_reforging_cohort_last_after_total
+		remove_variable = aawc_reforging_cohort_last_expected_after
+		remove_variable = aawc_reforging_cohort_stage1_initialized
+		remove_variable = aawc_reforging_cohort_production_initialized
+		remove_variable = aawc_reforging_cohort_last_transfer_credit
+		remove_variable = aawc_reforging_cohort_last_transfer_debit
+		remove_variable = aawc_reforging_cohort_work_population
+		remove_variable = aawc_reforging_cohort_work_before
+		remove_variable = aawc_reforging_cohort_work_remaining
+		remove_variable = aawc_reforging_cohort_work_band_debit
+		remove_variable = aawc_reforging_cohort_work_target
+		remove_variable = aawc_reforging_cohort_work_delta
+		remove_variable = aawc_reforging_cohort_work_signed_transfer
+		remove_variable = aawc_population_current
+		remove_variable = aawc_population_total
+		remove_variable = aawc_population_surplus
+		remove_variable = aawc_stage2_structural_sustenance
+		remove_variable = aawc_stage2_structural_habitation
+		remove_variable = aawc_stage2_structural_opportunity
+		remove_variable = aawc_stage2_structural_health
+		remove_variable = aawc_stage2_structural_security
+		remove_variable = aawc_stage2_structural_amenities
+		remove_variable = aawc_stage2_effective_sustenance
+		remove_variable = aawc_stage2_effective_habitation
+		remove_variable = aawc_stage2_effective_opportunity
+		remove_variable = aawc_stage2_effective_health
+		remove_variable = aawc_stage2_effective_security
+		remove_variable = aawc_stage2_effective_amenities
+		remove_variable = aawc_stage2_structural_ready
+		remove_variable = aawc_stage2_environment_snapshot
+		remove_variable = aawc_stage2_space_percent
+		remove_variable = aawc_stage2_occupancy_ratio
+		remove_variable = aawc_population_preconversion_tribal
+		remove_variable = aawc_population_preconversion_settlement
+		remove_variable = aawc_population_feudal_conversion_cap
+	}
+}
+
+# Native holding removal/conversion can bypass the population adapters. This
+# bounded world pass repairs those paths and rebuilds mirrors only after a hit.
+aawc_reforging_cohort_reconcile_world_settlement_eligibility_effect = {
+	set_variable = { name = aawc_reforging_lifecycle_removed_ledgers value = 0 }
+	save_scope_as = aawc_reforging_lifecycle_owner
+	every_province = {
+		limit = {
+			NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+			OR = {
+				has_variable = aawc_reforging_cohort_production_initialized
+				has_variable = aawc_reforging_cohort_age_00_04
+				has_variable = aawc_population_current
+				has_variable = aawc_population_preconversion_tribal
+				has_variable = aawc_population_preconversion_settlement
+			}
+		}
+		aawc_reforging_cohort_clear_ineligible_settlement_effect = yes
+		scope:aawc_reforging_lifecycle_owner = { change_variable = { name = aawc_reforging_lifecycle_removed_ledgers add = 1 } }
+	}
+	if = {
+		limit = { var:aawc_reforging_lifecycle_removed_ledgers > 0 }
+		every_ruler = {
+			limit = { is_landed = yes agot_is_dummy_character = no }
+			aawc_population_recalculate_character_effect = yes
+		}
+	}
+	remove_variable = aawc_reforging_lifecycle_removed_ledgers
+}
+
+# Build an exact, deterministic thirteen-band ledger from an aggregate amount.
+# The approved 100-person vector remains 9/8/8/8/8/8/8/8/7/7/6/5/10.
+# Hamilton apportions whole imported residents; a fractional import is
+# retained separately and never stored in a resident band.
+aawc_reforging_cohort_initialize_production_ledger_effect = {
+	if = {
+		limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+	aawc_reforging_diag_initialize_effect = { POPULATION = $POPULATION$ }
+	set_variable = { name = aawc_reforging_cohort_work_population value = $POPULATION$ }
+	if = {
+		limit = { var:aawc_reforging_cohort_work_population < 0 }
+		set_variable = { name = aawc_reforging_cohort_work_population value = 0 }
+	}
+
+	remove_variable = aawc_reforging_round_mortality_pending
+	remove_variable = aawc_reforging_round_aging_pending
+	remove_variable = aawc_reforging_round_military_aging_pending
+	remove_variable = aawc_reforging_round_resident_import_fraction
+	remove_variable = aawc_reforging_round_population_debit_pending
+	remove_variable = aawc_reforging_round_population_death_pending
+	remove_variable = aawc_reforging_round_target_fraction
+	remove_variable = aawc_reforging_cohort_age_00_04_credit_pending
+	remove_variable = aawc_reforging_cohort_age_00_04_debit_pending
+	remove_variable = aawc_reforging_cohort_age_00_04_death_pending
+	remove_variable = aawc_reforging_cohort_age_05_09_credit_pending
+	remove_variable = aawc_reforging_cohort_age_05_09_debit_pending
+	remove_variable = aawc_reforging_cohort_age_05_09_death_pending
+	remove_variable = aawc_reforging_cohort_age_10_14_credit_pending
+	remove_variable = aawc_reforging_cohort_age_10_14_debit_pending
+	remove_variable = aawc_reforging_cohort_age_10_14_death_pending
+	remove_variable = aawc_reforging_cohort_age_15_19_credit_pending
+	remove_variable = aawc_reforging_cohort_age_15_19_debit_pending
+	remove_variable = aawc_reforging_cohort_age_15_19_death_pending
+	remove_variable = aawc_reforging_cohort_age_20_24_credit_pending
+	remove_variable = aawc_reforging_cohort_age_20_24_debit_pending
+	remove_variable = aawc_reforging_cohort_age_20_24_death_pending
+	remove_variable = aawc_reforging_cohort_age_25_29_credit_pending
+	remove_variable = aawc_reforging_cohort_age_25_29_debit_pending
+	remove_variable = aawc_reforging_cohort_age_25_29_death_pending
+	remove_variable = aawc_reforging_cohort_age_30_34_credit_pending
+	remove_variable = aawc_reforging_cohort_age_30_34_debit_pending
+	remove_variable = aawc_reforging_cohort_age_30_34_death_pending
+	remove_variable = aawc_reforging_cohort_age_35_39_credit_pending
+	remove_variable = aawc_reforging_cohort_age_35_39_debit_pending
+	remove_variable = aawc_reforging_cohort_age_35_39_death_pending
+	remove_variable = aawc_reforging_cohort_age_40_44_credit_pending
+	remove_variable = aawc_reforging_cohort_age_40_44_debit_pending
+	remove_variable = aawc_reforging_cohort_age_40_44_death_pending
+	remove_variable = aawc_reforging_cohort_age_45_49_credit_pending
+	remove_variable = aawc_reforging_cohort_age_45_49_debit_pending
+	remove_variable = aawc_reforging_cohort_age_45_49_death_pending
+	remove_variable = aawc_reforging_cohort_age_50_54_credit_pending
+	remove_variable = aawc_reforging_cohort_age_50_54_debit_pending
+	remove_variable = aawc_reforging_cohort_age_50_54_death_pending
+	remove_variable = aawc_reforging_cohort_age_55_59_credit_pending
+	remove_variable = aawc_reforging_cohort_age_55_59_debit_pending
+	remove_variable = aawc_reforging_cohort_age_55_59_death_pending
+	remove_variable = aawc_reforging_cohort_age_60_plus_credit_pending
+	remove_variable = aawc_reforging_cohort_age_60_plus_debit_pending
+	remove_variable = aawc_reforging_cohort_age_60_plus_death_pending
+	remove_variable = aawc_reforging_military_age_15_19_classify_pending
+	remove_variable = aawc_reforging_military_age_15_19_release_pending
+	remove_variable = aawc_reforging_military_age_20_24_classify_pending
+	remove_variable = aawc_reforging_military_age_20_24_release_pending
+	remove_variable = aawc_reforging_military_age_25_29_classify_pending
+	remove_variable = aawc_reforging_military_age_25_29_release_pending
+	remove_variable = aawc_reforging_military_age_30_34_classify_pending
+	remove_variable = aawc_reforging_military_age_30_34_release_pending
+	remove_variable = aawc_reforging_military_age_35_39_classify_pending
+	remove_variable = aawc_reforging_military_age_35_39_release_pending
+	remove_variable = aawc_reforging_military_age_40_44_classify_pending
+	remove_variable = aawc_reforging_military_age_40_44_release_pending
+	remove_variable = aawc_reforging_military_age_45_49_classify_pending
+	remove_variable = aawc_reforging_military_age_45_49_release_pending
+	remove_variable = aawc_reforging_military_age_50_54_classify_pending
+	remove_variable = aawc_reforging_military_age_50_54_release_pending
+	remove_variable = aawc_reforging_military_age_55_59_classify_pending
+	remove_variable = aawc_reforging_military_age_55_59_release_pending
+	remove_variable = aawc_reforging_mortality_fraction_age_00_04_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_05_09_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_10_14_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_15_19_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_20_24_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_25_29_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_30_34_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_35_39_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_40_44_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_45_49_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_50_54_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_55_59_backlog
+	remove_variable = aawc_reforging_mortality_fraction_age_60_plus_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_00_04_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_05_09_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_10_14_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_15_19_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_20_24_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_25_29_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_30_34_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_35_39_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_40_44_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_45_49_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_50_54_backlog
+	remove_variable = aawc_reforging_aging_fraction_age_55_59_backlog
+	remove_variable = aawc_reforging_military_aging_fraction_age_15_19_backlog
+	remove_variable = aawc_reforging_military_aging_fraction_age_20_24_backlog
+	remove_variable = aawc_reforging_military_aging_fraction_age_25_29_backlog
+	remove_variable = aawc_reforging_military_aging_fraction_age_30_34_backlog
+	remove_variable = aawc_reforging_military_aging_fraction_age_35_39_backlog
+	remove_variable = aawc_reforging_military_aging_fraction_age_40_44_backlog
+	remove_variable = aawc_reforging_military_aging_fraction_age_45_49_backlog
+	remove_variable = aawc_reforging_military_aging_fraction_age_50_54_backlog
+	remove_variable = aawc_reforging_military_aging_fraction_age_55_59_backlog
+	remove_variable = aawc_reforging_round_checkpoint_version
+	aawc_reforging_round_initialize_bands_effect = yes
+
+	set_variable = { name = aawc_reforging_military_age_15_19 value = 0 }
+	set_variable = { name = aawc_reforging_military_age_20_24 value = 0 }
+	set_variable = { name = aawc_reforging_military_age_25_29 value = 0 }
+	set_variable = { name = aawc_reforging_military_age_30_34 value = 0 }
+	set_variable = { name = aawc_reforging_military_age_35_39 value = 0 }
+	set_variable = { name = aawc_reforging_military_age_40_44 value = 0 }
+	set_variable = { name = aawc_reforging_military_age_45_49 value = 0 }
+	set_variable = { name = aawc_reforging_military_age_50_54 value = 0 }
+	set_variable = { name = aawc_reforging_military_age_55_59 value = 0 }
+
+	set_variable = { name = aawc_reforging_birth_fraction value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_00_04 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_05_09 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_10_14 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_15_19 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_20_24 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_25_29 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_30_34 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_35_39 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_40_44 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_45_49 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_50_54 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_55_59 value = 0 }
+	set_variable = { name = aawc_reforging_mortality_fraction_age_60_plus value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_00_04 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_05_09 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_10_14 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_15_19 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_20_24 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_25_29 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_30_34 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_35_39 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_40_44 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_45_49 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_50_54 value = 0 }
+	set_variable = { name = aawc_reforging_aging_fraction_age_55_59 value = 0 }
+	set_variable = { name = aawc_reforging_military_aging_fraction_age_15_19 value = 0 }
+	set_variable = { name = aawc_reforging_military_aging_fraction_age_20_24 value = 0 }
+	set_variable = { name = aawc_reforging_military_aging_fraction_age_25_29 value = 0 }
+	set_variable = { name = aawc_reforging_military_aging_fraction_age_30_34 value = 0 }
+	set_variable = { name = aawc_reforging_military_aging_fraction_age_35_39 value = 0 }
+	set_variable = { name = aawc_reforging_military_aging_fraction_age_40_44 value = 0 }
+	set_variable = { name = aawc_reforging_military_aging_fraction_age_45_49 value = 0 }
+	set_variable = { name = aawc_reforging_military_aging_fraction_age_50_54 value = 0 }
+	set_variable = { name = aawc_reforging_military_aging_fraction_age_55_59 value = 0 }
+	set_variable = { name = aawc_reforging_military_training_fraction value = 0 }
+
+	set_variable = { name = aawc_reforging_cohort_requested_tick value = 0 }
+	set_variable = { name = aawc_reforging_cohort_last_tick value = -1 }
+	set_variable = { name = aawc_reforging_cohort_tick_count value = 0 }
+	remove_variable = aawc_reforging_cohort_monthly_tick_recent
+	set_variable = { name = aawc_reforging_cohort_stage1_initialized value = 1 }
+	# Written last so a partial conversion can never masquerade as complete.
+	set_variable = { name = aawc_reforging_cohort_production_initialized value = 1 }
+	remove_variable = aawc_reforging_cohort_work_population
+	aawc_reforging_cohort_reconcile_effect = yes
+	aawc_reforging_cohort_refresh_mirrors_effect = yes
+	aawc_stage2_initialize_conditions_effect = yes
+	aawc_reforging_cohort_sync_legacy_population_effect = yes
+	}
+	else = { aawc_reforging_cohort_clear_ineligible_settlement_effect = yes }
+}
+
+# One-time bridge for holdings that predate the cohort ledger. Existing aggregate
+# population is preserved exactly; no person is created or removed by migration.
+aawc_reforging_cohort_ensure_production_ledger_effect = {
+	if = {
+		limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+	if = {
+		limit = { NOT = { has_variable = aawc_reforging_cohort_production_initialized } }
+		set_variable = { name = aawc_reforging_cohort_work_population value = 0 }
+		if = {
+			limit = { has_variable = aawc_population_current }
+			set_variable = { name = aawc_reforging_cohort_work_population value = var:aawc_population_current }
+		}
+		aawc_reforging_diag_caller_effect = { CALLER = 7 }
+		aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = var:aawc_reforging_cohort_work_population }
+		remove_variable = aawc_reforging_cohort_work_population
+	}
+	aawc_reforging_cohort_reconcile_effect = yes
+	aawc_reforging_cohort_refresh_mirrors_effect = yes
+	aawc_reforging_cohort_sync_legacy_population_effect = yes
+	}
+	else = { aawc_reforging_cohort_clear_ineligible_settlement_effect = yes }
+}
+
+# Guarded Milestone-1 production-candidate month. Character schedulers remain
+# staggered, but title transfers can expose a holding to two scheduler phases.
+# The province-local 27-day lease rejects those transition duplicates before a
+# new serial is allocated. The existing serial guard still rejects repeated IDs.
+aawc_reforging_cohort_apply_production_month_effect = {
+	if = { limit = { OR = { NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_round_counts_valid_value = 1 } }
+		if = {
+			limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+		aawc_reforging_cohort_ensure_production_ledger_effect = yes
+			if = {
+				limit = { NOT = { has_variable = aawc_reforging_cohort_monthly_tick_recent } }
+				set_variable = { name = aawc_reforging_cohort_monthly_tick_recent value = 1 days = 27 }
+				change_variable = { name = aawc_reforging_cohort_requested_tick add = 1 }
+				aawc_reforging_cohort_monthly_authority_effect = { TICK_ID = var:aawc_reforging_cohort_requested_tick }
+			}
+		aawc_reforging_cohort_sync_legacy_population_effect = yes
+		}
+		else = { aawc_reforging_cohort_clear_ineligible_settlement_effect = yes }
+	}
+	else = {
+		set_variable = { name = aawc_reforging_round_invalid_rejections_total value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_invalid_rejections_total } add = var:aawc_reforging_round_invalid_rejections_total } } add = 1 } }
+	}
+}
+
+# Internal bounded drain helper. The caller owns work_remaining.
+aawc_reforging_cohort_drain_band_effect = {
+	if = {
+		limit = { var:aawc_reforging_cohort_work_remaining > 0 var:$BAND$ > 0 }
+		set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:$BAND$ }
+		if = {
+			limit = { var:aawc_reforging_cohort_work_band_debit > var:aawc_reforging_cohort_work_remaining }
+			set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_remaining }
+		}
+		change_variable = { name = $BAND$ add = { value = var:aawc_reforging_cohort_work_band_debit multiply = -1 } }
+		change_variable = { name = aawc_reforging_cohort_work_remaining add = { value = var:aawc_reforging_cohort_work_band_debit multiply = -1 } }
+		remove_variable = aawc_reforging_cohort_work_band_debit
+	}
+}
+
+# Stage-1 transfer packets preserve the actual age bands that leave a holding.
+# The migration planner remains age-blind and retains its existing destination
+# selection; only the commit changes from a synthetic 20-24 credit to an exact
+# debit/credit packet.  Military overlay variables are subtracted from adult
+# availability so a future Stage-6 subset can never be moved as a civilian.
+aawc_reforging_cohort_capture_transfer_band_effect = {
+	if = {
+		limit = { var:aawc_reforging_cohort_work_remaining > 0 var:$BAND$ > 0 }
+		set_variable = { name = aawc_reforging_cohort_work_band_available value = var:$BAND$ }
+		set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_band_available }
+		if = { limit = { var:aawc_reforging_cohort_work_band_debit > var:aawc_reforging_cohort_work_remaining } set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_remaining } }
+		change_variable = { name = $BAND$ add = { value = var:aawc_reforging_cohort_work_band_debit multiply = -1 } }
+		change_variable = { name = aawc_reforging_cohort_work_remaining add = { value = var:aawc_reforging_cohort_work_band_debit multiply = -1 } }
+		scope:aawc_reforging_transfer_pool_owner = { change_variable = { name = $POOL$ add = prev.var:aawc_reforging_cohort_work_band_debit } }
+		remove_variable = aawc_reforging_cohort_work_band_available
+		remove_variable = aawc_reforging_cohort_work_band_debit
+	}
+}
+
+aawc_reforging_cohort_capture_transfer_adult_band_effect = {
+	if = {
+		limit = { var:aawc_reforging_cohort_work_remaining > 0 var:$BAND$ > 0 }
+		set_variable = { name = aawc_reforging_cohort_work_band_available value = var:$BAND$ }
+		change_variable = { name = aawc_reforging_cohort_work_band_available add = { value = { value = 0 if = { limit = { has_variable = $MILITARY$ } add = var:$MILITARY$ } } multiply = -1 } }
+		if = { limit = { var:aawc_reforging_cohort_work_band_available < 0 } set_variable = { name = aawc_reforging_cohort_work_band_available value = 0 } }
+		set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_band_available }
+		if = { limit = { var:aawc_reforging_cohort_work_band_debit > var:aawc_reforging_cohort_work_remaining } set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_remaining } }
+		change_variable = { name = $BAND$ add = { value = var:aawc_reforging_cohort_work_band_debit multiply = -1 } }
+		change_variable = { name = aawc_reforging_cohort_work_remaining add = { value = var:aawc_reforging_cohort_work_band_debit multiply = -1 } }
+		scope:aawc_reforging_transfer_pool_owner = { change_variable = { name = $POOL$ add = prev.var:aawc_reforging_cohort_work_band_debit } }
+		remove_variable = aawc_reforging_cohort_work_band_available
+		remove_variable = aawc_reforging_cohort_work_band_debit
+	}
+}
+
+aawc_reforging_cohort_credit_transfer_band_effect = {
+	if = {
+		limit = { var:aawc_reforging_cohort_work_remaining > 0 scope:aawc_reforging_transfer_pool_owner.var:$POOL$ > 0 }
+		set_variable = { name = aawc_reforging_cohort_work_band_credit value = scope:aawc_reforging_transfer_pool_owner.var:$POOL$ }
+		if = { limit = { var:aawc_reforging_cohort_work_band_credit > var:aawc_reforging_cohort_work_remaining } set_variable = { name = aawc_reforging_cohort_work_band_credit value = var:aawc_reforging_cohort_work_remaining } }
+		change_variable = { name = $BAND$ add = var:aawc_reforging_cohort_work_band_credit }
+		change_variable = { name = aawc_reforging_cohort_work_remaining add = { value = var:aawc_reforging_cohort_work_band_credit multiply = -1 } }
+		scope:aawc_reforging_transfer_pool_owner = { change_variable = { name = $POOL$ add = { value = prev.var:aawc_reforging_cohort_work_band_credit multiply = -1 } } }
+		remove_variable = aawc_reforging_cohort_work_band_credit
+	}
+}
+
+aawc_reforging_cohort_reset_transfer_pool_effect = {
+	set_variable = { name = aawc_reforging_transfer_age_00_04 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_05_09 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_10_14 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_15_19 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_20_24 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_25_29 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_30_34 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_35_39 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_40_44 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_45_49 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_50_54 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_55_59 value = 0 }
+	set_variable = { name = aawc_reforging_transfer_age_60_plus value = 0 }
+}
+
+aawc_reforging_cohort_cleanup_transfer_pool_effect = {
+	remove_variable = aawc_reforging_transfer_age_00_04
+	remove_variable = aawc_reforging_transfer_age_05_09
+	remove_variable = aawc_reforging_transfer_age_10_14
+	remove_variable = aawc_reforging_transfer_age_15_19
+	remove_variable = aawc_reforging_transfer_age_20_24
+	remove_variable = aawc_reforging_transfer_age_25_29
+	remove_variable = aawc_reforging_transfer_age_30_34
+	remove_variable = aawc_reforging_transfer_age_35_39
+	remove_variable = aawc_reforging_transfer_age_40_44
+	remove_variable = aawc_reforging_transfer_age_45_49
+	remove_variable = aawc_reforging_transfer_age_50_54
+	remove_variable = aawc_reforging_transfer_age_55_59
+	remove_variable = aawc_reforging_transfer_age_60_plus
+}
+
+aawc_reforging_cohort_capture_transfer_packet_effect = {
+	aawc_reforging_cohort_ensure_production_ledger_effect = yes
+	set_variable = { name = aawc_reforging_cohort_work_before value = aawc_reforging_cohort_band_sum }
+	set_variable = { name = aawc_reforging_cohort_work_remaining value = { value = $AMOUNT$ min = 0 floor = yes } }
+	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_00_04 POOL = aawc_reforging_transfer_age_00_04 }
+	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_05_09 POOL = aawc_reforging_transfer_age_05_09 }
+	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_10_14 POOL = aawc_reforging_transfer_age_10_14 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_15_19 MILITARY = aawc_reforging_military_age_15_19 POOL = aawc_reforging_transfer_age_15_19 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_20_24 MILITARY = aawc_reforging_military_age_20_24 POOL = aawc_reforging_transfer_age_20_24 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_25_29 MILITARY = aawc_reforging_military_age_25_29 POOL = aawc_reforging_transfer_age_25_29 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_30_34 MILITARY = aawc_reforging_military_age_30_34 POOL = aawc_reforging_transfer_age_30_34 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_35_39 MILITARY = aawc_reforging_military_age_35_39 POOL = aawc_reforging_transfer_age_35_39 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_40_44 MILITARY = aawc_reforging_military_age_40_44 POOL = aawc_reforging_transfer_age_40_44 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_45_49 MILITARY = aawc_reforging_military_age_45_49 POOL = aawc_reforging_transfer_age_45_49 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_50_54 MILITARY = aawc_reforging_military_age_50_54 POOL = aawc_reforging_transfer_age_50_54 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_55_59 MILITARY = aawc_reforging_military_age_55_59 POOL = aawc_reforging_transfer_age_55_59 }
+	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_60_plus POOL = aawc_reforging_transfer_age_60_plus }
+	aawc_reforging_cohort_reconcile_effect = yes
+	aawc_reforging_cohort_refresh_mirrors_effect = yes
+	set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = var:aawc_reforging_cohort_work_before }
+	change_variable = { name = aawc_reforging_cohort_last_transfer_debit add = { value = aawc_reforging_cohort_band_sum multiply = -1 } }
+	remove_variable = aawc_reforging_cohort_work_before
+	remove_variable = aawc_reforging_cohort_work_remaining
+	aawc_reforging_cohort_sync_legacy_population_effect = yes
+}
+
+aawc_reforging_cohort_apply_transfer_packet_effect = {
+	aawc_reforging_cohort_ensure_production_ledger_effect = yes
+	set_variable = { name = aawc_reforging_cohort_work_before value = aawc_reforging_cohort_band_sum }
+	set_variable = { name = aawc_reforging_cohort_work_remaining value = { value = $AMOUNT$ min = 0 floor = yes } }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_00_04 POOL = aawc_reforging_transfer_age_00_04 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_05_09 POOL = aawc_reforging_transfer_age_05_09 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_10_14 POOL = aawc_reforging_transfer_age_10_14 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_15_19 POOL = aawc_reforging_transfer_age_15_19 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_20_24 POOL = aawc_reforging_transfer_age_20_24 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_25_29 POOL = aawc_reforging_transfer_age_25_29 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_30_34 POOL = aawc_reforging_transfer_age_30_34 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_35_39 POOL = aawc_reforging_transfer_age_35_39 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_40_44 POOL = aawc_reforging_transfer_age_40_44 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_45_49 POOL = aawc_reforging_transfer_age_45_49 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_50_54 POOL = aawc_reforging_transfer_age_50_54 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_55_59 POOL = aawc_reforging_transfer_age_55_59 }
+	aawc_reforging_cohort_credit_transfer_band_effect = { BAND = aawc_reforging_cohort_age_60_plus POOL = aawc_reforging_transfer_age_60_plus }
+	aawc_reforging_cohort_reconcile_effect = yes
+	aawc_reforging_cohort_refresh_mirrors_effect = yes
+	set_variable = { name = aawc_reforging_cohort_last_transfer_credit value = aawc_reforging_cohort_band_sum }
+	change_variable = { name = aawc_reforging_cohort_last_transfer_credit add = { value = var:aawc_reforging_cohort_work_before multiply = -1 } }
+	remove_variable = aawc_reforging_cohort_work_before
+	remove_variable = aawc_reforging_cohort_work_remaining
+	aawc_reforging_cohort_sync_legacy_population_effect = yes
+}
+
+# Transitional Stage-1 MAA expenditure removes existing adults only.  It does
+# not classify residents, create a military pool, or infer regiment identity.
+aawc_reforging_cohort_debit_legacy_maa_population_effect = {
+	aawc_reforging_cohort_ensure_production_ledger_effect = yes
+	set_variable = { name = aawc_reforging_cohort_work_before value = aawc_reforging_cohort_band_sum }
+	set_variable = { name = aawc_reforging_cohort_work_remaining value = { value = $AMOUNT$ min = 0 floor = yes } }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_20_24 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_25_29 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_30_34 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_35_39 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_15_19 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_40_44 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_45_49 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_50_54 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_55_59 }
+	aawc_reforging_cohort_reconcile_effect = yes
+	aawc_reforging_cohort_refresh_mirrors_effect = yes
+	set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = var:aawc_reforging_cohort_work_before }
+	change_variable = { name = aawc_reforging_cohort_last_transfer_debit add = { value = aawc_reforging_cohort_band_sum multiply = -1 } }
+	set_variable = { name = aawc_reforging_cohort_last_loss_class value = 6 }
+	remove_variable = aawc_reforging_cohort_work_before
+	remove_variable = aawc_reforging_cohort_work_remaining
+	aawc_reforging_cohort_sync_legacy_population_effect = yes
+}
+
+# Existing raid/siege/occupation amounts are retained.  Their Stage-1 hardship
+# profile makes children and elderly most vulnerable, then older adults, while
+# still bounding every debit by the residents actually present.
+aawc_reforging_cohort_debit_crisis_population_effect = {
+	aawc_reforging_cohort_ensure_production_ledger_effect = yes
+	set_variable = { name = aawc_reforging_cohort_work_before value = aawc_reforging_cohort_band_sum }
+	aawc_reforging_round_single_flow_effect = { AMOUNT = $AMOUNT$ CARRY = aawc_reforging_round_population_debit_pending CAPACITY = aawc_reforging_cohort_band_sum }
+	set_variable = { name = aawc_reforging_cohort_work_remaining value = aawc_reforging_round_last_applied_value }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_00_04 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_60_plus }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_05_09 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_55_59 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_10_14 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_50_54 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_45_49 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_40_44 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_35_39 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_30_34 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_25_29 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_20_24 }
+	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_15_19 }
+	aawc_reforging_cohort_reconcile_effect = yes
+	aawc_reforging_cohort_refresh_mirrors_effect = yes
+	set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = var:aawc_reforging_cohort_work_before }
+	change_variable = { name = aawc_reforging_cohort_last_transfer_debit add = { value = aawc_reforging_cohort_band_sum multiply = -1 } }
+	set_variable = { name = aawc_reforging_cohort_last_loss_class value = 5 }
+	remove_variable = aawc_reforging_cohort_work_before
+	remove_variable = aawc_reforging_cohort_work_remaining
+	aawc_reforging_cohort_sync_legacy_population_effect = yes
+}
+
+# Population entering a holding is assigned to a caller-selected age band.
+aawc_reforging_cohort_credit_population_effect = {
+	if = { limit = { OR = { NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_round_counts_valid_value = 1 } }
+		if = {
+			limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+		aawc_reforging_cohort_ensure_production_ledger_effect = yes
+		set_variable = { name = aawc_reforging_cohort_last_transfer_credit value = $AMOUNT$ }
+		if = { limit = { var:aawc_reforging_cohort_last_transfer_credit < 0 } set_variable = { name = aawc_reforging_cohort_last_transfer_credit value = 0 } }
+		aawc_reforging_cohort_credit_effect = { BAND = $BAND$ AMOUNT = var:aawc_reforging_cohort_last_transfer_credit }
+		set_variable = { name = aawc_reforging_cohort_last_transfer_credit value = aawc_reforging_round_last_applied_value }
+		aawc_reforging_cohort_sync_legacy_population_effect = yes
+		}
+		else = { aawc_reforging_cohort_clear_ineligible_settlement_effect = yes }
+	}
+	else = {
+		set_variable = { name = aawc_reforging_round_invalid_rejections_total value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_invalid_rejections_total } add = var:aawc_reforging_round_invalid_rejections_total } } add = 1 } }
+		set_variable = { name = aawc_reforging_cohort_last_transfer_credit value = 0 }
+		set_variable = { name = aawc_reforging_round_last_applied value = 0 }
+	}
+}
+
+# Non-fatal outward movement/spending drains old-to-young deterministically.
+# Reconciliation clamps any military subset to its surviving adult parent.
+aawc_reforging_cohort_debit_population_effect = {
+	if = { limit = { OR = { NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_round_counts_valid_value = 1 } }
+		if = {
+			limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+		aawc_reforging_cohort_ensure_production_ledger_effect = yes
+		set_variable = { name = aawc_reforging_cohort_work_before value = aawc_reforging_cohort_band_sum }
+		aawc_reforging_round_single_flow_effect = { AMOUNT = $AMOUNT$ CARRY = aawc_reforging_round_population_debit_pending CAPACITY = aawc_reforging_cohort_band_sum }
+		set_variable = { name = aawc_reforging_cohort_work_remaining value = aawc_reforging_round_last_applied_value }
+		if = { limit = { var:aawc_reforging_cohort_work_remaining < 0 } set_variable = { name = aawc_reforging_cohort_work_remaining value = 0 } }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_60_plus }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_55_59 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_50_54 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_45_49 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_40_44 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_35_39 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_30_34 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_25_29 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_20_24 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_15_19 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_10_14 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_05_09 }
+		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_00_04 }
+		aawc_reforging_cohort_reconcile_effect = yes
+		aawc_reforging_cohort_refresh_mirrors_effect = yes
+		set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = var:aawc_reforging_cohort_work_before }
+		change_variable = { name = aawc_reforging_cohort_last_transfer_debit add = { value = aawc_reforging_cohort_band_sum multiply = -1 } }
+		remove_variable = aawc_reforging_cohort_work_before
+		remove_variable = aawc_reforging_cohort_work_remaining
+		aawc_reforging_cohort_sync_legacy_population_effect = yes
+		}
+		else = { aawc_reforging_cohort_clear_ineligible_settlement_effect = yes }
+	}
+	else = {
+		set_variable = { name = aawc_reforging_round_invalid_rejections_total value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_invalid_rejections_total } add = var:aawc_reforging_round_invalid_rejections_total } } add = 1 } }
+		set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = 0 }
+		set_variable = { name = aawc_reforging_round_last_applied value = 0 }
+	}
+}
+
+# External fatal losses use the bounded drain but never rewrite the completed
+# natural-tick snapshot. Retain the actual latest loss and a cumulative total.
+aawc_reforging_cohort_death_population_effect = {
+	if = { limit = { OR = { NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_round_counts_valid_value = 1 } }
+		if = {
+			limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+		set_variable = { name = aawc_reforging_round_saved_debit_pending value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_population_debit_pending } add = var:aawc_reforging_round_population_debit_pending } } }
+		set_variable = { name = aawc_reforging_round_population_debit_pending value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_population_death_pending } add = var:aawc_reforging_round_population_death_pending } } }
+		aawc_reforging_cohort_debit_crisis_population_effect = { AMOUNT = $AMOUNT$ }
+		set_variable = { name = aawc_reforging_round_population_death_pending value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_population_debit_pending } add = var:aawc_reforging_round_population_debit_pending } } }
+		set_variable = { name = aawc_reforging_round_population_debit_pending value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_saved_debit_pending } add = var:aawc_reforging_round_saved_debit_pending } } }
+		remove_variable = aawc_reforging_round_saved_debit_pending
+		set_variable = { name = aawc_reforging_cohort_last_external_deaths value = var:aawc_reforging_cohort_last_transfer_debit }
+		if = { limit = { NOT = { has_variable = aawc_reforging_cohort_external_deaths_total } } set_variable = { name = aawc_reforging_cohort_external_deaths_total value = 0 } }
+		change_variable = { name = aawc_reforging_cohort_external_deaths_total add = var:aawc_reforging_cohort_last_transfer_debit }
+		}
+		else = { aawc_reforging_cohort_clear_ineligible_settlement_effect = yes }
+	}
+	else = {
+		set_variable = { name = aawc_reforging_round_invalid_rejections_total value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_invalid_rejections_total } add = var:aawc_reforging_round_invalid_rejections_total } } add = 1 } }
+		set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = 0 }
+		set_variable = { name = aawc_reforging_round_last_applied value = 0 }
+		set_variable = { name = aawc_reforging_cohort_last_external_deaths value = 0 }
+	}
+}
+
+# Set an absolute compatibility target without bypassing cohort accounting.
+# Increases enter the 20-24 band; decreases use the bounded debit path.
+aawc_reforging_cohort_set_population_target_effect = {
+	if = { limit = { OR = { NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_round_counts_valid_value = 1 } }
+		if = {
+			limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+		aawc_reforging_cohort_ensure_production_ledger_effect = yes
+		set_variable = { name = aawc_reforging_cohort_work_target value = $POPULATION$ }
+		if = { limit = { var:aawc_reforging_cohort_work_target < 0 } set_variable = { name = aawc_reforging_cohort_work_target value = 0 } }
+		set_variable = { name = aawc_reforging_round_target_fraction value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_cohort_work_target } add = var:aawc_reforging_cohort_work_target } } subtract = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_cohort_work_target } add = var:aawc_reforging_cohort_work_target } } floor = yes } } }
+		set_variable = { name = aawc_reforging_cohort_work_target value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_cohort_work_target } add = var:aawc_reforging_cohort_work_target } } floor = yes } }
+		set_variable = { name = aawc_reforging_cohort_work_delta value = var:aawc_reforging_cohort_work_target }
+		change_variable = { name = aawc_reforging_cohort_work_delta add = { value = aawc_reforging_cohort_band_sum multiply = -1 } }
+		if = {
+			limit = { var:aawc_reforging_cohort_work_delta > 0 }
+			aawc_reforging_cohort_credit_population_effect = { BAND = aawc_reforging_cohort_age_20_24 AMOUNT = var:aawc_reforging_cohort_work_delta }
+		}
+		else_if = {
+			limit = { var:aawc_reforging_cohort_work_delta < 0 }
+			change_variable = { name = aawc_reforging_cohort_work_delta multiply = -1 }
+			aawc_reforging_cohort_debit_population_effect = { AMOUNT = var:aawc_reforging_cohort_work_delta }
+		}
+		remove_variable = aawc_reforging_cohort_work_target
+		remove_variable = aawc_reforging_cohort_work_delta
+		aawc_reforging_cohort_sync_legacy_population_effect = yes
+		}
+		else = { aawc_reforging_cohort_clear_ineligible_settlement_effect = yes }
+	}
+	else = {
+		set_variable = { name = aawc_reforging_round_invalid_rejections_total value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_invalid_rejections_total } add = var:aawc_reforging_round_invalid_rejections_total } } add = 1 } }
+	}
+}
+
+# Signed transfer adapter used by the existing coordinated migration commit.
+# The coordinator already guarantees that connected source/destination deltas
+# sum to zero; positive movers enter as young adults and negative movers debit
+# the bounded source ledger.
+aawc_reforging_cohort_apply_signed_transfer_effect = {
+	if = { limit = { OR = { NOT = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_round_counts_valid_value = 1 } }
+		if = {
+				limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+			set_variable = { name = aawc_reforging_cohort_work_signed_transfer value = $AMOUNT$ }
+			if = {
+				limit = { var:aawc_reforging_cohort_work_signed_transfer > 0 }
+				if = { limit = { has_variable = aawc_reforging_tx_migration_plan } aawc_reforging_tx_whole_credit_effect = { AMOUNT = var:aawc_reforging_cohort_work_signed_transfer } }
+				else = { aawc_reforging_cohort_credit_population_effect = { BAND = aawc_reforging_cohort_age_20_24 AMOUNT = var:aawc_reforging_cohort_work_signed_transfer } }
+			}
+			else_if = {
+				limit = { var:aawc_reforging_cohort_work_signed_transfer < 0 }
+				change_variable = { name = aawc_reforging_cohort_work_signed_transfer multiply = -1 }
+				if = { limit = { has_variable = aawc_reforging_tx_migration_plan } aawc_reforging_tx_whole_debit_effect = { AMOUNT = var:aawc_reforging_cohort_work_signed_transfer } }
+				else = { aawc_reforging_cohort_debit_population_effect = { AMOUNT = var:aawc_reforging_cohort_work_signed_transfer } }
+			}
+			else = { aawc_reforging_cohort_ensure_production_ledger_effect = yes }
+			remove_variable = aawc_reforging_cohort_work_signed_transfer
+			}
+			else = { aawc_reforging_cohort_clear_ineligible_settlement_effect = yes }
+	}
+	else = {
+		set_variable = { name = aawc_reforging_round_invalid_rejections_total value = { value = { value = 0 if = { limit = { has_variable = aawc_reforging_round_invalid_rejections_total } add = var:aawc_reforging_round_invalid_rejections_total } } add = 1 } }
+		set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = 0 }
+		set_variable = { name = aawc_reforging_round_last_applied value = 0 }
+	}
+}

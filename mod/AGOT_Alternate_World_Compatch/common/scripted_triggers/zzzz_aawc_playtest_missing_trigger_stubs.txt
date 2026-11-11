@@ -1,0 +1,30 @@
+﻿# AAWC 1.9.82 playtest compatibility trigger stubs.
+#
+# These IDs are referenced by retained AGOT/AAWC files but are absent on
+# lower-DLC or shifted-load-order machines. Return false so the references
+# validate without enabling the gated content.
+
+agot_has_three_daughters_trigger = {
+	always = no
+}
+
+is_accolade_active = {
+	always = no
+}
+
+total_votes_for = {
+	always = no
+}
+
+is_province_valid_confucian_education_trigger = {
+	always = no
+}
+
+mw_on_action_pre_war_liege_trigger = {
+	always = no
+}
+
+mw_on_action_remove_pre_war_liege_trigger = {
+	always = no
+}
+

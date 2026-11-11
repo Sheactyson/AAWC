@@ -1,0 +1,315 @@
+﻿E_kei_character_creation_nudge_cultural_traits = {
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = just                  CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = content               CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = stubborn              CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = temperate             CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = vengeful              CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = zealous               CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = humble                CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = patient               CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = calm                  CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = honest                CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = generous              CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = compassionate         CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = temperate             CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = diligent              CHANCE = 30     PERSONALITY = yes }
+    E_kei_character_creation_nudge_cultural_trait = { TRAIT = ambitious             CHANCE = 30     PERSONALITY = yes }
+    # Loyal and Disloyal already handled in set_interesting_traits_and_modifiers_effect
+    E_kei_character_creation_nudge_cultural_xp_trait = {        TRAIT = lifestyle_poet                              CHANCE = 15     PARAMETER = poet_trait_more_common      }
+    E_kei_character_creation_nudge_cultural_xp_track_trait = {  TRAIT = lifestyle_hunter        TRACK = hunter      CHANCE = 15     PARAMETER = hunting_traits_more_common      }
+    E_kei_character_creation_nudge_cultural_xp_track_trait = {  TRAIT = lifestyle_hunter        TRACK = falconer    CHANCE = 20     PARAMETER = falconer_traits_more_common     }
+    E_kei_character_creation_nudge_cultural_xp_trait = {        TRAIT = lifestyle_reveler                           CHANCE = 15     PARAMETER = reveler_traits_more_common      }
+    E_kei_character_creation_nudge_cultural_trait_parameter = { TRAIT = lifestyle_herbalist                         CHANCE = 15     PARAMETER = herbalist_traits_more_common    }
+    E_kei_character_creation_nudge_cultural_trait_parameter = { TRAIT = lifestyle_gardener                          CHANCE = 15     PARAMETER = can_appoint_court_gardener      }
+    E_kei_character_creation_nudge_cultural_xp_trait = {        TRAIT = lifestyle_blademaster                       CHANCE = 15     PARAMETER = blademaster_traits_more_common  }
+    E_kei_character_creation_nudge_cultural_xp_trait = {        TRAIT = lifestyle_mystic                            CHANCE = 15     PARAMETER = mystic_trait_more_common        }
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = strong_traits_more_common }
+            NOT = { has_trait = strong }
+        }
+        random = { chance = 10 add_trait = strong }
+    }
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = reveler_traits_more_common }
+            NOT = { has_trait = drunkard }
+        }
+        random = { chance = 5 add_trait = drunkard }
+    }
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = wanderers_learn_languages }
+			num_of_known_languages < language_soft_cap
+            exists = scope:culture
+            NOT = { knows_language_of_culture = scope:culture }
+        }
+		learn_language_of_culture = scope:culture
+    }
+    if = {
+        limit = { culture = { has_cultural_parameter = wanderers_gain_extra_combat_skills } }
+        random_list = {
+            10 = { blademaster_lifestyle_rank_up_effect = yes }
+            10 = {
+                trigger = {
+                    OR = {
+                        exists = scope:location
+                        exists = scope:province
+                        exists = location
+                    }
+                }
+                if = {
+                    limit = { NOT = { exists = scope:location } }
+                    if = {
+                        limit = { exists = scope:province }
+                        scope:province = { save_temporary_scope_as = location }
+                    }
+                    else_if = {
+                        limit = { exists = location }
+                        location = { save_temporary_scope_as = location }
+                    }
+                }
+                E_kei_give_random_commander_trait_effect = yes
+            }
+            30 = { add_prowess_skill = { 2 4 } }
+            30 = { add_martial_skill = { 2 4 } }
+        }
+        random = { chance = 15 add_martial_skill = 1 }
+        random = { chance = 15 add_martial_skill = 1 }
+        random = { chance = 15 add_prowess_skill = 1 }
+        random = { chance = 15 add_prowess_skill = 1 }
+    }
+    if = {
+        limit = { culture = { has_cultural_parameter = wanderers_gain_extra_economic_skills } }
+        random_list = {
+			20 = { wanderer_give_random_economic_trait_effect = yes }
+			40 = { add_stewardship_skill = { 2 4 } }
+			40 = { add_gold = { 35 75 } }
+        }
+        random = { chance = 30 add_stewardship_skill = 1 }
+        random = { chance = 30 add_stewardship_skill = 1 }
+    }
+    E_kei_character_creation_nudge_cultural_commander_trait = { TRAIT = winter_soldier          CHANCE = 8      MARTIAL_EDUCATION_FACTOR = 5 }
+    E_kei_character_creation_nudge_cultural_commander_trait = { TRAIT = forest_fighter          CHANCE = 8      MARTIAL_EDUCATION_FACTOR = 5 }
+    E_kei_character_creation_nudge_cultural_commander_trait = { TRAIT = rough_terrain_expert    CHANCE = 8      MARTIAL_EDUCATION_FACTOR = 5 }
+    E_kei_character_creation_nudge_cultural_commander_trait = { TRAIT = desert_warrior          CHANCE = 8      MARTIAL_EDUCATION_FACTOR = 5 }
+    E_kei_character_creation_nudge_cultural_commander_trait = { TRAIT = jungle_stalker          CHANCE = 8      MARTIAL_EDUCATION_FACTOR = 5 }
+}
+
+E_kei_character_creation_nudge_cultural_trait = {
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = $TRAIT$_trait_more_common }
+            NOT = { has_trait = $TRAIT$ }
+        }
+        random = {
+            chance = $CHANCE$
+            if = { limit = { $PERSONALITY$ = yes } E_kei_character_remove_random_personality_trait_if_at_least_standard = yes }
+            add_trait = $TRAIT$
+        }
+    }
+}
+
+E_kei_character_creation_nudge_cultural_trait_parameter = {
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = $PARAMETER$ }
+            NOT = { has_trait = $TRAIT$ }
+        }
+        random = {
+            chance = $CHANCE$
+            add_trait = $TRAIT$
+        }
+    }
+}
+
+E_kei_character_creation_nudge_cultural_commander_trait = {
+    if = {
+        limit = {
+            culture = { has_cultural_parameter = $TRAIT$_trait_more_common }
+            NOT = { has_trait = $TRAIT$ }
+        }
+        random = {
+            chance = {
+                value = $CHANCE$
+                if = {
+                    limit = {
+                        OR = {
+                            has_education_martial_trigger = yes
+                            martial >= high_skill_rating
+                            prowess >= high_skill_rating
+                        }
+                    }
+                    multiply = $MARTIAL_EDUCATION_FACTOR$
+                }
+            }
+            add_trait = $TRAIT$
+        }
+    }
+}
+
+E_kei_character_creation_nudge_cultural_xp_track_trait = {
+    if = {
+        limit = { culture = { has_cultural_parameter = $PARAMETER$ } }
+        random = {
+            chance = $CHANCE$
+            
+            if = {
+                limit = { NOT = { has_trait = $TRAIT$ } }
+                add_trait = $TRAIT$
+            }
+            add_random_tiered_trait_track_xp_effect = {
+                TRAIT = $TRAIT$
+                TRACK = $TRACK$
+                LEVEL_1 = yes
+                LEVEL_3 = yes
+            }
+        }
+    }
+}
+
+E_kei_character_creation_nudge_cultural_xp_trait = {
+    if = {
+        limit = { culture = { has_cultural_parameter = $PARAMETER$ } }
+        random = {
+            chance = $CHANCE$
+            
+            if = {
+                limit = { NOT = { has_trait = $TRAIT$ } }
+                add_trait = $TRAIT$
+            }
+            add_random_tiered_trait_xp_effect = {
+                TRAIT = $TRAIT$
+                LEVEL_1 = yes
+                LEVEL_3 = yes
+            }
+        }
+    }
+}
+
+E_kei_character_remove_random_personality_trait_if_at_least_standard = {
+    if = {
+        limit = { number_of_personality_traits >= personality_trait_standard }
+        E_kei_character_remove_random_personality_trait = yes
+    }
+}
+
+# 36 traits with "category = personality"
+E_kei_character_remove_random_personality_trait = {
+    random_list = {
+        1 = { remove_trait = forgiving }
+        1 = { remove_trait = trusting }
+        1 = { remove_trait = lustful }
+        1 = { remove_trait = arrogant }
+        1 = { remove_trait = gregarious }
+        1 = { remove_trait = ambitious }
+        1 = { remove_trait = impatient }
+        1 = { remove_trait = diligent }
+        1 = { remove_trait = temperate }
+        1 = { remove_trait = generous }
+        1 = { remove_trait = compassionate }
+        1 = { remove_trait = zealous }
+        1 = { remove_trait = brave }
+        1 = { remove_trait = calm }
+        1 = { remove_trait = just }
+        1 = { remove_trait = fickle }
+        1 = { remove_trait = stubborn }
+        1 = { remove_trait = content }
+        1 = { remove_trait = honest }
+        1 = { remove_trait = gluttonous }
+        1 = { remove_trait = chaste }
+        1 = { remove_trait = greedy }
+        1 = { remove_trait = deceitful }
+        1 = { remove_trait = cynical }
+        1 = { remove_trait = shy }
+        1 = { remove_trait = lazy }
+        1 = { remove_trait = patient }
+        1 = { remove_trait = arbitrary }
+        1 = { remove_trait = humble }
+        1 = { remove_trait = wrathful }
+        1 = { remove_trait = sadistic }
+        1 = { remove_trait = callous }
+        1 = { remove_trait = vengeful }
+        1 = { remove_trait = paranoid }
+        1 = { remove_trait = craven }
+        1 = { remove_trait = eccentric }
+    }
+}
+
+# Copied from wanderer_give_random_commander_trait_effect
+E_kei_give_random_commander_trait_effect = {
+	random_list = {
+		100 = {
+			trigger = { NOT = { has_trait = logistician } }
+			add_trait = logistician
+		}
+		100 = {
+			trigger = { NOT = { has_trait = military_engineer } }
+			add_trait = military_engineer
+		}
+		100 = {
+			trigger = { NOT = { has_trait = aggressive_attacker } }
+			add_trait = aggressive_attacker
+		}
+		100 = {
+			trigger = { NOT = { has_trait = unyielding_defender } }
+			add_trait = unyielding_defender
+		}
+		100 = {
+			trigger = { NOT = { has_trait = forder } }
+			add_trait = forder
+		}
+		100 = {
+			trigger = { NOT = { has_trait = flexible_leader } }
+			add_trait = flexible_leader
+		}
+		100 = {
+			trigger = {
+				NOT = { has_trait = desert_warrior }
+                exists = scope:location
+				scope:location = {
+					terrain = desert
+				}
+			}
+			add_trait = desert_warrior
+		}
+		100 = {
+			trigger = {
+				NOT = { has_trait = jungle_stalker }
+                exists = scope:location
+				scope:location = {
+					terrain = jungle
+				}
+			}
+			add_trait = jungle_stalker
+		}
+		100 = {
+			trigger = {
+				NOT = { has_trait = winter_soldier }
+                exists = scope:location
+				scope:location = {
+					OR = {
+						terrain = taiga
+						geographical_region = world_tibet
+						geographical_region = world_europe_north
+						geographical_region = world_europe_east
+						geographical_region = world_steppe
+					}
+				}
+			}
+			add_trait = winter_soldier
+		}
+		100 = {
+			trigger = { NOT = { has_trait = reaver } }
+			add_trait = reaver
+		}
+		100 = {
+			trigger = { NOT = { has_trait = reckless } }
+			add_trait = reckless
+		}
+		100 = {
+			trigger = { NOT = { has_trait = holy_warrior } }
+			add_trait = holy_warrior
+		}
+	}
+}

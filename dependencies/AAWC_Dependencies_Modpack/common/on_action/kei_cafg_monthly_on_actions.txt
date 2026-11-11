@@ -1,0 +1,6 @@
+﻿# Triggered by custom event
+kCAFG_monthly_global_pulse = {
+    effect = {
+        E_kCAFG_apply_province_tensions_monthly_changes = yes
+    }
+}

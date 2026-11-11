@@ -1,0 +1,147 @@
+﻿# AAWC 1.10.5.13 settlement-completion contract.
+#
+# AGOT's legacy tribalize interaction remains available as an explicit player
+# button, but it may not be selected by AI and now shares AAWC's development-3
+# requirement. AAWC's yearly AI workflow remains the only AI completion route.
+tribalize_settlement_holding_interaction = {
+	category = interaction_category_uncategorized
+	hidden = yes
+
+	desc = tribalize_settlement_holding_interaction_desc
+
+	target_type = title
+	target_filter = actor_domain_titles
+
+	auto_accept = yes
+
+	is_shown = {
+		scope:actor = {
+			this = scope:recipient
+			is_ai = no
+			government_has_flag = government_is_tribal
+		}
+	}
+
+	cost = {
+		gold = {
+			value = settle_settlement_holding_interaction_cost
+			divide = 2
+		}
+		prestige = {
+			value = settle_settlement_holding_interaction_cost
+			multiply = 2
+		}
+	}
+
+	can_be_picked_title = {
+		scope:target = {
+			holder = scope:actor
+			is_capital_barony = no
+			trigger_if = {
+				limit = { tier <= tier_county }
+				title_province = {
+					has_holding_type = settlement_holding
+					county = { development_level >= 3 }
+				}
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = tribalize_settlement_holding_interaction_title_not_county_or_below
+					always = no
+				}
+			}
+		}
+	}
+
+	has_valid_target_showing_failures_only = {
+		scope:target = {
+			trigger_if = {
+				limit = { tier <= tier_county }
+				title_province = {
+					barony_controller = scope:actor
+					has_ongoing_construction = no
+					custom_tooltip = {
+						text = less_than_three_development
+						county = { development_level >= 3 }
+					}
+				}
+			}
+		}
+		scope:target = {
+			trigger_if = {
+				limit = {
+					title_province = {
+						has_holding_type = settlement_holding
+					}
+				}
+				custom_tooltip = {
+					text = blockers_remain_in_settlement
+					title_province = {
+						has_building_with_flag = {
+							flag = obstacle
+							count = 0
+						}
+					}
+				}
+				custom_tooltip = {
+					text = has_fully_upgraded_settlement_holding
+					title_province = { has_building = settlement_03 }
+				}
+			}
+		}
+		trigger_if = {
+			limit = { scope:target.tier = tier_barony }
+			custom_tooltip = {
+				text = capital_province_is_settlement
+				NOT = {
+					scope:target.county.title_province = {
+						has_holding_type = settlement_holding
+					}
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			send_interface_toast = {
+				title = tribalize_settlement_holding_interaction_notification
+				right_icon = scope:actor
+
+				if = {
+					limit = {
+						exists = scope:target.title_province
+						scope:target.title_province = {
+							has_holding_type = settlement_holding
+							county = { development_level >= 3 }
+							has_building_with_flag = { flag = obstacle count = 0 }
+							has_building = settlement_03
+							has_ongoing_construction = no
+						}
+					}
+					scope:target = { set_color_from_title = scope:target.de_jure_liege }
+					scope:target.title_province = {
+						set_variable = { name = aawc_population_preconversion_settlement value = 1 }
+						set_holding_type = tribal_holding
+						aawc_population_refresh_holding_dynamic_effect = yes
+						county = { aawc_population_recalculate_county_effect = yes }
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_variable = num_settled_wilderness
+					var:num_settled_wilderness > 0
+					scope:target.title_province = { has_variable = aawc_population_preconversion_settlement }
+				}
+				decrease_variable = { NAME = num_settled_wilderness AMOUNT = 1 }
+				remove_wilderness_tracker_variable = yes
+				trigger_event = agot_colonization_events.0007
+			}
+			aawc_population_resync_settlement_tracker_effect = yes
+			aawc_population_recalculate_character_effect = yes
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}

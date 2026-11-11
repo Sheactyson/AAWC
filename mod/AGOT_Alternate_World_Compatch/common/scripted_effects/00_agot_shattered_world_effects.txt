@@ -1,0 +1,2288 @@
+﻿agot_init_shattered_realms = {
+	if = {
+		limit = {
+			agot_has_any_shattered_rule_trigger = yes
+		}
+		trigger_event = agot_shattered_world.0001
+	}
+}
+
+agot_shattered_world_break_tributary = {
+	every_ruler = {
+		every_tributary = {
+			end_tributary = yes
+		}
+	}
+}
+
+agot_shattered_world_destroy_family_titles = {
+	every_held_title = {
+		limit = {
+			is_noble_family_title = yes
+		}
+		holder = { destroy_title = prev }
+	}
+}
+
+agot_shattered_world_lp_kings = {
+	title:d_kings_landing.holder = {
+		agot_shattered_world_crownlands_vassals = yes
+	}
+	title:d_sunspear.holder = {
+		agot_shattered_world_dorne_vassals = yes
+	}
+
+	if = {
+		limit = {
+			title:c_summerfield.holder = title:c_kings_landing.holder
+		}
+		title:c_grandview.holder = { get_title = title:c_summerfield }
+	}
+}
+
+agot_shattered_world_even_counties = {
+	save_scope_as = current_ruler
+	every_held_county = {
+		limit = {
+			NOR = {
+				kingdom = title:k_the_wall
+				scope:current_ruler.capital_county ?= this
+				AND = {
+					aawc_tribal_shatter_active = yes
+					OR = {
+						holder ?= { this = title:c_ruins.holder }
+						holder ?= { this = title:c_wilderness.holder }
+						aawc_county_should_use_agot_colonization_flow = yes
+						aawc_native_lov_rh_county = yes
+					}
+				}
+			}
+		}
+
+		save_temporary_scope_as = countytogiveaway
+
+		create_character = {
+			gender_female_chance = 50
+			location = scope:countytogiveaway.title_province
+			culture = scope:countytogiveaway.culture
+			faith = scope:countytogiveaway.faith
+			after_creation = { save_temporary_scope_as = titletaker }
+		}
+
+		scope:titletaker = {
+			create_title_and_vassal_change = {
+				type = granted
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+
+			becomes_independent = {
+				change = scope:change
+			}
+
+			scope:countytogiveaway = {
+				change_title_holder = {
+					holder = scope:titletaker
+					change = scope:change
+				}
+			}
+
+			resolve_title_and_vassal_change = scope:change
+		}
+	}
+}
+
+agot_shatter_to_counties = {
+	every_held_title = {
+		limit = {
+			NOT = { is_landless_type_title = yes }
+			tier >= tier_duchy
+		}
+		holder = { destroy_title = prev }
+	}
+
+	#If they had a higher tier landless title
+	every_vassal = {
+		limit = { primary_title.tier >= tier_county }
+
+		create_title_and_vassal_change = {
+			type = independency
+			save_scope_as = change
+			add_claim_on_loss = yes
+		}
+		becomes_independent = {
+			change = scope:change
+		}
+		resolve_title_and_vassal_change = scope:change
+	}
+
+	# Split Exclaves -> Disabled as of 2nd Jan 2026 -Sky
+	#agot_shattered_world_split_exclaves = yes
+}
+
+agot_shatter_to_duchies = {
+	# Destroy Titles
+	every_held_title = {
+		limit = {
+			NOT = { is_landless_type_title = yes }
+			tier >= tier_kingdom
+		}
+		holder = { destroy_title = prev }
+	}
+
+	# Split Exclaves -> Disabled as of 2nd Jan 2026 -Sky
+	#agot_shattered_world_split_exclaves = yes
+}
+
+agot_shatter_to_kingdoms = {
+	# Destroy Empires
+	every_held_title = {
+		limit = {
+			NOT = { is_landless_type_title = yes }
+			tier = tier_empire
+		}
+		holder = { destroy_title = prev }
+	}
+	# Split Exclaves - With Longer Range -> Disabled as of 2nd Jan 2026 -Sky
+	#agot_shattered_world_split_exclaves_longer_range = yes
+}
+
+agot_shatter_to_petty_kingdoms = {
+	every_ruler = {
+		limit = {
+			NOT = { government_has_flag = government_is_uninteractable }
+			primary_title.tier >= tier_empire
+		}
+		# Destroy Kingdoms
+		every_held_title = {
+			limit = {
+				NOT = { is_landless_type_title = yes }
+				tier >= tier_empire
+			}
+			holder = { destroy_title = prev }
+		}
+
+		# Split Exclaves - With Longer Range -> Disabled as of 2nd Jan 2026 -Sky
+		#disabled for now, was causing issues with certain lords getting deleted
+		#agot_shattered_world_split_exclaves_longer_range = yes
+	}
+}
+
+agot_shatter_assign_de_jure_vassals = {
+	save_scope_as = liege_to_be
+	every_held_title = {
+		limit = { tier = scope:liege_to_be.primary_title.tier }
+		every_dejure_vassal_title_holder = {
+			if = {
+				limit = {
+					NOT = { this = scope:liege_to_be }
+					NOT = { government_has_flag = government_is_uninteractable }
+					primary_title.tier < scope:liege_to_be.primary_title.tier
+				}
+				save_scope_as = vassal_to_be
+
+				create_title_and_vassal_change = {
+					type = swear_fealty
+					save_scope_as = change_fealty
+					add_claim_on_loss = yes
+				}
+				scope:vassal_to_be = {
+					change_liege = {
+						liege = scope:liege_to_be
+						change = scope:change_fealty
+					}
+				}
+				resolve_title_and_vassal_change = scope:change_fealty
+			}
+		}
+	}
+}
+
+agot_shattered_world_split_exclaves = {
+	save_scope_as = current_ruler
+
+	capital_province.county = {
+		every_connected_county = { # Start off by making a list of all disconnected Counties
+			invert = yes
+			max_naval_distance = 100
+			allow_one_county_land_gap = no
+			add_to_list = disconnected_counties
+			limit = {
+				NOT = {
+					holder = {
+						government_has_flag = government_is_uninteractable
+					}
+				}
+			}
+		}
+	}
+
+	every_in_list = {
+		list = disconnected_counties
+
+		limit = {
+			any_connected_county = {
+				NOT = { is_in_list = disconnected_counties }
+				max_naval_distance = 100
+			}
+		}
+		add_to_list = cull_naval_connection_counties
+	}
+
+	while = {
+		limit = {
+			any_in_list = {
+				list = cull_naval_connection_counties
+			}
+		}
+		random_in_list = {
+			list = cull_naval_connection_counties
+
+			save_scope_as = cull_origin_county
+
+			every_connected_county = {
+				remove_from_list = cull_naval_connection_counties
+				remove_from_list = disconnected_counties
+			}
+			remove_from_list = cull_naval_connection_counties
+			remove_from_list = disconnected_counties
+		}
+	}
+
+	# Release Dukes if not in your realm
+	if = {
+		limit = { has_game_rule = agot_shatter_to_empires }
+		every_in_list = {
+			list = disconnected_counties
+
+			limit = {
+				holder.primary_title.tier = tier_duchy
+				NOR = {
+					holder = scope:current_ruler
+					holder = {
+						any_sub_realm_title = {
+							tier = tier_county
+							NOT = { is_in_list = disconnected_counties }
+						}
+					}
+				}
+			}
+			holder = {
+				create_title_and_vassal_change = {
+					type = independency
+					save_scope_as = change
+					add_claim_on_loss = yes
+				}
+				becomes_independent = {
+					change = scope:change
+				}
+				resolve_title_and_vassal_change = scope:change
+			}
+		}
+	}
+
+	# Release Counts if not in your realm
+	if = {
+		limit = {
+			OR = {
+				has_game_rule = agot_shatter_to_empires
+				has_game_rule = agot_shatter_to_duchies
+				has_game_rule = agot_shatter_to_petty_kingdoms
+			}
+		}
+		every_in_list = {
+			list = disconnected_counties
+
+			limit = {
+				holder.primary_title.tier = tier_county
+				NOR = {
+					holder = scope:current_ruler
+					holder = {
+						any_sub_realm_title = {
+							tier = tier_county
+							NOT = { is_in_list = disconnected_counties }
+						}
+					}
+				}
+			}
+			holder = {
+				create_title_and_vassal_change = {
+					type = independency
+					save_scope_as = change
+					add_claim_on_loss = yes
+				}
+				becomes_independent = {
+					change = scope:change
+				}
+				resolve_title_and_vassal_change = scope:change
+			}
+		}
+	}
+
+	every_in_list = { # Finally, release contiguous areas under someone from the pool
+		list = disconnected_counties
+
+		limit = {
+			holder = scope:current_ruler
+		}
+
+		save_scope_as = county_of_origin
+
+		every_pool_character = {
+			province = scope:county_of_origin.title_province
+			limit = {
+				is_available_adult = yes
+			}
+			add_to_list = potential_holders
+		}
+
+		every_pool_character = {
+			province = scope:county_of_origin.holder.capital_province
+			limit = {
+				is_available_adult = yes
+			}
+			add_to_list = potential_holders
+		}
+
+		if = {
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = potential_holders
+						is_available_adult = yes
+					}
+				}
+			}
+			create_character = {
+				location = scope:county_of_origin.title_province
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+				gender_female_chance = 50
+				save_scope_as = backup_character
+			}
+			scope:backup_character = {
+				add_to_list = potential_holders
+			}
+		}
+
+		random_in_list = {
+			list = potential_holders
+			limit = {
+				is_available_adult = yes
+				has_claim_on = scope:county_of_origin
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = scope:county_of_origin.faith
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				has_claim_on = scope:county_of_origin
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = scope:county_of_origin.faith
+			}
+			alternative_limit = {
+				is_available_adult = yes
+			}
+
+			save_scope_as = new_county_holder
+			#get_title = scope:county_of_origin
+
+			create_title_and_vassal_change = {
+				type = independency
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+			every_in_list = {
+				list = disconnected_counties
+				limit = {
+					OR = {
+						holder.top_liege = scope:current_ruler
+						holder = scope:current_ruler
+					}
+					is_connected_to = {
+						target = scope:county_of_origin
+					}
+					NOT ={
+						is_connected_to = {
+							target = scope:current_ruler.capital_province.county
+						}
+					}
+				}
+				change_title_holder = {
+					holder = scope:new_county_holder
+					change = scope:change
+				}
+			}
+			becomes_independent = {
+				change = scope:change
+			}
+			resolve_title_and_vassal_change = scope:change
+		}
+	}
+}
+
+agot_shattered_world_split_exclaves_longer_range = {
+	save_scope_as = current_ruler
+
+	capital_province.county = {
+		every_connected_county = { # Start off by making a list of all disconnected Counties
+			invert = yes
+			max_naval_distance = 200
+			allow_one_county_land_gap = no
+			add_to_list = disconnected_counties
+			limit = {
+				NOT = {
+					holder = {
+						government_has_flag = government_is_uninteractable
+					}
+				}
+			}
+		}
+	}
+
+	every_in_list = {
+		list = disconnected_counties
+
+		limit = {
+			any_connected_county = {
+				NOT = { is_in_list = disconnected_counties }
+				max_naval_distance = 200
+			}
+		}
+		add_to_list = cull_naval_connection_counties
+	}
+
+	while = {
+		limit = {
+			any_in_list = {
+				list = cull_naval_connection_counties
+			}
+		}
+		random_in_list = {
+			list = cull_naval_connection_counties
+
+			save_scope_as = cull_origin_county
+
+			every_connected_county = {
+				remove_from_list = cull_naval_connection_counties
+				remove_from_list = disconnected_counties
+			}
+			remove_from_list = cull_naval_connection_counties
+			remove_from_list = disconnected_counties
+		}
+	}
+
+	# Release Dukes if not in your realm
+	if = {
+		limit = { has_game_rule = agot_shatter_to_empires }
+		every_in_list = {
+			list = disconnected_counties
+
+			limit = {
+				holder.primary_title.tier = tier_duchy
+				NOR = {
+					holder = scope:current_ruler
+					holder = {
+						any_sub_realm_title = {
+							tier = tier_county
+							NOT = { is_in_list = disconnected_counties }
+						}
+					}
+				}
+			}
+			holder = {
+				create_title_and_vassal_change = {
+					type = independency
+					save_scope_as = change
+					add_claim_on_loss = yes
+				}
+				becomes_independent = {
+					change = scope:change
+				}
+				resolve_title_and_vassal_change = scope:change
+			}
+		}
+	}
+
+	# Release Counts if not in your realm
+	if = {
+		limit = {
+			OR = {
+				has_game_rule = agot_shatter_to_duchies
+				has_game_rule = agot_shatter_to_petty_kingdoms
+			}
+		}
+		every_in_list = {
+			list = disconnected_counties
+
+			limit = {
+				holder.primary_title.tier = tier_county
+				NOR = {
+					holder = scope:current_ruler
+					holder = {
+						any_sub_realm_title = {
+							tier = tier_county
+							NOT = { is_in_list = disconnected_counties }
+						}
+					}
+				}
+			}
+			holder = {
+				create_title_and_vassal_change = {
+					type = independency
+					save_scope_as = change
+					add_claim_on_loss = yes
+				}
+				becomes_independent = {
+					change = scope:change
+				}
+				resolve_title_and_vassal_change = scope:change
+			}
+		}
+	}
+
+	every_in_list = { # Finally, release contiguous areas under someone from the pool
+		list = disconnected_counties
+
+		limit = {
+			holder = scope:current_ruler
+		}
+
+		save_scope_as = county_of_origin
+
+		every_pool_character = {
+			province = scope:county_of_origin.title_province
+			limit = {
+				is_available_adult = yes
+			}
+			add_to_list = potential_holders
+		}
+
+		every_pool_character = {
+			province = scope:county_of_origin.holder.capital_province
+			limit = {
+				is_available_adult = yes
+			}
+			add_to_list = potential_holders
+		}
+
+		if = {
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = potential_holders
+						is_available_adult = yes
+					}
+				}
+			}
+			create_character = {
+				location = scope:county_of_origin.title_province
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+				gender_female_chance = 50
+				save_scope_as = backup_character
+			}
+			scope:backup_character = {
+				add_to_list = potential_holders
+			}
+		}
+
+		random_in_list = {
+			list = potential_holders
+			limit = {
+				is_available_adult = yes
+				has_claim_on = scope:county_of_origin
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = scope:county_of_origin.faith
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				has_claim_on = scope:county_of_origin
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = scope:county_of_origin.faith
+			}
+			alternative_limit = {
+				is_available_adult = yes
+			}
+
+			save_scope_as = new_county_holder
+			#get_title = scope:county_of_origin
+
+			create_title_and_vassal_change = {
+				type = independency
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+			every_in_list = {
+				list = disconnected_counties
+				limit = {
+					OR = {
+						holder.top_liege = scope:current_ruler
+						holder = scope:current_ruler
+					}
+					is_connected_to = {
+						target = scope:county_of_origin
+					}
+					NOT ={
+						is_connected_to = {
+							target = scope:current_ruler.capital_province.county
+						}
+					}
+				}
+				change_title_holder = {
+					holder = scope:new_county_holder
+					change = scope:change
+				}
+				#scope:new_county_holder = { get_title = prev }
+			}
+			becomes_independent = {
+				change = scope:change
+			}
+			resolve_title_and_vassal_change = scope:change
+		}
+	}
+}
+
+# Assign kingdom titles to their respective holders
+agot_shattered_world_pk_kings = {
+	#LPS
+	title:c_sunspear.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_greenblood }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	title:c_pyke.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_under_islands }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	title:c_kings_landing.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_blackwater }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	title:c_dragonstone.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_dragonstone }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	title:c_winterfell.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_winterfell }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	title:c_highgarden.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_mander }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	title:c_riverrun.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_armistia }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	title:c_storms_end.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_shipbreaker_bay }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	title:c_the_eyrie.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_vale }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	title:c_casterly_rock.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_rock }
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_game_rule = aawc_alt_world_enabled
+						has_game_rule = aawc_aw_tribal_holdings
+						OR = {
+							has_game_rule = aawc_aw_count_shattered_realms
+							has_game_rule = aawc_aw_duke_shattered_realms
+							has_game_rule = aawc_aw_king_shattered_realms
+							has_game_rule = aawc_aw_emperor_shattered_realms
+						}
+					}
+				}
+			}
+			change_government = feudal_government
+		}
+	}
+	#Everyone Else
+	title:c_the_twins.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_lakes_and_mires }
+	}
+	title:c_dyre_den.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_claw }
+	}
+	title:c_horn_hill.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_westmarch }
+	}
+	title:c_oakheart.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_northmarch }
+	}
+	title:c_bitterbridge.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_bitterbridge }
+	}
+	title:c_tumbleton.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_tumbleton }
+	}
+	title:c_oakenshield.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_shields }
+	}
+	title:c_evenfall.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_morne }
+	}
+	title:c_stonehelm.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_slayne }
+	}
+	title:c_hammerhorn.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_great_wyk }
+	}
+	title:c_bleachbone.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_ironmans_bay }
+	}
+	title:c_barrowton.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_barrows_and_rills }
+	}
+	title:c_last_hearth.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_last_lands }
+	}
+	title:c_blackpool.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_stony_shore }
+	}
+	title:c_white_harbor.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_white_knife }
+	}
+	title:c_deepwood.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_wolfswood }
+	}
+	title:c_flints_finger.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_cape_kraken }
+	}
+	title:c_mormont.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_bear_island }
+	}
+	title:c_drihisesk.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_skagos }
+	}
+	title:c_starfall.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_torrentine }
+	}
+	title:c_hellholt.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_drylands }
+	}
+	title:c_kingsgrave.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_red_mountains }
+	}
+	title:c_the_tor.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_tor }
+	}
+	title:c_godsgrace.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_godsgrace }
+	}
+	title:c_raventree.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_blackwood_vale }
+	}
+	title:c_strongsong.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_mountains_of_the_moon }
+	}
+	title:c_harrenhal.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_gods_eye }
+	}
+	title:c_atranta.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_atranta }
+	}
+	title:c_stone_hedge.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_southstone }
+	}
+	title:c_the_twins.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_lakes_and_mires }
+	}
+	title:c_maidenpool.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_fishers_haft }
+	}
+	title:c_yronwood.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_yronwood }
+	}
+	title:c_skyreach.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_stone_and_sky }
+	}
+	title:c_oldtown.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_oldtown }
+	}
+	title:c_wynegarde.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_arbor }
+	}
+	title:c_blackhaven.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_marches }
+	}
+	title:c_duskendale.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_duskwashes }
+	}
+	title:c_stonedance.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_hook }
+	}
+	title:c_banefort.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_hooded_coves }
+	}
+	title:c_runestone.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_runestone }
+	}
+	title:c_hearts_home.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_fingers }
+	}
+	title:c_sunderland.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_sisters }
+	}
+	title:c_greywater_watch.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_neck }
+	}
+	title:c_the_dreadfort.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_red_lands }
+	}
+	title:c_griffins_roost.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_rainwood }
+	}
+	title:c_felwood.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_kingswood }
+	}
+	title:c_willow_wood.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_lakeleaf }
+	}
+	if = {
+		limit = {
+				game_start_date < 8261.11.1
+		}
+		title:c_castamere.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_crimson_straits }
+		}
+	}
+	else = {
+		title:c_faircastle.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_crimson_straits }
+		}
+	}
+	title:c_crakehall.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_boarfields }
+	}
+	title:c_deep_den.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_gold_road }
+	}
+	title:c_ten_towers.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_harlaw }
+	}
+	title:c_goldengrove.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_goldengrove }
+	}
+	title:c_cider_crossing.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_orchards }
+	}
+	title:c_gulltown.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_bay_of_crabs }
+	}
+	if = {
+		limit = { agot_realm_daoryrdembos_enabled = yes }
+		title:c_jaeshinun.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_star_hills }
+		}
+		if = {
+		limit = {
+			NOT = {
+				AND = {
+					has_game_rule = aawc_alt_world_enabled
+					has_game_rule = aawc_aw_tribal_holdings
+					OR = {
+						has_game_rule = aawc_aw_count_shattered_realms
+						has_game_rule = aawc_aw_duke_shattered_realms
+						has_game_rule = aawc_aw_king_shattered_realms
+						has_game_rule = aawc_aw_emperor_shattered_realms
+					}
+				}
+			}
+		}
+		title:k_star_hills.holder = { change_government = administrative_government }
+	}
+		title:c_nontelos.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_nontelos }
+		}
+		title:c_coronyll.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_andalos }
+		}
+		if = {
+		limit = {
+			NOT = {
+				AND = {
+					has_game_rule = aawc_alt_world_enabled
+					has_game_rule = aawc_aw_tribal_holdings
+					OR = {
+						has_game_rule = aawc_aw_count_shattered_realms
+						has_game_rule = aawc_aw_duke_shattered_realms
+						has_game_rule = aawc_aw_king_shattered_realms
+						has_game_rule = aawc_aw_emperor_shattered_realms
+					}
+				}
+			}
+		}
+		title:k_andalos.holder = { change_government = administrative_government }
+	}
+	}
+	if = {
+		limit = { agot_realm_narrow_sea_enabled = yes }
+		title:c_bloodstone.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_the_stepstones }
+		}
+		title:c_tyrosh.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_tyrosh }
+		}
+		title:c_lys.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_lys }
+		}
+		title:c_myr.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_myr }
+		}
+		if = {
+			limit = {
+				game_start_date = 8258.12.21
+			}
+			title:c_dyanosh.holder = {
+				agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_disputed_lands } #Maelys exception for Disputed Lands
+			}
+		}
+		else = {
+			title:c_qorena.holder = {
+				agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_disputed_lands }
+			}
+		}
+		if = {
+		limit = {
+			NOT = {
+				AND = {
+					has_game_rule = aawc_alt_world_enabled
+					has_game_rule = aawc_aw_tribal_holdings
+					OR = {
+						has_game_rule = aawc_aw_count_shattered_realms
+						has_game_rule = aawc_aw_duke_shattered_realms
+						has_game_rule = aawc_aw_king_shattered_realms
+						has_game_rule = aawc_aw_emperor_shattered_realms
+					}
+				}
+			}
+		}
+		title:k_disputed_lands.holder = { change_government = administrative_government }
+	}
+		title:c_dyreno_hills.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_boeanare }
+		}
+		if = {
+		limit = {
+			NOT = {
+				AND = {
+					has_game_rule = aawc_alt_world_enabled
+					has_game_rule = aawc_aw_tribal_holdings
+					OR = {
+						has_game_rule = aawc_aw_count_shattered_realms
+						has_game_rule = aawc_aw_duke_shattered_realms
+						has_game_rule = aawc_aw_king_shattered_realms
+						has_game_rule = aawc_aw_emperor_shattered_realms
+					}
+				}
+			}
+		}
+		title:k_boeanare.holder = { change_government = administrative_government }
+	}
+		title:c_silkhead.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_miviyaan }
+		}
+		if = {
+			limit = {
+				game_start_date = 8082.1.1
+			}
+			title:c_draembyr.holder = {
+				agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_flaeraenor }
+			}
+		}
+		else = {
+			title:c_erintys.holder = {
+				agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_flaeraenor }
+			}
+		}
+		title:c_aror_drennah.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_sambaro }
+		}
+	}
+	if = {
+		limit = { agot_realm_daoryrdembos_enabled = yes }
+		title:c_braavos.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_braavos }
+		}
+		title:c_pearl_point.holder = {
+			agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_permont }
+		}
+	}
+
+	#Wildling
+	title:e_beyond_the_wall = {
+		every_in_de_jure_hierarchy = {
+			limit = {
+				tier = tier_kingdom
+				NOT = { exists = holder }
+			}
+			save_scope_as = wildling_pk_title
+			scope:wildling_pk_title = {
+				random_dejure_vassal_title_holder = {
+					limit = {
+						NOT = { has_trait = wilderness }
+					}
+					get_title = scope:wildling_pk_title
+				}
+			}
+		}
+	}
+
+	title:c_tun_vunag.holder = {
+		agot_shattered_assign_petty_kingdom_title = { TITLE = title:k_thenn }
+	}
+}
+
+agot_shattered_world_pk_de_jure = {
+	title:k_first_forest = {
+		#save_title_name_change_data = yes
+		set_title_name = pk_name_drowned_forest
+	}
+	title:k_dragonstone = {
+		#save_title_name_change_data = yes
+		set_title_name = pk_name_dragonstone
+	}
+	title:e_the_crownlands = {
+		save_temporary_scope_as = iron_throne
+		#save_title_name_change_data = yes
+		set_title_name = e_blackwater_bay
+	}
+	title:e_the_north = { save_temporary_scope_as = pknorth }
+	title:e_the_iron_islands = { save_temporary_scope_as = pkiron }
+	title:e_the_vale = { save_temporary_scope_as = pkvale }
+	title:e_the_riverlands = { save_temporary_scope_as = pkriver }
+	title:e_the_westerlands = { save_temporary_scope_as = pkwest }
+	title:e_the_reach = { save_temporary_scope_as = pkreach }
+	title:e_the_stormlands = { save_temporary_scope_as = pkstorm }
+	title:e_dorne = { save_temporary_scope_as = pkdorne }
+	title:e_beyond_the_wall = { save_temporary_scope_as = pkbtw }
+	title:e_three_daughters = { save_temporary_scope_as = pktdau }
+	title:e_pentos = { save_temporary_scope_as = pkepentos }
+	title:e_braavos = { save_temporary_scope_as = pkbraavos }
+	#Crownlands: Dragonstone
+	title:k_dragonstone = {
+		set_de_jure_liege_title = scope:iron_throne
+		save_temporary_scope_as = pkclaw
+	}
+	#Crownlands: The Blackwater
+	title:k_the_blackwater = {
+		set_de_jure_liege_title = scope:iron_throne
+	}
+	#Crownlands: The Claw
+	title:k_the_claw = {
+		set_de_jure_liege_title = scope:iron_throne
+		save_temporary_scope_as = pkclaw
+	}
+	title:d_crackclaw_point = { set_de_jure_liege_title = scope:pkclaw }
+	title:d_rooks_rest = { set_de_jure_liege_title = scope:pkclaw }
+	#Crownlands: The Hook
+	title:k_the_hook = {
+		set_de_jure_liege_title = scope:iron_throne
+		save_temporary_scope_as = pkhook
+	}
+	title:d_sharp_point = { set_de_jure_liege_title = scope:pkhook }
+	title:d_masseys_hook = { set_de_jure_liege_title = scope:pkhook }
+	title:d_wendwater_forest = { set_de_jure_liege_title = scope:pkhook }
+	title:d_the_baywater_woods = { set_de_jure_liege_title = scope:pkhook }
+	#Crownlands: Duskendale
+	title:k_duskwashes = {
+		set_de_jure_liege_title = scope:iron_throne
+		save_temporary_scope_as = pkdusk
+		set_coa = dynn_Darklyn
+	}
+	title:d_duskendale = { set_de_jure_liege_title = scope:pkdusk }
+	title:d_stokeworth = { set_de_jure_liege_title = scope:pkdusk }
+	title:d_deerfield = { set_de_jure_liege_title = scope:pkdusk }
+	#The Rock: Fair Isle
+	title:k_fair_isle = {
+		set_de_jure_liege_title = scope:pkwest
+		save_temporary_scope_as = pkfair
+		set_coa = dynn_Farman
+	}
+	#The Rock: The Rock
+	title:k_the_rock = {
+		set_de_jure_liege_title = scope:pkwest
+		save_temporary_scope_as = pkrock
+	title:d_tarrich = { set_de_jure_liege_title = scope:pkrock }
+	title:d_lanns_point = { set_de_jure_liege_title = scope:pkrock }
+	title:d_fair_isle = { set_de_jure_liege_title = scope:pkrock }
+	}
+	#The Rock: Banefort
+	title:k_hooded_coves = {
+		set_de_jure_liege_title = scope:pkwest
+		save_temporary_scope_as = pkbane
+	}
+	title:d_the_crag = { set_de_jure_liege_title = scope:pkbane }
+	title:d_withermoore = { set_de_jure_liege_title = scope:pkbane }
+	title:d_goldmarch = { set_de_jure_liege_title = scope:pkbane }
+	#The Rock: Castamere
+	title:k_crimson_straits = {
+		set_de_jure_liege_title = scope:pkwest
+		save_temporary_scope_as = pkcasta
+		set_coa = dynn_Reyne
+	}
+	title:d_castamere = { set_de_jure_liege_title = scope:pkcasta }
+	title:d_the_golden_tooth = { set_de_jure_liege_title = scope:pkcasta }
+	title:d_ashemark = { set_de_jure_liege_title = scope:pkcasta }
+	#The Rock: Boarfields
+	title:k_boarfields = {
+		set_de_jure_liege_title = scope:pkwest
+		save_temporary_scope_as = pkcrake
+		set_coa = dynn_Crakehall
+	}
+	title:d_crakehall = { set_de_jure_liege_title = scope:pkcrake }
+	title:d_rundridge = { set_de_jure_liege_title = scope:pkcrake }
+	title:d_the_fieldlands = { set_de_jure_liege_title = scope:pkcrake }
+	#The Rock: The Gold Road
+	title:k_the_gold_road = {
+		set_de_jure_liege_title = scope:pkwest
+		save_temporary_scope_as = pkgoldr
+		set_coa = dynn_Lydden
+	}
+	title:d_denslane = { set_de_jure_liege_title = scope:pkgoldr }
+	title:d_the_gold_road = { set_de_jure_liege_title = scope:pkgoldr }
+	title:d_sterling = { set_de_jure_liege_title = scope:pkgoldr }
+	title:d_hornvale = { set_de_jure_liege_title = scope:pkgoldr }
+	#The Reach: The Arbor
+	title:k_the_arbor = {
+		set_de_jure_liege_title = scope:pkreach
+		save_temporary_scope_as = pkarbor
+		set_coa = dynn_Redwyne
+	}
+	title:d_the_arbor = { set_de_jure_liege_title = scope:pkarbor }
+	title:d_garden_coast = { set_de_jure_liege_title = scope:pkarbor }
+	#The Reach: the Orchards
+	title:k_the_orchards = {
+		set_de_jure_liege_title = scope:pkreach
+		save_temporary_scope_as = pkorchard
+		set_coa = dynn_Fossoway
+	}
+	title:d_orchard_way = { set_de_jure_liege_title = scope:pkorchard }
+	title:d_cockleswhent = { set_de_jure_liege_title = scope:pkorchard }
+	title:d_fullharvest = { set_de_jure_liege_title = scope:pkorchard }
+	#The Reach: The High Tower
+	title:k_oldtown = {
+		set_de_jure_liege_title = scope:pkreach
+		save_temporary_scope_as = pkhoney
+		set_coa = dynn_Hightower
+	}
+	title:d_oldtown = { set_de_jure_liege_title = scope:pkhoney }
+	title:d_honeylands = { set_de_jure_liege_title = scope:pkhoney }
+	title:d_black_sound = { set_de_jure_liege_title = scope:pkhoney }
+	title:d_brightwater = { set_de_jure_liege_title = scope:pkhoney }
+	#The Reach: Westmarches
+	title:k_the_westmarch = {
+		set_de_jure_liege_title = scope:pkreach
+		save_temporary_scope_as = pkwestmarch
+		set_coa = dynn_Tarly
+	}
+	title:d_oldhills = { set_de_jure_liege_title = scope:pkwestmarch }
+	title:d_ridgeview = { set_de_jure_liege_title = scope:pkwestmarch }
+	title:d_the_westmarch = { set_de_jure_liege_title = scope:pkwestmarch }
+	title:d_palemarch = { set_de_jure_liege_title = scope:pkwestmarch }
+	#The Reach: Northmarch (MODCANNON)
+	title:k_the_northmarch = {
+		set_de_jure_liege_title = scope:pkreach
+		save_temporary_scope_as = pknorthm
+		set_coa = dynn_Oakheart
+	}
+	title:d_the_northmarch = { set_de_jure_liege_title = scope:pknorthm }
+	title:d_red_front = { set_de_jure_liege_title = scope:pknorthm }
+	title:d_the_ocean_road = { set_de_jure_liege_title = scope:pknorthm }
+	#The Reach: Goldengrove (MODCANNON)
+	title:k_goldengrove = {
+		set_de_jure_liege_title = scope:pkreach
+		save_temporary_scope_as = pkgold
+		set_coa = dynn_Rowan
+	}
+	title:d_goldengrove = { set_de_jure_liege_title = scope:pkgold }
+	title:d_sunnyvale = { set_de_jure_liege_title = scope:pkgold }
+	title:d_goldenfields = { set_de_jure_liege_title = scope:pkgold }
+	#The Reach: Shields (MODCANNON)
+	title:k_the_shields = {
+		set_de_jure_liege_title = scope:pkreach
+		save_temporary_scope_as = pkshield
+		set_coa = dynn_Hewett
+	}
+	title:d_shield_islands = { set_de_jure_liege_title = scope:pkshield }
+	#The Reach: Bitterbridge (MODCANNON)
+	title:k_bitterbridge = {
+		set_de_jure_liege_title = scope:pkreach
+		save_temporary_scope_as = pkbb
+		set_coa = dynn_Caswell
+	}
+	title:d_bitterbridge = { set_de_jure_liege_title = scope:pkbb }
+	title:d_manderfields = { set_de_jure_liege_title = scope:pkbb }
+	#The Reach: Tumbleton (MODCANNON)
+	title:k_tumbleton = {
+		set_de_jure_liege_title = scope:pkreach
+		save_temporary_scope_as = pktgf
+		set_coa = dynn_Footly
+	}
+	title:d_tumbleton = { set_de_jure_liege_title = scope:pktgf }
+	title:d_heartland_heights = { set_de_jure_liege_title = scope:pktgf }
+	title:d_blueburn = { set_de_jure_liege_title = scope:pktgf }
+	#The Stormlands: Eastmarch
+	title:k_the_marches = {
+		set_de_jure_liege_title = scope:pkstorm
+		save_temporary_scope_as = pkeastmarch
+	}
+	title:d_nightsong = { set_de_jure_liege_title = scope:pkeastmarch }
+	title:d_marchfields = { set_de_jure_liege_title = scope:pkeastmarch }
+	title:d_blackhaven = { set_de_jure_liege_title = scope:pkeastmarch }
+	title:d_whentway = { set_de_jure_liege_title = scope:pkeastmarch }
+	#The Stormlands: Tarth
+	title:k_morne = {
+		set_de_jure_liege_title = scope:pkstorm
+		save_temporary_scope_as = pktarth
+		set_coa = dynn_Tarth
+	}
+	title:d_tarth = { set_de_jure_liege_title = scope:pktarth }
+	title:d_estermont_isles = { set_de_jure_liege_title = scope:pktarth }
+	#The Stormlands: the Kingswood
+	title:k_the_kingswood = {
+		set_de_jure_liege_title = scope:pkstorm
+		save_temporary_scope_as = pkkingsw
+		set_coa = dynn_Fell
+	}
+	title:d_kingswood = { set_de_jure_liege_title = scope:pkkingsw }
+	title:d_greatstock = { set_de_jure_liege_title = scope:pkkingsw }
+	title:d_valor_meadows = { set_de_jure_liege_title = scope:pkkingsw }
+	title:d_dark_harrow= { set_de_jure_liege_title = scope:pkkingsw }
+	#The Stormlands: the Slayne (MODCANNON)
+	title:k_the_slayne = {
+		set_de_jure_liege_title = scope:pkstorm
+		save_temporary_scope_as = pkslayne
+		set_coa = dynn_Swann
+	}
+	title:d_the_slayne = { set_de_jure_liege_title = scope:pkslayne }
+	title:d_grandview = { set_de_jure_liege_title = scope:pkslayne }
+	title:d_red_watch = { set_de_jure_liege_title = scope:pkslayne }
+	#The Stormlands: the Rainwood (MODCANNON)
+	title:k_the_rainwood = {
+		set_de_jure_liege_title = scope:pkstorm
+		save_temporary_scope_as = pkrain
+		set_coa = dynn_Connington
+	}
+	title:d_the_rainwood = { set_de_jure_liege_title = scope:pkrain }
+	title:d_cape_wrath = { set_de_jure_liege_title = scope:pkrain }
+	title:d_the_drench = { set_de_jure_liege_title = scope:pkrain }
+	title:d_nestridge = { set_de_jure_liege_title = scope:pkrain }
+	#The Vale: The Sisters
+	title:k_the_sisters = {
+		set_de_jure_liege_title = scope:pkvale
+		save_temporary_scope_as = pksister
+		set_coa = dynn_Sunderland
+	}
+	title:d_the_sisters = { set_de_jure_liege_title = scope:pksister }
+	title:d_the_cut = { set_de_jure_liege_title = scope:pksister }
+	title:d_northbreach = { set_de_jure_liege_title = scope:pksister }
+	#The Vale: The Fingers
+	title:k_the_fingers = {
+		set_de_jure_liege_title = scope:pkvale
+		save_temporary_scope_as = pkfingers
+		set_coa = dynn_Corbray
+	}
+	title:d_grimholm = { set_de_jure_liege_title = scope:pkfingers }
+	title:d_the_drainlands = { set_de_jure_liege_title = scope:pkfingers }
+	title:d_hearts_home = { set_de_jure_liege_title = scope:pkfingers }
+	#The Vale: Runestone
+	title:k_runestone = {
+		set_de_jure_liege_title = scope:pkvale
+		save_temporary_scope_as = pkrune
+	}
+	title:d_runestone = { set_de_jure_liege_title = scope:pkrune }
+	title:d_eastweald = { set_de_jure_liege_title = scope:pkrune }
+	title:d_old_anchor = { set_de_jure_liege_title = scope:pkrune }
+	#The Vale: Gulltown
+	title:k_the_bay_of_crabs = {
+		set_de_jure_liege_title = scope:pkvale
+		save_temporary_scope_as = pkgull
+	}
+	title:d_gulltown = { set_de_jure_liege_title = scope:pkgull }
+	title:d_strongstone = { set_de_jure_liege_title = scope:pkgull }
+	title:d_wickenden = { set_de_jure_liege_title = scope:pkgull }
+	#Vale: Snakewood Forest
+	title:k_the_mountains_of_the_moon = {
+		set_de_jure_liege_title = scope:pkvale
+		save_temporary_scope_as = pksnake
+		set_coa = dynn_Belmore
+	}
+	title:d_snakewood_forest = { set_de_jure_liege_title = scope:pksnake }
+	title:d_crowncrests = { set_de_jure_liege_title = scope:pksnake }
+	title:d_strongsong = { set_de_jure_liege_title = scope:pksnake }
+	#The Iron Islands: Wyk
+	title:k_great_wyk = {
+		set_de_jure_liege_title = scope:pkiron
+		save_temporary_scope_as = pkwyk
+		set_coa = dynn_Drumm
+	}
+	title:d_hardstone_hills = { set_de_jure_liege_title = scope:pkwyk }
+	title:d_east_wyk = { set_de_jure_liege_title = scope:pkwyk }
+	title:d_lonely_light = { set_de_jure_liege_title = scope:pkwyk }
+	#The Iron Islands: Harlaw
+	title:k_harlaw = {
+		set_de_jure_liege_title = scope:pkiron
+		save_temporary_scope_as = pkharlaw
+		set_coa = dynn_Harlaw
+	}
+	title:d_harlaw = { set_de_jure_liege_title = scope:pkharlaw }
+	#The Iron Islands: Orkmont
+	title:k_ironmans_bay = {
+		set_de_jure_liege_title = scope:pkiron
+		save_temporary_scope_as = pkork
+		set_coa = dynn_Drumm
+	}
+	title:d_orkmont = { set_de_jure_liege_title = scope:pkork }
+	title:d_blacktyde = { set_de_jure_liege_title = scope:pkork }
+	title:d_old_wyk = { set_de_jure_liege_title = scope:pkork }
+	#The North: The Neck
+	title:k_the_neck = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pkneck
+	}
+	title:d_the_neck = { set_de_jure_liege_title = scope:pkneck }
+	title:d_fever = { set_de_jure_liege_title = scope:pkneck }
+	title:d_silvereed = { set_de_jure_liege_title = scope:pkneck }
+	title:d_moat_cailin = { set_de_jure_liege_title = scope:pkneck }
+	#The North: The Dreadfort
+	title:k_red_lands = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pkdread
+	}
+	title:d_the_dreadfort = { set_de_jure_liege_title = scope:pkdread }
+	title:d_crestview = { set_de_jure_liege_title = scope:pkdread }
+	title:d_karhold = { set_de_jure_liege_title = scope:pkdread }
+	#The North: The Barrowlands
+	title:k_barrows_and_rills = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pkbarrow
+		set_coa = dynn_Dustin
+	}
+	title:d_the_barrowlands = { set_de_jure_liege_title = scope:pkbarrow }
+	title:d_the_rills = { set_de_jure_liege_title = scope:pkbarrow }
+	#The North: Last Lands
+	title:k_last_lands = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pklast
+		set_coa = dynn_Umber
+	}
+	title:d_last_lands = { set_de_jure_liege_title = scope:pklast }
+	title:d_frostfields = { set_de_jure_liege_title = scope:pklast }
+	title:d_the_northern_mountains = { set_de_jure_liege_title = scope:pklast }
+	#The North: Skagos
+	title:k_skagos = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pkskag
+		set_coa = dynn_Magnar
+	}
+	title:d_skagos = { set_de_jure_liege_title = scope:pkskag }
+	#The North: Greystones
+	title:k_the_stony_shore = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pkgrey
+		set_coa = dynn_Slate
+	}
+	title:d_stony_shore = { set_de_jure_liege_title = scope:pkgrey }
+	title:d_grey_downs = { set_de_jure_liege_title = scope:pkgrey }
+	#The North: White Knife
+	title:k_the_white_knife = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pkwhitek
+		set_coa = dynn_Manderly
+	}
+	title:d_white_harbor = { set_de_jure_liege_title = scope:pkwhitek }
+	title:d_keystone = { set_de_jure_liege_title = scope:pkwhitek }
+	title:d_everstead = { set_de_jure_liege_title = scope:pkwhitek }
+	#The North: The wolfswood
+	title:k_the_wolfswood = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pkironw
+		set_coa = dynn_Glover
+	}
+	title:d_the_wolfswood = { set_de_jure_liege_title = scope:pkironw }
+	title:d_edgewood = { set_de_jure_liege_title = scope:pkironw }
+	title:d_the_blackpines = { set_de_jure_liege_title = scope:pkironw }
+	#The North: Cape Kraken (MOD CANNON)
+	title:k_cape_kraken = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pksunset
+		set_coa = dynn_Flint
+	}
+	title:d_lakelands = { set_de_jure_liege_title = scope:pksunset }
+	title:d_flints_finger = { set_de_jure_liege_title = scope:pksunset }
+	#The North: Sea Dragon Point
+	title:k_bear_island = {
+		set_de_jure_liege_title = scope:pknorth
+		save_temporary_scope_as = pksdp
+		set_coa = dynn_Mormont
+	}
+	title:d_bear_island = { set_de_jure_liege_title = scope:pksdp }
+	title:d_sea_dragon_point = { set_de_jure_liege_title = scope:pksdp }
+	#Dorne: Stone and Sky
+	title:k_stone_and_sky = {
+		set_de_jure_liege_title = scope:pkdorne
+		save_temporary_scope_as = pkss
+	}
+	title:d_the_princes_pass = { set_de_jure_liege_title = scope:pkss }
+	title:d_oldwell = { set_de_jure_liege_title = scope:pkss }
+	#Dorne: Torrentine
+	title:k_the_torrentine = {
+		set_de_jure_liege_title = scope:pkdorne
+		save_temporary_scope_as = pktt
+		set_coa = dynn_Dayne
+	}
+	title:d_torrentine = { set_de_jure_liege_title = scope:pktt }
+	title:d_blackmont = { set_de_jure_liege_title = scope:pktt }
+	#Dorne: Hellgate
+	title:k_the_drylands = {
+		set_de_jure_liege_title = scope:pkdorne
+		save_temporary_scope_as = pkhg
+		set_coa = dynn_Uller
+	}
+	title:d_brimstone = { set_de_jure_liege_title = scope:pkhg }
+	title:d_sandstone = { set_de_jure_liege_title = scope:pkhg }
+	#Dorne: Redmarch
+	title:k_the_red_mountains = {
+		set_de_jure_liege_title = scope:pkdorne
+		save_temporary_scope_as = pkrm
+		set_coa = dynn_Manwoody
+	}
+	title:d_redmarch = { set_de_jure_liege_title = scope:pkrm }
+	title:d_the_stoneway = { set_de_jure_liege_title = scope:pkrm }
+	#Dorne: Yronwood
+	title:k_yronwood = {
+		set_de_jure_liege_title = scope:pkdorne
+		save_temporary_scope_as = pkyw
+		set_coa = dynn_Yronwood
+	}
+	title:d_greenbelt = { set_de_jure_liege_title = scope:pkyw }
+	title:d_red_dunes = { set_de_jure_liege_title = scope:pkyw }
+	title:d_scourgehead = { set_de_jure_liege_title = scope:pkyw }
+	#Dorne: The Tor
+	title:k_the_tor = {
+		set_de_jure_liege_title = scope:pkdorne
+		save_temporary_scope_as = pktor
+		set_coa = dynn_Jordayne
+	}
+	title:d_the_tor = { set_de_jure_liege_title = scope:pktor }
+	title:d_ghost_hills = { set_de_jure_liege_title = scope:pktor }
+	#Dorne: The Greenblood
+	title:k_godsgrace = {
+		set_de_jure_liege_title = scope:pkdorne
+		save_temporary_scope_as = pkgods
+		set_coa = dynn_Allyrion
+	}
+	title:d_godsgrace = { set_de_jure_liege_title = scope:pkgods }
+	title:d_salt_shore = { set_de_jure_liege_title = scope:pkgods }
+	#Riverlands: The Gods Eye
+	title:k_the_gods_eye = {
+		set_de_jure_liege_title = scope:pkriver
+		save_temporary_scope_as = pkgodseye
+		set_coa = dynn_Towers
+	}
+	title:d_harrenhal = { set_de_jure_liege_title = scope:pkgodseye }
+	title:d_lakehaven = { set_de_jure_liege_title = scope:pkgodseye }
+	#Riverlands: Atranta
+	title:k_atranta = {
+		set_de_jure_liege_title = scope:pkriver
+		save_temporary_scope_as = pkatranta
+		set_coa = dynn_Vance
+	}
+	title:d_atranta = { set_de_jure_liege_title = scope:pkatranta }
+	title:d_knellstone = { set_de_jure_liege_title = scope:pkatranta }
+	#Riverlands: Trident's Mouth
+	title:k_fishers_haft = {
+		set_de_jure_liege_title = scope:pkriver
+		save_temporary_scope_as = pkmaiden
+		set_coa = dynn_Mooton
+	}
+	title:d_maidenpool = { set_de_jure_liege_title = scope:pkmaiden }
+	title:d_tridents_mouth = { set_de_jure_liege_title = scope:pkmaiden }
+	#Riverlands: Southstone
+	title:k_southstone = {
+		set_de_jure_liege_title = scope:pkriver
+		save_temporary_scope_as = pksouths
+		set_coa = dynn_Bracken
+	}
+	title:d_southstone = { set_de_jure_liege_title = scope:pksouths }
+	title:d_three_forks = { set_de_jure_liege_title = scope:pksouths }
+	#Riverlands: The Blue Fork
+	title:k_blackwood_vale = {
+		set_de_jure_liege_title = scope:pkriver
+		save_temporary_scope_as = pkblack
+		set_coa = dynn_Blackwood
+	}
+	title:d_blackwood_vale = { set_de_jure_liege_title = scope:pkblack }
+	title:d_fairmarket = { set_de_jure_liege_title = scope:pkblack }
+	#Riverlands: The Green Fork
+	title:k_lakes_and_mires = {
+		set_de_jure_liege_title = scope:pkriver
+		save_temporary_scope_as = pkcross
+		set_coa = dynn_Frey
+	}
+	title:d_cape_of_eagles = { set_de_jure_liege_title = scope:pkcross }
+	title:d_the_crossing = { set_de_jure_liege_title = scope:pkcross }
+	#Riverlands: Willow Wood
+	title:k_lakeleaf = {
+		set_de_jure_liege_title = scope:pkriver
+		save_temporary_scope_as = pkwillow
+		set_coa = dynn_Ryger
+	}
+	title:d_willow_wood = { set_de_jure_liege_title = scope:pkwillow }
+	title:d_the_moonbrooks = { set_de_jure_liege_title = scope:pkwillow }
+	title:d_lakeleaf_highlands = { set_de_jure_liege_title = scope:pkwillow }
+	#BTW: The Haunted Forest
+	title:k_the_haunted_forest = {
+		set_de_jure_liege_title = scope:pkbtw
+		save_temporary_scope_as = pkthf
+		#No set COA
+		#set_coa = dynn_Whitehunt
+	}
+	title:d_haunted_forest = { set_de_jure_liege_title = scope:pkthf }
+	title:d_storrolds_point = { set_de_jure_liege_title = scope:pkthf }
+	title:d_antler_river = { set_de_jure_liege_title = scope:pkthf }
+	title:d_auld_groves = { set_de_jure_liege_title = scope:pkthf }
+	title:d_hardhome = { set_de_jure_liege_title = scope:pkthf }
+	#BTW: The Stalking Shore
+	title:k_the_stalking_shore = {
+		set_de_jure_liege_title = scope:pkbtw
+		save_temporary_scope_as = pktss
+		#No set COA
+		#set_coa = dynn_Lacrion
+	}
+	title:d_stalkingshore = { set_de_jure_liege_title = scope:pktss }
+	title:d_gleaming_plains = { set_de_jure_liege_title = scope:pktss }
+	title:d_west_shelf = { set_de_jure_liege_title = scope:pktss }
+	if = {
+		limit = { agot_realm_daoryrdembos_enabled = yes }
+		#PENTOS: Star Hills
+		title:k_star_hills = {
+			set_de_jure_liege_title = scope:pkepentos
+			save_temporary_scope_as = pkstar
+		}
+		title:d_star_hills = { set_de_jure_liege_title = scope:pkstar }
+		title:d_sentinel_ridge = { set_de_jure_liege_title = scope:pkstar }
+		title:d_hukorohott = { set_de_jure_liege_title = scope:pkstar }
+		#PENTOS: Nontelos
+		title:k_nontelos = {
+			set_de_jure_liege_title = scope:pkepentos
+			save_temporary_scope_as = pknono
+		}
+		title:d_nontelos = { set_de_jure_liege_title = scope:pknono }
+		title:d_the_baked_lands = { set_de_jure_liege_title = scope:pknono }
+		title:d_konian_coast = { set_de_jure_liege_title = scope:pknono }
+		title:d_hinozobris = { set_de_jure_liege_title = scope:pknono }
+		title:d_samaalis = { set_de_jure_liege_title = scope:pknono }
+	}
+	if = {
+		limit = { agot_realm_narrow_sea_enabled = yes }
+		#Three Daughters: Disputed Lands
+		title:k_disputed_lands = {
+			set_de_jure_liege_title = scope:pktdau
+			save_temporary_scope_as = pk3dau1
+		}
+		title:d_thaehaes = { set_de_jure_liege_title = scope:pk3dau1 }
+		#Three Daughters: Boeanare
+		title:k_boeanare = {
+			set_de_jure_liege_title = scope:pktdau
+			save_temporary_scope_as = pk3dau2
+		}
+		title:d_mangrove_shoals = { set_de_jure_liege_title = scope:pk3dau2 }
+		title:d_battle_hills = { set_de_jure_liege_title = scope:pk3dau2 }
+		title:d_hells_barrens = { set_de_jure_liege_title = scope:pk3dau2 }
+		#Three Daughters: Miviyaan
+		title:k_miviyaan = {
+			set_de_jure_liege_title = scope:pktdau
+			save_temporary_scope_as = pk3dau3
+		}
+		title:d_silkhead = { set_de_jure_liege_title = scope:pk3dau3 }
+		title:d_izuloktia = { set_de_jure_liege_title = scope:pk3dau3 }
+		title:d_aesomyr = { set_de_jure_liege_title = scope:pk3dau3 }
+		#Three Daughters: Flaeraenor
+		title:k_flaeraenor = {
+			set_de_jure_liege_title = scope:pktdau
+			save_temporary_scope_as = pk3dau4
+		}
+		title:d_brenassar = { set_de_jure_liege_title = scope:pk3dau4 }
+		title:d_croraera = { set_de_jure_liege_title = scope:pk3dau4 }
+		#Three Daughters: Sambaro
+		title:k_sambaro = {
+			set_de_jure_liege_title = scope:pktdau
+			save_temporary_scope_as = pk3dau5
+		}
+		title:d_qehes = { set_de_jure_liege_title = scope:pk3dau5 }
+		title:d_daarano = { set_de_jure_liege_title = scope:pk3dau5 }
+		title:d_greenlace = { set_de_jure_liege_title = scope:pk3dau5 }
+		#Three Daughters: Myr
+		title:k_myr = {
+			set_de_jure_liege_title = scope:pktdau
+			save_temporary_scope_as = pk3dau6
+		}
+	}
+	if = {
+		limit = { agot_realm_daoryrdembos_enabled = yes }
+		#Braavos: Braavos
+		title:k_braavos = {
+			set_de_jure_liege_title = scope:pkbraavos
+			save_temporary_scope_as = pkbraa1
+		}
+		#Braavos: Permont
+		title:k_permont ={
+			set_de_jure_liege_title = scope:pkbraavos
+			save_temporary_scope_as = pkbraa2
+		}
+		title:d_lunar_bay_hills = { set_de_jure_liege_title = scope:pkbraa2 }
+		title:d_noporzhyr = { set_de_jure_liege_title = scope:pkbraa2 }
+		title:d_mothers_crown = { set_de_jure_liege_title = scope:pkbraa2 }
+	}
+}
+
+agot_shattered_world_scenario_cleanup = {
+	if = {
+		limit = {
+			game_start_date = 8282.9.15
+			has_game_rule = agot_shatter_to_empires
+		}
+		create_title_and_vassal_change = {
+				type = swear_fealty
+				save_scope_as = change_fealty
+				add_claim_on_loss = yes
+		}
+		#Stormlander Fixes
+		title:d_nestridge.holder = {
+			change_liege = {
+				liege = title:e_the_stormlands.holder
+				change = scope:change_fealty
+			}
+		}
+		title:d_grandview.holder = {
+			change_liege = {
+				liege = title:e_the_stormlands.holder
+				change = scope:change_fealty
+			}
+		}
+		title:d_whentway.holder = {
+			change_liege = {
+				liege = title:e_the_stormlands.holder
+				change = scope:change_fealty
+			}
+		}
+		#Reach Fixes
+		title:d_fullharvest.holder = {
+			change_liege = {
+				liege = title:e_the_reach.holder
+				change = scope:change_fealty
+			}
+		}
+		#Riverlands Fixes
+		title:d_lakehaven.holder = {
+			change_liege = {
+				liege = title:e_the_riverlands.holder
+				change = scope:change_fealty
+			}
+		}
+		title:d_harrenhal.holder = {
+			change_liege = {
+				liege = title:e_the_riverlands.holder
+				change = scope:change_fealty
+			}
+		}
+		title:d_the_crossing.holder = {
+			change_liege = {
+				liege = title:e_the_riverlands.holder
+				change = scope:change_fealty
+			}
+		}
+		resolve_title_and_vassal_change = scope:change_fealty
+	}
+}
+
+agot_shattered_world_title_cleanup = {
+	if = { #Counties and Counties Even
+		limit = {
+			has_game_rule = agot_shatter_to_counties_even
+		}
+		if = {
+			limit = {
+				AND = {
+					title:c_dragonstone.holder = { is_ai = yes }
+					title:c_kings_landing.holder.dynasty = title:c_dragonstone.holder.dynasty
+					title:c_kings_landing.holder = {
+						is_parent_of =  title:c_dragonstone.holder
+					}
+				}
+			}
+			title:c_kings_landing.holder = {
+				get_title = title:k_dragonstone
+				get_title = title:d_dragonstone
+				get_title = title:c_dragonstone
+				destroy_title = title:k_dragonstone
+				destroy_title = title:d_dragonstone
+			}
+		}
+	}
+	else_if = { #Counties and Counties Even
+		limit = {
+			has_game_rule = agot_shatter_to_counties
+		}
+		if = {
+			limit = {
+				AND = {
+					title:c_dragonstone.holder = { is_ai = yes }
+					title:c_kings_landing.holder.dynasty = title:c_dragonstone.holder.dynasty
+					title:c_kings_landing.holder = {
+						is_parent_of =  title:c_dragonstone.holder
+					}
+				}
+			}
+			title:c_kings_landing.holder = {
+				get_title = title:k_dragonstone
+				get_title = title:d_dragonstone
+				get_title = title:c_dragonstone
+				destroy_title = title:k_dragonstone
+				destroy_title = title:d_dragonstone
+			}
+		}
+		if = {
+			limit = {
+				title:c_summerfield.holder = title:c_kings_landing.holder
+			}
+			title:c_grandview.holder = { get_title = title:c_summerfield }
+		}
+	}
+	else_if = { #Duchies
+		limit = {
+			has_game_rule = agot_shatter_to_duchies
+		}
+		if = {
+			limit = {
+				AND = {
+					title:c_dragonstone.holder = { is_ai = yes }
+					title:c_kings_landing.holder.dynasty = title:c_dragonstone.holder.dynasty
+					title:c_kings_landing.holder = {
+						is_parent_of =  title:c_dragonstone.holder
+					}
+				}
+			}
+			title:c_longbar.holder = {
+				get_title = title:k_dragonstone
+				get_title = title:d_dragonstone
+				get_title = title:c_dragonstone
+				destroy_title = title:k_dragonstone
+			}
+		}
+		if = {
+			limit = {
+				title:c_summerfield.holder = title:c_kings_landing.holder
+			}
+			title:c_grandview.holder = { get_title = title:c_summerfield }
+		}
+	}
+	else_if = { #Kingdoms
+		limit = {
+			has_game_rule = agot_shatter_to_kingdoms
+		}
+		if = {
+			limit = {
+				title:c_summerfield.holder = title:c_kings_landing.holder
+			}
+			create_title_and_vassal_change = {
+				type = swear_fealty
+				save_scope_as = swear_fealty
+				add_claim_on_loss = yes
+			}
+			title:c_dragonstone.holder = {
+				change_liege = {
+					liege = title:c_kings_landing.holder
+					change = scope:change_fealty
+				}
+			}
+			resolve_title_and_vassal_change = scope:swear_fealty
+		}
+	}
+	else_if = { #Empires
+		limit = {
+			has_game_rule = agot_shatter_to_empires
+		}
+		if = {
+			limit = {
+				title:c_summerfield.holder = title:c_kings_landing.holder
+			}
+			create_title_and_vassal_change = {
+				type = swear_fealty
+				save_scope_as = swear_fealty
+				add_claim_on_loss = yes
+			}
+			title:c_dragonstone.holder = {
+				change_liege = {
+					liege = title:c_kings_landing.holder
+					change = scope:change_fealty
+				}
+			}
+			resolve_title_and_vassal_change = scope:swear_fealty
+		}
+	}
+	else_if = { #Petty Kingdoms
+		limit = {
+			has_game_rule = agot_shatter_to_petty_kingdoms
+		}
+		if = {
+			limit = {
+				title:c_summerfield.holder = title:c_kings_landing.holder
+			}
+			title:c_grandview.holder = { get_title = title:c_summerfield }
+		}
+		if = {
+			limit = {
+				title:c_dragonstone.holder = { is_ai = yes }
+				title:c_kings_landing.holder.dynasty = title:c_dragonstone.holder.dynasty
+				title:c_kings_landing.holder = {
+					is_parent_of =  title:c_dragonstone.holder
+				}
+			}
+			title:c_kings_landing.holder = {
+				get_title = title:k_dragonstone
+				get_title = title:d_dragonstone
+				get_title = title:c_dragonstone
+				destroy_title = title:k_dragonstone
+			}
+			title:c_driftmark.holder = {
+				get_title = title:k_dragonstone
+				get_title = title:d_dragonstone
+				get_title = title:c_dragonstone
+			}
+		}
+	}
+}
+
+agot_shattered_admin_cleanup = {
+	every_ruler = { #Destroy Invalid Noble Family Titles
+		limit = {
+			government_has_flag = government_is_administrative
+			OR = {
+				liege ?= {
+					NOT = { government_allows = administrative }
+				}
+				AND = {
+					is_independent_ruler = yes
+					primary_title.tier <= tier_duchy
+				}
+			}
+		}
+		admin_change_government_effect = yes
+	}
+}
+
+agot_shattered_world_iron_throne_vassals = {
+	title:h_the_iron_throne.holder = {
+		save_scope_as = liege_to_be
+		primary_title = {
+			every_dejure_vassal_title_holder = {
+				if = {
+					limit = {
+						is_independent_ruler = yes
+						NOT = { this = scope:liege_to_be }
+					}
+					save_scope_as = vassal_to_be
+
+					create_title_and_vassal_change = {
+						type = swear_fealty
+						save_scope_as = change_fealty
+						add_claim_on_loss = yes
+					}
+					scope:vassal_to_be = {
+						change_liege = {
+							liege = scope:liege_to_be
+							change = scope:change_fealty
+						}
+					}
+					resolve_title_and_vassal_change = scope:change_fealty
+				}
+			}
+		}
+	}
+}
+
+agot_shattered_world_dorne_vassals = {
+	title:e_dorne.holder = {
+		save_scope_as = liege_to_be3
+		primary_title = {
+			every_dejure_vassal_title_holder = {
+				if = {
+					limit = {
+						is_independent_ruler = yes
+						NOT = { this = scope:liege_to_be3 }
+					}
+					save_scope_as = vassal_to_be
+
+					create_title_and_vassal_change = {
+						type = swear_fealty
+						save_scope_as = change_fealty3
+						add_claim_on_loss = yes
+					}
+					scope:vassal_to_be = {
+						change_liege = {
+							liege = scope:liege_to_be3
+							change = scope:change_fealty3
+						}
+					}
+					resolve_title_and_vassal_change = scope:change_fealty3
+				}
+			}
+		}
+	}
+}
+
+agot_shattered_world_crownlands_vassals = {
+	title:e_the_crownlands.holder = {
+		save_scope_as = liege_to_be2
+		primary_title = {
+			every_dejure_vassal_title_holder = {
+				if = {
+					limit = {
+						is_independent_ruler = yes
+						NOT = { this = scope:liege_to_be2 }
+					}
+					save_scope_as = vassal_to_be
+
+					create_title_and_vassal_change = {
+						type = swear_fealty
+						save_scope_as = change_fealty2
+						add_claim_on_loss = yes
+					}
+					scope:vassal_to_be = {
+						change_liege = {
+							liege = scope:liege_to_be2
+							change = scope:change_fealty2
+						}
+					}
+					resolve_title_and_vassal_change = scope:change_fealty2
+				}
+			}
+		}
+	}
+}
+
+agot_shattered_assign_petty_kingdom_title = {
+	if = {
+		limit = {
+			NOT = { government_has_flag = government_is_uninteractable }
+		}
+		get_title = $TITLE$
+	}
+}
+
+agot_shattered_world_8284_scenario_cleanup = {
+	#TOJ Cleanup
+	character:Stark_5 = {
+		remove_character_flag = yearly_1010_abducted
+		remove_character_flag = agot_is_at_unknown_place
+	}
+	character:Dayne_5 = {
+		remove_character_flag = yearly_1010_abductor
+		remove_character_flag = agot_is_at_unknown_place
+	}
+	character:Whent_5 = {
+		remove_character_flag = yearly_1010_abductor
+		remove_character_flag = agot_is_at_unknown_place
+	}
+	character:Hightower_3 = {
+		remove_character_flag = yearly_1010_abductor
+		remove_character_flag = agot_is_at_unknown_place
+	}
+
+	title:d_willow_wood.holder = {
+		create_title_and_vassal_change = {
+			type = swear_fealty
+			save_scope_as = change_fealty
+			add_claim_on_loss = no
+		}
+		change_liege = {
+			liege = title:e_the_riverlands.holder
+			change = scope:change_fealty
+		}
+		resolve_title_and_vassal_change = scope:change_fealty
+	}
+
+	title:d_tridents_mouth.holder = {
+		create_title_and_vassal_change = {
+			type = swear_fealty
+			save_scope_as = change_fealty
+			add_claim_on_loss = no
+		}
+		change_liege = {
+			liege = title:e_the_riverlands.holder
+			change = scope:change_fealty
+		}
+		resolve_title_and_vassal_change = scope:change_fealty
+	}
+
+	title:d_maidenpool.holder = {
+		create_title_and_vassal_change = {
+			type = swear_fealty
+			save_scope_as = change_fealty
+			add_claim_on_loss = no
+		}
+		change_liege = {
+			liege = title:e_the_riverlands.holder
+			change = scope:change_fealty
+		}
+		resolve_title_and_vassal_change = scope:change_fealty
+	}
+
+	title:d_kingswood.holder = {
+		create_title_and_vassal_change = {
+			type = swear_fealty
+			save_scope_as = change_fealty
+			add_claim_on_loss = no
+		}
+		change_liege = {
+			liege = title:e_the_stormlands.holder
+			change = scope:change_fealty
+		}
+		resolve_title_and_vassal_change = scope:change_fealty
+	}
+
+	title:d_gulltown.holder = {
+		create_title_and_vassal_change = {
+			type = swear_fealty
+			save_scope_as = change_fealty
+			add_claim_on_loss = no
+		}
+		change_liege = {
+			liege = title:e_the_vale.holder
+			change = scope:change_fealty
+		}
+		resolve_title_and_vassal_change = scope:change_fealty
+	}
+}

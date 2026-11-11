@@ -1,0 +1,341 @@
+﻿# AAWC owns mercenary creation because CK3's culture-county thresholds count
+# CK3's internal manager owns mercenary creation and registration. AAWC audits
+# native companies because dummy-held wilderness and ruins still count as
+# culture counties to that engine system.
+
+aawc_mercenary_native_audit_effect = {
+	if = {
+		limit = { NOT = { has_global_variable = aawc_native_mercenary_audits } }
+		set_global_variable = { name = aawc_native_mercenary_audits value = 0 }
+	}
+	change_global_variable = { name = aawc_native_mercenary_audits add = 1 }
+	set_global_variable = { name = aawc_native_mercenary_validations_scheduled value = 0 }
+	every_ruler = {
+		limit = {
+			primary_title ?= { is_mercenary_company = yes }
+		}
+		change_global_variable = { name = aawc_native_mercenary_validations_scheduled add = 1 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY yearly native company validation scheduled" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+		trigger_event = { id = aawc_startup.0003 days = 1 }
+	}
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY yearly native company audit scheduled all registered company leaders" }
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+}
+
+aawc_mercenary_retire_company_effect = {
+	if = {
+		limit = { exists = var:$TITLE_VARIABLE$ }
+		var:$TITLE_VARIABLE$ = {
+			save_scope_as = aawc_mercenary_retiring_title
+			if = {
+				limit = { exists = holder }
+				holder = { save_scope_as = aawc_mercenary_retiring_leader }
+			}
+		}
+		if = {
+			limit = { exists = scope:aawc_mercenary_retiring_leader }
+			scope:aawc_mercenary_retiring_leader = {
+				every_courtier = {
+					limit = { NOT = { any_player = { this = prev } } }
+					death = { death_reason = death_disappearance }
+				}
+				destroy_title = scope:aawc_mercenary_retiring_title
+				death = { death_reason = death_disappearance }
+			}
+		}
+		remove_variable = $TITLE_VARIABLE$
+		change_global_variable = { name = aawc_mercenary_companies_retired add = 1 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY retired managed company: quota or source no longer valid" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+}
+
+aawc_mercenary_create_company_effect = {
+	change_global_variable = { name = aawc_mercenary_creation_attempts add = 1 }
+	save_scope_as = aawc_mercenary_culture
+	random_culture_county = {
+		limit = { aawc_mercenary_settled_county_trigger = yes }
+		save_scope_as = aawc_mercenary_home
+	}
+	if = {
+		limit = { exists = scope:aawc_mercenary_home }
+		change_global_variable = { name = aawc_mercenary_sources_selected add = 1 }
+		scope:aawc_mercenary_home = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY selected eligible settled source county" }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			create_character = {
+				gender = male
+				location = scope:aawc_mercenary_home.title_province
+				culture = scope:aawc_mercenary_culture
+				faith = scope:aawc_mercenary_home.faith
+				dynasty = none
+				random_traits = yes
+				age = { 25 45 }
+				after_creation = {
+					save_scope_as = aawc_mercenary_created_leader
+					add_character_flag = aawc_managed_mercenary_leader
+					add_character_flag = aawc_lineage_known_mercenary
+					add_character_flag = aawc_lineage_audited
+					change_global_variable = { name = aawc_mercenary_leaders_created add = 1 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY created and marked company leader" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+				}
+			}
+			create_dynamic_title = {
+				tier = duchy
+				name = $TITLE_NAME$
+			}
+		}
+		change_global_variable = { name = aawc_mercenary_dynamic_titles_created add = 1 }
+		create_title_and_vassal_change = {
+			type = created
+			save_scope_as = aawc_mercenary_title_change
+			add_claim_on_loss = no
+		}
+		scope:new_title = {
+			set_coa = scope:aawc_mercenary_home
+			set_color_from_title = scope:aawc_mercenary_home
+			set_capital_county = scope:aawc_mercenary_home
+			set_landless_title = yes
+			set_delete_on_destroy = yes
+			set_no_automatic_claims = yes
+			set_definitive_form = yes
+			set_can_be_named_after_dynasty = no
+			set_variable = {
+				name = aawc_mercenary_home_county
+				value = scope:aawc_mercenary_home
+			}
+			change_title_holder = {
+				holder = scope:aawc_mercenary_created_leader
+				change = scope:aawc_mercenary_title_change
+			}
+		}
+		resolve_title_and_vassal_change = scope:aawc_mercenary_title_change
+		scope:aawc_mercenary_created_leader = {
+			change_government = mercenary_government
+			create_maa_regiment = {
+				type = light_footmen
+				check_can_recruit = no
+				size = 3
+			}
+			if = {
+				limit = { always = $ADD_SECOND_REGIMENT$ }
+				create_maa_regiment = {
+					type = light_footmen
+					check_can_recruit = no
+					size = 3
+				}
+			}
+			if = {
+				limit = { always = $ADD_THIRD_REGIMENT$ }
+				create_maa_regiment = {
+					type = light_footmen
+					check_can_recruit = no
+					size = 3
+				}
+			}
+			if = {
+				limit = { primary_title ?= { is_mercenary_company = yes } }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY dynamic title passed native mercenary classification" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+				scope:aawc_mercenary_culture = {
+					set_variable = {
+						name = $TITLE_VARIABLE$
+						value = scope:new_title
+					}
+				}
+				change_global_variable = { name = aawc_mercenary_companies_created add = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY created native-compatible managed company" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+				trigger_event = aawc_startup.0003
+			}
+			else = {
+				change_global_variable = { name = aawc_mercenary_classification_failures add = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY creation failed native is_mercenary_company classification; destroying invalid dynamic title" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+				destroy_title = scope:new_title
+				death = { death_reason = death_disappearance }
+			}
+		}
+	}
+}
+
+aawc_mercenary_validate_company_effect = {
+	if = {
+		limit = {
+			exists = var:$TITLE_VARIABLE$
+			var:$TITLE_VARIABLE$ = {
+				is_mercenary_company = yes
+				exists = holder
+				holder = {
+					is_alive = yes
+					has_character_flag = aawc_managed_mercenary_leader
+				}
+			}
+		}
+		var:$TITLE_VARIABLE$ = {
+			save_scope_as = aawc_mercenary_validated_title
+		}
+		if = {
+			limit = {
+				NOT = {
+					scope:aawc_mercenary_validated_title.title_capital_county = {
+						aawc_mercenary_settled_county_trigger = yes
+						culture = scope:aawc_mercenary_culture
+					}
+				}
+			}
+			random_culture_county = {
+				limit = { aawc_mercenary_settled_county_trigger = yes }
+				save_scope_as = aawc_mercenary_new_home
+			}
+			if = {
+				limit = { exists = scope:aawc_mercenary_new_home }
+				scope:aawc_mercenary_validated_title = {
+					set_capital_county = scope:aawc_mercenary_new_home
+					set_coa = scope:aawc_mercenary_new_home
+					set_color_from_title = scope:aawc_mercenary_new_home
+					set_variable = {
+						name = aawc_mercenary_home_county
+						value = scope:aawc_mercenary_new_home
+					}
+					holder = {
+						set_location = scope:aawc_mercenary_new_home.title_province
+					}
+				}
+				change_global_variable = { name = aawc_mercenary_companies_relocated add = 1 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY relocated managed company to a settled county of its culture" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+			}
+			else = {
+				aawc_mercenary_retire_company_effect = {
+					TITLE_VARIABLE = $TITLE_VARIABLE$
+				}
+			}
+		}
+	}
+	else = {
+		remove_variable = $TITLE_VARIABLE$
+	}
+}
+
+aawc_mercenary_manage_culture_effect = {
+	save_scope_as = aawc_mercenary_culture
+	set_variable = { name = aawc_mercenary_settled_count value = 0 }
+	every_culture_county = {
+		limit = { aawc_mercenary_settled_county_trigger = yes }
+		scope:aawc_mercenary_culture = {
+			change_variable = { name = aawc_mercenary_settled_count add = 1 }
+		}
+	}
+
+	aawc_mercenary_validate_company_effect = {
+		TITLE_VARIABLE = aawc_mercenary_small_title
+	}
+	aawc_mercenary_validate_company_effect = {
+		TITLE_VARIABLE = aawc_mercenary_medium_title
+	}
+	aawc_mercenary_validate_company_effect = {
+		TITLE_VARIABLE = aawc_mercenary_large_title
+	}
+
+	if = {
+		limit = { var:aawc_mercenary_settled_count >= 1 }
+		if = {
+			limit = { NOT = { exists = var:aawc_mercenary_small_title } }
+			aawc_mercenary_create_company_effect = {
+				TITLE_VARIABLE = aawc_mercenary_small_title
+				TITLE_NAME = aawc_mercenary_small_company_name
+				ADD_SECOND_REGIMENT = no
+				ADD_THIRD_REGIMENT = no
+			}
+		}
+	}
+	else = {
+		aawc_mercenary_retire_company_effect = {
+			TITLE_VARIABLE = aawc_mercenary_small_title
+		}
+	}
+
+	if = {
+		limit = { var:aawc_mercenary_settled_count >= 7 }
+		if = {
+			limit = { NOT = { exists = var:aawc_mercenary_medium_title } }
+			aawc_mercenary_create_company_effect = {
+				TITLE_VARIABLE = aawc_mercenary_medium_title
+				TITLE_NAME = aawc_mercenary_medium_company_name
+				ADD_SECOND_REGIMENT = yes
+				ADD_THIRD_REGIMENT = no
+			}
+		}
+	}
+	else = {
+		aawc_mercenary_retire_company_effect = {
+			TITLE_VARIABLE = aawc_mercenary_medium_title
+		}
+	}
+
+	if = {
+		limit = { var:aawc_mercenary_settled_count >= 14 }
+		if = {
+			limit = { NOT = { exists = var:aawc_mercenary_large_title } }
+			aawc_mercenary_create_company_effect = {
+				TITLE_VARIABLE = aawc_mercenary_large_title
+				TITLE_NAME = aawc_mercenary_large_company_name
+				ADD_SECOND_REGIMENT = yes
+				ADD_THIRD_REGIMENT = yes
+			}
+		}
+	}
+	else = {
+		aawc_mercenary_retire_company_effect = {
+			TITLE_VARIABLE = aawc_mercenary_large_title
+		}
+	}
+
+	if = {
+		limit = { var:aawc_mercenary_settled_count > 0 }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY yearly culture quota evaluated from settled non-dummy counties" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+}
+
+aawc_mercenary_global_manager_effect = {
+	if = {
+		limit = { NOT = { has_global_variable = aawc_mercenary_companies_created } }
+		set_global_variable = { name = aawc_mercenary_companies_created value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_mercenary_companies_retired } }
+		set_global_variable = { name = aawc_mercenary_companies_retired value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_mercenary_companies_relocated } }
+		set_global_variable = { name = aawc_mercenary_companies_relocated value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_mercenary_creation_attempts } }
+		set_global_variable = { name = aawc_mercenary_creation_attempts value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_mercenary_sources_selected } }
+		set_global_variable = { name = aawc_mercenary_sources_selected value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_mercenary_leaders_created } }
+		set_global_variable = { name = aawc_mercenary_leaders_created value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_mercenary_dynamic_titles_created } }
+		set_global_variable = { name = aawc_mercenary_dynamic_titles_created value = 0 }
+	}
+	if = {
+		limit = { NOT = { has_global_variable = aawc_mercenary_classification_failures } }
+		set_global_variable = { name = aawc_mercenary_classification_failures value = 0 }
+	}
+	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MERCENARY yearly global manager begin" }
+	every_culture_global = {
+		aawc_mercenary_manage_culture_effect = yes
+	}
+}

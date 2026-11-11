@@ -1,0 +1,111 @@
+﻿# Select focus with priority for counties with less presence of councillor's liege culture
+# Scope : county
+E_kCAFG_task_promote_culture_select_default_focus = {
+    if = {
+        limit = {
+            any_county_province = {
+                T_kCAFG_task_promote_culture_can_convert_province = yes
+                trigger_if = {
+                    limit = { exists = scope:kCAFG_set_default_focus_ai_select_for_liege }
+                    T_kCAFG_task_promote_culture_ai_would_suggest = yes
+                }
+                trigger_if = {
+                    limit = { exists = scope:kCAFG_set_default_focus_excluded_province }
+                    NOT = { scope:kCAFG_set_default_focus_excluded_province = this }
+                }
+            }
+        }
+        scope:councillor_liege.culture = { save_temporary_scope_as = kCAFG_culture } # used by V_kCAFG_province_culture_factor in V_kCAFG_steward_promotion_default_focus_province_score
+        ordered_county_province = {
+            limit = {
+                T_kCAFG_task_promote_culture_can_convert_province = yes
+                trigger_if = {
+                    limit = { exists = scope:kCAFG_set_default_focus_ai_select_for_liege }
+                    T_kCAFG_task_promote_culture_ai_would_suggest = yes
+                }
+                trigger_if = {
+                    limit = { exists = scope:kCAFG_set_default_focus_excluded_province }
+                    NOT = { scope:kCAFG_set_default_focus_excluded_province = this }
+                }
+            }
+            order_by = V_kCAFG_steward_promotion_default_focus_province_score
+            save_scope_as = kCAFG_selected_province_to_focus
+        }
+    }
+    else_if = {
+        limit = {
+            exists = scope:kCAFG_set_default_focus_can_redirect
+            scope:councillor_liege = {
+                any_realm_province = {
+                    T_kCAFG_task_promote_culture_can_convert_province = yes
+                    trigger_if = {
+                        limit = { exists = scope:kCAFG_set_default_focus_ai_select_for_liege }
+                        T_kCAFG_task_promote_culture_ai_would_suggest = yes
+                    }
+                    trigger_if = {
+                        limit = { exists = scope:kCAFG_set_default_focus_excluded_province }
+                        NOT = { scope:kCAFG_set_default_focus_excluded_province = this }
+                    }
+                }
+            }
+        }
+        scope:councillor_liege.culture = { save_temporary_scope_as = kCAFG_culture } # used by V_kCAFG_province_culture_factor in V_kCAFG_steward_promotion_default_focus_province_score
+        scope:councillor_liege = {
+            ordered_realm_province = {
+                limit = {
+                    T_kCAFG_task_promote_culture_can_convert_province = yes
+                    trigger_if = {
+                        limit = { exists = scope:kCAFG_set_default_focus_ai_select_for_liege }
+                        T_kCAFG_task_promote_culture_ai_would_suggest = yes
+                    }
+                    trigger_if = {
+                        limit = { exists = scope:kCAFG_set_default_focus_excluded_province }
+                        NOT = { scope:kCAFG_set_default_focus_excluded_province = this }
+                    }
+                }
+                order_by = V_kCAFG_steward_promotion_default_focus_province_score
+                save_scope_as = kCAFG_selected_province_to_focus
+            }
+        }
+    }
+}
+
+# Set focus with priority for counties with less presence of councillor's liege culture
+# Scope : county
+E_kCAFG_task_promote_culture_set_default_focus = {
+    E_kCAFG_task_promote_culture_select_default_focus = yes
+    scope:councillor = { E_kCAFG_task_promote_culture_set_focus = { PROVINCE = scope:kCAFG_selected_province_to_focus } }
+    clear_saved_scope = kCAFG_selected_province_to_focus
+}
+
+# Scope : character
+E_kCAFG_task_promote_culture_set_focus = {
+    if = {
+        limit = { exists = $PROVINCE$ }
+
+        set_variable = {
+            name = kCAFG_task_promote_culture_focused_province
+            value = $PROVINCE$
+        }
+
+        # Redirect task to proper target depending on selected focused province
+        if = {
+            limit = {
+                OR = {
+                    NOT = { is_performing_council_task = task_promote_culture }
+                    NOT = { councillor_task_target = var:kCAFG_task_promote_culture_focused_province.county.title_province }
+                }
+            }
+            set_council_task = {
+                task_type = task_promote_culture
+                target = var:kCAFG_task_promote_culture_focused_province.county.title_province
+            }
+        }
+        
+    }
+    else = {
+        debug_log = "Kei CAFG - task_promote_culture: could not set default focus: clear focus and start default task"
+        remove_variable = kCAFG_task_promote_culture_focused_province
+        start_default_task = yes
+    }
+}

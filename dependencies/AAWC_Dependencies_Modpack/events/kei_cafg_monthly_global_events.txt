@@ -1,0 +1,102 @@
+﻿namespace = kCAFG_monthly_global_events
+
+# Setup event
+kCAFG_monthly_global_events.0001 = {
+	scope = none
+    hidden = yes
+    immediate = {
+        if = {
+            limit = {
+                NOT = { has_global_variable = kCAFG_monthly_global_events_running }
+            }
+        
+            #debug_log = "Kei CAFG - [GetCurrentDate.GetStringLong] - Monthly Global Events Setup Event !"
+            set_global_variable = kCAFG_monthly_global_events_running
+            trigger_event = kCAFG_monthly_global_events.0002
+        }
+    }
+}
+
+# Update drift event
+kCAFG_monthly_global_events.0002 = {
+	scope = none
+    hidden = yes
+    immediate = {
+        trigger_event = { on_action = kCAFG_monthly_global_pulse }
+
+        if = {
+            limit = { current_month = 1 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 31 }
+            trigger_event = { on_action = kCAFG_quarterly_global_pulse }
+        }
+
+        if = {
+            limit = { current_month = 2 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 28 }
+        }
+
+        if = {
+            limit = { current_month = 3 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 31 }
+            trigger_event = { id = kCAFG_monthly_global_events.0003 days = 15 } # Offseted Semestrial
+        }
+
+        if = {
+            limit = { current_month = 4 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 30 }
+            trigger_event = { on_action = kCAFG_quarterly_global_pulse }
+        }
+
+        if = {
+            limit = { current_month = 5 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 31 }
+        }
+
+        if = {
+            limit = { current_month = 6 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 30 }
+        }
+
+        if = {
+            limit = { current_month = 7 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 31 }
+            trigger_event = { on_action = kCAFG_quarterly_global_pulse }
+        }
+
+        if = {
+            limit = { current_month = 8 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 31 }
+        }
+
+        if = {
+            limit = { current_month = 9 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 30 }
+            trigger_event = { id = kCAFG_monthly_global_events.0003 days = 15 } # Offseted Semestrial
+        }
+
+        if = {
+            limit = { current_month = 10 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 31 }
+            trigger_event = { on_action = kCAFG_quarterly_global_pulse }
+        }
+
+        if = {
+            limit = { current_month = 11 }
+            trigger_event = { id = kCAFG_monthly_global_events.0002 days = 30 }
+        }
+
+        if = {
+            limit = { current_month = 12 }
+            remove_global_variable = kCAFG_monthly_global_events_running
+        }
+    }
+}
+
+# Offseted Semestrial
+kCAFG_monthly_global_events.0003 = {
+    scope = none
+    hidden = yes
+    immediate = {
+        trigger_event = { on_action = kCAFG_offseted_semestrial_global_pulse }
+    }
+}

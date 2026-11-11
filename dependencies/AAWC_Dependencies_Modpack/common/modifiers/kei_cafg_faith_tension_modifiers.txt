@@ -1,0 +1,28 @@
+﻿kCAFG_province_faith_tension_modifier = {
+	icon = piety_negative
+
+	county_opinion_add = -75
+	monthly_county_control_decline_add = -0.75
+	development_growth_factor = -0.4
+	tax_mult = -0.4
+
+	scale = {
+		value = V_kCAFG_province_faith_tension_scaled_relative_amount_modifier
+		desc = kCAFG_MODIFIER_DEFINITION_VALUE_COUNTY_WIDE_MAXIMUM
+		display_mode = scaled
+	}
+}
+
+kCAFG_province_faith_tension_no_holding_modifier = {
+	icon = piety_negative
+
+	county_opinion_add = -50
+	monthly_county_control_decline_add = -0.1
+	development_growth_factor = -0.1
+
+	scale = {
+		value = V_kCAFG_province_faith_tension_scaled_relative_amount_modifier
+		desc = kCAFG_MODIFIER_DEFINITION_VALUE_COUNTY_WIDE_MAXIMUM
+		display_mode = scaled
+	}
+}

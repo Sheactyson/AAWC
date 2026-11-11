@@ -1,0 +1,44 @@
+﻿# AAWC's population model is birth-only after world generation. These exact-key
+# late overrides keep CK3/AGOT callers valid while making every generic guest
+# acquisition interaction inert for human and AI actors.
+
+recruit_guest_interaction = {
+	category = interaction_category_vassal
+	icon = guest
+	common_interaction = yes
+	desc = recruit_guest_interaction_desc
+	hidden = yes
+	is_shown = { always = no }
+	is_valid_showing_failures_only = { always = no }
+	can_send = { always = no }
+	auto_accept = yes
+	ai_will_do = { base = 0 }
+}
+
+invite_to_court_interaction = {
+	category = interaction_category_vassal
+	icon = guest
+	desc = invite_to_court_interaction_desc
+	hidden = yes
+	is_shown = { always = no }
+	is_valid_showing_failures_only = { always = no }
+	can_send = { always = no }
+	auto_accept = no
+	ai_accept = { base = -1000 }
+	ai_will_do = { base = 0 }
+}
+
+indebt_guest_interaction = {
+	icon = icon_hostile
+	interface_priority = 120
+	common_interaction = yes
+	category = interaction_category_hostile
+	desc = indebt_guest_interaction_desc
+	hidden = yes
+	is_shown = { always = no }
+	is_valid_showing_failures_only = { always = no }
+	can_send = { always = no }
+	auto_accept = no
+	ai_accept = { base = -1000 }
+	ai_will_do = { base = 0 }
+}

@@ -1,0 +1,18 @@
+﻿kCAFG_cultural_benefits_character_base = {
+	age = { 18 36 }
+	gender_female_chance = {
+        value = 50
+        if = {
+            limit = { scope:new_character_faith = { has_doctrine = doctrine_gender_male_dominated } }
+            subtract = 25
+        }
+        else_if = {
+            limit = { scope:new_character_faith = { has_doctrine = doctrine_gender_female_dominated } }
+            add = 25
+        }
+    }
+	random_traits = yes
+    culture = scope:culture
+    faith = scope:new_character_faith
+	dynasty = none
+}

@@ -1,0 +1,203 @@
+﻿V_kCAFG_max_UI_display = 50
+
+V_kCAFG_medium_minority_factor = 0.3
+V_kCAFG_small_minority_factor = 0.2
+V_kCAFG_smaller_minority_factor = 0.125
+V_kCAFG_very_small_minority_factor = 0.05
+V_kCAFG_smallest_minority_factor = 0.01
+V_kCAFG_absorption_threshold = 0.005 # Under this threshold, cultures & faiths will be absorbed by others
+
+V_kCAFG_tension_baseline_contribution_opinion_threshold_very_good = 0.15
+V_kCAFG_tension_baseline_contribution_opinion_threshold_good = 0.3
+V_kCAFG_tension_baseline_contribution_opinion_threshold_medium = 0.45
+V_kCAFG_tension_baseline_contribution_opinion_threshold_bad = 0.6
+V_kCAFG_tension_baseline_contribution_opinion_threshold_very_bad = 1
+
+V_kCAFG_setup_neighbour_influence_factor = 2.2
+
+V_kCAFG_inverted_medium_minority_factor = {
+    value = 1
+    subtract = V_kCAFG_medium_minority_factor
+}
+V_kCAFG_inverted_small_minority_factor = {
+    value = 1
+    subtract = V_kCAFG_small_minority_factor
+}
+V_kCAFG_inverted_smaller_minority_factor = {
+    value = 1
+    subtract = V_kCAFG_smaller_minority_factor
+}
+V_kCAFG_inverted_very_small_minority_factor = {
+    value = 1
+    subtract = V_kCAFG_very_small_minority_factor
+}
+V_kCAFG_inverted_smallest_minority_factor = {
+    value = 1
+    subtract = V_kCAFG_smallest_minority_factor
+}
+
+V_kCAFG_tensions_max_amount = 100
+
+V_kCAFG_world_counties_dynamic_amount_unit = {
+    value = global_var:kCAFG_total_counties_num
+    divide = 240 # based on vanilla amount - will result in approx. 10 counties
+    round = yes
+}
+V_kCAFG_world_counties_very_small_amount = { # Vanilla : 10
+    value = V_kCAFG_world_counties_dynamic_amount_unit
+}
+V_kCAFG_world_counties_small_amount = { # Vanilla : 40
+    value = V_kCAFG_world_counties_dynamic_amount_unit
+    multiply = 4
+}
+V_kCAFG_world_counties_medium_amount = { # Vanilla : 100
+    value = V_kCAFG_world_counties_dynamic_amount_unit
+    multiply = 10
+}
+V_kCAFG_world_counties_large_amount = { # Vanilla : 200
+    value = V_kCAFG_world_counties_dynamic_amount_unit
+    multiply = 20
+}
+V_kCAFG_world_counties_larger_amount = { # Vanilla : 300
+    value = V_kCAFG_world_counties_dynamic_amount_unit
+    multiply = 30
+}
+V_kCAFG_world_counties_very_large_amount = { # Vanilla : 300
+    value = V_kCAFG_world_counties_dynamic_amount_unit
+    multiply = 50
+}
+
+# Scale applied to the province faith and culture (i.e. province population)
+# Should be at least 0
+V_kCAFG_province_values_scale = 1
+
+V_kCAFG_province_relative_values_scale = {
+    value = 1
+    if = {
+        limit = {
+            has_global_variable = kCAFG_province_values_scale_overriden
+            county = { V_kCAFG_county_values_scale > 0 }
+        }
+        value = V_kCAFG_province_values_scale
+        county = { divide = V_kCAFG_county_values_scale }
+    }
+    else = {
+        value = V_kCAFG_province_relative_scale
+    }
+}
+
+V_kCAFG_province_relative_scale = {
+    value = 1
+    divide = {
+        value = 0
+        county = { every_county_province = { add = 1 } }
+    }
+}
+
+V_kCAFG_province_values_setup_scale = {
+    if = {
+        limit = { has_global_variable = kCAFG_province_values_scale_overriden }
+        value = V_kCAFG_province_values_scale
+    }
+    # If not overriden, we use a basic calculation
+    else = {
+        if = {
+            limit = { has_holding_type = castle_holding }
+            value = 80
+        }
+        else_if = {
+            limit = { has_holding_type = tribal_holding }
+            value = 70
+        }
+        else_if = {
+            limit = { has_holding_type = city_holding }
+            value = 90
+        }
+        else_if = {
+            limit = { has_holding_type = church_holding }
+            value = 75
+        }
+        else = {
+            value = 50
+        }
+        multiply = {
+            value = 150
+            add = county.development_level
+            divide = 100
+        }
+    }
+}
+
+# Scope : province
+V_kCAFG_province_terrain_conversion_factor = {
+    value = 1
+
+    if = {
+        limit = { is_coastal = yes }
+        multiply = 1.15
+    }
+
+    if = {
+        limit = { is_riverside_province = yes }
+        multiply = 1.15
+    }
+
+    if = {
+        limit = { terrain = farmlands }
+        multiply = 1.1
+    }
+    else_if = {
+        limit = { terrain = hills }
+        multiply = 0.8
+    }
+    else_if = {
+        limit = { terrain = mountains }
+        multiply = 0.65
+    }
+    else_if = {
+        limit = { terrain = desert }
+        multiply = 0.45
+    }
+    else_if = {
+        limit = { terrain = desert_mountains }
+        multiply = 0.3
+    }
+    else_if = {
+        limit = { terrain = oasis }
+        multiply = 1.2
+    }
+    else_if = {
+        limit = { terrain = jungle }
+        multiply = 0.55
+    }
+    else_if = {
+        limit = { terrain = forest }
+        multiply = 0.95
+    }
+    else_if = {
+        limit = { terrain = taiga }
+        multiply = 0.8
+    }
+    else_if = {
+        limit = { terrain = wetlands }
+        multiply = 1.15
+    }
+    else_if = {
+        limit = { terrain = steppe }
+        multiply = 0.55
+    }
+    else_if = {
+        limit = { terrain = floodplains }
+        multiply = 1.3
+    }
+    else_if = {
+        limit = { terrain = drylands }
+        multiply = 0.9
+    }
+}
+
+V_kCAFG_debug_conversion_amount = V_kCAFG_smallest_minority_factor
+V_kCAFG_debug_conversion_amount_high = {
+    value = V_kCAFG_debug_conversion_amount
+    multiply = 10
+}

@@ -1,0 +1,30 @@
+﻿l_english:
+kCAFG_show_province_cultures_button_tooltip: "Show the [cultures|E] in [Province.GetNameNoTooltip]"
+kCAFG_hide_province_cultures_button_tooltip: "Hide the [cultures|E] in [Province.GetNameNoTooltip]"
+kCAFG_province_cultures_number_show_tooltip: "Number of [cultures|E] in [Province.GetNameNoTooltip]\n#I Click to $kCAFG_show_province_cultures_button_tooltip$#!"
+kCAFG_province_cultures_number_hide_tooltip: "Number of [cultures|E] in [Province.GetNameNoTooltip]\n#I Click to $kCAFG_hide_province_cultures_button_tooltip$#!"
+
+
+kCAFG_province_cultures_window_header_title: "[cultures|E] in [Province.GetNameNoTooltip]"
+kCAFG_province_cultures_window_amount_description: "Number of [Culture.GetCollectiveNounNoTooltip|e] in [Province.GetNameNoTooltip]"
+
+kCAFG_province_cultures_window_culture_tension_title: "#E Tension#!:"
+kCAFG_province_cultures_window_culture_tension_tooltip: "#T [culture_tension|E] in [Province.GetNameNoTooltip]#!\n[Concept('culture_tension_baseline', 'Baseline')|E]: [Province.MakeScope.Var('kCAFG_target_culture_tension').GetValue|v0%][AddLocalizationIf(NotEqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_culture_tension_monthly_change_desc'), '(CFixedPoint)0'), 'kCAFG_province_cultures_window_culture_tension_breakdown')]"
+kCAFG_province_cultures_window_culture_tension_breakdown: "\n\n$kCAFG_culture_tension_monthly_change_tt$\n[Province.MakeScope.GetScriptValueDesc('V_kCAFG_culture_tension_monthly_change_desc')]"
+
+kCAFG_province_culture_same_tooltip_desc: "Same [culture|e] as the [county|E] [holder|E]"
+kCAFG_province_culture_tooltip_desc_tension_baseline_contribution: "#S [Concept('culture_tension_baseline', 'Baseline')|E] Contribution: [Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_tension_baseline_contribution')|v2%]#!"
+kCAFG_province_culture_tooltip_desc: "Acceptance between #EMP [Province.GetCounty.GetCount.GetCulture.GetCollectiveNounNoTooltip]#! and #EMP [Culture.GetCollectiveNounNoTooltip]#! : [Culture.GetAcceptance( Province.GetCounty.GetCount.GetCulture )|L%/0]"
+kCAFG_province_culture_tooltip_desc_tooltip: "[Culture.GetYearlyAcceptanceChangeDesc( Province.GetCounty.GetCount.GetCulture )]\n\n[Culture.GetAcceptanceBaselineDesc( Province.GetCounty.GetCount.GetCulture )]\n\n[Culture.GetAcceptanceChangelog( Province.GetCounty.GetCount.GetCulture )]"
+kCAFG_province_culture_tooltip_ruler_speaks_language: "[county|E] [holder|E] speaks [Culture.GetLanguage.GetName]"
+
+kCAFG_CULTURE_OPEN_MAPMODE_TOOLTIP_TITLE: "#T View [Culture.GetNameNoTooltip] $MAP_MODE$#!"
+kCAFG_CULTURES_OPEN_MAPMODE_TOOLTIP_TITLE: "#T View [cultures|E] $MAP_MODE$#!"
+kCAFG_CULTURE_OPEN_MAPMODE_TOOLTIP_RC: "#I Right-click to view [Culture.GetNameNoTooltip] $MAP_MODE$#!"
+
+kCAFG_culture_tension_monthly_change_tt: "#S Monthly Change: [Province.MakeScope.ScriptValue('V_kCAFG_culture_tension_monthly_change_desc')|v2-=%]#!"
+kCAFG_culture_tension_monthly_drift_tt: "Drift towards [Concept('culture_tension_baseline', 'Baseline')|E]"
+kCAFG_culture_tension_on_lieges_warring_cultures_tt: "One of our [rulers|E] is waging [Concept('casus_belli', 'Conquest War')|E] against a [barony|E] [culture|E]"
+
+kCAFG_province_cultures_tolerance_law_tt: "#T Active [culture_tolerance_law|E] $game_concept_law$#!\n[AddLocalizationIf(EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_culture_tolerance_law_value'), '(CFixedPoint)-1'), 'kCAFG_culture_intolerant_law')][AddLocalizationIf(EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_culture_tolerance_law_value'), '(CFixedPoint)0'), 'kCAFG_culture_indifferent_law')][AddLocalizationIf(EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_culture_tolerance_law_value'), '(CFixedPoint)1'), 'kCAFG_culture_tolerant_law')]\n[GetScriptedGui('kCAFG_province_active_culture_tolerance_law').BuildTooltip(GuiScope.SetRoot(Province.MakeScope).End)]"
+kCAFG_province_cultures_tolerance_law_enforcer_tt: "Enforced by [THIS.Char.GetName]"

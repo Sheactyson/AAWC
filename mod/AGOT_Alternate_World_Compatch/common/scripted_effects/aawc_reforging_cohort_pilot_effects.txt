@@ -1,0 +1,87 @@
+﻿# Reforging 1.11 Stage 1A cohort-ledger source pilot.
+#
+# This file is intentionally unreferenced by production on-actions and writers.
+# Both effects require an explicit province-scope invocation during a controlled
+# disposable campaign. These fields now belong to the production cohort ledger;
+# overwriting them changes live residents even without writing the legacy mirror.
+
+aawc_reforging_cohort_test_initializer_effect = {
+	if = {
+		limit = {
+			NOT = { has_variable = aawc_reforging_cohort_test_initialized }
+		}
+
+		# Milestone 1 100-person fixture: children 25, ages 15-39 40,
+		# ages 40-59 25, and ages 60+ 10. This test fixture now matches the
+		# approved production initialization distribution.
+		set_variable = { name = aawc_reforging_cohort_age_00_04 value = 9 }
+		set_variable = { name = aawc_reforging_cohort_age_05_09 value = 8 }
+		set_variable = { name = aawc_reforging_cohort_age_10_14 value = 8 }
+		set_variable = { name = aawc_reforging_cohort_age_15_19 value = 8 }
+		set_variable = { name = aawc_reforging_cohort_age_20_24 value = 8 }
+		set_variable = { name = aawc_reforging_cohort_age_25_29 value = 8 }
+		set_variable = { name = aawc_reforging_cohort_age_30_34 value = 8 }
+		set_variable = { name = aawc_reforging_cohort_age_35_39 value = 8 }
+		set_variable = { name = aawc_reforging_cohort_age_40_44 value = 7 }
+		set_variable = { name = aawc_reforging_cohort_age_45_49 value = 7 }
+		set_variable = { name = aawc_reforging_cohort_age_50_54 value = 6 }
+		set_variable = { name = aawc_reforging_cohort_age_55_59 value = 5 }
+		set_variable = { name = aawc_reforging_cohort_age_60_plus value = 10 }
+
+		# Military residents remain subsets of their parent adult bands.
+		set_variable = { name = aawc_reforging_military_age_15_19 value = 0 }
+		set_variable = { name = aawc_reforging_military_age_20_24 value = 0 }
+		set_variable = { name = aawc_reforging_military_age_25_29 value = 0 }
+		set_variable = { name = aawc_reforging_military_age_30_34 value = 0 }
+		set_variable = { name = aawc_reforging_military_age_35_39 value = 0 }
+		set_variable = { name = aawc_reforging_military_age_40_44 value = 0 }
+		set_variable = { name = aawc_reforging_military_age_45_49 value = 0 }
+		set_variable = { name = aawc_reforging_military_age_50_54 value = 0 }
+		set_variable = { name = aawc_reforging_military_age_55_59 value = 0 }
+
+		# Fractional carry placeholders preserve future sub-person births,
+		# band-specific deaths, and five-year age transfers. No formula uses
+		# them in this inactive pilot.
+		set_variable = { name = aawc_reforging_birth_fraction value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_00_04 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_05_09 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_10_14 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_15_19 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_20_24 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_25_29 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_30_34 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_35_39 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_40_44 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_45_49 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_50_54 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_55_59 value = 0 }
+		set_variable = { name = aawc_reforging_mortality_fraction_age_60_plus value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_00_04 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_05_09 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_10_14 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_15_19 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_20_24 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_25_29 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_30_34 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_35_39 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_40_44 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_45_49 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_50_54 value = 0 }
+		set_variable = { name = aawc_reforging_aging_fraction_age_55_59 value = 0 }
+
+		# Written last so a partial initializer cannot be mistaken for a
+		# completed, idempotent fixture.
+		set_variable = { name = aawc_reforging_cohort_test_initialized value = 1 }
+	}
+}
+
+# Read-only diagnostic. It emits a static log result and changes no state.
+aawc_reforging_cohort_read_only_diagnostics_effect = {
+	if = {
+		limit = { aawc_reforging_cohort_test_fixture_status = 1 }
+		debug_log = "AAWC REFORGING STAGE1A cohort fixture PASS: 13-band total 100, military overlays bounded, civilian adults 65, fractions normalized"
+	}
+	else = {
+		error_log = "AAWC REFORGING STAGE1A cohort fixture FAIL: inspect source values and province variables"
+	}
+}

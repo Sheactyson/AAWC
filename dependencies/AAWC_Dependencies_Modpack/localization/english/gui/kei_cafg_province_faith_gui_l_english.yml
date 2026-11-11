@@ -1,0 +1,39 @@
+﻿l_english:
+kCAFG_show_province_faiths_button_tooltip: "Show the [faiths|E] in [Province.GetNameNoTooltip]"
+kCAFG_hide_province_faiths_button_tooltip: "Hide the [faiths|E] in [Province.GetNameNoTooltip]"
+kCAFG_province_faiths_number_show_tooltip: "Number of [faiths|E] in [Province.GetNameNoTooltip]\n#I Click to $kCAFG_show_province_faiths_button_tooltip$#!"
+kCAFG_province_faiths_number_hide_tooltip: "Number of [faiths|E] in [Province.GetNameNoTooltip]\n#I Click to $kCAFG_hide_province_faiths_button_tooltip$#!"
+
+
+kCAFG_province_faiths_window_header_title: "[faiths|E] in [Province.GetNameNoTooltip]"
+kCAFG_province_faiths_window_amount_description: "Number of [Faith.GetAdherentNamePluralNoTooltip|e] in [Province.GetNameNoTooltip]"
+
+kCAFG_province_faiths_window_faith_tension_title: "#E Tension#!:"
+kCAFG_province_faiths_window_faith_tension_tooltip: "#T [faith_tension|E] in [Province.GetNameNoTooltip]#!\n[Concept('faith_tension_baseline', 'Baseline')|E]: [Province.MakeScope.Var('kCAFG_target_faith_tension').GetValue|v0%][AddLocalizationIf(NotEqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_faith_tension_monthly_change_desc'), '(CFixedPoint)0'), 'kCAFG_province_faiths_window_faith_tension_breakdown')]"
+kCAFG_province_faiths_window_faith_tension_breakdown: "\n\n$kCAFG_faith_tension_monthly_change_tt$\n[Province.MakeScope.GetScriptValueDesc('V_kCAFG_faith_tension_monthly_change_desc')]"
+
+kCAFG_province_faith_same_tooltip_desc: "Same [faith|e] as the [county|E] [holder|E]"
+kCAFG_province_faith_tooltip_desc_tension_baseline_contribution: "#S [Concept('faith_tension_baseline', 'Baseline')|E] Contribution: [Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_tension_baseline_contribution')|v2%]#!"
+kCAFG_province_faith_tooltip_desc_fervor_average: "Increase due to [fervor|E]: "
+kCAFG_target_faith_view_of_this_faith: "#EMP [Faith.GetAdherentNamePluralNoTooltip]#! view #EMP [kCAFG_target_faith.GetAdherentNamePluralNoTooltip]#! as [Faith.GetRelationNameTo( kCAFG_target_faith )|V]"
+kCAFG_this_faith_view_of_target_faith: "#EMP [kCAFG_target_faith.GetAdherentNamePluralNoTooltip]#! view #EMP [Faith.GetAdherentNamePluralNoTooltip]#! as [kCAFG_target_faith.GetRelationNameTo( Faith.Self )|V]"
+kCAFG_province_faith_tooltip_desc_pluralistic: "@change_down_good_2!is #P [GetFaithDoctrine('doctrine_pluralism_pluralistic').GetBaseName]#!"
+kCAFG_province_faith_tooltip_desc_fundamentalist: "@change_up_bad_2!is #N [GetFaithDoctrine('doctrine_pluralism_fundamentalist').GetBaseName]#!"
+kCAFG_province_faith_tooltip_desc_fervor: "[fervor|E]: [Faith.GetFervor|=+0]%"
+kCAFG_province_faith_tooltip_desc_province_has_church_holding: "@change_up_bad_1![barony|E] has a #zero_value [Province.GetHolding.GetType.GetName|e]#!"
+kCAFG_province_faith_opinion_holder_different_faith_county_opinion_mult: "$MOD_COUNTY_OPINION_DIFFERENT_FAITH_MULT$ Impact: [Province.GetCounty.GetCount.MakeScope.ScriptValue('V_kCAFG_character_different_faith_county_opinion_mult')|+0%][AddLocalizationIf(NotEqualTo_CFixedPoint(Province.GetCounty.GetCount.MakeScope.ScriptValue('V_kCAFG_character_different_faith_county_opinion_mult_bonuses'), '(CFixedPoint)0'), 'kCAFG_province_faith_opinion_holder_different_faith_county_opinion_mult_bonuses')][AddLocalizationIf(NotEqualTo_CFixedPoint(Province.GetCounty.GetCount.MakeScope.ScriptValue('V_kCAFG_character_different_faith_county_opinion_mult_maluses'), '(CFixedPoint)0'), 'kCAFG_province_faith_opinion_holder_different_faith_county_opinion_mult_maluses')]"
+kCAFG_province_faith_opinion_holder_different_faith_county_opinion_mult_bonuses: "\n[Province.GetCounty.GetCount.MakeScope.GetScriptValueDesc('V_kCAFG_character_different_faith_county_opinion_mult_bonuses')]"
+kCAFG_province_faith_opinion_holder_different_faith_county_opinion_mult_maluses: "\n[Province.GetCounty.GetCount.MakeScope.GetScriptValueDesc('V_kCAFG_character_different_faith_county_opinion_mult_maluses')]"
+
+#kCAFG_province_faith_specific_tension_breakdown_tooltip: "Tension Contribution : [GuiScope.SetRoot(Faith.MakeScope).AddScope('kCAFG_target_faith', Province.GetCounty.GetCount.GetFaith.MakeScope).AddScope('kCAFG_province', Province.MakeScope).ScriptValue('V_kCAFG_faith_tension_target_baseline_complete')|0%]\n[GuiScope.SetRoot(Faith.MakeScope).AddScope('kCAFG_target_faith', Province.GetCounty.GetCount.GetFaith.MakeScope).AddScope('kCAFG_province', Province.MakeScope).GetScriptValueDesc('V_kCAFG_faith_tension_target_baseline_complete')|%]"
+
+kCAFG_FAITH_OPEN_MAPMODE_TOOLTIP_TITLE: "#T View [Faith.GetNameNoTooltip] $MAP_MODE$#!"
+kCAFG_FAITHS_OPEN_MAPMODE_TOOLTIP_TITLE: "#T View [faiths|e] $MAP_MODE$#!"
+kCAFG_FAITH_OPEN_MAPMODE_TOOLTIP_RC: "#I Right-click to view [Faith.GetNameNoTooltip] $MAP_MODE$#!"
+
+kCAFG_faith_tension_monthly_change_tt: "#S Monthly Change: [Province.MakeScope.ScriptValue('V_kCAFG_faith_tension_monthly_change_desc')|v2-=%]#!"
+kCAFG_faith_tension_monthly_drift_tt: "Drift towards [Concept('faith_tension_baseline', 'Baseline')|E]"
+kCAFG_faith_tension_on_lieges_warring_faiths_tt: "One of our [rulers|E] is waging [holy_war|E] against a [barony|E] [faith|E]"
+
+kCAFG_province_faiths_tolerance_law_tt: "#T Active [faith_tolerance_law|E] $game_concept_law$#!\n[AddLocalizationIf(EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_faith_tolerance_law_value'), '(CFixedPoint)-1'), 'kCAFG_faith_intolerant_law')][AddLocalizationIf(EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_faith_tolerance_law_value'), '(CFixedPoint)0'), 'kCAFG_faith_indifferent_law')][AddLocalizationIf(EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_faith_tolerance_law_value'), '(CFixedPoint)1'), 'kCAFG_faith_tolerant_law')]\n[GetScriptedGui('kCAFG_province_active_faith_tolerance_law').BuildTooltip(GuiScope.SetRoot(Province.MakeScope).End)]"
+kCAFG_province_faiths_tolerance_law_enforcer_tt: "Enforced by [THIS.Char.GetName]"

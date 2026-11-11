@@ -1,0 +1,62 @@
+﻿# AAWC 1.9.51 Kei/CaFG AGOT compatibility shim.
+#
+# CK3 1.19 validates several vanilla/FP3 replacement effects from Kei/CaFG
+# against AGOT's active databases. Keep the effect IDs callable, but remove
+# the invalid vanilla-only references that can crash during load validation.
+
+embrace_english_culture_effect = {
+	add_prestige = medium_prestige_gain
+	set_culture = culture:english
+}
+
+fp3_ending_effects_assertion = {
+}
+
+fp3_struggle_ending_shia_caliphate_effects = {
+}
+
+fp3_struggle_rekindle_iran_effects = {
+}
+
+E_kCAFG_cultural_boon_tradition_warrior_monks = {
+}
+
+E_kCAFG_cultural_boon_tradition_scholar_officials = {
+}
+
+mongol_war_target_evaluation_and_declaration_effect = {
+}
+
+# AAWC 1.9.82 playtest compatibility stubs for lower-DLC or shifted AGOT
+# playsets that still validate these effect IDs from EP3/FP3 replacement files.
+agot_free_city_conversion_from_laamp_invasion_effect = {
+}
+
+create_zanj_vassal_effect = {
+	# Keep the vanilla FP3 argument signature accepted by callers without
+	# creating vanilla Zanj characters in AGOT's missing faith/culture setup.
+	if = {
+		limit = { always = no }
+		create_character = {
+			gender = male
+			location = $LOCATION$
+			save_scope_as = new_zanj_vassal
+		}
+	}
+}
+
+create_zanj_courtier_effect = {
+	# Keep the vanilla FP3 argument signature accepted by callers without
+	# creating vanilla Zanj courtiers in AGOT's missing faith/culture setup.
+	if = {
+		limit = { always = no }
+		create_character = {
+			gender = male
+			location = $LOCATION$
+			save_scope_as = new_zanj_courtier
+		}
+		scope:new_zanj_courtier = {
+			set_employer = $EMPLOYER$
+		}
+	}
+}

@@ -1,0 +1,43 @@
+﻿# First initialization classification: 0=no holding, 1=other, 2=ruin, 3=wilderness.
+aawc_reforging_diag_holding_class = {
+    value = 0
+    if = { limit = { has_holding = yes } value = 1 }
+    if = { limit = { has_holding_type = ruin_holding } value = 2 }
+    if = { limit = { has_holding_type = wilderness_holding } value = 3 }
+}
+# -1=absent county holder, 0=ordinary holder, 1=dummy holder.
+aawc_reforging_diag_county_dummy = {
+    value = -1
+    if = { limit = { exists = county.holder } value = 0 }
+    if = { limit = { exists = county.holder county.holder ?= { agot_is_dummy_character = yes } } value = 1 }
+}
+aawc_reforging_diag_fractional_residue = {
+	value = 0
+	if = { limit = { has_variable = aawc_reforging_cohort_age_00_04 } add = { value = var:aawc_reforging_cohort_age_00_04 subtract = { value = var:aawc_reforging_cohort_age_00_04 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_05_09 } add = { value = var:aawc_reforging_cohort_age_05_09 subtract = { value = var:aawc_reforging_cohort_age_05_09 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_10_14 } add = { value = var:aawc_reforging_cohort_age_10_14 subtract = { value = var:aawc_reforging_cohort_age_10_14 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_15_19 } add = { value = var:aawc_reforging_cohort_age_15_19 subtract = { value = var:aawc_reforging_cohort_age_15_19 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_20_24 } add = { value = var:aawc_reforging_cohort_age_20_24 subtract = { value = var:aawc_reforging_cohort_age_20_24 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_25_29 } add = { value = var:aawc_reforging_cohort_age_25_29 subtract = { value = var:aawc_reforging_cohort_age_25_29 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_30_34 } add = { value = var:aawc_reforging_cohort_age_30_34 subtract = { value = var:aawc_reforging_cohort_age_30_34 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_35_39 } add = { value = var:aawc_reforging_cohort_age_35_39 subtract = { value = var:aawc_reforging_cohort_age_35_39 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_40_44 } add = { value = var:aawc_reforging_cohort_age_40_44 subtract = { value = var:aawc_reforging_cohort_age_40_44 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_45_49 } add = { value = var:aawc_reforging_cohort_age_45_49 subtract = { value = var:aawc_reforging_cohort_age_45_49 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_50_54 } add = { value = var:aawc_reforging_cohort_age_50_54 subtract = { value = var:aawc_reforging_cohort_age_50_54 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_55_59 } add = { value = var:aawc_reforging_cohort_age_55_59 subtract = { value = var:aawc_reforging_cohort_age_55_59 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_cohort_age_60_plus } add = { value = var:aawc_reforging_cohort_age_60_plus subtract = { value = var:aawc_reforging_cohort_age_60_plus floor = yes } } }
+	# Military subsets are headcounts too; valid parent bounds do not prove integrality.
+	if = { limit = { has_variable = aawc_reforging_military_age_15_19 } add = { value = var:aawc_reforging_military_age_15_19 subtract = { value = var:aawc_reforging_military_age_15_19 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_military_age_20_24 } add = { value = var:aawc_reforging_military_age_20_24 subtract = { value = var:aawc_reforging_military_age_20_24 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_military_age_25_29 } add = { value = var:aawc_reforging_military_age_25_29 subtract = { value = var:aawc_reforging_military_age_25_29 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_military_age_30_34 } add = { value = var:aawc_reforging_military_age_30_34 subtract = { value = var:aawc_reforging_military_age_30_34 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_military_age_35_39 } add = { value = var:aawc_reforging_military_age_35_39 subtract = { value = var:aawc_reforging_military_age_35_39 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_military_age_40_44 } add = { value = var:aawc_reforging_military_age_40_44 subtract = { value = var:aawc_reforging_military_age_40_44 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_military_age_45_49 } add = { value = var:aawc_reforging_military_age_45_49 subtract = { value = var:aawc_reforging_military_age_45_49 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_military_age_50_54 } add = { value = var:aawc_reforging_military_age_50_54 subtract = { value = var:aawc_reforging_military_age_50_54 floor = yes } } }
+	if = { limit = { has_variable = aawc_reforging_military_age_55_59 } add = { value = var:aawc_reforging_military_age_55_59 subtract = { value = var:aawc_reforging_military_age_55_59 floor = yes } } }
+}
+aawc_reforging_diag_fractional_status = {
+	value = 0
+	if = { limit = { aawc_reforging_diag_fractional_residue > 0 } value = 1 }
+}

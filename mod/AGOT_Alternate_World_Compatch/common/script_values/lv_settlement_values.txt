@@ -1,0 +1,2956 @@
+﻿@main_cost_base_large_ruin_01 = 600
+@main_cost_base_large_ruin_02 = @[main_cost_base_large_ruin_01 * 2]
+@main_cost_base_large_ruin_03 = @[main_cost_base_large_ruin_01 * 3]
+@main_cost_base_medium_ruin_01 = 400
+@main_cost_base_medium_ruin_02 = @[main_cost_base_medium_ruin_01 * 2]
+@main_cost_base_medium_ruin_03 = @[main_cost_base_medium_ruin_01 * 3]
+@main_cost_base_small_ruin_01 = 400
+@main_cost_base_small_ruin_02 = @[main_cost_base_small_ruin_01 * 2]
+@main_cost_base_small_ruin_03 = @[main_cost_base_small_ruin_01 * 3]
+
+lv_settlement_cost = {
+	if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_winterfell_ruined_01 }
+		}
+		value = 500
+	}
+	# AAWC LoV parity recalibration:
+	# these wrappers chain into expensive LoV landmarks and should not use the 70g maintained-only fallback.
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ilvonys_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_kastaryia_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valyria_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_oreos_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_volandrys_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hills_of_nolos_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_seyrith_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ruklonos_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_andal_coast_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ar_kon_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_armiridge_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_artisanal_way_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ashemark_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ashford_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_atranta_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_axe_camp_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_banefort_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_barrowton_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_bearstone_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_beastyrn_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_bechester_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_bitterbridge_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_blackblood_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_blackhaven_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_blackpool_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_blazewood_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_bleachbone_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_bleeding_bay_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_bloodstone_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_braavos_ruined_01 }
+		}
+		value = 160
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_brightmoor_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_brightwater_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_brimstone_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_brinkburn_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_broken_lance_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_bronzegate_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_cannmill_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_castamere_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_casterly_rock_ruined_01 }
+		}
+		value = 500
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_castle_black_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_chained_maw_ruined_01 }
+		}
+		value = 185
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_cider_crossing_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_claw_isle_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_cornfield_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_coronyll_ruined_01 }
+		}
+		value = 185
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_crakehall_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_crasters_keep_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_crone_moors_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_cypress_rising_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_deep_den_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_deepwood_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_denmaiden_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_denmont_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_draembyr_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_dragonstone_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_drasaho_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_driftmark_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_drihisesk_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_dunnsbridge_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_duskendale_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_duskremr_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_eastwatch_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_evenfall_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_faircastle_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_fairmarket_ruined_01 }
+		}
+		value = 160
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_feastfires_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_flatwater_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_frost_caves_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ghaston_grey_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_godsgrace_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_goldengrove_ruined_01 }
+		}
+		value = 180
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_goldfuror_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_grailheart_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_grassy_vale_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_great_hue_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_grey_cliff_point_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_grey_garden_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_greywater_watch_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_griffins_roost_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_gulltown_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hammerford_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hammerhorn_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hardhome_ruined_01 }
+		}
+		value = 160
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_harrenhal_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hellholt_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hetherfield_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_high_heart_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_high_tide_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_highgarden_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_highpoint_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_holyhall_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_honeyholt_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_horn_hill_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hornpoint_way_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hornwood_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hunters_fall_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_huskmere_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_imeimyr_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ironoaks_ruined_01 }
+		}
+		value = 200
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ironrath_ruined_01 }
+		}
+		value = 200
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ironskin_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_karhold_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_kemmaroli_ruined_01 }
+		}
+		value = 80
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_kings_landing_ruined_01 }
+		}
+		value = 500
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_knuckle_ridge_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_krih_ruined_01 }
+		}
+		value = 80
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_lannisport_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_last_hearth_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_lonely_light_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_longtable_ruined_01 }
+		}
+		value = 80
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_lopornon_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_lordsport_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_lys_ruined_01 }
+		}
+		value = 180
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_magisters_avenue_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_maidenpool_ruined_01 }
+		}
+		value = 185
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_mammoth_cairns_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_mermaid_rocks_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_moat_cailin_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_moongates_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_morghos_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_mormont_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_mothermont_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_mudgrave_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_myr_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_myrish_docks_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_night_harbor_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_nightsong_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_nontelos_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_oakenshield_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_oakheart_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_oldcastle_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_oldtown_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_osgoodswell_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_pack_land_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_paintwood_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_parchments_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_pentos_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_plankytown_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_pleasure_heights_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_port_of_arryn_ruined_01 }
+		}
+		value = 80
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_princemarch_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_princes_quarter_ruined_01 }
+		}
+		value = 290
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_pyke_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ragmans_harbor_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ramsgate_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_raventree_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_red_lake_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_restburn_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_rhoford_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_riverbend_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_riverrun_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_rooks_rest_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_runestone_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ruthermont_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_sandstone_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_sea_dragon_point_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_seagard_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_selkie_sund_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_sellagoros_shields_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_sharp_point_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_silkhead_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_silverhill_ruined_01 }
+		}
+		value = 80
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_singers_retreat_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_skull_peaks_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_skyreach_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_srunmued_ruined_01 }
+		}
+		value = 80
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_stagsdol_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_starfall_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_starpike_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_stone_hedge_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_stonedance_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_stonehelm_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_stoney_sept_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_storms_end_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_strangers_finger_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_strongcliffs_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_strongmead_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_strongsong_ruined_01 }
+		}
+		value = 195
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_summerfield_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_sunrise_bite_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_sunspear_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_sweetsister_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_taldrsek_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ten_towers_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_thawed_haven_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_bloody_gate_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_dreadfort_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_eyrie_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_flint_cliffs_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_frigid_rise_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_golden_tooth_ruined_01 }
+		}
+		value = 405
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_gorge_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_grey_cliffs_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_marshes_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_nightfort_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_ravishment_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_redfort_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_ring_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_shadow_tower_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_spar_ruined_01 }
+		}
+		value = 160
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_twins_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_thurmiiyk_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_timberlyn_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_torchwood_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_torrhens_square_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_triarchs_fall_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_truth_canals_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_tumbleton_ruined_01 }
+		}
+		value = 160
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_tun_vunag_ruined_01 }
+		}
+		value = 180
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_tyrosh_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valdrizes_hinon_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_volmark_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_waspwood_ruined_01 }
+		}
+		value = 80
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_wayfarers_rest_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_weeping_town_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_white_harbor_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_whitesands_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_whitetree_ruined_01 }
+		}
+		value = 90
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_wickenden_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_widows_watch_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_wights_well_ruined_01 }
+		}
+		value = 160
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_winterfell_ruined_01 }
+		}
+		value = 500
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_witch_isle_ruined_01 }
+		}
+		value = 215
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_wurns_head_ruined_01 }
+		}
+		value = 85
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_wycliffe_ruined_01 }
+		}
+		value = 70
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_wynegarde_ruined_01 }
+		}
+		value = 160
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_yronwood_ruined_01 }
+		}
+		value = 385
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ilvonys_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_kastaryia_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valyria_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valyria_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valyria_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valyria_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_hills_of_nolos_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valyria_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valyria_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valyria_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_volandrys_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_seyrith_ruined_01 }
+		}
+		value = 250
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ilvonys_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_valyria_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_oreos_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_oreos_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_oreos_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_oreos_ruined_01 }
+		}
+		value = 440
+	}
+	else_if = {
+		limit = {
+			has_variable = lv_restore_ruins_tooltip
+			var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ilvonys_ruined_01 }
+		}
+		value = 440
+	}
+
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_lov_elyria_great_port_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_lov_elyria_dragon_palace_ruined_01 } }
+		value = 100
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_lov_valyria_mines_ruined_01 } }
+		value = 80
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_lov_valyria_mines_dormant_ruined_01 } }
+		value = 60
+	}
+
+	# AAWC 1.6.117 reclaim costs for newly added county-specific RH restoration chains
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ax_isle_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_balam_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_basilisk_deeps_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_basilisk_point_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_caprakan_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_dravathor_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_fleshcarvers_wreck_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_gimlet_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_gogossos_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_gorosh_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_green_gate_pass_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_haunted_reach_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_isle_of_toads_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_kahiwi_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_laanas_lance_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_maggot_shore_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_maunga_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_nacon_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_ruklonos_ruined_01 } }
+		value = 250
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_serpents_rift_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_stygai_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_talon_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_the_maw_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_wyverns_claw_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_yeen_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_yovesh_ruined_01 } }
+		value = 70
+	}
+	else_if = {
+		limit = { has_variable = lv_restore_ruins_tooltip var:lv_restore_ruins_tooltip ?= { has_building_or_higher = aawc_c_zamettar_ruined_01 } }
+		value = 70
+	}
+
+	else = {
+		value = lv_settlement_cost_settlement
+		add = lv_settlement_cost_expedition
+	}
+}
+lv_settlement_cost_difference = {
+	value = lv_settlement_cost
+	subtract = gold
+}
+
+# This represents the cost to set up the colony
+# Thus, it should more or less have a base cost similar to the cost of building a new holding
+lv_settlement_cost_settlement = {
+	value = lv_settlement_cost_settlement_base
+	if = {
+		limit = {
+			var:lv_restore_ruins_tooltip ?= { county.culture = culture:high_valyrian }
+			culture = { has_building_gfx = high_valyrian_building_gfx }
+		}
+		subtract = lv_settlement_cost_settlement_valyrian_architecture
+	}
+	if = {
+		limit = { culture = { has_cultural_tradition = tradition_hard_working } }
+		subtract = lv_settlement_cost_settlement_hard_working
+	}
+}
+lv_settlement_cost_settlement_base = {
+	value = {
+		if = {
+			limit = { has_variable = lv_restore_ruins_tooltip }
+				var:lv_restore_ruins_tooltip ?= {
+					if = {
+					limit = { has_building_or_higher = aawc_c_andal_coast_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ar_kon_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_armiridge_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_artisanal_way_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ashemark_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ashford_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_atranta_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_axe_camp_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_banefort_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_barrowton_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_bearstone_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_beastyrn_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_bechester_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_bitterbridge_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_blackblood_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_blackhaven_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_blackpool_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_blazewood_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_bleachbone_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_bleeding_bay_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_bloodstone_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_braavos_ruined_01 }
+					value = 160
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_brightmoor_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_brightwater_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_brimstone_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_brinkburn_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_broken_lance_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_bronzegate_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_cannmill_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_castamere_ruined_01 }
+					value = 440
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_casterly_rock_ruined_01 }
+					value = 500
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_castle_black_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_chained_maw_ruined_01 }
+					value = 185
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_cider_crossing_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_claw_isle_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_cornfield_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_coronyll_ruined_01 }
+					value = 185
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_crakehall_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_crasters_keep_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_crone_moors_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_cypress_rising_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_deep_den_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_deepwood_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_denmaiden_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_denmont_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_draembyr_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_dragonstone_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_drasaho_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_driftmark_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_drihisesk_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_dunnsbridge_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_duskendale_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_duskremr_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_eastwatch_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_evenfall_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_faircastle_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_fairmarket_ruined_01 }
+					value = 160
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_feastfires_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_flatwater_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_frost_caves_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ghaston_grey_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_godsgrace_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_goldengrove_ruined_01 }
+					value = 180
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_goldfuror_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_grailheart_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_grassy_vale_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_great_hue_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_grey_cliff_point_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_grey_garden_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_greywater_watch_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_griffins_roost_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_gulltown_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_hammerford_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_hammerhorn_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_hardhome_ruined_01 }
+					value = 160
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_harrenhal_ruined_01 }
+					value = 440
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_hellholt_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_hetherfield_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_high_heart_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_high_tide_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_highgarden_ruined_01 }
+					value = 440
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_highpoint_ruined_01 }
+					value = 250
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_holyhall_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_honeyholt_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_horn_hill_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_hornpoint_way_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_hornwood_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_hunters_fall_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_huskmere_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_imeimyr_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ironoaks_ruined_01 }
+					value = 200
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ironrath_ruined_01 }
+					value = 200
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ironskin_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_karhold_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_kemmaroli_ruined_01 }
+					value = 80
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_kings_landing_ruined_01 }
+					value = 500
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_knuckle_ridge_ruined_01 }
+					value = 250
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_krih_ruined_01 }
+					value = 80
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_lannisport_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_last_hearth_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_lonely_light_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_longtable_ruined_01 }
+					value = 80
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_lopornon_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_lordsport_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_lys_ruined_01 }
+					value = 180
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_magisters_avenue_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_maidenpool_ruined_01 }
+					value = 185
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_mammoth_cairns_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_mermaid_rocks_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_moat_cailin_ruined_01 }
+					value = 250
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_moongates_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_morghos_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_mormont_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_mothermont_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_mudgrave_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_myr_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_myrish_docks_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_night_harbor_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_nightsong_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_nontelos_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_oakenshield_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_oakheart_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_oldcastle_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_oldtown_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_osgoodswell_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_pack_land_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_paintwood_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_parchments_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_pentos_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_plankytown_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_pleasure_heights_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_port_of_arryn_ruined_01 }
+					value = 80
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_princemarch_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_princes_quarter_ruined_01 }
+					value = 290
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_pyke_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ragmans_harbor_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ramsgate_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_raventree_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_red_lake_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_restburn_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_rhoford_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_riverbend_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_riverrun_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_rooks_rest_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_runestone_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ruthermont_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_sandstone_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_sea_dragon_point_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_seagard_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_selkie_sund_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_sellagoros_shields_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_sharp_point_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_silkhead_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_silverhill_ruined_01 }
+					value = 80
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_singers_retreat_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_skull_peaks_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_skyreach_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_srunmued_ruined_01 }
+					value = 80
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_stagsdol_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_starfall_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_starpike_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_stone_hedge_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_stonedance_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_stonehelm_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_stoney_sept_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_storms_end_ruined_01 }
+					value = 440
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_strangers_finger_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_strongcliffs_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_strongmead_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_strongsong_ruined_01 }
+					value = 195
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_summerfield_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_sunrise_bite_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_sunspear_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_sweetsister_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_taldrsek_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_ten_towers_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_thawed_haven_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_bloody_gate_ruined_01 }
+					value = 250
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_dreadfort_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_eyrie_ruined_01 }
+					value = 440
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_flint_cliffs_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_frigid_rise_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_golden_tooth_ruined_01 }
+					value = 405
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_gorge_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_grey_cliffs_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_marshes_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_nightfort_ruined_01 }
+					value = 250
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_ravishment_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_redfort_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_ring_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_shadow_tower_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_spar_ruined_01 }
+					value = 160
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_the_twins_ruined_01 }
+					value = 385
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_thurmiiyk_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_timberlyn_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_torchwood_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_torrhens_square_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_triarchs_fall_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_truth_canals_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_tumbleton_ruined_01 }
+					value = 160
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_tun_vunag_ruined_01 }
+					value = 180
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_tyrosh_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_valdrizes_hinon_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_volmark_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_waspwood_ruined_01 }
+					value = 80
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_wayfarers_rest_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_weeping_town_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_white_harbor_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_whitesands_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_whitetree_ruined_01 }
+					value = 90
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_wickenden_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_widows_watch_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_wights_well_ruined_01 }
+					value = 160
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_winterfell_ruined_01 }
+					value = 500
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_witch_isle_ruined_01 }
+					value = 215
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_wurns_head_ruined_01 }
+					value = 85
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_wycliffe_ruined_01 }
+					value = 70
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_wynegarde_ruined_01 }
+					value = 160
+				}
+				else_if = {
+					limit = { has_building_or_higher = aawc_c_yronwood_ruined_01 }
+					value = 385
+				}
+					else_if = {
+						limit = { has_building_or_higher = large_ruin_01 }
+						if = {
+							limit = { has_building = large_ruin_03 }
+							value = @[main_cost_base_large_ruin_03]
+						}
+						else_if = {
+							limit = { has_building = large_ruin_02 }
+							value = @[main_cost_base_large_ruin_02]
+						}
+						else = { value = @[main_cost_base_large_ruin_01] }
+					}
+					else_if = {
+						limit = { has_building_or_higher = medium_ruin_01 }
+						if = {
+							limit = { has_building = medium_ruin_03 }
+							value = @[main_cost_base_medium_ruin_03]
+						}
+						else_if = {
+							limit = { has_building = medium_ruin_02 }
+							value = @[main_cost_base_medium_ruin_02]
+						}
+						else = { value = @[main_cost_base_medium_ruin_01] }
+					}
+					else = {
+						if = {
+							limit = { has_building_or_higher = small_ruin_01 }
+						if = {
+							limit = { has_building = small_ruin_03 }
+							value = @[main_cost_base_small_ruin_03]
+						}
+						else_if = {
+							limit = { has_building = small_ruin_02 }
+							value = @[main_cost_base_small_ruin_02]
+						}
+						else = { value = @[main_cost_base_small_ruin_01] }
+					}
+						else_if = {
+							limit = { has_building_or_higher = jungle_ruin_01 }
+							value = 200
+						}
+						else_if = {
+							limit = { has_building_or_higher = jungle_ruin_deep_01 }
+							value = 400
+						}
+					else = { value = 200 }
+				}
+			}
+		}
+	}
+}
+# Deductibles
+lv_settlement_cost_settlement_valyrian_architecture = {
+	value = {
+		value = lv_settlement_cost_settlement_base
+		multiply = 0.25
+	}
+}
+lv_settlement_cost_settlement_hard_working = {
+	value = {
+		value = lv_settlement_cost_settlement_base
+		multiply = 0.1
+	}
+}
+
+# This represents the cost of hiring transport and stuff
+lv_settlement_cost_expedition = { 
+	# Decide other factors soon
+	value = lv_settlement_cost_expedition_base
+	if = {
+		limit = { culture = { has_cultural_tradition = tradition_isolationist } }
+		add = lv_settlement_cost_expedition_isolationist
+	}
+	if = {
+		limit = {
+			culture = { has_cultural_tradition = tradition_republican_legacy }
+			var:lv_restore_ruins_tooltip ?= { geographical_region = world_valyria_mainland }
+		}
+		subtract = lv_settlement_cost_expedition_republican_legacy
+	}
+	if = {
+		limit = {
+			culture = { has_cultural_tradition = tradition_agot_high_valyrian }
+			var:lv_restore_ruins_tooltip ?= { geographical_region = world_valyria_mainland }
+		}
+		subtract = lv_settlement_cost_expedition_valyrian
+	}
+	if = {
+		limit = {
+			culture = { has_cultural_tradition = lv_tradition_north_valyrian_1 }
+			var:lv_restore_ruins_tooltip ?= { geographical_region = world_valyria_mainland }
+		}
+		subtract = lv_settlement_cost_expedition_north_valyrian_1
+	}
+	if = {
+		limit = {
+			culture = { has_cultural_tradition = lv_tradition_north_valyrian_2 }
+			var:lv_restore_ruins_tooltip ?= { geographical_region = world_valyria_mainland }
+		}
+		subtract = lv_settlement_cost_expedition_north_valyrian_2
+	}
+	if = {
+		limit = {
+			culture = { has_cultural_tradition = tradition_agot_doom }
+			var:lv_restore_ruins_tooltip ?= { geographical_region = world_valyria_mainland }
+		}
+		subtract = lv_settlement_cost_expedition_doom
+	}
+	min = 30
+}
+lv_settlement_cost_expedition_base = {
+	value = 30
+	multiply = {
+		value = primary_title.tier
+		subtract = 1
+		min = 1
+	}
+	if = {
+		limit = { government_has_flag = government_is_tribal }
+		multiply = 0.5
+	}
+	if = {
+		limit = { primary_title.tier > tier_duchy }
+		add = 50
+	}
+	if = {
+		limit = {
+			is_ai = yes
+			has_game_rule = hard_difficulty
+		}
+		multiply = 0.5
+	}
+	else_if = {
+		limit = {
+			is_ai = yes
+			has_game_rule = very_hard_difficulty
+		}
+		multiply = 0.25
+	}
+}
+# Addi... bles? Edibles?
+lv_settlement_cost_expedition_isolationist = {
+	value = {
+		value = lv_settlement_cost_expedition_base
+		multiply = 1.5
+	}
+}
+# Deductibles
+lv_settlement_cost_expedition_republican_legacy = {
+	value = {
+		value = lv_settlement_cost_expedition_base
+		multiply = 0.1
+	}
+}
+lv_settlement_cost_expedition_valyrian = {
+	value = {
+		value = lv_settlement_cost_expedition_base
+		multiply = 0.5
+	}
+}
+lv_settlement_cost_expedition_north_valyrian_1 = {
+	value = {
+		value = lv_settlement_cost_expedition_base
+		multiply = 0.25
+	}
+}
+lv_settlement_cost_expedition_north_valyrian_2 = {
+	value = {
+		value = lv_settlement_cost_expedition_base
+		multiply = 0.5
+	}
+}
+lv_settlement_cost_expedition_doom = {
+	value = {
+		value = lv_settlement_cost_expedition_base
+		multiply = 0.25
+	}
+}
+

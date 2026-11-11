@@ -1,0 +1,12 @@
+﻿namespace = kei_cafg_natural_faith_evolution_events
+
+# Faith evolution event
+kei_cafg_natural_faith_evolution_events.0001 = {
+	scope = none
+    hidden = yes
+    immediate = {
+        scope:province = {
+            E_kCAFG_province_natural_faith_evolution = yes
+        }
+    }
+}

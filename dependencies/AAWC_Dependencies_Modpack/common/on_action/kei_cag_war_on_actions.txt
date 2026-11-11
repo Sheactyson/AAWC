@@ -1,0 +1,36 @@
+﻿on_war_started = {
+    on_actions = {
+		kCAFG_on_war_started
+    }
+}
+
+on_join_war_as_secondary = {
+    on_actions = {
+		kCAFG_on_join_war_as_secondary
+    }
+}
+
+# called when a war is started.
+# same scopes are available in these events as in the CBs' on_declaration, this just fires for all CBs instead of a specific CB.
+kCAFG_on_war_started = {
+	effect = {
+        # Waging holy wars angers the defenders' faith adherents in the attacker's realm
+        E_kCAFG_declared_war_faith_tension_effects = yes
+
+        # Waging coquests angers the defenders' culture adherents in the attacker's realm
+        E_kCAFG_declared_war_culture_tension_effects = yes
+    }
+}
+
+# called for people joining as a secondary attacker or defender
+# root is the joiner
+# scope:war is the war
+kCAFG_on_join_war_as_secondary = {
+    effect = {
+        # Joining holy wars angers the defenders' faith adherents in the joiner's realm
+        E_kCAFG_joined_war_faith_tension_effects = yes
+
+        # Joining conquests angers the defenders' culture adherents in the joiner's realm
+        E_kCAFG_joined_war_culture_tension_effects = yes
+    }
+}

@@ -1,0 +1,3040 @@
+﻿#The North
+agot_add_building_on_start_the_north = {
+	province:77 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = curtain_walls_06 }
+		agot_add_building_if_possible = { BUILDING = godswood_07 }
+		agot_add_building_if_possible = { BUILDING = barracks_04 }
+		agot_add_building_if_possible = { BUILDING = stables_02 }
+		agot_add_building_if_possible = { BUILDING = smiths_06 }
+		if = {
+			limit = {
+				OR = {
+					has_game_rule = aawc_ruined_world
+					has_game_rule = aawc_age_of_reclamation
+					has_game_rule = aawc_age_of_silence
+				}
+			}
+			if = { limit = { has_building = winterfell_03 } remove_building = winterfell_03 }
+			if = { limit = { has_building = winterfell_02 } remove_building = winterfell_02 }
+			if = { limit = { has_building = winterfell_01 } remove_building = winterfell_01 }
+			if = { limit = { has_building = aawc_c_winterfell_03 } remove_building = aawc_c_winterfell_03 }
+			if = { limit = { has_building = aawc_c_winterfell_02 } remove_building = aawc_c_winterfell_02 }
+			if = { limit = { has_building = aawc_c_winterfell_01 } remove_building = aawc_c_winterfell_01 }
+			if = { limit = { has_building = aawc_c_winterfell_maintained_01 } remove_building = aawc_c_winterfell_maintained_01 }
+			if = { limit = { has_building = aawc_c_winterfell_ruined_01 } remove_building = aawc_c_winterfell_ruined_01 }
+			if = { limit = { NOT = { has_building = aawc_c_winterfell_ruined_01 } } add_special_building = aawc_c_winterfell_ruined_01 }
+		}
+	}
+	province:78 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = guild_halls_04 }
+		agot_add_building_if_possible = { BUILDING = breweries_05 }
+		agot_add_building_if_possible = { BUILDING = agot_steppe_farms_04 }
+		agot_add_building_if_possible = { BUILDING = hospices_03 }
+	}
+	province:79 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+		agot_add_building_if_possible = { BUILDING = breweries_03 }
+		agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		agot_add_building_if_possible = { BUILDING = hospices_03 }
+	}
+	province:81 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:86 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:96 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:99 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = curtain_walls_02 }
+		agot_add_building_if_possible = { BUILDING = pastures_02 }
+		agot_add_building_if_possible = { BUILDING = barracks_01 }
+		agot_add_building_if_possible = { BUILDING = stables_01 }
+	}
+	province:102 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:111 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:119 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:133 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:136 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_04 }
+		agot_add_building_if_possible = { BUILDING = godswood_06 }
+		agot_add_building_if_possible = { BUILDING = barracks_04 }
+		agot_add_building_if_possible = { BUILDING = outposts_03 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+	}
+	province:138 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:153 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:196 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:247 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_04 }
+		agot_add_building_if_possible = { BUILDING = godswood_04 }
+		agot_add_building_if_possible = { BUILDING = barracks_03 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_02 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+	}
+	province:248 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:253 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+			agot_add_building_if_possible = { BUILDING = common_tradeport_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+			agot_add_building_if_possible = { BUILDING = common_tradeport_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+			agot_add_building_if_possible = { BUILDING = common_tradeport_03 }
+		}
+	}
+	province:266 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:278 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:288 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:325 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:333 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = hill_forts_04 }
+		agot_add_building_if_possible = { BUILDING = godswood_05 }
+		agot_add_building_if_possible = { BUILDING = barracks_04 }
+		agot_add_building_if_possible = { BUILDING = smiths_04 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_04 }
+	}
+	province:339 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:343 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:346 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:356 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:382 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:389 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:395 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:399 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:405 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:423 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = curtain_walls_04 }
+		agot_add_building_if_possible = { BUILDING = stables_07 }
+		agot_add_building_if_possible = { BUILDING = barracks_05 }
+		agot_add_building_if_possible = { BUILDING = workshops_07 }
+		agot_add_building_if_possible = { BUILDING = smiths_07 }
+	}
+	province:424 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = guild_halls_07 }
+		agot_add_building_if_possible = { BUILDING = common_tradeport_07 }
+		agot_add_building_if_possible = { BUILDING = agot_urban_farms_06 }
+		agot_add_building_if_possible = { BUILDING = hospices_06 }
+	}
+	province:425 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = curtain_walls_02 }
+		agot_add_building_if_possible = { BUILDING = godswood_03 }
+		agot_add_building_if_possible = { BUILDING = breweries_02 }
+	}
+	province:426 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = hill_forts_02 }
+		agot_add_building_if_possible = { BUILDING = workshops_02 }
+		agot_add_building_if_possible = { BUILDING = outposts_01 }
+		agot_add_building_if_possible = { BUILDING = military_camps_01 }
+	}
+	province:428 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:429 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:431 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = guild_halls_04 }
+		agot_add_building_if_possible = { BUILDING = common_tradeport_05 }
+		agot_add_building_if_possible = { BUILDING = peat_quarries_04 }
+		agot_add_building_if_possible = { BUILDING = breweries_04 }
+	}
+	province:432 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = monastic_schools_06 }
+		agot_add_building_if_possible = { BUILDING = hospices_06 }
+		agot_add_building_if_possible = { BUILDING = scriptorium_06 }
+		agot_add_building_if_possible = { BUILDING = agot_urban_farms_04 }
+	}
+	province:435 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = curtain_walls_02 }
+		agot_add_building_if_possible = { BUILDING = barracks_02 }
+		agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		agot_add_building_if_possible = { BUILDING = smiths_03 }
+		agot_add_building_if_possible = { BUILDING = workshops_02 }
+	}
+	province:437 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:439 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:441 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:443 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_02 }
+		agot_add_building_if_possible = { BUILDING = barracks_02 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_02 }
+		agot_add_building_if_possible = { BUILDING = military_camps_02 }
+	}
+	province:446 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:449 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:452 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = curtain_walls_01 }
+		agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		agot_add_building_if_possible = { BUILDING = common_tradeport_01 }
+	}
+	province:453 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:461 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_02 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		agot_add_building_if_possible = { BUILDING = barracks_03 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_02 }
+	}
+	province:464 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:471 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_02 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_04 }
+		agot_add_building_if_possible = { BUILDING = smiths_01 }
+		agot_add_building_if_possible = { BUILDING = stables_01 }
+	}
+	province:472 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:473 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:481 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_02 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_02 }
+		agot_add_building_if_possible = { BUILDING = barracks_01 }
+		agot_add_building_if_possible = { BUILDING = godswood_03 }
+	}
+	province:485 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:490 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = curtain_walls_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_03 }
+		agot_add_building_if_possible = { BUILDING = outposts_04 }
+		agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		agot_add_building_if_possible = { BUILDING = common_tradeport_01 }
+	}
+	province:491 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:496 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		}
+	}
+	province:534 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_02 }
+		agot_add_building_if_possible = { BUILDING = godswood_03 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		agot_add_building_if_possible = { BUILDING = stables_01 }
+		agot_add_building_if_possible = { BUILDING = common_tradeport_01 }
+	}
+	province:536 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:545 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:560 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:561 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:571 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:579 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_03 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_05 }
+	}
+	province:581 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:617 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = hill_forts_04 }
+		agot_add_building_if_possible = { BUILDING = outposts_03 }
+		agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_02 }
+		agot_add_building_if_possible = { BUILDING = common_tradeport_01 }
+	}
+	province:624 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:633 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:638 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:640 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:658 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:664 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = hill_forts_02 }
+		agot_add_building_if_possible = { BUILDING = stables_02 }
+		agot_add_building_if_possible = { BUILDING = smiths_01 }
+		agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_01 }
+	}
+	province:677 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:685 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:695 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:706 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:708 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:716 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:724 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:727 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:730 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:738 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:741 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:743 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:784 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:817 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:843 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:851 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:886 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = curtain_walls_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_02 }
+		agot_add_building_if_possible = { BUILDING = outposts_02 }
+		agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+	}
+	province:887 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:890 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:897 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:899 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:903 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:917 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:921 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:924 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:930 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:940 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_02 }
+		agot_add_building_if_possible = { BUILDING = godswood_02 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_02 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+	}
+	province:942 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:953 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:954 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:989 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1007 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:1027 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_02 }
+		agot_add_building_if_possible = { BUILDING = agot_ironwood_06 }
+		agot_add_building_if_possible = { BUILDING = military_camps_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_03 }
+	}
+	province:1035 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1037 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_02 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		agot_add_building_if_possible = { BUILDING = smiths_02 }
+		agot_add_building_if_possible = { BUILDING = godswood_02 }
+	}
+	province:1040 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1049 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		}
+	}
+	province:1056 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = hill_forts_02 }
+		agot_add_building_if_possible = { BUILDING = hill_farms_02 }
+		agot_add_building_if_possible = { BUILDING = military_camps_03 }
+	}
+	province:1072 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_05 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_03 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		agot_add_building_if_possible = { BUILDING = stables_03 }
+	}
+	province:1079 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1081 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1082 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_02 }
+		agot_add_building_if_possible = { BUILDING = godswood_02 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		agot_add_building_if_possible = { BUILDING = barracks_02 }
+	}
+	province:1087 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1091 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1095 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1102 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = curtain_walls_02 }
+		agot_add_building_if_possible = { BUILDING = godswood_02 }
+		agot_add_building_if_possible = { BUILDING = pastures_01 }
+		agot_add_building_if_possible = { BUILDING = military_camps_01 }
+	}
+	province:1103 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1116 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1120 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1121 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = hill_forts_02 }
+		agot_add_building_if_possible = { BUILDING = stables_04 }
+		agot_add_building_if_possible = { BUILDING = smiths_04 }
+		agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_03 }
+	}
+	province:1122 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = guild_halls_04 }
+		agot_add_building_if_possible = { BUILDING = hill_farms_06 }
+		agot_add_building_if_possible = { BUILDING = pastures_06 }
+		agot_add_building_if_possible = { BUILDING = breweries_04 }
+	}
+	province:1124 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1135 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1138 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1150 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		}
+	}
+	province:1157 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1162 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1164 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1169 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1180 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1184 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1190 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1205 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1220 = {
+		agot_destroy_all_generic_buildings = yes
+		if = {
+			limit = {
+				game_start_date >= 8000.1.1
+				game_start_date < 8100.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_01 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8100.1.1
+				game_start_date < 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_01 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_02 }
+		}
+		if = {
+			limit = {
+				game_start_date >= 8200.1.1
+			}
+			agot_add_building_if_possible = { BUILDING = guild_halls_02 }
+			agot_add_building_if_possible = { BUILDING = agot_steppe_farms_03 }
+		}
+	}
+	province:1223 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = hill_forts_03 }
+		agot_add_building_if_possible = { BUILDING = quarries_03 }
+		agot_add_building_if_possible = { BUILDING = warrior_lodges_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_03 }
+	}
+	province:1234 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = hill_forts_03 }
+		agot_add_building_if_possible = { BUILDING = hill_farms_03 }
+		agot_add_building_if_possible = { BUILDING = smiths_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_04 }
+	}
+	province:1310 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_03 }
+		agot_add_building_if_possible = { BUILDING = outposts_04 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_02 }
+		agot_add_building_if_possible = { BUILDING = godswood_06 }
+	}
+	province:1404 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_03 }
+		agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		agot_add_building_if_possible = { BUILDING = outposts_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_03 }
+	}
+	province:1421 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_03 }
+		agot_add_building_if_possible = { BUILDING = peat_quarries_03 }
+		agot_add_building_if_possible = { BUILDING = military_camps_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_03 }
+	}
+	province:1457 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_04 }
+		agot_add_building_if_possible = { BUILDING = outposts_03 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_03 }
+		agot_add_building_if_possible = { BUILDING = barracks_03 }
+	}
+	province:1489 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = hill_forts_03 }
+		agot_add_building_if_possible = { BUILDING = outposts_03 }
+		agot_add_building_if_possible = { BUILDING = barracks_02 }
+		agot_add_building_if_possible = { BUILDING = smiths_02 }
+	}
+	province:1636 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = ramparts_03 }
+		agot_add_building_if_possible = { BUILDING = godswood_04 }
+		agot_add_building_if_possible = { BUILDING = hunting_grounds_02 }
+		agot_add_building_if_possible = { BUILDING = logging_camps_02 }
+	}
+	province:1650 = {
+		agot_destroy_all_generic_buildings = yes
+		agot_add_building_if_possible = { BUILDING = godswood_02 }
+		agot_add_building_if_possible = { BUILDING = breweries_01 }
+		agot_add_building_if_possible = { BUILDING = outposts_01 }
+	}
+}

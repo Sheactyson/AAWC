@@ -1,0 +1,81 @@
+﻿#Colony buildings
+
+colony_port_01 = {
+	cost_gold = 100
+	construction_time = 250
+	type_icon = "icon_building_tradeport.dds"
+
+	can_construct_potential = {
+		building_common_tradeport_requirement_terrain = yes
+		has_holding_type = settlement_holding
+	}
+
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_1
+	}
+
+	county_modifier = {
+		development_growth = 0.05
+	}
+
+	character_modifier = {}
+
+	type = regular
+}
+
+colony_quarries_01 = {
+	cost_gold = 100
+	construction_time = 250
+	type_icon = "icon_building_quarries.dds"
+
+	can_construct_potential = {
+		OR = {
+			agot_is_mountains_terrain = yes
+			agot_is_desert_mountains_terrain = yes
+			agot_is_hills_terrain = yes
+		}
+		has_holding_type = settlement_holding
+	}
+
+	can_construct = {}
+
+	province_modifier = {
+		monthly_income = 0.1
+		build_speed = -0.15
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+	character_modifier = {}
+
+	type = regular
+}
+
+colony_forestry_01 = {
+	cost_gold = 100
+	construction_time = 250
+	type_icon = "icon_building_logging_camps.dds"
+
+	can_construct_potential = {
+		OR = {
+			agot_is_plains_terrain = yes
+			agot_is_farmlands_terrain = yes
+			agot_is_forest_terrain = yes
+			agot_is_jungle_terrain = yes
+		}
+		has_holding_type = settlement_holding
+	}
+
+	province_modifier = {
+		monthly_income = 0.1
+		build_speed = -0.15
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+	character_modifier = {}
+
+	type = regular
+}

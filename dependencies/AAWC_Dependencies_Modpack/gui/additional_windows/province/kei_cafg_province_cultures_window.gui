@@ -1,0 +1,672 @@
+
+######################################################
+############# PROVINCE CULTURES WINDOW ###############
+######################################################
+
+kCAFG_province_additional_window = {
+	name = "kCAFG_province_cultures_window"
+	widgetid = "kCAFG_province_cultures_window"
+    
+	datacontext = "[GetScriptedGui( 'kCAFG_province_culture_scripted_gui' )]"
+
+    blockoverride "content" {
+        kCAFG_province_culture_granularity_content = {}
+    }
+}
+
+types kCAFG_ProvinceCultureTypes
+{
+    type kCAFG_province_culture_granularity_content = kCAFG_province_granularity_content {
+        blockoverride "update_state"
+        {
+            state = {
+                name = "kCAFG_culture_ui_update"
+                trigger_when = "[GetScriptedGui('kCAFG_province_culture_update_request_scripted_gui').IsValid( GuiScope.SetRoot( Province.MakeScope ).End )]"
+                on_finish = "[GetScriptedGui('kCAFG_province_culture_update_request_scripted_gui').Execute( GuiScope.SetRoot( Province.MakeScope ).End )]"
+                on_finish = "[GetScriptedGui( 'kCAFG_province_cultures_setup_variables_scripted_gui' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('local_player', GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        blockoverride "header_text"
+        {
+            text = "kCAFG_province_cultures_window_header_title"
+        }
+
+        blockoverride "tension_tooltip"
+        {
+            tooltip = "kCAFG_province_cultures_window_culture_tension_tooltip"
+        }
+
+        blockoverride "tension_map_mode_button"
+        {
+            onclick = "[SetMapMode('kCAFG_culture_tension_custom_mapmode')]"
+            onclick = "[GetScriptedGui('kCAFG_culture_tension_map_mode').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            tooltip = "kCAFG_culture_tension_show_map_mode_tt"
+        }
+
+        blockoverride "tension_title_text"
+        {
+            text = "kCAFG_province_cultures_window_culture_tension_title"
+        }
+
+        blockoverride "tension_value"
+        {
+            value = "[Province.MakeScope.Var('kCAFG_culture_tension').GetValue]"
+        }
+
+        blockoverride "tension_target_position"
+        {
+            position = "[GetGuiPositionFromPercentCoordinates( PdxGuiWidget.Self, Multiply_float( FixedPointToFloat( Province.MakeScope.Var('kCAFG_target_culture_tension').GetValue ), '(float)100'), '(float)0' )]"
+        }
+
+        blockoverride "tension_percentage_text"
+        {
+            raw_text = "[Province.MakeScope.Var('kCAFG_culture_tension').GetValue|v0%]"
+        }
+
+        blockoverride "attached_widgets" {
+            widget = {
+                visible = "[And(Province.IsValid, EqualTo_CFixedPoint(EmptyScope.ScriptValue('V_kCAFG_tolerance_laws_game_rule_allowed_value'), '(CFixedPoint)1'))]"
+                size = { 40 40 }
+                tooltip = "kCAFG_province_cultures_tolerance_law_tt"
+                using = tooltip_ne
+
+                button_add_laws = {
+                    size = { 75% 75% }
+                    parentanchor = center
+                    alwaystransparent = yes
+
+					glow = {
+						color = { 0 0 0 0.9 }
+						glow_radius = 3
+						using = Glow_Standard
+					}
+                }
+
+                text_single = {
+                    visible = "[EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_culture_tolerance_law_value'), '(CFixedPoint)1')]"
+                    parentanchor = top|right
+                    position = { 8 -6 }
+                    align = nobaseline
+                    raw_text = "@change_up_good_1!"
+                }
+
+                text_single = {
+                    visible = "[EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_culture_tolerance_law_value'), '(CFixedPoint)0')]"
+                    parentanchor = top|right
+                    position = { 8 -6 }
+                    align = nobaseline
+                    raw_text = "@change_none_neutral!"
+                }
+
+                text_single = {
+                    visible = "[EqualTo_CFixedPoint(Province.MakeScope.ScriptValue('V_kCAFG_culture_tolerance_law_value'), '(CFixedPoint)-1')]"
+                    parentanchor = top|right
+                    position = { 8 -6 }
+                    align = nobaseline
+                    raw_text = "@change_down_bad_1!"
+                }
+            }
+        }
+
+        blockoverride "sub_header_widgets"
+        {
+            flowcontainer = {
+                spacing = 6
+
+                widget = {
+                    name = "additional_debug_info"
+                    parentanchor = vcenter
+                    size = { 20 20 }
+                    tooltip = "kCAFG_province_cultures_debug_info_tt"
+                    visible = "[InDebugMode]"
+
+                    icon = {
+                        size = { 100% 100% }
+                        texture = "gfx/interface/icons/portraits/hook_secret.dds"
+                        framesize = { 40 40 }
+                        frame = 4
+                        color = { 1 0.7 1 1 }
+                    }
+                }
+
+                kCAFG_province_focus_button = {
+                    visible = "[And(Not(IsObserver), GetPlayer.HasCouncillor('councillor_steward'))]"
+
+                    blockoverride "data_context"
+                    {
+                        datacontext = "[GetScriptedGui('kCAFG_task_promote_culture_province_focus_scripted_gui')]"
+                        datacontext = "[GetPlayer.GetCouncillor('councillor_steward')]"
+                    }
+
+                    blockoverride "main_button"
+                    {
+                        enabled = "[And(Character.IsValid, And(GetScriptedGui('kCAFG_is_task_promote_culture_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), Not(ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))))]"
+                    }
+
+                    blockoverride "tooltip_title"
+                    {
+                        text = "kCAFG_task_promote_culture_focus_province_tooltip_title"
+                    }
+
+                    blockoverride "tooltip_description"
+                    {
+                        text = "kCAFG_task_promote_culture_focus_province_tooltip_desc"
+                    }
+
+                    blockoverride "additional_description"
+                    {
+                        textbox = {
+                            visible = "[And(Character.IsValid, And(GetScriptedGui('kCAFG_is_task_promote_culture_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), Not(ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))))]"
+                            layoutpolicy_horizontal = expanding
+                            max_width = 400
+                            text = "kCAFG_task_promote_culture_focus_province_tooltip_progress_breakdown_title"
+                            using = DefaultTooltipText
+                            multiline = yes
+                            fonttintcolor = "[TooltipInfo.GetTintColor]"
+                            alwaystransparent = no
+                            tooltip = "kCAFG_task_promote_culture_focus_province_tooltip_progress_breakdown"
+                        }
+                    }
+
+                    blockoverride "tooltip_already_focused"
+                    {
+                        visible = "[And(And(Character.IsValid, Character.MakeScope.Var('kCAFG_task_promote_culture_focused_province').IsSet), And(GetScriptedGui('kCAFG_is_promoting_in_province_county_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), Not(ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))))]"
+                        text = "kCAFG_task_promote_culture_focus_province_tooltip_already_focused_warning"
+                    }
+
+                    blockoverride "tooltip_warning_task_will_be_aborted"
+                    {
+                        visible = "[And(Character.IsValid, And(GetScriptedGui('kCAFG_is_task_promote_culture_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), Not(GetScriptedGui('kCAFG_is_promoting_in_province_county_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))))]"
+                        text = "kCAFG_task_promote_culture_focus_province_tooltip_task_will_be_aborted"
+                    }
+
+                    blockoverride "tooltip_cannot_execute_task"
+                    {
+                        visible = "[And(Character.IsValid, Not(GetScriptedGui('kCAFG_is_task_promote_culture_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End)))]"
+                        text = "kCAFG_task_promote_culture_focus_province_tooltip_cannot_convert"
+                    }
+
+                    blockoverride "concept_link"
+                    {
+                        text = ""
+                    }
+
+                    blockoverride "task_button"
+                    {
+                        texture = "gfx/interface/icons/council_task_types/task_promote_culture.dds"
+                    }
+
+                    blockoverride "disabled_button_tooltip"
+                    {
+                        tooltip  = "kCAFG_task_promote_culture_focus_province_disabled_tooltip"
+                    }
+                }
+            }
+        }
+
+        blockoverride "list_datamodel"
+        {
+            datamodel = "[Province.MakeScope.GetList('kCAFG_UI_ordered_province_culture_structs')]"
+        }
+
+        blockoverride "list_item_datacontext"
+        {
+            datacontext = "[Scope.Story.MakeScope.Var('culture').Culture]"
+        }
+
+        blockoverride "list_datamodel_observer"
+        {
+            datamodel = "[Province.MakeScope.GetList('kCAFG_province_culture_structs')]"
+        }
+
+        blockoverride "list_item_content"
+        {
+            widget = {
+                layoutpolicy_vertical = expanding
+                layoutpolicy_horizontal = growing
+
+                hbox = {
+                    layoutpolicy_vertical = expanding
+                    layoutpolicy_horizontal = expanding
+                    margin = { 4 0 }
+                    spacing = 12
+
+                    expand = {
+                        button = {
+                            layoutpolicy_vertical = expanding
+                            layoutpolicy_horizontal = expanding
+                            name = "element_button"
+
+                            onclick = "[OpenGameViewData( 'culture_window', Culture.GetID )]"
+                            onrightclick = "[SetMapMode('kCAFG_culture_custom_mapmode')]"
+                            onrightclick = "[GetScriptedGui('kCAFG_culture_map_mode').Execute(GuiScope.SetRoot(Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                            button_ignore = none
+                            tooltipwidget = {
+                                culture_tooltip = {
+                                    blockoverride "extra_info"
+                                    {
+                                        spacer = {
+                                            size = { 0 4 }
+                                        }
+                                        divider_light = {
+                                            layoutpolicy_horizontal = growing
+                                        }
+
+                                        text_single = {
+                                            layoutpolicy_horizontal = growing
+                                            text = "CULTURE_COOLTIP_CLICK"
+                                            margin = { 10 0 }
+                                        }
+
+                                        text_single = {
+                                            layoutpolicy_horizontal = growing
+                                            text = "kCAFG_CULTURE_OPEN_MAPMODE_TOOLTIP_RC"
+                                            margin = { 10 0 }
+                                        }
+                                    }
+                                }
+                            }
+                            using = tooltip_ws
+
+                            vbox = {
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    spacing = 10
+                                    text_single = {
+                                        name = "culture_name"
+                                        max_width = 140% # For some reason 100% is not actually 100% ?
+
+                                        align = left|nobaseline
+                                        margin_left = 4
+                                        
+                                        text = "[Culture.GetNameNoTooltip]"
+                                        using = Font_Size_Medium
+                                        default_format = "#high"
+                                    }
+
+                                    text_single = {
+                                        visible = "[And(GetVariableSystem.Exists( 'kECV_setting_display_culture_acceptance' ), NotEqualTo_uint32(Culture.GetID, GetPlayer.GetCulture.GetID))]"
+                                        text = "COUNTY_CULTURE_ACCEPTANCE_DIFF_CULTURE"
+                                        align = left|nobaseline
+                                        margin_right = 5
+                                        max_width = 160
+                                        tooltip = "CULTURE_ACCEPTANCE_TOOLTIP"
+                                    }
+
+                                    expand = {}
+                                }
+                            }
+                        }
+                    }
+
+                    widget = {
+                        name = "additional_debug_info"
+                        size = { 20 20 }
+                        tooltip = "kCAFG_province_culture_debug_info_tt"
+                        visible = "[InDebugMode]"
+
+                        icon = {
+                            size = { 100% 100% }
+                            texture = "gfx/interface/icons/portraits/hook_secret.dds"
+                            framesize = { 40 40 }
+                            frame = 4
+                            color = { 1 0.7 1 1 }
+                        }
+                    }
+
+                    widget = {
+                        name = "promote_culture_focus"
+                        size = { 32 32 }
+
+                        visible = "[And(Not(IsObserver), GetPlayer.HasCouncillor('councillor_steward'))]"
+                        datacontext = "[GetPlayer.GetCouncillor('councillor_steward')]"
+
+                        widget = {
+                            size = { 100% 100% }
+                            visible = "[Character.IsValid]"
+
+                            widget = {
+                                size = { 100% 100% }
+                                datacontext = "[GetScriptedGui('kCAFG_task_accept_culture_culture_focus_scripted_gui')]"
+                                visible = "[And(Character.IsValid, ScriptedGui.IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))]"
+
+                                icon = {
+                                    visible = "[And(Character.IsValid, ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))]"
+                                    texture = "gfx/particles/halo.dds"
+                                    parentanchor = center
+                                    size = { 42 42 }
+                                    color = { 1 0.85 0.6 1 }
+                                }
+
+                                button_round = {
+                                    parentanchor = center
+                                    size = { 36 36 }
+                                    gfxtype = togglepushbuttongfx
+                                    effectname = "NoHighlight"
+
+                                    enabled = "[And(Character.IsValid, And(GetScriptedGui('kCAFG_is_task_accept_culture_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), And(Not(GetScriptedGui('kCAFG_is_accepting_culture_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('culture', Culture.MakeScope).End)), Not(ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End)))))]"
+                                    onclick = "[ScriptedGui.Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End)]"
+                                    
+                                    onrightclick = "[OpenGameViewData('council_window', GetPlayer.GetID)]"
+                                    button_ignore = none
+
+                                    using = tooltip_ne
+
+                                    tooltipwidget = {
+                                        container = {
+                                            alwaystransparent = no
+                                            container = {
+                                                alwaystransparent = no
+                                                
+                                                object_tooltip_pop_out = {
+                                                    blockoverride "title_text" {
+                                                        margin = { 0 8 }
+                                                        text = "kCAFG_task_accept_culture_focus_culture_tooltip_title"
+                                                        default_format = "#T"
+                                                    }
+
+                                                    blockoverride "description_text" {
+                                                        text = "kCAFG_task_accept_culture_focus_culture_tooltip_desc"
+                                                    }
+
+                                                    blockoverride "extra_data_after_description" {
+                                                        textbox = {
+                                                            visible = "[And(Character.IsValid, And(GetScriptedGui('kCAFG_is_task_accept_culture_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), And(Not(GetScriptedGui('kCAFG_is_accepting_culture_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('culture', Culture.MakeScope).End)), Not(ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End)))))]"
+                                                            layoutpolicy_horizontal = expanding
+                                                            max_width = 400
+                                                            text = "kCAFG_task_accept_culture_focus_culture_tooltip_progress_breakdown_title"
+                                                            using = DefaultTooltipText
+                                                            multiline = yes
+                                                            fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                                            alwaystransparent = no
+                                                            tooltip = "kCAFG_task_accept_culture_focus_culture_tooltip_progress_breakdown"
+                                                        }
+
+                                                        textbox = {
+                                                            name = "task_will_be_aborted_desc"
+                                                            visible = "[And(Character.IsValid, And(GetScriptedGui('kCAFG_is_task_accept_culture_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End), Not(GetScriptedGui('kCAFG_is_accepting_culture_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('culture', Culture.MakeScope).End))))]"
+                                                            text = "kCAFG_task_accept_culture_focus_culture_tooltip_task_will_be_aborted"
+                                                            layoutpolicy_horizontal = expanding
+                                                            using = DefaultTooltipText
+                                                            multiline = yes
+                                                            fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                                            alwaystransparent = no
+                                                            max_width = 400
+                                                        }
+
+                                                        textbox = {
+                                                            name = "cannot_convert_desc"
+                                                            visible = "[And(Character.IsValid, Not(GetScriptedGui('kCAFG_is_task_accept_culture_possible_scripted_gui').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('kCAFG_culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End)))]"
+                                                            text = "kCAFG_task_accept_culture_focus_culture_tooltip_cannot_target"
+                                                            layoutpolicy_horizontal = expanding
+                                                            using = DefaultTooltipText
+                                                            multiline = yes
+                                                            fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                                            alwaystransparent = no
+                                                            max_width = 400
+                                                        }
+                                                    }
+
+                                                    
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    upframe = 1
+                                    downframe = 1
+                                    uphoverframe = 2
+                                    disableframe = 6
+
+                                    button_normal = {
+                                        name = "potential_task"
+                                        parentanchor = center
+                                        widgetanchor = center
+                                        effectname = "NoHighlight"
+                                        gfxtype = togglepushbuttongfx
+                                        shaderfile = "gfx/FX/pdxgui_pushbutton.shader"
+                                        texture = "gfx/interface/icons/council_task_types/task_accept_culture.dds"
+                                        alwaystransparent = yes
+                                        size = { 28 28 }
+                                    }
+
+                                    blockoverride "concept_link"
+                                    {
+                                        text = ""
+                                    }
+                                }
+
+                                icon = {
+                                    size = { 64 64 }
+                                    position = { 13 -35 }
+                                    parentanchor = center
+                                    visible = "[And(Character.IsValid, ScriptedGui.IsShown(GuiScope.SetRoot(Character.MakeScope).AddScope('culture', Culture.MakeScope).AddScope('kCAFG_province', Province.MakeScope).End))]"
+                                    texture = "gfx/interface/icons/traits/_stars_1.dds"
+                                }
+                            }
+                        }
+
+                        # Disabled button here to avoid scripted guis error with invalid character scopes
+                        widget = {
+                            size = { 100% 100% }
+
+                            visible = "[Not(Character.IsValid)]"
+
+                            button_round = {
+                                parentanchor = center
+                                size = { 44 44 }
+                                gfxtype = togglepushbuttongfx
+                                effectname = "NoHighlight"
+
+                                enabled = no
+
+                                using = tooltip_ne
+
+                                tooltip = "kCAFG_task_accept_culture_focus_culture_disabled_tooltip"
+
+                                upframe = 1
+                                downframe = 1
+                                uphoverframe = 2
+                                disableframe = 6
+
+                                button_normal = {
+                                    name = "potential_task"
+                                    parentanchor = center
+                                    widgetanchor = center
+                                    effectname = "NoHighlight"
+                                    gfxtype = togglepushbuttongfx
+                                    shaderfile = "gfx/FX/pdxgui_pushbutton.shader"
+                                    texture = "gfx/interface/icons/council_task_types/task_accept_culture.dds"
+                                    alwaystransparent = yes
+                                    size = { 36 36 }
+                                }
+                            }
+                        }
+                    }
+
+                    widget = {
+                        name = "culture_opinion_widget"
+                        size = { 28 28 }
+
+                        # culture acceptance change
+                        #text = "[Culture.GetAcceptanceDiff( Province.GetCounty.GetCount.GetCulture )]"
+                        
+                        kCAFG_opinion_icon = {
+                            color = { .9 .9 1 1 }
+                            visible = "[EqualTo_uint32(Culture.GetID, Province.GetCounty.GetCount.GetCulture.GetID)]"
+                        }
+
+                        widget = {
+                            size = { 100% 100% }
+                            parentanchor = center
+                            visible = "[NotEqualTo_uint32(Culture.GetID, Province.GetCounty.GetCount.GetCulture.GetID)]"
+
+                            kCAFG_opinion_icon = {
+                                visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)1')]"
+                                color = { .9 .3 .3 1 }
+                            }
+
+                            kCAFG_opinion_icon = {
+                                visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)2')]"
+                                color = { .9 .5 .3 1 }
+                            }
+
+                            kCAFG_opinion_icon = {
+                                visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)3')]"
+                                color = { 1 .8 .6 1 }
+                            }
+
+                            kCAFG_opinion_icon = {
+                                visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)4')]"
+                                color = { .70 .83 .5 1 }
+                            }
+
+                            kCAFG_opinion_icon = {
+                                visible = "[EqualTo_CFixedPoint(Scope.Story.MakeScope.ScriptValue('V_kCAFG_struct_opinion_value'), '(CFixedPoint)5')]"
+                                color = { .6 .9 .45 1 }
+                            }
+                        }
+
+                        using = tooltip_ne
+
+                        tooltipwidget = {
+                            widget = {
+                                name = "OpinionTooltipWidget"
+                                using = GeneralTooltipSetup
+                                alwaystransparent = no
+
+                                using = DefaultTooltipBackground
+
+                                vbox = {
+                                    set_parent_size_to_minimum = yes
+                                    margin = { 20 5 }
+
+                                    textbox = {
+                                        name = "BaseLineContribution"
+                                        layoutpolicy_horizontal = expanding
+                                        max_width = 400
+                                        using = DefaultTooltipText
+                                        multiline = yes
+                                        text = "kCAFG_province_culture_tooltip_desc_tension_baseline_contribution"
+                                        fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                        alwaystransparent = no
+                                        visible = "[NotEqualTo_uint32(Culture.GetID, Province.GetCounty.GetCount.GetCulture.GetID)]"
+                                    }
+
+                                    textbox = {
+                                        name = "SameCultureTooltip"
+                                        layoutpolicy_horizontal = expanding
+                                        max_width = 400
+                                        using = DefaultTooltipText
+                                        multiline = yes
+                                        text = "kCAFG_province_culture_same_tooltip_desc"
+                                        fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                        alwaystransparent = no
+                                        visible = "[EqualTo_uint32(Culture.GetID, Province.GetCounty.GetCount.GetCulture.GetID)]"
+                                    }
+
+                                    textbox = {
+                                        name = "DifferentCultureTooltip"
+                                        layoutpolicy_horizontal = expanding
+                                        max_width = 400
+                                        using = DefaultTooltipText
+                                        multiline = yes
+                                        text = "kCAFG_province_culture_tooltip_desc"
+                                        fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                        alwaystransparent = no
+                                        visible = "[NotEqualTo_uint32(Culture.GetID, Province.GetCounty.GetCount.GetCulture.GetID)]"
+                                        
+                                        tooltip = "kCAFG_province_culture_tooltip_desc_tooltip"
+                                    }
+
+                                    textbox = {
+                                        name = "SpeaksLanguage"
+                                        layoutpolicy_horizontal = expanding
+                                        max_width = 400
+                                        using = DefaultTooltipText
+                                        multiline = yes
+                                        text = "kCAFG_province_culture_tooltip_ruler_speaks_language"
+                                        fonttintcolor = "[TooltipInfo.GetTintColor]"
+                                        alwaystransparent = no
+                                        visible = "[And(NotEqualTo_uint32(Culture.GetID, Province.GetCounty.GetCount.GetCulture.GetID), GetScriptedGui('kCAFG_province_culture_can_holder_speak_language').IsValid(GuiScope.SetRoot(Province.MakeScope).AddScope('culture', Culture.MakeScope).End))]"
+                                    }
+
+                                    textbox = {
+                                        name = "TooltipTextShortcut"
+                                        layoutpolicy_horizontal = expanding
+                                        using = DefaultTooltipText
+                                        margin = { 10 5 }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                # icon_flat_standard = {
+                #     parentanchor = bottom|right
+                #     size = { 22 22 }
+                #     position = { 0 2 }
+                # 	texture = "gfx/interface/icons/culture_pillars/language.dds"
+                #     blockoverride "master_color_frame" { frame = 7 }
+                #     alpha = 0.85
+
+                #     visible = "[GetScriptedGui('kCAFG_province_culture_can_holder_speak_language').IsValid(GuiScope.SetRoot(Province.MakeScope).AddScope('culture', Culture.MakeScope).End)]"
+                # }
+            }
+        }
+
+        blockoverride "additional_item_content"
+        {
+            widget = {
+                size = { 100% 100% }
+                visible = "[And(Not(IsObserver), InDebugMode)]"
+
+                button_round = {
+                    size = { 18 18 }
+                    parentanchor = vcenter|right
+                    position = { -62 -12 }
+                    button_ignore = none
+                    visible = "[GetScriptedGui( 'kCAFG_DEBUG_province_culture_reverse_convert' ).IsShown( GuiScope.SetRoot( Province.MakeScope ).AddScope('culture', Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                    enabled = "[GetScriptedGui( 'kCAFG_DEBUG_province_culture_reverse_convert' ).IsValid( GuiScope.SetRoot( Province.MakeScope ).AddScope('culture', Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                    onclick = "[GetScriptedGui( 'kCAFG_DEBUG_province_culture_reverse_convert' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('culture', Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).AddScope('amount', MakeScopeValue(EmptyScope.ScriptValue('V_kCAFG_debug_conversion_amount'))).End)]"
+                    onrightclick = "[GetScriptedGui( 'kCAFG_DEBUG_province_culture_reverse_convert' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('culture', Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).AddScope('amount', MakeScopeValue(EmptyScope.ScriptValue('V_kCAFG_debug_conversion_amount_high'))).End)]"
+                    tooltip = "kCAFG_debug_convert_to_my_culture"
+                    using = tooltip_nw
+                    color = { 1 0.7 1 1 }
+
+                    highlight_icon = {
+                        parentanchor = center
+                        size = { 100% 100% }
+                        texture = "gfx/interface/icons/flat_icons/plus.dds"
+		                using = Master_Button_Modify_Texture
+                        color = { 1 0.7 1 1 }
+                    }
+                }
+
+                button_round = {
+                    size = { 18 18 }
+                    parentanchor = vcenter|right
+                    position = { -62 12 }
+                    button_ignore = none
+                    visible = "[GetScriptedGui( 'kCAFG_DEBUG_province_culture_convert' ).IsShown( GuiScope.SetRoot( Province.MakeScope ).AddScope('culture', Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                    enabled = "[GetScriptedGui( 'kCAFG_DEBUG_province_culture_convert' ).IsValid( GuiScope.SetRoot( Province.MakeScope ).AddScope('culture', Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).End)]"
+                    onclick = "[GetScriptedGui( 'kCAFG_DEBUG_province_culture_convert' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('culture', Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).AddScope('amount', MakeScopeValue(EmptyScope.ScriptValue('V_kCAFG_debug_conversion_amount'))).End)]"
+                    onrightclick = "[GetScriptedGui( 'kCAFG_DEBUG_province_culture_convert' ).Execute( GuiScope.SetRoot( Province.MakeScope ).AddScope('culture', Culture.MakeScope).AddScope('local_player', GetPlayer.MakeScope).AddScope('amount', MakeScopeValue(EmptyScope.ScriptValue('V_kCAFG_debug_conversion_amount_high'))).End)]"
+                    tooltip = "kCAFG_debug_convert_from_my_culture"
+                    using = tooltip_nw
+                    color = { 1 0.7 1 1 }
+
+                    highlight_icon = {
+                        parentanchor = center
+                        size = { 100% 100% }
+                        texture = "gfx/interface/icons/flat_icons/minus.dds"
+		                using = Master_Button_Modify_Texture
+                        color = { 1 0.7 1 1 }
+                    }
+                }
+            }
+        }
+    }
+}

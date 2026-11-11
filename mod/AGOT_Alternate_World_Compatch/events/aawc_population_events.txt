@@ -1,0 +1,1085 @@
+﻿namespace = aawc_population_event
+
+# One-day delayed startup reconciliation runs after the native/AGOT world-mode
+# conversion children have removed holdings or assigned wilderness types.
+aawc_population_event.0101 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		aawc_reforging_cohort_reconcile_world_settlement_eligibility_effect = yes
+		aawc_population_recover_missing_monthly_schedulers_effect = yes
+	}
+}
+
+aawc_population_event.0100 = {
+	type = character_event
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = {
+				agot_is_dummy_character = no
+				is_landed = yes
+				NOT = { has_character_flag = aawc_population_monthly_tick_recent }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 monthly event tick applying growth" }
+			aawc_no_guest_clear_host_effect = yes
+			add_character_flag = { flag = aawc_population_monthly_tick_recent days = 27 }
+			aawc_population_apply_monthly_growth_character_effect = yes
+			trigger_event = { id = aawc_population_event.0100 days = 31 }
+			set_variable = { name = aawc_population_monthly_tick_scheduled value = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 monthly event tick rescheduled" }
+		}
+		else_if = {
+			limit = {
+				agot_is_dummy_character = no
+				is_landed = yes
+				has_character_flag = aawc_population_monthly_tick_recent
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 duplicate monthly event skipped without reschedule" }
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 monthly event reached invalid/non-landed scope and was not rescheduled" }
+			remove_variable = aawc_population_monthly_tick_scheduled
+		}
+	}
+}
+
+aawc_population_event.0210 = {
+	type = character_event
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = {
+				NOT = { has_character_flag = aawc_migration_world_tick_recent }
+			}
+			add_character_flag = { flag = aawc_migration_world_tick_recent days = 27 }
+			aawc_reforging_cohort_reconcile_world_settlement_eligibility_effect = yes
+			aawc_migration_update_world_effect = yes
+			aawc_reforging_diag_heartbeat_effect = yes
+			trigger_event = { id = aawc_population_event.0210 days = 31 }
+			set_variable = { name = aawc_migration_world_tick_scheduled value = 1 }
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.93 world event tick rescheduled" }
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.93 duplicate world event skipped without reschedule" }
+		}
+	}
+}
+
+aawc_population_event.0001 = {
+	type = character_event
+	title = aawc_population_event.0001.t
+	desc = aawc_population_event.0001.desc
+	theme = stewardship_domain_focus
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP census report event opened" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0001.b
+		# Build report state only on selection; tooltip preview does not execute immediates.
+		trigger_event = aawc_population_event.0003
+	}
+
+	option = {
+		name = aawc_population_event.0001.a
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP census report event closed" }
+	}
+}
+
+# Internal contributor bridge: preserve the existing report construction and scope.
+aawc_population_event.0003 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP census report opening county contributors view" }
+		set_variable = { name = aawc_population_report_row_count value = 0 }
+		set_variable = { name = aawc_population_report_01_total value = 0 }
+		set_variable = { name = aawc_population_report_01_expected value = 0 }
+		set_variable = { name = aawc_population_report_01_surplus value = 0 }
+		set_variable = { name = aawc_population_report_02_total value = 0 }
+		set_variable = { name = aawc_population_report_02_expected value = 0 }
+		set_variable = { name = aawc_population_report_02_surplus value = 0 }
+		set_variable = { name = aawc_population_report_03_total value = 0 }
+		set_variable = { name = aawc_population_report_03_expected value = 0 }
+		set_variable = { name = aawc_population_report_03_surplus value = 0 }
+		set_variable = { name = aawc_population_report_04_total value = 0 }
+		set_variable = { name = aawc_population_report_04_expected value = 0 }
+		set_variable = { name = aawc_population_report_04_surplus value = 0 }
+		set_variable = { name = aawc_population_report_05_total value = 0 }
+		set_variable = { name = aawc_population_report_05_expected value = 0 }
+		set_variable = { name = aawc_population_report_05_surplus value = 0 }
+		set_variable = { name = aawc_population_report_06_total value = 0 }
+		set_variable = { name = aawc_population_report_06_expected value = 0 }
+		set_variable = { name = aawc_population_report_06_surplus value = 0 }
+		set_variable = { name = aawc_population_report_07_total value = 0 }
+		set_variable = { name = aawc_population_report_07_expected value = 0 }
+		set_variable = { name = aawc_population_report_07_surplus value = 0 }
+		set_variable = { name = aawc_population_report_08_total value = 0 }
+		set_variable = { name = aawc_population_report_08_expected value = 0 }
+		set_variable = { name = aawc_population_report_08_surplus value = 0 }
+		set_variable = { name = aawc_population_report_09_total value = 0 }
+		set_variable = { name = aawc_population_report_09_expected value = 0 }
+		set_variable = { name = aawc_population_report_09_surplus value = 0 }
+		set_variable = { name = aawc_population_report_10_total value = 0 }
+		set_variable = { name = aawc_population_report_10_expected value = 0 }
+		set_variable = { name = aawc_population_report_10_surplus value = 0 }
+		set_variable = { name = aawc_population_report_11_total value = 0 }
+		set_variable = { name = aawc_population_report_11_expected value = 0 }
+		set_variable = { name = aawc_population_report_11_surplus value = 0 }
+		set_variable = { name = aawc_population_report_12_total value = 0 }
+		set_variable = { name = aawc_population_report_12_expected value = 0 }
+		set_variable = { name = aawc_population_report_12_surplus value = 0 }
+		set_variable = { name = aawc_population_report_13_total value = 0 }
+		set_variable = { name = aawc_population_report_13_expected value = 0 }
+		set_variable = { name = aawc_population_report_13_surplus value = 0 }
+		set_variable = { name = aawc_population_report_14_total value = 0 }
+		set_variable = { name = aawc_population_report_14_expected value = 0 }
+		set_variable = { name = aawc_population_report_14_surplus value = 0 }
+		set_variable = { name = aawc_population_report_15_total value = 0 }
+		set_variable = { name = aawc_population_report_15_expected value = 0 }
+		set_variable = { name = aawc_population_report_15_surplus value = 0 }
+		save_scope_as = aawc_population_report_owner
+		every_held_county = {
+			limit = {
+				tier = tier_county
+				OR = {
+					var:aawc_population_total != 0
+					var:aawc_population_expected != 0
+					var:aawc_population_surplus != 0
+				}
+			}
+			if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 1 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_01 value = prev }
+					set_variable = { name = aawc_population_report_01_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_01_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_01_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 2 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_02 value = prev }
+					set_variable = { name = aawc_population_report_02_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_02_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_02_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 3 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_03 value = prev }
+					set_variable = { name = aawc_population_report_03_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_03_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_03_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 4 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_04 value = prev }
+					set_variable = { name = aawc_population_report_04_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_04_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_04_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 5 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_05 value = prev }
+					set_variable = { name = aawc_population_report_05_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_05_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_05_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 6 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_06 value = prev }
+					set_variable = { name = aawc_population_report_06_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_06_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_06_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 7 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_07 value = prev }
+					set_variable = { name = aawc_population_report_07_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_07_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_07_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 8 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_08 value = prev }
+					set_variable = { name = aawc_population_report_08_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_08_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_08_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 9 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_09 value = prev }
+					set_variable = { name = aawc_population_report_09_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_09_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_09_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 10 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_10 value = prev }
+					set_variable = { name = aawc_population_report_10_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_10_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_10_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 11 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_11 value = prev }
+					set_variable = { name = aawc_population_report_11_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_11_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_11_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 12 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_12 value = prev }
+					set_variable = { name = aawc_population_report_12_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_12_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_12_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 13 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_13 value = prev }
+					set_variable = { name = aawc_population_report_13_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_13_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_13_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 14 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_14 value = prev }
+					set_variable = { name = aawc_population_report_14_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_14_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_14_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else_if = {
+				limit = { scope:aawc_population_report_owner.var:aawc_population_report_row_count < 15 }
+				scope:aawc_population_report_owner = {
+					set_variable = { name = aawc_population_report_county_15 value = prev }
+					set_variable = { name = aawc_population_report_15_total value = { value = prev.var:aawc_population_total round = yes } }
+					set_variable = { name = aawc_population_report_15_expected value = { value = prev.var:aawc_population_expected round = yes } }
+					set_variable = { name = aawc_population_report_15_surplus value = { value = prev.var:aawc_population_surplus round = yes } }
+					change_variable = { name = aawc_population_report_row_count add = 1 }
+				}
+			}
+			else = {
+				scope:aawc_population_report_owner = { change_variable = { name = aawc_population_report_row_count add = 1 } }
+			}
+		}
+		trigger_event = aawc_population_event.0002
+	}
+}
+
+aawc_population_event.0002 = {
+	type = character_event
+	title = aawc_population_event.0002.t
+	desc = {
+		desc = aawc_population_event.0002.desc
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 1 } desc = aawc_population_event.0002.line_01 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 2 } desc = aawc_population_event.0002.line_02 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 3 } desc = aawc_population_event.0002.line_03 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 4 } desc = aawc_population_event.0002.line_04 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 5 } desc = aawc_population_event.0002.line_05 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 6 } desc = aawc_population_event.0002.line_06 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 7 } desc = aawc_population_event.0002.line_07 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 8 } desc = aawc_population_event.0002.line_08 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 9 } desc = aawc_population_event.0002.line_09 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 10 } desc = aawc_population_event.0002.line_10 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 11 } desc = aawc_population_event.0002.line_11 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 12 } desc = aawc_population_event.0002.line_12 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 13 } desc = aawc_population_event.0002.line_13 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 14 } desc = aawc_population_event.0002.line_14 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count >= 15 } desc = aawc_population_event.0002.line_15 }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count > 15 } desc = aawc_population_event.0002.more }
+		triggered_desc = { trigger = { var:aawc_population_report_row_count < 1 } desc = aawc_population_event.0002.none }
+	}
+	theme = stewardship_domain_focus
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP county contributors report event opened" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0002.a
+		trigger_event = aawc_population_event.0001
+	}
+
+	option = {
+		name = aawc_population_event.0002.b
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP county contributors report event closed" }
+	}
+}
+
+aawc_population_event.0400 = {
+	type = character_event
+	title = aawc_population_event.0400.t
+	desc = aawc_population_event.0400.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MENU 1.9.96.17 welcome opened" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0400.census
+		trigger = { aawc_population_is_top_liege_actor = yes }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MENU 1.9.96.17 census selected" }
+		# Defer transient cache work to execution-only immediate, outside tooltip traversal.
+		trigger_event = aawc_population_event.0401
+	}
+
+	option = {
+		name = aawc_population_event.0400.info
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MENU 1.9.96.17 information selected" }
+		trigger_event = aawc_population_event.0410
+	}
+
+	option = {
+		name = aawc_population_event.0400.close
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MENU 1.9.96.17 welcome closed" }
+	}
+}
+
+# Internal census bridge: preserve refresh-before-report order without preview evaluation.
+aawc_population_event.0401 = {
+	type = character_event
+	hidden = yes
+	immediate = {
+		aawc_population_recalculate_character_effect = yes
+		trigger_event = aawc_population_event.0001
+	}
+}
+
+aawc_population_event.0410 = {
+	type = character_event
+	title = aawc_population_event.0410.t
+	desc = aawc_population_event.0410.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MENU 1.9.96.17 information table of contents opened" }
+	}
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0410.population
+		trigger_event = aawc_population_event.0420
+	}
+
+	option = {
+		name = aawc_population_event.0410.growth
+		trigger_event = aawc_population_event.0430
+	}
+
+	option = {
+		name = aawc_population_event.0410.migration
+		trigger_event = aawc_population_event.0440
+	}
+
+	option = {
+		name = aawc_population_event.0410.military
+		trigger_event = aawc_population_event.0450
+	}
+
+	option = {
+		name = aawc_population_event.0410.reclamation
+		trigger_event = aawc_population_event.0460
+	}
+
+	option = {
+		name = aawc_population_event.0410.next
+		trigger_event = aawc_population_event.0411
+	}
+
+	option = {
+		name = aawc_population_event.0410.back
+		trigger_event = aawc_population_event.0400
+	}
+}
+
+aawc_population_event.0411 = {
+	type = character_event
+	title = aawc_population_event.0411.t
+	desc = aawc_population_event.0411.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MENU 1.9.96.18 information table of contents page 2 opened" }
+	}
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0410.settlements
+		trigger_event = aawc_population_event.0470
+	}
+
+	option = {
+		name = aawc_population_event.0410.ai
+		trigger_event = aawc_population_event.0480
+	}
+
+	option = {
+		name = aawc_population_event.0411.previous
+		trigger_event = aawc_population_event.0410
+	}
+
+	option = {
+		name = aawc_population_event.0411.next
+		trigger_event = aawc_population_event.0411
+	}
+
+	option = {
+		name = aawc_population_event.0411.back
+		trigger_event = aawc_population_event.0400
+	}
+}
+
+aawc_population_event.0420 = {
+	type = character_event
+	title = aawc_population_event.0420.t
+	desc = aawc_population_event.0420.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MENU 1.9.96.18 population landing page opened" }
+	}
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0420.core
+		trigger_event = aawc_population_event.0421
+	}
+
+	option = {
+		name = aawc_population_event.0420.capacity
+		trigger_event = aawc_population_event.0422
+	}
+
+	option = {
+		name = aawc_population_event.back_to_toc
+		trigger_event = aawc_population_event.0410
+	}
+}
+
+aawc_population_event.0421 = {
+	type = character_event
+	title = aawc_population_event.0421.t
+	desc = aawc_population_event.0421.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_population
+		trigger_event = aawc_population_event.0420
+	}
+}
+
+aawc_population_event.0422 = {
+	type = character_event
+	title = aawc_population_event.0422.t
+	desc = aawc_population_event.0422.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_population
+		trigger_event = aawc_population_event.0420
+	}
+}
+
+aawc_population_event.0430 = {
+	type = character_event
+	title = aawc_population_event.0430.t
+	desc = aawc_population_event.0430.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0430.formula
+		trigger_event = aawc_population_event.0431
+	}
+
+	option = {
+		name = aawc_population_event.0430.modifiers
+		trigger_event = aawc_population_event.0432
+	}
+
+	option = {
+		name = aawc_population_event.back_to_toc
+		trigger_event = aawc_population_event.0410
+	}
+}
+
+aawc_population_event.0431 = {
+	type = character_event
+	title = aawc_population_event.0431.t
+	desc = aawc_population_event.0431.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_growth
+		trigger_event = aawc_population_event.0430
+	}
+}
+
+aawc_population_event.0432 = {
+	type = character_event
+	title = aawc_population_event.0432.t
+	desc = aawc_population_event.0432.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_growth
+		trigger_event = aawc_population_event.0430
+	}
+}
+
+aawc_population_event.0440 = {
+	type = character_event
+	title = aawc_population_event.0440.t
+	desc = aawc_population_event.0440.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0440.county
+		trigger_event = aawc_population_event.0441
+	}
+
+	option = {
+		name = aawc_population_event.0440.holding
+		trigger_event = aawc_population_event.0442
+	}
+
+	option = {
+		name = aawc_population_event.0440.eligibility
+		trigger_event = aawc_population_event.0443
+	}
+
+	option = {
+		name = aawc_population_event.back_to_toc
+		trigger_event = aawc_population_event.0410
+	}
+}
+
+aawc_population_event.0441 = {
+	type = character_event
+	title = aawc_population_event.0441.t
+	desc = aawc_population_event.0441.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_migration
+		trigger_event = aawc_population_event.0440
+	}
+}
+
+aawc_population_event.0442 = {
+	type = character_event
+	title = aawc_population_event.0442.t
+	desc = aawc_population_event.0442.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_migration
+		trigger_event = aawc_population_event.0440
+	}
+}
+
+aawc_population_event.0443 = {
+	type = character_event
+	title = aawc_population_event.0443.t
+	desc = aawc_population_event.0443.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_migration
+		trigger_event = aawc_population_event.0440
+	}
+}
+
+aawc_population_event.0450 = {
+	type = character_event
+	title = aawc_population_event.0450.t
+	desc = aawc_population_event.0450.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0450.maa
+		trigger_event = aawc_population_event.0451
+	}
+
+	option = {
+		name = aawc_population_event.0450.contribution
+		trigger_event = aawc_population_event.0452
+	}
+
+	option = {
+		name = aawc_population_event.back_to_toc
+		trigger_event = aawc_population_event.0410
+	}
+}
+
+aawc_population_event.0451 = {
+	type = character_event
+	title = aawc_population_event.0451.t
+	desc = aawc_population_event.0451.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_military
+		trigger_event = aawc_population_event.0450
+	}
+}
+
+aawc_population_event.0452 = {
+	type = character_event
+	title = aawc_population_event.0452.t
+	desc = aawc_population_event.0452.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_military
+		trigger_event = aawc_population_event.0450
+	}
+}
+
+aawc_population_event.0460 = {
+	type = character_event
+	title = aawc_population_event.0460.t
+	desc = aawc_population_event.0460.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0460.reclaim
+		trigger_event = aawc_population_event.0461
+	}
+
+	option = {
+		name = aawc_population_event.0460.costs
+		trigger_event = aawc_population_event.0462
+	}
+
+	option = {
+		name = aawc_population_event.back_to_toc
+		trigger_event = aawc_population_event.0410
+	}
+}
+
+aawc_population_event.0461 = {
+	type = character_event
+	title = aawc_population_event.0461.t
+	desc = aawc_population_event.0461.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_reclamation
+		trigger_event = aawc_population_event.0460
+	}
+}
+
+aawc_population_event.0462 = {
+	type = character_event
+	title = aawc_population_event.0462.t
+	desc = aawc_population_event.0462.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_reclamation
+		trigger_event = aawc_population_event.0460
+	}
+}
+
+aawc_population_event.0470 = {
+	type = character_event
+	title = aawc_population_event.0470.t
+	desc = aawc_population_event.0470.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0470.establish
+		trigger_event = aawc_population_event.0471
+	}
+
+	option = {
+		name = aawc_population_event.0470.convert
+		trigger_event = aawc_population_event.0472
+	}
+
+	option = {
+		name = aawc_population_event.back_to_toc_2
+		trigger_event = aawc_population_event.0411
+	}
+}
+
+aawc_population_event.0471 = {
+	type = character_event
+	title = aawc_population_event.0471.t
+	desc = aawc_population_event.0471.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_settlements
+		trigger_event = aawc_population_event.0470
+	}
+}
+
+aawc_population_event.0472 = {
+	type = character_event
+	title = aawc_population_event.0472.t
+	desc = aawc_population_event.0472.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_settlements
+		trigger_event = aawc_population_event.0470
+	}
+}
+
+aawc_population_event.0480 = {
+	type = character_event
+	title = aawc_population_event.0480.t
+	desc = aawc_population_event.0480.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0480.postures
+		trigger_event = aawc_population_event.0481
+	}
+
+	option = {
+		name = aawc_population_event.back_to_toc_2
+		trigger_event = aawc_population_event.0411
+	}
+}
+
+aawc_population_event.0481 = {
+	type = character_event
+	title = aawc_population_event.0481.t
+	desc = aawc_population_event.0481.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_ai
+		trigger_event = aawc_population_event.0480
+	}
+}
+
+aawc_population_event.0200 = {
+	type = character_event
+	title = aawc_population_event.0200.t
+	desc = aawc_population_event.0200.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = army_camp }
+
+	immediate = {
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.71 feudalize choice event opened" }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+	}
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0200.castle
+		scope:aawc_feudalize_settlement_province = {
+			if = {
+				limit = {
+					OR = {
+						has_holding_type = settlement_holding
+						has_holding_type = tribal_holding
+					}
+				}
+				if = { limit = { has_holding_type = settlement_holding } set_variable = { name = aawc_population_preconversion_settlement value = 1 } }
+				if = { limit = { has_holding_type = tribal_holding } set_variable = { name = aawc_population_preconversion_tribal value = 1 } }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.94 converting selected holding to castle_holding without adding buildings" }
+				set_holding_type = castle_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		if = {
+			limit = {
+				scope:aawc_feudalize_settlement_province = { has_variable = aawc_population_preconversion_settlement }
+				has_variable = num_settled_wilderness
+				var:num_settled_wilderness > 0
+			}
+			decrease_variable = {
+				NAME = num_settled_wilderness
+				AMOUNT = 1
+			}
+			remove_wilderness_tracker_variable = yes
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 decremented num_settled_wilderness after castle choice" }
+		}
+		aawc_population_resync_settlement_tracker_effect = yes
+		aawc_population_recalculate_character_effect = yes
+	}
+
+	option = {
+		name = aawc_population_event.0200.temple
+		scope:aawc_feudalize_settlement_province = {
+			if = {
+				limit = {
+					OR = {
+						has_holding_type = settlement_holding
+						has_holding_type = tribal_holding
+					}
+				}
+				if = { limit = { has_holding_type = settlement_holding } set_variable = { name = aawc_population_preconversion_settlement value = 1 } }
+				if = { limit = { has_holding_type = tribal_holding } set_variable = { name = aawc_population_preconversion_tribal value = 1 } }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.94 converting selected holding to church_holding without adding buildings" }
+				set_holding_type = church_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		if = {
+			limit = {
+				scope:aawc_feudalize_settlement_province = { has_variable = aawc_population_preconversion_settlement }
+				has_variable = num_settled_wilderness
+				var:num_settled_wilderness > 0
+			}
+			decrease_variable = {
+				NAME = num_settled_wilderness
+				AMOUNT = 1
+			}
+			remove_wilderness_tracker_variable = yes
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 decremented num_settled_wilderness after temple choice" }
+		}
+		aawc_population_resync_settlement_tracker_effect = yes
+		aawc_population_recalculate_character_effect = yes
+	}
+
+	option = {
+		name = aawc_population_event.0200.city
+		scope:aawc_feudalize_settlement_province = {
+			if = {
+				limit = {
+					OR = {
+						has_holding_type = settlement_holding
+						has_holding_type = tribal_holding
+					}
+				}
+				if = { limit = { has_holding_type = settlement_holding } set_variable = { name = aawc_population_preconversion_settlement value = 1 } }
+				if = { limit = { has_holding_type = tribal_holding } set_variable = { name = aawc_population_preconversion_tribal value = 1 } }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.94 converting selected holding to city_holding without adding buildings" }
+				set_holding_type = city_holding
+				aawc_population_refresh_holding_dynamic_effect = yes
+				aawc_population_cap_tribal_to_feudal_conversion_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+			}
+		}
+		if = {
+			limit = {
+				scope:aawc_feudalize_settlement_province = { has_variable = aawc_population_preconversion_settlement }
+				has_variable = num_settled_wilderness
+				var:num_settled_wilderness > 0
+			}
+			decrease_variable = {
+				NAME = num_settled_wilderness
+				AMOUNT = 1
+			}
+			remove_wilderness_tracker_variable = yes
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC OWNED SETTLEMENT 1.9.76 decremented num_settled_wilderness after city choice" }
+		}
+		aawc_population_resync_settlement_tracker_effect = yes
+		aawc_population_recalculate_character_effect = yes
+	}
+}
+
+
+

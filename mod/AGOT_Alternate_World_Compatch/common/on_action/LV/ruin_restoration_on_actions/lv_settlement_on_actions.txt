@@ -1,0 +1,379 @@
+﻿# Legacy of Valyria Settlement on actions
+
+# COMMENT OUT FOR NOW, CAUSES BUGS
+#on_title_gain = { on_actions = { lv_settlement_failsafe } }
+
+# If somehow someone gains a ruin title, execute the change to a colony holding
+lv_settlement_failsafe = {
+	trigger = {
+		NOT = { has_game_rule = lv_colonisation_agot }
+		agot_is_dummy_character = no
+		scope:title = {
+			tier = tier_county
+			title_province = {
+				OR = {
+					has_holding_type = ruin_holding
+					has_holding_type = unknown_holding
+					has_holding_type = wilderness_holding
+				}
+			}
+		}
+	}
+	effect = {
+		scope:title = {
+			if = {
+				limit = { has_game_rule = lv_colonisation_instant }
+				error_log = "AAWC SETTLEMENT 1.9.91 blocked lv_settlement_failsafe instant auto-completion; using settlement establishment path instead"
+				title_province = { save_temporary_scope_as = ruin }
+				lv_settlement_establish_effect = {
+					ACTOR = root
+					PROVINCE = scope:ruin
+				}
+				set_county_faith = holder.faith
+				if = {
+					limit = { culture = culture:unknown_culture }
+					if = {
+						limit = {
+							holder.culture = culture:high_valyrian
+							has_game_rule = agot_hv_conversion_offshoots
+							title_province = { geographical_region = world_westeros }
+						}
+						set_county_culture = culture:westerosi_valyrian
+					}
+					else_if = {
+						limit = {
+							holder.culture = culture:high_valyrian
+							has_game_rule = agot_hv_conversion_offshoots
+							NOT = { title_province = { geographical_region = world_westeros } }
+						}
+						set_county_culture = culture:essosi_valyrian
+					}
+					else = { set_county_culture = holder.culture }
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						title_province = {
+							OR = {
+								has_holding_type = ruin_holding
+								has_holding_type = wilderness_holding
+							}
+							save_temporary_scope_as = ruin
+						}
+					}
+					lv_settlement_establish_effect = {
+						ACTOR = root
+						PROVINCE = scope:ruin
+					}
+				}
+			}
+		}
+	}
+}
+
+# Why tf doesn't `start_travel_plan` trigger these smh my head now I've gotta trigger them here
+on_travel_plan_arrival = { on_actions = { lv_settlement_on_arrival } }
+
+# On actions associated with the travel plan
+lv_settlement_on_start = {
+	trigger = {
+		has_variable = lv_settlement_expedition_liege
+		has_variable = lv_settlement_expedition_destination
+	}
+	effect = {
+		error_log = "AAWC LV SETTLEMENT on_start reached"
+		var:lv_settlement_expedition_liege = { save_scope_as = liege }
+		var:lv_settlement_expedition_destination = { save_scope_as = ruin }
+		if = { limit = { exists = var:lv_settlement_cost } error_log = "AAWC LV SETTLEMENT on_start found lv_settlement_cost variable" }
+		else = { error_log = "AAWC LV SETTLEMENT on_start missing lv_settlement_cost variable" }
+		if = { limit = { exists = var:aawc_population_settlement_cost } error_log = "AAWC LV SETTLEMENT on_start found aawc_population_settlement_cost variable" }
+		else = { error_log = "AAWC LV SETTLEMENT on_start missing aawc_population_settlement_cost variable" }
+		if = { 
+			limit = {
+				exists = scope:liege
+				exists = scope:ruin
+			}
+			error_log = "AAWC LV SETTLEMENT on_start liege+ruin scopes resolved"
+			# Register only after the travel plan has actually started. Registering
+			# while the player is still in the route planner lets the daily story
+			# cleanup see a non-travelling settler and purge the first expedition.
+			scope:liege = {
+				if = {
+					limit = { owns_story_of_type = lv_settlement_story_cycle }
+					random_owned_story = {
+						limit = { story_type = lv_settlement_story_cycle }
+						add_to_variable_list = {
+							name = lv_settlement_expeditions
+							target = scope:ruin
+						}
+					}
+				}
+				else = {
+					create_story = lv_settlement_story_cycle
+					random_owned_story = {
+						limit = { story_type = lv_settlement_story_cycle }
+						add_to_variable_list = {
+							name = lv_settlement_expeditions
+							target = scope:ruin
+						}
+					}
+				}
+			}
+			error_log = "AAWC LV SETTLEMENT on_start registered expedition story target after travel began"
+			if = {
+				limit = { exists = var:lv_settlement_cost }
+				scope:liege = { remove_short_term_gold = scope:settler.var:lv_settlement_cost }
+				error_log = "AAWC LV SETTLEMENT on_start removed expedition gold from liege"
+				remove_variable = lv_settlement_cost
+			}
+			if = {
+				limit = { exists = var:aawc_population_settlement_cost }
+				scope:liege = {
+					aawc_population_add_reserved_amount_effect = {
+						COST = scope:settler.var:aawc_population_settlement_cost
+					}
+				}
+				error_log = "AAWC LV SETTLEMENT on_start reserved population for expedition"
+			}
+			if = {
+				limit = { NOT = { scope:liege ?= scope:settler } }
+				error_log = "AAWC LV SETTLEMENT on_start sending departure toast to liege"
+				scope:liege = { trigger_event = lv_settlement_event.0010 }
+			}
+			error_log = "AAWC LV SETTLEMENT on_start sending departure toast to settler"
+			trigger_event = lv_settlement_event.0010
+		}
+		else = {
+			error_log = "AAWC LV SETTLEMENT on_start missing liege or ruin scope, aborting travel plan"
+			current_travel_plan = { abort_travel_plan = yes }
+		}
+	}
+}
+
+lv_settlement_on_arrival = {
+	trigger = {
+		has_variable = lv_settlement_expedition_liege
+		has_variable = lv_settlement_expedition_destination
+	}
+	effect = {
+		error_log = "AAWC LV SETTLEMENT on_arrival reached"
+		var:lv_settlement_expedition_liege = { save_scope_as = liege }
+		var:lv_settlement_expedition_destination = { save_scope_as = ruin }
+		if = {
+			limit = {
+				exists = scope:ruin
+				exists = scope:liege
+			}
+			if = {
+				limit = {
+					scope:liege ?= {
+						any_owned_story = {
+							story_type = lv_settlement_story_cycle
+							is_target_in_variable_list = {
+								name = lv_settlement_expeditions
+								target = scope:ruin
+							}
+						}
+					}
+				}
+				error_log = "AAWC LV SETTLEMENT on_arrival story target confirmed"
+			}
+			else = {
+				error_log = "AAWC LV SETTLEMENT on_arrival story target missing, continuing guarded establish fallback"
+			}
+			scope:ruin = {
+				if = { limit = { province_owner = title:c_ruins.holder } error_log = "AAWC LV SETTLEMENT on_arrival ruin owner is c_ruins dummy" }
+				if = { limit = { province_owner = title:c_wilderness.holder } error_log = "AAWC LV SETTLEMENT on_arrival ruin owner is c_wilderness dummy" }
+				if = { limit = { has_holding_type = ruin_holding } error_log = "AAWC LV SETTLEMENT on_arrival ruin holding_type=ruin_holding" }
+				if = { limit = { has_holding_type = wilderness_holding } error_log = "AAWC LV SETTLEMENT on_arrival ruin holding_type=wilderness_holding" }
+				if = { limit = { has_holding_type = unknown_holding } error_log = "AAWC LV SETTLEMENT on_arrival ruin holding_type=unknown_holding" }
+				if = { limit = { has_holding_type = settlement_holding } error_log = "AAWC LV SETTLEMENT on_arrival ruin holding_type=settlement_holding" }
+			}
+			if = {
+				limit = { location = scope:ruin }
+				error_log = "AAWC LV SETTLEMENT on_arrival settler location matches destination"
+				if = {
+					limit = {
+						scope:ruin = {
+							province_owner = { agot_is_dummy_character = yes }
+							OR = {
+								has_holding_type = ruin_holding
+								has_holding_type = wilderness_holding
+								has_holding_type = unknown_holding
+							}
+						}
+					}
+					error_log = "AAWC LV SETTLEMENT on_arrival using LoV establish flow"
+					scope:ruin.county = {
+						if = { limit = { has_county_modifier = aawc_rh_candidate_marker } error_log = "AAWC LV SETTLEMENT on_arrival target county has RH marker before establish" }
+						if = { limit = { has_county_modifier = aawc_wh_candidate_marker } error_log = "AAWC LV SETTLEMENT on_arrival target county has WH marker before establish" }
+						if = { limit = { aawc_native_lov_rh_county = yes } error_log = "AAWC LV SETTLEMENT on_arrival target county is native LoV RH before establish" }
+					}
+					save_scope_as = settler
+					lv_settlement_establish_effect = {
+						ACTOR = root
+						PROVINCE = scope:ruin
+					}
+					error_log = "AAWC LV SETTLEMENT on_arrival returned from lv_settlement_establish_effect"
+					if = { limit = { scope:ruin.county = { holder ?= root } } error_log = "AAWC LV SETTLEMENT on_arrival county holder is settler immediately after establish" }
+					if = { limit = { scope:ruin.county = { holder ?= scope:liege } } error_log = "AAWC LV SETTLEMENT on_arrival county holder is liege immediately after establish" }
+					if = { limit = { scope:ruin.county = { holder = { agot_is_dummy_character = yes } } } error_log = "AAWC LV SETTLEMENT on_arrival county still dummy-held immediately after establish" }
+					if = {
+						limit = {
+							scope:ruin.county = {
+								holder = { agot_is_dummy_character = yes }
+							}
+						}
+						error_log = "AAWC LV SETTLEMENT on_arrival fallback AGOT-style county handoff triggered"
+						get_title = scope:ruin.county
+						if = { limit = { scope:ruin.county = { holder ?= root } } error_log = "AAWC LV SETTLEMENT on_arrival county holder is settler immediately after fallback get_title" }
+						if = { limit = { scope:ruin.county = { holder ?= scope:liege } } error_log = "AAWC LV SETTLEMENT on_arrival county holder is liege immediately after fallback get_title" }
+					}
+					if = {
+						limit = { scope:ruin.county = { holder = { agot_is_dummy_character = yes } } }
+						error_log = "AAWC LV SETTLEMENT on_arrival WARNING county still dummy-held after establish path"
+						if = {
+							limit = { exists = var:aawc_population_settlement_cost }
+							scope:liege = {
+								aawc_population_release_reserved_amount_effect = {
+									COST = scope:settler.var:aawc_population_settlement_cost
+								}
+							}
+							error_log = "AAWC LV SETTLEMENT on_arrival released reserved population due to failed handoff"
+						}
+					}
+					else = {
+						error_log = "AAWC LV SETTLEMENT on_arrival county no longer dummy-held after establish path"
+						if = { limit = { scope:ruin.county = { holder ?= root } } error_log = "AAWC LV SETTLEMENT on_arrival final owner is settler before toast dispatch" }
+						if = { limit = { scope:ruin.county = { holder ?= scope:liege } } error_log = "AAWC LV SETTLEMENT on_arrival final owner is liege before toast dispatch" }
+						if = {
+							limit = { exists = var:aawc_population_settlement_cost }
+							scope:liege = {
+								aawc_population_consume_reserved_amount_effect = {
+									COST = scope:settler.var:aawc_population_settlement_cost
+								}
+								aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = 100 }
+							}
+							scope:ruin = {
+								aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = scope:liege.var:aawc_population_last_settlement_credit }
+								county = { aawc_population_recalculate_county_effect = yes }
+							}
+							scope:liege = { remove_variable = aawc_population_pending_settlement_credit }
+							error_log = "AAWC LV SETTLEMENT on_arrival consumed reserved population after successful handoff"
+						}
+					}
+					scope:liege = { trigger_event = lv_settlement_event.0011 }
+				}
+				else = { # Supposed ruin is somehow occupied already
+					error_log = "AAWC LV SETTLEMENT on_arrival blocked because destination is no longer dummy-held ruin/wilderness/unknown"
+					if = {
+						limit = { exists = var:aawc_population_settlement_cost }
+						scope:liege = {
+							aawc_population_release_reserved_amount_effect = {
+								COST = scope:settler.var:aawc_population_settlement_cost
+							}
+						}
+						error_log = "AAWC LV SETTLEMENT on_arrival released reserved population because destination was no longer claimable"
+					}
+				}
+			}
+			else = {
+				error_log = "AAWC LV SETTLEMENT on_arrival location mismatch, canceling travel plan"
+				if = {
+					limit = { exists = var:aawc_population_settlement_cost }
+					scope:liege = {
+						aawc_population_release_reserved_amount_effect = {
+							COST = scope:settler.var:aawc_population_settlement_cost
+						}
+					}
+					error_log = "AAWC LV SETTLEMENT on_arrival released reserved population because settler never arrived"
+				}
+			}
+		}
+		else = {
+			error_log = "AAWC LV SETTLEMENT on_arrival missing liege or ruin scope, canceling travel plan"
+			current_travel_plan = { cancel_travel_plan = yes }
+			if = {
+				limit = {
+					exists = var:aawc_population_settlement_cost
+					exists = scope:liege
+				}
+				scope:liege = {
+					aawc_population_release_reserved_amount_effect = {
+						COST = scope:settler.var:aawc_population_settlement_cost
+					}
+				}
+				error_log = "AAWC LV SETTLEMENT on_arrival released reserved population because scopes were invalid"
+			}
+		}
+
+		remove_variable = lv_settlement_expedition_liege
+		remove_variable = lv_settlement_expedition_destination
+		remove_variable = lv_settlement_cost
+		remove_variable = aawc_population_settlement_cost
+		remove_variable = lv_settlement_state
+		error_log = "AAWC LV SETTLEMENT on_arrival cleaned settler expedition variables"
+		if = {
+			limit = { exists = scope:liege }
+			scope:liege = {
+				remove_variable = lv_settlement_state
+				remove_variable = lv_restore_ruins_tooltip
+				random_owned_story = {
+					limit = { story_type = lv_settlement_story_cycle }
+					remove_list_variable = {
+						name = lv_settlement_expeditions
+						target = scope:ruin
+					}
+				}
+			}
+			error_log = "AAWC LV SETTLEMENT on_arrival cleaned liege expedition state and story target list"
+		}
+	}
+}
+
+# Why doesn't this work smh my head
+lv_settlement_on_cancel = {
+	trigger = {
+		has_variable = lv_settlement_expedition_liege
+		has_variable = lv_settlement_expedition_destination
+	}
+	effect = {
+		error_log = "AAWC LV SETTLEMENT on_cancel reached"
+		var:lv_settlement_expedition_liege = { save_scope_as = liege }
+		var:lv_settlement_expedition_destination = { save_scope_as = ruin }
+		if = {
+			limit = { exists = scope:liege }
+			if = {
+				limit = { exists = var:aawc_population_settlement_cost }
+				scope:liege = {
+					aawc_population_release_reserved_amount_effect = {
+						COST = scope:settler.var:aawc_population_settlement_cost
+					}
+				}
+				error_log = "AAWC LV SETTLEMENT on_cancel released reserved population"
+			}
+			scope:liege = {
+				remove_variable = lv_settlement_state
+				remove_variable = lv_restore_ruins_tooltip
+				remove_variable = lv_settlement_expedition_liege
+				remove_variable = lv_settlement_expedition_destination
+				if = {
+					limit = { exists = scope:ruin }
+					random_owned_story = {
+						limit = { story_type = lv_settlement_story_cycle }
+						remove_list_variable = {
+							name = lv_settlement_expeditions
+							target = scope:ruin
+						}
+					}
+				}
+			}
+		}
+		remove_variable = lv_settlement_state
+		remove_variable = lv_settlement_expedition_liege
+		remove_variable = lv_settlement_expedition_destination
+		remove_variable = lv_settlement_cost
+		remove_variable = aawc_population_settlement_cost
+	}
+}

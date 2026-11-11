@@ -1,0 +1,167 @@
+﻿d_kcafg_map_color_amount_none = {
+	color = { 6 6 6 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_012 = {
+	color = { 12 6 190 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_025 = {
+	color = { 28 27 181 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_037 = {
+	color = { 39 50 170 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_050 = {
+	color = { 50 71 173 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_062 = {
+	color = { 62 79 169 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_075 = {
+	color = { 74 86 165 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_087 = {
+	color = { 86 93 160 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_100 = {
+	color = { 100 100 155 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_112 = {
+	color = { 112 106 150 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_125 = {
+	color = { 125 112 145 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_137 = {
+	color = { 137 115 137 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_150 = {
+	color = { 150 119 130 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_162 = {
+	color = { 162 123 123 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_175 = {
+	color = { 175 127 115 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_187 = {
+	color = { 187 131 106 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_200 = {
+	color = { 200 135 97 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_212 = {
+	color = { 212 138 83 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_225 = {
+	color = { 225 142 68 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_237 = {
+	color = { 237 146 34 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}
+
+d_kcafg_map_color_amount_250 = {
+	color = { 249 150 6 }
+	capital = c_kings_landing
+	can_create = { always = no }
+	landless = yes
+	no_automatic_claims = yes
+}

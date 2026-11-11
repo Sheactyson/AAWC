@@ -1,0 +1,392 @@
+﻿# Scope : province
+# councillor
+# councillor_liege
+T_kCAFG_task_conversion_can_convert_province = {
+    county = { is_landless_type_title = no }
+    custom_tooltip = {
+        text = kCAFG_task_conversion_no_faith_to_convert
+        any_in_list = {
+            variable = kCAFG_province_faiths
+            scope:councillor_liege.faith != this
+            NOT = {
+                # text = hold_court_8120_conversion_tt
+                scope:councillor_liege = {
+                    is_alive = yes
+                    has_variable = hold_court_8120_religion_block
+                    var:hold_court_8120_religion_block = prev
+                }
+            }
+        }
+    }
+    custom_description = {
+        text = "is_protected_via_contract_self_or_liege"
+        subject = county.holder
+        NAND = { # Vassal Contract forbids meddling by liege
+            exists = county.holder.liege
+            county.holder = {
+                OR = {
+                    AND = {
+                        liege = scope:councillor_liege
+                        is_ruler = yes
+                        is_independent_ruler = no
+                        vassal_contract_has_flag = religiously_protected
+                    }
+                    any_liege_or_above = {
+                        exists = liege
+                        liege = scope:councillor_liege
+                        is_ruler = yes
+                        is_independent_ruler = no
+                        vassal_contract_has_flag = religiously_protected
+                    }
+                }
+            }
+        }
+    }
+    county = {
+        trigger_if = {
+            limit = {	
+                AND = {
+                    has_variable = cannot_be_converted_by_value
+                    var:cannot_be_converted_by_value = scope:councillor_liege		
+                }
+            }
+            custom_tooltip = {
+                text = promised_to_not_convert_county	
+                NOR = {
+                    has_variable = cannot_be_converted_by_value
+                    var:cannot_be_converted_by_value = scope:councillor_liege	
+                }
+            }
+        }
+    }
+
+    T_kCAFG_task_conversion_can_convert_province_VANILLA_B = yes
+
+    
+
+    # AI ONLY
+    trigger_if = {
+        limit = { scope:councillor_liege = { is_ai = yes } }
+
+        trigger_if = {
+            limit = {
+                scope:councillor_liege = {
+                    has_character_flag = vassal_directive_convert_faith
+					vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+				}
+            }
+            T_kCAFG_task_conversion_ai_would_suggest = yes
+        }
+        trigger_else = {
+            T_kCAFG_task_conversion_ai_wants_to_convert_province = yes
+        }
+    }
+}
+
+T_kCAFG_task_conversion_can_convert_province_VANILLA_B = {
+    save_temporary_scope_as = T_kCAFG_province
+    # Struggle phases may sometimes restrict targets for involved characters.
+    trigger_if = {
+        # Give an exception for pre-existing conversions: these can take a while and it's not fair to lose years or decades of progress to a phase change.
+        limit = {
+            NOT = {
+                county = { is_target_of_council_task = task_conversion }
+            }
+        }
+        NOT = {
+            scope:councillor_liege = {
+                custom_tooltip = {
+                    text = task_conversion.tt.forbidden.due_to_struggle_phase
+                    any_character_struggle = {
+                        involvement = involved
+                        is_struggle_parameter_active_secondary_county_trigger = {
+                            PARAMETER = county_conversion_disabled_for_involved_faiths_within_region
+                            COUNTY = scope:T_kCAFG_province.county
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+# Scope : province
+# councillor : character
+# councillor_liege : character
+# Would councillor suggest converting this province to liege
+T_kCAFG_task_conversion_ai_would_suggest = {
+    # Tension is problematic
+    AND = {
+        has_variable = kCAFG_target_faith_tension
+        var:kCAFG_target_faith_tension > V_kCAFG_AI_suggestion_task_conversion_tension_threshold
+    }
+    # Not too slowed down
+    OR = {
+        AND = {
+            scope:councillor_liege.faith = { save_temporary_scope_as = kCAFG_converting_faith }
+            V_kCAFG_court_chaplain_conversion_small_minorities_mult >= V_kCAFG_AI_suggestion_task_conversion_minorities_speed_factor_threshold
+        }
+        V_kCAFG_court_chaplain_conversion_bonuses_game_rules_excluded_months_to_finish < V_kCAFG_AI_suggestion_task_conversion_duration_threshold_months
+    }
+}
+
+T_kCAFG_task_conversion_ai_wants_to_convert_province_already_established = {
+    custom_tooltip = {
+		text = kCAFG_task_conversion_ai_condition_established_enough
+        NOT = {
+            # If our faith is well established in this province
+            any_in_list = {
+                variable = kCAFG_province_faith_structs
+                scope:councillor_liege.faith = var:faith
+                var:factor > 0.5
+                # If there is no non-very small minority left
+                V_kCAFG_struct_inverted_factor < scope:councillor_liege.V_kCAFG_ai_stop_task_faith_conversion_threshold
+            }
+        }
+    }
+}
+
+# Scope : province
+# councillor_liege : character
+T_kCAFG_task_conversion_ai_wants_to_convert_province = {
+    T_kCAFG_task_conversion_ai_wants_to_convert_province_already_established = yes
+    # Unreformed Pagans do not tend to even try conversion of non-unreformed faiths unless zealous
+    trigger_if = {
+        limit = {
+            scope:councillor_liege = {
+                faith = {
+                    has_doctrine_parameter = unreformed
+                }
+            }
+        }
+        custom_tooltip = {
+            text = kCAFG_task_conversion_ai_condition_unreformed
+            OR = {
+                scope:councillor_liege = {
+                    has_character_flag = vassal_directive_convert_faith
+                    vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+                }
+                scope:councillor_liege = { ai_zeal >= 50 }
+                any_in_list = {
+                    variable = kCAFG_province_faiths
+                    scope:councillor_liege.faith != this
+                    has_doctrine_parameter = unreformed
+                }
+                # Always convert holy sites
+                barony = {
+                    is_holy_site_of = scope:councillor_liege.faith
+                }
+            }
+        }
+    }
+    
+    # Do not convert Righteous faiths, unless disturbingly zealous
+    trigger_if = {
+        limit = {
+            NOT = {
+                any_in_list = {
+                    variable = kCAFG_province_faiths
+                    scope:councillor_liege.faith != this
+                    scope:councillor_liege.faith = {
+                        faith_hostility_level = {
+                            target = prev
+                            value > faith_fully_accepted_level
+                        }
+                    }
+                }
+            }
+        }
+        
+        custom_tooltip = {
+            text = kCAFG_task_conversion_ai_condition_only_righteous_faiths
+            OR = {
+                scope:councillor_liege = {
+                    has_character_flag = vassal_directive_convert_faith
+                    vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+                }
+                scope:councillor_liege = {
+                    ai_zeal >= 100
+                    ai_rationality <= -50
+                }
+                # Always convert holy sites
+                barony = { is_holy_site_of = scope:councillor_liege.faith }
+            }
+        }
+    }
+    # Converting Astray faiths only happens during certain circumstances
+    trigger_if = {
+        limit = {
+            NOT = {
+                any_in_list = {
+                    variable = kCAFG_province_faiths
+                    scope:councillor_liege.faith != this
+                    scope:councillor_liege.faith = {
+                        faith_hostility_level = {
+                            target = prev
+                            value > faith_astray_level
+                        }
+                    }
+                }
+            }
+        }
+        trigger_if = {
+            limit = {
+                scope:councillor_liege = {
+                    has_tolerant_faith_or_culture_trigger = yes
+                }
+            }
+            
+            custom_tooltip = {
+                text = kCAFG_task_conversion_ai_condition_only_astray_faiths_tolerant
+                OR = {
+                    scope:councillor_liege = {
+						has_character_flag = vassal_directive_convert_faith
+						vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+					}
+                    scope:councillor_liege = { ai_zeal >= 100 }
+                    var:kCAFG_faith_tension > 0.5
+                    # Always convert holy sites
+                    barony = { is_holy_site_of = scope:councillor_liege.faith }
+                }
+            }
+        }
+        trigger_else_if = {
+            limit = {
+                scope:councillor_liege = {
+                    faith = { has_doctrine = doctrine_pluralism_fundamentalist }
+                }
+            }
+            custom_tooltip = {
+                text = kCAFG_task_conversion_ai_condition_only_astray_faiths_fundamentalist
+                OR = {
+                    scope:councillor_liege = {
+						has_character_flag = vassal_directive_convert_faith
+						vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+					}
+                    scope:councillor_liege = { ai_zeal >= 0 }
+                    var:kCAFG_faith_tension > 0.5
+                    # Always convert holy sites
+                    barony = { is_holy_site_of = scope:councillor_liege.faith }
+                }
+            }
+        }
+        trigger_else = {
+            custom_tooltip = {
+                text = kCAFG_task_conversion_ai_condition_only_astray_faiths
+                OR = {
+                    scope:councillor_liege = {
+						has_character_flag = vassal_directive_convert_faith
+						vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+					}
+                    scope:councillor_liege = { ai_zeal >= 25 }
+                    var:kCAFG_faith_tension > 0.5
+                    # Always convert holy sites
+                    barony = { is_holy_site_of = scope:councillor_liege.faith }
+                }
+            }
+        }
+    }
+    T_kCAFG_task_conversion_ai_wants_to_convert_province_VANILLA = yes
+}
+
+T_kCAFG_task_conversion_ai_wants_to_convert_province_VANILLA = {
+    # Ash'ari in Spain tend to not convert Muwhalladi often
+    trigger_if = {
+        limit = {
+            scope:councillor_liege = {
+                faith = faith:ashari
+                capital_province ?= { geographical_region = world_europe_west_iberia }
+                NOT = {
+                    any_in_list = {
+                        variable = kCAFG_province_faiths
+                        scope:councillor_liege.faith != this
+                        faith:muwalladi != this
+                    }
+                }
+            }
+            county = {
+                title_province = { geographical_region = world_europe_west_iberia }
+            }
+        }
+        
+        custom_tooltip = {
+            text = kCAFG_task_conversion_ai_condition_ashari_muwalladi_spain
+            OR = {
+                scope:councillor_liege = {
+                    has_character_flag = vassal_directive_convert_faith
+                    vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+                }
+                scope:councillor_liege = { ai_zeal >= 50 }
+                var:kCAFG_faith_tension > 0.8
+                # Always convert holy sites
+                barony = { is_holy_site_of = scope:councillor_liege.faith }
+            }
+        }
+    }
+    # If a ruler has Jizya tax, they'll only convert the same *religious family* when ai_zeal is really high, they're converting unreformed pagans, counties in a kingdom with a Holy Site, or others of the same religion
+    trigger_if = {
+        limit = {
+            scope:councillor_liege.faith = {
+                OR = {
+                    has_doctrine = tenet_tax_nonbelievers
+                    has_doctrine = special_doctrine_jizya
+                }
+            }
+            OR = {
+                AND = {
+                    scope:councillor_liege.religion = { is_in_family = rf_pagan }
+                    any_in_list = {
+                        variable = kCAFG_province_faith_structs
+                        scope:councillor_liege.faith != var:faith
+                        var:faith = { religion = { is_in_family = rf_pagan } }
+                    }
+                }
+                AND = {
+                    scope:councillor_liege.religion = { is_in_family = rf_eastern }
+                    any_in_list = {
+                        variable = kCAFG_province_faith_structs
+                        scope:councillor_liege.faith != var:faith
+                        var:faith = { religion = { is_in_family = rf_eastern } }
+                    }
+                }
+                AND = {
+                    scope:councillor_liege.religion = { is_in_family = rf_abrahamic }
+                    any_in_list = {
+                        variable = kCAFG_province_faith_structs
+                        scope:councillor_liege.faith != var:faith
+                        var:faith = { religion = { is_in_family = rf_abrahamic } }
+                    }
+                }
+            }
+        }
+        custom_tooltip = {
+            text = kCAFG_task_conversion_ai_condition_jizya
+            OR = {
+                scope:councillor_liege = {
+                    has_character_flag = vassal_directive_convert_faith
+                    vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+                }
+                scope:councillor_liege = { ai_zeal >= 50 }
+                any_in_list = {
+                    variable = kCAFG_province_faiths
+                    scope:councillor_liege.faith != this
+                    has_doctrine_parameter = unreformed
+                }
+                scope:councillor_liege.faith = {
+                    any_holy_site = {
+                        county = {
+                            kingdom = scope:county.kingdom
+                        }
+                    }
+                }
+                #scope:county.religion = scope:councillor_liege.religion # Excluded, as tax nonbelievers actually works for different faiths within the same religion
+                AND = { # Islamic heartlands, to help fend off encroaching faiths
+                    scope:councillor_liege.religion = religion:islam_religion
+                    county.title_province = {
+                        geographical_region = islamic_heartlands
+                    }
+                }
+            }
+        }
+    }
+}

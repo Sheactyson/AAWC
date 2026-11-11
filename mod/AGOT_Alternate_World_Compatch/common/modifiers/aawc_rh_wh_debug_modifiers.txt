@@ -1,0 +1,15 @@
+﻿aawc_rh_candidate_marker = {
+	# Debug marker kept for AAWC setup logic; no player-facing modifier.
+}
+
+aawc_wh_candidate_marker = {
+	# Debug marker kept for AAWC setup logic; no player-facing modifier.
+}
+
+aawc_survivor_pocket_marker = {
+	# Debug marker kept for AAWC setup logic; no player-facing modifier.
+}
+
+aawc_stability_engine_health = {
+	health = 100
+}

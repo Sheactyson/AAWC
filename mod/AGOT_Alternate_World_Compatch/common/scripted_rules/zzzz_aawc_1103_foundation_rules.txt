@@ -1,0 +1,13 @@
+﻿# A newly-created Lost culture is normally too young to diverge. The one-time
+# foundation flag permits its founder to define the first successor culture.
+can_diverge_culture = {
+	OR = {
+		has_character_flag = aawc_1103_foundation_culture_pending
+		AND = {
+			culture = { culture_age >= culture_divergence_cooldown }
+			any_sub_realm_county = {
+				culture = root.culture
+			}
+		}
+	}
+}

@@ -1,0 +1,78 @@
+﻿on_game_start = {
+	on_actions = { aawc_alternate_world_game_start }
+}
+
+# AAWC-owned replacement for the useful More Game Rules alternate-world
+# startup boundary. Unrelated MGR systems are intentionally not dispatched.
+aawc_alternate_world_game_start = {
+	effect = {
+		if = {
+			# AAWC world modes historically ran through MGR's enabled,
+			# count-shattered, tribal-holdings setup. Treat every AAWC mode as
+			# that same effective prerequisite without adding or moving a
+			# dispatcher phase. Other retained MGR choices remain available
+			# only when no AAWC world-mode contract is present.
+			limit = {
+				OR = {
+					has_game_rule = aawc_alt_world_enabled
+					aawc_world_mode_requires_tribal_counties = yes
+				}
+			}
+
+			if = {
+				limit = { has_game_rule = aawc_aw_cultures_random_historical }
+				aawc_aw_random_culture_effect = yes
+			}
+			else_if = {
+				limit = { has_game_rule = aawc_aw_cultures_chaotic_historical }
+				aawc_aw_chaotic_culture_effect = yes
+			}
+
+			if = {
+				limit = { has_game_rule = aawc_aw_faiths_random_historical }
+				aawc_aw_random_faith_effect = yes
+			}
+			else_if = {
+				limit = { has_game_rule = aawc_aw_faiths_chaotic_historical }
+				aawc_aw_chaotic_faith_effect = yes
+			}
+
+			if = {
+				limit = { NOT = { has_game_rule = aawc_aw_dejure_default } }
+				aawc_aw_random_map_setup_effect = yes
+			}
+			if = {
+				limit = { NOT = { has_game_rule = aawc_aw_development_default } }
+				aawc_aw_development_effect = yes
+			}
+			if = {
+				limit = {
+					OR = {
+						NOT = { has_game_rule = aawc_aw_no_shattered_realms }
+						aawc_world_mode_requires_tribal_counties = yes
+					}
+				}
+				aawc_aw_shattered_realms_effect = yes
+			}
+			if = {
+				limit = { has_game_rule = aawc_aw_yes_random_rulers }
+				aawc_aw_randomize_rulers = yes
+			}
+			if = {
+				limit = {
+					OR = {
+						NOT = { has_game_rule = aawc_aw_default_holdings }
+						aawc_world_mode_requires_tribal_counties = yes
+					}
+				}
+				aawc_aw_holdings_effect = yes
+			}
+			if = {
+				limit = { NOT = { has_game_rule = aawc_aw_baronies_default } }
+				aawc_aw_barony_effect = yes
+			}
+		}
+
+		aawc_aw_clear_vars = yes
+	}
+}

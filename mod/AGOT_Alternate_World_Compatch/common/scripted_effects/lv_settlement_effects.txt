@@ -1,0 +1,415 @@
+﻿# Legacy of Valyria settlement scripted effects
+
+# Age of Silence has no established economy from which to clear a normal
+# settlement. Found the first tribal holding directly while retaining the
+# proven LoV county-title handoff.
+aawc_age_of_silence_found_tribal_holding_effect = {
+	error_log = "AAWC 1.10.4.6 Age of Silence direct tribal founding begin"
+	$PROVINCE$ = {
+		county = { save_scope_as = aawc_age_of_silence_county }
+
+		# WH blockers are useful during normal reclamation, but this founding
+		# route deliberately skips that entire settlement stage.
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = unexplored_caves_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = unexplored_caves_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = unexplored_caves_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = swamp_01_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = swamp_01_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = swamp_01_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = swamp_02_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = swamp_02_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = swamp_02_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = lv_floods_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = lv_floods_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = lv_floods_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = noxious_gases_01_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = noxious_gases_01_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = noxious_gases_01_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = noxious_gases_02_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = noxious_gases_02_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = noxious_gases_02_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = stonemen_encampment_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = stonemen_encampment_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = stonemen_encampment_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = bandit_camps_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = bandit_camps_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = bandit_camps_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = small_ruined_holding_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = small_ruined_holding_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = small_ruined_holding_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = medium_ruined_holding_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = medium_ruined_holding_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = medium_ruined_holding_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = large_ruined_holding_01 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = large_ruined_holding_02 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = large_ruined_holding_03 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = firewyrm_lair }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = ravenous_basilisk_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = ravenous_basilisk_2 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = ravenous_basilisk_tame }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = ghoulish_bat_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = ghoulish_bat_2 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = ghoulish_bat_tame }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = basilisk_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = basilisk_2 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_bat_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_bat_2 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_wyvern_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_wyvern_2 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_wyvern_alpha_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_wyvern_alpha_2 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_carn_plant_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_carn_plant_2 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_river_parasites_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_river_parasites_2 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_titanic_beast_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_titanic_beast_2 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_raptors_1 }
+		lv_remove_blocker_effect = { BLOCKER_BUILDING = cos_raptors_2 }
+
+		if = { limit = { has_building = settlement_01 } remove_building = settlement_01 }
+		if = { limit = { has_building = settlement_02 } remove_building = settlement_02 }
+		if = { limit = { has_building = settlement_03 } remove_building = settlement_03 }
+		set_holding_type = tribal_holding
+		if = { limit = { NOT = { has_building_or_higher = tribe_01 } } add_building = tribe_01 }
+		aawc_reforging_diag_caller_effect = { CALLER = 3 }
+			aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = 100 }
+		set_variable = { name = aawc_population_last_transaction_class value = 8 }
+		set_variable = { name = aawc_population_total value = 100 }
+		set_variable = { name = aawc_population_surplus value = 100 }
+		set_variable = { name = aawc_population_growth_delta value = 0 }
+		set_variable = { name = aawc_population_last_military_contribution value = 0 }
+		remove_variable = aawc_m3_wh_blockers_seeded
+	}
+
+	$ACTOR$ = {
+		save_scope_as = aawc_age_of_silence_settler
+		create_title_and_vassal_change = {
+			type = returned
+			save_scope_as = aawc_age_of_silence_title_change
+		}
+		scope:aawc_age_of_silence_county = {
+			change_title_holder = {
+				holder = scope:aawc_age_of_silence_settler
+				change = scope:aawc_age_of_silence_title_change
+				take_baronies = yes
+			}
+			set_county_faith = scope:aawc_age_of_silence_settler.faith
+			set_county_culture = scope:aawc_age_of_silence_settler.culture
+		}
+		resolve_title_and_vassal_change = scope:aawc_age_of_silence_title_change
+		scope:aawc_age_of_silence_county = { generate_coa = yes }
+		change_government = tribal_government
+		destroy_laamp_effect = { ADVENTURER = this }
+		remove_character_flag = aawc_age_of_silence_colonizer
+		aawc_1101_normalize_age_of_silence_court_effect = yes
+		aawc_population_resync_settlement_tracker_effect = yes
+		if = {
+			limit = {
+				OR = {
+					has_game_rule = aawc_lost_faith_culture_enabled
+					has_game_rule = aawc_lost_faith_culture_faith_only
+					has_game_rule = aawc_lost_faith_culture_culture_only
+				}
+			}
+			error_log = "AAWC 1.10.4.6 Age of Silence settlement queuing player foundation invitations"
+			aawc_1103_invite_player_foundations_effect = yes
+		}
+	}
+
+	$PROVINCE$ = {
+		aawc_population_refresh_holding_dynamic_effect = yes
+		county = { aawc_population_recalculate_county_effect = yes }
+		if = {
+			limit = {
+				has_holding_type = tribal_holding
+				NOT = { has_building_with_flag = obstacle }
+			}
+			error_log = "AAWC 1.10.4.6 Age of Silence direct tribal founding completed without blockers"
+		}
+		else = {
+			error_log = "AAWC 1.10.4.6 WARNING direct tribal founding left an unexpected holding state or blocker"
+		}
+	}
+}
+
+lv_settlement_establish_effect = {
+	error_log = "AAWC LV ESTABLISH begin"
+	# Cache only the ruin size needed if the colony is abandoned later.
+	$PROVINCE$ = {
+		county = { save_scope_as = county }
+		if = { limit = { has_holding_type = ruin_holding } error_log = "AAWC LV ESTABLISH province pre-convert holding_type=ruin_holding" }
+		if = { limit = { has_holding_type = wilderness_holding } error_log = "AAWC LV ESTABLISH province pre-convert holding_type=wilderness_holding" }
+		if = { limit = { has_holding_type = unknown_holding } error_log = "AAWC LV ESTABLISH province pre-convert holding_type=unknown_holding" }
+		if = { limit = { has_holding_type = settlement_holding } error_log = "AAWC LV ESTABLISH province pre-convert holding_type=settlement_holding" }
+		# Determine ruin size to return to in case the colony becomes abandoned
+		if = {
+			limit = { has_building_or_higher = large_ruin_01 }
+			set_variable = { name = ruin_size value = flag:ruin_size_large }
+			error_log = "AAWC LV ESTABLISH cached ruin_size_large"
+		}
+		else_if = {
+			limit = { has_building_or_higher = medium_ruin_01 }
+			set_variable = { name = ruin_size value = flag:ruin_size_medium }
+			error_log = "AAWC LV ESTABLISH cached ruin_size_medium"
+		}
+		set_holding_type = settlement_holding
+		if = {
+			limit = { $ACTOR$ = { has_variable = aawc_population_pending_settlement_credit var:aawc_population_pending_settlement_credit > 0 } }
+			aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = $ACTOR$.var:aawc_population_pending_settlement_credit }
+			set_variable = { name = aawc_population_total value = var:aawc_population_current }
+			set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
+			error_log = "AAWC LV ESTABLISH Stage 1 seeded settlement from confirmed population receipt"
+		}
+		else = {
+			aawc_reforging_cohort_ensure_production_ledger_effect = yes
+			error_log = "AAWC LV ESTABLISH Stage 1 created an empty settlement pending a confirmed population receipt"
+		}
+
+		# Reclamation always starts the settlement line at level 1. Ruin progress
+		# determines the workload that was cleared, not free colony upgrades.
+		if = { limit = { has_building = settlement_03 } remove_building = settlement_03 }
+		if = { limit = { has_building = settlement_02 } remove_building = settlement_02 }
+		if = { limit = { NOT = { has_building = settlement_01 } } add_building = settlement_01 }
+		aawc_finalize_new_colony_regional_blockers_effect = yes
+		remove_variable = ruin_progress
+		error_log = "AAWC LV ESTABLISH initialized settlement_01 without inheriting ruin progress"
+		if = { limit = { has_holding_type = settlement_holding } error_log = "AAWC LV ESTABLISH province post-convert holding_type=settlement_holding" }
+	}
+	$ACTOR$ = {
+		# Resolve expedition sponsor/owner safely, then use AGOT-style direct handoff.
+		if = {
+			limit = {
+				OR = {
+					NOT = { exists = scope:liege }
+					scope:liege ?= { agot_is_dummy_character = yes }
+				}
+			}
+			if = {
+				limit = { top_liege = { NOT = { agot_is_dummy_character = yes } } }
+				error_log = "AAWC LV ESTABLISH fallback using actor top liege"
+				top_liege = { save_scope_as = liege }
+			}
+			else = {
+				error_log = "AAWC LV ESTABLISH fallback using actor as liege"
+				save_scope_as = liege
+			}
+		}
+		error_log = "AAWC LV ESTABLISH unified AGOT-style direct county handoff to expedition sponsor"
+		create_title_and_vassal_change = {
+			type = returned
+			save_scope_as = claim_change
+		}
+		scope:county = {
+			change_title_holder = {
+				holder = scope:liege
+				change = scope:claim_change
+				take_baronies = yes
+			}
+			set_county_faith = scope:liege.faith
+			if = {
+				limit = { culture = culture:unknown_culture }
+				if = {
+					limit = {
+						scope:liege.culture = culture:high_valyrian
+						has_game_rule = agot_hv_conversion_offshoots
+						title_province = { geographical_region = world_westeros }
+						NOT = { title_province = { geographical_region = world_valyria_mainland } }
+					}
+					set_county_culture = culture:westerosi_valyrian
+				}
+				else_if = {
+					limit = {
+						scope:liege.culture = culture:high_valyrian
+						has_game_rule = agot_hv_conversion_offshoots
+						NOT = { title_province = { geographical_region = world_valyria_mainland } }
+						NOT = { title_province = { geographical_region = world_westeros } }
+					}
+					set_county_culture = culture:essosi_valyrian
+				}
+				else = { set_county_culture = scope:liege.culture }
+			}
+		}
+		resolve_title_and_vassal_change = scope:claim_change
+		scope:county = { generate_coa = yes }
+		if = {
+			limit = {
+				has_game_rule = aawc_age_of_silence
+				has_character_flag = aawc_age_of_silence_colonizer
+			}
+			change_government = tribal_government
+			destroy_laamp_effect = { ADVENTURER = this }
+			remove_character_flag = aawc_age_of_silence_colonizer
+			error_log = "AAWC 1.10.4 Age of Silence colonizer settled as a tribal ruler"
+		}
+		if = {
+			limit = { scope:county = { holder = { agot_is_dummy_character = yes } } }
+			error_log = "AAWC LV ESTABLISH WARNING county still dummy-held after direct handoff"
+		}
+		else = {
+			error_log = "AAWC LV ESTABLISH county ownership transferred out of dummy holder"
+		}
+
+		increase_variable = {
+			NAME = num_settled_wilderness
+			AMOUNT = 1
+		}
+		error_log = "AAWC LV ESTABLISH incremented num_settled_wilderness and triggering AGOT upkeep update event"
+		aawc_population_resync_settlement_tracker_effect = yes
+	}
+	error_log = "AAWC LV ESTABLISH invoking AAWC generated restoration from province"
+	aawc_apply_generated_special_restoration_from_province_effect = { PROVINCE = $PROVINCE$ }
+	error_log = "AAWC LV ESTABLISH invoking AAWC valyria+generic restoration wrappers"
+		$PROVINCE$ = {
+			county = {
+				aawc_apply_valyria_region_special_restoration_effect = yes
+				aawc_apply_generic_lov_special_restoration_effect = yes
+			}
+		}
+		$PROVINCE$ = {
+			if = { limit = { has_holding_type = ruin_holding } error_log = "AAWC LV ESTABLISH WARNING province reverted/remains ruin_holding after restoration hooks" }
+			if = { limit = { has_holding_type = wilderness_holding } error_log = "AAWC LV ESTABLISH WARNING province remains wilderness_holding after restoration hooks" }
+			if = { limit = { has_holding_type = settlement_holding } error_log = "AAWC LV ESTABLISH final province holding_type=settlement_holding" }
+			if = {
+				limit = { has_holding_type = settlement_holding }
+				aawc_reforging_cohort_ensure_production_ledger_effect = yes
+				set_variable = { name = aawc_population_growth_delta value = 0 }
+				set_variable = { name = aawc_population_last_military_contribution value = 0 }
+				aawc_population_refresh_holding_dynamic_effect = yes
+				county = { aawc_population_recalculate_county_effect = yes }
+				error_log = "AAWC LV ESTABLISH Stage 1 post-restoration ledger reconciled without synthetic reseeding"
+			}
+		}
+		$ACTOR$ = { remove_variable = aawc_population_pending_settlement_credit }
+		error_log = "AAWC LV ESTABLISH completed LoV handoff and AAWC restoration hooks"
+	}
+
+lv_abandon_settlement_effect = {
+	$COUNTY$ = {
+		# Determine progress on abandonment
+		# Level 3 colony building = Significant | Level 2 colony building = Minimal
+		title_province = {
+			if = {
+				limit = { has_building = settlement_01 }
+				set_variable = {
+					name = ruin_progress
+					value = flag:ruin_progress_significant
+				}
+			}
+			else_if = {
+				limit = { has_building = settlement_01 }
+				set_variable = {
+					name = ruin_progress
+					value = flag:ruin_progress_minimal
+				}
+			}
+		}
+
+		hidden_effect = {
+			create_title_and_vassal_change = {
+				type = revoked
+				save_scope_as = change
+			}
+			change_title_holder = {
+				holder = title:c_ruins.holder
+				change = scope:change
+				take_baronies = yes
+			}
+			resolve_title_and_vassal_change = scope:change
+			generate_coa = yes
+		}
+		every_county_province = {
+			limit = {
+				is_county_capital = no
+				has_holding = yes
+				NOT = { has_holding_type = ruin_holding }
+			}
+			set_holding_type = ruin_holding
+		}
+		every_county_province = {
+			limit = {
+				is_county_capital = yes
+				has_holding = yes
+			}
+			if = {
+				limit = { NOT = { has_holding_type = ruin_holding } }
+				set_holding_type = ruin_holding
+			}
+			# Revert to appropriate ruin size depending on progress
+			if = {
+				limit = { has_variable = ruin_size }
+				if = { # Large ruins
+					limit = { var:ruin_size = flag:ruin_size_large }
+					if = { # Ruin level 3 building
+						limit = { OR = { var:ruin_progress ?= flag:ruin_progress_significant has_building = settlement_03 } }
+						add_building = large_ruin_03
+					}
+					else_if = { # Ruin level 2 building
+						limit = { OR = { var:ruin_progress ?= flag:ruin_progress_minimal has_building = settlement_02 } }
+						add_building = large_ruin_02
+					}
+					else = { # Ruin level 1 building (no progress)
+						add_building = large_ruin_01
+					}
+				}
+				else_if = { # Medium ruins
+					limit = { var:ruin_size = flag:ruin_size_medium }
+					if = { # Ruin level 3 building
+						limit = { OR = { var:ruin_progress ?= flag:ruin_progress_significant has_building = settlement_03 } }
+						add_building = medium_ruin_03
+					}
+					else_if = { # Ruin level 2 building
+						limit = { OR = { var:ruin_progress ?= flag:ruin_progress_minimal has_building = settlement_02 } }
+						add_building = medium_ruin_02
+					}
+					else = { # Ruin level 1 building (no progress)
+						add_building = medium_ruin_01
+					}
+				}
+			}
+			else = { # Small ruins
+				if = { # Ruin level 3 building
+					limit = { OR = { var:ruin_progress ?= flag:ruin_progress_significant has_building = settlement_03 } }
+					add_building = small_ruin_03
+				}
+				else_if = { # Ruin level 2 building
+					limit = { OR = { var:ruin_progress ?= flag:ruin_progress_minimal has_building = settlement_02 } }
+					add_building = small_ruin_02
+				}
+				else = { # Ruin level 1 building (no progress)
+					add_building = small_ruin_01
+				}
+			}
+		}
+		change_development_level = -100
+
+		# Clean up all temporary variables
+		remove_variable = ruin_size
+		remove_variable = ruin_progress
+	}
+}
+
+
+aawc_apply_winterfell_restoration_effect = {
+	$PROVINCE$ = {
+		county = {
+			if = {
+				limit = { this = title:c_winterfell }
+				title_province = {
+					if = { limit = { has_building = winterfell_03 } remove_building = winterfell_03 }
+					if = { limit = { has_building = winterfell_02 } remove_building = winterfell_02 }
+					if = { limit = { has_building = winterfell_01 } remove_building = winterfell_01 }
+					if = { limit = { has_building = aawc_c_winterfell_03 } remove_building = aawc_c_winterfell_03 }
+					if = { limit = { has_building = aawc_c_winterfell_02 } remove_building = aawc_c_winterfell_02 }
+					if = { limit = { has_building = aawc_c_winterfell_01 } remove_building = aawc_c_winterfell_01 }
+					if = { limit = { has_building = aawc_c_winterfell_maintained_01 } remove_building = aawc_c_winterfell_maintained_01 }
+					if = { limit = { has_building = aawc_c_winterfell_ruined_01 } remove_building = aawc_c_winterfell_ruined_01 }
+					if = { limit = { NOT = { has_building = aawc_c_winterfell_ruined_01 } } add_special_building = aawc_c_winterfell_ruined_01 }
+				}
+				error_log = "AAWC WINTERFELL exact county reapply start"
+				aawc_apply_exact_current_county_ruin_blockers_effect = yes
+				error_log = "AAWC WINTERFELL exact county reapply end"
+			}
+		}
+	}
+}

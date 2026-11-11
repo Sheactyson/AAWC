@@ -1,0 +1,3 @@
+﻿kCAFG_artifact_tradition_sorcerous_metallurgy_modifier = {
+    monthly_piety = -1
+}

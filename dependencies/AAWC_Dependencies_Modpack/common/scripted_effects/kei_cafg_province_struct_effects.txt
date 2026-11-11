@@ -1,0 +1,267 @@
+﻿# Scope : province
+# Parameters:
+# TYPE - culture or faith
+# SCOPE - which to add
+# FACTOR - starting factor
+E_kCAFG_create_struct = {
+	if = {
+		limit = { NOT = { exists = $SCOPE$ } }
+		error_log = "Create Struct - Invalid Scope !"
+	}
+
+	dummy_male = {
+		create_story = {
+			type = kei_cafg_granularity_factor_struct
+			save_scope_as = new_struct	
+		}
+	}
+
+	if = {
+		limit = { exists = scope:new_struct }
+
+		scope:new_struct = {
+			set_variable = {
+				name = $TYPE$
+				value = $SCOPE$
+			}
+
+			set_variable = {
+				name = factor
+				value = $FACTOR$
+			}
+		}
+
+		add_to_variable_list = {
+			name = kCAFG_province_$TYPE$_structs
+			target = scope:new_struct
+		}
+
+		add_to_variable_list = {
+			name = kCAFG_province_$TYPE$s
+			target = $SCOPE$
+		}
+	}
+	else = { error_log = "kCAFG Error while creating $TYPE$ struct in province [THIS.Province.GetNameNoTooltip]" }
+}
+
+# Scope : province
+# Parameters:
+# TYPE - culture or faith
+# SCOPE - which to remove
+E_kCAFG_remove_struct = {
+	if = {
+		limit = { NOT = { exists = $SCOPE$ } }
+		error_log = "Remove Struct - Invalid Scope !"
+	}
+
+	every_in_list = {
+		variable = kCAFG_province_$TYPE$_structs
+
+		limit = { this.var:$TYPE$ = $SCOPE$ }
+
+		save_scope_as = removed_element
+
+		prev = {
+			remove_list_variable = {
+				name = kCAFG_province_$TYPE$_structs
+				target = scope:removed_element
+			}
+
+			remove_list_variable = {
+        		name = kCAFG_province_$TYPE$s
+				target = $SCOPE$
+			}
+		}
+	}
+}
+
+# Scope : province
+# Parameters:
+# TYPE - culture or faith
+# SCOPE - which to set
+# FACTOR - 0-1 value
+E_kCAFG_set_struct_factor = {
+	if = {
+		limit = { $FACTOR$ > 0 }
+		if = {
+			limit = {
+				NOT = {
+					is_target_in_variable_list = {
+						name = kCAFG_province_$TYPE$s
+						target = $SCOPE$
+					}
+				}
+			}
+			E_kCAFG_create_struct = {
+				TYPE = $TYPE$
+				SCOPE = $SCOPE$
+				FACTOR = $FACTOR$
+			}
+		}
+		else = {
+			every_in_list = {
+				variable = kCAFG_province_$TYPE$_structs
+
+				limit = { this.var:$TYPE$ = $SCOPE$ }
+
+				set_variable = {
+					name = factor
+					value = $FACTOR$
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			is_target_in_variable_list = {
+				name = kCAFG_province_$TYPE$s
+				target = $SCOPE$
+			}
+		}
+
+		E_kCAFG_remove_struct = {
+			TYPE = $TYPE$
+			SCOPE = $SCOPE$
+		}
+	}
+}
+
+# Scope : province
+# Parameters:
+# TYPE - culture or faith
+# SCOPE - which to set
+# FACTOR - 0-1 value
+E_kCAFG_add_struct_factor = {
+	if = {
+		limit = {
+			NOT = {
+				is_target_in_variable_list = {
+					name = kCAFG_province_$TYPE$s
+					target = $SCOPE$
+				}
+			}
+		}
+		if = {
+			limit = { $FACTOR$ > 0 }
+			E_kCAFG_create_struct = {
+				TYPE = $TYPE$
+				SCOPE = $SCOPE$
+				FACTOR = $FACTOR$
+			}
+		}
+	}
+	else = {
+		every_in_list = {
+			variable = kCAFG_province_$TYPE$_structs
+
+			limit = { this.var:$TYPE$ = $SCOPE$ }
+
+			change_variable = {
+				name = factor
+				add = $FACTOR$
+			}
+
+			E_kCAFG_check_struct_removal = { TYPE = $TYPE$ }
+		}
+	}
+}
+
+# Scope : province
+# Parameters:
+# TYPE - culture or faith
+# SCOPE - which to set
+# FACTOR - 0-1 value
+E_kCAFG_subtract_struct_factor = {
+	if = {
+		limit = {
+			is_target_in_variable_list = {
+				name = kCAFG_province_$TYPE$s
+				target = $SCOPE$
+			}
+		}
+
+		every_in_list = {
+			variable = kCAFG_province_$TYPE$_structs
+
+			limit = { this.var:$TYPE$ = $SCOPE$ }
+
+			change_variable = {
+				name = factor
+				subtract = $FACTOR$
+			}
+
+			E_kCAFG_check_struct_removal = { TYPE = $TYPE$ }
+		}
+	}
+	else_if = {
+		limit = { $FACTOR$ < 0 }
+		E_kCAFG_create_struct = {
+			TYPE = $TYPE$
+			SCOPE = $SCOPE$
+			FACTOR = $FACTOR$
+		}
+		scope:new_struct = {
+			change_variable = {
+				name = factor
+				multiply = -1
+			}
+		}
+	}
+}
+
+# Scope : struct
+# prev : province
+E_kCAFG_check_struct_removal = {
+	if = {
+		limit = { var:factor < V_kCAFG_absorption_threshold }
+
+		save_scope_as = removed_element
+
+		if = {
+			limit = {
+				var:factor > 0
+				prev = {
+					any_in_list = {
+						variable = kCAFG_province_$TYPE$_structs
+						scope:removed_element.var:$TYPE$ != this.var:$TYPE$
+					}
+				}
+			}
+
+			prev = {
+				random_in_list = {
+					variable = kCAFG_province_$TYPE$_structs
+
+					weight = {
+						base = 0
+						modifier = {
+							add = {
+								value = this.var:factor
+								multiply = 10000
+							}
+						}
+					}
+
+					limit = { scope:removed_element.var:$TYPE$ != this.var:$TYPE$ }
+
+					change_variable = {
+						name = factor
+						add = scope:removed_element.var:factor
+					}
+				}
+			}
+		}
+
+		prev = {
+			remove_list_variable = {
+				name = kCAFG_province_$TYPE$s
+				target = scope:removed_element.var:$TYPE$
+			}
+
+			remove_list_variable = {
+				name = kCAFG_province_$TYPE$_structs
+				target = scope:removed_element
+			}
+		}
+	}
+}

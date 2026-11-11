@@ -1,0 +1,36 @@
+﻿# Preserve AGOT's CK3 1.19 additions while excluding pool guests from the
+# shared eligibility contract used by title, marriage, education, and other
+# standard character interactions.
+bp2_valid_for_standard_interactions_trigger = {
+	is_hostage = no
+	is_pool_guest = no
+	NOT = { has_trait = seclusion }
+	custom_tooltip = {
+		text = hostage_travelling_tt
+		NOR = {
+			exists = var:hostage_travelling_to_warden
+			exists = var:ward_travelling_to_guardian
+			exists = var:guardian_travelling_to_ward
+		}
+	}
+	custom_description = {
+		text = is_available_for_introduction
+		subject = this
+		NAND = {
+			has_variable = intro_secondary_actor
+			has_variable = intro_secondary_recipient
+			OR = {
+				this = var:intro_secondary_actor
+				this = var:intro_secondary_recipient
+			}
+		}
+	}
+	custom_description = {
+		text = is_awaiting_visit
+		subject = this
+		NOR = {
+			has_variable = visited_by_target
+			has_variable = visited_by_heir
+		}
+	}
+}

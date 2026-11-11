@@ -1,0 +1,103 @@
+﻿# same scopes are available in these events as in the CBs' on_declaration, this just fires for all CBs instead of a specific CB.
+E_kCAFG_declared_war_culture_tension_effects = {
+    if = {
+        limit = {
+            scope:war = { using_conquest_cb_trigger = yes }
+            scope:defender.culture != scope:attacker.culture
+        }
+
+        scope:war.casus_belli = {
+            ordered_target_title = {
+                order_by = tier
+                max = 1
+                save_temporary_scope_as = highest_tiered_title # used by V_kCAFG_culture_tension_on_conquest_declaration
+            }
+        }
+
+		scope:attacker = {
+            E_kCAFG_increase_scaled_culture_tension_in_realm_provinces = {
+                CULTURE = scope:defender.culture
+                VALUE = V_kCAFG_culture_tension_on_conquest_declaration
+                SCALE_MIN = 0.1
+            }
+        }
+    }
+}
+
+# scope is the joiner
+# scope:war is the war
+E_kCAFG_joined_war_culture_tension_effects = {
+    if = {
+        limit = {
+            scope:war = {
+                using_conquest_cb_trigger = yes
+                is_attacker = root
+            }
+            scope:war.primary_defender.culture != culture
+        }
+
+        scope:war.casus_belli = {
+            ordered_target_title = {
+                order_by = tier
+                max = 1
+                save_temporary_scope_as = highest_tiered_title # used by V_kCAFG_culture_tension_on_conquest_join
+            }
+        }
+
+        E_kCAFG_increase_scaled_culture_tension_in_realm_provinces = {
+            CULTURE = scope:war.primary_defender.culture
+            VALUE = V_kCAFG_culture_tension_on_conquest_join
+            SCALE_MIN = 0.1
+        }
+    }
+}
+
+# Scope : war
+# warring_character
+E_kCAFG_ongoing_war_culture_tension_quarterly_change = {
+    casus_belli = {
+        ordered_target_title = {
+            order_by = tier
+            max = 1
+            save_temporary_scope_as = highest_tiered_title # used by V_kCAFG_culture_tension_on_conquest_warring_quarterly
+        }
+    }
+
+    scope:warring_character = {
+        E_kCAFG_increase_scaled_culture_tension_in_realm_provinces = {
+            CULTURE = scope:war.primary_defender.culture
+            VALUE = V_kCAFG_culture_tension_on_conquest_warring_quarterly
+            SCALE_MIN = 0.1
+        }
+    }
+}
+
+# scope : character
+# CULTURE : culture which has their tension increased
+# VALUE : script value or fixed point value which will be scaled depending on the culture 
+# SCALE_MIN : minimum scale for the increase
+E_kCAFG_increase_scaled_culture_tension_in_realm_provinces = {
+    $CULTURE$ = { save_temporary_scope_as = kCAFG_culture }
+    every_realm_province = {
+        limit = { T_kCAFG_does_province_contain_culture = { CULTURE = scope:kCAFG_culture } }
+        change_variable = {
+            name = kCAFG_culture_tension
+            add = {
+                # Base value
+                value = $VALUE$
+                # Scale
+                multiply = {
+                    value = $SCALE_MIN$
+                    add = {
+                        value = V_kCAFG_province_culture_factor
+                        multiply = {
+                            value = 1
+                            subtract = $SCALE_MIN$
+                        }
+                    }
+                }
+            }
+        }
+        E_kCAFG_on_province_culture_tension_updated = yes
+    }
+}

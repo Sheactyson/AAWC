@@ -1,0 +1,59 @@
+﻿# Generic guest invitation decisions either select pool wanderers or generate
+# replacements. Preserve the public decision IDs but remove their UI, AI, and
+# event-dispatch surfaces.
+
+invite_knights_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_invite_knights.dds"
+	}
+	desc = invite_knights_decision_desc
+	decision_group_type = courtier
+	ai_check_interval = 0
+	is_shown = { always = no }
+	is_valid = { always = no }
+	effect = { }
+	ai_potential = { always = no }
+	ai_will_do = { base = 0 }
+}
+
+invite_claimants_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_realm.dds"
+	}
+	desc = invite_claimants_decision_desc
+	decision_group_type = courtier
+	ai_check_interval = 0
+	is_shown = { always = no }
+	is_valid = { always = no }
+	effect = { }
+	ai_potential = { always = no }
+	ai_will_do = { base = 0 }
+}
+
+scrape_the_barrel_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_knight_kneeling.dds"
+	}
+	desc = scrape_the_barrel_decision_desc
+	decision_group_type = courtier
+	ai_check_interval = 0
+	is_shown = { always = no }
+	is_valid = { always = no }
+	effect = { }
+	ai_potential = { always = no }
+	ai_will_do = { base = 0 }
+}
+
+invite_poets_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_recruitment.dds"
+	}
+	desc = invite_poets_decision_desc
+	decision_group_type = courtier
+	ai_check_interval = 0
+	is_shown = { always = no }
+	is_valid = { always = no }
+	effect = { }
+	ai_potential = { always = no }
+	ai_will_do = { base = 0 }
+}

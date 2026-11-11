@@ -1,0 +1,1796 @@
+﻿##### Special Ruins
+
+9567 = {
+	culture = abular
+	religion = mother_rhoyne
+	#holding = ruin_holding
+	#100.1.1 = {
+	#	buildings = { jungle_ruin_01 }
+	#}
+	holding = pirate_den_holding
+	100.1.1 = { buildings = { pirate_den_01 } }
+}
+
+9568 = { culture = abular religion = mother_rhoyne holding = none }
+9569 = { culture = abular religion = mother_rhoyne holding = none }
+9570 = { culture = abular religion = mother_rhoyne holding = none }
+
+9571 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 basilisk_1 }
+		special_building = basilisk_point_ruins_1
+	}
+}
+
+9572 = { culture = brindled_man religion = shanty_brindle holding = none }
+9573 = { culture = brindled_man religion = shanty_brindle holding = none }
+9574 = { culture = brindled_man religion = shanty_brindle holding = none }
+9575 = { culture = brindled_man religion = shanty_brindle holding = none }
+9576 = { culture = brindled_man religion = shanty_brindle holding = none }
+9577 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9578 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 ravenous_basilisk_1 }
+	}
+}
+9579 = { culture = brindled_man religion = shanty_brindle holding = none }
+9580 = { culture = brindled_man religion = shanty_brindle holding = none }
+9581 = { culture = brindled_man religion = shanty_brindle holding = none }
+9582 = { culture = brindled_man religion = shanty_brindle holding = none }
+9583 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9584 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 ravenous_basilisk_1 }
+	}
+}
+9585 = { culture = brindled_man religion = shanty_brindle holding = none }
+9586 = { culture = brindled_man religion = shanty_brindle holding = none }
+9587 = { culture = brindled_man religion = shanty_brindle holding = none }
+9588 = { culture = brindled_man religion = shanty_brindle holding = none }
+9589 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9590 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 basilisk_1 }
+	}
+}
+
+9591 = { culture = brindled_man religion = shanty_brindle holding = none }
+9592 = { culture = brindled_man religion = shanty_brindle holding = none }
+9593 = { culture = brindled_man religion = shanty_brindle holding = none }
+9594 = { culture = brindled_man religion = shanty_brindle holding = none }
+9595 = { culture = brindled_man religion = shanty_brindle holding = none }
+9596 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9445 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 ravenous_basilisk_1 }
+		special_building = gold_mine_1
+	}
+}
+9446 = { culture = brindled_man religion = shanty_brindle holding = none }
+9447 = { culture = brindled_man religion = shanty_brindle holding = none }
+9448 = { culture = brindled_man religion = shanty_brindle holding = none }
+9449 = { culture = brindled_man religion = shanty_brindle holding = none }
+9450 = { culture = brindled_man religion = shanty_brindle holding = none }
+9451 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9599 = { culture = brindled_man religion = shanty_brindle holding = none }
+9598 = { culture = brindled_man religion = shanty_brindle holding = none }
+9597 = {                            #basilisk deep tribe
+	culture = brindled_man 
+	religion = shanty_black
+	holding = tribal_holding
+	100.1.1 = {
+		special_building = cos_corpse_mound_1
+		buildings = { 
+			tribe_02
+			palisades_01
+			war_camps_01
+		}
+	}
+} 
+9600 = { culture = brindled_man religion = shanty_black holding = none }
+9601 = { culture = brindled_man religion = shanty_black holding = none }
+9602 = { culture = brindled_man religion = shanty_black holding = none }
+9603 = { culture = brindled_man religion = shanty_black holding = none }
+
+	# 10167 is a sea tile
+
+9604 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 basilisk_1 }
+	}
+}
+
+9605 = { culture = brindled_man religion = shanty_brindle holding = none }
+9606 = { culture = brindled_man religion = shanty_brindle holding = none }
+9607 = { culture = brindled_man religion = shanty_brindle holding = none }
+9608 = { culture = brindled_man religion = shanty_brindle holding = none }
+9609 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9613 = { culture = brindled_man religion = shanty_black holding = none }
+9611 = { culture = brindled_man religion = shanty_black holding = none }
+9612 = { culture = brindled_man religion = shanty_black holding = none }
+9610 = { culture = brindled_man religion = shanty_black } #ilshas deep tribe
+9614 = { culture = brindled_man religion = shanty_black holding = none }
+9615 = { culture = brindled_man religion = shanty_black holding = none }
+9616 = { culture = brindled_man religion = shanty_black holding = none }
+
+9645 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 basilisk_1 }
+	}
+}
+
+9646 = { culture = brindled_man religion = shanty_brindle holding = none }
+9647 = { culture = brindled_man religion = shanty_brindle holding = none }
+9648 = { culture = brindled_man religion = shanty_brindle holding = none }
+9649 = { culture = brindled_man religion = shanty_brindle holding = none }
+9650 = { culture = brindled_man religion = shanty_brindle holding = none }
+9651 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9653 = { culture = brindled_man religion = summer_gods_pan holding = none }
+9654 = { culture = brindled_man religion = summer_gods_pan holding = none }
+9655 = { culture = brindled_man religion = summer_gods_pan holding = none }
+9656 = { culture = brindled_man religion = summer_gods_pan holding = none }
+9657 = { culture = brindled_man religion = summer_gods_pan holding = none }
+9652 = {
+	culture = jhalai
+	religion = summer_gods_pan
+	holding = pirate_den_holding
+	100.1.1 = {
+		#buildings = { jungle_ruin_01 cos_carn_plant_1 }
+		buildings = { pirate_den_01 }
+		special_building = laanas_refuge_2
+	}
+}
+9658 = { culture = brindled_man religion = summer_gods_pan holding = none }
+
+9659 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+
+9660 = { culture = brindled_man religion = shanty_brindle holding = none }
+9661 = { culture = brindled_man religion = shanty_brindle holding = none }
+9662 = { culture = brindled_man religion = shanty_brindle holding = none }
+9663 = { culture = brindled_man religion = shanty_brindle holding = none }
+9664 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9665 = { #Atsi Tribe
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+9666 = { culture = brindled_man religion = shanty_brindle holding = none }
+9667 = { culture = brindled_man religion = shanty_brindle holding = none }
+9668 = { culture = brindled_man religion = shanty_brindle holding = none }
+9669 = { culture = brindled_man religion = shanty_brindle holding = none }
+9670 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9618 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9617 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_deep_01 basilisk_1 }
+	}
+}
+9619 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9620 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9621 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9622 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9623 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9624 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+	# 10215 is a sea tile
+	# 10216 is a sea tile
+	# 10217 is a sea tile
+	# 10218 is a sea tile
+	# 10219 is a sea tile
+	# 10220 is a sea tile
+	# 10221 is a sea tile
+	# 10222 is a sea tile
+	# 10223 is a sea tile
+	# 10224 is a sea tile
+	# 10225 is a sea tile
+
+9671 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+		special_building = zamettar_ruins_1
+	}
+}
+
+9672 = { culture = brindled_man religion = shanty_brindle holding = none }
+9673 = { culture = brindled_man religion = shanty_brindle holding = none }
+9674 = { culture = brindled_man religion = shanty_brindle holding = none }
+9675 = { culture = brindled_man religion = shanty_brindle holding = none }
+9676 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9677 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+
+9678 = { culture = brindled_man religion = shanty_brindle holding = none }
+9679 = { culture = brindled_man religion = shanty_brindle holding = none }
+9680 = { culture = brindled_man religion = shanty_brindle holding = none }
+9681 = { culture = brindled_man religion = shanty_brindle holding = none }
+9682 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9683 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+
+9684 = { culture = brindled_man religion = shanty_brindle holding = none }
+9685 = { culture = brindled_man religion = shanty_brindle holding = none }
+9686 = { culture = brindled_man religion = shanty_brindle holding = none }
+9687 = { culture = brindled_man religion = shanty_brindle holding = none }
+9688 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9707 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_bat_1 }
+	}
+}
+
+9708 = { culture = brindled_man religion = shanty_brindle holding = none }
+9709 = { culture = brindled_man religion = shanty_brindle holding = none }
+9710 = { culture = brindled_man religion = shanty_brindle holding = none }
+9711 = { culture = brindled_man religion = shanty_brindle holding = none }
+9712 = { culture = brindled_man religion = shanty_brindle holding = none }
+9713 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9419 = {
+	culture = brindled_man
+	religion = shanty_black
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+		special_building = yeen_ruins_1
+	}
+}
+
+9420 = { culture = brindled_man religion = shanty_black holding = none }
+9421 = { culture = brindled_man religion = shanty_black holding = none }
+9422 = { culture = brindled_man religion = shanty_black holding = none }
+9423 = { culture = brindled_man religion = shanty_black holding = none }
+9424 = { culture = brindled_man religion = shanty_black holding = none }
+
+9425 = {
+	culture = brindled_man
+	religion = shanty_black
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+
+9426 = { culture = brindled_man religion = shanty_black holding = none }
+9427 = { culture = brindled_man religion = shanty_black holding = none }
+9428 = { culture = brindled_man religion = shanty_black holding = none }
+9429 = { culture = brindled_man religion = shanty_black holding = none }
+9430 = { culture = brindled_man religion = shanty_black holding = none }
+
+9431 = {
+	culture = brindled_man
+	religion = shanty_black
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+
+9432 = { culture = brindled_man religion = shanty_black holding = none }
+9433 = { culture = brindled_man religion = shanty_black holding = none }
+9434 = { culture = brindled_man religion = shanty_black holding = none }
+9435 = { culture = brindled_man religion = shanty_black holding = none }
+9436 = { culture = brindled_man religion = shanty_black holding = none }
+9437 = { culture = brindled_man religion = shanty_black holding = none }
+
+9793 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_wyvern_alpha_1 }
+		special_building = green_gate_1
+	}
+}
+9794 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9795 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9796 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9797 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_wyvern_alpha_1 }
+	}
+}
+
+9798 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9799 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9800 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9801 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_wyvern_alpha_1 }
+	}
+}
+
+9802 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9803 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9804 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9805 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_wyvern_1 }
+	}
+}
+
+9806 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9807 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9808 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9809 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9810 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9811 = { #Sacnite Tribe
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+
+9812 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9813 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9814 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9815 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9816 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9817 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_wyvern_1 }
+	}
+}
+
+9818 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9819 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9820 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9821 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9822 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9823 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9824 = { #Yun Cimil Tribe
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+
+9825 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9826 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9827 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9828 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9829 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9830 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9831 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_wyvern_1 }
+	}
+}
+9832 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9833 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9834 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9835 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9836 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9855 = {
+	culture = brindled_man
+	religion = shanty_black
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9856 = { culture = brindled_man religion = shanty_black holding = none }
+9857 = { culture = brindled_man religion = shanty_black holding = none }
+9858 = { culture = brindled_man religion = shanty_black holding = none }
+9859 = { culture = brindled_man religion = shanty_black holding = none }
+9860 = { culture = brindled_man religion = shanty_black holding = none }
+
+9868 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_deep_01 cos_carn_plant_1 }
+	}
+}
+9869 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9870 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9871 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9872 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9837 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+		special_building = gold_mine_1
+	}
+}
+9838 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9839 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9840 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9841 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9842 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9843 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+9844 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9845 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9846 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9847 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9848 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9849 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+9850 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9851 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9852 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9853 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9854 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9364 = {
+	culture = brindled_man
+	religion = shanty_black	
+}
+9365 = { culture = brindled_man religion = shanty_black holding = none }
+9366 = { culture = brindled_man religion = shanty_black holding = none }
+9367 = { culture = brindled_man religion = shanty_black holding = none }
+9368 = { culture = brindled_man religion = shanty_black holding = none }
+9369 = { culture = brindled_man religion = shanty_black holding = none }
+
+9370 = {
+	culture = brindled_man
+	religion = shanty_black
+}
+9371 = { culture = brindled_man religion = shanty_black holding = none }
+9372 = { culture = brindled_man religion = shanty_black holding = none }
+9373 = { culture = brindled_man religion = shanty_black holding = none }
+9374 = { culture = brindled_man religion = shanty_black holding = none }
+9375 = { culture = brindled_man religion = shanty_black holding = none }
+
+9376 = { culture = brindled_man religion = shanty_black } #Light Falls Tribe
+9377 = { culture = brindled_man religion = shanty_black holding = none }
+9378 = { culture = brindled_man religion = shanty_black holding = none }
+9379 = { culture = brindled_man religion = shanty_black holding = none }
+9380 = { culture = brindled_man religion = shanty_black holding = none }
+
+9384 = { # The Maw tribe
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+} 
+9382 = { # The Maw tribe
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+9383 = { culture = brindled_man religion = shanty_brindle holding = none }
+9381 = { # The Maw tribe
+	culture = brindled_man
+	religion = shanty_black
+	holding = tribal_holding
+	100.1.1 = {
+		special_building = the_maw_2
+		buildings = { tribe_02 }
+	}
+}
+9385 = { # The Maw tribe
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+9386 = { culture = brindled_man religion = shanty_black holding = none }
+
+9387 = {
+	culture = brindled_man
+	religion = shanty_black
+	
+}
+9388 = { culture = brindled_man religion = shanty_black holding = none }
+9389 = { culture = brindled_man religion = shanty_black holding = none }
+9390 = { culture = brindled_man religion = shanty_black holding = none }
+9391 = { culture = brindled_man religion = shanty_black holding = none }
+9392 = { culture = brindled_man religion = shanty_black holding = none }
+9393 = { culture = brindled_man religion = shanty_black holding = none }
+
+9394 = {
+	culture = brindled_man
+	religion = shanty_black
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9395 = { culture = brindled_man religion = shanty_black holding = none }
+9396 = { culture = brindled_man religion = shanty_black holding = none }
+9397 = { culture = brindled_man religion = shanty_black holding = none }
+9398 = { culture = brindled_man religion = shanty_black holding = none }
+
+9399 = { # Lesser Valley tribe
+	culture = brindled_man_high
+	religion = shanty_greenhell
+	holding = tribal_holding
+	100.1.1 = {
+		buildings = { 
+			tribe_02
+			longhouses_02
+			market_villages_02
+		}
+	}
+}
+9400 = { # Lesser Valley tribe
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+9401 = { culture = brindled_man_high religion = shanty_greenhell holding = none }
+9402 = { culture = brindled_man_high religion = shanty_greenhell holding = none }
+9403 = { # Lesser Valley tribe
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+9404 = { culture = brindled_man_high religion = shanty_greenhell holding = none }
+9405 = { culture = brindled_man_high religion = shanty_greenhell holding = none }
+
+9406 = {
+	culture = brindled_man
+	religion = shanty_black
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+9407 = { culture = brindled_man religion = shanty_black holding = none }
+9408 = { culture = brindled_man religion = shanty_black holding = none }
+9409 = { culture = brindled_man religion = shanty_black holding = none }
+9410 = { culture = brindled_man religion = shanty_black holding = none }
+9411 = { culture = brindled_man religion = shanty_black holding = none }
+
+9412 = {
+	culture = brindled_man
+	religion = shanty_black
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+9413 = { culture = brindled_man religion = shanty_black holding = none }
+9414 = { culture = brindled_man religion = shanty_black holding = none }
+9415 = { culture = brindled_man religion = shanty_black holding = none }
+9416 = { culture = brindled_man religion = shanty_black holding = none }
+9417 = { culture = brindled_man religion = shanty_black holding = none }
+9418 = { culture = brindled_man religion = shanty_black holding = none }
+
+9714 = {
+	culture = brindled_man
+	religion = the_thirst
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_bat_1 }
+	}
+}
+9715 = { culture = brindled_man religion = the_thirst holding = none }
+9716 = { culture = brindled_man religion = the_thirst holding = none }
+9717 = { culture = brindled_man religion = the_thirst holding = none }
+9718 = { culture = brindled_man religion = the_thirst holding = none }
+9719 = { culture = brindled_man religion = the_thirst holding = none }
+
+9720 = {
+	culture = brindled_man
+	religion = the_thirst
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_bat_1 }
+	}
+}
+9721 = { culture = brindled_man religion = the_thirst holding = none }
+9722 = { culture = brindled_man religion = the_thirst holding = none }
+9723 = { culture = brindled_man religion = the_thirst holding = none }
+9724 = { culture = brindled_man religion = the_thirst holding = none }
+9725 = { culture = brindled_man religion = the_thirst holding = none }
+9726 = { culture = brindled_man religion = the_thirst holding = none }
+
+9727 = {
+	culture = brindled_man
+	religion = the_thirst
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_bat_1 }
+		special_building = gold_mine_1
+	}
+}
+9728 = { culture = brindled_man religion = the_thirst holding = none }
+9729 = { culture = brindled_man religion = the_thirst holding = none }
+9730 = { culture = brindled_man religion = the_thirst holding = none }
+9731 = { culture = brindled_man religion = the_thirst holding = none }
+      
+9338 = {
+	culture = brindled_man
+	religion = the_thirst
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 ghoulish_bat_1 }
+	}
+}
+9339 = { culture = brindled_man religion = the_thirst holding = none }
+9340 = { culture = brindled_man religion = the_thirst holding = none }
+9341 = { culture = brindled_man religion = the_thirst holding = none }
+9342 = { culture = brindled_man religion = the_thirst holding = none }
+9343 = { culture = brindled_man religion = the_thirst holding = none }
+9344 = { culture = brindled_man religion = the_thirst holding = none }
+	 
+9345 = {
+	culture = brindled_man
+	religion = the_thirst
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 ghoulish_bat_1}
+	}
+}
+9346 = { culture = brindled_man religion = the_thirst holding = none }
+9347 = { culture = brindled_man religion = the_thirst holding = none }
+9348 = { culture = brindled_man religion = the_thirst holding = none }
+9349 = { culture = brindled_man religion = the_thirst holding = none }
+9350 = { culture = brindled_man religion = the_thirst holding = none }
+
+9351 = { # Tlalli
+	culture = brindled_ghoul
+	religion = the_thirst
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_02 } }
+}
+9352 = { culture = brindled_ghoul religion = the_thirst holding = none }
+9353 = { culture = brindled_ghoul religion = the_thirst holding = none }
+9354 = { culture = brindled_ghoul religion = the_thirst holding = none }
+9355 = { culture = brindled_ghoul religion = the_thirst holding = none }
+9356 = { culture = brindled_ghoul religion = the_thirst holding = none }
+
+9363 = { # Nacon
+	culture = brindled_ghoul
+	religion = the_thirst
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+9358 = { culture = brindled_ghoul religion = the_thirst holding = none }
+9359 = { culture = brindled_ghoul religion = the_thirst holding = none }
+9360 = { culture = brindled_ghoul religion = the_thirst holding = none }
+9361 = { culture = brindled_ghoul religion = the_thirst holding = none }
+9362 = { culture = brindled_ghoul religion = the_thirst holding = none }
+9357 = {                            #Blood Cultists
+	culture = brindled_ghoul 
+	religion = the_thirst
+	holding = tribal_holding
+	100.1.1 = {
+		special_building = bloodletters_hall_2
+		buildings = { 
+			tribe_02
+			palisades_01
+			war_camps_01
+		}
+	}
+}
+	  
+9689 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9690 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9691 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9692 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9693 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9694 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9695 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9696 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9697 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9698 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9699 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9700 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9701 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9702 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9703 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9704 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9705 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9706 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	 
+9732 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9733 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9734 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9735 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9736 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9737 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9738 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9739 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9740 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9741 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9742 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9743 = { # Balam
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = tribal_holding
+	100.1.1 = {
+		special_building = balam_glade_2
+		buildings = {
+			tribe_02
+			palisades_01
+			war_camps_01
+		}
+	}
+}
+9744 = { # Balam
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+9745 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9746 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9747 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9748 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9749 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = tribal_holding
+	100.1.1 = {
+		#buildings = { jungle_ruin_01 }
+		buildings = { tribe_01 }
+	}
+}
+9750 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9751 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9752 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9753 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9754 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9861 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 cos_carn_plant_1 }
+	}
+}
+9862 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9863 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9864 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9865 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9866 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9867 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9774 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9775 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9776 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9777 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9778 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		special_building = bloodstone_mines_1 }
+		buildings = { jungle_ruin_03 }
+	}
+
+9779 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9780 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9787 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+9788 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9789 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9790 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9791 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9792 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9781 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9782 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9783 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9784 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9785 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9786 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9761 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+	}
+}
+9762 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9763 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9764 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9765 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9766 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9767 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9755 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_deep_01 cos_carn_plant_1 }
+	}
+}
+9756 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9757 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9758 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9759 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9760 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9768 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_deep_01 }
+	}
+}
+9769 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9770 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9771 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9772 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9773 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9632 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_deep_01 basilisk_1 }
+	}
+}
+9633 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9634 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9635 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9636 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9637 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9638 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9453 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9454 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9455 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9456 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9457 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9452 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_deep_01 basilisk_1 }
+	}
+}
+9458 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9626 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9627 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9628 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9629 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9630 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9625 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_deep_01 basilisk_1 }
+	}
+}
+9631 = { culture = brindled_man religion = shanty_greenhell holding = none }
+	  
+9639 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_deep_01 cos_carn_plant_1 }
+	}
+}
+9640 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9641 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9642 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9643 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9644 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9960 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		special_building = gorosh_ruin_1
+		buildings = { jungle_ruin_01 }
+	}
+} 
+9961 = { culture = brindled_man religion = shanty_brindle holding = none }
+9962 = { culture = brindled_man religion = shanty_brindle holding = none }
+9963 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9965 = { culture = goroshari religion = shanty_brindle }
+9964 = {
+	culture = goroshari
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_01 }
+	}
+}
+9966 = { culture = goroshari religion = shanty_brindle }
+9967 = { culture = goroshari religion = shanty_brindle }
+9968 = { culture = goroshari religion = shanty_brindle } 
+
+9969 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9970 = { culture = brindled_man religion = shanty_brindle holding = none }
+9971 = { culture = brindled_man religion = shanty_brindle holding = none }
+9972 = { culture = brindled_man religion = shanty_brindle holding = none }
+9973 = { culture = brindled_man religion = shanty_brindle holding = none }
+9974 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+9975 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9976 = { culture = brindled_man religion = shanty_brindle holding = none }
+9977 = { culture = brindled_man religion = shanty_brindle holding = none }
+9978 = { culture = brindled_man religion = shanty_brindle holding = none }
+9979 = { culture = brindled_man religion = shanty_brindle holding = none }
+9980 = { culture = brindled_man religion = shanty_brindle holding = none }
+9981 = { culture = brindled_man religion = shanty_brindle holding = none }
+9982 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+10055 = { culture = tyroshi religion = shanty_brindle }
+10054 = {
+	culture = tyroshi
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_01 }
+	}
+}
+10056 = { culture = tyroshi religion = shanty_brindle }
+10057 = { culture = tyroshi religion = shanty_brindle }
+10058 = { culture = tyroshi religion = shanty_brindle }
+
+10060 = { culture = brindled_man religion = shanty_brindle holding = none }
+10059 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10061 = { culture = brindled_man religion = shanty_brindle holding = none }
+10062 = { culture = brindled_man religion = shanty_brindle holding = none }
+10063 = { culture = brindled_man religion = shanty_brindle holding = none }
+10064 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+10066 = { culture = yunkaii religion = shanty_brindle }
+10067 = { culture = yunkaii religion = shanty_brindle }
+10065 = {
+	culture = yunkaii
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_01 }
+	}
+}
+10068 = { culture = yunkaii religion = shanty_brindle }
+10069 = { culture = yunkaii religion = shanty_brindle }
+
+10070 = {
+	culture = qartheen
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		special_building = wyvern_watch_1
+		buildings = { pirate_den_01 }
+		#buildings = { jungle_ruin_deep_01 cos_carn_plant_1 }
+	}
+} 
+10071 = { culture = qartheen religion = shanty_brindle holding = none }
+10072 = { culture = qartheen religion = shanty_brindle holding = none }
+10073 = { culture = qartheen religion = shanty_brindle holding = none }
+10074 = { culture = qartheen religion = shanty_brindle holding = none }
+
+10075 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10076 = { culture = brindled_man religion = shanty_brindle holding = none }
+10077 = { culture = brindled_man religion = shanty_brindle holding = none }
+10078 = { culture = brindled_man religion = shanty_brindle holding = none }
+10079 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+10080 = {
+	culture = qartheen
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_01 }
+	}
+}
+10081 = { culture = qartheen religion = shanty_brindle holding = none }
+10082 = { culture = qartheen religion = shanty_brindle holding = none }
+10083 = { culture = qartheen religion = shanty_brindle holding = none }
+10084 = { culture = qartheen religion = shanty_brindle holding = none }
+
+10092 = { culture = brindled_man religion = shanty_brindle holding = none }
+10093 = { culture = brindled_man religion = shanty_brindle holding = none }
+10094 = { culture = brindled_man religion = shanty_brindle holding = none }
+10091 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10095 = { culture = brindled_man religion = shanty_brindle holding = none }
+10096 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+10035 = { culture = brindled_man religion = shanty_brindle holding = none }
+10034 = { # Puheke
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+10036 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+10038 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10037 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10039 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10040 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10041 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+10048 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10049 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10050 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10051 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10047 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10052 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10053 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+10111 = { # Maunga
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = {
+		special_building = maunga_pass_2
+		buildings = {
+			tribe_02
+			palisades_01
+			war_camps_01
+		}
+	}
+}
+
+10042 = { # Urutapu
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+10043 = { culture = brindled_man religion = shanty_brindle holding = none }
+10044 = { culture = brindled_man religion = shanty_brindle holding = none }
+10045 = { culture = brindled_man religion = shanty_brindle holding = none }
+10046 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+10104 = { # Pukepuke
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+10105 = { culture = brindled_man religion = shanty_brindle holding = none }
+10106 = { culture = brindled_man religion = shanty_brindle holding = none }
+10107 = { culture = brindled_man religion = shanty_brindle holding = none }
+10108 = { culture = brindled_man religion = shanty_brindle holding = none }
+10109 = { culture = brindled_man religion = shanty_brindle holding = none }
+10110 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+10085 = {
+	culture = qartheen
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		special_building = gimlet_watch_1
+		buildings = { jungle_ruin_01  }
+	}
+}
+10086 = { culture = qartheen religion = shanty_brindle holding = none }
+10087 = { culture = qartheen religion = shanty_brindle holding = none }
+10088 = { culture = qartheen religion = shanty_brindle holding = none }
+10089 = { culture = qartheen religion = shanty_brindle holding = none }
+10090 = { culture = qartheen religion = shanty_brindle holding = none }
+
+10098 = { culture = brindled_man religion = shanty_brindle holding = none }
+10099 = { culture = brindled_man religion = shanty_brindle holding = none }
+10100 = { culture = brindled_man religion = shanty_brindle holding = none }
+10097 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10101 = { culture = brindled_man religion = shanty_brindle holding = none }
+10102 = { culture = brindled_man religion = shanty_brindle holding = none }
+10103 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+10148 = { culture = brindled_man religion = eldritch_leng holding = none }
+10149 = { culture = brindled_man religion = eldritch_leng holding = none }
+10147 = { # Beach Betrayal
+	culture = brindled_man
+	religion = eldritch_leng
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+10150 = { culture = brindled_man religion = eldritch_leng holding = none }
+10151 = { culture = brindled_man religion = eldritch_leng holding = none }
+10152 = { culture = brindled_man religion = eldritch_leng holding = none }
+10153 = { culture = brindled_man religion = eldritch_leng holding = none }
+
+10154 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10155 = { culture = brindled_man religion = eldritch_leng holding = none }
+10156 = { culture = brindled_man religion = eldritch_leng holding = none }
+10157 = { culture = brindled_man religion = eldritch_leng holding = none }
+10158 = { culture = brindled_man religion = eldritch_leng holding = none }
+10159 = { culture = brindled_man religion = eldritch_leng holding = none }
+
+10127 = { culture = brindled_man religion = eldritch_leng holding = none }
+10128 = { culture = brindled_man religion = eldritch_leng holding = none }
+10129 = { culture = brindled_man religion = eldritch_leng holding = none }
+10130 = { culture = brindled_man religion = eldritch_leng holding = none }
+10126 = {
+	culture = brindled_man
+	religion = eldritch_leng
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10131 = { culture = brindled_man religion = eldritch_leng holding = none }
+
+10113 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10114 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10115 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10112 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10116 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10117 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10118 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+10120 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10119 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10121 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10122 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10123 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10124 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10125 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+10021 = { culture = brindled_man religion = shanty_brindle holding = none }
+
+10029 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10030 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10031 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10028 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10032 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10033 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9988 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9989 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9990 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9991 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9992 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+10022 = {
+	culture = myrish
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_01 }
+	}
+}
+10023 = { culture = myrish religion = shanty_brindle holding = none }
+10024 = { culture = myrish religion = shanty_brindle holding = none }
+10025 = { culture = myrish religion = shanty_brindle holding = none }
+10026 = { culture = myrish religion = shanty_brindle holding = none }
+10027 = { culture = myrish religion = shanty_brindle holding = none }
+
+9997 = {
+	culture = tyroshi
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_01 }
+	}
+}
+9998 = { culture = tyroshi religion = shanty_brindle holding = none }
+9999 = { culture = tyroshi religion = shanty_brindle holding = none }
+10000 = { culture = tyroshi religion = shanty_brindle holding = none }
+10001 = { culture = tyroshi religion = shanty_brindle holding = none }
+10002 = { culture = tyroshi religion = shanty_brindle holding = none }
+
+10009 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10010 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10011 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10012 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10013 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10014 = { culture = brindled_man religion = shanty_greenhell holding = none }
+10015 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9993 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9994 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9995 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9996 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9983 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = tribal_holding
+	100.1.1 = {
+		buildings = { tribe_01 }
+		special_building = kahiwi_pa_1
+	}
+}
+9984 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9985 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9986 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9987 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+10004 = { culture = lyseni religion = shanty_brindle holding = none }
+10005 = { culture = lyseni religion = shanty_brindle holding = none }
+10003 = {
+	culture = lyseni
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_01 }
+	}
+}
+10006 = { culture = lyseni religion = shanty_brindle holding = none }
+10007 = { culture = lyseni religion = shanty_brindle holding = none }
+10008 = { culture = lyseni religion = shanty_brindle holding = none }
+
+9440 = { culture = tyroshi religion = shanty_brindle holding = none }
+9441 = { culture = tyroshi religion = shanty_brindle holding = none }
+9439 = { culture = tyroshi religion = shanty_brindle holding = none }
+9438 = {
+	culture = tyroshi
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_02 }
+		special_building = fleshcarver_1
+	}
+} 
+9442 = { culture = tyroshi religion = shanty_brindle holding = none }
+9443 = { culture = tyroshi religion = shanty_brindle holding = none }
+9444 = { culture = tyroshi religion = shanty_brindle holding = none }
+
+9472 = {
+	culture = tyroshi
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_01 }
+	}
+}
+9473 = { culture = tyroshi religion = shanty_brindle holding = none }
+9474 = { culture = tyroshi religion = shanty_brindle holding = none }
+9475 = { culture = tyroshi religion = shanty_brindle holding = none }
+9476 = { culture = tyroshi religion = shanty_brindle holding = none }
+9477 = { culture = tyroshi religion = shanty_brindle holding = none }
+9478 = { culture = tyroshi religion = shanty_brindle holding = none }
+
+9467 = { culture = tyroshi religion = shanty_brindle holding = none }
+9466 = {
+	culture = tyroshi
+	religion = shanty_brindle
+	holding = pirate_den_holding
+	100.1.1 = {
+		buildings = { pirate_den_01 }
+	}
+}
+9468 = { culture = tyroshi religion = shanty_brindle holding = none }
+9469 = { culture = tyroshi religion = shanty_brindle holding = none }
+9470 = { culture = tyroshi religion = shanty_brindle holding = none }
+9471 = { culture = tyroshi religion = shanty_brindle holding = none }
+
+9479 = {
+	culture = brindled_man
+	religion = the_thirst
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01 }
+		special_building = gold_mine_1
+	}
+}
+9480 = { culture = brindled_man religion = the_thirst holding = none }
+9481 = { culture = brindled_man religion = the_thirst holding = none }
+9482 = { culture = brindled_man religion = the_thirst holding = none }
+9483 = { culture = brindled_man religion = the_thirst holding = none }
+9484 = { culture = brindled_man religion = the_thirst holding = none }
+9485 = { culture = brindled_man religion = the_thirst holding = none }
+
+9487 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9488 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9489 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9490 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9491 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9486 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9492 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9493 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9460 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9461 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9459 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9462 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9463 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9464 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9465 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9544 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9545 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9546 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9547 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9543 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9548 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9549 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9551 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9552 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9553 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9550 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9554 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9555 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9556 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9557 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9558 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9559 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9560 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9562 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9563 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9564 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9561 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9565 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9566 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9507 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9508 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9509 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9510 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9506 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9511 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9495 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = tribal_holding
+	100.1.1 = {
+		#buildings = { swamp_wyvern_bog_1  }
+	}
+}
+9496 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9497 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9494 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = tribal_holding
+}
+9498 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9499 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9501 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9502 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9500 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9503 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9504 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9505 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9513 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9514 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9515 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9516 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9517 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9512 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9518 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9520 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9521 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9522 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9519 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9523 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9524 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9531 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9532 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9530 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9533 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9534 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9535 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9536 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9538 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9539 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9537 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9540 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9541 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9542 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+9526 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9527 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9528 = { culture = brindled_man religion = shanty_greenhell holding = none }
+9525 = {
+	culture = brindled_man
+	religion = shanty_greenhell
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+9529 = { culture = brindled_man religion = shanty_greenhell holding = none }
+
+10140 = { # Makini
+	culture = brindled_man
+	religion = eldritch_leng
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+10141 = { culture = brindled_man religion = eldritch_leng holding = none }
+10142 = { culture = brindled_man religion = eldritch_leng holding = none }
+10143 = { culture = brindled_man religion = eldritch_leng holding = none }
+10144 = { culture = brindled_man religion = eldritch_leng holding = none }
+10145 = { culture = brindled_man religion = eldritch_leng holding = none }
+10146 = { culture = brindled_man religion = eldritch_leng holding = none }
+
+10133 = { culture = brindled_man religion = eldritch_leng holding = none }
+
+10134 = { culture = brindled_man religion = eldritch_leng holding = none }
+10135 = { culture = brindled_man religion = eldritch_leng holding = none }
+10136 = { # Serpent's Rift
+	culture = brindled_man 
+	religion = eldritch_leng
+	holding = tribal_holding
+	100.1.1 = { buildings = { tribe_01 } }
+}
+10137 = { culture = brindled_man religion = eldritch_leng holding = none }
+10138 = { culture = brindled_man religion = eldritch_leng holding = none }
+10139 = { culture = brindled_man religion = eldritch_leng holding = none }
+10132 = { # Serpent's Rift
+	culture = brindled_man
+	religion = eldritch_leng
+	holding = tribal_holding
+	100.1.1 = {
+		special_building = serpents_lair_2
+		buildings = {
+			tribe_02
+			palisades_01
+			war_camps_01
+		}
+	}
+}
+
+10016 = {
+	culture = brindled_man
+	religion = shanty_brindle
+	holding = ruin_holding
+	100.1.1 = {
+		buildings = { jungle_ruin_01  }
+	}
+}
+10017 = { culture = brindled_man religion = shanty_brindle holding = none }
+10018 = { culture = brindled_man religion = shanty_brindle holding = none }
+10019 = { culture = brindled_man religion = shanty_brindle holding = none }
+10020 = { culture = brindled_man religion = shanty_brindle holding = none }
+#10945 = { culture = brindled_man religion = shanty_brindle holding = none }

@@ -1,0 +1,19 @@
+﻿# Map-setup eligibility, not a generic engine government preflight.
+# RH/WH/unknown holdings and AGOT/LoV dummy holders retain their own lifecycle.
+aawc_setup_tribal_county_eligible = {
+	is_capital_barony = yes
+	exists = holder
+	holder = {
+		agot_is_dummy_character = no
+		exists = primary_title
+		primary_title = { is_landless_type_title = no }
+	}
+	title_province = {
+		has_holding = yes
+		NOR = {
+			has_holding_type = ruin_holding
+			has_holding_type = wilderness_holding
+			has_holding_type = unknown_holding
+		}
+	}
+}

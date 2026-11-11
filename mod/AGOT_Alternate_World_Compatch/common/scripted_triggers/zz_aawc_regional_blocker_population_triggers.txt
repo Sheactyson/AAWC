@@ -1,0 +1,91 @@
+﻿# Generated availability gates for regional blocker paid levels.
+
+aawc_population_can_pay_regional_blocker_200 = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_regional_blocker_200_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= 200
+		}
+	}
+}
+
+aawc_population_can_pay_regional_blocker_250 = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_regional_blocker_250_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= 250
+		}
+	}
+}
+
+aawc_population_can_pay_regional_blocker_300 = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_regional_blocker_300_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= 300
+		}
+	}
+}
+
+aawc_population_can_pay_regional_blocker_500 = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_regional_blocker_500_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= 500
+		}
+	}
+}
+
+aawc_population_can_pay_regional_blocker_750 = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_regional_blocker_750_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= 750
+		}
+	}
+}
+
+aawc_population_can_pay_regional_blocker_1000 = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_regional_blocker_1000_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= 1000
+		}
+	}
+}
+
+aawc_population_can_pay_regional_blocker_1500 = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_regional_blocker_1500_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= 1500
+		}
+	}
+}
+
+aawc_population_can_pay_regional_blocker_2000 = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_regional_blocker_2000_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= 2000
+		}
+	}
+}
+
+aawc_population_can_pay_regional_blocker_2500 = {
+	top_liege = {
+		custom_tooltip = {
+			text = aawc_population_need_regional_blocker_2500_surplus_tt
+			has_variable = aawc_population_available
+			var:aawc_population_available >= 2500
+		}
+	}
+}

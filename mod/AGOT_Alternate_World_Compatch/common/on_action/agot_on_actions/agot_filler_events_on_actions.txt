@@ -1,0 +1,699 @@
+﻿## AGOT Filler Events On_Actions ##
+
+### Yearly Playable Pulse ###
+random_yearly_playable_pulse = {
+	on_actions = {
+		agot_random_filler_yearly_pulse
+	}
+}
+
+### Five Year Playable Pulse ###
+five_year_playable_pulse = {
+	on_actions = {
+		agot_filler_five_year_pulse
+	}
+}
+
+## Five Years Events ##
+agot_filler_five_year_pulse = {
+	random_events = {
+		2050 = 0
+		50 = agot_faceless_interaction.9001 # Fake faceless death events
+	}
+	on_actions = {
+		agot_filler_ruins_five_year_rebuild
+		delay = { days = { 3 360 } }
+		agot_filler_harrenhal_curse
+	}
+}
+
+## Common Events ##
+agot_random_filler_yearly_pulse = {
+	on_actions = {
+		## Westeros, Generic ##
+		delay = { days = { 3 360 } }
+		agot_yearly_events  #AGOT Generic Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_westeros  # Westeros Filler Events
+		## Westeros, Regional ##
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_north  # North Filler Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_riverlands  # Riverlands Filler Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_vale  # Vale Filler Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_westerlands  # Westerlands Filler Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_iron_islands  # Iron Islands Filler Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_reach  # Reach Filler Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_crownlands  # Crownlands Filler Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_stormlands  # Stormlands Filler Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_dorne  # Dorne Filler Events
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_region_btw
+		delay = { days = { 3 360 } }
+		agot_filler_yearly_the_wall
+		## Essos, Regional ##
+		delay = { days = { 3 260 } }
+		agot_filler_yearly_region_free_cities # Generic Filler Events shared across the Free Cities
+		delay = { days = { 3 260 } }
+		agot_filler_yearly_lys
+		delay = { days = { 3 260 } }
+		agot_filler_yearly_region_tyrosh
+		delay = { days = { 3 260 } }
+		agot_filler_yearly_region_braavos
+		# Valyrian Steel Related Events
+		agot_filler_magic
+		# Dragonkeeper flavor
+		delay = { days = { 3 360 } }
+		agot_filler_dragonkeepers  # Dragonkeeper Flavor Events
+		delay = { days = { 3 360 } }
+		agot_filler_valyrian_culture
+	}
+}
+
+# Events Common WorldWide
+agot_yearly_events = {
+	random_events = {
+		2000 = 0
+
+		100 = agot_prowess.0003  # Prowess Upgrade maintenance
+		150 = agot_religion_flavor.0100 # Maiden Festival Start (Worldwide because procs on all seven worshippers)
+	}
+}
+
+# Westeros Specific
+agot_filler_yearly_westeros = {
+	trigger = {
+		capital_province ?= { geographical_region = world_westeros_seven_kingdoms }
+	}
+	random_events = {
+		chance_to_happen = 25
+		300 = 0
+
+		## Westeros ##
+		# 100 = agot_filler_westeros.0001  # SKAGOS INDEPENDENCE LETTER #ZOMBIES
+		# 100 = agot_filler_westeros.0002  # SISTERS INDEPENDENCE LETTER #ZOMBIES
+		100 = agot_filler_westeros.0008  # HIGH SEPTON SCANDAL LETTER #ZOMBIES
+		100 = agot_filler_westeros.0009  # HIGH SETPON SCANDAL: MURDER LETTER #ZOMBIES
+		100 = agot_filler_westeros.0010  # HOUSE WARS LETTER #ZOMBIES
+		# 100 = agot_filler_westeros.0017  # MOUNTAIN CLANS KINGDOM LETTER #ZOMBIES
+		100 = agot_filler_westeros.0018  # FELLOW HUNTER #ZOMBIES
+		# 50 = agot_filler_westeros.0033  # SKAGOS SUBDUED #ZOMBIES
+		# 50 = agot_filler_westeros.0034  # THE SISTERS SUBDUED #ZOMBIES
+		# 50 = agot_filler_westeros.0035  # IRONBORN SUBDUED:NORTH #ZOMBIES
+		# 50 = agot_filler_westeros.0036  # IRONBORN SUBDUED:RIVERLANDS #ZOMBIES
+		# 50 = agot_filler_westeros.0037  # IRONBORN SUBDUED:WESTERLANDS #ZOMBIES
+		# 50 = agot_filler_westeros.0038  # IRONBORN SUBDUED:REACH #ZOMBIES
+		# 50 = agot_filler_westeros.0039  # DORNE SUBDUED #ZOMBIES
+		100 = agot_filler_westeros.0040  # FELLOW GARDENER #ZOMBIES
+		100 = agot_filler_westeros.0048  # FELLOW SWORDSMAN #ZOMBIES
+		100 = agot_filler_westeros.0062  # WINTER ROSES #AITHNEA
+
+		## Hedges ##
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_hedges.0014  # WANDERING SELLSWORD #ZOMBIES
+		20 = agot_filler_hedges.0023  # HEDGEWIZARD PROFIT #ZOMBIES
+		20 = agot_filler_hedges.0033  # TRAVELING ARTIST #ZOMBIES
+		50 = agot_filler_hedges.0001  # PUPPETEER #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 75 = agot_filler_hedges.0005  # HEDGE KNIGHT #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_hedges.0015  # TRAVELING MAESTER #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_hedges.0031  # TRAVELING BARD #ZOMBIES
+
+		## Historic inspiration events ##
+		50 = agot_historical_inspiration.0001  # Reflections of Aegon I #Sililex
+		50 = agot_historical_inspiration.0002  # Reflections of Lann the Clever #Sililex
+		50 = agot_historical_inspiration.0004  # Reflections of Star-Eyes #Sililex
+		25 = agot_historical_inspiration.0007  # Reflections of Daemon Targaryen #Sililex
+		50 = agot_historical_inspiration.0008  # Reflections of Bran the Builder # Steelers
+
+		## Kingly Events ##
+		# 100 = agot_realm.1001  # Dispossesed vassal asks for land back
+		100 = agot_realm.0020  # Rename the Teats
+		100 = agot_realm.0030 # Bad King Cut by Throne
+
+		## High Valyrian Events ##
+		# AAWC lineage rule: suppressed generated-character event.
+		# 200 = agot_filler_westeros.0057  # Send to Essos for a Silverhaired Spouse
+
+		## Squire Stuff ##
+		5 = agot_knighthood.0017  # DYLAN Take a Squire
+		5 = agot_knighthood.0700  # DYLAN Hedgeknight Offers to Knight Son
+		5 = agot_knighthood.0701  # DYLAN Hedgeknight offers to Knight you
+		5 = agot_knighthood.0016  # DYLAN Hedgeknight takes son as a squire
+
+		## Childhood Events ##
+		5 = agot_childhood_events.0007 #Fascinated by the Free Cities - Dye Hair?
+		5 = agot_childhood_events.0008 #Child has Dyed Hair - Wylla Manderly
+
+		#Foreign Trainers for Wards
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0063 #Foreign Tutor - Waterdancer
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0064 #Foreign Tutor - Bearded Priest
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0065 #Foreign Tutor - Pentoshi Magistrate
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0066 #Foreign Tutor - Bravosi Banker
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0067 #Foreign Tutor - Lyseni Diplomat
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0068 #Foreign Tutor - Pentoshi Noble
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0069 #Foreign Tutor - Myrish Inventor
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0070 #Foreign Tutor - Asshai Shadowbinder
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0071 #Foreign Tutor - Volantene General
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0072 #Foreign Tutor - Tyroshi Sellword
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_westeros.0073 #Foreign Tutor - Qohorik Sorcerer
+		#10 = agot_filler_westeros.0074 #Foreign Tutor - Lyseni Seductress
+
+		## Treasure Map found
+		1 = agot_filler_westeros.0080
+
+		## RELIGIOUS EVENTS ##
+		# AAWC lineage rule: suppressed generated-character event.
+		# 5 = agot_filler_rhllor.0001   # R'hllor Conversion Event
+		50 = agot_filler_westeros.0061 # Seven Pointed Scar
+		100 = agot_silent_sisters.0003  # Child can join Silent Sisters #Sililex
+		100 = agot_silent_sisters.0004  # Widow can join Silent Sisters #Sililex
+		#100 = agot_septon_events.0001    # SEPTON EVENT #ZOMBIES
+
+		## ORDER EVENTS ##
+		#AGOT TODO: ???
+
+		## Night's Watch Events ##
+		100 = agot_nights_watch.2001  # Child wishes to join Night's Watch
+		100 = agot_nights_watch.2002  # Dynasty member wishes to join the Night's Watch
+		#Kingsguard Trainee specific wishes to go to Nightswatch
+
+		50 = agot_nights_watch.2003  # Abdicate to join a Night's Watch - Jeor Mormont
+		25 = agot_nights_watch.2004   # Heir is Craven/Lazy - Randyll Tarly
+
+		#Maester Events
+		100 = agot_maester.1000 #Child wishes to join the Citadel
+		100 = agot_maester.1005 #Maester thinks child is fit for Citadel
+		#Girl wishes to attend citadel disgused as boy - Sphinx?
+
+		## Kingsguard Events ##
+		300 = agot_kingsguard.3001  # Child asks to train for KG
+
+		## War Events ## - Weighed Heavier due to war triggers
+		300 = agot_filler_war.200  # DOWN THE SLOPES OF DEATH
+		300 = agot_filler_war.300  # THE FOLLY OF BROKEN  MEN
+		# AAWC lineage rule: suppressed generated-character event.
+		# 300 = agot_filler_war.400 # The Hanged Man - Guts Baby Find
+	}
+}
+
+
+agot_filler_yearly_region_north = {
+	random_events = {
+		chance_to_happen = 100
+		500 = 0
+
+		## NORTH ##
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_north.0001  # Wildling Encounter #Gaytriarch
+		10 = agot_filler_north.0003  # A Black Brother Deserts #Gaytriarch
+		10 = agot_filler_north.0020  # TRADER SELLING 'DIREWOLF' CLOAKS #Dylan
+		75 = agot_filler_north.0030  # SUMMER SNOW CHILDHOOD EVENT #DYLAN
+		75 = agot_filler_north.0031  # SUMMER SNOWS DESTROY CROPS #Dylan
+		50 = agot_filler_north.0033  # APPRECIATING A TRUE WEIRWOOD TREE #Dylan
+		10 = agot_filler_north.0032  # FIRSTMEN RUNES UNCOVERED - CONSTRUCTION CREW #Dylan
+		10 = agot_filler_north.0034  # WOLF ATTACKS SHEEP/WOOL TRADE #Dylan
+		100 = agot_filler_north.0035  # HEART TREE GARDENING MAINTENANCE #Dylan
+		100 = agot_filler_north.0036  # ICE SKATING - GENERIC LEISURE #Dylan
+		5 = agot_filler_north.0037  # ICE SKATING - USE FOR TRAVEL #Dylan
+		100 = agot_filler_north.0038  # TALES OF UNICORNS ON SKAGOS #Dylan
+		200 = agot_filler_north.0039  # ICE FISHING EXPERIENCE #Dylan
+		5 = agot_filler_north.0040  # NORTHERN CAMPING STORIES - THE OTHERS #Dylan
+		5 = agot_filler_north.0041  # ICE FISHING EXPERIENCE - SOLO FISHING #Dylan
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_north.0043  # Peasant and the Wight #Zombieschrodcat
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_north.0052  # THE CONFESSOR #ZOMBIES
+		10 = agot_filler_north.0055  # NORTHERN LIBRARY EVENT #ZOMBIES
+		10 = agot_filler_north.0068  # NORTHERN SHROOMS EVENT #ZOMBIES
+		10 = agot_filler_north.0062  # SHADOWCAT NORTHERN EVENT #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_north.0073  # NORHTERN TAVERN EVENT #ZOMBIES\
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_north.0079  # 'DRAGON' OF THE NORTH EVENT #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_north.0082  # THE HEROIC POACHER #ZOMBIES
+		10 = agot_filler_north.0084  # THE CREVASSE #Zombies
+		10 = agot_filler_north.0093  # DANGEROUS GAME - BULL MOOSE #Zombies
+		150 = agot_filler_north.0092  # THE BLIZZARD #Dylan
+		10 = agot_filler_north.0100  # DANGEROUS GAME - AUROCHS #ZOMBIES
+		10 = agot_filler_north.0107  # DANGEROUS GAME - WARG #ZOMBIES
+		50 = agot_filler_north.0114  # THE WILDLING AND THE TOWER #ZOMBIE
+		75 = agot_filler_north.0118  # SNOWY DAY #DYLAN
+		50 = agot_filler_north.0128  # CRYPTS OF WINTERFELL #Aithnea
+		# AAWC lineage rule: suppressed generated-character event.
+		# 75 = agot_filler_north.0131  # WILDLING RAIDS #DEFINED
+		10 = agot_filler_north.0150  # Jon Snow Fanservice
+
+		## CRANNOG EVENTS ##
+		50 = agot_filler_crannog.0006  # BOG BODY FOUND IN THE NECK #Dylan
+		50 = agot_filler_crannog.0008  # GIANT LIZARD LION SPOTTED #Dylan
+		25 = agot_filler_crannog.0011  # LIZARD-LION KILLS LITTLE GIRL
+		50 = agot_filler_crannog.0012  # ALBINO CREATURE SPOTTED
+		# 50 = agot_filler_crannog.0013  # SPECIAL CRANNOG POISON RECIPE #Dylan
+		50 = agot_filler_crannog.0014  # OLD CRANNOG SPEAR FOUND
+		# AAWC lineage rule: suppressed generated-character event.
+		# 75 = agot_filler_crannog.0001  # FOREIGNERS STUCK IN THE NECK #DYLAN
+	}
+}
+
+
+agot_filler_yearly_region_riverlands = {
+	random_events = {
+		chance_to_happen = 20
+		500 = 0
+
+		10 = agot_filler_riverlands.0001  # KRH WORSHIP SITE #RIGH
+		10 = agot_filler_riverlands.0002  # KRH RUINS EXPLORATION #RIGH
+		#AGOT TODO: NOT LOCC'D
+		#10 = agot_filler_riverlands.0030  # CRANNOG FESTIVITY #RIGH
+		#AGOT TODO: NOT LOCC'D
+		#150 = agot_filler_riverlands.0031  # CRANNOGMAN GOES LOCO #RIGH
+		#AGOT TODO: NOT LOCC'D
+		#10 = agot_filler_riverlands.0035  # CRANNOGMAN DISPUTE #RIGH
+		#AGOT TODO: NOT LOCC'D
+		#10 = agot_filler_riverlands.0040  # CRANNOGMAN COURTIER STORY #RIGH
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_riverlands.0041  # CAPE KRAKEN STORIES #RIGH
+		#AGOT TODO: NOT LOCC'D
+		#10 = agot_filler_riverlands.0042  # OLD TREE SPOTTED #RIGH
+		100 = agot_filler_riverlands.0043  # BLACKWOOD ASKS FOR GUIDANCE #RIGH
+		#AGOT TODO: NOT LOCC'D
+		#10 = agot_filler_riverlands.0046  # LUNATIC AND THE WEIRWOOD #RIGH
+		10 = agot_filler_riverlands.0050  # IMPORT EXOTIC FLOWERS #RIGH
+		10 = agot_filler_riverlands.0053  # STAGNATING PRODUCTION #RIGH
+		10 = agot_filler_riverlands.0060  # FARMS EXPANSION #RIGH
+		10 = agot_filler_riverlands.0064  # TRIDENT TRADE OUTPOSTS #RIGH
+		10 = agot_filler_riverlands.0066  # ABUNDANT HARVEST #RIGH
+		75 = agot_filler_riverlands.0067  # TRADING GOODS SURPLUS #RIGH
+		10 = agot_filler_riverlands.0068  # VASSAL PROJECT #RIGH
+		10 = agot_filler_riverlands.0070  # VALE TRADE FEUD #RIGH
+		10 = agot_filler_riverlands.0073  # THE LORD AND THE TWINS #RIGH
+		10 = agot_filler_riverlands.0072  # TWINS CANALS DISPUTE #RIGH
+		100 = agot_filler_riverlands.0075  # VASSAL RED GREEN FORK #RIGH
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_riverlands.0076  # TRIDENT FLOOD #RIGH
+		75 = agot_filler_riverlands.0077  # SWIM IN THE TRIDENT #RIGH
+		100 = agot_filler_riverlands.0083  # TRIDENT SEEN FROM AFAR #RIGH
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_riverlands.0084  # FISH TRIBUTE #RIGH
+		50 = agot_filler_riverlands.0085  # EFFICENT FISHING #RIGH
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_riverlands.0086  # MYSTERIOUS RIVER MERCHANT #RIGH
+		50 = agot_filler_riverlands.0096  # LORD PARAMOUNT #RIGH
+		10 = agot_filler_riverlands.100  # Merchant on the Crossing #Erendriel
+		150 = agot_filler_riverlands.112  # TRIDENT FISHING EVENT #RIGH
+		10 = agot_filler_riverlands.118  # BANDITS OCCUPY A FOREST #RIGH
+		10 = agot_filler_riverlands.200  # Rains at Oldstones #Erendriel
+		10 = agot_filler_riverlands.300  # Fishing Craze #Erendriel
+		10 = agot_filler_riverlands.400  # Vineyards at the Trident #Erendriel
+		10 = agot_filler_riverlands.500  # Seagard Raiders # Erendriel
+	}
+}
+
+
+agot_filler_yearly_region_vale = {
+	random_events = {
+		chance_to_happen = 20
+		500 = 0
+
+		50 = agot_filler_vale.200  # Lost in the Snow #Erendriel
+		50 = agot_filler_vale.300  # Windswept #Erendriel
+		50 = agot_filler_vale.400  # Sister's Chicanery #Erendriel
+		25 = agot_filler_vale.500  # PUMPKINS! #Erendriel
+		10 = agot_filler_vale.600  # Seven Pointed Star #Erendriel
+	}
+}
+
+
+agot_filler_yearly_region_westerlands = {
+	random_events = {
+		chance_to_happen = 20
+		500 = 0
+		## Westerlands ##
+		1 = agot_filler_westerlands.0001  # Lion in a cave #Erendriel
+		# AAWC lineage rule: suppressed generated-character event.
+		# 25 = agot_filler_westerlands.0004  # Old man's treasure #Erendriel
+		25 = agot_filler_westerlands.0010  # Rock slide #Erendriel
+		25 = agot_filler_westerlands.0019  # Buying a lion #Sililex
+
+		#Discover Gold Mine?
+		#Discover Silver Mine?
+
+		## Lannister ##
+		50 = agot_lannister_events.100  # AN AMBITIOUS HEDGEKNIGHT #Cryden
+		50 = agot_lannister_events.300  # Ironborn Raid #Cryden
+	}
+}
+
+agot_filler_yearly_region_iron_islands = {
+	random_events = {
+		chance_to_happen = 20
+		500 = 0
+
+		50 = agot_filler_ironislands.001  # Strange island #Erendriel
+		50 = agot_filler_ironislands.002  # A CHALLENGE AT SEA #Cryden
+		50 = agot_filler_ironislands.003  # Storm of Iron #Erendriel
+		# AAWC lineage rule: suppressed generated-character event.
+		# 50 = agot_filler_ironislands.004  # The Importance of the Iron Price #Erendriel
+		50 = agot_filler_ironislands.005  # Thrall House No More - Removes Thrall House Dynasty Modifier #ZOMIBES
+		50 = agot_filler_ironislands.006  # A Child has Paid the Gold Price - Theon/Balon
+		50 = agot_filler_ironislands.007  # A Thrall Child Shows Talent
+
+		#AGOT TODO:
+		# Drowned Man offers to bless ship
+		# Low tide reveals ancient longship
+		# Coutier joins drowned men
+		# you join drowned men
+		# struggles with the drowned men as a non drowned god follower
+		# Salt wife (or abducted consorts) trys to murder husband
+		#New Pretender Claim Descent from iron King
+	}
+}
+
+
+agot_filler_yearly_region_reach = {
+	random_events = {
+		chance_to_happen = 25
+		500 = 0
+
+		## Reach ##
+		20 = agot_filler_reach.100  # Arson #Erendriel
+		10 = agot_filler_reach.200  # Stung by a bee! # Erendriel
+		10 = agot_filler_reach.301  # Order of the Green Hand #Ushaw
+		20 = agot_filler_reach.311  # HARVEST YEILD #USHAWBRUH - ZOMBIES
+		100 = agot_filler_reach.312  # TRADERS IN THE MARKET #UShawBruh - Zombies
+		75 = agot_filler_reach.314  # OLD REACH COIN #UShawBruh
+		50 = agot_filler_reach.315  # MAESTER AND BEETLE #ZOMBIES
+		20 = agot_filler_reach.320  # GARDEN PARTY #USHAWBRUH - ZOMBIES
+		20 = agot_filler_reach.324  # WINE MERCHANT #USHAWBRUH - ZOMBIES
+		100 = agot_filler_reach.326  # WOODHARP PLAYER #Zombies
+		20 = agot_filler_reach.328  # NEW FARM #USHAWBRUH - ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_reach.329  # CROPS STEALER #Zombies
+		50 = agot_filler_reach.330  # BEEKEEPER #ZOMBIES
+		75 = agot_filler_reach.340  # STRANGE SEEDS #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 50 = agot_filler_reach.349  # GRAFTING #ZOMBIES
+
+		#Wax ?
+
+		## Historic inspiration events ##
+		# AAWC lineage rule: suppressed generated-character event.
+		# 30 = agot_historical_inspiration.0003  # Reflections of Mern IX #Sililex
+		30 = agot_historical_inspiration.0006  # Reflections of Alicent Hightower #Sililex
+	}
+}
+
+
+agot_filler_yearly_region_crownlands = {
+	random_events = {
+		chance_to_happen = 25
+		500 = 0
+
+		50 = agot_filler_kingslanding.0001  # PICKPOCKET #ZOMBIES
+		50 = agot_filler_kingslanding.0003  # FISHMONGER #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_kingslanding.0005  # STEELSTREET: KNIGHT #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 50 = agot_filler_kingslanding.0009  # RAT-PIT BRAWLERS #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_kingslanding.0018  # POTSHOP SELLSWORD #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_kingslanding.0022  # COBBLERS SQUARE: SEPTON #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_kingslanding.0026  # THE BAKER AND APPRENTICE #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_kingslanding.0029  # STREET OF SILK: BLACKMAIL #ZOMBIES
+		10 = agot_filler_kingslanding.0031  # ???
+		10 = agot_filler_kingslanding.0039  # THE DRAGONPIT #ZOMBIES
+		10 = agot_filler_kingslanding.0044  # BALERION CAT EVENT #Sililex
+
+		50 = agot_filler_crownlands.0001 # DRAGONSTONE DRAGON EGG
+	}
+}
+
+agot_filler_yearly_region_stormlands = {
+	random_events = {
+		chance_to_happen = 25
+		500 = 0
+
+		10 = agot_filler_stormlands.0100  # Morne: Ancient Knowledge #Erendriel
+		10 = agot_filler_stormlands.0200  # Witch in the Rainwood #Erendriel
+		10 = agot_filler_stormlands.0300  # DORNISH TRADERS
+		10 = agot_filler_stormlands.0400  # Unbearable storm #Erendriel
+		50 = agot_filler_stormlands.0403  # SUDDEN STORM #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_stormlands.0411  # SANDSTORM OF A WOMAN #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_stormlands.0415  # GRIEF OF THE FATHERS #ZOMBIES
+		10 = agot_filler_stormlands.0421  # GOSHAWK #ZOMBIES
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_stormlands.0433  # THE HEDGE KNIGHT FROM THE REACH #ZOMBIES
+		75 = agot_filler_stormlands.0443  # THE INFERNO OF THE MILL #ZOMBIES
+		10 = agot_filler_stormlands.0449  # STORMLAND LIBRARY EVENT #ZOMBIES
+	}
+}
+
+
+agot_filler_yearly_region_dorne = {
+	random_events = {
+		chance_to_happen = 25
+		500 = 0
+
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_dorne.0001  # NOBLES DUELING OVER A PARAMOUR #DYLAN
+		150 = agot_filler_dorne.0003  # OFFERED COOKED SCORPION AT A BAAZAR #DYLAN
+		75 = agot_filler_dorne.0004  # DORNISH HEAT WAVE - WATER SCARCITY #Dylan
+		150 = agot_filler_dorne.0005  # APPRECIATING A DORNISH BLOOD ORANGE #Dylan
+		10 = agot_filler_dorne.0006  # CHEAP AND GOOD DORNISH SAND STEEDS #Dylan
+		50 = agot_filler_dorne.0007  # RAN OUT OF SPICES #DYLAN
+		20 = agot_filler_dorne.0008  # POOR LEMON ORCHARD HARVESTS #Dylan
+		20 = agot_filler_dorne.0009  # EXCEPTIOONAL LEMON ORCHARD HARVESTS #Dylan
+		150 = agot_filler_dorne.0010  # SANDSTORM DAMAGED ORCHARDS AND GROVES #Dylan
+		100 = agot_filler_dorne.0011  # DORNISH OUD PLAYER PLAYS A BEAUTIFUL TUNE #Dylan
+		75 = agot_filler_dorne.0012  # SAND DOG HORROR STORY #Dylan
+		50 = agot_filler_dorne.0013  # SPILLED MY DORNISH RED WINES #Dylan
+		100 = agot_filler_dorne.0015  # FORGOT MY DESERT VEIL #Dylan
+		150 = agot_filler_dorne.0017  # ACK! Sand blew into my face. #Dylan
+		10 = agot_filler_dorne.0014  # REACHMAN TRADER STARTS FIGHT #Dylan
+		10 = agot_filler_dorne.0016  # RAHLOO VS SEVEN CONFLICTs #DYLAN
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_dorne.0020  # Bazaar Scammer Event Chain #DYLAN
+		10 = agot_filler_dorne.0035  # Fishing Adventure Along the Greenblood #DYLAN
+		10 = agot_filler_dorne.200   # Dry Wells #Erendriel
+		# AAWC lineage rule: suppressed generated-character event.
+		# 20 = agot_filler_dorne.0042 # Qartheen Merchant Offers to sell you Camels
+	}
+}
+
+
+agot_filler_yearly_region_btw = {
+	random_events = {
+		chance_to_happen = 50
+		1500 = 0
+
+		50 = agot_filler_btw.100  # Land Dispute #Erendriel
+		50 = agot_filler_btw.200  # A wounded direwolf #Erendriel
+		50 = agot_filler_btw.400  # Hardhome: Ghosts of the Past #Erendriel
+		# AAWC lineage rule: suppressed generated-character event.
+		# 50 = agot_filler_btw.500  # Southerner with a strange book #Erendriel
+		200 = agot_filler_btw.600  # Ice walk/skate event chain #Sililex
+		100 = agot_filler_btw.700 # Larder Frozen Shut
+	}
+}
+
+
+agot_filler_yearly_the_wall = {
+	random_events = {
+		chance_to_happen = 10
+		1500 = 0
+
+		75 = agot_filler_nights_watch.0001  # SHORTAGE OF MULES #PBBM
+		150 = agot_filler_nights_watch.0009  # RECRUIT HAS TROUBLE ADJUSTING #PBBM
+	}
+}
+
+# Essos Specific
+
+agot_filler_yearly_region_free_cities = {
+	random_events = {
+		chance_to_happen = 25
+		500 = 0
+
+		# AAWC lineage rule: suppressed generated-character event.
+		# 25 = agot_filler_free_cities.0001 # Wisdom From Afar, Maester visits foreign court #Vortavor
+		50 = agot_filler_free_cities.1000 # Plunder at Sea, Pirates pester merchant ships #Vortavor
+		# AAWC lineage rule: suppressed generated-character event.
+		# 50 = agot_filler_free_cities.2000 # A Delicious Drink, local wine industry investment #Defined
+	}
+}
+
+agot_filler_yearly_lys = {
+	random_events = {
+		chance_to_happen = 25
+		500 = 0  # Change odds based on num of events once official  #AGOT TODO
+
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_lys.0001  # Admire the City  # Steelers
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_lys.0011  # Sentence a Captured Pirate  # Steelers
+		25 = agot_filler_lys.0031  # A Day at the Market  # Steelers
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_lys.0033  # Looking at Jewelry  # Steelers
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_lys.0034  # Looking at Tomes and Scrolls  # Steelers
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_lys.0035  # Looking at Furniture  # Steelers
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_lys.0041  # Visiting the Alchemist  # Steelers
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_lys.0042  # Visiting the Armorer  # Steelers
+		# AAWC lineage rule: suppressed generated-character event.
+		# 100 = agot_filler_lys.0043  # Looking at Perfumes  # Steelers
+		# STEELERS TODO: Add "Free a Slave" event chain
+
+		# AAWC lineage rule: suppressed generated-character event.
+		# 25 = agot_filler_rhllor.0020  # Convert Faith to R'hllor  # Steelers
+	}
+}
+
+
+agot_filler_yearly_region_tyrosh = {
+	random_events = {
+		chance_to_happen = 25
+		500 = 0
+		100 = agot_filler_tyrosh.0003 # Ship Leaves Port Event # Dylan
+		50 = agot_filler_tyrosh.0004 # Honeyfingers Event # Dylan
+		50 = agot_filler_tyrosh.0005 # Stolen Ornate Helmet # Dylan
+		# AAWC lineage rule: suppressed generated-character event.
+		# 50 = agot_filler_tyrosh.0006 # (Don't Cry Over) Spilt Pear Brandy # Dylan
+		50 = agot_filler_tyrosh.0008 # Tyroshi Merchant Talk Event # Dylan
+		# AAWC lineage rule: suppressed generated-character event.
+		# 50 = agot_filler_tyrosh.0009 # Admiring Tyroshi Hair and Beards # Dylan
+		25 = agot_filler_tyrosh.0002 # Competing Inventors # Dylan
+		# AAWC lineage rule: suppressed generated-character event.
+		# 25 = agot_filler_tyrosh.0007 # Snail Breeding Industry Suffers # Dylan
+		25 = agot_filler_tyrosh.0001 # Dye Merchants Hound You # Dylan
+		# AAWC lineage rule: suppressed generated-character event.
+		# 10 = agot_filler_tyrosh.0010 # Destitute Sellsword Begs for Work # Dylan
+
+		# AAWC lineage rule: suppressed generated-character event.
+		# 25 = agot_filler_rhllor.0020  # Convert Faith to R'hllor  # Steelers
+	}
+}
+
+agot_filler_yearly_region_braavos = {
+	random_events = {
+		chance_to_happen = 25
+		500 = 0
+
+		100 = agot_filler_braavos.0001 # Mistaken Identity at the Unmasking of Utheros # Uber
+		100 = agot_filler_braavos.0002 # The Braavosi Satire # Uber
+		25 = agot_filler_braavos.0003 # A Bravo of the Moon Pool # Uber
+		50 = agot_filler_braavos.0004 # Oyster Shucking Contest
+		25 = agot_filler_braavos.0005 # The Braavosi Challenge
+		# AAWC lineage rule: suppressed generated-character event.
+		# 25 = agot_filler_braavos.0006 # Murder at the Moon Pool
+		50 = agot_filler_braavos.0007 # The Enchanted Puppets of Braavos
+	}
+}
+
+
+agot_filler_magic = {
+	random_events = {
+		chance_to_happen = 10
+		500 = 0
+
+		100 = agot_valyrian_steel.2000  # Lamentation Quest Chain
+	}
+}
+
+
+agot_filler_ruins_five_year_rebuild = {
+	random_events = {
+		chance_to_happen = 50
+
+		#RUINS - ZOMBIES
+		100 = agot_rebuilding_ruins.0001  # CHARCOAL SELLERS #ZOMBIES
+		100 = agot_rebuilding_ruins.0002  # BANDITS HIDEOUT #ZOMBIES
+		100 = agot_rebuilding_ruins.0003  # BURIED TREASURE #ZOMBIES
+		100 = agot_rebuilding_ruins.0004  # BANDIT ATTACK #ZOMBIES
+		100 = agot_rebuilding_ruins.0005  # GHOST STORIES #ZOMBIES
+		100 = agot_rebuilding_ruins.0009  # BLACKSMITH CACHE #ZOMBIES
+		100 = agot_rebuilding_ruins.0010  # QUICK DECISION #ZOMBIES
+		100 = agot_rebuilding_ruins.0011  # SET IN STONE #ZOMBIES
+		100 = agot_rebuilding_ruins.0012  # IN THE DETAILS #ZOMBIES
+		100 = agot_rebuilding_ruins.0013  # BRONZE GOD #ZOMBIES
+		100 = agot_rebuilding_ruins.0016  # LEADER BY EXAMPLE #ZOMBIES
+		100 = agot_rebuilding_ruins.0017  # CURIOUS VISITOR #ZOMBIES
+		100 = agot_rebuilding_ruins.0018  # FLOWER IN THE RUINS #ZOMBIES
+	}
+}
+
+agot_filler_harrenhal_curse = {
+	random_events = {
+		chance_to_happen = 100
+
+		100 = agot_harrenhal_curse.0001  # APPLIES CURSE #ZOMBIE
+		100 = agot_harrenhal_curse.0002  # SLIP ON STEPS #ZOMBIES
+		100 = agot_harrenhal_curse.0003  # LOSE OF GOLD #ZOMBIES
+		100 = agot_harrenhal_curse.0004  # GHOST OF IRONBORN #ZOMBIES
+		100 = agot_harrenhal_curse.0005  # THE MAD MADIEN #ZOMBIES
+		100 = agot_harrenhal_curse.0006  # A CANE ON STONE #ZOMBIES
+		100 = agot_harrenhal_curse.0007  # BRIDE FOR A KING #ZOMBIES
+		100 = agot_harrenhal_curse.0008  # A BLOOD BATH #ZOMBIES
+		100 = agot_harrenhal_curse.0009  # LESSON FROM THE PAST #ZOMBIES
+		100 = agot_harrenhal_curse.0010  # QUICK DECISION #ZOMBIES
+	}
+}
+
+agot_filler_dragonkeepers = {
+	random_events = {
+		chance_to_happen = 25
+
+		300 = 0
+		50 = agot_dragonkeepers.0300 # Low Supplies for Training New Recruits
+		50 = agot_dragonkeepers.0301 # Dragon food is stretched thin
+		50 = agot_dragonkeepers.0302 # Dragonkeeper Initiate killed by dragon
+		50 = agot_dragonkeepers.0303 # Dragonkeeper injured by a dragon
+		50 = agot_dragonkeepers.0304 # Dragonkeeper apprehend an intruder
+		25 = agot_dragonkeepers.0305 # Dragonkeepers give dragon a nickname
+		50 = agot_dragonkeepers.0306 # Child visits dragonpit - High Funding Outcome
+		50 = agot_dragonkeepers.0307 # Child visits dragonpit - Low Funding Outcome
+		1 = agot_dragonkeepers.0308 # A dragon lays an egg in the dragonpit.
+		50 = agot_dragonkeepers.0309 # Dragonkeeper reports that new recruits are progressing well
+		25 = agot_dragonkeepers.0310 # Dragonkeeper is conducting dragon research
+		50 = agot_dragonkeepers.0311 # Weak Chains
+		50 = agot_dragonkeepers.0312 # Farmers unwilling / unable to support demands of dragonpit
+		50 = agot_dragonkeepers.0314 # Dragon gets sick cause of low amenities
+		50 = agot_dragonkeepers.0315 # Child Complains Their Egg Isn't Hatching
+	}
+}
+
+agot_filler_valyrian_culture = {
+	random_events = {
+		2500 = 0
+		10 = agot_childhood_events.0020
+	}
+}

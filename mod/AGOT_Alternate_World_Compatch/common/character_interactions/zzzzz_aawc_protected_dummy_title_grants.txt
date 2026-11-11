@@ -1,0 +1,23 @@
+﻿# This interaction is referenced directly by CK3 code. Keep the key unchanged.
+# Empty-world dummy holders must never use the engine's random-recipient grant path.
+grant_title_to_new_random_character_interaction = {
+	hidden = yes
+	auto_accept = yes
+	special_interaction = grant_titles_interaction
+	use_diplomatic_range = no
+
+	is_valid_showing_failures_only = {
+		scope:actor = {
+			this != scope:recipient
+			any_held_title = {
+				count > 1
+			}
+			NOT = { agot_is_dummy_character = yes }
+			NOT = { has_government = ruins_government }
+			NOT = { has_government = unknown_government }
+			NOT = { has_government = wilderness_government }
+			NOT = { this = title:c_ruins.holder }
+			NOT = { this = title:c_wilderness.holder }
+		}
+	}
+}

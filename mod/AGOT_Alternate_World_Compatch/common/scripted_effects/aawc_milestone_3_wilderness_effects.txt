@@ -1,0 +1,235 @@
+﻿aawc_milestone_3_seed_wilderness_blockers_effect = {
+	# County scope
+	title_province = {
+		aawc_remove_legacy_aawc_placement_blockers_effect = yes
+		if = { limit = { has_building = bandits } remove_building = bandits }
+		if = { limit = { has_building = wolf_den } remove_building = wolf_den }
+		if = { limit = { has_building = bear_den } remove_building = bear_den }
+		if = { limit = { has_building = dense_growth } remove_building = dense_growth }
+		if = { limit = { has_building = flooded_lands } remove_building = flooded_lands }
+		if = { limit = { has_building = ravenous_basilisk_1 } remove_building = ravenous_basilisk_1 }
+		if = { limit = { has_building = basilisk_1 } remove_building = basilisk_1 }
+		if = { limit = { has_building = cos_wyvern_alpha_1 } remove_building = cos_wyvern_alpha_1 }
+		if = { limit = { has_building = cos_wyvern_1 } remove_building = cos_wyvern_1 }
+		if = { limit = { has_building = ghoulish_bat_1 } remove_building = ghoulish_bat_1 }
+		if = { limit = { has_building = cos_bat_1 } remove_building = cos_bat_1 }
+		if = { limit = { has_building = cos_carn_plant_1 } remove_building = cos_carn_plant_1 }
+
+		if = {
+			limit = { has_free_building_slot = yes }
+			aawc_place_initial_regional_blockers_effect = yes
+		}
+		if = {
+			limit = { has_free_building_slot = yes }
+			# The shared regional effect owns all four slots in one idempotent call.
+		}
+		# AW tribal-shatter should not seed pirate-remnant blockers on WH conversions;
+		# those can later escalate into pirate adventurer realms.
+		if = {
+			limit = { has_building = pirate_remnants }
+			remove_building = pirate_remnants
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH blocker sanitize removed pirate_remnants" }
+		}
+		if = {
+			limit = { has_building = pirate_remnants_cleared }
+			remove_building = pirate_remnants_cleared
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH blocker sanitize removed pirate_remnants_cleared" }
+		}
+		if = {
+			limit = {
+				has_free_building_slot = yes
+				NOT = { has_building = bandits }
+			}
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH blocker sanitize left legacy bandits retired" }
+		}
+	}
+}
+
+aawc_milestone_3_convert_wh_candidates_to_wilderness_effect = {
+	aawc_reforging_diag_phase_effect = { PHASE = 30 }
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH convert pass begin" }
+		title:c_wilderness.holder ?= {
+			save_temporary_scope_as = aawc_m3_wilderness_dummy
+		}
+		title:c_ruins.holder ?= {
+			save_temporary_scope_as = aawc_m3_ruins_dummy
+		}
+
+		# Safety cleanup: if SH counties ever carry WH from a previous bad pass, strip WH first.
+		every_county = {
+			limit = {
+				has_county_modifier = aawc_wh_candidate_marker
+				OR = {
+					has_county_modifier = aawc_survivor_pocket_marker
+					has_variable = aawc_sh_lock
+				}
+			}
+			remove_county_modifier = aawc_wh_candidate_marker
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH preclean removed WH marker from SH-protected county" }
+		}
+
+		if = {
+			limit = { exists = scope:aawc_m3_wilderness_dummy }
+
+			every_county = {
+				limit = {
+					has_county_modifier = aawc_wh_candidate_marker
+					NOT = { has_county_modifier = aawc_rh_candidate_marker }
+					NOT = { has_county_modifier = aawc_survivor_pocket_marker }
+					NOT = { has_variable = aawc_sh_lock }
+					NOR = {
+						this = title:c_unknown
+						this = title:c_ruins
+						this = title:c_wilderness
+					}
+					NOT = { title_province = { has_holding_type = settlement_holding } }
+					NOT = { any_county_province = { has_holding_type = settlement_holding } }
+				}
+				if = {
+					limit = { has_variable = aawc_m3_wh_convert_ok }
+					remove_variable = aawc_m3_wh_convert_ok
+				}
+
+				if = {
+					limit = { NOT = { exists = holder } }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH source holder: missing holder (skip)" }
+				}
+				else_if = {
+					limit = { holder = { this = scope:aawc_m3_wilderness_dummy } }
+					set_variable = { name = aawc_m3_wh_convert_ok value = 1 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH source holder: wilderness dummy" }
+				}
+				else_if = {
+					limit = {
+						exists = scope:aawc_m3_ruins_dummy
+						holder = { this = scope:aawc_m3_ruins_dummy }
+					}
+					set_variable = { name = aawc_m3_wh_convert_ok value = 1 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH source holder: ruins dummy" }
+				}
+				else_if = {
+					limit = { holder = { is_vassal_or_below_of = scope:aawc_m3_wilderness_dummy } }
+					hidden_effect = {
+						create_title_and_vassal_change = {
+							type = revoked
+							save_scope_as = aawc_m3_wh_change
+						}
+						change_title_holder = {
+							holder = scope:aawc_m3_wilderness_dummy
+							change = scope:aawc_m3_wh_change
+							take_baronies = yes
+						}
+						resolve_title_and_vassal_change = scope:aawc_m3_wh_change
+						generate_coa = yes
+					}
+					set_variable = { name = aawc_m3_wh_convert_ok value = 1 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH retook county for wilderness dummy holder (from wilderness-dummy vassal chain)" }
+				}
+				else_if = {
+					limit = {
+						exists = scope:aawc_m3_ruins_dummy
+						holder = { is_vassal_or_below_of = scope:aawc_m3_ruins_dummy }
+					}
+					hidden_effect = {
+						create_title_and_vassal_change = {
+							type = revoked
+							save_scope_as = aawc_m3_wh_change
+						}
+						change_title_holder = {
+							holder = scope:aawc_m3_wilderness_dummy
+							change = scope:aawc_m3_wh_change
+							take_baronies = yes
+						}
+						resolve_title_and_vassal_change = scope:aawc_m3_wh_change
+						generate_coa = yes
+					}
+					set_variable = { name = aawc_m3_wh_convert_ok value = 1 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH retook county for wilderness dummy holder (from ruins-dummy vassal chain)" }
+				}
+				else = {
+					hidden_effect = {
+						create_title_and_vassal_change = {
+							type = revoked
+							save_scope_as = aawc_m3_wh_change
+						}
+						change_title_holder = {
+							holder = scope:aawc_m3_wilderness_dummy
+							change = scope:aawc_m3_wh_change
+							take_baronies = yes
+						}
+						resolve_title_and_vassal_change = scope:aawc_m3_wh_change
+						generate_coa = yes
+					}
+					set_variable = { name = aawc_m3_wh_convert_ok value = 1 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH retook county for wilderness dummy holder (from independent non-dummy holder)" }
+				}
+
+				if = {
+					limit = {
+						has_variable = aawc_m3_wh_convert_ok
+					}
+					set_county_faith = faith:fg_unknown
+					set_county_culture = culture:unknown_culture
+
+					every_county_province = {
+						limit = {
+							has_holding = yes
+							is_county_capital = no
+						}
+						remove_holding = yes
+						aawc_reforging_cohort_clear_ineligible_settlement_effect = yes
+					}
+
+					title_province = {
+						if = {
+							limit = { NOT = { has_holding_type = wilderness_holding } }
+							set_holding_type = wilderness_holding
+						}
+						aawc_reforging_cohort_clear_ineligible_settlement_effect = yes
+
+						agot_destroy_all_generic_buildings = yes
+
+						if = { limit = { has_building = small_ruin_01 } remove_building = small_ruin_01 }
+						if = { limit = { has_building = medium_ruin_01 } remove_building = medium_ruin_01 }
+						if = { limit = { has_building = large_ruin_01 } remove_building = large_ruin_01 }
+						if = { limit = { has_building = small_ruined_holding_01 } remove_building = small_ruined_holding_01 }
+						if = { limit = { has_building = medium_ruined_holding_01 } remove_building = medium_ruined_holding_01 }
+						if = { limit = { has_building = large_ruined_holding_01 } remove_building = large_ruined_holding_01 }
+						if = { limit = { has_building = ruin_renowned_01 } remove_building = ruin_renowned_01 }
+						if = { limit = { has_building = jungle_ruin_01 } remove_building = jungle_ruin_01 }
+						if = { limit = { has_building = jungle_ruin_deep_01 } remove_building = jungle_ruin_deep_01 }
+						if = { limit = { has_building = settlement_01 } remove_building = settlement_01 }
+						if = { limit = { has_building = settlement_02 } remove_building = settlement_02 }
+						if = { limit = { has_building = settlement_03 } remove_building = settlement_03 }
+						if = { limit = { has_building = pirate_remnants } remove_building = pirate_remnants }
+					}
+
+					if = {
+						limit = { NOT = { has_variable = aawc_m3_wh_blockers_seeded } }
+						aawc_milestone_3_seed_wilderness_blockers_effect = yes
+						set_variable = { name = aawc_m3_wh_blockers_seeded value = 1 }
+						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH seeded wilderness blockers" }
+					}
+				}
+				else = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH conversion body skipped to preserve independent non-dummy county" }
+				}
+
+				if = {
+					limit = { has_variable = aawc_m3_wh_convert_ok }
+					remove_variable = aawc_m3_wh_convert_ok
+				}
+			}
+		}
+		else = {
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH skipped because c_wilderness holder was missing" }
+		}
+
+		aawc_debug_audit_sh_wh_integrity_effect = yes
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC M3 WH convert pass end" }
+	}
+
+	aawc_reforging_diag_phase_effect = { PHASE = 31 }
+}

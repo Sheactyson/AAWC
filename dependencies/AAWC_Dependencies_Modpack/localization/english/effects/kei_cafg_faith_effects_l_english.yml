@@ -1,0 +1,4 @@
+﻿l_english:
+kCAFG_E_convert_faith_in_all_county_provinces_tt: "[faith|E] will partially change to [E_kCAFG_convert_faith_in_all_county_provinces_converting_faith.GetName|V]"
+kCAFG_E_province_weighted_faith_conversion_tt: "[faith|E] will partially change to [E_kCAFG_province_weighted_faith_conversion_converting_faith.GetName|V]"
+kCAFG_E_replace_county_faith_tt: "[faith|E] will #EMP completely#! change to [E_kCAFG_replace_county_faith_target_faith.GetName|V]"

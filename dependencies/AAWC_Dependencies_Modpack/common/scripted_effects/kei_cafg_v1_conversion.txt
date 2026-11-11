@@ -1,0 +1,224 @@
+﻿E_kCAFG_v1_conversion = {
+    every_province = {
+        save_scope_as = kCAFG_province
+        every_in_list = {
+            variable = kCAFG_province_cultures
+            save_temporary_scope_as = kCAFG_converted_culture
+            scope:kCAFG_province = {
+                if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_1 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.05 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_2 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.1 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_3 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.15 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_4 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.2 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_5 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.25 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_6 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.3 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_7 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.35 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_8 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.4 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_9 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.45 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_10 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.5 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_11 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.55 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_12 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.6 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_13 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.65 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_14 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.7 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_15 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.75 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_16 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.8 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_17 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.85 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_18 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.9 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_19 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 0.95 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_culture_level_20 target = scope:kCAFG_converted_culture } }
+                    E_kCAFG_create_struct = { TYPE = culture SCOPE = scope:kCAFG_converted_culture FACTOR = 1 }
+                }
+            }
+        }
+        E_kCAFG_update_province_target_culture_tension = yes
+        E_kCAFG_on_province_culture_tension_updated = yes
+
+        clear_variable_list = kCAFG_culture_level_1
+        clear_variable_list = kCAFG_culture_level_2
+        clear_variable_list = kCAFG_culture_level_3
+        clear_variable_list = kCAFG_culture_level_4
+        clear_variable_list = kCAFG_culture_level_5
+        clear_variable_list = kCAFG_culture_level_6
+        clear_variable_list = kCAFG_culture_level_7
+        clear_variable_list = kCAFG_culture_level_8
+        clear_variable_list = kCAFG_culture_level_9
+        clear_variable_list = kCAFG_culture_level_10
+        clear_variable_list = kCAFG_culture_level_11
+        clear_variable_list = kCAFG_culture_level_12
+        clear_variable_list = kCAFG_culture_level_13
+        clear_variable_list = kCAFG_culture_level_14
+        clear_variable_list = kCAFG_culture_level_15
+        clear_variable_list = kCAFG_culture_level_16
+        clear_variable_list = kCAFG_culture_level_17
+        clear_variable_list = kCAFG_culture_level_18
+        clear_variable_list = kCAFG_culture_level_19
+        clear_variable_list = kCAFG_culture_level_20
+
+        every_in_list = {
+            variable = kCAFG_province_faiths
+            save_temporary_scope_as = kCAFG_converted_faith
+            scope:kCAFG_province = {
+                if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_1 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.05 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_2 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.1 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_3 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.15 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_4 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.2 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_5 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.25 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_6 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.3 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_7 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.35 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_8 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.4 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_9 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.45 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_10 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.5 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_11 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.55 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_12 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.6 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_13 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.65 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_14 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.7 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_15 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.75 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_16 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.8 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_17 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.85 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_18 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.9 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_19 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 0.95 }
+                }
+                else_if = {
+                    limit = { is_target_in_variable_list = { name = kCAFG_faith_level_20 target = scope:kCAFG_converted_faith } }
+                    E_kCAFG_create_struct = { TYPE = faith SCOPE = scope:kCAFG_converted_faith FACTOR = 1 }
+                }
+            }
+        }
+        E_kCAFG_update_province_target_faith_tension = yes
+        E_kCAFG_on_province_faith_tension_updated = yes
+        
+        clear_variable_list = kCAFG_faith_level_1
+        clear_variable_list = kCAFG_faith_level_2
+        clear_variable_list = kCAFG_faith_level_3
+        clear_variable_list = kCAFG_faith_level_4
+        clear_variable_list = kCAFG_faith_level_5
+        clear_variable_list = kCAFG_faith_level_6
+        clear_variable_list = kCAFG_faith_level_7
+        clear_variable_list = kCAFG_faith_level_8
+        clear_variable_list = kCAFG_faith_level_9
+        clear_variable_list = kCAFG_faith_level_10
+        clear_variable_list = kCAFG_faith_level_11
+        clear_variable_list = kCAFG_faith_level_12
+        clear_variable_list = kCAFG_faith_level_13
+        clear_variable_list = kCAFG_faith_level_14
+        clear_variable_list = kCAFG_faith_level_15
+        clear_variable_list = kCAFG_faith_level_16
+        clear_variable_list = kCAFG_faith_level_17
+        clear_variable_list = kCAFG_faith_level_18
+        clear_variable_list = kCAFG_faith_level_19
+        clear_variable_list = kCAFG_faith_level_20
+    }
+}

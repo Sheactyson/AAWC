@@ -1,0 +1,49 @@
+﻿
+d_harvest_principality = {
+	7000.1.1 = {
+		liege = k_lorath
+		government = lorathi_principality_government
+	}	
+}
+
+d_fisher_principality = {
+	7000.1.1 = {
+		liege = k_lorath
+		government = lorathi_principality_government
+	}	
+}
+
+d_principality_of_the_streets = {
+	7000.1.1 = {
+		liege = k_lorath
+		government = lorathi_principality_government
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+﻿l_english:
+kCAFG_province_faith_tension_modifier: "[barony] [faith_tension|E] Effects"
+kCAFG_province_faith_tension_modifier_desc: "The [faith_tension|E] in this [barony] is making its [holding|E] harder to administrate and its population dissatisfied."
+kCAFG_province_faith_tension_no_holding_modifier: "[barony] [faith_tension|E] Effects"
+kCAFG_province_faith_tension_no_holding_modifier_desc: "The [faith_tension|E] in this [barony] is making its population dissatisfied."
+
+kCAFG_court_chaplain_resisted_conversion_modifier: "$court_chaplain_resisted_conversion_modifier$"
+kCAFG_court_chaplain_resisted_conversion_modifier_desc: "The people of this [barony] are actively working against any conversion efforts."
+kCAFG_court_chaplain_religious_construction_modifier: "$court_chaplain_religious_construction_modifier$"
+kCAFG_court_chaplain_religious_construction_modifier_desc: "$court_chaplain_religious_construction_modifier_desc$"
+kCAFG_court_chaplain_religious_fervor_modifier: "$court_chaplain_religious_fervor_modifier$"
+kCAFG_court_chaplain_religious_fervor_modifier_desc: "$court_chaplain_religious_fervor_modifier_desc$"
+kCAFG_court_chaplain_vassal_claim_upset_modifier: "$court_chaplain_vassal_claim_upset_modifier$"
+kCAFG_court_chaplain_vassal_claim_upset_modifier_desc: "$court_chaplain_vassal_claim_upset_modifier_desc$"
+kCAFG_court_chaplain_county_conversion_upset_modifier: "$court_chaplain_county_conversion_upset_modifier$"
+kCAFG_court_chaplain_county_conversion_upset_modifier_desc: "The people of this [barony] are upset over the forced attempt to convert their religion."
+kCAFG_court_chaplain_county_conversion_support_modifier: "$court_chaplain_county_conversion_support_modifier$"
+kCAFG_court_chaplain_county_conversion_support_modifier_desc: "New converts in this [barony] have flooded in."

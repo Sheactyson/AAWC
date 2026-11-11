@@ -1,0 +1,314 @@
+﻿# Scope : culture
+V_kCAFG_steward_acceptance_bonuses = {
+    value = 0
+
+    add = {
+        value = task_accept_culture_base_progress
+        desc = STEWARD_PROGRESS_BASE
+    }
+    add = {
+        value = scope:councillor.steward_accept_culture_yearly_increase
+        desc = SCALED_COUNCILLOR_STEWARDSHIP_VALUE
+    }
+
+    # if = {
+    #     limit = {
+    #         scope:councillor = {
+    #             has_variable = kCAFG_task_accept_culture_focused_culture
+    #         }
+    #         exists = scope:councillor.var:kCAFG_task_accept_culture_focused_culture
+    #     }
+
+    #     add = scope:councillor.var:kCAFG_task_accept_culture_focused_culture.V_kCAFG_steward_accept_culture_cultural_bonuses
+    # }
+    # else = {
+    #     add = scope:county.culture.V_kCAFG_steward_accept_culture_cultural_bonuses
+    # }
+    add = V_kCAFG_steward_accept_culture_cultural_bonuses
+    
+    if = {
+        limit = {
+            councillor_liege_has_customs_legacy_perk = yes
+        }
+        add = {
+            value = scope:councillor.steward_accept_culture_customs_bonus_yearly_increase
+            desc = CUSTOMS_DYNASTY_PERK_BONUS_VALUE
+        }
+    }
+    
+    if = {
+        limit = {
+            councillor_liege_has_erudition_legacy_5_perk = yes
+        }
+        add = {
+            value = scope:councillor.steward_accept_culture_erudition_bonus_yearly_increase
+            desc = ERUDITION_DYNASTY_PERK_BONUS_VALUE
+        }
+    }
+
+    if = {
+        limit = {
+            councillor_liege_has_family_business_bonus = yes
+        }
+        add = {
+            value = scope:councillor.steward_promote_culture_family_business_bonus
+            desc = FAMILY_BUSINESS_BONUS_VALUE
+        }
+    }
+
+    # Relation Bonuses/Penalties
+    if = { # Friend
+        limit = {
+            scope:councillor_liege = {
+                has_relation_friend = scope:councillor
+                NOT = { has_relation_best_friend = scope:councillor }
+            }
+        }
+        add = {
+            value = scope:councillor.steward_accept_culture_yearly_increase_friend_bonus
+            desc = COUNCILLOR_IS_YOUR_FRIEND
+        }
+    }
+    if = { # Best Friend
+        limit = {
+            scope:councillor_liege = {
+                has_relation_best_friend = scope:councillor
+            }
+        }
+        add = {
+            value = scope:councillor.steward_accept_culture_yearly_increase_best_friend_bonus
+            desc = COUNCILLOR_IS_YOUR_BEST_FRIEND
+        }
+    }
+    if = { # Rival
+        limit = {
+            scope:councillor_liege = {
+                has_relation_rival = scope:councillor
+                NOT = { has_relation_nemesis = scope:councillor }
+            }
+        }
+        add = {
+            value = scope:councillor.steward_accept_culture_yearly_increase_rival_bonus
+            desc = COUNCILLOR_IS_YOUR_RIVAL
+        }
+    }
+    if = { # Nemesis
+        limit = {
+            scope:councillor_liege = {
+                has_relation_nemesis = scope:councillor
+            }
+        }
+        add = {
+            value = scope:councillor.steward_accept_culture_yearly_increase_nemesis_bonus
+            desc = COUNCILLOR_IS_YOUR_NEMESIS
+        }
+    }
+    if = { # Independent Ruler
+        limit = {
+            scope:councillor_liege = {
+                is_independent_ruler = yes
+            }
+        }
+        add = {
+            value = scope:councillor.steward_accept_culture_yearly_increase_independent_bonus
+            desc = COUNCILLOR_LIEGE_IS_INDEPENDENT
+        }
+    }
+    
+    if = { # Court Type bonus
+        limit = {
+            scope:councillor_liege = {
+                has_royal_court = yes
+                has_dlc_feature = royal_court
+                has_court_type = court_administrative
+                court_grandeur_current_level >= 4
+            }
+        }
+        add = {
+            value = scope:councillor.steward_accept_culture_court_type_bonus
+            desc = COUNCILLOR_LIEGE_HAS_COURT_TYPE_BONUS
+        }
+    }
+
+	multiply = {
+        value = scope:councillor_liege.V_kCAFG_character_cultural_acceptance_gain_mult
+        desc = MOD_CULTURAL_ACCEPTANCE_GAIN_MULT
+    }
+}
+
+V_kCAFG_steward_accept_culture_cultural_bonuses = {
+    if = {
+        limit = {
+            scope:councillor.culture = this
+        }
+
+        add = {
+            value = scope:councillor.steward_accept_culture_yearly_increase_same_culture_bonus
+            desc = COUNCILLOR_SAME_CULTURE_AS_TARGET
+        }
+    }
+}
+
+V_kCAFG_steward_accept_culture_ai_will_do = {
+    value = 1
+		
+    if = {
+        # Prefer this over Collecting Taxes if you have some money
+        limit = {
+            scope:councillor_liege.gold >= steward_increase_development_value
+        }
+        add = 1
+    }
+    
+    if = {
+        # Compassionate rulers like doing this
+        limit = {
+            scope:councillor_liege.ai_compassion > 0
+        }
+        add = {
+            value = scope:councillor_liege.ai_compassion
+            divide = 5
+        }
+    }
+    
+    if = {
+        # Rulers with a capital culture that isn't particularly accepted like this if they have some more counties in their realm of the culture
+        limit = {
+            scope:councillor_liege = {
+                exists = capital_county
+                capital_county = {
+                    save_temporary_scope_as = county_check
+                    NOR = {
+                        culture = scope:councillor_liege.culture
+                        scope:councillor_liege.culture = {
+                            OR = {
+                                is_hybrid_culture = yes
+                                is_divergent_culture = yes
+                            }
+                            any_parent_culture = {
+                                this = scope:county_check.culture
+                            }
+                        }
+                        culture = {
+                            cultural_acceptance = { target = scope:councillor_liege.culture value >= 50 }
+                        }
+                    }
+                }
+                any_sub_realm_county = {
+                    count >= 3
+                    culture = scope:councillor_liege.capital_county.culture
+                }
+            }
+        }
+        add = 300
+    }
+    
+    if = {
+        # More likely for independent rulers
+        limit = {
+            scope:councillor_liege = {
+                is_independent_ruler = yes
+            }
+        }
+        multiply = 2
+    }
+    if = {
+        # Interrupt this task if you're bankrupt
+        limit = {
+            scope:councillor_liege = {
+                gold < -50
+            }
+        }
+        multiply = 0
+    }
+    if = {
+        # Interrupt this task if it's not worth it
+        limit = {
+            scope:councillor = {
+                has_variable = kCAFG_task_accept_culture_focused_culture
+            }
+            scope:councillor.var:kCAFG_task_accept_culture_focused_culture = {
+                cultural_acceptance = { target = scope:councillor_liege.culture value >= 100 }
+            }
+        }
+        multiply = 0
+    }
+
+    add = V_kCAFG_steward_accept_culture_ai_will_do_add_VANILLA_B
+    add = V_kCAFG_steward_accept_culture_ai_will_do_add_VANILLA
+
+    multiply = V_kCAFG_steward_accept_culture_ai_will_do_mult_VANILLA_B
+
+    # AI directive
+    if = {
+        limit = {
+            scope:councillor_liege = {
+                has_character_flag = vassal_directive_improve_cultural_acceptance
+                vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+            }
+        }
+        add = 50000
+    }
+}
+
+V_kCAFG_steward_accept_culture_ai_will_do_add_VANILLA_B = {
+    value = 0
+
+	if = {
+		limit = { scope:councillor_liege.culture = { has_cultural_tradition = tradition_xenophilic } }	
+		add = 12
+	}
+	if = {
+		limit = { scope:councillor_liege.culture = { has_cultural_tradition = tradition_culture_blending } }	
+		add = 12
+	}
+
+	if = {
+		limit = { scope:councillor_liege.culture = { has_cultural_pillar = ethos_egalitarian } }
+		add = 20
+	}
+    else_if = {
+		limit = { scope:councillor_liege.culture = { has_cultural_pillar = ethos_communal } }
+		subtract = 10
+	}
+    
+    if = {
+        # And those with the Open Minded perk
+        limit = {
+            scope:councillor_liege = {
+                has_perk = open_minded_perk
+            }
+        }
+        add = 15
+    }
+}
+
+V_kCAFG_steward_accept_culture_ai_will_do_add_VANILLA = {
+    if = {
+        # And the norse!
+        limit = {
+            scope:councillor_liege = {
+                culture = culture:norse
+            }
+        }
+        add = 15
+    }
+}
+
+V_kCAFG_steward_accept_culture_ai_will_do_mult_VANILLA_B = {
+    value = 1
+    if = {
+        # More likely for xenophiles
+        limit = {
+            scope:councillor_liege = {
+                culture = {
+                    OR = {
+                        has_cultural_tradition = tradition_xenophilic
+                        has_cultural_tradition = tradition_fp2_malleable_subjects
+                    }
+                }
+            }
+        }
+        multiply = 2
+    }
+}

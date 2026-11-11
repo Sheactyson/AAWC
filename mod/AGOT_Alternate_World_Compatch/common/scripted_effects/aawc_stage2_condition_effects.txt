@@ -1,0 +1,244 @@
+﻿# Stage 2 contribution API. Province scope, invoked only during structural rebuild.
+# All seven parameters are required; use zero for unrelated dimensions.
+# SPACE_PERCENT is physical land-use adjustment, not a prosperity bonus.
+aawc_stage2_add_contribution_effect = {
+	change_variable = { name = aawc_stage2_structural_sustenance add = $SUSTENANCE$ }
+	change_variable = { name = aawc_stage2_structural_habitation add = $HABITATION$ }
+	change_variable = { name = aawc_stage2_structural_opportunity add = $OPPORTUNITY$ }
+	change_variable = { name = aawc_stage2_structural_health add = $HEALTH$ }
+	change_variable = { name = aawc_stage2_structural_security add = $SECURITY$ }
+	change_variable = { name = aawc_stage2_structural_amenities add = $AMENITIES$ }
+	change_variable = { name = aawc_stage2_space_percent add = $SPACE_PERCENT$ }
+}
+
+aawc_stage2_refresh_structural_effect = {
+	if = {
+		limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+	set_variable = { name = aawc_stage2_structural_sustenance value = 50 }
+	set_variable = { name = aawc_stage2_structural_habitation value = 50 }
+	set_variable = { name = aawc_stage2_structural_opportunity value = 50 }
+	set_variable = { name = aawc_stage2_structural_health value = 50 }
+	set_variable = { name = aawc_stage2_structural_security value = 50 }
+	set_variable = { name = aawc_stage2_structural_amenities value = 50 }
+	set_variable = { name = aawc_stage2_space_percent value = 0 }
+	if = {
+		limit = { has_holding_type = castle_holding }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -4 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 10 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_holding_type = city_holding }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 4 OPPORTUNITY = 6 HEALTH = 0 SECURITY = 0 AMENITIES = 4 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_holding_type = church_holding }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 5 SECURITY = 0 AMENITIES = 5 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_holding_type = tribal_holding }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 3 HABITATION = 0 OPPORTUNITY = -2 HEALTH = -2 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_holding_type = nomad_holding }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 3 HABITATION = -5 OPPORTUNITY = -2 HEALTH = -2 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_holding_type = herder_holding }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 6 HABITATION = -3 OPPORTUNITY = -2 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_holding_type = temple_citadel_holding }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -2 OPPORTUNITY = 0 HEALTH = 4 SECURITY = 8 AMENITIES = 4 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_holding_type = pirate_den_holding }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -3 HABITATION = -3 OPPORTUNITY = 3 HEALTH = -3 SECURITY = -5 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_holding_type = settlement_holding }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -5 OPPORTUNITY = -3 HEALTH = -3 SECURITY = 0 AMENITIES = -2 SPACE_PERCENT = 0 }
+	}
+	change_variable = { name = aawc_stage2_structural_habitation add = { value = aawc_stage2_main_level subtract = 1 multiply = 3 } }
+	change_variable = { name = aawc_stage2_structural_opportunity add = { value = aawc_stage2_main_level subtract = 1 } }
+	change_variable = { name = aawc_stage2_structural_habitation add = { value = aawc_stage2_development multiply = .12 } }
+	change_variable = { name = aawc_stage2_structural_opportunity add = { value = aawc_stage2_development multiply = .08 } }
+	change_variable = { name = aawc_stage2_structural_health add = { value = aawc_stage2_development multiply = .04 } }
+	# Terrain purposes are separate from the geographical space multiplier.
+	if = {
+		limit = { agot_is_urban_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 3 OPPORTUNITY = 4 HEALTH = -2 SECURITY = 0 AMENITIES = 2 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_farmlands_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 10 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_floodplains_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 10 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -2 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_oasis_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 8 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 2 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_plains_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 3 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_forest_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 2 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_taiga_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -3 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -2 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_cloudforest_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 2 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -3 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_steppe_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 1 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_hills_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 2 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_highlands_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -3 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 3 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_wetlands_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -7 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_taiga_bog_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -3 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -7 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_the_bog_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -3 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -7 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_mountains_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -6 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -2 SECURITY = 5 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_desert_mountains_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -12 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -4 SECURITY = 5 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_canyon_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -6 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 4 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_drylands_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -7 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_desert_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -15 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -4 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_glacier_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -20 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -8 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	else_if = {
+		limit = { agot_is_frozen_flats_terrain = yes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -18 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -6 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	aawc_stage2_building_contributions_effect = yes
+	# Existing regional blockers use supported flags; a category applies once,
+	# independent of the number of graphical/clearance definitions in its lineage.
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_blight_famine_barren_wastes }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -12 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_collapsed_districts_infrastructure }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -10 OPPORTUNITY = 0 HEALTH = -2 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = -10 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_dense_wilds_hostile_growth }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -4 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = -8 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_mires_sinkholes_poisoned_ground }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -3 OPPORTUNITY = 0 HEALTH = -8 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = -5 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_vermin_parasites_infestation }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -3 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -8 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_predators_spoor_nests }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = -3 HEALTH = 0 SECURITY = -12 AMENITIES = 0 SPACE_PERCENT = 0 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_flood_ice_broken_waters }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = -4 HABITATION = -5 OPPORTUNITY = 0 HEALTH = -3 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = -5 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_stone_fire_impassable_approaches }
+	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -3 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = -8 }
+	}
+	set_variable = { name = aawc_stage2_structural_sustenance value = { value = var:aawc_stage2_structural_sustenance min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_structural_habitation value = { value = var:aawc_stage2_structural_habitation min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_structural_opportunity value = { value = var:aawc_stage2_structural_opportunity min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_structural_health value = { value = var:aawc_stage2_structural_health min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_structural_security value = { value = var:aawc_stage2_structural_security min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_structural_amenities value = { value = var:aawc_stage2_structural_amenities min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_structural_ready value = 1 }
+	}
+}
+
+aawc_stage2_refresh_effective_effect = {
+	if = {
+		limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+	set_variable = { name = aawc_stage2_effective_sustenance value = aawc_stage2_structural_sustenance_value }
+	set_variable = { name = aawc_stage2_effective_habitation value = aawc_stage2_structural_habitation_value }
+	set_variable = { name = aawc_stage2_effective_opportunity value = aawc_stage2_structural_opportunity_value }
+	set_variable = { name = aawc_stage2_effective_health value = aawc_stage2_structural_health_value }
+	set_variable = { name = aawc_stage2_effective_security value = aawc_stage2_structural_security_value }
+	set_variable = { name = aawc_stage2_effective_amenities value = aawc_stage2_structural_amenities_value }
+	set_variable = { name = aawc_stage2_occupancy_ratio value = aawc_stage2_occupancy }
+	change_variable = { name = aawc_stage2_effective_habitation add = { value = aawc_stage2_housing_pressure_loss multiply = -1 } }
+	change_variable = { name = aawc_stage2_effective_health add = { value = aawc_stage2_health_pressure_loss multiply = -1 } }
+	# Low control affects experienced safety, not structural fortification.
+	change_variable = { name = aawc_stage2_effective_security add = { value = county.county_control min = 0 max = 100 subtract = 100 multiply = 0.35 } }
+	# Direct raid/siege casualties remain solely in the existing external-death API.
+	# Disruption changes household safety/necessities; no repeat event death charge.
+	if = {
+		limit = { county = { OR = { has_variable = aawc_population_siege_growth_suppressed has_variable = aawc_population_raid_growth_suppressed } } }
+	change_variable = { name = aawc_stage2_effective_security add = -30 }
+	change_variable = { name = aawc_stage2_effective_sustenance add = -5 }
+	}
+	# The legacy epidemic growth override is dormant; this is the health input
+	# for downstream age-specific ordinary mortality, not an extra population debit.
+	if = {
+		limit = { county = { has_province_with_epidemic = { intensity = apocalyptic } } }
+	change_variable = { name = aawc_stage2_effective_health add = -45 }
+	}
+	else_if = {
+		limit = { county = { has_province_with_epidemic = { intensity >= major } } }
+	change_variable = { name = aawc_stage2_effective_health add = -30 }
+	}
+	else_if = {
+		limit = { county = { has_province_with_epidemic = { intensity = any } } }
+	change_variable = { name = aawc_stage2_effective_health add = -15 }
+	}
+	set_variable = { name = aawc_stage2_effective_sustenance value = { value = var:aawc_stage2_effective_sustenance min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_effective_habitation value = { value = var:aawc_stage2_effective_habitation min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_effective_opportunity value = { value = var:aawc_stage2_effective_opportunity min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_effective_health value = { value = var:aawc_stage2_effective_health min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_effective_security value = { value = var:aawc_stage2_effective_security min = 0 max = 100 } }
+	set_variable = { name = aawc_stage2_effective_amenities value = { value = var:aawc_stage2_effective_amenities min = 0 max = 100 } }
+	}
+}
+
+# Called by every production ledger initialization, including receipt-backed colonies.
+aawc_stage2_initialize_conditions_effect = {
+	aawc_stage2_refresh_structural_effect = yes
+	set_variable = { name = aawc_population_expected value = aawc_stage2_physical_capacity }
+	aawc_stage2_refresh_effective_effect = yes
+}

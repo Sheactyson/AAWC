@@ -1,0 +1,14 @@
+﻿# AAWC 1.9.85 AGOT compatibility shadow.
+# Kei/CaFG province tension effects validate poorly in the current AGOT setup
+# and spam invalid none-comparison errors during startup. Keep the effect API
+# callable, but make the incompatible province tension system inert.
+
+E_kCAFG_update_province_target_faith_tension = { }
+
+E_kCAFG_on_province_faith_tension_updated = { }
+
+E_kCAFG_update_province_faith_tension_update_status = { }
+
+E_kCAFG_update_province_faith_tension_modifier = { }
+
+E_kCAFG_apply_province_faith_tension_monthly_change = { }

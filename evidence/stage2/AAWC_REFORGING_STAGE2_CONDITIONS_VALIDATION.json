@@ -1,0 +1,106 @@
+{
+  "version": "1.11.2.0",
+  "date": "2026-11-09",
+  "scope": "Stage 2 structural/effective holding conditions and physical capacity/pressure only",
+  "evidence_class": "SOURCE_EXECUTING_AND_STATIC_NOT_CK3_RUNTIME",
+  "critical_acceptance": {
+    "six_structural_and_effective_dimensions": "PASS",
+    "bounded_neutral_scores_every_eligible_holding": "PASS",
+    "purpose_specific_supported_infrastructure": "PASS",
+    "reusable_contribution_api_no_stage3_catalogue": "PASS",
+    "habitation_led_physical_capacity": "PASS",
+    "progressive_non_destructive_pressure": "PASS"
+  },
+  "checks": [
+    {
+      "command": "python -X utf8 -B scripts/test_aawc_stage2_conditions.py",
+      "result": "PASS",
+      "tests": 18
+    },
+    {
+      "command": "python -X utf8 -B scripts/test_aawc_stage1_demographic_engine_acceptance.py",
+      "result": "PASS",
+      "tests": 9
+    },
+    {
+      "command": "python -X utf8 -B scripts/test_aawc_population_readonly_refresh.py",
+      "result": "PASS",
+      "tests": 12
+    },
+    {
+      "command": "python -X utf8 -B scripts/test_aawc_stage1_population_transaction_acceptance.py",
+      "result": "PASS",
+      "tests": 11
+    },
+    {
+      "command": "python -X utf8 -B scripts/validate_aawc_reforging_stage1_cohort_engine.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -X utf8 -B scripts/validate_aawc_reforging_stage1_authority_graph.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -X utf8 -B scripts/validate_aawc_reforging_stage1_candidate_activation.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -X utf8 -B scripts/generate_aawc_stage2_conditions.py --check --audit-sources",
+      "result": "PASS",
+      "levels": 666,
+      "chains": 141
+    },
+    {
+      "check": "Changed-source structural balance",
+      "result": "PASS",
+      "files": 8
+    },
+    {
+      "check": "Stage 2 scripted reference and main-building ID closure",
+      "result": "PASS",
+      "definitions": 30,
+      "building_ids": 688
+    },
+    {
+      "check": "source/archive/manifest parity",
+      "result": "PASS",
+      "files": 341,
+      "receipt": "AAWC_REFORGING_STAGE2_CONDITIONS_PACKAGE_RECEIPT.json"
+    }
+  ],
+  "sha256": {
+    "workspace/AGOT_Alternate_World_Compatch/common/scripted_effects/aawc_stage2_condition_effects.txt": "963E16F995750E9F06BEFE0821FAF1D97DF74C29E99030EC4A4EE1B926ED168D",
+    "workspace/AGOT_Alternate_World_Compatch/common/scripted_effects/aawc_stage2_building_contributions.txt": "8A613BE05ADE958C1578D09BB21171377B7D5F2C6C6973756B77282D39EC9B14",
+    "workspace/AGOT_Alternate_World_Compatch/common/script_values/aawc_stage2_condition_values.txt": "BB124DB7FDAA169A45A075E5619631792D760C6FF4D24C14021324989492D88A",
+    "workspace/AGOT_Alternate_World_Compatch/common/scripted_effects/aawc_population_effects.txt": "7CCBBB4E66288072024E804A0145AFB16AC1E41E8AF46F3D979A7A6C36E1F214",
+    "workspace/AGOT_Alternate_World_Compatch/common/scripted_effects/zz_aawc_population_cache_effects.txt": "6222F49CF7270348A50AB2A500ABEEA9E509C527344D5D83867323B64D0B88CB",
+    "workspace/AGOT_Alternate_World_Compatch/common/scripted_effects/aawc_reforging_cohort_production_effects.txt": "FA6404FE9EA18F8B613B20562264234FF2D411EC65654A29EA650FB54E157077",
+    "workspace/AGOT_Alternate_World_Compatch/common/script_values/aawc_population_values.txt": "F20A12A7F9731BD3BEE3687ED99D2F24B49D2A9F9B5382B6D75B6ED93DFFFFE3",
+    "workspace/AGOT_Alternate_World_Compatch/common/script_values/aawc_reforging_cohort_stage1_values.txt": "6DE8CEDF5C12924B1E17E781BD67695D744BF9DB0717858C7F305A8C21B3174E",
+    "workspace/AGOT_Alternate_World_Compatch/descriptor.mod": "FF1376A12A15509114B7D24B801DE90AA35BEFB489B1A6D947D1EBEF9CFE0869",
+    "workspace/AGOT_Alternate_World_Compatch.mod": "88CA0ED83C85097A0CE6F4EDCF9E7A5A9FE5B762931EB695886781E1E68AC401",
+    "workspace/AAWC_REFORGING_STAGE2_BUILDING_CONTRIBUTIONS.csv": "B01668F7E30DBEC30CDD252B900F2ACF3ECEB30BE3AE1B41494BF0AA43867A3D",
+    "scripts/generate_aawc_stage2_conditions.py": "AE1E8B844AF4EC3033DA624373CF18CA5274483ADA69AF177A1F7C87D2FE1A01",
+    "scripts/test_aawc_stage2_conditions.py": "97E79B05D82C2FE54DCFC49FAA1057C3097200018B6B2FB9FC06D258429D14C8",
+    "scripts/test_aawc_cohort_bounded_arithmetic.py": "B91355A3F2EC22F07DF045C8680ECD890CB5AF093C37F8901022B8399A96F02B",
+    "scripts/test_aawc_stage1_demographic_engine_acceptance.py": "5B852C8E3C69A9780EE4F1BE013F6B3318728C4BECB9B2CB4B03FF5EC47D98F2",
+    "scripts/validate_aawc_reforging_stage1_cohort_engine.py": "D81837AB2CF0E218961B7BC8F7523DBC20D275CF4B64759164856A2BFD7758E0"
+  },
+  "changed_assumptions": [
+    "Stage 2 inputs now return effective scores rather than zero; the birth and mortality multipliers remain one until the downstream demographic integration task.",
+    "Monthly structural rebuild is deliberate because building removal and terrain changes lack a complete event invalidation surface; completion invalidation and cheap environment snapshots also refresh earlier.",
+    "Structural building contributions represent installed physical infrastructure, even when owner/faith-specific vanilla income bonuses are disabled."
+  ],
+  "limitations": [
+    "No installation or rendered/native CK3 validation.",
+    "No demographic equilibrium or 125%-occupancy net-decline certification; rate integration remains downstream.",
+    "The remainder of the long-term calibration directive is missing.",
+    "Existing building/legacy growth UI still describes retired capacity/growth bonuses.",
+    "Two pre-existing Python cache files remain after exact-path cleanup was rejected before execution: blocked by policy."
+  ],
+  "new_required_follow_on": {
+    "goal": "Update Stage 2 condition/capacity presentation and retire misleading legacy building growth/capacity labels",
+    "evidence": "aawc_population_building_effect_hospices_01 still advertises Building Capacity +450 while source-executing tests verify hospice changes Health only.",
+    "verification": "Tooltip data matches contribution table and physical capacity model; rendered inspection verifies presentation."
+  }
+}

@@ -1,0 +1,161 @@
+﻿# Fresh map-setup conversion. Status: 1 required, 2 verified target,
+# 3 deferred title transfer (unfinished), 4 protected placeholder/holding,
+# 5 missing holder, 6 unmet conversion.
+# Failure markers persist: a later successful call cannot erase a failed request.
+# These fields are evidence only; no production consumer depends on them.
+
+aawc_setup_prepare_tribal_holding_effect = {
+	if = {
+		limit = { aawc_setup_tribal_county_eligible = yes }
+		set_variable = { name = aawc_setup_tribal_status value = 1 }
+		title_province = {
+			if = {
+				limit = { NOT = { has_holding_type = tribal_holding } }
+				set_holding_type = tribal_holding
+			}
+		}
+	}
+}
+
+aawc_setup_apply_tribal_government_effect = {
+	if = {
+		limit = { aawc_setup_tribal_county_eligible = yes holder = { is_ruler = yes } }
+		save_scope_as = aawc_setup_tribal_county_capital
+		holder = {
+			# Title replacement may select the historical first barony instead of
+			# the active county capital. Rebind only within that same county;
+			# never move a multi-county ruler to another county or alter a secondary holding.
+			if = {
+				limit = {
+					exists = capital_province
+					capital_province.barony = { is_capital_barony = no }
+					capital_county = scope:aawc_setup_tribal_county_capital.county
+				}
+				set_realm_capital = scope:aawc_setup_tribal_county_capital
+			}
+			if = {
+				# Keep the original Wanua exception; already-tribal is idempotent.
+				limit = {
+					NOR = {
+						has_government = wanua_government
+						has_government = tribal_government
+					}
+				}
+				change_government = tribal_government
+			}
+		}
+		if = {
+			limit = {
+				title_province = { has_holding_type = tribal_holding }
+				holder = {
+					OR = {
+						has_government = tribal_government
+						has_government = wanua_government
+					}
+				}
+			}
+			set_variable = { name = aawc_setup_tribal_status value = 2 }
+		}
+		else = {
+			set_variable = { name = aawc_setup_tribal_status value = 6 }
+			set_variable = { name = aawc_setup_tribal_failed value = 1 }
+			error_log = "AAWC SETUP GOVERNMENT FAIL tribal conversion did not reach its required target"
+		}
+	}
+	else_if = {
+		limit = { aawc_setup_tribal_county_eligible = yes }
+		# Title replacement can expose the new holder before CK3 considers them
+		# a ruler. Do not issue an illegal request or call this preservation success.
+		# The mandatory post-lobby pass must finish this outstanding conversion.
+		set_variable = { name = aawc_setup_tribal_status value = 3 }
+		set_variable = { name = aawc_setup_tribal_deferred value = 1 }
+	}
+}
+
+aawc_setup_convert_tribal_counties_effect = {
+	# Finish ALL holding changes first. A multi-county holder's capital must
+	# not depend on which of their baronies happens to be visited first.
+	every_barony = { aawc_setup_prepare_tribal_holding_effect = yes }
+	every_barony = { aawc_setup_apply_tribal_government_effect = yes }
+}
+
+aawc_setup_sothoryos_pirate_history_effect = {
+	if = {
+		limit = { NOT = { exists = holder } }
+		set_variable = { name = aawc_setup_pirate_status value = 5 }
+	}
+	else_if = {
+		# LoV assigns these historical titles to Local_Rulers_Sothoryos,
+		# a ruin-trait dummy. Do not convert that shared placeholder or its laws.
+		limit = {
+			OR = {
+				holder = { agot_is_dummy_character = yes }
+				title_province = {
+					OR = {
+						has_holding_type = ruin_holding
+						has_holding_type = wilderness_holding
+						has_holding_type = unknown_holding
+					}
+				}
+			}
+		}
+		set_variable = { name = aawc_setup_pirate_status value = 4 }
+	}
+	else = {
+		set_variable = { name = aawc_setup_pirate_status value = 1 }
+		if = {
+			limit = { agot_dlc_check_for_landless_pirates = yes }
+			holder = {
+				if = {
+					limit = { NOT = { has_government = pirate_government } }
+					change_government = pirate_government
+				}
+			}
+		}
+		else = {
+			holder = {
+				if = {
+					limit = { NOT = { has_government = pirate_no_dlc_government } }
+					change_government = pirate_no_dlc_government
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						agot_dlc_check_for_landless_pirates = yes
+						holder = { has_government = pirate_government }
+					}
+					AND = {
+						agot_dlc_check_for_landless_pirates = no
+						holder = { has_government = pirate_no_dlc_government }
+					}
+				}
+			}
+			# AGOT's pirate elective law is a duchy-or-higher lifecycle law.
+			# County-only pirates lawfully retain their ordinary realm succession;
+			# attempting to attach the elective law to their county emits an engine
+			# error. Apply it only to eligible held titles, matching AGOT's own
+			# game-start/title-gain boundaries.
+			holder = {
+				if = {
+					limit = { highest_held_title_tier >= tier_duchy }
+					every_held_title = {
+						limit = {
+							tier > tier_county
+							NOT = { has_title_law = pirate_succession_law }
+						}
+						add_title_law = pirate_succession_law
+					}
+				}
+			}
+			set_variable = { name = aawc_setup_pirate_status value = 2 }
+		}
+		else = {
+			set_variable = { name = aawc_setup_pirate_status value = 6 }
+			set_variable = { name = aawc_setup_pirate_failed value = 1 }
+			error_log = "AAWC SETUP GOVERNMENT FAIL Sothoryos pirate conversion did not reach its required target"
+		}
+	}
+}

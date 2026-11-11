@@ -1,0 +1,838 @@
+﻿task_promote_culture = {
+	position = councillor_steward
+
+	asset = {
+		icon = "gfx/interface/icons/council_task_types/task_promote_culture.dds"
+		background = "gfx/interface/buttons/button_round_bg.dds"
+		frame = "gfx/interface/buttons/button_round_frame.dds"
+		glow = "gfx/particles/halo.dds"
+	}
+
+	task_type = task_type_county
+	county_target = realm
+	ai_county_target = realm
+	highlight_own_realm = yes
+
+	restart_on_finish = yes
+	task_progress = task_progress_value
+	task_current_value = scope:councillor.V_kCAFG_task_promote_culture_councillor_current_progress
+	task_max_value = 100
+
+	is_valid_showing_failures_only = {
+		scope:councillor_liege = {
+			custom_description = {
+				text = "kCAFG_does_not_have_realm_law_preventing_task_promote_culture"
+				scope:councillor_liege = {
+					NOT = { has_realm_law_flag = F_kCAFG_tolerant_to_other_cultures }
+				}
+			}
+		}
+		tgp_natural_disaster_councillor_available_for_task_trigger = yes
+	}
+	
+	effect_desc = {
+		desc = kCAFG_task_promote_culture_effect_unassigned_warning
+		triggered_desc = {
+			trigger = {
+				scope:councillor = {
+					has_variable = kCAFG_task_promote_culture_focused_province
+				}
+				exists = scope:councillor.var:kCAFG_task_promote_culture_focused_province
+			}
+			desc = kCAFG_task_promote_culture_focused_province_tooltip
+		}
+		desc = kCAFG_task_promote_culture_effect_desc
+		desc = kCAFG_task_promote_culture_tension_increases
+		triggered_desc = {
+			trigger = {
+				scope:councillor_liege = {
+					any_vassal = {
+						has_vassal_stance = minority
+					}
+				}
+			}
+			desc = kCAFG_task_promote_culture_minority_disapproves_conversion_tooltip
+		}
+		triggered_desc = {
+			trigger = {
+				trigger_if = {
+					limit = { exists = scope:county }
+					scope:county = { culture != scope:councillor_liege.culture }
+					NOT = {
+						scope:councillor_liege.culture = {
+							is_hybrid_culture = yes
+							any_parent_culture = {
+								this = scope:county.culture
+							}
+						}
+					}
+				}
+				trigger_else = { always = no }
+			}
+			desc = task_promote_culture_acceptance_effect_desc
+		}
+		# Kei : TO DO transfer county modifiers to province ones
+		desc = {
+			desc = council_task_possible_side_effects
+			triggered_desc = {
+				trigger = {
+					stewardship > mediocre_skill_rating
+					trigger_if = {
+						limit = { exists = scope:county }
+						scope:county = {
+							NOT = { has_county_modifier = steward_task_efficient_taxation_modifier }
+						}
+					}
+				}
+				desc = task_promote_culture_improve_county_opinion
+			}
+			triggered_desc = {
+				trigger = {
+					stewardship > mediocre_skill_rating
+					trigger_if = {
+						limit = { exists = scope:county }
+						scope:county = {
+							NOT = { has_county_modifier = steward_task_efficient_taxation_modifier }
+						}
+					}
+				}
+				desc = task_promote_culture_increased_taxes
+			}
+			triggered_desc = {
+				trigger = {
+					stewardship > mediocre_skill_rating
+					trigger_if = {
+						limit = { exists = scope:county }
+						scope:county = {
+							NOT = { has_county_modifier = steward_task_efficient_taxation_modifier }
+						}
+					}
+				}
+				desc = task_promote_culture_increased_levies
+			}
+			triggered_desc = {
+				trigger = {
+					stewardship < high_skill_rating
+					trigger_if = {
+						limit = { exists = scope:county }
+						scope:county = {
+							NOT = { has_county_modifier = steward_settler_resistance_modifier }
+						}
+					}
+				}
+				desc = task_promote_culture_resistance_to_settlers
+			}
+			triggered_desc = {
+				trigger = {
+					stewardship < high_skill_rating
+					trigger_if = {
+						limit = { exists = scope:county }
+						scope:county = {
+							NOT = { has_county_modifier = steward_settler_resistance_modifier }
+						}
+					}
+				}
+				desc = task_promote_culture_resistance_to_administration
+			}
+		}
+	}
+
+	progress = {
+		value = 0
+
+		if = {
+			limit = {
+				scope:councillor = {
+					has_variable = kCAFG_task_promote_culture_focused_province
+				}
+				exists = scope:councillor.var:kCAFG_task_promote_culture_focused_province
+				scope:councillor.var:kCAFG_task_promote_culture_focused_province.county = scope:county
+			}
+
+			scope:councillor.var:kCAFG_task_promote_culture_focused_province = {
+				value = V_kCAFG_steward_promotion_bonuses
+			}
+		}
+		# else = {
+			# scope:county.title_province = {
+			# 	value = V_kCAFG_steward_promotion_bonuses
+			# }
+		# }
+	}
+
+	potential_county = {
+		custom_tooltip = { # Tooltip won't work so a vague one it is
+			scope:county = {
+				any_county_province = {
+					T_kCAFG_task_promote_culture_can_convert_province = yes
+				}
+			}
+			text = kCAFG_task_promote_culture_no_province_can_be_converted
+		}
+		trigger_if = {
+			limit = { scope:councillor = { has_variable = kCAFG_task_promote_culture_focused_province } }
+			trigger_if = {
+				limit = { scope:councillor.var:kCAFG_task_promote_culture_focused_province.county = scope:county }
+				scope:councillor.var:kCAFG_task_promote_culture_focused_province = { T_kCAFG_task_promote_culture_can_convert_province = yes }
+			}
+		}
+	}
+
+	ai_target_score = {
+		value = 0
+
+		if = {
+			limit = {
+				exists = scope:county
+				exists = scope:councillor
+				exists = scope:councillor_liege
+				scope:county = {
+					any_county_province = {
+						T_kCAFG_task_promote_culture_can_convert_province = yes
+					}
+				}
+			}
+			value = 10000
+
+			subtract = {
+				value = "scope:councillor_liege.capital_province.squared_distance(scope:county.title_province)"
+				divide = 10
+			}
+			min = 100
+
+			if = {
+				limit = { scope:county.holder != scope:councillor_liege }
+				divide = 2
+			}
+		}
+	}
+
+	on_start_task_county = {
+		scope:councillor = {
+			set_variable = {
+				name = kCAFG_task_promote_culture_progress
+				value = 0
+			}
+		}
+
+		if = {
+			limit = {
+				scope:councillor = {
+					NOT = { has_variable = kCAFG_task_promote_culture_focused_province }
+				}
+			}
+
+			scope:county = { E_kCAFG_task_promote_culture_set_default_focus = yes }
+		}
+
+		# if = {
+		# 	limit = { scope:councillor_liege = { is_ai = yes } }
+		# 	debug_log = "Kei CAFG - task_promote_culture AI: Starting Task in [councillor.MakeScope.Var('kCAFG_task_promote_culture_focused_province').Province.GetNameNoTooltip] - [councillor_liege.GetNameNoTooltip]"
+		# }
+	}
+
+	on_cancel_task_county = {
+		scope:councillor = {
+			remove_variable = kCAFG_task_promote_culture_focused_province
+			remove_variable = kCAFG_task_promote_culture_progress
+			remove_variable = kCAFG_task_promote_culture_ai_think_progress
+			remove_variable = kCAFG_steward_promotion_finish_focus
+		}
+	}
+
+	on_finish_task_county = {
+		scope:councillor = {
+			remove_variable = kCAFG_task_promote_culture_progress
+			remove_variable = kCAFG_task_promote_culture_ai_think_progress
+		}
+
+		# Minority disapproves
+		scope:councillor_liege = {
+			if = {
+				limit = {
+					any_vassal = {
+						has_vassal_stance = minority
+					}
+				}
+				custom_tooltip = minority_disapproves_conversion
+				hidden_effect = {
+					every_vassal = {
+						limit = {
+							has_vassal_stance = minority
+						}
+						add_opinion = {
+							target = scope:councillor_liege
+							modifier = minority_disapproves_of_conversion_very_small_opinion
+						}
+					}
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				scope:councillor = { has_variable = kCAFG_task_promote_culture_focused_province }
+				exists = scope:councillor.var:kCAFG_task_promote_culture_focused_province
+				scope:councillor.var:kCAFG_task_promote_culture_focused_province.county = scope:county
+			}
+
+			scope:councillor.var:kCAFG_task_promote_culture_focused_province = { save_temporary_scope_as = kCAFG_converted_province }
+		}
+		else = {
+			scope:county.title_province = { save_temporary_scope_as = kCAFG_converted_province }
+		}
+
+		# Transfer culture
+		scope:councillor_liege.culture = { save_temporary_scope_as = kCAFG_converting_culture }
+		scope:kCAFG_converted_province = {
+			random_in_list = {
+				variable = kCAFG_province_cultures
+				limit = { scope:kCAFG_converting_culture != this }
+
+				weight = {
+					base = 0
+					modifier = { add = V_kCAFG_province_culture_conversion_weight }
+				}
+
+				# Kei : Might make it more dynamic
+				save_temporary_scope_as = kCAFG_converted_culture
+				save_temporary_scope_value_as = {
+					name = converted_factor
+					value = {
+						fixed_range = {
+							min = 0.045
+							max = 0.055
+						}
+					}
+				}
+				set_local_variable = kCAFG_conversion_successful
+
+				scope:kCAFG_converted_province = {
+					E_kCAFG_convert_province_culture_factor = {
+						SOURCE = scope:kCAFG_converted_culture
+						TARGET = scope:kCAFG_converting_culture
+						FACTOR = scope:converted_factor
+					}
+					county = {
+						E_kCAFG_update_county_cultures_list = yes
+						E_kCAFG_update_county_culture = { REASON = flag:kCAFG_task_promote_culture }
+					}
+
+					E_kCAFG_update_province_target_culture_tension = yes
+				}
+			}
+		}
+
+		if = {
+			limit = {
+				has_local_variable = kCAFG_conversion_successful
+			}
+
+			# Reduce cultural acceptance
+			if = {
+				limit = {
+					NOT = {
+						scope:councillor_liege.culture = {
+							is_hybrid_culture = yes
+							any_parent_culture = {
+								this = scope:kCAFG_converted_culture
+							}
+						}
+					}
+				}
+				scope:kCAFG_converted_culture = {
+					change_cultural_acceptance = {
+						target = scope:councillor_liege.culture
+						value = {
+							value = culture_conversion_acceptance_impact
+							multiply = scope:converted_factor
+						}
+						desc = cultural_acceptance_loss_promote_culture
+					}
+				}
+			}
+
+			# Increase culture tension
+			scope:kCAFG_converted_province = {
+				change_variable = {
+					name = kCAFG_culture_tension
+					add = {
+						value = V_kCAFG_task_promote_culture_tension_increase_per_factor
+						multiply = scope:converted_factor
+					}
+				}
+				E_kCAFG_on_province_culture_tension_updated = yes
+			}
+
+			# AI Logic
+			scope:councillor_liege = {
+				if = {
+					limit = {
+						is_ai = yes
+						scope:kCAFG_converted_province = { NOT = { T_kCAFG_task_promote_culture_ai_wants_to_convert_province = yes } }
+					}
+
+					if = {
+						limit = {
+							scope:kCAFG_converted_province.county = {
+								any_county_province = {
+									T_kCAFG_task_promote_culture_can_convert_province = yes
+								}
+							}
+						}
+						scope:kCAFG_converted_province.county = {
+							save_temporary_scope_as = kCAFG_set_default_focus_can_redirect # used by E_kCAFG_task_promote_culture_set_default_focus
+							E_kCAFG_task_promote_culture_set_default_focus = yes # will select province according to our culture factor
+						}
+						#debug_log = "Kei CAFG - task_promote_culture AI: Changing Focused Province to [councillor.MakeScope.Var('kCAFG_task_promote_culture_focused_province').Province.GetNameNoTooltip] - [councillor_liege.GetNameNoTooltip]"
+					}
+					else = {
+						#debug_log = "Kei CAFG - task_promote_culture AI: Stopping Conversion - [councillor_liege.GetNameNoTooltip]"
+						scope:councillor = { start_default_task = yes }
+					}
+
+					## AI stops converting sometimes
+					if = {
+						limit = {
+							NOT = { has_variable = kCAFG_task_promote_culture_ai_provinces_converted_count }
+						}
+						set_variable = {
+							name = kCAFG_task_promote_culture_ai_provinces_converted_count
+							value = 0
+						}
+					}
+					change_variable = {
+						name = kCAFG_task_promote_culture_ai_provinces_converted_count
+						add = 1
+					}
+					if = {
+						limit = {
+							var:kCAFG_task_promote_culture_ai_provinces_converted_count >= 4
+							T_kCAFG_steward_promote_culture_ai_valid_for_intermittent_stop_VANILLA = yes
+						}
+						random = {
+							chance = {
+								value = 10
+								add = {
+									value = var:kCAFG_task_promote_culture_ai_provinces_converted_count
+									subtract = 4
+									multiply = 8
+								}
+							}
+							if = {
+								limit = { is_independent_ruler = no }
+								add_character_flag = {
+									flag = no_ai_culture_convert
+									years = 15
+								}
+							}
+							else = {
+								add_character_flag = {
+									flag = no_ai_culture_convert
+									years = 10
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {
+					scope:councillor = { has_council_position = councillor_steward }
+					scope:kCAFG_converted_province = {
+						T_kCAFG_province_only_culture = { CULTURE = scope:councillor_liege.culture }
+					}
+				}
+
+				# Province conversion is complete !
+				scope:councillor = { remove_variable = kCAFG_steward_promotion_finish_focus }
+
+				if = {
+					limit = { scope:councillor_liege = { is_ai = yes } }
+					scope:county = {
+						save_temporary_scope_as = kCAFG_set_default_focus_can_redirect # used by E_kCAFG_task_promote_culture_set_default_focus
+						E_kCAFG_task_promote_culture_set_default_focus = yes
+					}
+				}
+				else_if = {
+					limit = {
+						scope:councillor_liege = { has_variable = kCAFG_ignore_steward_promotion_suggestions }
+					}
+					scope:councillor = { start_default_task = yes }
+				}
+			}
+
+			# Councillor makes a suggestion to player
+			scope:councillor_liege = {
+				if = {
+					limit = {
+						is_ai = no
+						NOT = { has_variable = kCAFG_ignore_steward_promotion_suggestions }
+						scope:councillor = {
+							NOT = { has_variable = kCAFG_steward_promotion_finish_focus }
+							has_variable = kCAFG_task_promote_culture_focused_province
+							var:kCAFG_task_promote_culture_focused_province = {
+								OR = {
+									T_kCAFG_province_only_culture = { CULTURE = scope:councillor_liege.culture }
+									T_kCAFG_task_promote_culture_ai_would_suggest = no
+								}
+							}
+						}
+					}
+					trigger_event = kCAFG_steward_task_promote.9001
+				}
+			}
+		}
+		else = {
+			error_log = "Kei CAFG - stask_promote_culture: conversion failed"
+			scope:councillor = { start_default_task = yes }
+		}
+	}
+
+	on_monthly_county = {
+		scope:councillor = {
+			if = { # In case something went wrong
+				limit = {
+					OR = {
+						NOT = { has_variable = kCAFG_task_promote_culture_focused_province }
+                    	NOT = { councillor_task_target = var:kCAFG_task_promote_culture_focused_province.county.title_province }
+					}
+				}
+				scope:county = { E_kCAFG_task_promote_culture_set_default_focus = yes }
+			}
+			if = {
+				limit = { NOT = { has_variable = kCAFG_task_promote_culture_progress } }
+				set_variable = {
+					name = kCAFG_task_promote_culture_progress
+					value = 0
+				}
+			}
+			if = {
+				limit = {
+					has_variable = kCAFG_task_promote_culture_focused_province
+					exists = var:kCAFG_task_promote_culture_focused_province
+					var:kCAFG_task_promote_culture_focused_province.county = scope:county
+				}
+				change_variable = {
+					name = kCAFG_task_promote_culture_progress
+					add = {
+						var:kCAFG_task_promote_culture_focused_province = {
+							value = V_kCAFG_steward_promotion_bonuses
+						}
+					}
+				}
+				if = {
+					limit = {
+						scope:councillor_liege = { is_ai = yes }
+					}
+
+					if = {
+						limit = { NOT = { has_variable = kCAFG_task_promote_culture_ai_think_progress } }
+						set_variable = {
+							name = kCAFG_task_promote_culture_ai_think_progress
+							value = 0
+						}
+					}
+					
+					change_variable = {
+						name = kCAFG_task_promote_culture_ai_think_progress
+						add = 1
+					}
+
+					if = {
+						limit = {
+							var:kCAFG_task_promote_culture_ai_think_progress >= 6
+						}
+						
+						set_variable = {
+							name = kCAFG_task_promote_culture_ai_think_progress
+							value = 0
+						}
+
+						if = {
+							limit = {
+								var:kCAFG_task_promote_culture_focused_province = {
+									T_kCAFG_task_promote_culture_ai_wants_to_convert_province = no
+								}
+							}
+
+							if = {
+								limit = {
+									var:kCAFG_task_promote_culture_focused_province.county = {
+										any_county_province = {
+											T_kCAFG_task_promote_culture_can_convert_province = yes
+										}
+									}
+								}
+								#debug_log = "Kei CAFG - task_promote_culture: AI - changing focused province"
+								var:kCAFG_task_promote_culture_focused_province.county = {
+									save_temporary_scope_as = kCAFG_set_default_focus_can_redirect # used by E_kCAFG_task_promote_culture_set_default_focus
+									E_kCAFG_task_promote_culture_set_default_focus = yes # will select province according to our culture factor
+								}
+							}
+							else = {
+								#debug_log = "Kei CAFG - task_promote_culture: AI - stop converting !"
+								start_default_task = yes
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	monthly_on_action = kCAFG_task_promote_culture_monthly_on_action
+
+	ai_will_do = {
+		value = V_kCAFG_steward_promotion_culture_ai_will_do
+	}
+}
+
+task_kCAFG_accept_culture = {
+	position = councillor_steward
+
+	asset = {
+		icon = "gfx/interface/icons/council_task_types/task_accept_culture.dds"
+		background = "gfx/interface/buttons/button_round_bg.dds"
+		frame = "gfx/interface/buttons/button_round_frame.dds"
+		glow = "gfx/particles/halo.dds"
+	}
+
+	task_type = task_type_county
+	county_target = realm
+	ai_county_target = realm
+	highlight_own_realm = yes
+	task_progress = task_progress_infinite
+
+	is_valid_showing_failures_only = {
+		scope:councillor_liege = {
+			custom_description = {
+				text = "kCAFG_does_not_have_realm_law_preventing_task_accept_culture"
+				scope:councillor_liege = {
+					NOT = { has_realm_law_flag = F_kCAFG_intolerant_to_other_cultures }
+				}
+			}
+			highest_held_title_tier >= tier_duchy
+		}
+		tgp_natural_disaster_councillor_available_for_task_trigger = yes
+	}
+
+	effect_desc = {
+		desc = kCAFG_task_accept_culture_effect_unassigned_warning
+		triggered_desc = {
+			trigger = {
+				NOT = {
+					scope:councillor = { has_variable = kCAFG_task_accept_culture_focused_culture }
+					exists = scope:councillor.var:kCAFG_task_accept_culture_focused_culture
+				}
+			}
+			desc = task_kCAFG_accept_culture_desc
+		}
+		triggered_desc = {
+			trigger = {
+				scope:councillor = { has_variable = kCAFG_task_accept_culture_focused_culture }
+				exists = scope:councillor.var:kCAFG_task_accept_culture_focused_culture
+			}
+			desc = kCAFG_task_accept_culture_focused_culture_tooltip
+		}
+		triggered_desc = {
+			trigger = {
+				scope:councillor = { has_variable = kCAFG_task_accept_culture_focused_culture }
+				exists = scope:councillor.var:kCAFG_task_accept_culture_focused_culture
+			}
+			desc = task_kCAFG_accept_culture_desc_focus_detail
+		}
+	}
+	
+	potential_county = {
+		custom_tooltip = { # Tooltip won't work so a vague one it is
+            scope:county = {
+				is_landless_type_title = no
+                any_in_list = {
+                    variable = kCAFG_county_cultures
+                    T_kCAFG_task_accept_culture_can_target_culture = yes
+                }
+            }
+			text = kCAFG_task_accept_culture_no_province_can_be_targeted
+		}
+		trigger_if = {
+			limit = {
+				scope:councillor_liege = { is_ai = yes }
+			}
+			OR = {
+				scope:councillor_liege = {
+					has_character_flag = vassal_directive_improve_cultural_acceptance
+					vassal_is_valid_and_follows_directive_trigger = { VASSAL = this LIEGE = liege }
+				}
+				# Vanilla triggers : prioritize own capital first
+				scope:councillor_liege.capital_county = scope:county
+				scope:councillor_liege.capital_county = {
+					OR = {
+						culture = scope:councillor_liege.culture
+						culture = {
+							cultural_acceptance = { target = scope:councillor_liege.culture value >= 50 }
+						}
+					}
+				}
+			}
+		}
+		trigger_if = {
+			limit = { scope:councillor = { has_variable = kCAFG_task_accept_culture_focused_culture } }
+			scope:councillor_liege.culture != scope:councillor.var:kCAFG_task_accept_culture_focused_culture
+		}
+	}
+
+	on_start_task_county = {
+		#debug_log = "Kei CAFG - task_accept_culture: started task : [SCOPE.sC('councillor_liege').GetNameNoTooltip]"
+
+		scope:councillor = {
+			if = {
+				limit = { NOT = { has_variable = kCAFG_task_accept_culture_progress } }
+				set_variable = {
+					name = kCAFG_task_accept_culture_progress
+					value = 0
+				} 
+			}
+		}
+
+		if = {
+			limit = {
+				scope:councillor = {
+					NOT = { has_variable = kCAFG_task_accept_culture_focused_culture }
+				}
+			}
+
+			E_kCAFG_task_accept_culture_set_default_focus = yes
+		}
+	}
+
+	on_cancel_task_county = {
+		scope:councillor = {
+			#debug_log = "Kei CAFG - task_accept_culture: task cancelled : clear focus"
+			remove_variable = kCAFG_task_accept_culture_focused_culture
+		}
+	}
+
+	on_finish_task_county = {
+		scope:councillor = {
+			#debug_log = "Kei CAFG - task_accept_culture: task finished : clear focus"
+			remove_variable = kCAFG_task_accept_culture_focused_culture
+		}
+	}
+
+	on_monthly_county = {
+		scope:councillor = {
+			if = { # In case something went wrong
+				limit = { NOT = { has_variable = kCAFG_task_accept_culture_focused_culture } }
+				E_kCAFG_task_accept_culture_set_default_focus = yes
+			}
+			if = {
+				limit = { NOT = { has_variable = kCAFG_task_accept_culture_progress } }
+				set_variable = {
+					name = kCAFG_task_accept_culture_progress
+					value = 0
+				}
+			}
+			change_variable = {
+				name = kCAFG_task_accept_culture_progress
+				add = 1
+			} 
+			if = {
+				limit = {
+					var:kCAFG_task_accept_culture_progress >= 12
+				}
+				set_variable = {
+					name = kCAFG_task_accept_culture_progress
+					value = 0
+				}
+				if = {
+					limit = {
+						has_variable = kCAFG_task_accept_culture_focused_culture
+						exists = scope:councillor.var:kCAFG_task_accept_culture_focused_culture
+					}
+
+					#debug_log = "Kei CAFG - accepting culture [councillor_liege.GetNameNoTooltip] (Culture: [councillor_liege.GetCulture.GetNameNoTooltip]) [SCOPE.ScriptValue('V_kCAFG_steward_acceptance_bonuses')] with culture [councillor.MakeScope.Var('kCAFG_task_accept_culture_focused_culture').Culture.GetNameNoTooltip]"
+
+					scope:councillor.var:kCAFG_task_accept_culture_focused_culture = {
+						change_cultural_acceptance = {
+							target = scope:councillor_liege.culture
+							value = scope:councillor.var:kCAFG_task_accept_culture_focused_culture.V_kCAFG_steward_acceptance_bonuses
+							desc = kCAFG_task_accept_culture_acceptance_increase_effect
+						}
+					}
+				}
+				else = {
+					error_log = "Kei CAFG - task_accept_culture: no focused culture ?"
+					scope:county.culture = {
+						change_cultural_acceptance = {
+							target = scope:councillor_liege.culture
+							value = scope:county.culture.V_kCAFG_steward_acceptance_bonuses
+							desc = kCAFG_task_accept_culture_acceptance_increase_effect
+						}
+					}
+				}
+			}
+		}
+	}
+
+	monthly_on_action = kCAFG_task_accept_culture_monthly_on_action
+	
+	ai_will_do = {
+		value = V_kCAFG_steward_accept_culture_ai_will_do
+	}
+}
+
+# This task is referenced from code so as to hook into the culture acceptance gain
+# Its progress rate will be applied between the owner's culture and the culture of the county
+# Kei : so we disable it because we need to be able to focus cultures
+task_accept_culture = {
+	position = councillor_steward
+
+	task_type = task_type_county
+	county_target = realm
+	ai_county_target = realm
+	highlight_own_realm = yes
+	task_progress = task_progress_infinite
+
+	effect_desc = {
+	}
+	
+	is_shown = {
+		always = no
+	}
+
+	progress = {
+		value = 0
+		if = {
+			limit = {
+				scope:councillor = {
+					is_performing_council_task = task_kCAFG_accept_culture
+				}
+			}
+			if = {
+				limit = {
+					has_variable = kCAFG_task_accept_culture_focused_culture
+					exists = scope:councillor.var:kCAFG_task_accept_culture_focused_culture
+				}
+
+				scope:councillor.var:kCAFG_task_accept_culture_focused_culture = {
+					value = scope:councillor.var:kCAFG_task_accept_culture_focused_culture.V_kCAFG_steward_acceptance_bonuses
+				}
+			}
+			else = {
+				scope:county.culture = {
+					value = scope:county.culture.V_kCAFG_steward_acceptance_bonuses
+				}
+			}
+		}
+	}
+	
+	potential_county = {
+		always = no
+	}
+
+	ai_will_do = {
+		value = 0
+	}
+}

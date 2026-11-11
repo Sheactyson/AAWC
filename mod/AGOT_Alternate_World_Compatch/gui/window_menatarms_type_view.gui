@@ -1,0 +1,2411 @@
+﻿
+######################################################
+################# ADD MEN-AT-ARMS ####################
+######################################################
+
+window = {
+	name = "menatarmstype_view"
+	parentanchor = top|right
+	position = { -610 70 }
+	size = { 470 880 }
+	movable = no
+	layer = middle
+
+	using = Window_Background
+	using = Window_Decoration
+
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+		position_x = -610
+		on_start = "[GetVariableSystem.Set( 'menatarms_details_open', 'true'  )]"
+	}
+
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+		position_x = -580
+		on_start = "[GetVariableSystem.Clear( 'menatarms_details_open' )]"
+	}
+
+	vbox = {
+		using = Window_Margins
+		set_parent_size_to_minimum = yes
+
+		state = {
+			name = "menatarms_details_refresh"
+			alpha = 0
+			duration = 0.2
+			next = "b"
+			using = Animation_Curve_Default
+		}
+
+		state = {
+			name = "b"
+			alpha = 1
+			duration = 0.2
+			using = Animation_Curve_Default
+		}
+
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+			blockoverride "header_text"
+			{
+				text = "[MenAtArmsTypeView.GetTitle]"
+
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[MenAtArmsTypeView.Close]"
+
+			}
+		}
+
+		scrollbox = {
+			name = "attending_scrollarea"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			size = { 430 0 }
+			maximumsize = { -1 340 }
+			autoresizescrollarea = yes
+
+			blockoverride "scrollbox_content"
+			{
+				vbox = {
+					name = "types_grid"
+					datamodel = "[MenAtArmsTypeView.GetMenAtArmsTypes]"
+					layoutpolicy_horizontal = expanding
+					spacing = 3
+
+					item = {
+						button_standard = {
+							name = "select"
+							datacontext = "[MenAtArmsTypeViewTypeItem.GetMenAtArmsType]"
+							layoutpolicy_horizontal = expanding
+							size = { 0 42 }
+
+							down = "[MenAtArmsTypeViewTypeItem.IsSelected]"
+
+							hbox = {
+								margin = { 10 0 }
+								spacing = 10
+
+								highlight_icon = {
+									name = "men_at_arms_icon"
+									size = { 35 35 }
+									texture = "[MenAtArmsType.GetIcon]"
+								}
+
+								text_single = {
+									name = "men_at_arms_name"
+									layoutpolicy_horizontal = expanding
+									text = "[MenAtArmsType.GetNameNoTooltip]"
+									default_format = "#high"
+								}
+
+								text_single = {
+									name = "men_at_arms_cost"
+									text = "[Select_CString( MenAtArmsTypeView.GetSelectedTitle.IsValid, MenAtArmsType.GetTitleRegimentCostString( GetPlayer ), MenAtArmsType.GetCostString( GetPlayer ) )]"
+									default_format = "#high"
+
+									tooltip = "[MenAtArmsTypeViewTypeItem.GetCreateWarning]"
+									tooltip_visible = "[Not(MenAtArmsTypeViewTypeItem.CanCreate)]"
+
+									background = {
+										visible = "[Not(MenAtArmsTypeViewTypeItem.CanCreate)]"
+
+										using = Status_Bad
+									}
+								}
+							}
+
+							button_normal = {
+								visible = "[Not(MenAtArmsTypeView.IsAnyMenAtArmsTypeSelected)]"
+								size = { 100% 100% }
+								onclick = "[MenAtArmsTypeViewTypeItem.OnClick]"
+							}
+
+							button_normal = {
+								visible = "[MenAtArmsTypeView.IsAnyMenAtArmsTypeSelected]"
+								size = { 100% 100% }
+								onclick = "[PdxGuiTriggerAllAnimations('add_maa_change')]"
+
+								state = {
+									name = _mouse_click
+									delay = 0.2
+									on_finish = "[MenAtArmsTypeViewTypeItem.OnClick]"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		widget = {
+			name = "selected_maa"
+			datacontext = "[MenAtArmsTypeView.GetSelectedMenAtArmsType]"
+			visible = "[MenAtArmsTypeView.IsAnyMenAtArmsTypeSelected]"
+			layoutpolicy_horizontal = expanding
+			size = { 0 0 }
+			scissor = yes
+
+			widget = {
+				visible = "[MenAtArmsTypeView.IsAnyMenAtArmsTypeSelected]"
+				parentanchor = bottom
+				size = { 100% 250 }
+
+				background = {
+					texture = "[MenAtArmsType.GetHorizontalImageForCulture( GetPlayer.GetCulture )]"
+					alpha = 0.8
+					using = Mask_Rough_Edges
+
+					modify_texture = {
+						texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+						blend_mode = alphamultiply
+						mirror = vertical
+					}
+				}
+			}
+
+			state = {
+				name = _show
+				duration = 0.2
+
+				animation = {
+					size = { 0 540 }
+					bezier = { 0 0.5 0.5 1 }
+				}
+
+				animation = {
+					alpha = 1
+					bezier = { 0.5 0 1 0.5 }
+				}
+			}
+
+			state = {
+				name = _hide
+				size = { 0 0 }
+				alpha = 0
+			}
+
+			state = {
+				name = "add_maa_change"
+				alpha = 0
+				duration = 0.2
+				next = "b"
+				using = Animation_Curve_Default
+			}
+
+			state = {
+				name = "b"
+				alpha = 1
+				duration = 0.2
+				using = Animation_Curve_Default
+			}
+
+			widget = {
+				size = { 100% 100% }
+
+				state = {
+					name = "add_maa_change"
+					next = "b"
+					position_x = 200
+					duration = 0.2
+					using = Animation_Transition_Start
+				}
+
+				state = {
+					name = "b"
+					next = "c"
+					position_x = -200
+					duration = 0
+				}
+
+				state = {
+					name = "c"
+					position_x = -0
+					duration = 0.2
+					using = Animation_Transition_End
+				}
+
+				vbox = {
+					maa_regiment_info = {
+						layoutpolicy_horizontal = expanding
+					}
+
+					spacer = {
+						size = { 10 46 }
+					}
+
+					text_label_center = {
+						visible = "[And( Not(IsLandlessAdventurer( GetPlayer )), Not( MenAtArmsTypeView.IsUsingHorde ))]"
+						text = "MV_REGIMENT_START_SIZE"
+						max_width = 400
+					}
+
+					text_label_center = {
+						visible = "[IsLandlessAdventurer( GetPlayer )]"
+						text = "MV_REGIMENT_START_SIZE_ADVENTURER"
+						max_width = 400
+					}
+
+					text_label_center = {
+						visible = "[MenAtArmsTypeView.IsUsingHorde]"
+						text = "MV_REGIMENT_START_SIZE_NOMAD"
+						max_width = 400
+					}
+
+					spacer = {
+						size = { 10 10 }
+					}
+
+					button_primary = {
+						size = { 200 40 }
+						text = "[MenAtArmsTypeView.GetCostString( GetPlayer )]"
+						onclick = "[MenAtArmsTypeView.Create]"
+						enabled = "[MenAtArmsTypeView.CanCreate]"
+						tooltip = "MEN_AT_ARMS_CAN_CREATE_TOOLTIP"
+
+						background = {
+							using = Background_Area
+						}
+					}
+
+					spacer = {
+						size = { 10 10 }
+					}
+				}
+			}
+		}
+	}
+
+	coa_title_small = {
+		datacontext = "[MenAtArmsTypeView.GetSelectedTitle]"
+		visible = "[Title.IsValid]"
+
+		position = { 0 -20 }
+		parentanchor = hcenter
+	}
+}
+
+######################################################
+################ TYPES AND TEMPLATES #################
+######################################################
+
+types MenAtArms
+{
+	### Brief: vbox_maa_stats_numbers_base
+	#	Base widget for men at arms.
+	#
+	#	Requires datacontexts:
+	#		MenAtArmsType:
+	#			The type of men at arms we are looking at
+	#
+	#		Province:
+	#			The province the men at arms are stationed in. If not
+	#			stationed use null object
+	#
+	#		Title:
+	#			The Landed Title these men at arms are owned by, if any.
+	#			If Personal MAAs, this should be the null object.
+	#
+	type vbox_maa_stats_numbers_base = vbox {
+		vbox = {
+			visible = "[Not( MenAtArmsType.FightsInMainPhase )]"
+			layoutpolicy_horizontal = expanding
+			margin = { 15 0 }
+			margin_bottom = 5
+
+			background = {
+				using = Background_Area
+				margin = { 3 3 }
+				margin_right = 7
+			}
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				block "siege_tt"
+				{
+					tooltip = "REGIMENT_SIEGE_TT"
+				}
+				using = tooltip_se
+				spacing = 3
+				margin_left = -5
+
+				icon = {
+					block "siege_icon_size"
+					{
+						size = { 55 55 }
+					}
+					texture = "gfx/interface/icons/regimenttypes/unit_stat_siege_progress.dds"
+				}
+
+				text_single = {
+					block "siege_stat"
+					{
+						text = "REGIMENT_SIEGE"
+					}
+					using = Font_Size_Medium
+					align = nobaseline
+					min_width = 25
+				}
+
+				expand = {}
+			}
+
+			block "siege_effective_level"
+			{
+				text_single = {
+					layoutpolicy_horizontal = expanding
+					name = "siege_tier"
+					text = "REGIMENT_SIEGE_MAX_FORT_LEVEL"
+					align = left
+				}
+			}
+		}
+
+		hbox = {
+			name = "stats"
+			visible = "[MenAtArmsType.FightsInMainPhase]"
+			layoutpolicy_horizontal = expanding
+			margin = { 5 0 }
+			margin_top = 5
+
+			block "stat_spacing"
+			{
+			}
+
+			hbox = {
+				block "damage_tt"
+				{
+					tooltip = "REGIMENT_DAMAGE_TT"
+				}
+				using = tooltip_se
+				spacing = 3
+
+				icon = {
+					name = "icon"
+					block "stat_icon_size"
+					{
+						size = { 40 40 }
+					}
+					texture = "gfx/interface/icons/regimenttypes/unit_stat_damage.dds"
+				}
+
+				text_single = {
+					name = "label"
+					block "damage_stat"
+					{
+						text = "[MenAtArmsType.GetStat( GetPlayer, Province.Self, Title.Self, 'damage' )|0]"
+					}
+					default_format = "#high"
+					using = Font_Size_Medium
+					align = nobaseline
+					min_width = 25
+				}
+			}
+
+			hbox = {
+				block "toughness_tt"
+				{
+					tooltip = "REGIMENT_TOUGHNESS_TT"
+				}
+				using = tooltip_se
+				spacing = 3
+
+				icon = {
+					name = "icon"
+					block "stat_icon_size"
+					{
+						size = { 40 40 }
+					}
+					texture = "gfx/interface/icons/regimenttypes/unit_stat_toughness.dds"
+				}
+
+				text_single = {
+					name = "label"
+					block "toughness_stat"
+					{
+						text = "[MenAtArmsType.GetStat( GetPlayer, Province.Self, Title.Self, 'toughness' )|0]"
+					}
+					default_format = "#high"
+					using = Font_Size_Medium
+					align = nobaseline
+					min_width = 25
+				}
+			}
+
+			hbox = {
+				block "pursuit_tt"
+				{
+					tooltip = "REGIMENT_PURSUIT_TT"
+					# fade out if 0
+					alpha = "[Select_float(GreaterThan_CFixedPoint(MenAtArmsType.GetStat( GetPlayer, Province.Self, Title.Self, 'pursuit' ),'(CFixedPoint)0'), '(float)1.0','(float)0.4')]"
+				}
+				using = tooltip_se
+				spacing = 3
+
+
+				icon = {
+					name = "icon"
+					block "stat_icon_size"
+					{
+						size = { 40 40 }
+					}
+					texture = "gfx/interface/icons/regimenttypes/unit_stat_pursuit.dds"
+				}
+
+				text_single = {
+					name = "label"
+					block "pursuit_stat"
+					{
+						text = "[MenAtArmsType.GetStat( GetPlayer, Province.Self, Title.Self, 'pursuit' )|0]"
+					}
+					default_format = "#high"
+					using = Font_Size_Medium
+					align = nobaseline
+					min_width = 25
+				}
+			}
+
+			hbox = {
+				block "screen_tt"
+				{
+					tooltip = "REGIMENT_SCREEN_TT"
+					# fade out if 0
+					alpha = "[Select_float(GreaterThan_CFixedPoint(MenAtArmsType.GetStat( GetPlayer, Province.Self, Title.Self, 'screen' ),'(CFixedPoint)0'), '(float)1.0','(float)0.4')]"
+				}
+				using = tooltip_se
+				spacing = 3
+
+				icon = {
+					name = "icon"
+					block "stat_icon_size"
+					{
+						size = { 40 40 }
+					}
+					texture = "gfx/interface/icons/regimenttypes/unit_stat_screen.dds"
+				}
+
+				text_single = {
+					name = "label"
+					block "screen_stat"
+					{
+						text = "[MenAtArmsType.GetStat( GetPlayer, Province.Self, Title.Self, 'screen' )|0]"
+					}
+					default_format = "#high"
+					using = Font_Size_Medium
+					align = nobaseline
+					min_width = 25
+				}
+			}
+
+			hbox = {
+				visible = "[GreaterThan_CFixedPoint(MenAtArmsType.GetStat(GetPlayer, Province.Self, Title.Self, 'siege_value'), '(CFixedPoint)0')]"
+				block "siege_tt"
+				{
+					tooltip = "REGIMENT_SIEGE_TT"
+				}
+				using = tooltip_se
+				spacing = 3
+				margin_right = 5
+
+				icon = {
+					block "siege_icon_size"
+					{
+						size = { 40 40 }
+					}
+					texture = "gfx/interface/icons/regimenttypes/unit_stat_siege_progress.dds"
+				}
+
+				text_single = {
+					block "siege_stat"
+					{
+						text = "[MenAtArmsType.GetStat( GetPlayer, Province.Self, Title.Self, 'siege_value' )|1]"
+					}
+					default_format = "#high"
+					using = Font_Size_Medium
+					align = nobaseline
+					min_width = 25
+				}
+			}
+		}
+	}
+
+	# Requires MenAtArmsType data context
+	type vbox_maa_stats_numbers = vbox_maa_stats_numbers_base
+	{
+		datacontext = "[GetNullProvince]"
+		datacontext = "[GetNullLandedTitle]"
+	}
+
+	type hbox_maa_type_text = hbox {
+		margin = { 15 0 }
+		margin_top = 10
+		spacing = 5
+
+		text_single = {
+			name = "type"
+			text = "MEN_AT_ARMS_TYPE_NAME"
+			align = nobaseline
+		}
+
+		expand = {}
+
+	}
+
+	type vbox_maa_stats = vbox {
+		margin_bottom = 10
+
+		background = {
+			using = Background_Area_With_Header
+		}
+
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			margin =  { 15 0 }
+
+			text_single = {
+				name = "title"
+				text = "[MenAtArmsType.GetNameNoTooltip]"
+				using = Font_Size_Medium
+				max_width = 250
+			}
+
+			expand = {}
+
+			hbox = {
+				tooltip = "MV_CREATE_REGIMENT_MAX_SIZE_TT"
+				using = tooltip_ne
+
+				icon = {
+					name = "icon_maa"
+					texture = [MenAtArmsType.GetIcon]
+					size = { 30 30 }
+				}
+
+				text_single = {
+					name = "soldier count"
+					text = "MV_CREATE_REGIMENT_SIZE"
+					max_width = 150
+				}
+			}
+		}
+
+		vbox_maa_stats_numbers = {
+			layoutpolicy_horizontal = expanding
+		}
+
+		divider_light = {
+			layoutpolicy_horizontal = expanding
+
+			modify_texture = {
+				texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_thick.dds"
+				blend_mode = alphamultiply
+			}
+		}
+
+		block "type_text"
+		{
+			hbox_maa_type_text = {
+				layoutpolicy_horizontal = expanding
+			}
+		}
+	}
+
+	type vbox_maa_info = vbox {
+		margin = { 15 0 }
+		spacing = 5
+
+		hbox = {
+			layoutpolicy_horizontal = growing
+
+			text_multi = {
+				name = "counters"
+				visible = "[MenAtArmsType.FightsInMainPhase]"
+				layoutpolicy_horizontal = growing
+				autoresize = yes
+				max_width = 320
+				text = "MAA_COUNTERS_LABEL"
+			}
+			expand = {}
+		}
+
+
+
+		#AGOT Modified
+		# hbox = {
+		vbox = {
+			name = "terrain_grid"
+			visible = "[Not(IsDataModelEmpty(MenAtArmsType.GetTerrainModifiers))]"
+			layoutpolicy_horizontal = expanding
+
+			#AGOT Disabled
+			# vbox = {
+				spacing = 5
+
+				text_single = {
+					name = "terrain_label"
+					visible = "[Not(IsDataModelEmpty(MenAtArmsType.GetTerrainModifiers))]"
+					layoutpolicy_horizontal = expanding
+					text = "REGIMENT_TERRAIN_BONUS_HEADER"
+					#AGOT Disabled
+					# max_width = 250
+				}
+				
+				fixedgridbox = {
+					datamodel = "[MenAtArmsType.GetTerrainModifiers]"
+					#AGOT Modified
+					# addrow = 45
+					# addcolumn = 40
+					# datamodel_wrap = 8
+					# maxhorizontalslots = 8
+					visible = "[GreaterThan_int32( GetDataModelSize(MenAtArmsType.GetTerrainModifiers), '(int32)33' )]"
+					addrow = 36
+					addcolumn = 36
+					datamodel_wrap = 10
+					setitemsizefromcell = yes
+					maxverticalslots = 2
+					flipdirection = yes
+
+					item = {
+						icon = {
+							name = "icon"
+							size = { 40 40 }
+							texture = "[RegimentTerrainModifier.GetTerrain.GetIcon]"
+							#AGOT Added
+							visible = "[ShouldDisplayTerrainIcon]"
+
+							tooltip = "REGIMENT_TERRAIN_MODIFIER_TOOLTIP"
+							using = tooltip_below
+
+							icon = {
+								visible = "[Not( RegimentTerrainModifier.IsPositive )]"
+								parentanchor = bottom|right
+								position = { 0 5 }
+								size = { 25 25 }
+								texture = "gfx/interface/icons/symbols/icon_minus_small.dds"
+							}
+
+							icon = {
+								visible = "[RegimentTerrainModifier.IsPositive]"
+								parentanchor = bottom|right
+								position = { 0 5 }
+								size = { 25 25 }
+								texture = "gfx/interface/icons/symbols/icon_plus_small.dds"
+							}
+						}
+					}
+				}
+				#AGOT Added
+				agot_secondary_menatarms_terrain_grid = { datamodel_wrap = 10 }
+			#AGOT Disabled
+			# }
+
+			expand = {}
+
+			#AGOT Disabled
+			# hbox = {
+				# layoutpolicy_vertical = expanding
+				# spacing = 5
+
+				text_single = {
+					name = "winter_label"
+					layoutpolicy_horizontal = expanding
+					text = "REGIMENT_WINTER_EFFECT_HEADER"
+					visible = "[MenAtArmsType.HasWinterHarshModifier]"
+					#AGOT Disabled
+					# max_width = 150
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					visible = "[MenAtArmsType.HasWinterHarshModifier]"
+					#AGOT Added
+					margin_bottom = -5
+
+					maa_winter_effects_positive_icon = { # Positive Harsh Winter Effects
+						blockoverride "maa_has_winter_modifier" {
+							visible = "[MenAtArmsType.HasWinterHarshModifier]"
+						}
+						blockoverride "maa_has_winter_effect" {
+							visible = "[MenAtArmsType.GetWinterHarshModifier.IsPositive]"
+							texture = "gfx/interface/icons/terrain_types/winter_harsh.dds"
+							tooltip = "REGIMENT_WINTER_HARSH_MODIFIER_TOOLTIP"
+						}
+					}
+
+					maa_winter_effects_positive_icon = { # Positive Normal Winter Effects
+						blockoverride "maa_has_winter_modifier" {
+							visible = "[MenAtArmsType.HasWinterNormalModifier]"
+						}
+						blockoverride "maa_has_winter_effect" {
+							visible = "[MenAtArmsType.GetWinterNormalModifier.IsPositive]"
+							texture = "gfx/interface/icons/terrain_types/winter_normal.dds"
+							tooltip = "REGIMENT_WINTER_NORMAL_MODIFIER_TOOLTIP"
+						}
+					}
+
+					maa_winter_effects_negative_icon = { # Negative Harsh Winter Effects
+						blockoverride "maa_has_winter_modifier" {
+							visible = "[MenAtArmsType.HasWinterHarshModifier]"
+						}
+						blockoverride "maa_has_winter_effect" {
+							visible = "[Not( MenAtArmsType.GetWinterHarshModifier.IsPositive )]"
+							texture = "gfx/interface/icons/terrain_types/winter_harsh.dds"
+							tooltip = "REGIMENT_WINTER_HARSH_MODIFIER_TOOLTIP"
+						}
+					}
+
+					maa_winter_effects_negative_icon = { # Negative Normal Winter Effects
+						blockoverride "maa_has_winter_modifier" {
+							visible = "[MenAtArmsType.HasWinterNormalModifier]"
+						}
+						blockoverride "maa_has_winter_effect" {
+							visible = "[Not( MenAtArmsType.GetWinterNormalModifier.IsPositive )]"
+							texture = "gfx/interface/icons/terrain_types/winter_normal.dds"
+							tooltip = "REGIMENT_WINTER_NORMAL_MODIFIER_TOOLTIP"
+						}
+					}
+					expand = {}
+				}
+
+				expand = {}
+			#AGOT Disabled
+			# }
+		}
+
+		text_single = {
+			name = "holding_label"
+			visible = "[Not(IsDataModelEmpty(MenAtArmsType.GetHoldingModifiers))]"
+			layoutpolicy_horizontal = expanding
+			text = "REGIMENT_HOLDING_BONUS_HEADER"
+		}
+
+		hbox = {
+			visible = "[Not(IsDataModelEmpty(MenAtArmsType.GetHoldingModifiers))]"
+			layoutpolicy_horizontal = expanding
+
+			hbox = {
+				name = "holding_grid"
+				datamodel = "[MenAtArmsType.GetHoldingModifiers]"
+				spacing = 5
+
+				item = {
+					icon_flat_standard = {
+						name = "icon"
+						size = { 40 40 }
+						texture = "[RegimentHoldingModifier.GetHolding.GetPrimaryBuildingType.GetTypeIcon]"
+						tooltip = "REGIMENT_HOLDING_MODIFIER_TOOLTIP"
+						using = tooltip_below
+
+						icon = {
+							visible = "[Not( RegimentHoldingModifier.IsPositive )]"
+							texture = "gfx/interface/icons/symbols/icon_minus_small.dds"
+							parentanchor = bottom|right
+							position = { 0 5 }
+							size = { 25 25 }
+						}
+
+						icon = {
+							visible = "[RegimentHoldingModifier.IsPositive]"
+							texture = "gfx/interface/icons/symbols/icon_plus_small.dds"
+							parentanchor = bottom|right
+							position = { 0 5 }
+							size = { 25 25 }
+						}
+					}
+				}
+			}
+			expand = {}
+		}
+	}
+
+	type maa_regiment_info = widget {
+		# Needs a MenAtArmsType Datacontext
+		# Keep variable-height terrain, flavor and cost rows above the fixed create footer.
+		size = { 430 410 }
+		scissor = yes
+
+		scrollbox = {
+			size = { 100% 100% }
+			# Reserve the native 12px scrollbar without duplicating child margins.
+			blockoverride "scrollbox_margins" { margin = { 0 5 } margin_right = 16 }
+		blockoverride "scrollbox_content" {
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 5
+
+			vbox_maa_stats = {
+				layoutpolicy_horizontal = expanding
+			}
+
+			vbox_maa_info = {
+				layoutpolicy_horizontal = expanding
+			}
+
+			text_multi = {
+				layoutpolicy_horizontal = expanding
+				size = { 0 45 }
+				text = "[MenAtArmsType.GetFlavorString]"
+				margin = { 15 5 }
+				max_width = 380
+			}
+
+			vbox = {
+				margin_bottom = 15
+				spacing = 2
+
+				# AAWC generated MAA population replenishment cost labels.
+				# Direct text_label_center rows are used here because the reusable generated widget
+				# does not reserve vertical space correctly in this fixed-height preview panel.
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Abudrar' )]"
+					text = "aawc_population_maa_replenishment_cost_abudrar"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Camel Riders' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_cameliers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Crossbowmen' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_crossbowers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue War Elephants' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_elephantiers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Handgunners' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_handgunners"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Horse Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_horse_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Lancers' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_lancers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Outriders' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_outriders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Pikemen' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_pikes"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Skirmishers' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_skirmishers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Retinue Vanguard' )]"
+					text = "aawc_population_maa_replenishment_cost_accolade_maa_vanguards"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Akritai' )]"
+					text = "aawc_population_maa_replenishment_cost_akritai"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ar Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_ar_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Arbor Marines' )]"
+					text = "aawc_population_maa_replenishment_cost_arbor_marines"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Nile Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_archers_of_the_nile"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Armored Footmen' )]"
+					text = "aawc_population_maa_replenishment_cost_armored_footmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Armored Horsemen' )]"
+					text = "aawc_population_maa_replenishment_cost_armored_horsemen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Asa Scouts' )]"
+					text = "aawc_population_maa_replenishment_cost_asa_scouts"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Asawira' )]"
+					text = "aawc_population_maa_replenishment_cost_asawira"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ash Wardens' )]"
+					text = "aawc_population_maa_replenishment_cost_ash_wardens"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ayrudzi' )]"
+					text = "aawc_population_maa_replenishment_cost_ayrudzi"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ayyar' )]"
+					text = "aawc_population_maa_replenishment_cost_ayyar"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Siege Crossbows' )]"
+					text = "aawc_population_maa_replenishment_cost_ballista"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ballista Elephants' )]"
+					text = "aawc_population_maa_replenishment_cost_ballista_elephant"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ballistrai' )]"
+					text = "aawc_population_maa_replenishment_cost_ballistrai"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Barrow Knights' )]"
+					text = "aawc_population_maa_replenishment_cost_barrow_knights"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Basilisk Riders' )]"
+					text = "aawc_population_maa_replenishment_cost_basilisk_riders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bat Catchers' )]"
+					text = "aawc_population_maa_replenishment_cost_bat_catchers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Battering Ram' )]"
+					text = "aawc_population_maa_replenishment_cost_battering_ram"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Black-Armored Cavalry' )]"
+					text = "aawc_population_maa_replenishment_cost_black_armor_cavalry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Black Blood Cavalry' )]"
+					text = "aawc_population_maa_replenishment_cost_black_blood_cavalry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Black Soles' )]"
+					text = "aawc_population_maa_replenishment_cost_black_soles"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Black Wall Chariots' )]"
+					text = "aawc_population_maa_replenishment_cost_black_wall_chariots"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Blood Mutants' )]"
+					text = "aawc_population_maa_replenishment_cost_blood_mutants"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bloody Blades' )]"
+					text = "aawc_population_maa_replenishment_cost_bloody_blades"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Blue Eyes' )]"
+					text = "aawc_population_maa_replenishment_cost_blue_eyes"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bombards' )]"
+					text = "aawc_population_maa_replenishment_cost_bombard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bondí' )]"
+					text = "aawc_population_maa_replenishment_cost_bondi"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bone Collectors' )]"
+					text = "aawc_population_maa_replenishment_cost_bone_collectors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bowmen' )]"
+					text = "aawc_population_maa_replenishment_cost_bowmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bronze Cavalry' )]"
+					text = "aawc_population_maa_replenishment_cost_bronze_cavalry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bronze Raiders' )]"
+					text = "aawc_population_maa_replenishment_cost_bronze_raiders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Burenjia Infantry' )]"
+					text = "aawc_population_maa_replenishment_cost_burenjia"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bush Hunters' )]"
+					text = "aawc_population_maa_replenishment_cost_bush_hunter"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Caballeros' )]"
+					text = "aawc_population_maa_replenishment_cost_caballero"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cailin Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_cailin_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cairn Wardens' )]"
+					text = "aawc_population_maa_replenishment_cost_cairn_wardens"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Camel Riders' )]"
+					text = "aawc_population_maa_replenishment_cost_camel_rider"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cannibal Bows' )]"
+					text = "aawc_population_maa_replenishment_cost_cannibal_bows"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Fire Dragon Engines' )]"
+					text = "aawc_population_maa_replenishment_cost_cannon"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cape Watch' )]"
+					text = "aawc_population_maa_replenishment_cost_cape_watch"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Caravan Guards' )]"
+					text = "aawc_population_maa_replenishment_cost_caravan_guards"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Kataphraktoi' )]"
+					text = "aawc_population_maa_replenishment_cost_cataphract"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cataphract Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_cataphract_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Chasseurs' )]"
+					text = "aawc_population_maa_replenishment_cost_chasseur"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Civic Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_civic_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Clan Champions' )]"
+					text = "aawc_population_maa_replenishment_cost_clan_champions"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Clan Raiders' )]"
+					text = "aawc_population_maa_replenishment_cost_clan_raiders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cloud Ladders' )]"
+					text = "aawc_population_maa_replenishment_cost_cloud_ladder"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cohort of the Three Thousand' )]"
+					text = "aawc_population_maa_replenishment_cost_cohort_of_the_three_thousand"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Coin Collectors' )]"
+					text = "aawc_population_maa_replenishment_cost_coin_collectors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Collared Bows' )]"
+					text = "aawc_population_maa_replenishment_cost_collared_bows"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Conrois' )]"
+					text = "aawc_population_maa_replenishment_cost_conrois"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Crescent Blades' )]"
+					text = "aawc_population_maa_replenishment_cost_crescent_blades"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Crossbowmen' )]"
+					text = "aawc_population_maa_replenishment_cost_crossbowmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Dusk Spears' )]"
+					text = "aawc_population_maa_replenishment_cost_crownlands_spears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cruel Chains' )]"
+					text = "aawc_population_maa_replenishment_cost_cruel_chains"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cymmeri Iron Shirts' )]"
+					text = "aawc_population_maa_replenishment_cost_cymmeri_iron_shirts"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Demon Guards' )]"
+					text = "aawc_population_maa_replenishment_cost_demon_guards"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Depth Killers' )]"
+					text = "aawc_population_maa_replenishment_cost_depth_killers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Disputant Scouts' )]"
+					text = "aawc_population_maa_replenishment_cost_disputant_scouts"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Dogsled Chariots' )]"
+					text = "aawc_population_maa_replenishment_cost_dogsled_chariots"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Dornish Vipers' )]"
+					text = "aawc_population_maa_replenishment_cost_dornish_crossbows"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Dothraki Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_dothraki_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Dothraki Screamers' )]"
+					text = "aawc_population_maa_replenishment_cost_dothraki_screamers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Dragonguard' )]"
+					text = "aawc_population_maa_replenishment_cost_dragonguard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Dragonsworn' )]"
+					text = "aawc_population_maa_replenishment_cost_dragonsworn"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Drainers' )]"
+					text = "aawc_population_maa_replenishment_cost_drainers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Dream Questors' )]"
+					text = "aawc_population_maa_replenishment_cost_dream_questors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Druzhina' )]"
+					text = "aawc_population_maa_replenishment_cost_druzhina"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Dust Devils' )]"
+					text = "aawc_population_maa_replenishment_cost_dust_devils"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Eastwatch Sailors' )]"
+					text = "aawc_population_maa_replenishment_cost_eastwatch_sailors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Elyrian Longbowmen' )]"
+					text = "aawc_population_maa_replenishment_cost_elyrian_longbowmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Elyrian Sailors' )]"
+					text = "aawc_population_maa_replenishment_cost_elyrian_sailors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Emishi Riders' )]"
+					text = "aawc_population_maa_replenishment_cost_emishi_horse_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Esoteric Grenadiers' )]"
+					text = "aawc_population_maa_replenishment_cost_esoteric_grenadiers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Festival Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_festival_guards"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Fiery Hand of R\\'hllor' )]"
+					text = "aawc_population_maa_replenishment_cost_fiery_hand"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Finger Scouts' )]"
+					text = "aawc_population_maa_replenishment_cost_finger_scouts"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Fire Flingers' )]"
+					text = "aawc_population_maa_replenishment_cost_fire_flingers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Fire Lancers' )]"
+					text = "aawc_population_maa_replenishment_cost_fire_lancers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Firstborne' )]"
+					text = "aawc_population_maa_replenishment_cost_firstborne"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Flower Spears' )]"
+					text = "aawc_population_maa_replenishment_cost_flower_spears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Frog Spears' )]"
+					text = "aawc_population_maa_replenishment_cost_frog_spears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Gakgung Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_gakgung_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Garden Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_garden_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Lenkas' )]"
+					text = "aawc_population_maa_replenishment_cost_garudas"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Gate Sailors' )]"
+					text = "aawc_population_maa_replenishment_cost_gate_sailors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Gendarmes' )]"
+					text = "aawc_population_maa_replenishment_cost_gendarme"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Giants' )]"
+					text = "aawc_population_maa_replenishment_cost_giant_regiment"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sons and Daughters of Yeen' )]"
+					text = "aawc_population_maa_replenishment_cost_giant_spotted_spider"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Gipp Wicker Shields' )]"
+					text = "aawc_population_maa_replenishment_cost_gipp_wicker_shields"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Goedendag Militia' )]"
+					text = "aawc_population_maa_replenishment_cost_goedendag"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Gogossi Berserkers' )]"
+					text = "aawc_population_maa_replenishment_cost_gogossi_berserkers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Gold Cloaks' )]"
+					text = "aawc_population_maa_replenishment_cost_goldcloaks"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Goldenheart Bowmen' )]"
+					text = "aawc_population_maa_replenishment_cost_goldenheart_bowmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Green Daggers' )]"
+					text = "aawc_population_maa_replenishment_cost_green_daggers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Knights of the Green Hand' )]"
+					text = "aawc_population_maa_replenishment_cost_green_hand"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Greenblood Oars' )]"
+					text = "aawc_population_maa_replenishment_cost_greenblood_oars"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Grey Spears' )]"
+					text = "aawc_population_maa_replenishment_cost_grey_spears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Grey Wolves' )]"
+					text = "aawc_population_maa_replenishment_cost_grey_wolves"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Cobblestone Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_greycloaks"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Vaulter Infantry' )]"
+					text = "aawc_population_maa_replenishment_cost_guanch_vaulter"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Guinean Uplanders' )]"
+					text = "aawc_population_maa_replenishment_cost_guinea_warrior"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Hammers of Justice' )]"
+					text = "aawc_population_maa_replenishment_cost_hammers_of_justice"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Handgunners' )]"
+					text = "aawc_population_maa_replenishment_cost_handgunners"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Handpicked Faithful' )]"
+					text = "aawc_population_maa_replenishment_cost_handpicked_faithful"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Head Collectors' )]"
+					text = "aawc_population_maa_replenishment_cost_head_collectors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Heavy Horse Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_heavy_horse_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Hill Runners' )]"
+					text = "aawc_population_maa_replenishment_cost_hill_runners"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Hobelars' )]"
+					text = "aawc_population_maa_replenishment_cost_hobelar"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Holy Guard of the Bearded Priests' )]"
+					text = "aawc_population_maa_replenishment_cost_holy_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Honeywine Quarrels' )]"
+					text = "aawc_population_maa_replenishment_cost_honeywine_quirrels"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Horn Warriors' )]"
+					text = "aawc_population_maa_replenishment_cost_horn_warrior"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Horse Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_horse_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'House Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_house_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Hunters of the Moon' )]"
+					text = "aawc_population_maa_replenishment_cost_hunters_of_the_moon"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Huscarls' )]"
+					text = "aawc_population_maa_replenishment_cost_huscarl"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Konni' )]"
+					text = "aawc_population_maa_replenishment_cost_hussar"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ice Skatters' )]"
+					text = "aawc_population_maa_replenishment_cost_ice_skatters"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Indentured Legion' )]"
+					text = "aawc_population_maa_replenishment_cost_indentured_legion"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Iron Legion' )]"
+					text = "aawc_population_maa_replenishment_cost_iron_legion"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Reavers' )]"
+					text = "aawc_population_maa_replenishment_cost_ironborn_reavers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Jade Dragons' )]"
+					text = "aawc_population_maa_replenishment_cost_jade_dragons"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Jade Sailors' )]"
+					text = "aawc_population_maa_replenishment_cost_jade_sailors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Mounted Samurai' )]"
+					text = "aawc_population_maa_replenishment_cost_japanese_horse_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Jomsviking Pirates' )]"
+					text = "aawc_population_maa_replenishment_cost_jomsviking_pirates"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Khandayat' )]"
+					text = "aawc_population_maa_replenishment_cost_khandayat"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Great Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_kheshig"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Knights of the Dragon' )]"
+					text = "aawc_population_maa_replenishment_cost_knights_of_the_dragon"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Settlers' )]"
+					text = "aawc_population_maa_replenishment_cost_laamp_settler_maa"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Lake Wardens' )]"
+					text = "aawc_population_maa_replenishment_cost_lake_wardens"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Landsknechts' )]"
+					text = "aawc_population_maa_replenishment_cost_landsknecht"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Lastborne' )]"
+					text = "aawc_population_maa_replenishment_cost_lastborne"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Library Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_library_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Light Footmen' )]"
+					text = "aawc_population_maa_replenishment_cost_light_footmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Light Horsemen' )]"
+					text = "aawc_population_maa_replenishment_cost_light_horsemen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Lions of Night' )]"
+					text = "aawc_population_maa_replenishment_cost_lions_of_night"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Lockstep Legion' )]"
+					text = "aawc_population_maa_replenishment_cost_lockstep_legion"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Longbowmen' )]"
+					text = "aawc_population_maa_replenishment_cost_longbowmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bandits' )]"
+					text = "aawc_population_maa_replenishment_cost_maa_bandits"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Marauders' )]"
+					text = "aawc_population_maa_replenishment_cost_maa_marauders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Poachers' )]"
+					text = "aawc_population_maa_replenishment_cost_maa_poachers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Looters' )]"
+					text = "aawc_population_maa_replenishment_cost_maa_thieves"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Mangonels' )]"
+					text = "aawc_population_maa_replenishment_cost_mangonel"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Mangudai' )]"
+					text = "aawc_population_maa_replenishment_cost_mangudai"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Marauding Basilisks' )]"
+					text = "aawc_population_maa_replenishment_cost_marauding_basilisks"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Marcher Longbowmen' )]"
+					text = "aawc_population_maa_replenishment_cost_marcher_longbowmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Market Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_market_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Marsh Walker' )]"
+					text = "aawc_population_maa_replenishment_cost_marsh_walkers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Maturkan Warriors' )]"
+					text = "aawc_population_maa_replenishment_cost_maturkan_warriors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Metsänvartija' )]"
+					text = "aawc_population_maa_replenishment_cost_metsanvartija"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Misty Shields' )]"
+					text = "aawc_population_maa_replenishment_cost_misty_shields"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Monaspa' )]"
+					text = "aawc_population_maa_replenishment_cost_monaspa"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Moraqi Elephants' )]"
+					text = "aawc_population_maa_replenishment_cost_moraqi_elephants"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Perfect Knights' )]"
+					text = "aawc_population_maa_replenishment_cost_morne_guardians"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Moroshi Pikes' )]"
+					text = "aawc_population_maa_replenishment_cost_moroshi_pikes"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Mother Sworn' )]"
+					text = "aawc_population_maa_replenishment_cost_mother_sworn"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Mountain Spears' )]"
+					text = "aawc_population_maa_replenishment_cost_mountain_spears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Mountaineers' )]"
+					text = "aawc_population_maa_replenishment_cost_mountaineer"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Mubarizun' )]"
+					text = "aawc_population_maa_replenishment_cost_mubarizun"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Mulathamūn' )]"
+					text = "aawc_population_maa_replenishment_cost_mulaththamun"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Myrish Crossbows' )]"
+					text = "aawc_population_maa_replenishment_cost_myrish_crossbows"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Nomad Lancers' )]"
+					text = "aawc_population_maa_replenishment_cost_nomad_lancers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Horde Riders' )]"
+					text = "aawc_population_maa_replenishment_cost_nomadic_riders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ironwood Spears' )]"
+					text = "aawc_population_maa_replenishment_cost_northern_spears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Rangers' )]"
+					text = "aawc_population_maa_replenishment_cost_nw_rangers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Trackers' )]"
+					text = "aawc_population_maa_replenishment_cost_nw_trackers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Onagers' )]"
+					text = "aawc_population_maa_replenishment_cost_onager"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Onyx Crows' )]"
+					text = "aawc_population_maa_replenishment_cost_onyx_crows"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Opal Cranes' )]"
+					text = "aawc_population_maa_replenishment_cost_opal_cranes"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ornate Helms' )]"
+					text = "aawc_population_maa_replenishment_cost_ornate_helms"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Paiks' )]"
+					text = "aawc_population_maa_replenishment_cost_paiks"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Palace Guards' )]"
+					text = "aawc_population_maa_replenishment_cost_palace_guards"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Pale Cavalry' )]"
+					text = "aawc_population_maa_replenishment_cost_pale_cavalry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Pass Pikes' )]"
+					text = "aawc_population_maa_replenishment_cost_pass_pikes"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Patriarchal Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_patriarchal_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Pearl Phoenixes' )]"
+					text = "aawc_population_maa_replenishment_cost_pearl_phoenixes"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Pesilat Warriors' )]"
+					text = "aawc_population_maa_replenishment_cost_pesilat_warriors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Picchieri' )]"
+					text = "aawc_population_maa_replenishment_cost_picchieri"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Pikemen Militia' )]"
+					text = "aawc_population_maa_replenishment_cost_pikemen_militia"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Pikemen' )]"
+					text = "aawc_population_maa_replenishment_cost_pikemen_unit"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Forcastle Men' )]"
+					text = "aawc_population_maa_replenishment_cost_pirate_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Long Hooks' )]"
+					text = "aawc_population_maa_replenishment_cost_pirate_pikemen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Black Cutlasses' )]"
+					text = "aawc_population_maa_replenishment_cost_pirate_skirmishers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Pit Fighters' )]"
+					text = "aawc_population_maa_replenishment_cost_pit_fighters"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Poison Stings' )]"
+					text = "aawc_population_maa_replenishment_cost_poison_stings"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Stars of the Poor Fellows' )]"
+					text = "aawc_population_maa_replenishment_cost_poorfellow_skirmishers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Port Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_port_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Palatini' )]"
+					text = "aawc_population_maa_replenishment_cost_praetorian"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Purple Marines' )]"
+					text = "aawc_population_maa_replenishment_cost_purple_marines"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Qarlon\\'s Fallen' )]"
+					text = "aawc_population_maa_replenishment_cost_qarlons_fallen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Rain Bringers' )]"
+					text = "aawc_population_maa_replenishment_cost_rain_bringers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Hand Messengers' )]"
+					text = "aawc_population_maa_replenishment_cost_reach_light_cavalry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Red Cloaks' )]"
+					text = "aawc_population_maa_replenishment_cost_redcloaks"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'River Bows' )]"
+					text = "aawc_population_maa_replenishment_cost_river_bows"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bargemen' )]"
+					text = "aawc_population_maa_replenishment_cost_riverlands_light_infantry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Rocket Carts' )]"
+					text = "aawc_population_maa_replenishment_cost_rocket_carts"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Royal Crossbowmen' )]"
+					text = "aawc_population_maa_replenishment_cost_royal_crossbowmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ruby Spearwomen' )]"
+					text = "aawc_population_maa_replenishment_cost_ruby_spearwomen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sahel Horsemen' )]"
+					text = "aawc_population_maa_replenishment_cost_sahel_horsemen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Samurai' )]"
+					text = "aawc_population_maa_replenishment_cost_samurai"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sand Couriers' )]"
+					text = "aawc_population_maa_replenishment_cost_sand_couriers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sand Steeds' )]"
+					text = "aawc_population_maa_replenishment_cost_sand_steeds"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sar Wardens' )]"
+					text = "aawc_population_maa_replenishment_cost_sar_wardens"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sarawit' )]"
+					text = "aawc_population_maa_replenishment_cost_sarawit"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sarsfield Archers' )]"
+					text = "aawc_population_maa_replenishment_cost_sarsfield_horse_archers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Schiltron' )]"
+					text = "aawc_population_maa_replenishment_cost_schiltron"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Scorpions' )]"
+					text = "aawc_population_maa_replenishment_cost_scorpions"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Scythed Chariots' )]"
+					text = "aawc_population_maa_replenishment_cost_scythed_chariots"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sea Snakes' )]"
+					text = "aawc_population_maa_replenishment_cost_sea_snakes"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sea Watch' )]"
+					text = "aawc_population_maa_replenishment_cost_sea_watch"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Shadow Raiders' )]"
+					text = "aawc_population_maa_replenishment_cost_shadow_raiders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Shadow Spears' )]"
+					text = "aawc_population_maa_replenishment_cost_shadow_spears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Shan\\'s Herd' )]"
+					text = "aawc_population_maa_replenishment_cost_shans_herd"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sharp Claws' )]"
+					text = "aawc_population_maa_replenishment_cost_sharp_claws"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'She-Bears' )]"
+					text = "aawc_population_maa_replenishment_cost_she_bears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Shenbigong' )]"
+					text = "aawc_population_maa_replenishment_cost_shenbigong"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Shepherds' )]"
+					text = "aawc_population_maa_replenishment_cost_shepherds"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Shining Cataphracts' )]"
+					text = "aawc_population_maa_replenishment_cost_shining_cataphracts"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Shomer' )]"
+					text = "aawc_population_maa_replenishment_cost_shomer"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Shrikes' )]"
+					text = "aawc_population_maa_replenishment_cost_shrikes"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Shrouded Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_shrouded_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Mobile Towers' )]"
+					text = "aawc_population_maa_replenishment_cost_siege_tower"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Silver Shields' )]"
+					text = "aawc_population_maa_replenishment_cost_silver_shields"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sistermen Pirates' )]"
+					text = "aawc_population_maa_replenishment_cost_sistermen_pirates"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Skahazadhan Wardens' )]"
+					text = "aawc_population_maa_replenishment_cost_skahazdahn_wardens"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Skoutatoi' )]"
+					text = "aawc_population_maa_replenishment_cost_skoutatoi"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Slave Legions' )]"
+					text = "aawc_population_maa_replenishment_cost_slave_legion"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Smith\\'s Axes' )]"
+					text = "aawc_population_maa_replenishment_cost_smiths_axes"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sons of Gendel' )]"
+					text = "aawc_population_maa_replenishment_cost_sons_of_gendel"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Matriachs of Yeen' )]"
+					text = "aawc_population_maa_replenishment_cost_spotted_spider_matriarch"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Stair Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_stair_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Star Carved' )]"
+					text = "aawc_population_maa_replenishment_cost_star_carved"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Steppe Raiders' )]"
+					text = "aawc_population_maa_replenishment_cost_steppe_raiders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Stepstones Pirates' )]"
+					text = "aawc_population_maa_replenishment_cost_stepstone_sailors"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Stolen Spears' )]"
+					text = "aawc_population_maa_replenishment_cost_stolen_spears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Stone Ranchers' )]"
+					text = "aawc_population_maa_replenishment_cost_stone_ranchers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Stone Shields' )]"
+					text = "aawc_population_maa_replenishment_cost_stone_shields"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Storm Knights' )]"
+					text = "aawc_population_maa_replenishment_cost_storm_knights"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Antlermen' )]"
+					text = "aawc_population_maa_replenishment_cost_stormlands_heavy_infantry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Summer Knights' )]"
+					text = "aawc_population_maa_replenishment_cost_summer_knights"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sun Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_sun_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sun Spears' )]"
+					text = "aawc_population_maa_replenishment_cost_sun_spears"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Sworn Brothers' )]"
+					text = "aawc_population_maa_replenishment_cost_sworn_brothers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Tahae-toto (Vampire Bats)' )]"
+					text = "aawc_population_maa_replenishment_cost_tahae_toto"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Tarkhans' )]"
+					text = "aawc_population_maa_replenishment_cost_tarkhan"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Tawashi' )]"
+					text = "aawc_population_maa_replenishment_cost_tawashi"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Temple Guardians' )]"
+					text = "aawc_population_maa_replenishment_cost_temple_guardians"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Teulu' )]"
+					text = "aawc_population_maa_replenishment_cost_teulu"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Order Knights' )]"
+					text = "aawc_population_maa_replenishment_cost_teutonic_knights"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Tiefutu' )]"
+					text = "aawc_population_maa_replenishment_cost_tiefutu"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Tiger Cloaks' )]"
+					text = "aawc_population_maa_replenishment_cost_tiger_cloaks"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Tolosi Slingers' )]"
+					text = "aawc_population_maa_replenishment_cost_tolosi_slingers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Topaz Tigers' )]"
+					text = "aawc_population_maa_replenishment_cost_topaz_tigers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Torch-Bearers' )]"
+					text = "aawc_population_maa_replenishment_cost_torch_bearers"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Tourmaline Tortoises' )]"
+					text = "aawc_population_maa_replenishment_cost_tourmaline_tortoises"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Trebuchets' )]"
+					text = "aawc_population_maa_replenishment_cost_trebuchet"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Tribute Guards' )]"
+					text = "aawc_population_maa_replenishment_cost_tribute_guards"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Unicorn Riders' )]"
+					text = "aawc_population_maa_replenishment_cost_unicorn_riders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Unsullied' )]"
+					text = "aawc_population_maa_replenishment_cost_unsullied"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Ursula\\'s Screams' )]"
+					text = "aawc_population_maa_replenishment_cost_ursulas_screams"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Bloody Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_vale_heavy_infantry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Varangian Guards' )]"
+					text = "aawc_population_maa_replenishment_cost_varangian_guards"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Varangian Veterans' )]"
+					text = "aawc_population_maa_replenishment_cost_varangian_veterans"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Vassals in Yellow' )]"
+					text = "aawc_population_maa_replenishment_cost_vassals_in_yellow"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Venom Bites' )]"
+					text = "aawc_population_maa_replenishment_cost_venom_bites"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Vigmen' )]"
+					text = "aawc_population_maa_replenishment_cost_vigmen"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'War Elephants' )]"
+					text = "aawc_population_maa_replenishment_cost_war_elephant"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Warrior Monks' )]"
+					text = "aawc_population_maa_replenishment_cost_warrior_monks"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Knights of the Warrior\\'s Sons' )]"
+					text = "aawc_population_maa_replenishment_cost_warriors_sons_heavy_cav"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Swords of the Warrior\\'s Sons' )]"
+					text = "aawc_population_maa_replenishment_cost_warriors_sons_heavy_infantry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Waste Raiders' )]"
+					text = "aawc_population_maa_replenishment_cost_waste_raiders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Water Wizards' )]"
+					text = "aawc_population_maa_replenishment_cost_water_wizards"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Weeping Guard' )]"
+					text = "aawc_population_maa_replenishment_cost_weeping_guard"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Lion Knights' )]"
+					text = "aawc_population_maa_replenishment_cost_westerlands_knights"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Westerosi Sellswords' )]"
+					text = "aawc_population_maa_replenishment_cost_westerosi_sellswords"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Free Folk Riders' )]"
+					text = "aawc_population_maa_replenishment_cost_wildling_cavalry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Wildling Raiders' )]"
+					text = "aawc_population_maa_replenishment_cost_wildling_raiders"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Wind Demons' )]"
+					text = "aawc_population_maa_replenishment_cost_wind_demons"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Winged Knights' )]"
+					text = "aawc_population_maa_replenishment_cost_winged_knights"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Winter Wolves' )]"
+					text = "aawc_population_maa_replenishment_cost_winter_wolves"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Wolfswood Hunters' )]"
+					text = "aawc_population_maa_replenishment_cost_wolfswood_hunters"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Zbrojnosh' )]"
+					text = "aawc_population_maa_replenishment_cost_zbrojnosh"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Zhanmadao Infantry' )]"
+					text = "aawc_population_maa_replenishment_cost_zhanmadao_infantry"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Zoqora Chariots' )]"
+					text = "aawc_population_maa_replenishment_cost_zoqora_chariots"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[EqualTo_string( MenAtArmsType.GetNameNoTooltip, 'Zupin Spearmen' )]"
+					text = "aawc_population_maa_replenishment_cost_zupin_warrior"
+					max_width = 400
+				}
+				text_label_center = {
+					visible = "[IsLandlessAdventurer( GetPlayer )]"
+					text = "[MenAtArmsType.GetProvisionsCostString]"
+					max_width = 400
+				}
+
+				text_label_center = {
+					visible = "[Not(IsLandlessAdventurer( GetPlayer ))]"
+					text = "[Select_CString( MenAtArmsTypeView.GetSelectedTitle.IsValid, MenAtArmsType.GetTitleRegimentReinforcementCostString( GetPlayer ), MenAtArmsType.GetReinforcementCostString( GetPlayer ) )]"
+					max_width = 400
+				}
+
+				text_label_center = {
+					visible = "[Not(IsLandlessAdventurer( GetPlayer ))]"
+					text = "[Select_CString( MenAtArmsTypeView.GetSelectedTitle.IsValid, MenAtArmsType.GetTitleRegimentFullStrengthMaintenanceCostForPlayerString, MenAtArmsType.GetFullStrengthMaintenanceCostForPlayerString )]"
+					max_width = 400
+				}
+			}
+		}
+	}
+
+	}
+
+	}
+
+	type maa_winter_effects_icon = hbox {
+		block "maa_has_winter_modifier" {}
+		icon = {
+			block "maa_has_winter_effect" {}
+			#AGOT Modified
+			# size = { 40 40 }
+			size = { 36 36 }
+			using = tooltip_below
+
+			icon = {
+				block "maa_winter_modifier_icon" {}
+				parentanchor = bottom|right
+				position = { 0 5 }
+				#AGOT Modified
+				# size = { 25 25 }
+				size = { 18 18 }
+			}
+		}
+	}
+
+	type maa_winter_effects_positive_icon = maa_winter_effects_icon {
+		blockoverride "maa_winter_modifier_icon" {
+			texture = "gfx/interface/icons/symbols/icon_plus_small.dds"
+		}
+	}
+
+	type maa_winter_effects_negative_icon = maa_winter_effects_icon {
+		blockoverride "maa_winter_modifier_icon" {
+			texture = "gfx/interface/icons/symbols/icon_minus_small.dds"
+		}
+	}
+
+}

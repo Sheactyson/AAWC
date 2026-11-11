@@ -1,0 +1,3033 @@
+﻿########################################
+# AGOT Great Projects - Chroyane Ruins #
+########################################
+
+@msg_completion_effect_chroyane = "event:/SFX/UI/Unique/Construction/Building/sfx_ui_unique_construction_building_generic"
+
+@icon_great_project_agot_ruins_chroyane = "gfx/interface/icons/government_types/ruins_government.dds"
+@icon_great_project_agot_ruins_tul_poy = "gfx/interface/icons/government_types/ruins_government.dds"
+@icon_great_project_agot_ruins_shroudfall = "gfx/interface/icons/government_types/ruins_government.dds"
+@icon_great_project_agot_ruins_the_visage = "gfx/interface/icons/government_types/ruins_government.dds"
+@icon_great_project_agot_ruins_denllal = "gfx/interface/icons/government_types/ruins_government.dds"
+@icon_great_project_agot_ruins_romsas = "gfx/interface/icons/government_types/ruins_government.dds"
+@icon_great_project_agot_ruins_asolheam = "gfx/interface/icons/government_types/ruins_government.dds"
+@icon_great_project_agot_ruins_the_sorrows = "gfx/interface/icons/government_types/ruins_government.dds"
+
+@icon_great_project_agot_special_building_garinimro_lywa = "gfx/interface/icons/government_types/administrative_government.dds"
+@icon_great_project_agot_special_building_numdym = "gfx/interface/icons/government_types/administrative_government.dds"
+@icon_great_project_agot_special_building_loshys = "gfx/interface/icons/government_types/administrative_government.dds"
+@icon_great_project_agot_special_building_dhypoydym = "gfx/interface/icons/government_types/administrative_government.dds"
+
+@agot_ruins_chroyane_illustration = "gfx/interface/illustrations/decisions/decision_chroyane_ruin.dds"
+@agot_ruins_tul_poy_illustration = "gfx/interface/illustrations/decisions/decision_chroyane_ruin.dds"
+@agot_ruins_shroudfall_illustration = "gfx/interface/illustrations/decisions/decision_chroyane_ruin.dds"
+@agot_ruins_the_visage_illustration = "gfx/interface/illustrations/decisions/decision_chroyane_ruin.dds"
+@agot_ruins_denllal_illustration = "gfx/interface/illustrations/decisions/decision_chroyane_ruin.dds"
+@agot_ruins_romsas_illustration = "gfx/interface/illustrations/decisions/decision_chroyane_ruin.dds"
+@agot_ruins_asolheam_illustration = "gfx/interface/illustrations/decisions/decision_chroyane_ruin.dds"
+@agot_ruins_the_sorrows_illustration = "gfx/interface/illustrations/decisions/decision_chroyane_ruin.dds"
+
+@agot_special_building_garinimro_lywa_illustration = "gfx/interface/illustrations/decisions/ep3_decision_estate.dds"
+@agot_special_building_numdym_illustration = "gfx/interface/illustrations/decisions/ep3_decision_estate.dds"
+@agot_special_building_loshys_illustration = "gfx/interface/illustrations/decisions/ep3_decision_estate.dds"
+@agot_special_building_dhypoydym_illustration = "gfx/interface/illustrations/decisions/ep3_decision_estate.dds"
+
+# Supported scopes:
+	# root = the funded project (only used for ongoing Great Projects)
+	# scope:province = the province where the project is in
+	# scope:great_project = the funded project
+	# scope:owner = the character who currently owns the project (only used for ongoing Great Projects)
+	# scope:founder = the character who funded the project
+
+####################
+# Ruined Buildings #
+####################
+# b_chroyane
+agot_ruins_chroyane = {
+	icon = { reference = @icon_great_project_agot_ruins_chroyane }
+	illustration = { reference = @agot_ruins_chroyane_illustration }
+	name = { desc = great_project_type_agot_ruins_chroyane }
+
+	is_important = yes
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		NOT = { has_global_variable = chroyane_ruins_restoration_completed }
+		NOT = { is_planning_great_project = agot_ruins_chroyane }
+		exists = title:b_chroyane.title_province
+		title:b_chroyane.title_province ?= { has_holding_type = ruin_holding }
+		title:b_chroyane.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_ruins_chroyane } }
+		}
+		title:b_chroyane.title_province = { has_building = ruin_stone_men_02 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_chroyane
+
+	cost = {
+		treasury_or_gold = {
+			value = agot_great_project_initial_cost
+			multiply = 1.2
+		}
+	}
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_ruins_gp_owner_planning_memory_effect = { PROVINCE = title:b_chroyane }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = chroyane_ruins_restoration_completed } }
+			set_global_variable = chroyane_ruins_restoration_completed
+		}
+		if = {
+			limit = {
+				title:b_chroyane.title_province = {
+					has_holding_type = ruin_holding
+					NOT = { has_building_or_higher = agot_ruins_chroyane_walls_03 }
+				}
+			}
+			title:b_chroyane.title_province = {
+				remove_building = ruin_stone_men_02
+				set_holding_type = castle_holding
+				remove_building = agot_ruins_chroyane_walls_02
+				add_building = agot_ruins_chroyane_walls_04
+			}
+			# Clean up the county
+			agot_chroyane_gp_ruins_conversion_effect = { PROVINCE = title:b_chroyane }
+		}
+		# Ah, the memories
+		agot_chroyane_ruins_gp_owner_completed_memory_effect = { PROVINCE = title:b_chroyane }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_chroyane_holding }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_chroyane_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_chroyane_holding = {
+			is_shown = { title:b_chroyane.title_province = { has_holding_type = ruin_holding } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_chroyane_building = {
+			is_shown = { title:b_chroyane.title_province = { NOT = { has_building_or_higher = agot_ruins_chroyane_walls_03 } } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_chroyane.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_tul_poy
+agot_ruins_tul_poy = {
+	icon = { reference = @icon_great_project_agot_ruins_tul_poy }
+	illustration = { reference = @agot_ruins_tul_poy_illustration }
+	name = { desc = great_project_type_agot_ruins_tul_poy }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		has_global_variable = chroyane_ruins_restoration_completed
+		NOT = { has_global_variable = tul_poy_ruins_restoration_completed }
+		NOT = { is_planning_great_project = agot_ruins_tul_poy }
+		title:b_tul_poy.title_province = { has_holding_type = ruin_holding }
+		title:b_tul_poy.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_ruins_tul_poy } }
+		}
+		title:b_tul_poy.title_province = { has_building = ruin_stone_men_02 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_tul_poy
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_ruins_gp_owner_planning_memory_effect = { PROVINCE = title:b_tul_poy }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = tul_poy_ruins_restoration_completed } }
+			set_global_variable = tul_poy_ruins_restoration_completed
+		}
+		if = {
+			limit = {
+				title:b_tul_poy.title_province = {
+					has_holding_type = ruin_holding
+					NOT = { has_building_or_higher = agot_ruins_temple_of_the_womb_03 }
+				}
+			}
+			title:b_tul_poy.title_province = {
+				remove_building = ruin_stone_men_02
+				set_holding_type = church_holding
+				replace_building_effect = agot_ruins_temple_of_the_womb_03
+			}
+		}
+		# Ah, the memories
+		agot_chroyane_ruins_gp_owner_completed_memory_effect = { PROVINCE = title:b_tul_poy }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_tul_poy_holding }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_tul_poy_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_tul_poy_holding = {
+			is_shown = { title:b_tul_poy.title_province = { has_holding_type = ruin_holding } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_tul_poy_building = {
+			is_shown = { title:b_tul_poy.title_province = { NOT = { has_building_or_higher = agot_ruins_temple_of_the_womb_03 } } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_tul_poy.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_shroudfall
+agot_ruins_shroudfall = {
+	icon = { reference = @icon_great_project_agot_ruins_shroudfall }
+	illustration = { reference = @agot_ruins_shroudfall_illustration }
+	name = { desc = great_project_type_agot_ruins_shroudfall }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		has_global_variable = chroyane_ruins_restoration_completed
+		NOT = { has_global_variable = shroudfall_ruins_restoration_completed }
+		NOT = { is_planning_great_project = agot_ruins_shroudfall }
+		title:b_shroudfall.title_province = { has_holding_type = ruin_holding }
+		title:b_shroudfall.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_ruins_shroudfall } }
+		}
+		title:b_shroudfall.title_province = { has_building = ruin_stone_men_02 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_shroudfall
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_ruins_gp_owner_planning_memory_effect = { PROVINCE = title:b_shroudfall }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = shroudfall_ruins_restoration_completed } }
+			set_global_variable = shroudfall_ruins_restoration_completed
+		}
+		if = {
+			limit = {
+				title:b_shroudfall.title_province = {
+					has_holding_type = ruin_holding
+					NOT = { has_building_or_higher = agot_ruins_fogs_touch_quarter_03 }
+				}
+			}
+			title:b_shroudfall.title_province = {
+				remove_building = ruin_stone_men_02
+				set_holding_type = city_holding
+				replace_building_effect = agot_ruins_fogs_touch_quarter_03
+			}
+		}
+		# Ah, the memories
+		agot_chroyane_ruins_gp_owner_completed_memory_effect = { PROVINCE = title:b_shroudfall }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_shroudfall_holding }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_shroudfall_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_shroudfall_holding = {
+			is_shown = { title:b_shroudfall.title_province = { has_holding_type = ruin_holding } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_shroudfall_building = {
+			is_shown = { title:b_shroudfall.title_province = { NOT = { has_building_or_higher = agot_ruins_fogs_touch_quarter_03 } } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_shroudfall.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_the_visage
+agot_ruins_the_visage = {
+	icon = { reference = @icon_great_project_agot_ruins_the_visage }
+	illustration = { reference = @agot_ruins_the_visage_illustration }
+	name = { desc = great_project_type_agot_ruins_the_visage }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		has_global_variable = chroyane_ruins_restoration_completed
+		NOT = { has_global_variable = the_visage_ruins_restoration_completed }
+		NOT = { is_planning_great_project = agot_ruins_the_visage }
+		title:b_the_visage.title_province = { has_holding_type = ruin_holding }
+		title:b_the_visage.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_ruins_the_visage } }
+		}
+		title:b_the_visage.title_province = { has_building = ruin_stone_men_02 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_the_visage
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_ruins_gp_owner_planning_memory_effect = { PROVINCE = title:b_the_visage }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = the_visage_ruins_restoration_completed } }
+			set_global_variable = the_visage_ruins_restoration_completed
+		}
+		if = {
+			limit = {
+				title:b_the_visage.title_province = {
+					has_holding_type = ruin_holding
+					NOT = { has_building_or_higher = agot_ruins_festival_calle_03 }
+				}
+			}
+			title:b_the_visage.title_province = {
+				remove_building = ruin_stone_men_02
+				set_holding_type = city_holding
+				replace_building_effect = agot_ruins_festival_calle_03
+			}
+		}
+		# Ah, the memories
+		agot_chroyane_ruins_gp_owner_completed_memory_effect = { PROVINCE = title:b_the_visage }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_the_visage_holding }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_the_visage_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_the_visage_holding = {
+			is_shown = { title:b_the_visage.title_province = { has_holding_type = ruin_holding } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_the_visage_building = {
+			is_shown = { title:b_the_visage.title_province = { NOT = { has_building_or_higher = agot_ruins_festival_calle_03 } } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_the_visage.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_denllal
+agot_ruins_denllal = {
+	icon = { reference = @icon_great_project_agot_ruins_denllal }
+	illustration = { reference = @agot_ruins_denllal_illustration }
+	name = { desc = great_project_type_agot_ruins_denllal }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		has_global_variable = chroyane_ruins_restoration_completed
+		NOT = { has_global_variable = denllal_ruins_restoration_completed }
+		NOT = { is_planning_great_project = agot_ruins_denllal }
+		title:b_denllal.title_province = { has_holding_type = ruin_holding }
+		title:b_denllal.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_ruins_denllal } }
+		}
+		title:b_denllal.title_province = { has_building = ruin_stone_men_02 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_denllal
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost  }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_ruins_gp_owner_planning_memory_effect = { PROVINCE = title:b_denllal }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = denllal_ruins_restoration_completed } }
+			set_global_variable = denllal_ruins_restoration_completed
+		}
+		if = {
+			limit = {
+				title:b_denllal.title_province = {
+					has_holding_type = ruin_holding
+					NOT = { has_building_or_higher = agot_ruins_bridge_of_dreams_03 }
+				}
+			}
+			title:b_denllal.title_province = {
+				remove_building = ruin_stone_men_02
+				set_holding_type = castle_holding
+				replace_building_effect = agot_ruins_bridge_of_dreams_03
+			}
+		}
+		# Ah, the memories
+		agot_chroyane_ruins_gp_owner_completed_memory_effect = { PROVINCE = title:b_denllal }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_denllal_holding }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_denllal_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_denllal_holding = {
+			is_shown = { title:b_denllal.title_province = { has_holding_type = ruin_holding } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_denllal_building = {
+			is_shown = { title:b_denllal.title_province = { NOT = { has_building_or_higher = agot_ruins_bridge_of_dreams_03 } } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_denllal.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_romsas
+agot_ruins_romsas = {
+	icon = { reference = @icon_great_project_agot_ruins_romsas }
+	illustration = { reference = @agot_ruins_romsas_illustration }
+	name = { desc = great_project_type_agot_ruins_romsas }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		has_global_variable = chroyane_ruins_restoration_completed
+		NOT = { has_global_variable = romsas_ruins_restoration_completed }
+		NOT = { is_planning_great_project = agot_ruins_romsas }
+		title:b_romsas.title_province = { has_holding_type = ruin_holding }
+		title:b_romsas.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_ruins_romsas } }
+		}
+		title:b_romsas.title_province = { has_building = ruin_stone_men_02 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_romsas
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost  }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_ruins_gp_owner_planning_memory_effect = { PROVINCE = title:b_romsas }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = romsas_ruins_restoration_completed } }
+			set_global_variable = romsas_ruins_restoration_completed
+		}
+		if = {
+			limit = {
+				title:b_romsas.title_province = {
+					has_holding_type = ruin_holding
+					NOT = { has_building_or_higher = agot_ruins_home_port_03 }
+				}
+			}
+			title:b_romsas.title_province = {
+				remove_building = ruin_stone_men_02
+				set_holding_type = castle_holding
+				replace_building_effect = agot_ruins_home_port_03
+			}
+		}
+		# Ah, the memories
+		agot_chroyane_ruins_gp_owner_completed_memory_effect = { PROVINCE = title:b_romsas }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_romsas_holding }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_romsas_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_romsas_holding = {
+			is_shown = { title:b_romsas.title_province = { has_holding_type = ruin_holding } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_romsas_building = {
+			is_shown = { title:b_romsas.title_province = { NOT = { has_building_or_higher = agot_ruins_home_port_03 } } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_romsas.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_asolheam
+agot_ruins_asolheam = {
+	icon = { reference = @icon_great_project_agot_ruins_asolheam }
+	illustration = { reference = @agot_ruins_asolheam_illustration }
+	name = { desc = great_project_type_agot_ruins_asolheam }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		has_global_variable = chroyane_ruins_restoration_completed
+		NOT = { has_global_variable = asolheam_ruins_restoration_completed }
+		NOT = { is_planning_great_project = agot_ruins_asolheam }
+		title:b_asolheam.title_province = { has_holding_type = ruin_holding }
+		title:b_asolheam.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_ruins_asolheam } }
+		}
+		title:b_asolheam.title_province = { has_building = ruin_stone_men_02 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_asolheam
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_ruins_gp_owner_planning_memory_effect = { PROVINCE = title:b_asolheam }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = asolheam_ruins_restoration_completed } }
+			set_global_variable = asolheam_ruins_restoration_completed
+		}
+		if = {
+			limit = {
+				title:b_asolheam.title_province = {
+					has_holding_type = ruin_holding
+					NOT = { has_building_or_higher = agot_ruins_foreign_port_03 }
+				}
+			}
+			title:b_asolheam.title_province = {
+				remove_building = ruin_stone_men_02
+				set_holding_type = castle_holding
+				replace_building_effect = agot_ruins_foreign_port_03
+			}
+		}
+		# Ah, the memories
+		agot_chroyane_ruins_gp_owner_completed_memory_effect = { PROVINCE = title:b_asolheam }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_asolheam_holding }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_asolheam_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_asolheam_holding = {
+			is_shown = { title:b_asolheam.title_province = { has_holding_type = ruin_holding } }
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_asolheam_building = {
+			is_shown = { title:b_asolheam.title_province = { NOT = { has_building_or_higher = agot_ruins_foreign_port_03 } } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_asolheam.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_the_sorrows
+agot_ruins_the_sorrows = {
+	icon = { reference = @icon_great_project_agot_ruins_the_sorrows }
+	illustration = { reference = @agot_ruins_the_sorrows_illustration }
+	name = { desc = great_project_type_agot_ruins_the_sorrows }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		has_global_variable = chroyane_ruins_restoration_completed
+		NOT = { has_global_variable = the_sorrows_ruins_restoration_completed }
+		NOT = { is_planning_great_project = agot_ruins_the_sorrows }
+		title:b_the_sorrows.title_province = { has_holding_type = ruin_holding }
+		title:b_the_sorrows.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_ruins_the_sorrows } }
+		}
+		title:b_the_sorrows.title_province = { has_building = ruin_stone_men_02 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_the_sorrows
+
+	cost = {
+		treasury_or_gold = {
+			value = agot_great_project_initial_cost
+			multiply = 1.5
+		}
+	}
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_ruins_gp_owner_planning_memory_effect = { PROVINCE = title:b_the_sorrows }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = the_sorrows_ruins_restoration_completed } }
+			set_global_variable = the_sorrows_ruins_restoration_completed
+		}
+		if = {
+			limit = {
+				title:b_the_sorrows.title_province = {
+					has_holding_type = ruin_holding
+					NOT = { has_building_or_higher = agot_ruins_palace_of_sorrows_03 }
+				}
+			}
+			title:b_the_sorrows.title_province = {
+				remove_building = ruin_stone_men_02
+				set_holding_type = castle_holding
+				replace_building_effect = agot_ruins_palace_of_sorrows_05
+			}
+		}
+		# Ah, the memories
+		agot_chroyane_ruins_gp_owner_completed_memory_effect = { PROVINCE = title:b_the_sorrows }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_the_sorrows_holding }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_the_sorrows_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_the_sorrows_holding = {
+			is_shown = { title:b_the_sorrows.title_province = { has_holding_type = ruin_holding } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_the_sorrows_building = {
+			is_shown = { title:b_the_sorrows.title_province = { NOT = { has_building_or_higher = agot_ruins_palace_of_sorrows_03 } } }
+			is_required = yes
+
+			cost = { treasury_or_gold = agot_great_project_contribution_cost }
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_the_sorrows.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+
+#####################
+# Special Buildings #
+#####################
+# b_garinimro_lywa
+agot_special_building_garinimro_lywa = {
+	icon = { reference = @icon_great_project_agot_special_building_garinimro_lywa }
+	illustration = { reference = @agot_special_building_garinimro_lywa_illustration }
+	name = { desc = great_project_type_agot_special_building_garinimro_lywa }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		agot_chroyane_county_ruins_restoration_completed = yes
+		has_global_variable = loshys_building_upgrade_completed
+		has_global_variable = numdym_building_upgrade_completed
+		has_global_variable = dhypoydym_building_upgrade_completed
+		NOT = { has_global_variable = garinimro_lywa_building_upgrade_completed }
+		NOT = { is_planning_great_project = agot_special_building_garinimro_lywa }
+		title:b_chroyane.title_province = { NOT = { has_holding_type = ruin_holding } }
+		title:b_chroyane.county.holder ?= root
+		title:b_garinimro_lywa.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_special_building_garinimro_lywa } }
+		}
+		title:b_chroyane.title_province = { has_building = agot_ruins_chroyane_walls_04 }
+		title:b_the_sorrows.title_province = { has_building = agot_ruins_palace_of_sorrows_05 }
+		title:b_tul_poy.title_province = { has_building = agot_ruins_temple_of_the_womb_03 }
+		title:b_shroudfall.title_province = { has_building = agot_ruins_fogs_touch_quarter_03 }
+		title:b_the_visage.title_province = { has_building = agot_ruins_festival_calle_03 }
+		title:b_denllal.title_province = { has_building = agot_ruins_bridge_of_dreams_03 }
+		title:b_romsas.title_province = { has_building = agot_ruins_home_port_03 }
+		title:b_asolheam.title_province = { has_building = agot_ruins_foreign_port_03 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_garinimro_lywa
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_building_gp_owner_planning_memory_effect = { PROVINCE = title:b_garinimro_lywa }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = garinimro_lywa_building_upgrade_completed } }
+			set_global_variable = garinimro_lywa_building_upgrade_completed
+		}
+		if = {
+			limit = { title:b_garinimro_lywa.title_province = { NOT = { has_holding_type = city_holding } } }
+			title:b_garinimro_lywa.title_province = { set_holding_type = city_holding }
+		}
+		if = {
+			limit = { title:b_garinimro_lywa.title_province = { NOT = { has_building = agot_chroyane_new_quarter_04 } } }
+			title:b_garinimro_lywa.title_province = { add_special_building = agot_chroyane_new_quarter_04 }
+		}
+		# Ah, the memories
+		agot_chroyane_building_gp_owner_completed_memory_effect = { PROVINCE = title:b_garinimro_lywa }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_garinimro_lywa_special_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_garinimro_lywa_special_building = {
+			is_shown = { title:b_garinimro_lywa.title_province = { has_special_building_slot = yes } }
+			is_required = yes
+
+			cost = {
+				treasury_or_gold = {
+					value = agot_great_project_contribution_cost
+					add = 760
+				}
+			}
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_garinimro_lywa.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_numdym
+agot_special_building_numdym = {
+	icon = { reference = @icon_great_project_agot_special_building_numdym }
+	illustration = { reference = @agot_special_building_numdym_illustration }
+	name = { desc = great_project_type_agot_special_building_numdym }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		agot_chroyane_county_ruins_restoration_completed = yes
+		has_global_variable = loshys_building_upgrade_completed
+		NOT = { has_global_variable = numdym_building_upgrade_completed }
+		NOT = { is_planning_great_project = agot_special_building_numdym }
+		title:b_chroyane.title_province = { NOT = { has_holding_type = ruin_holding } }
+		title:b_chroyane.county.holder ?= root
+		title:b_numdym.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_special_building_numdym } }
+		}
+		title:b_chroyane.title_province = { has_building = agot_ruins_chroyane_walls_04 }
+		title:b_the_sorrows.title_province = { has_building = agot_ruins_palace_of_sorrows_05 }
+		title:b_tul_poy.title_province = { has_building = agot_ruins_temple_of_the_womb_03 }
+		title:b_shroudfall.title_province = { has_building = agot_ruins_fogs_touch_quarter_03 }
+		title:b_the_visage.title_province = { has_building = agot_ruins_festival_calle_03 }
+		title:b_denllal.title_province = { has_building = agot_ruins_bridge_of_dreams_03 }
+		title:b_romsas.title_province = { has_building = agot_ruins_home_port_03 }
+		title:b_asolheam.title_province = { has_building = agot_ruins_foreign_port_03 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_numdym
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_building_gp_owner_planning_memory_effect = { PROVINCE = title:b_numdym }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = numdym_building_upgrade_completed } }
+			set_global_variable = numdym_building_upgrade_completed
+		}
+		if = {
+			limit = { title:b_numdym.title_province = { NOT = { has_holding_type = city_holding } } }
+			title:b_numdym.title_province = { set_holding_type = city_holding }
+		}
+		if = {
+			limit = { title:b_numdym.title_province = { NOT = { has_building = agot_chroyane_new_quarter_03 } } }
+			title:b_numdym.title_province = { add_special_building = agot_chroyane_new_quarter_03 }
+		}
+		# Ah, the memories
+		agot_chroyane_building_gp_owner_completed_memory_effect = { PROVINCE = title:b_numdym }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_numdym_special_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_numdym_special_building = {
+			is_shown = { title:b_numdym.title_province = { has_special_building_slot = yes } }
+			is_required = yes
+
+			cost = {
+				treasury_or_gold = {
+					value = agot_great_project_contribution_cost
+					add = 760
+				}
+			}
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_numdym.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_loshys
+agot_special_building_loshys = {
+	icon = { reference = @icon_great_project_agot_special_building_loshys }
+	illustration = { reference = @agot_special_building_loshys_illustration }
+	name = { desc = great_project_type_agot_special_building_loshys }
+
+	is_important = yes
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		agot_chroyane_county_ruins_restoration_completed = yes
+		NOT = { has_global_variable = loshys_building_upgrade_completed }
+		NOT = { is_planning_great_project = agot_special_building_loshys }
+		title:b_chroyane.title_province = { NOT = { has_holding_type = ruin_holding } }
+		title:b_chroyane.county.holder ?= root
+		title:b_loshys.county.holder ?= root
+		title:b_rhogo_sar.title_province ?= {
+			has_holding = yes
+			NOT = { has_holding_type = settlement_holding }
+		}
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_special_building_loshys } }
+		}
+		title:b_chroyane.title_province = { has_building = agot_ruins_chroyane_walls_04 }
+		title:b_the_sorrows.title_province = { has_building = agot_ruins_palace_of_sorrows_05 }
+		title:b_tul_poy.title_province = { has_building = agot_ruins_temple_of_the_womb_03 }
+		title:b_shroudfall.title_province = { has_building = agot_ruins_fogs_touch_quarter_03 }
+		title:b_the_visage.title_province = { has_building = agot_ruins_festival_calle_03 }
+		title:b_denllal.title_province = { has_building = agot_ruins_bridge_of_dreams_03 }
+		title:b_romsas.title_province = { has_building = agot_ruins_home_port_03 }
+		title:b_asolheam.title_province = { has_building = agot_ruins_foreign_port_03 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_loshys
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_building_gp_owner_planning_memory_effect = { PROVINCE = title:b_loshys }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = loshys_building_upgrade_completed } }
+			set_global_variable = loshys_building_upgrade_completed
+		}
+		title:b_loshys.title_province = {
+			if = {
+				limit = { NOT = { has_holding_type = castle_holding } }
+				set_holding_type = castle_holding
+			}
+			if = {
+				limit = { barony = { NOT = { is_capital_barony = yes } } }
+				barony = { set_capital_barony = yes }
+				custom_tooltip = agot_chroyane_gp_set_capital_barony
+			}
+			county = { set_de_jure_liege_title = title:d_chroyane }
+		}
+		if = {
+			limit = { title:b_loshys.title_province = { NOT = { has_building = agot_chroyane_new_quarter_01 } } }
+			title:b_loshys.title_province = { add_special_building = agot_chroyane_new_quarter_01 }
+		}
+		# Ah, the memories
+		agot_chroyane_building_gp_owner_completed_memory_effect = { PROVINCE = title:b_loshys }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_loshys_special_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_loshys_special_building = {
+			is_shown = { title:b_loshys.title_province = { has_special_building_slot = yes } }
+			is_required = yes
+
+			cost = {
+				treasury_or_gold = {
+					value = agot_great_project_contribution_cost
+					add = 760
+				}
+			}
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_loshys.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}
+# b_dhypoydym
+agot_special_building_dhypoydym = {
+	icon = { reference = @icon_great_project_agot_special_building_dhypoydym }
+	illustration = { reference = @agot_special_building_dhypoydym_illustration }
+	name = { desc = great_project_type_agot_special_building_dhypoydym }
+
+	is_shown = {
+		game_start_date >= 7297.9.4
+		agot_chroyane_county_ruins_restoration_completed = yes
+		has_global_variable = loshys_building_upgrade_completed
+		NOT = { has_global_variable = dhypoydym_building_upgrade_completed }
+		NOT = { is_planning_great_project = agot_special_building_dhypoydym }
+		title:b_chroyane.title_province = { NOT = { has_holding_type = ruin_holding } }
+		title:b_chroyane.county.holder ?= root
+		title:b_dhypoydym.county.holder ?= root
+	}
+
+	can_start_planning = { # These are the displayed requirements of the project
+		custom_tooltip = {
+			text = only_single_great_project_type_allowed
+			NOT = { any_great_project = { great_project_type = agot_special_building_dhypoydym } }
+		}
+		title:b_chroyane.title_province = { has_building = agot_ruins_chroyane_walls_04 }
+		title:b_the_sorrows.title_province = { has_building = agot_ruins_palace_of_sorrows_05 }
+		title:b_tul_poy.title_province = { has_building = agot_ruins_temple_of_the_womb_03 }
+		title:b_shroudfall.title_province = { has_building = agot_ruins_fogs_touch_quarter_03 }
+		title:b_the_visage.title_province = { has_building = agot_ruins_festival_calle_03 }
+		title:b_denllal.title_province = { has_building = agot_ruins_bridge_of_dreams_03 }
+		title:b_romsas.title_province = { has_building = agot_ruins_home_port_03 }
+		title:b_asolheam.title_province = { has_building = agot_ruins_foreign_port_03 }
+	}
+
+	is_valid = {} # These will abandon the project when triggered
+
+	province_filter = landed_title
+	province_filter_target = b_dhypoydym
+
+	cost = { treasury_or_gold = agot_great_project_initial_cost }
+
+	construction_time = {
+		value = agot_great_project_construction_time
+		multiply = agot_great_project_construction_time_multiplier_value
+	}
+
+	contributor_cooldown = standard_contributor_cooldown_value
+	invite_interaction = request_great_project_contribution_interaction
+
+	allowed_contributor_filter = {
+		owner = yes
+		vassals = yes
+		tributaries = yes
+	}
+
+	can_cancel = {}
+
+	on_cancel = { agot_chroyane_gp_contributor_disappointment_effect = yes }
+
+	on_plan_build = {
+		agot_chroyane_building_gp_owner_planning_memory_effect = { PROVINCE = title:b_dhypoydym }
+	}
+
+	on_start_build = {
+		scope:owner = {
+			if = {
+				limit = { has_legitimacy = yes }
+				add_legitimacy_effect = { LEGITIMACY = minor_legitimacy_gain }
+			}
+		}
+		scope:great_project = {
+			every_contribution = {
+				limit = { contribution_is_funded = yes }
+				contributor = { add_prestige = minor_prestige_value }
+			}
+		}
+	}
+
+	on_invalidated = {}
+
+	on_complete = {
+		if = {
+			limit = { NOT = { has_global_variable = dhypoydym_building_upgrade_completed } }
+			set_global_variable = dhypoydym_building_upgrade_completed
+		}
+		if = {
+			limit = { title:b_dhypoydym.title_province = { NOT = { has_holding_type = city_holding } } }
+			title:b_dhypoydym.title_province = { set_holding_type = city_holding }
+		}
+		if = {
+			limit = { title:b_dhypoydym.title_province = { NOT = { has_building = agot_chroyane_new_quarter_02 } } }
+			title:b_dhypoydym.title_province = { add_special_building = agot_chroyane_new_quarter_02 }
+		}
+		# Ah, the memories
+		agot_chroyane_building_gp_owner_completed_memory_effect = { PROVINCE = title:b_dhypoydym }
+		# Tally the rewards
+		scope:great_project ?= {
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = materials }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = work_force }
+			agot_chroyane_gp_determine_if_contributed_and_save_scope_effect = { CONTRIBUTION = b_dhypoydym_special_building }
+		}
+		# Dole out some rewards!
+		agot_chroyane_gp_gather_contributors_in_list_effect = yes
+		every_in_list = {
+			list = agot_contributors_to_reward
+			if = {
+				limit = { this = scope:owner }
+				trigger_event = agot_great_project_events.1000
+			}
+			else = {
+				if = {
+					limit = { scope:owner = { is_ai = yes } }
+					show_as_tooltip = { agot_chroyane_gp_contributor_reward_effect = { OVERLORD = scope:owner } }
+				}
+				trigger_event = agot_great_project_events.1010
+			}
+		}
+	}
+
+	project_contributions = {
+		materials = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+
+			cost = { treasury_or_gold = agot_great_project_material_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_materials_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		work_force = {
+			is_required = yes
+
+			contributor_is_valid = {
+				OR = {
+					top_liege = scope:owner
+					is_tributary_of = scope:owner
+				}
+			}
+			context_allows_contributions = {
+				is_at_war = no
+			}
+
+			cost = { treasury_or_gold = agot_great_project_work_force_contribution_cost }
+
+			contributor_cooldown = 0
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_work_force_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+
+		b_dhypoydym_special_building = {
+			is_shown = { title:b_dhypoydym.title_province = { has_special_building_slot = yes } }
+			is_required = yes
+
+			cost = {
+				treasury_or_gold = {
+					value = agot_great_project_contribution_cost
+					add = 760
+				}
+			}
+
+			contributor_cooldown = individual_contribution_cooldown_value
+
+			on_contribution_funded = { great_project_notify_contribution = yes }
+			on_complete = { agot_chroyane_gp_advanced_contributor_reward_effect = yes }
+
+			ai_check_interval_by_tier = {
+				barony = 0
+				county = 12
+				duchy = 9
+				kingdom = 6
+				empire = 6
+				hegemony = 6
+			}
+			ai_will_do = { value = agot_great_projects_contribution_ai_will_do_base_value }
+		}
+	}
+
+	ai_target_quick_trigger = {
+		adult = yes
+		rank = empire
+	}
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 6
+		hegemony = 6
+	}
+
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = {
+				has_title = title:b_dhypoydym.county
+			}
+			add = 500
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			multiply = 0
+		}
+	}
+
+	completion_sound_effect = @msg_completion_effect_chroyane
+}

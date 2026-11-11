@@ -1,0 +1,37 @@
+﻿# Set focus with priority for most present cultures
+E_kCAFG_task_accept_culture_set_default_focus = {
+    if = {
+        limit = {
+            scope:county = {
+                any_in_list = {
+                    variable = kCAFG_county_cultures
+                    T_kCAFG_task_accept_culture_can_target_culture = yes
+                }
+            }
+        }
+        scope:county = {
+            ordered_in_list = {
+                variable = kCAFG_county_cultures
+                limit = { T_kCAFG_task_accept_culture_can_target_culture = yes }
+                order_by = {
+                    value = 0
+                    save_temporary_scope_as = kCAFG_culture # used by V_kCAFG_province_culture_factor
+                    scope:county = { every_county_province = { add = V_kCAFG_province_culture_amount } }
+                }
+                scope:councillor = {
+                    set_variable = {
+                        name = kCAFG_task_accept_culture_focused_culture
+                        value = prev
+                    }
+                }
+            }
+        }
+    }
+    else = {
+        debug_log = "Kei CAFG - task_accept_culture: no default to select: clear focus and start default task"
+        scope:councillor = {
+            remove_variable = kCAFG_task_accept_culture_focused_culture
+            start_default_task = yes
+        }
+    }
+}

@@ -1,0 +1,17 @@
+﻿namespace = aawc_age_of_silence
+
+aawc_age_of_silence.0001 = {
+	type = character_event
+	hidden = yes
+
+	trigger = {
+		has_game_rule = aawc_age_of_silence
+		is_landless_adventurer = yes
+		has_character_flag = aawc_age_of_silence_colonizer
+	}
+
+	immediate = {
+		pan_camera_to_province = title:c_kings_landing.title_province
+		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC 1.10.4.3 Age of Silence centered player camera on relocated camp" }
+	}
+}

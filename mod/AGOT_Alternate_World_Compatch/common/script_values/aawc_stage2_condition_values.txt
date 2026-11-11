@@ -1,0 +1,145 @@
+﻿# Stage 2 physical conditions. These values NEVER write residents or a target.
+# CK3 min = lower bound, max = upper bound. Scores remain on a 0-100 scale.
+aawc_stage2_development = { value = county.development_level min = 0 max = 100 }
+
+aawc_stage2_main_level = {
+	value = 1
+	if = { limit = { OR = { has_building = castle_05 has_building = city_05 } } value = 5 }
+	else_if = { limit = { OR = { has_building = castle_04 has_building = city_04 has_building = temple_04 has_building = monastery_04 has_building = temple_citadel_04 } } value = 4 }
+	else_if = { limit = { OR = { has_building = castle_03 has_building = city_03 has_building = temple_03 has_building = monastery_03 has_building = temple_citadel_03 has_building = settlement_03 has_building = pirate_den_03 } } value = 3 }
+	else_if = { limit = { OR = { has_building = castle_02 has_building = city_02 has_building = temple_02 has_building = monastery_02 has_building = temple_citadel_02 has_building = settlement_02 has_building = tribe_02 has_building = pirate_den_02 } } value = 2 }
+}
+
+aawc_stage2_geographic_space = {
+	value = 1
+	if = { limit = { agot_is_urban_terrain = yes } value = 1.15 }
+	else_if = { limit = { OR = { agot_is_farmlands_terrain = yes agot_is_floodplains_terrain = yes } } value = 1.10 }
+	else_if = { limit = { agot_is_plains_terrain = yes } value = 1.05 }
+	else_if = { limit = { OR = { agot_is_mountains_terrain = yes agot_is_desert_mountains_terrain = yes agot_is_canyon_terrain = yes } } value = 0.65 }
+	else_if = { limit = { OR = { agot_is_glacier_terrain = yes agot_is_frozen_flats_terrain = yes } } value = 0.55 }
+	else_if = { limit = { agot_is_desert_terrain = yes } value = 0.70 }
+	else_if = { limit = { OR = { agot_is_wetlands_terrain = yes agot_is_taiga_bog_terrain = yes agot_is_the_bog_terrain = yes } } value = 0.80 }
+	else_if = { limit = { OR = { agot_is_hills_terrain = yes agot_is_highlands_terrain = yes agot_is_forest_terrain = yes agot_is_taiga_terrain = yes agot_is_cloudforest_terrain = yes } } value = 0.90 }
+}
+
+# Only housing and food scores scale physical accommodation. At 50/50 factor=1.
+# One point of Habitation has four times the capacity weight of Sustenance.
+aawc_stage2_accommodation_factor = {
+	value = 0.25
+	add = { value = aawc_stage2_structural_habitation_value multiply = 0.012 }
+	add = { value = aawc_stage2_structural_sustenance_value multiply = 0.003 }
+}
+aawc_stage2_infrastructure_space = {
+	value = 1
+	if = { limit = { has_variable = aawc_stage2_space_percent } add = { value = var:aawc_stage2_space_percent divide = 100 } }
+	min = 0.25
+}
+aawc_stage2_physical_capacity = {
+	value = 0
+	if = {
+		limit = { aawc_population_valid_settlement_for_cohort_trigger = yes }
+		value = aawc_population_holding_main_line_expected_capacity
+		multiply = aawc_stage2_accommodation_factor
+		multiply = aawc_stage2_geographic_space
+		multiply = aawc_stage2_infrastructure_space
+		min = 1
+		round = yes
+	}
+}
+aawc_stage2_capacity_adjustment = {
+	value = aawc_stage2_physical_capacity
+	subtract = aawc_population_holding_main_line_expected_capacity
+}
+aawc_stage2_occupancy = {
+	value = 0
+	if = {
+		limit = { has_variable = aawc_population_expected var:aawc_population_expected > 0 }
+		value = aawc_reforging_cohort_band_sum
+		divide = var:aawc_population_expected
+	}
+}
+# Read-only Population UI adapter. Keep the underlying occupancy ratio unbounded:
+# residents above nominal physical capacity remain visible rather than being capped.
+aawc_stage2_occupancy_percent_display = {
+	value = aawc_stage2_occupancy
+	multiply = 100
+	min = 0
+}
+# Continuous pressure, no additional direct fertility/death multiplier.
+# Losses at 60/100/110/125%: housing 0/22/45/94.5, health 0/4/10/22.75.
+# Bound the deducted score (100), never occupancy or resident counts.
+aawc_stage2_housing_pressure = {
+	value = aawc_stage2_occupancy
+	subtract = 0.80
+	min = 0
+	max = 1
+}
+aawc_stage2_health_pressure = {
+	value = aawc_stage2_occupancy
+	subtract = 0.90
+	min = 0
+	max = 1
+}
+aawc_stage2_housing_pressure_loss = {
+	value = aawc_stage2_housing_pressure
+	multiply = aawc_stage2_housing_pressure
+	multiply = 400
+	add = { value = aawc_stage2_housing_pressure multiply = 30 }
+	max = 100
+}
+aawc_stage2_health_pressure_loss = {
+	value = aawc_stage2_health_pressure
+	multiply = aawc_stage2_health_pressure
+	multiply = 100
+	add = { value = aawc_stage2_health_pressure multiply = 30 }
+	max = 100
+}
+
+# Read-only accessors return neutral conditions before first cache initialization.
+aawc_stage2_structural_sustenance_value = { value = 50 if = { limit = { has_variable = aawc_stage2_structural_sustenance } value = var:aawc_stage2_structural_sustenance } min = 0 max = 100 }
+aawc_stage2_structural_habitation_value = { value = 50 if = { limit = { has_variable = aawc_stage2_structural_habitation } value = var:aawc_stage2_structural_habitation } min = 0 max = 100 }
+aawc_stage2_structural_opportunity_value = { value = 50 if = { limit = { has_variable = aawc_stage2_structural_opportunity } value = var:aawc_stage2_structural_opportunity } min = 0 max = 100 }
+aawc_stage2_structural_health_value = { value = 50 if = { limit = { has_variable = aawc_stage2_structural_health } value = var:aawc_stage2_structural_health } min = 0 max = 100 }
+aawc_stage2_structural_security_value = { value = 50 if = { limit = { has_variable = aawc_stage2_structural_security } value = var:aawc_stage2_structural_security } min = 0 max = 100 }
+aawc_stage2_structural_amenities_value = { value = 50 if = { limit = { has_variable = aawc_stage2_structural_amenities } value = var:aawc_stage2_structural_amenities } min = 0 max = 100 }
+aawc_stage2_effective_sustenance_value = { value = 50 if = { limit = { has_variable = aawc_stage2_effective_sustenance } value = var:aawc_stage2_effective_sustenance } min = 0 max = 100 }
+aawc_stage2_effective_habitation_value = { value = 50 if = { limit = { has_variable = aawc_stage2_effective_habitation } value = var:aawc_stage2_effective_habitation } min = 0 max = 100 }
+aawc_stage2_effective_opportunity_value = { value = 50 if = { limit = { has_variable = aawc_stage2_effective_opportunity } value = var:aawc_stage2_effective_opportunity } min = 0 max = 100 }
+aawc_stage2_effective_health_value = { value = 50 if = { limit = { has_variable = aawc_stage2_effective_health } value = var:aawc_stage2_effective_health } min = 0 max = 100 }
+aawc_stage2_effective_security_value = { value = 50 if = { limit = { has_variable = aawc_stage2_effective_security } value = var:aawc_stage2_effective_security } min = 0 max = 100 }
+aawc_stage2_effective_amenities_value = { value = 50 if = { limit = { has_variable = aawc_stage2_effective_amenities } value = var:aawc_stage2_effective_amenities } min = 0 max = 100 }
+
+# Cheap cache identity detects holding/main-line/terrain conversions immediately.
+aawc_stage2_environment_signature = {
+	value = aawc_stage2_main_level
+	if = { limit = { has_holding_type = castle_holding } add = 10000 }
+	if = { limit = { has_holding_type = tribal_holding } add = 20000 }
+	if = { limit = { has_holding_type = city_holding } add = 30000 }
+	if = { limit = { has_holding_type = church_holding } add = 40000 }
+	if = { limit = { has_holding_type = nomad_holding } add = 50000 }
+	if = { limit = { has_holding_type = herder_holding } add = 60000 }
+	if = { limit = { has_holding_type = temple_citadel_holding } add = 70000 }
+	if = { limit = { has_holding_type = pirate_den_holding } add = 80000 }
+	if = { limit = { has_holding_type = settlement_holding } add = 90000 }
+	if = { limit = { agot_is_urban_terrain = yes } add = 100 }
+	else_if = { limit = { agot_is_farmlands_terrain = yes } add = 200 }
+	else_if = { limit = { agot_is_floodplains_terrain = yes } add = 300 }
+	else_if = { limit = { agot_is_oasis_terrain = yes } add = 400 }
+	else_if = { limit = { agot_is_plains_terrain = yes } add = 500 }
+	else_if = { limit = { agot_is_forest_terrain = yes } add = 600 }
+	else_if = { limit = { agot_is_taiga_terrain = yes } add = 700 }
+	else_if = { limit = { agot_is_cloudforest_terrain = yes } add = 800 }
+	else_if = { limit = { agot_is_steppe_terrain = yes } add = 900 }
+	else_if = { limit = { agot_is_hills_terrain = yes } add = 1000 }
+	else_if = { limit = { agot_is_highlands_terrain = yes } add = 1100 }
+	else_if = { limit = { agot_is_wetlands_terrain = yes } add = 1200 }
+	else_if = { limit = { agot_is_taiga_bog_terrain = yes } add = 1300 }
+	else_if = { limit = { agot_is_the_bog_terrain = yes } add = 1400 }
+	else_if = { limit = { agot_is_mountains_terrain = yes } add = 1500 }
+	else_if = { limit = { agot_is_desert_mountains_terrain = yes } add = 1600 }
+	else_if = { limit = { agot_is_canyon_terrain = yes } add = 1700 }
+	else_if = { limit = { agot_is_drylands_terrain = yes } add = 1800 }
+	else_if = { limit = { agot_is_desert_terrain = yes } add = 1900 }
+	else_if = { limit = { agot_is_glacier_terrain = yes } add = 2000 }
+	else_if = { limit = { agot_is_frozen_flats_terrain = yes } add = 2100 }
+}

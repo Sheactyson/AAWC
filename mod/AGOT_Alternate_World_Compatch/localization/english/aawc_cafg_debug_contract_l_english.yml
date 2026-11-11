@@ -1,0 +1,9 @@
+﻿l_english:
+ kCAFG_province_cultures_debug_info_tt:0 "#T #D [Province.GetNameNoTooltip] - Culture Debug Information#!#!"
+ kCAFG_province_culture_debug_info_tt:0 "#T #D [Culture.GetNameNoTooltip] - Culture Debug Information#!#!"
+ kCAFG_debug_convert_to_my_culture:0 "#D Debug action: convert from the player's culture to this culture.#!"
+ kCAFG_debug_convert_from_my_culture:0 "#D Debug action: convert from this culture to the player's culture.#!"
+ kCAFG_province_faiths_debug_info_tt:0 "#T #D [Province.GetNameNoTooltip] - Faith Debug Information#!#!"
+ kCAFG_province_faith_debug_info_tt:0 "#T #D [Faith.GetNameNoTooltip] - Faith Debug Information#!#!"
+ kCAFG_debug_convert_to_my_faith:0 "#D Debug action: convert from the player's faith to this faith.#!"
+ kCAFG_debug_convert_from_my_faith:0 "#D Debug action: convert from this faith to the player's faith.#!"

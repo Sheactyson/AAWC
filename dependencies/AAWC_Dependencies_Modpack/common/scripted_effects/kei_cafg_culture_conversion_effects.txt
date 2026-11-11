@@ -1,0 +1,18 @@
+﻿# Scope : Character
+# PROVINCE : province
+E_kCAFG_set_culture_from_province_random = {
+    E_kCAFG_get_random_culture_from_province = {
+        PROVINCE = $PROVINCE$
+        SAVED_SCOPE = E_kCAFG_set_culture_from_province_random_selection
+    }
+    if = {
+        limit = { exists = scope:E_kCAFG_set_culture_from_province_random_selection }
+
+        culture = { save_temporary_scope_as = kCAFG_old_culture }
+        set_culture = scope:E_kCAFG_set_culture_from_province_random_selection
+        if = {
+            limit = { NOT = { scope:kCAFG_old_culture = { has_same_culture_language = scope:E_kCAFG_set_culture_from_province_random_selection } } }
+		    unlearn_language_of_culture = scope:kCAFG_old_culture
+        }
+    }
+}

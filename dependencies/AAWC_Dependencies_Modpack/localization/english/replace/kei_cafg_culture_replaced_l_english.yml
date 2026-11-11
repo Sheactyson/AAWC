@@ -1,0 +1,4 @@
+﻿l_english:
+CULTURES_MAP_MODE_TOOLTIP: "#T Number of [cultures] in [ROOT.Province.GetNameNoTooltip|E]: [GetDataModelSize(ROOT.Province.MakeScope.GetList('kCAFG_province_cultures'))] #!\n[county] [majority_culture]: [ROOT.Province.GetCounty.GetCulture.GetNameNoTooltip]\n[top_liege]'s [culture]: [ROOT.Province.GetTitle.GetDeFactoTopLiege.GetHolder.GetCulture.GetNameNoTooltip]"
+PROVINCE_TOOLTIP_CULTURE: "[majority_culture|E]: [COUNTY.GetCulture.GetNameNoTooltip|V]"
+COUNCIL_WINDOW_TOOLIP_CULTURES_IN_COUNTY: "[majority_culture|E]: [CULTURE.GetName]"

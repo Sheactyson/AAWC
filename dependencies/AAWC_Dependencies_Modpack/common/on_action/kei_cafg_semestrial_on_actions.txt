@@ -1,0 +1,6 @@
+﻿# Triggered by custom event
+kCAFG_offseted_semestrial_global_pulse = {
+    effect = {
+        E_kCAFG_update_province_target_tensions = yes
+    }
+}

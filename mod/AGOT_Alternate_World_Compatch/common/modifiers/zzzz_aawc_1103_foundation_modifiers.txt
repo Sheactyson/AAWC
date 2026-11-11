@@ -1,0 +1,3 @@
+﻿aawc_1103_free_faith_foundation_modifier = {
+	faith_creation_piety_cost_mult = -1.0
+}

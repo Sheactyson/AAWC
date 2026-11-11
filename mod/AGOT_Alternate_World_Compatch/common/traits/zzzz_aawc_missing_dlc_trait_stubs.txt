@@ -1,0 +1,57 @@
+﻿# AAWC 1.9.49 load compatibility trait stubs.
+
+poet = {
+	index = 900001
+	icon = education_diplomacy_1.dds
+	shown_in_ruler_designer = no
+	birth = 0
+	random_creation = 0
+}
+
+high_septon = {
+	index = 900002
+	icon = education_learning_1.dds
+	shown_in_ruler_designer = no
+	birth = 0
+	random_creation = 0
+}
+
+fp3_struggle_supporter = {
+	index = 900003
+	icon = education_diplomacy_1.dds
+	shown_in_ruler_designer = no
+	birth = 0
+	random_creation = 0
+}
+
+fp3_struggle_detractor = {
+	index = 900004
+	icon = education_intrigue_1.dds
+	shown_in_ruler_designer = no
+	birth = 0
+	random_creation = 0
+}
+
+lifestyle_mystic = {
+	index = 900005
+	icon = education_learning_1.dds
+	shown_in_ruler_designer = no
+	birth = 0
+	random_creation = 0
+}
+
+saoshyant = {
+	index = 900006
+	icon = education_learning_1.dds
+	shown_in_ruler_designer = no
+	birth = 0
+	random_creation = 0
+}
+
+lifestyle_mystic_2_history = {
+	index = 900007
+	icon = education_learning_2.dds
+	shown_in_ruler_designer = no
+	birth = 0
+	random_creation = 0
+}

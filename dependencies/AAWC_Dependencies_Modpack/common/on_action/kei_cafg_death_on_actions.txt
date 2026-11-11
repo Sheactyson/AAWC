@@ -1,0 +1,74 @@
+﻿# Happens when a character changes culture
+# Root = character
+on_death = {
+	on_actions = {
+        kCAFG_on_death
+    }
+}
+
+kCAFG_on_death = {
+	effect = {
+        # Inherit player only variables
+		if = {
+			limit = {
+				is_ai = no
+				exists = player_heir
+			}
+
+            # County View
+            if = {
+                limit = { has_variable = kCAFG_UI_province_cultures_visible }
+			    player_heir = { set_variable = kCAFG_UI_province_cultures_visible }
+            }
+            if = {
+                limit = { has_variable = kCAFG_UI_province_faiths_visible }
+			    player_heir = { set_variable = kCAFG_UI_province_faiths_visible }
+            }
+            if = {
+                limit = { has_variable = kCAFG_UI_viewed_province }
+			    player_heir = {
+                    set_variable = {
+                        name = kCAFG_UI_viewed_province
+                        value = prev.var:kCAFG_UI_viewed_province
+                    }
+                }
+            }
+
+            # Map Modes
+            if = {
+                limit = {
+                    is_target_in_global_variable_list = {
+                        name = kCAFG_UI_viewing_culture_map_mode
+                        target = this
+                    }
+                }
+                add_to_global_variable_list = {
+                    name = kCAFG_UI_viewing_culture_map_mode
+                    target = player_heir
+                }
+            }
+            if = {
+                limit = {
+                    is_target_in_global_variable_list = {
+                        name = kCAFG_UI_viewing_faith_map_mode
+                        target = this
+                    }
+                }
+                add_to_global_variable_list = {
+                    name = kCAFG_UI_viewing_faith_map_mode
+                    target = player_heir
+                }
+            }
+
+            # Councillor suggestions
+            if = {
+                limit = { has_variable = kCAFG_ignore_steward_promotion_suggestions }
+			    player_heir = { set_variable = kCAFG_ignore_steward_promotion_suggestions }
+            }
+            if = {
+                limit = { has_variable = kCAFG_ignore_court_chaplain_conversion_suggestions }
+			    player_heir = { set_variable = kCAFG_ignore_court_chaplain_conversion_suggestions }
+            }
+		}
+    }
+}

@@ -1,0 +1,320 @@
+﻿################### b_ny_sar ####################
+########## c_ny_sar - d_ny_sar ##########
+
+################### b_iaol ####################
+########## c_ny_sar - d_ny_sar ##########
+
+################### b_ymmoyo ####################
+########## c_ny_sar - d_ny_sar ##########
+
+################### b_seaslhoy ####################
+########## c_ny_sar - d_ny_sar ##########
+
+################### b_awo_pal ####################
+########## c_ny_sar - d_ny_sar ##########
+
+################### b_heaswoynwo ####################
+########## c_ny_sar - d_ny_sar ##########
+
+################### b_dhesbenoy ####################
+########## c_ny_sar - d_ny_sar ##########
+
+################### b_lhuspoymma ####################
+########## c_ny_sar - d_ny_sar ##########
+
+################### b_porhiamo ####################
+########## c_ny_sar - d_ny_sar ##########
+
+################### b_marble_knife ###################
+########## c_marble_knife - d_ny_sar ##########
+
+################### b_dhenuoy ###################
+########## c_marble_knife - d_ny_sar ##########
+
+################### b_soyloynpin ###################
+########## c_marble_knife - d_ny_sar ##########
+
+################### b_res_mal ###################
+########## c_marble_knife - d_ny_sar ##########
+
+################### b_pen_ynreas ###################
+########## c_marble_knife - d_ny_sar ##########
+
+################### b_llasiea ###################
+########## c_marble_knife - d_ny_sar ##########
+
+################### b_seanhallial ###################
+########## c_seanhallial - d_ny_sar ##########
+
+################### b_dhoymru ###################
+########## c_seanhallial - d_ny_sar ##########
+
+################### b_lush_slope ###################
+########## c_seanhallial - d_ny_sar ##########
+
+################### b_broken_clearing ###################
+########## c_seanhallial - d_ny_sar ##########
+
+################### b_sar_moyo ###################
+########## c_seanhallial - d_ny_sar ##########
+
+################### b_earo_mis ###################
+########## c_seanhallial - d_ny_sar ##########
+
+################### b_quarried_wings ###################
+########## c_quarried_wings - d_ny_sar ##########
+
+################### b_yoummhi ###################
+########## c_quarried_wings - d_ny_sar ##########
+
+################### b_sarly ###################
+########## c_quarried_wings - d_ny_sar ##########
+
+################### b_mudbend ###################
+########## c_quarried_wings - d_ny_sar ##########
+
+################### b_esmysy_wood ###################
+########## c_quarried_wings - d_ny_sar ##########
+
+################### b_fuchsiara ###################
+########## c_fuchsiara - d_roseate_bank ##########
+
+################### b_lleanrhen ###################
+########## c_fuchsiara - d_roseate_bank ##########
+
+################### b_oywyn ###################
+########## c_fuchsiara - d_roseate_bank ##########
+
+################### b_rheguwi ###################
+########## c_fuchsiara - d_roseate_bank ##########
+
+################### b_llogedu ###################
+########## c_fuchsiara - d_roseate_bank ##########
+
+################### b_llysku ###################
+########## c_fuchsiara - d_roseate_bank ##########
+
+################### b_old_valley ###################
+########## c_fuchsiara - d_roseate_bank ##########
+
+################### b_lhowa ###################
+########## c_fuchsiara - d_roseate_bank ##########
+
+################### b_noslhos ###################
+########## c_fuchsiara - d_roseate_bank ##########
+
+################### b_wellspring_rift ###################
+########## c_wellspring_rift - d_roseate_bank ##########
+
+################### b_riarhean ###################
+########## c_wellspring_rift - d_roseate_bank ##########
+
+################### b_muwos ###################
+########## c_wellspring_rift - d_roseate_bank ##########
+
+################### b_mimrem ###################
+########## c_wellspring_rift - d_roseate_bank ##########
+
+################### b_anlays ###################
+########## c_wellspring_rift - d_roseate_bank ##########
+
+################### b_wiallol ###################
+########## c_wellspring_rift - d_roseate_bank ##########
+
+################### b_cerise_ridge ###################
+########## c_cerise_ridge - d_roseate_bank ##########
+
+################### b_shylga ###################
+########## c_cerise_ridge - d_roseate_bank ##########
+
+################### b_niasoy_mal ###################
+########## c_cerise_ridge - d_roseate_bank ##########
+
+################### b_liaso ###################
+########## c_cerise_ridge - d_roseate_bank ##########
+
+################### b_ghisudha ###################
+########## c_cerise_ridge - d_roseate_bank ##########
+
+################### b_gulam ###################
+########## c_cerise_ridge - d_roseate_bank ##########
+
+################### b_mislhoy ###################
+########## c_cerise_ridge - d_roseate_bank ##########
+
+################### b_dhusyl_sar ###################
+########## c_dhusyl_sar - d_rel_gydhal ##########
+
+################### b_gasdhun ###################
+########## c_dhusyl_sar - d_rel_gydhal ##########
+
+################### b_rhydhetial ###################
+########## c_dhusyl_sar - d_rel_gydhal ##########
+
+################### b_llapaswi ###################
+########## c_dhusyl_sar - d_rel_gydhal ##########
+
+################### b_ra_lheaial ###################
+########## c_dhusyl_sar - d_rel_gydhal ##########
+
+################### b_nymerideanos ###################
+########## c_dhusyl_sar - d_rel_gydhal ##########
+
+################### b_myshe ###################
+########## c_dhusyl_sar - d_rel_gydhal ##########
+
+################### b_annia_sar ###################
+########## c_dhusyl_sar - d_rel_gydhal ##########
+
+################### b_lleakia_sar ###################
+########## c_lleakia_sar - d_rel_gydhal ##########
+
+################### b_roymllea ###################
+########## c_lleakia_sar - d_rel_gydhal ##########
+
+################### b_binrom ###################
+########## c_lleakia_sar - d_rel_gydhal ##########
+
+################### b_dulolboy ###################
+########## c_lleakia_sar - d_rel_gydhal ##########
+
+################### b_kealhoymial ###################
+########## c_lleakia_sar - d_rel_gydhal ##########
+
+################### b_rellhe ###################
+########## c_lleakia_sar - d_rel_gydhal ##########
+
+################### b_aou_sar ###################
+########## c_lleakia_sar - d_rel_gydhal ##########
+
+################### b_uydhean ###################
+######### c_uydhean - d_rel_gydhal ##########
+
+################### b_ionbun ###################
+######### c_uydhean - d_rel_gydhal ##########
+
+################### b_giatus ###################
+######### c_uydhean - d_rel_gydhal ##########
+
+################### b_oylus_mal ###################
+######### c_uydhean - d_rel_gydhal ##########
+
+################### b_teskoyl ###################
+######### c_uydhean - d_rel_gydhal ##########
+
+################### b_rel_mea ###################
+######### c_uydhean - d_rel_gydhal ##########
+
+################### b_rahesia ###################
+######### c_uydhean - d_rel_gydhal ##########
+
+################### b_asanydeanos ###################
+######### c_asanydeanos - d_rel_gydhal ##########
+
+################### b_gunrin ###################
+######### c_asanydeanos - d_rel_gydhal ##########
+
+################### b_goylhial ###################
+######### c_asanydeanos - d_rel_gydhal ##########
+
+################### b_doyealbem ###################
+######### c_asanydeanos - d_rel_gydhal ##########
+
+################### b_peaiymo ###################
+######### c_asanydeanos - d_rel_gydhal ##########
+
+################### b_rhilloyl ###################
+######### c_asanydeanos - d_rel_gydhal ##########
+
+################### b_aurum_plain ###################
+######### c_golden_fields - d_golden_fields ##########
+
+################### b_dulrhi ###################
+######### c_golden_fields - d_golden_fields ##########
+
+################### b_pymoy ###################
+######### c_golden_fields - d_golden_fields ##########
+
+################### b_rheade_sar ###################
+######### c_golden_fields - d_golden_fields ##########
+
+################### b_llewrisyl ###################
+######### c_golden_fields - d_golden_fields ##########
+
+################### b_moylta ###################
+######### c_golden_fields - d_golden_fields ##########
+
+################### b_noyllom ###################
+######### c_golden_fields - d_golden_fields ##########
+
+################### b_dysrhoynia ###################
+######### c_golden_fields - d_golden_fields ##########
+
+################### b_igamea ###################
+######### c_golden_fields - d_golden_fields ##########
+
+################### b_doylloyn_mal ###################
+######### c_golden_reach - d_golden_fields ##########
+
+################### b_gon_tiasdal ###################
+######### c_golden_reach - d_golden_fields ##########
+
+################### b_lhoyrhiam ###################
+######### c_golden_reach - d_golden_fields ##########
+
+################### b_woynlhem ###################
+######### c_golden_reach - d_golden_fields ##########
+
+################### b_leallen ###################
+######### c_golden_reach - d_golden_fields ##########
+
+################### b_aeasni ###################
+######### c_golden_reach - d_golden_fields ##########
+
+################### b_lumguku ###################
+######### c_golden_reach - d_golden_fields ##########
+
+################### b_rearhea ###################
+######### c_golden_reach - d_golden_fields ##########
+
+################### b_tiala ###################
+######### c_golden_reach - d_golden_fields ##########
+
+################### b_lhorulu_mal ###################
+######### c_lhorulu_mal - d_golden_fields ##########
+
+################### b_olianoy ###################
+######### c_lhorulu_mal - d_golden_fields ##########
+
+################### b_lliao ###################
+######### c_lhorulu_mal - d_golden_fields ##########
+
+################### b_raoses ###################
+######### c_lhorulu_mal - d_golden_fields ##########
+
+################### b_lloymlem ###################
+######### c_lhorulu_mal - d_golden_fields ##########
+
+################## b_sagebreach ###################
+######### c_lhorulu_mal - d_golden_fields ##########
+
+################## b_rhunamllias ###################
+######### c_rhunamllias - d_golden_fields ##########
+
+################## b_soytaba ###################
+######### c_rhunamllias - d_golden_fields ##########
+
+################## b_sauhara ###################
+######### c_rhunamllias - d_golden_fields ##########
+
+################## b_darhia ###################
+######### c_rhunamllias - d_golden_fields ##########
+
+################## b_stiletys ###################
+######### c_stiletys - d_western_daggers ##########
+
+################## b_dyrk ###################
+######### c_dyrk - d_western_daggers ##########
+
+################## b_poniard ###################
+######### c_poniard - d_western_daggers ##########

@@ -1,0 +1,44 @@
+﻿aawc_post_start_government_cleanup = {
+	if = {
+		limit = { aawc_tribal_shatter_active = yes }
+		every_ruler = {
+			limit = {
+				highest_held_title_tier >= tier_county
+				is_alive = yes
+				OR = {
+					has_government = feudal_government
+					has_government = lp_feudal_government
+					has_government = republic_government
+					has_government = administrative_government
+					has_government = pirate_government
+					has_government = pirate_no_dlc_government
+				}
+				NOT = { has_government = ruins_government }
+				NOT = { has_government = wilderness_government }
+				NOT = { has_government = unknown_government }
+			}
+			primary_title = {
+				title_capital_county = { save_temporary_scope_as = aawc_capital_county }
+			}
+			if = {
+				limit = { exists = scope:aawc_capital_county }
+				set_realm_capital = scope:aawc_capital_county
+				scope:aawc_capital_county = {
+					title_province = {
+						if = {
+							limit = {
+								NOT = { has_holding_type = tribal_holding }
+								NOT = { has_holding_type = ruin_holding }
+								NOT = { has_holding_type = wilderness_holding }
+								NOT = { has_holding_type = unknown_holding }
+								NOT = { has_holding_type = settlement_holding }
+							}
+							set_holding_type = tribal_holding
+						}
+					}
+				}
+			}
+			change_government = tribal_government
+		}
+	}
+}

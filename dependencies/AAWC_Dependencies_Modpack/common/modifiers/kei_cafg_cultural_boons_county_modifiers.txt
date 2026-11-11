@@ -1,0 +1,26 @@
+﻿CoM_kCAFG_cultural_boon_tradition_fervent_temple_builders = {
+	icon = county_modifier_development_positive
+	church_holding_holding_build_gold_cost = -0.25
+	church_holding_holding_build_speed = -0.2
+	church_holding_build_gold_cost = -0.25
+	church_holding_build_speed = -0.2
+
+    scale = {
+        value = {
+            value = 0
+            # Average factor
+            every_county_province = {
+                scope:culture = { prev = { add = V_kCAFG_province_prev_culture_factor } }
+            }
+            divide = {
+                value = 0
+                every_county_province = { add = 1 }
+                min = 1
+            }
+            
+            # Rescale from 0-1 to 0.25-1
+            multiply = 0.75
+            add = 0.25
+        }
+	}
+}
