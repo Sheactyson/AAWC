@@ -1,5 +1,15 @@
 # AGOT Alternate World Compatch
 
+## B-level branch workflow and release 1.11.2.8 (2026-11-11)
+
+AAWC now uses one development branch per B-level version: the B-level identifier is the first two components of an `a.b.c.d` release, so all `1.11.x.x` development belongs on branch `1.11`. `main` is reserved for the latest verified, packaged working build and must not be repurposed as the active development branch. This release establishes `1.11` from the verified `main` commit for `1.11.2.8`; its local checkout tracks `origin/1.11`.
+
+For a normal change, work and validate on the active B-level branch. When it is ready to release, increment both AAWC descriptors and this master, build the one current package into `release/`, run the focused checks and exact source/archive/manifest parity verification, then commit the source, package, manifest, evidence, and documentation together. Push the B-level branch and its annotated `v<a.b.c.d>` tag. Only after that verified release commit is available should it be fast-forwarded or merged into `main` and `main` pushed, leaving `main` at that exact latest working build. Git history and GitHub Releases remain the archive; local per-version folders must not return.
+
+When beginning a future B-level line, first ensure `main` names the latest verified release, then create the new branch directly from that commit (for example, `1.12` from released `main`), publish it as `origin/1.12`, set the local upstream, and perform new development there. Never create a new B-level branch from unverified work or leave a released `main` commit absent from its corresponding B-level branch.
+
+Release `1.11.2.8` is the branch-workflow documentation/package release. Both descriptors are `1.11.2.8`; it contains no gameplay, dependency, or Stage 2 formula change. Its package and manifest are generated from the current source and verified by the focused exact parity check recorded with this release.
+
 ## Git-first workspace cleanup complete — 1.11.2.7 (2026-11-11)
 
 The post-snapshot refactor is complete. The repository no longer uses a `versions/` directory or keeps extracted historical installations. The one current AAWC source and descriptor are under `mod/`; the one current Dependencies source and descriptor are under `dependencies/`; this master is under `docs/`; the small continuation/validation set is under `evidence/`; current packaging and focused validation tools are under `scripts/`; and `release/` contains only the current AAWC package and manifest. `README.md` is the clone/setup/release entry point. Repository-owned defaults are centralized in `scripts/aawc_paths.py`.

@@ -4,7 +4,7 @@ Development repository for AGOT Alternate World Compatch. The checkout is Git-fi
 
 ## Current layout
 
-- `mod/` — current AAWC source and transport descriptor (`1.11.2.7`).
+- `mod/` — current AAWC source and transport descriptor (`1.11.2.8`).
 - `dependencies/` — current Dependencies source and descriptor (`1.1.2`). Large binary art is tracked with Git LFS.
 - `docs/` — authoritative master documentation.
 - `evidence/stage2/` — the small retained Stage 2 validation and rendered-continuation records.
@@ -25,13 +25,17 @@ Focused clone/layout verification:
 python -X utf8 -B scripts/test_aawc_portable_paths.py
 ```
 
-## Package and release
+## Branches, package, and release
+
+`main` contains only the latest verified packaged build. Development for each B-level version (the first two version components) happens on a matching branch such as `1.11`. The branch is created from the current verified `main` release and tracks `origin/1.11`; do not develop directly on `main`.
+
+To promote a B-level branch: complete the focused validation, update the descriptors and master documentation, package the next `a.b.c.d` release, commit the package/manifest/evidence/docs on that B-level branch, push it and its version tag, then fast-forward or merge that verified release commit into `main` and push `main`. A future B-level line starts only from the then-current verified `main` commit (for example, create `1.12` from the released `main`, configure `origin/1.12`, and develop there). This preserves `main` as the working release while each active B-level line has an isolated development branch.
 
 1. Update both AAWC descriptors and the master documentation for the new version.
 2. Run `python -X utf8 -B scripts/build_aawc_release.py`. The builder replaces the prior AAWC artifacts in `release/` so the checkout never accumulates local versions.
 3. Run the focused Stage 1/2 checks and exact source/archive/manifest parity verification documented in the master.
-4. Commit source, the current package/manifest, evidence, and documentation together.
-5. Create the release tag, push the commit and tag, and attach any intentionally retained large dependency archive to the GitHub Release rather than Git history.
+4. Commit source, the current package/manifest, evidence, and documentation together on the active B-level branch.
+5. Create the release tag, push the branch commit and tag, promote that verified commit to `main`, and push `main`. Attach any intentionally retained large dependency archive to the GitHub Release rather than Git history.
 
 ## Historical recovery
 
