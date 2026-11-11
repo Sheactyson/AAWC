@@ -76,8 +76,12 @@ class Stage2PopulationUI(unittest.TestCase):
             self.assertIn("may be positive or negative", line) if key.endswith("BREAKDOWN") else None
 
     def test_current_release_is_versioned_without_stage3_payload(self):
+        versions = []
         for descriptor in (MOD / "descriptor.mod", OUTER):
-            self.assertIn('version="1.11.2.7"', read(descriptor))
+            match = re.search(r'^version="(\d+\.\d+\.\d+\.\d+)"$', read(descriptor), re.MULTILINE)
+            self.assertIsNotNone(match, descriptor)
+            versions.append(match.group(1))
+        self.assertEqual(versions[0], versions[1])
         self.assertFalse(any("stage3" in path.name.lower() for path in MOD.rglob("*")))
 
 

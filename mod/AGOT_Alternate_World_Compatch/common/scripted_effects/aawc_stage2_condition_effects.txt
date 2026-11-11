@@ -59,9 +59,9 @@ aawc_stage2_refresh_structural_effect = {
 	}
 	change_variable = { name = aawc_stage2_structural_habitation add = { value = aawc_stage2_main_level subtract = 1 multiply = 3 } }
 	change_variable = { name = aawc_stage2_structural_opportunity add = { value = aawc_stage2_main_level subtract = 1 } }
-	change_variable = { name = aawc_stage2_structural_habitation add = { value = aawc_stage2_development multiply = .12 } }
-	change_variable = { name = aawc_stage2_structural_opportunity add = { value = aawc_stage2_development multiply = .08 } }
-	change_variable = { name = aawc_stage2_structural_health add = { value = aawc_stage2_development multiply = .04 } }
+	change_variable = { name = aawc_stage2_structural_habitation add = { value = aawc_stage2_development multiply = 0.12 } }
+	change_variable = { name = aawc_stage2_structural_opportunity add = { value = aawc_stage2_development multiply = 0.08 } }
+	change_variable = { name = aawc_stage2_structural_health add = { value = aawc_stage2_development multiply = 0.04 } }
 	# Terrain purposes are separate from the geographical space multiplier.
 	if = {
 		limit = { agot_is_urban_terrain = yes }

@@ -1,5 +1,11 @@
 # AGOT Alternate World Compatch
 
+## CK3 Test runtime parser correction — 1.11.2.9 (2026-11-11)
+
+The first local CK3 Test launch receipt used A Game of Thrones `0.5.2.1`, AAWC `1.11.2.8`, and AAWC Dependencies Modpack `1.1.2`, all enabled in that order. The launcher started CK3 `1.19.0.6` and rendered AGOT's `Sailing the Sorrows...` startup screen. During that receipt, the live CK3 `error.log` reported that the three Stage 2 development multipliers in `common/scripted_effects/aawc_stage2_condition_effects.txt` were badly read: `.12`, `.08`, and `.04`. Release `1.11.2.9` corrects those literals to `0.12`, `0.08`, and `0.04`; no formula, dimension, capacity, or population-authority design changed.
+
+The `1.11.2.8` runtime established that the local Test playset selected and started the staged AAWC/dependency configuration, but it did not reach a rendered main menu or gameplay session before the parser finding. `1.11.2.9` was then packaged, installed with 341/341 source/archive/manifest/install parity, and launched through the same Test playset. The launcher visibly reported A Game of Thrones `0.5.2.1`, AAWC `1.11.2.9`, and AAWC Dependencies Modpack `1.1.2`, all enabled; CK3 rendered its main menu with CK3 `1.19.0.6`, AGOT Open Beta `0.5.2.1`, Legacy of Valyria `1.5.2.13`, and a modified checksum. The new run's live `error.log` contained none of the three former `aawc_stage2_condition_effects.txt` malformed-decimal diagnostics. The Population UI release test was also corrected to validate matching four-component inner and outer descriptor versions instead of a stale hard-coded release number. This certifies local playset selection, mod loading through the main menu, and the narrow parser correction only. It does not certify a new campaign, holding Population-panel rendering, infrastructure tooltips, or long-term demographic behavior.
+
 ## B-level branch workflow and release 1.11.2.8 (2026-11-11)
 
 AAWC now uses one development branch per B-level version: the B-level identifier is the first two components of an `a.b.c.d` release, so all `1.11.x.x` development belongs on branch `1.11`. `main` is reserved for the latest verified, packaged working build and must not be repurposed as the active development branch. This release establishes `1.11` from the verified `main` commit for `1.11.2.8`; its local checkout tracks `origin/1.11`.
