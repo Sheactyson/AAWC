@@ -4,12 +4,14 @@ Development repository for AGOT Alternate World Compatch. The checkout is Git-fi
 
 ## Current layout
 
-- `mod/` — current AAWC source and transport descriptor (`1.11.2.12`).
+- `mod/` — current AAWC source and transport descriptor (`1.11.3.0`).
 - `dependencies/` — current Dependencies source and descriptor (`1.1.2`). Large binary art is tracked with Git LFS.
 - `docs/` — authoritative master documentation.
 - `evidence/stage2/` — the small retained Stage 2 validation and rendered-continuation records.
 - `evidence/stage1-authority/` — the two inputs still required by the retained Stage 1 authority validator.
-- `scripts/` — current packaging, installation, staging, and Stage 1/2 validation tools.
+- `catalogue/stage3/` - authoritative Stage 3 candidate source, schema guide and inert generated artifacts.
+- `evidence/stage3/` - hash-verified historical catalogue inputs and focused compiler/package receipts.
+- `scripts/` — current packaging, installation, staging, and Stage 1/2 validation tools and the Stage 3 catalogue compiler.
 - `release/` — only the current AAWC package and manifest. Large dependency archives belong on GitHub Releases and are ignored locally after publication.
 - `archive/pre-cleanup-2026-11-11/` — recovery metadata and restore tooling for the one-time pre-Git snapshot.
 

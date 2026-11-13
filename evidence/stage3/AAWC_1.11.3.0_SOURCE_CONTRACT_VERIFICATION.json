@@ -1,0 +1,81 @@
+{
+  "schema": "aawc-stage3-source-contract-verification-v1",
+  "version": "1.11.3.0",
+  "baseline_commit": "ec0313b890efb1a41564eac1157176054e89a3a2",
+  "critical_acceptance": {
+    "complete_source_contract": true,
+    "deterministic_artifacts": true,
+    "stage1_stage2_ownership_preserved": true,
+    "stage6_stage7_not_activated": true
+  },
+  "census": {
+    "chains": 131,
+    "levels": 771,
+    "legacy_ids": 624,
+    "heritage_chain_levels": 626,
+    "net_new_chain_levels": 145
+  },
+  "focused_checks": [
+    {
+      "command": "python -X utf8 -B scripts/test_aawc_stage3_catalogue.py",
+      "passed": true,
+      "tests": 29
+    },
+    {
+      "command": "python -X utf8 -B scripts/import_aawc_stage3_catalogue.py --check-import",
+      "passed": true
+    },
+    {
+      "command": "python -X utf8 -B scripts/generate_aawc_stage3_catalogue.py --check",
+      "passed": true
+    },
+    {
+      "command": "python -X utf8 -B scripts/generate_aawc_stage2_conditions.py --check",
+      "passed": true,
+      "levels": 666,
+      "chains": 141
+    }
+  ],
+  "live_source_boundary": {
+    "changed_paths": [
+      "mod/AGOT_Alternate_World_Compatch.mod",
+      "mod/AGOT_Alternate_World_Compatch/descriptor.mod"
+    ],
+    "descriptor_version_only": true,
+    "untracked_mod_paths": [],
+    "gameplay_source_unchanged": true
+  },
+  "recovery": {
+    "snapshot": "pre-cleanup-2026-11-11",
+    "segments_sha256_verified": 10,
+    "selected_files_sha256_verified": 6,
+    "temporary_segments_and_helper_removed": true,
+    "saves_recovered": 0
+  },
+  "runtime_activation": false,
+  "rendered_inspection_performed": false,
+  "installation_performed": false,
+  "limitations": [
+    "Candidate remains unapproved; this release completes source tooling only.",
+    "All 771 space_percent values and tier names remain explicitly unspecified.",
+    "Predicate composition, 40 flagged identities, player metadata and AI require separate authoring/review.",
+    "Legacy IDs are retained as lineage data, not implemented migration or wrappers."
+  ],
+  "files": {
+    "catalogue/stage3/catalogue.json": "3aacc6b0d24bb2a4881c6e99664514648c6c24eb4e563f5bf28eb9dcba9ea92b",
+    "catalogue/stage3/generated/condition_candidates.csv": "3d26a907c91822bfa821ac1b72b2e77d255333c642e77af63077f87ca14809d0",
+    "catalogue/stage3/generated/levels.json": "be85d53e26f93f324dbe37dd3c839798cbd7bf20237c125ca30808f0a16dbe34",
+    "catalogue/stage3/generated/readiness.json": "5af3272bd12f8d4702858cdea1603bb6a9d1c750c367f8bc0d6517f2511130cb",
+    "catalogue/stage3/README.md": "cd46bb9695aaee5e4a5c6111824e796f97138d969d26aa10327aa4f924c3a11a",
+    "evidence/stage3/imported/AAWC_Reforging_D7_D8_Revised_Catalogue_Handoff.md": "7d6c968fc5c467466d7501cd870bfd922ffcf27ac03e7c83ae34bedaada36e29",
+    "evidence/stage3/imported/AAWC_REFORGING_M1_V2_ELIGIBILITY_REVIEW.csv": "45019e99b5cdb728a79d358f7168058ea2704a7bff4eed8042501433c872ceb1",
+    "evidence/stage3/imported/AAWC_REFORGING_M1_V2_LEGACY_LINEAGE.csv": "3f412a0ee8cac4e5d7c8454dadcd02e1dae413aa75cbcc212284c7087622d27a",
+    "evidence/stage3/imported/AAWC_REFORGING_M1_V2_SPECIAL_IDENTITY_REVIEW.csv": "a41ca99fd0cd96198f132ac71adad056ac1b4f8d87e4d371cbab5bd93ed13856",
+    "evidence/stage3/imported/AAWC_Reforging_Proposed_Building_Chains_v2.csv": "09f6f6677f13f5dafad1e63c7560569a3bf028cd986e613d0043eff2b3c8e274",
+    "evidence/stage3/imported/AAWC_Reforging_Proposed_Building_Levels_v2.csv": "6bb606c7c1e9a7bd3a9b5acb5d4a4d50a7314e908c9738a21cf55d140e4d4904",
+    "evidence/stage3/imported/provenance.json": "77184ab3f52f855473c272f7c95e0b489888f87e18b67cc2b0b1b4d1b4961ec6",
+    "scripts/generate_aawc_stage3_catalogue.py": "56177eaf724ed4ba2531afe80c9fc013d5be85ea8172200f91d10865d2bc847b",
+    "scripts/import_aawc_stage3_catalogue.py": "46816bc06860247f3e4c1763a0d8879bec38d0dab2f6e0c4c943a050dad81541",
+    "scripts/test_aawc_stage3_catalogue.py": "38646388564b6de4f517079ccf2e7dd88ad1b00c39ab7a6b88a83e10ddd97648"
+  }
+}

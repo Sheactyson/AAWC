@@ -1,0 +1,53 @@
+{
+  "snapshot": "pre-cleanup-2026-11-11",
+  "files": [
+    {
+      "path": "workspace/AAWC_Reforging_D7_D8_Revised_Catalogue_Handoff.md",
+      "bytes": 53932,
+      "sha256": "7d6c968fc5c467466d7501cd870bfd922ffcf27ac03e7c83ae34bedaada36e29",
+      "last_write_time_utc": "2026-10-28T22:42:17.7667831Z",
+      "content_path": "workspace/AAWC_Reforging_D7_D8_Revised_Catalogue_Handoff.md",
+      "stored_in_payload": true
+    },
+    {
+      "path": "workspace/AAWC_REFORGING_M1_V2_LEGACY_LINEAGE.csv",
+      "bytes": 91371,
+      "sha256": "3f412a0ee8cac4e5d7c8454dadcd02e1dae413aa75cbcc212284c7087622d27a",
+      "last_write_time_utc": "2026-11-07T17:47:57.8908647Z",
+      "content_path": "workspace/AAWC_REFORGING_M1_TEST_EVIDENCE/integration-closeout/before/resumption-20261028/workspace/AAWC_REFORGING_M1_V2_LEGACY_LINEAGE.csv",
+      "stored_in_payload": false
+    },
+    {
+      "path": "workspace/AAWC_REFORGING_M1_V2_SPECIAL_IDENTITY_REVIEW.csv",
+      "bytes": 41272,
+      "sha256": "a41ca99fd0cd96198f132ac71adad056ac1b4f8d87e4d371cbab5bd93ed13856",
+      "last_write_time_utc": "2026-11-07T17:47:57.8918624Z",
+      "content_path": "workspace/AAWC_REFORGING_M1_TEST_EVIDENCE/integration-closeout/before/resumption-20261028/workspace/AAWC_REFORGING_M1_V2_SPECIAL_IDENTITY_REVIEW.csv",
+      "stored_in_payload": false
+    },
+    {
+      "path": "workspace/AAWC_Reforging_Proposed_Building_Chains_v2.csv",
+      "bytes": 48789,
+      "sha256": "09f6f6677f13f5dafad1e63c7560569a3bf028cd986e613d0043eff2b3c8e274",
+      "last_write_time_utc": "2026-10-28T22:42:18.9523117Z",
+      "content_path": "workspace/AAWC_REFORGING_M1_TEST_EVIDENCE/integration-closeout/before/resumption-20261028/workspace/AAWC_Reforging_Proposed_Building_Chains_v2.csv",
+      "stored_in_payload": false
+    },
+    {
+      "path": "workspace/AAWC_Reforging_Proposed_Building_Levels_v2.csv",
+      "bytes": 217525,
+      "sha256": "6bb606c7c1e9a7bd3a9b5acb5d4a4d50a7314e908c9738a21cf55d140e4d4904",
+      "last_write_time_utc": "2026-10-28T22:42:19.4415498Z",
+      "content_path": "workspace/AAWC_REFORGING_M1_TEST_EVIDENCE/integration-closeout/before/resumption-20261028/workspace/AAWC_Reforging_Proposed_Building_Levels_v2.csv",
+      "stored_in_payload": false
+    },
+    {
+      "path": "workspace/AAWC_REFORGING_M1_V2_ELIGIBILITY_REVIEW.csv",
+      "bytes": 145040,
+      "sha256": "45019e99b5cdb728a79d358f7168058ea2704a7bff4eed8042501433c872ceb1",
+      "last_write_time_utc": "2026-11-07T17:47:57.8928612Z",
+      "content_path": "workspace/AAWC_REFORGING_M1_V2_ELIGIBILITY_REVIEW.csv",
+      "stored_in_payload": true
+    }
+  ]
+}
