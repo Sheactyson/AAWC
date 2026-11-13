@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "version": "1.11.3.2",
+  "input": "catalogue/stage3/adapter_inputs.csv",
+  "chains": 131,
+  "levels": 771,
+  "effect_branches": 771,
+  "legacy_target_dual_reads": 624,
+  "target_only_reads": 147,
+  "duplicate_effect_definitions": 0,
+  "duplicate_level_branches": 0,
+  "stage1_demographic_formula_changes": [],
+  "stage2_interface_changes": [],
+  "stage6_or_stage7_behavior_activated": false,
+  "focused_tests": {
+    "stage3_catalogue": 29,
+    "stage3_runtime_adapter": 8,
+    "stage2_conditions_and_capacity": 19,
+    "stage2_demographic_integration": 8,
+    "stage2_population_ui": 8,
+    "stage2_behavioral_regression": 10,
+    "total": 82
+  },
+  "checks": [
+    "catalogue compiler --check",
+    "adapter input --check",
+    "runtime contribution --check",
+    "343/343/343 source/archive/manifest parity"
+  ],
+  "global_release_validator": {
+    "passed": false,
+    "passed_surfaces": [
+      "encoding",
+      "structural parsing",
+      "localization uniqueness",
+      "descriptor versions",
+      "archive layout and CRC"
+    ],
+    "remaining_failure": "building reference closure",
+    "reason": "AAWC target building definitions and target-only constructibility are later Stage 3 objectives; this contribution-only release intentionally does not author them"
+  },
+  "rendered_certification": false,
+  "installation_checked": false
+}

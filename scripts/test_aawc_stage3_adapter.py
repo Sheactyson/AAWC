@@ -5,6 +5,7 @@ import re
 import unittest
 import generate_aawc_stage2_conditions as adapter
 import generate_aawc_stage3_catalogue as catalogue
+from test_aawc_cohort_bounded_arithmetic import SourceVM, S
 
 class AdapterTests(unittest.TestCase):
     def setUp(self):
@@ -27,22 +28,48 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(adapter.STAGE3_TABLE.read_text(),adapter.render_input_table(self.rows))
 
     def test_existing_renderer_exact_effects_and_highest_tier(self):
-        output = adapter.render(self.rows)
+        runtime = adapter.rows()
+        output = adapter.render(runtime)
         self.assertEqual(output.count('aawc_stage2_add_contribution_effect ='),771)
         self.assertEqual(output.count('\n\tif ='),131)
         self.assertEqual(output.count('\n\telse_if ='),640)
-        for row in self.rows:
+        self.assertEqual(output.count('\n\t\t\tOR = {'), 624)
+        self.assertEqual(len(re.findall(r'^aawc_stage2_building_contributions_effect\s*=\s*\{', output, re.M)), 1)
+        for row in runtime:
             args=' '.join(f'{f.upper()} = {row[f]}' for f in adapter.FIELDS)
-            self.assertIn('has_building = '+row['building']+' }\n\t\taawc_stage2_add_contribution_effect = { '+args+' }',output)
+            self.assertEqual(output.count('has_building = '+row['building']), 1)
+            if row['legacy_building']:
+                self.assertEqual(output.count('has_building = '+row['legacy_building']), 1)
+                self.assertIn('has_building = '+row['building']+'\n\t\t\t\thas_building = '+row['legacy_building'], output)
+            self.assertIn('aawc_stage2_add_contribution_effect = { '+args+' }',output)
         for chain in self.data['chains']:
-            positions=[output.index('has_building = '+l['id']+' ') for l in chain['levels']]
+            positions=[output.index('has_building = '+l['id']) for l in chain['levels']]
             self.assertEqual(positions,sorted(positions,reverse=True))
-        self.assertEqual(set(re.findall(r'([A-Za-z_0-9]+)\s*=', output)), {'aawc_stage2_building_contributions_effect','if','else_if','limit','has_building','aawc_stage2_add_contribution_effect', *(f.upper() for f in adapter.FIELDS)})
+        self.assertEqual(set(re.findall(r'([A-Za-z_0-9]+)\s*=', output)), {'aawc_stage2_building_contributions_effect','if','else_if','limit','OR','has_building','aawc_stage2_add_contribution_effect', *(f.upper() for f in adapter.FIELDS)})
+
+    def test_runtime_reads_validated_csv_and_target_legacy_pair_contributes_once(self):
+        runtime = adapter.rows()
+        with adapter.STAGE3_TABLE.open(encoding='utf-8') as stream:
+            csv_rows = list(csv.DictReader(stream))
+        self.assertEqual([{key: row[key] for key in csv_rows[0]} for row in runtime], csv_rows)
+        mapped = [row for row in runtime if row['legacy_building']]
+        self.assertEqual(len(mapped), 624)
+        row = mapped[0]
+        vm = SourceVM()
+        vm.buildings = {row['building'], row['legacy_building']}
+        for dimension in adapter.DIMENSIONS:
+            vm.vars['aawc_stage2_structural_'+dimension] = 50*S
+        vm.vars['aawc_stage2_space_percent'] = 0
+        vm.call('aawc_stage2_building_contributions_effect')
+        actual = [vm.vars['aawc_stage2_structural_'+field] - 50*S for field in adapter.DIMENSIONS]
+        actual.append(vm.vars['aawc_stage2_space_percent'])
+        self.assertEqual(actual, [int(float(row[field])*S) for field in adapter.FIELDS])
 
     def test_tooltips_preserve_signed_inputs(self):
-        text=adapter.render_building_localization(self.rows)
-        custom=adapter.render_building_custom_loc(self.rows)
-        for row in self.rows:
+        runtime=adapter.rows()
+        text=adapter.render_building_localization(runtime)
+        custom=adapter.render_building_custom_loc(runtime)
+        for row in runtime:
             self.assertIn('localization_key = aawc_stage2_building_'+row['building'],custom)
             line=next(l for l in text.splitlines() if l.startswith(' aawc_stage2_building_'+row['building']+':'))
             for field in adapter.FIELDS:
@@ -83,6 +110,14 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(original,adapter.render_input_table(adapter.stage3_rows(self.data)))
         self.assertEqual(self.rows,adapter.stage3_rows(before))
         self.assertEqual(adapter.OUTPUT.read_text(encoding='utf-8-sig'),adapter.render(adapter.rows()))
+
+    def test_runtime_artifacts_are_stage2_only_and_never_mutate_population(self):
+        output = adapter.render(adapter.rows())
+        self.assertNotRegex(output, r'(?:set|change|remove)_variable\s*=\s*\{?\s*name\s*=\s*aawc_(?:population|reforging_cohort)')
+        self.assertNotIn('native_effect_contract', output)
+        self.assertNotIn('workforce', output)
+        self.assertNotIn('men_at_arms', output)
+        self.assertNotIn('tax_mult', output)
 
 if __name__=='__main__':
     unittest.main()

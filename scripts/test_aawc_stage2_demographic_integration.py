@@ -57,13 +57,13 @@ class Stage2DemographicIntegration(unittest.TestCase):
     def test_real_infrastructure_recalculation_drives_demographic_divergence(self):
         agricultural = SourceVM()
         agricultural.holding = "city_holding"
-        agricultural.buildings = {"cereal_fields_08", "longhouses_02", "hospices_04"}
+        agricultural.buildings = {"aawc_cereal_fields_08", "aawc_longhouses_02", "aawc_infirmaries_04"}
         self.assertTrue(agricultural.buildings <= {row["building"] for row in rows()})
         agricultural.initialize(100)
 
         fortress = SourceVM()
         fortress.holding = "city_holding"
-        fortress.buildings = {"barracks_08", "watchtowers_08"}
+        fortress.buildings = {"aawc_barracks_08", "aawc_watchtowers_08"}
         self.assertTrue(fortress.buildings <= {row["building"] for row in rows()})
         fortress.initialize(100)
 

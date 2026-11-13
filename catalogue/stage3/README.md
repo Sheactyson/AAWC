@@ -79,7 +79,7 @@ and Stage 2 adapter integration remain separate Stage 3 tasks. Their acceptance
 must not be inferred from a passing source compiler or an installable tooling
 release. Direct menu/gameplay certification requires rendered inspection.
 
-## Adapter inputs (1.11.3.1)
+## Runtime contribution adapter (1.11.3.2)
 
 Settlement space is now explicitly authored under the user's chain-role/tier decision;
 see `SPACE_POLICY.md` for all rates. This supersedes the initial-import missing-space
@@ -87,8 +87,11 @@ state described above. `catalogue.json` remains the only numeric source of truth
 Generate with `python -B scripts/generate_aawc_stage2_conditions.py --stage3-inputs`;
 add `--check` to verify without writes. `adapter_inputs.csv` has the existing Stage 2
 CSV fields and is accepted by its effect/custom-localization/tooltip renderers.
-All 771 rows are exported, including blocked runtime candidates. This export does
-not merge them into the live table, resolve legacy-wrapper double counting, or
-approve construction/AI/presentation/native outputs. Runtime integration owns that
-activation after definitions and migration are ready. Do not rerun the historical
-importer to overwrite authored capacity values.
+All 771 rows are exported and consumed by the live Stage 2 contribution generator.
+Each level has one effect branch. For the 624 inherited levels, one `OR` trigger
+accepts either the AAWC target ID or its exact legacy compatibility ID; installing
+both still applies the contribution once. The 147 target-only levels are ready for
+their later building definitions. This activates only the six structural conditions
+and settlement-space input: construction, AI, presentation, military lifecycle and
+native economic output remain separately blocked or deferred. Do not rerun the
+historical importer to overwrite authored capacity values.

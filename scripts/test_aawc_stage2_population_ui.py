@@ -92,11 +92,11 @@ class Stage2PopulationUI(unittest.TestCase):
                 r"^ aawc_stage2_building_([A-Za-z0-9_]+):0 ", generated_loc, re.MULTILINE
             ) if entry != "empty"
         ]
-        self.assertEqual(len(definitions), 666)
-        self.assertEqual(len(entries), 666)
+        self.assertEqual(len(definitions), 771)
+        self.assertEqual(len(entries), 771)
         self.assertEqual(set(definitions), set(entries))
         self.assertEqual(set(definitions), set(calls))
-        self.assertEqual(len(re.findall(r"^ AAWC_STAGE2_BUILDING_LINES_\d+:0 ", generated_loc, re.MULTILINE)), 27)
+        self.assertEqual(len(re.findall(r"^ AAWC_STAGE2_BUILDING_LINES_\d+:0 ", generated_loc, re.MULTILINE)), 31)
 
     def test_occupancy_adapter_and_four_pressure_states_are_bound(self):
         values = read(VALUES)
@@ -138,7 +138,7 @@ class Stage2PopulationUI(unittest.TestCase):
             self.assertIn("Aggregate adjustment", line)
             self.assertIn("may be positive or negative", line) if key.endswith("BREAKDOWN") else None
 
-    def test_current_release_is_versioned_without_stage3_payload(self):
+    def test_current_release_descriptors_match_without_parallel_stage3_system(self):
         versions = []
         for descriptor in (MOD / "descriptor.mod", OUTER):
             match = re.search(r'^version="(\d+\.\d+\.\d+\.\d+)"$', read(descriptor), re.MULTILINE)

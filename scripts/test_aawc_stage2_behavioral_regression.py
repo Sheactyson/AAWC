@@ -80,7 +80,7 @@ class BehavioralRegression(unittest.TestCase):
         self.assert_ledger(vm)
         vm.call(CONDITION+'refresh_effective_effect')
 
-    def test_all_666_contributions_execute_exactly_and_upgrade_chains_do_not_stack(self):
+    def test_all_771_contributions_execute_exactly_and_upgrade_chains_do_not_stack(self):
         vm = SourceVM(self.root)
         records = rows()
         chains = defaultdict(list)
@@ -101,12 +101,12 @@ class BehavioralRegression(unittest.TestCase):
         self.evidence['contribution_execution'] = {'levels': len(records), 'upgrade_chains': len(chains)}
 
     def test_structural_derivation_and_clamps_have_independent_numeric_oracles(self):
-        vm = self.vm(100, ('city_04', 'cereal_fields_01', 'hospices_01'))
+        vm = self.vm(100, ('city_04', 'aawc_cereal_fields_01', 'aawc_infirmaries_01'))
         vm.development = 50
         vm.terrains = {'urban'}
         vm.call(CONDITION+'initialize_conditions_effect')
         # City + main level 4 + development 50 + urban + farm + hospice.
-        expected = (55, 72, 68, 56, 50, 56)
+        expected = (51, 72, 67, 52, 50, 56)
         self.assertEqual(tuple(vm.vars[CONDITION+'structural_'+d]//S for d in DIMENSIONS), expected)
         self.assertEqual(tuple(vm.vars[CONDITION+'effective_'+d]//S for d in DIMENSIONS), expected)
         for development, bounded in ((-50, 0), (0, 0), (100, 100), (150, 100)):
@@ -290,8 +290,8 @@ class BehavioralRegression(unittest.TestCase):
         self.evidence['monthly_feedback_100_years']=results
 
     def test_real_building_upgrade_demolition_changes_balance_without_debiting_residents(self):
-        military={'barracks_08','watchtowers_08'}
-        improved={'cereal_fields_08','longhouses_02','hospices_04'}
+        military={'aawc_barracks_08','aawc_watchtowers_08'}
+        improved={'aawc_cereal_fields_08','aawc_longhouses_02','aawc_infirmaries_04'}
         self.assertTrue((military|improved)<={row['building'] for row in rows()})
         vm=self.vm(4000,military)
         old_capacity=vm.vars['aawc_population_expected']
@@ -351,7 +351,7 @@ def main():
             ]}
         if args.report:
             args.report.parent.mkdir(parents=True,exist_ok=True)
-            args.report.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+            args.report.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
         return 0 if result.wasSuccessful() else 1
 
 

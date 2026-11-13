@@ -1,0 +1,335 @@
+{
+  "passed": true,
+  "tests": 10,
+  "failures": [],
+  "evidence_class": "SOURCE_VM_NOT_NATIVE_CK3",
+  "archive": null,
+  "archive_sha256": null,
+  "contribution_table_sha256": "21F804C16F62C4894693624A7BB13F8E94D9F2608D3F88FB732CB6FB4DDD86B1",
+  "scenarios": {
+    "contribution_execution": {
+      "levels": 771,
+      "upgrade_chains": 131
+    },
+    "loss_accounting": {
+      "raid_action_completion": {
+        "external_deaths": 15,
+        "external_fraction": 0.15,
+        "ordinary_deaths_next_12_months": 0
+      },
+      "siege_completion": {
+        "external_deaths": 30,
+        "external_fraction": 0.3,
+        "ordinary_deaths_next_12_months": 0
+      },
+      "county_occupied": {
+        "external_deaths": 10,
+        "external_fraction": 0.1,
+        "ordinary_deaths_next_12_months": 1
+      }
+    },
+    "dimension_sweep": {
+      "score_vectors": 606,
+      "mortality_bands_per_vector": 13
+    },
+    "monthly_feedback_100_years": {
+      "excellent": {
+        "checkpoints": [
+          {
+            "month": 1,
+            "population": 6029,
+            "birth_demand": 31.99838,
+            "death_demand": 2.9041
+          },
+          {
+            "month": 120,
+            "population": 9494,
+            "birth_demand": 35.43243,
+            "death_demand": 4.63595
+          },
+          {
+            "month": 300,
+            "population": 12435,
+            "birth_demand": 20.74383,
+            "death_demand": 18.98363
+          },
+          {
+            "month": 600,
+            "population": 12486,
+            "birth_demand": 19.30273,
+            "death_demand": 19.88067
+          },
+          {
+            "month": 900,
+            "population": 12370,
+            "birth_demand": 21.26792,
+            "death_demand": 21.28498
+          },
+          {
+            "month": 1200,
+            "population": 12392,
+            "birth_demand": 21.0308,
+            "death_demand": 20.96714
+          }
+        ],
+        "bands": [
+          1161,
+          1139,
+          1123,
+          1063,
+          1003,
+          1001,
+          943,
+          882,
+          823,
+          762,
+          702,
+          583,
+          1207
+        ],
+        "evolved_age_profiles_at_125_percent": [
+          {
+            "month": 1,
+            "birth_demand": 8.37777,
+            "death_demand": 11.49505
+          },
+          {
+            "month": 120,
+            "birth_demand": 9.50877,
+            "death_demand": 18.93886
+          },
+          {
+            "month": 300,
+            "birth_demand": 18.19722,
+            "death_demand": 20.06433
+          },
+          {
+            "month": 600,
+            "birth_demand": 18.7348,
+            "death_demand": 20.10623
+          },
+          {
+            "month": 900,
+            "birth_demand": 16.64035,
+            "death_demand": 23.83856
+          },
+          {
+            "month": 1200,
+            "birth_demand": 17.0767,
+            "death_demand": 23.01209
+          }
+        ]
+      },
+      "neutral": {
+        "checkpoints": [
+          {
+            "month": 1,
+            "population": 6020,
+            "birth_demand": 26.4,
+            "death_demand": 6.43624
+          },
+          {
+            "month": 120,
+            "population": 8329,
+            "birth_demand": 28.43454,
+            "death_demand": 8.88001
+          },
+          {
+            "month": 300,
+            "population": 10444,
+            "birth_demand": 24.1873,
+            "death_demand": 19.57399
+          },
+          {
+            "month": 600,
+            "population": 10719,
+            "birth_demand": 20.85143,
+            "death_demand": 21.51495
+          },
+          {
+            "month": 900,
+            "population": 10531,
+            "birth_demand": 22.22663,
+            "death_demand": 22.17516
+          },
+          {
+            "month": 1200,
+            "population": 10535,
+            "birth_demand": 22.15358,
+            "death_demand": 22.06025
+          }
+        ],
+        "bands": [
+          1137,
+          1092,
+          1033,
+          939,
+          917,
+          878,
+          819,
+          759,
+          732,
+          678,
+          560,
+          441,
+          550
+        ]
+      },
+      "poor": {
+        "checkpoints": [
+          {
+            "month": 1,
+            "population": 5973,
+            "birth_demand": 6.56079,
+            "death_demand": 32.91578
+          },
+          {
+            "month": 120,
+            "population": 4202,
+            "birth_demand": 5.33954,
+            "death_demand": 14.78326
+          },
+          {
+            "month": 300,
+            "population": 2834,
+            "birth_demand": 3.69661,
+            "death_demand": 9.73556
+          },
+          {
+            "month": 600,
+            "population": 1661,
+            "birth_demand": 2.41785,
+            "death_demand": 4.9392
+          },
+          {
+            "month": 900,
+            "population": 994,
+            "birth_demand": 1.44304,
+            "death_demand": 3.32648
+          },
+          {
+            "month": 1200,
+            "population": 651,
+            "birth_demand": 1.02957,
+            "death_demand": 1.43845
+          }
+        ],
+        "bands": [
+          17,
+          70,
+          75,
+          75,
+          75,
+          75,
+          75,
+          76,
+          39,
+          33,
+          19,
+          18,
+          4
+        ]
+      },
+      "excellent_overfull": {
+        "checkpoints": [
+          {
+            "month": 1,
+            "population": 14974,
+            "birth_demand": 14.53229,
+            "death_demand": 39.79802
+          },
+          {
+            "month": 120,
+            "population": 12937,
+            "birth_demand": 13.05361,
+            "death_demand": 26.84624
+          },
+          {
+            "month": 300,
+            "population": 12333,
+            "birth_demand": 21.48668,
+            "death_demand": 21.76493
+          },
+          {
+            "month": 600,
+            "population": 12369,
+            "birth_demand": 21.40714,
+            "death_demand": 21.1323
+          },
+          {
+            "month": 900,
+            "population": 12406,
+            "birth_demand": 20.79714,
+            "death_demand": 20.73511
+          },
+          {
+            "month": 1200,
+            "population": 12408,
+            "birth_demand": 20.84675,
+            "death_demand": 20.76459
+          }
+        ],
+        "bands": [
+          1107,
+          1126,
+          1149,
+          1104,
+          1040,
+          1007,
+          948,
+          888,
+          828,
+          768,
+          708,
+          589,
+          1146
+        ]
+      }
+    },
+    "real_infrastructure_swap": {
+      "population": 4000,
+      "military_capacity": 4090,
+      "improved_capacity": 6457,
+      "military_birth_death_demand": [
+        12.31982,
+        7.83331
+      ],
+      "improved_birth_death_demand": [
+        18.58172,
+        2.79323
+      ],
+      "improved_buildings": [
+        "aawc_cereal_fields_08",
+        "aawc_infirmaries_04",
+        "aawc_longhouses_02"
+      ],
+      "resident_ledger_unchanged": true
+    },
+    "independent_structural_oracle": {
+      "sustenance": 51,
+      "habitation": 72,
+      "opportunity": 67,
+      "health": 52,
+      "security": 50,
+      "amenities": 56
+    },
+    "ledger_accounting": {
+      "initial_populations": [
+        0,
+        1,
+        2,
+        13,
+        125,
+        10000
+      ],
+      "months_each": 12
+    }
+  },
+  "limitations": [
+    "Five-decimal SourceVM arithmetic; native environment predicates are supplied by fixtures.",
+    "The production monthly wrapper executes, with its known 27-day guard expiry explicitly supplied once per simulated month.",
+    "100-year closed-holding scenarios exclude migration and native event dispatch; no final long-term calibration certification.",
+    "125% checks cover fresh and six evolved mixed-age populations, not every arbitrary age composition.",
+    "No installed payload, launcher, CK3 runtime, save, performance or rendered UI certification."
+  ]
+}

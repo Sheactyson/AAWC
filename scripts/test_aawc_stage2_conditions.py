@@ -14,16 +14,11 @@ from validate_aawc_reforging_stage1_cohort_engine import BANDS, MOD_ROOT, defini
 
 PREFIX = 'aawc_stage2_'
 EXPECTED_UPSTREAM_BUILDINGS = {
-    'agot_magister_harbor_01', 'agot_pentos_harbor_01', 'agot_port_of_lys_01',
-    'construction_guilds_01', 'generic_copper_mines_01', 'generic_copper_mines_02',
-    'generic_copper_mines_03', 'generic_copper_mines_04', 'generic_gold_mines_01',
-    'generic_gold_mines_02', 'generic_gold_mines_03', 'generic_gold_mines_04',
-    'generic_great_sept_01', 'generic_silver_mines_01', 'generic_silver_mines_02',
-    'generic_silver_mines_03', 'generic_silver_mines_04', 'holy_site_great_sept_01',
-    'holy_site_starry_sept_01', 'local_militia_01', 'seven_gates_01', 'stockades_01',
-    'the_bloody_gate_01', 'the_citadel_01', 'the_citadel_02', 'trading_outposts_01',
-    'tribal_construction_guilds_01', 'tribal_local_militia_01',
-    'tribal_stockades_01', 'tribal_trading_outposts_01',
+    *(f'capital_bureau_{tier:02}' for tier in range(1, 9)),
+    *(f'oath_faithful_building_{tier:02}' for tier in range(1, 5)),
+    *(f'oath_poor_building_{tier:02}' for tier in range(1, 5)),
+    *(f'oath_warriors_building_{tier:02}' for tier in range(1, 5)),
+    *(f'powder_magazine_{tier:02}' for tier in range(1, 9)),
 }
 
 
@@ -51,8 +46,10 @@ class ConditionsAcceptance(unittest.TestCase):
         records = rows()
         self.assertEqual(OUTPUT.read_text(encoding='utf-8-sig'), render(records))
         available = effective_buildings()
-        self.assertEqual({r['building'] for r in records} - available.keys(), EXPECTED_UPSTREAM_BUILDINGS)
-        self.assertGreater(len(records), 600)
+        legacy_ids = {r['legacy_building'] for r in records if r['legacy_building']}
+        self.assertEqual(legacy_ids - available.keys(), EXPECTED_UPSTREAM_BUILDINGS)
+        self.assertEqual(sum(not r['legacy_building'] for r in records), 147)
+        self.assertEqual(len(records), 771)
         flags = set(re.findall(r'\bflag\s*=\s*(\w+)', '\n'.join(b for _, b in available.values())))
         used = set(re.findall(r'has_building_with_flag = (\w+)', source('common/scripted_effects/aawc_stage2_condition_effects.txt')))
         self.assertTrue(used <= flags, used - flags)
@@ -96,7 +93,8 @@ class ConditionsAcceptance(unittest.TestCase):
     def test_real_building_purposes_and_tradeoffs(self):
         base = fixture()
         farm, hospice, market, military, mine, homes = [fixture(buildings=(name,)) for name in
-            ('cereal_fields_01', 'hospices_01', 'guild_halls_01', 'barracks_01', 'colony_quarries_01', 'longhouses_01')]
+            ('aawc_cereal_fields_01', 'aawc_infirmaries_01', 'aawc_trade_guilds_01',
+             'aawc_barracks_08', 'aawc_quarries_08', 'aawc_village_cottages_01')]
         neutral = scores(base, 'structural')
         self.assertGreater(scores(farm, 'structural')[0], neutral[0])
         self.assertEqual(scores(farm, 'structural')[3], neutral[3])
@@ -111,17 +109,19 @@ class ConditionsAcceptance(unittest.TestCase):
         self.assertGreater(homes.vars['aawc_population_expected'], farm.vars['aawc_population_expected'])
 
     def test_highest_building_level_only_and_independent_chains(self):
-        vm = fixture(buildings=('cereal_fields_08', 'cereal_fields_01'))
-        high = fixture(buildings=('cereal_fields_08',))
+        vm = fixture(buildings=('aawc_cereal_fields_08', 'aawc_cereal_fields_01'))
+        high = fixture(buildings=('aawc_cereal_fields_08',))
         self.assertEqual(scores(vm, 'structural'), scores(high, 'structural'))
-        vm.buildings.add('hospices_04')
+        vm.buildings.add('aawc_infirmaries_04')
         rebuild(vm)
         self.assertGreater(scores(vm, 'structural')[3], scores(high, 'structural')[3])
         self.assertEqual(scores(vm, 'structural')[0], scores(high, 'structural')[0])
 
     def test_duchy_special_and_dependencies_contributions(self):
         plain = fixture()
-        for building, dim in [('agot_glass_gardens_01', 0), ('the_citadel_02', 3), ('great_harbor_of_valyria_01', 2)]:
+        for building, dim in [('aawc_glass_gardens_01', 0),
+                              ('aawc_duchy_grand_hospital_01', 3),
+                              ('aawc_duchy_grand_harbor_01', 2)]:
             vm = fixture(buildings=(building,))
             self.assertGreater(scores(vm, 'structural')[dim], scores(plain, 'structural')[dim])
 
