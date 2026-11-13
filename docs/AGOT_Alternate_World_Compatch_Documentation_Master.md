@@ -1,5 +1,11 @@
 # AGOT Alternate World Compatch
 
+## Local Test deployment receipt — 1.11.2.10 (2026-11-13)
+
+The current Git receipt was refreshed from `origin/main` and `origin/1.11`, both at release commit `be9130ea3afc62450d06c5aa1ee7816186fe4103` / tag `v1.11.2.9`. The hash-pinned `1.11.2.9` archive (`E0EBC7C596DBB6DE2606507B549F441CBF3F1CC770181ACFB247724829FEF44F`) was installed into the standard local CK3 mod directory with the guarded installer. It retained the former `1.11.2.5` slot in the local rollback receipt and established exact `341/341` source/archive/manifest/install parity with clean archive CRC; both installed descriptors reported `1.11.2.9`.
+
+The existing active `Test` playset already enables the stable registry reference `mod/AGOT_Alternate_World_Compatch.mod` at position 2, so no launcher database or playset edits were needed. The launcher database remains cached at the previous `1.11.2.5` label until the user next starts the Paradox Launcher, but the on-disk transport descriptor and selected payload are `1.11.2.9`; the launcher should rescan the unchanged registry reference before testing. This documentation/package release increments the transport version to `1.11.2.10` without changing gameplay payload, then revalidates and deploys that resulting exact package as the current test candidate. It does not claim new rendered CK3 gameplay or UI certification.
+
 ## CK3 Test runtime parser correction — 1.11.2.9 (2026-11-11)
 
 The first local CK3 Test launch receipt used A Game of Thrones `0.5.2.1`, AAWC `1.11.2.8`, and AAWC Dependencies Modpack `1.1.2`, all enabled in that order. The launcher started CK3 `1.19.0.6` and rendered AGOT's `Sailing the Sorrows...` startup screen. During that receipt, the live CK3 `error.log` reported that the three Stage 2 development multipliers in `common/scripted_effects/aawc_stage2_condition_effects.txt` were badly read: `.12`, `.08`, and `.04`. Release `1.11.2.9` corrects those literals to `0.12`, `0.08`, and `0.04`; no formula, dimension, capacity, or population-authority design changed.
