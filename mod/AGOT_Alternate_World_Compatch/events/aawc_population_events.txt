@@ -431,6 +431,11 @@ aawc_population_event.0410 = {
 	}
 
 	option = {
+		name = aawc_population_event.0410.conditions
+		trigger_event = aawc_population_event.0423
+	}
+
+	option = {
 		name = aawc_population_event.0410.growth
 		trigger_event = aawc_population_event.0430
 	}
@@ -568,6 +573,78 @@ aawc_population_event.0422 = {
 	option = {
 		name = aawc_population_event.back_to_population
 		trigger_event = aawc_population_event.0420
+	}
+}
+
+# Stage 2 player reference.  These pages deliberately describe the same
+# structural/effective scores and scoped adjustments shown by the Population UI;
+# they do not create a second condition or capacity calculation.
+aawc_population_event.0423 = {
+	type = character_event
+	title = aawc_population_event.0423.t
+	desc = aawc_population_event.0423.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.0423.dimensions
+		trigger_event = aawc_population_event.0424
+	}
+
+	option = {
+		name = aawc_population_event.0423.capacity
+		trigger_event = aawc_population_event.0422
+	}
+
+	option = {
+		name = aawc_population_event.0423.disruption
+		trigger_event = aawc_population_event.0425
+	}
+
+	option = {
+		name = aawc_population_event.back_to_toc
+		trigger_event = aawc_population_event.0410
+	}
+}
+
+aawc_population_event.0424 = {
+	type = character_event
+	title = aawc_population_event.0424.t
+	desc = aawc_population_event.0424.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_conditions
+		trigger_event = aawc_population_event.0423
+	}
+}
+
+aawc_population_event.0425 = {
+	type = character_event
+	title = aawc_population_event.0425.t
+	desc = aawc_population_event.0425.desc
+	theme = stewardship_domain_focus
+	override_background = { reference = council_chamber }
+
+	left_portrait = {
+		character = root
+		animation = administrating
+	}
+
+	option = {
+		name = aawc_population_event.back_to_conditions
+		trigger_event = aawc_population_event.0423
 	}
 }
 
