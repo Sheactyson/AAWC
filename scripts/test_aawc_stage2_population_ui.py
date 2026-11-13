@@ -73,6 +73,12 @@ class Stage2PopulationUI(unittest.TestCase):
             "aawc_stage2_adjustment_disruption_security",
             "aawc_stage2_adjustment_control_security",
             "aawc_stage2_adjustment_plague_health",
+            "aawc_stage2_adjustment_realm_war_opportunity",
+            "aawc_stage2_adjustment_realm_war_security",
+            "aawc_stage2_adjustment_county_siege_security",
+            "aawc_stage2_adjustment_direct_siege_security",
+            "aawc_stage2_adjustment_county_raid_security",
+            "aawc_stage2_adjustment_direct_raid_security",
         ):
             self.assertIsNotNone(re.search(rf"^{accessor}\s*=", values, re.MULTILINE))
 

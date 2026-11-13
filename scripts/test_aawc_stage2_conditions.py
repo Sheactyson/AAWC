@@ -200,11 +200,57 @@ class ConditionsAcceptance(unittest.TestCase):
         self.assertEqual(scores(vm, 'structural'), structure)
         self.assertEqual(scores(vm, 'effective')[3], max(structure[3]-45,0))
         self.assertLess(scores(vm, 'effective')[4], structure[4])
+        self.assertEqual(scores(vm, 'effective')[0], structure[0]-2)
+        self.assertEqual(scores(vm, 'effective')[2], structure[2]-2)
         self.assertEqual({k:v for k,v in vm.vars.items() if k.startswith('aawc_reforging_')}, ledger)
         vm.epidemic, vm.control = 0, 100
         vm.county_vars.clear()
         vm.call(PREFIX+'refresh_effective_effect')
         self.assertEqual(scores(vm, 'effective'), structure)
+
+    def test_war_and_county_vs_direct_disruptions_are_distinct(self):
+        vm = fixture()
+        structure = scores(vm, 'structural')
+        ledger = {k:v for k,v in vm.vars.items() if k.startswith('aawc_reforging_')}
+
+        vm.at_war = True
+        vm.call(PREFIX+'refresh_effective_effect')
+        war = scores(vm, 'effective')
+        self.assertEqual(war[2], structure[2]-4)
+        self.assertEqual(war[4], structure[4]-5)
+        self.assertEqual(tuple(war[i] for i in (0,1,3,5)), tuple(structure[i] for i in (0,1,3,5)))
+
+        vm.at_war = False
+        vm.county_vars['aawc_population_siege_growth_suppressed'] = S
+        vm.call(PREFIX+'refresh_effective_effect')
+        county_siege = scores(vm, 'effective')
+        self.assertEqual(county_siege[0], structure[0]-3)
+        self.assertEqual(county_siege[4], structure[4]-12)
+        self.assertEqual(tuple(county_siege[i] for i in (1,2,3,5)), tuple(structure[i] for i in (1,2,3,5)))
+
+        vm.vars['aawc_population_direct_siege_disrupted'] = S
+        vm.call(PREFIX+'refresh_effective_effect')
+        direct_siege = scores(vm, 'effective')
+        self.assertEqual(direct_siege[0], structure[0]-10)
+        self.assertEqual(direct_siege[3], structure[3]-5)
+        self.assertEqual(direct_siege[4], structure[4]-32)
+        self.assertLess(direct_siege[4], county_siege[4])
+
+        vm.county_vars.clear()
+        vm.vars.pop('aawc_population_direct_siege_disrupted')
+        vm.county_vars['aawc_population_raid_growth_suppressed'] = S
+        vm.call(PREFIX+'refresh_effective_effect')
+        county_raid = scores(vm, 'effective')
+        self.assertEqual((county_raid[0], county_raid[2], county_raid[4]),
+                         (structure[0]-2, structure[2]-2, structure[4]-10))
+
+        vm.vars['aawc_population_direct_raid_disrupted'] = S
+        vm.call(PREFIX+'refresh_effective_effect')
+        direct_raid = scores(vm, 'effective')
+        self.assertEqual((direct_raid[0], direct_raid[2], direct_raid[4]),
+                         (structure[0]-7, structure[2]-5, structure[4]-28))
+        self.assertLess(direct_raid[4], county_raid[4])
+        self.assertEqual({k:v for k,v in vm.vars.items() if k.startswith('aawc_reforging_')}, ledger)
 
     def test_rebuild_after_building_loss_and_repeat_refresh_is_idempotent(self):
         vm = fixture(buildings=('longhouses_02', 'hospices_08'))

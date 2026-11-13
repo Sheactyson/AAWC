@@ -48,6 +48,7 @@ aawc_population_on_army_enter_province = {
 			}
 			scope:army = {
 				location = {
+					set_variable = { name = aawc_population_direct_siege_disrupted value = 1 days = 365 }
 					county = {
 						set_variable = { name = aawc_population_siege_growth_suppressed value = 1 days = 365 }
 						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 hostile army entered held enemy province; county siege growth suppression set" }
@@ -67,6 +68,12 @@ aawc_population_on_raid_action_start = {
 				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 raid started; county raid growth suppression set" }
 			}
 		}
+		if = {
+			limit = { exists = scope:barony scope:barony = { title_province = { has_holding = yes } } }
+			scope:barony.title_province = {
+				set_variable = { name = aawc_population_direct_raid_disrupted value = 1 days = 14 }
+			}
+		}
 	}
 }
 
@@ -77,6 +84,12 @@ aawc_population_on_raid_action_weekly = {
 			scope:county = {
 				set_variable = { name = aawc_population_raid_growth_suppressed value = 1 days = 14 }
 				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 active raid weekly refresh; county raid growth suppression set" }
+			}
+		}
+		if = {
+			limit = { exists = scope:barony scope:barony = { title_province = { has_holding = yes } } }
+			scope:barony.title_province = {
+				set_variable = { name = aawc_population_direct_raid_disrupted value = 1 days = 14 }
 			}
 		}
 	}
@@ -100,6 +113,7 @@ aawc_population_on_raid_action_completion = {
 				}
 			}
 			scope:barony.title_province = {
+				remove_variable = aawc_population_direct_raid_disrupted
 				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 raid hook matched barony province with holding" }
 				aawc_population_apply_warfare_population_loss_effect = { LOSS_FACTOR = 0.15 }
 				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 raid population loss hook fired" }
@@ -171,6 +185,7 @@ aawc_population_on_siege_completion = {
 				}
 			}
 			scope:barony.title_province = {
+				remove_variable = aawc_population_direct_siege_disrupted
 				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 siege hook matched defensible holding" }
 				aawc_population_apply_warfare_population_loss_effect = { LOSS_FACTOR = 0.30 }
 				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 defensible holding capture population loss hook fired" }
@@ -190,6 +205,9 @@ aawc_population_on_county_occupied = {
 			scope:county = {
 				remove_variable = aawc_population_siege_growth_suppressed
 				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.47 county occupation hook has county scope" }
+				every_county_province = {
+					remove_variable = aawc_population_direct_siege_disrupted
+				}
 				every_county_province = {
 					limit = {
 						has_holding = yes

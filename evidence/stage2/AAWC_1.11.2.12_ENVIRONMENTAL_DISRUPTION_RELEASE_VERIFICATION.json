@@ -1,0 +1,184 @@
+{
+  "schema": "aawc-stage2-environmental-disruption-release-verification-v1",
+  "release": "1.11.2.12",
+  "date": "2026-11-13",
+  "scope": "Stage 2 terrain, realm-war, plague, county/direct siege, county/direct raid, and retained building living-condition inputs",
+  "mechanics": {
+    "terrain": {
+      "status": "retained",
+      "scope": "structural",
+      "purpose_specific_dimensions": true,
+      "visible_in_contributor_presentation": true
+    },
+    "realm_at_war": {
+      "scope": "effective county-wide condition when county holder is at war",
+      "opportunity": -4,
+      "security": -5
+    },
+    "county_siege": {
+      "scope": "all populated holdings in affected county",
+      "sustenance": -3,
+      "security": -12,
+      "marker_days": 365
+    },
+    "direct_siege_overlay": {
+      "scope": "holding province directly affected by hostile-army siege exposure",
+      "sustenance": -7,
+      "health": -5,
+      "security": -20,
+      "combined_with_county_sustenance": -10,
+      "combined_with_county_health": -5,
+      "combined_with_county_security": -32,
+      "marker_days": 365
+    },
+    "county_raid": {
+      "scope": "all populated holdings in affected county",
+      "sustenance": -2,
+      "opportunity": -2,
+      "security": -10,
+      "marker_days": 14
+    },
+    "direct_raid_overlay": {
+      "scope": "directly raided barony",
+      "sustenance": -5,
+      "opportunity": -3,
+      "security": -18,
+      "combined_with_county_sustenance": -7,
+      "combined_with_county_opportunity": -5,
+      "combined_with_county_security": -28,
+      "marker_days": 14
+    },
+    "plague": {
+      "status": "retained",
+      "scope": "effective county Health tiers",
+      "tiers": [-15, -30, -45],
+      "visible_in_contributor_presentation": true
+    },
+    "building_contributions": {
+      "status": "retained",
+      "reviewed_levels": 666,
+      "chains": 141,
+      "stage3_catalogue_added": false
+    }
+  },
+  "architecture": {
+    "stage1_generational_authority_preserved": true,
+    "condition_effects_debit_population": false,
+    "new_population_loss_route_added": false,
+    "existing_warfare_loss_api_calls": 3,
+    "existing_direct_losses": {
+      "raid_completion_percent": 15,
+      "defensible_holding_siege_completion_percent": 30,
+      "non_defensible_county_occupation_percent": 10
+    }
+  },
+  "targeted_validation": {
+    "total": {"passed": 52, "failed": 0},
+    "suites": [
+      {"name": "test_aawc_stage2_disruption_conditions.py", "passed": 6, "failed": 0},
+      {"name": "test_aawc_stage2_conditions.py", "passed": 19, "failed": 0},
+      {"name": "test_aawc_stage2_population_ui.py", "passed": 8, "failed": 0},
+      {"name": "test_aawc_stage2_demographic_integration.py", "passed": 8, "failed": 0},
+      {"name": "test_aawc_stage2_behavioral_regression.py", "passed": 10, "failed": 0},
+      {"name": "test_aawc_stage2_hospice_tooltip_consistency.py", "passed": 1, "failed": 0}
+    ],
+    "source_executing_assertions": [
+      "realm-war deltas are exact and purpose-specific",
+      "county and direct raid/siege layers are separate",
+      "direct holding layers are stronger and additive",
+      "condition-only execution does not mutate the population ledger",
+      "terrain, plague, and building routes remain present",
+      "no Stage 3 custom building catalogue exists"
+    ]
+  },
+  "broad_validator": {
+    "passed": true,
+    "agot_source": "C:/Program Files (x86)/Steam/steamapps/workshop/content/1158310/2962333032",
+    "mod_files": 342,
+    "structural_files": 268,
+    "localization_ids": 60663,
+    "building_definitions": 10823,
+    "building_references": 3149,
+    "missing_building_references": 0,
+    "maa_definitions": 300,
+    "missing_maa_references": 0,
+    "archive_crc_clean": true
+  },
+  "package": {
+    "archive": "release/AGOT_Alternate_World_Compatch_1.11.2.12.zip",
+    "manifest": "release/AGOT_Alternate_World_Compatch_1.11.2.12.manifest.sha256",
+    "entries": 343,
+    "source_archive_manifest_parity": "343/343/343",
+    "installed_paths": 343,
+    "installed_byte_identical_paths": 342,
+    "installed_normalized_paths": ["AGOT_Alternate_World_Compatch.mod"],
+    "installed_outer_normalization": "field order and path normalized to the absolute OneDrive CK3 mod directory",
+    "archive_sha256": "41C58AE3097CC37376120AD467628829B27CFF6F776EE7D62C0D4C2E4E325C65",
+    "manifest_sha256": "ED6B21BD0F49970B6686CAA2D73ABF71779F38FFF91B9C6493C19AC4808A6B15",
+    "installed_inner_version": "1.11.2.12",
+    "installed_outer_version": "1.11.2.12"
+  },
+  "rendered_runtime": {
+    "status": "passed_bounded_recognition_check",
+    "ck3": "1.19.0.6",
+    "playset": "Test",
+    "mods": [
+      {"name": "A Game of Thrones", "version": "0.5.2.1", "enabled": true},
+      {"name": "AGOT_Alternate_World_Compatch", "version": "1.11.2.12", "enabled": true},
+      {"name": "AAWC Dependencies Modpack", "version": "1.1.2", "enabled": true}
+    ],
+    "save": "Pennon",
+    "population_panel": {
+      "population": 103,
+      "capacity": 4086,
+      "opportunity": {"effective": 48, "structural": 48, "rows": ["Realm at war: 0", "County raid: 0", "Direct raid: 0"]},
+      "security": {"effective": 52, "structural": 52, "rows": ["County control: 0", "Realm at war: 0", "County siege: 0", "Direct siege: 0", "County raid: 0", "Direct raid: 0"]},
+      "nested_help_rendered": ["Realm at War", "Direct Holding Disruption"]
+    },
+    "new_relevant_error_log_matches": 0,
+    "exit_autosave_created": false,
+    "limitations": [
+      "The rendered save showed zero-state recognition and explanations; it did not stage an active nonzero war, raid, or siege.",
+      "Exact nonzero arithmetic and holding scoping are validated by source-executing tests.",
+      "The standard county-view branch was rendered; the Valyria mirror was not separately rendered."
+    ]
+  },
+  "known_unresolved_environment_diagnostics": [
+    "existing duplicate-stub localization diagnostics",
+    "existing UTF-8-BOM diagnostic",
+    "existing upstream/AGOT diagnostics",
+    "existing Legacy of Valyria diagnostics"
+  ],
+  "workspace_hygiene": {
+    "install_selection_receipt_retained": true,
+    "previous_install_rollback_bytes": 62638738,
+    "previous_install_removal": "rejected_by_execution_policy_before_removal",
+    "previous_install_git_ignored": true,
+    "source_or_package_content": false
+  },
+  "COMPUTER_USE_PATTERN": {
+    "goal": "Verify exact 1.11.2.12 launcher receipt and rendered environmental/disruption contributor presentation",
+    "application": "Crusader Kings III 1.19.0.6 through Paradox Launcher",
+    "preconditions": "Controlled 343-path install; Test playset; AGOT 0.5.2.1, AAWC 1.11.2.12, Dependencies 1.1.2 enabled; paused Pennon save",
+    "procedure": [
+      "Inspect Test playset and confirm exact enabled mod versions",
+      "Launch CK3 and confirm rendered runtime version/mod receipt",
+      "Continue Pennon save and open the holding Population panel",
+      "Inspect Opportunity and Security contributor rows",
+      "Open Realm at War and Direct Holding Disruption nested help",
+      "Exit to desktop with exit autosave disabled",
+      "Audit closed-session logs for changed files, markers, accessors, localization, parser, effect, and trigger diagnostics"
+    ],
+    "observable_success": "New rows and nested explanations render under the exact receipt with zero new relevant log diagnostics",
+    "observed_successes": 1
+  },
+  "COMPUTER_USE_TRACE": [
+    {"state": "Paradox Launcher Test playset", "action": "inspected enabled mods", "result": "AGOT 0.5.2.1, AAWC 1.11.2.12, Dependencies 1.1.2 visible and enabled"},
+    {"state": "CK3 main menu", "action": "inspected runtime receipt", "result": "CK3 1.19.0.6, AGOT Open Beta 0.5.2.1, Legacy of Valyria 1.5.2.13, modified checksum rendered"},
+    {"state": "Pennon Population panel", "action": "inspected Opportunity tooltip", "result": "effective 48, structural 48, Realm at war/County raid/Direct raid rows rendered"},
+    {"state": "Pennon Population panel", "action": "inspected Security tooltip", "result": "effective 52, structural 52, county control/war/county siege/direct siege/county raid/direct raid rows rendered"},
+    {"state": "nested tooltip path", "action": "opened Realm at War and Direct Holding Disruption help", "result": "scope, relative strength, and separate one-time casualty explanation rendered"},
+    {"state": "Exit Game dialog", "action": "left exit autosave unchecked and selected Exit to Desktop", "result": "CK3 window closed"},
+    {"state": "closed-session logs", "action": "searched relevant files and symbols", "result": "zero new relevant matches"}
+  ]
+}

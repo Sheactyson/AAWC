@@ -65,6 +65,7 @@ class SourceVM:
         self.holding = 'settlement_holding'
         self.buildings, self.building_flags, self.terrains = set(), set(), set()
         self.development, self.control, self.epidemic = 0, 100, 0
+        self.at_war = False
         self.county_vars = {}
         for category, names, target in (
             ('scripted_effects', ('aawc_stage2_condition_effects', 'aawc_stage2_building_contributions'), self.effects),
@@ -141,6 +142,8 @@ class SourceVM:
                 checks.append((key[8:-8] in self.terrains) == (arg == 'yes'))
             elif key == 'county':
                 checks.append(self.county_condition(arg))
+            elif key == 'county.holder':
+                checks.append(self.holder_condition(arg))
             elif key == 'has_variable': checks.append(arg in self.vars)
             elif key == 'NOT': checks.append(not self.condition(arg))
             elif key == 'OR': checks.append(any(self.condition([x]) for x in arg))
@@ -151,6 +154,13 @@ class SourceVM:
                 comparison = {'=': operator.eq, '!=': operator.ne, '>': operator.gt,
                               '<': operator.lt, '>=': operator.ge, '<=': operator.le}[op]
                 checks.append(comparison(self.value(key), self.value(arg)))
+        return all(checks)
+
+    def holder_condition(self, body):
+        checks = []
+        for key, op, arg in body:
+            if key == 'is_at_war': checks.append(self.at_war == (arg == 'yes'))
+            else: raise ValueError(('unsupported holder condition', key))
         return all(checks)
 
     def county_condition(self, body):

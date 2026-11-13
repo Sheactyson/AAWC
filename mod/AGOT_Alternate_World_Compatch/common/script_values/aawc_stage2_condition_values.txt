@@ -129,13 +129,37 @@ aawc_stage2_contrib_blockers_security = { value = 0 if = { limit = { has_variabl
 aawc_stage2_contrib_blockers_amenities = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_blockers_amenities } value = var:aawc_stage2_contrib_blockers_amenities } }
 
 # Effective-condition adjustments mirror aawc_stage2_refresh_effective_effect.
-aawc_stage2_adjustment_disruption_sustenance = {
+aawc_stage2_adjustment_realm_war_opportunity = {
 	value = 0
-	if = { limit = { county = { OR = { has_variable = aawc_population_siege_growth_suppressed has_variable = aawc_population_raid_growth_suppressed } } } value = -5 }
+	if = { limit = { county.holder ?= { is_at_war = yes } } value = -4 }
+}
+aawc_stage2_adjustment_realm_war_security = {
+	value = 0
+	if = { limit = { county.holder ?= { is_at_war = yes } } value = -5 }
+}
+aawc_stage2_adjustment_county_siege_sustenance = { value = 0 if = { limit = { county = { has_variable = aawc_population_siege_growth_suppressed } } value = -3 } }
+aawc_stage2_adjustment_county_siege_security = { value = 0 if = { limit = { county = { has_variable = aawc_population_siege_growth_suppressed } } value = -12 } }
+aawc_stage2_adjustment_direct_siege_sustenance = { value = 0 if = { limit = { has_variable = aawc_population_direct_siege_disrupted } value = -7 } }
+aawc_stage2_adjustment_direct_siege_health = { value = 0 if = { limit = { has_variable = aawc_population_direct_siege_disrupted } value = -5 } }
+aawc_stage2_adjustment_direct_siege_security = { value = 0 if = { limit = { has_variable = aawc_population_direct_siege_disrupted } value = -20 } }
+aawc_stage2_adjustment_county_raid_sustenance = { value = 0 if = { limit = { county = { has_variable = aawc_population_raid_growth_suppressed } } value = -2 } }
+aawc_stage2_adjustment_county_raid_opportunity = { value = 0 if = { limit = { county = { has_variable = aawc_population_raid_growth_suppressed } } value = -2 } }
+aawc_stage2_adjustment_county_raid_security = { value = 0 if = { limit = { county = { has_variable = aawc_population_raid_growth_suppressed } } value = -10 } }
+aawc_stage2_adjustment_direct_raid_sustenance = { value = 0 if = { limit = { has_variable = aawc_population_direct_raid_disrupted } value = -5 } }
+aawc_stage2_adjustment_direct_raid_opportunity = { value = 0 if = { limit = { has_variable = aawc_population_direct_raid_disrupted } value = -3 } }
+aawc_stage2_adjustment_direct_raid_security = { value = 0 if = { limit = { has_variable = aawc_population_direct_raid_disrupted } value = -18 } }
+# Compatibility aggregates retained for existing scripted consumers and validators.
+aawc_stage2_adjustment_disruption_sustenance = {
+	value = aawc_stage2_adjustment_county_siege_sustenance
+	add = aawc_stage2_adjustment_direct_siege_sustenance
+	add = aawc_stage2_adjustment_county_raid_sustenance
+	add = aawc_stage2_adjustment_direct_raid_sustenance
 }
 aawc_stage2_adjustment_disruption_security = {
-	value = 0
-	if = { limit = { county = { OR = { has_variable = aawc_population_siege_growth_suppressed has_variable = aawc_population_raid_growth_suppressed } } } value = -30 }
+	value = aawc_stage2_adjustment_county_siege_security
+	add = aawc_stage2_adjustment_direct_siege_security
+	add = aawc_stage2_adjustment_county_raid_security
+	add = aawc_stage2_adjustment_direct_raid_security
 }
 aawc_stage2_adjustment_control_security = { value = county.county_control min = 0 max = 100 subtract = 100 multiply = 0.35 }
 aawc_stage2_adjustment_plague_health = {

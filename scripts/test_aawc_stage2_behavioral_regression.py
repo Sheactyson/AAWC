@@ -220,7 +220,10 @@ class BehavioralRegression(unittest.TestCase):
         # Execute the actual holding predicates; native on_action scope routing is
         # deliberately outside this single-province VM's evidence boundary.
         siege_or = next(arg for key,_,arg in nodes(siege) if key=='OR' and ('has_holding_type','=','castle_holding') in arg)
-        occupied = next(arg for key,_,arg in nodes(occupation) if key=='every_county_province')
+        occupied = next(
+            arg for key,_,arg in nodes(occupation)
+            if key == 'every_county_province' and any(node_key == 'limit' for node_key,_,_ in arg)
+        )
         occupied_limit = next(arg for key,_,arg in occupied if key=='limit')
         vm = SourceVM(self.root)
         for holding in ('castle','tribal','settlement','city','church','nomad','herder','temple_citadel','pirate_den'):
@@ -243,7 +246,8 @@ class BehavioralRegression(unittest.TestCase):
         vm.county_vars = dict.fromkeys(('aawc_population_raid_growth_suppressed','aawc_population_siege_growth_suppressed'),S)
         vm.call(CONDITION+'refresh_effective_effect')
         self.assertEqual(vm.vars[CONDITION+'effective_sustenance'],structure[0]-5*S)
-        self.assertEqual(vm.vars[CONDITION+'effective_security'],max(0,structure[4]-65*S))
+        self.assertEqual(vm.vars[CONDITION+'effective_opportunity'],structure[2]-2*S)
+        self.assertEqual(vm.vars[CONDITION+'effective_security'],max(0,structure[4]-57*S))
         vm.control = 100
         vm.county_vars.clear()
         vm.call(CONDITION+'refresh_effective_effect')

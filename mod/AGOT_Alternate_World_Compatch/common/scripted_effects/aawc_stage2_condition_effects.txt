@@ -278,12 +278,37 @@ aawc_stage2_refresh_effective_effect = {
 	change_variable = { name = aawc_stage2_effective_health add = { value = aawc_stage2_health_pressure_loss multiply = -1 } }
 	# Low control affects experienced safety, not structural fortification.
 	change_variable = { name = aawc_stage2_effective_security add = { value = county.county_control min = 0 max = 100 subtract = 100 multiply = 0.35 } }
-	# Direct raid/siege casualties remain solely in the existing external-death API.
-	# Disruption changes household safety/necessities; no repeat event death charge.
+	# A distant realm war is a modest civilian disruption, not equivalent to local danger.
 	if = {
-		limit = { county = { OR = { has_variable = aawc_population_siege_growth_suppressed has_variable = aawc_population_raid_growth_suppressed } } }
-	change_variable = { name = aawc_stage2_effective_security add = -30 }
+		limit = { county.holder ?= { is_at_war = yes } }
+	change_variable = { name = aawc_stage2_effective_opportunity add = -4 }
+	change_variable = { name = aawc_stage2_effective_security add = -5 }
+	}
+	# County disruption is shared by all holdings. Direct markers are stored on the
+	# affected province and layer stronger, purpose-specific hardship on that holding.
+	# Raid/siege casualties remain solely in the existing external-death API.
+	if = {
+		limit = { county = { has_variable = aawc_population_siege_growth_suppressed } }
+	change_variable = { name = aawc_stage2_effective_sustenance add = -3 }
+	change_variable = { name = aawc_stage2_effective_security add = -12 }
+	}
+	if = {
+		limit = { has_variable = aawc_population_direct_siege_disrupted }
+	change_variable = { name = aawc_stage2_effective_sustenance add = -7 }
+	change_variable = { name = aawc_stage2_effective_health add = -5 }
+	change_variable = { name = aawc_stage2_effective_security add = -20 }
+	}
+	if = {
+		limit = { county = { has_variable = aawc_population_raid_growth_suppressed } }
+	change_variable = { name = aawc_stage2_effective_sustenance add = -2 }
+	change_variable = { name = aawc_stage2_effective_opportunity add = -2 }
+	change_variable = { name = aawc_stage2_effective_security add = -10 }
+	}
+	if = {
+		limit = { has_variable = aawc_population_direct_raid_disrupted }
 	change_variable = { name = aawc_stage2_effective_sustenance add = -5 }
+	change_variable = { name = aawc_stage2_effective_opportunity add = -3 }
+	change_variable = { name = aawc_stage2_effective_security add = -18 }
 	}
 	# The legacy epidemic growth override is dormant; this is the health input
 	# for downstream age-specific ordinary mortality, not an extra population debit.
