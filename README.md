@@ -4,7 +4,7 @@ Development repository for AGOT Alternate World Compatch. The checkout is Git-fi
 
 ## Current layout
 
-- `mod/` — current AAWC source and transport descriptor (`1.11.3.0`).
+- `mod/` — current AAWC source and transport descriptor (`1.11.3.1`).
 - `dependencies/` — current Dependencies source and descriptor (`1.1.2`). Large binary art is tracked with Git LFS.
 - `docs/` — authoritative master documentation.
 - `evidence/stage2/` — the small retained Stage 2 validation and rendered-continuation records.

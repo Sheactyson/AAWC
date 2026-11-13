@@ -1,0 +1,22 @@
+{
+  "adapter_chains": 131,
+  "adapter_levels": 771,
+  "checks": [
+    "catalogue --check",
+    "stage2 --check",
+    "stage2 --stage3-inputs --check",
+    "343/343/343 source/archive/manifest parity"
+  ],
+  "inputs": "catalogue/stage3/adapter_inputs.csv",
+  "live_gameplay_changes": [],
+  "passed": true,
+  "rendered_certification": false,
+  "runtime_activated": false,
+  "source": "catalogue/stage3/catalogue.json",
+  "tests": {
+    "stage2_conditions": 19,
+    "stage2_demographic_integration": 8,
+    "stage3_catalogue_and_adapter": 35
+  },
+  "version": "1.11.3.1"
+}

@@ -78,3 +78,17 @@ compatibility wrappers and caller migration, assets/localization/AI completion,
 and Stage 2 adapter integration remain separate Stage 3 tasks. Their acceptance
 must not be inferred from a passing source compiler or an installable tooling
 release. Direct menu/gameplay certification requires rendered inspection.
+
+## Adapter inputs (1.11.3.1)
+
+Settlement space is now explicitly authored under the user's chain-role/tier decision;
+see `SPACE_POLICY.md` for all rates. This supersedes the initial-import missing-space
+state described above. `catalogue.json` remains the only numeric source of truth.
+Generate with `python -B scripts/generate_aawc_stage2_conditions.py --stage3-inputs`;
+add `--check` to verify without writes. `adapter_inputs.csv` has the existing Stage 2
+CSV fields and is accepted by its effect/custom-localization/tooltip renderers.
+All 771 rows are exported, including blocked runtime candidates. This export does
+not merge them into the live table, resolve legacy-wrapper double counting, or
+approve construction/AI/presentation/native outputs. Runtime integration owns that
+activation after definitions and migration are ready. Do not rerun the historical
+importer to overwrite authored capacity values.

@@ -7,6 +7,8 @@ game. --audit-sources additionally checks IDs against the effective local stack.
 from pathlib import Path
 import argparse
 import csv
+import io
+import json
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +34,44 @@ def rows():
         assert int(row['level']) > 0
         assert row['purpose'] and row['source']
     return result
+
+
+STAGE3_TABLE = ROOT / 'catalogue/stage3/adapter_inputs.csv'
+
+
+def stage3_rows(data=None):
+    """Project catalogue fields only; native-role metadata is never executable.
+
+    This is an input export, not approval to merge blocked catalogue buildings
+    into the live table. Runtime migration owns wrapper/target deduplication.
+    """
+    import generate_aawc_stage3_catalogue as catalogue
+    if data is None:
+        data = catalogue.load_source(catalogue.SOURCE)
+    catalogue.validate(data)
+    result = []
+    for chain in sorted(data['chains'], key=lambda c: c['id']):
+        for level in sorted(chain['levels'], key=lambda l: l['tier']):
+            capacity = level['capacity']
+            if capacity['status'] != 'approved' or capacity['space_percent'] is None:
+                raise ValueError(f"{level['id']}: settlement-space input is not approved")
+            result.append({
+                'building': level['id'], 'chain': chain['id'], 'level': str(level['tier']),
+                **{field: format(level['conditions'][field], 'g') for field in DIMENSIONS},
+                'space_percent': format(capacity['space_percent'], 'g'),
+                'purpose': 'Stage 3 ' + chain['family'] + ' infrastructure',
+                'source': 'catalogue/stage3/catalogue.json#' + level['id'],
+            })
+    return result
+
+
+def render_input_table(records):
+    stream = io.StringIO(newline='')
+    writer = csv.DictWriter(stream, fieldnames=['building', 'chain', 'level', *FIELDS,
+                                               'purpose', 'source'], lineterminator='\n')
+    writer.writeheader()
+    writer.writerows(records)
+    return stream.getvalue()
 
 
 def render(records):
@@ -203,12 +243,26 @@ def effective_buildings(extra_roots=()):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--stage3-inputs', action='store_true',
+                        help='Export catalogue adapter CSV only; do not activate runtime buildings.')
     parser.add_argument('--audit-sources', action='store_true')
     parser.add_argument(
         '--upstream-building-root', type=Path, action='append', default=[],
         help='Optional vanilla/AGOT common/buildings directory; repeat in load order.',
     )
     args = parser.parse_args()
+    if args.stage3_inputs:
+        if args.audit_sources:
+            parser.error('--stage3-inputs is an inert export; runtime source audit is separate')
+        records = stage3_rows()
+        expected = render_input_table(records)
+        if args.check:
+            if not STAGE3_TABLE.exists() or STAGE3_TABLE.read_text(encoding='utf-8') != expected:
+                raise SystemExit('Stage 3 adapter inputs are stale')
+        else:
+            STAGE3_TABLE.write_text(expected, encoding='utf-8', newline='\n')
+        print(f'Stage 3 adapter input parity PASS: {len(records)} levels / 131 chains')
+        return
     records = rows()
     if args.audit_sources:
         effective = effective_buildings(args.upstream_building_root)
