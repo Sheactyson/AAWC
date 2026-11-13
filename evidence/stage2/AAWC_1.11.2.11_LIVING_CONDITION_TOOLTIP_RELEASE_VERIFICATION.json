@@ -20,7 +20,7 @@
   },
   "package": {
     "archive": "release/AGOT_Alternate_World_Compatch_1.11.2.11.zip",
-    "archive_sha256": "B14B233A2E97CF00C12119A81C59F6092BEBDC0330C913B1F4BC88577E1CD64F",
+    "archive_sha256": "F586000C808ED39E9514017DD3A98B146D09F29F74AA9FB04BB1C1ABACB12959",
     "manifest": "release/AGOT_Alternate_World_Compatch_1.11.2.11.manifest.sha256",
     "manifest_sha256": "C7C5832FF112EED3C45F87381BE9003F38AF63CEF413E4D30853447AC9A0E2FE",
     "entries": 343,
@@ -42,11 +42,13 @@
     "holding": "Pennon",
     "rendered_standard_population_panel": true,
     "rendered_valyria_mirror": false,
-    "rendered_paths": [
+    "exact_final_receipt_rendered_paths": [
       "Opportunity contributor breakdown",
       "Opportunity formula and demographic role",
       "Habitation contributor breakdown",
-      "Habitation formula and capacity role",
+      "Habitation formula and capacity role"
+    ],
+    "same_payload_pre_reconciliation_rendered_paths": [
       "Effective Conditions definition",
       "Structural Conditions definition",
       "Installed Building Contributions definition",
