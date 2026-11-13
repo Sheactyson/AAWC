@@ -1,0 +1,72 @@
+{
+  "release": "1.11.2.11",
+  "date": "2026-11-13",
+  "scope": "Transparent Stage 2 living-condition contributor breakdowns and nested explanatory tooltips",
+  "architecture": {
+    "stage_1_population_authority_preserved": true,
+    "separate_population_system_added": false,
+    "stage_3_building_catalogue_added": false,
+    "breakdown_source": "The same aawc_stage2_add_contribution_effect calls and effective-adjustment expressions used by the existing calculations"
+  },
+  "focused_validation": {
+    "population_ui": "8/8",
+    "stage_2_conditions": "18/18",
+    "demographic_integration": "8/8",
+    "behavioral_regression": "10/10",
+    "hospice_tooltip": "1/1",
+    "generated_building_levels": 666,
+    "generated_building_chains": 141,
+    "generated_localization_groups": 27
+  },
+  "package": {
+    "archive": "release/AGOT_Alternate_World_Compatch_1.11.2.11.zip",
+    "archive_sha256": "B14B233A2E97CF00C12119A81C59F6092BEBDC0330C913B1F4BC88577E1CD64F",
+    "manifest": "release/AGOT_Alternate_World_Compatch_1.11.2.11.manifest.sha256",
+    "manifest_sha256": "C7C5832FF112EED3C45F87381BE9003F38AF63CEF413E4D30853447AC9A0E2FE",
+    "entries": 343,
+    "source_archive_manifest_parity": "343/343/343",
+    "installed_paths": 343,
+    "installed_byte_identical_entries": 342,
+    "installed_transport_normalization": "Only the outer descriptor field order and path were rewritten to the absolute OneDrive CK3 profile; installed inner and outer versions both remain 1.11.2.11",
+    "crc": "clean"
+  },
+  "runtime": {
+    "ck3": "1.19.0.6",
+    "playset": "Test",
+    "mods": [
+      "A Game of Thrones 0.5.2.1",
+      "AGOT_Alternate_World_Compatch 1.11.2.11",
+      "AAWC Dependencies Modpack 1.1.2"
+    ],
+    "profile_mod_directory": "C:/Users/sheac/OneDrive/Documents/Paradox Interactive/Crusader Kings III/mod",
+    "holding": "Pennon",
+    "rendered_standard_population_panel": true,
+    "rendered_valyria_mirror": false,
+    "rendered_paths": [
+      "Opportunity contributor breakdown",
+      "Opportunity formula and demographic role",
+      "Habitation contributor breakdown",
+      "Habitation formula and capacity role",
+      "Effective Conditions definition",
+      "Structural Conditions definition",
+      "Installed Building Contributions definition",
+      "Occupancy Pressure definition",
+      "Occupancy and Crowding summary"
+    ],
+    "observed_values": {
+      "opportunity_effective": 48,
+      "opportunity_structural": 48,
+      "habitation_effective": 50,
+      "habitation_structural": 50,
+      "current_residents": 103,
+      "physical_capacity": 4086,
+      "occupancy_percent": 2
+    },
+    "new_file_or_accessor_error_log_matches": 0,
+    "exit_autosave": false
+  },
+  "limitations": [
+    "The Valyria GUI mirror is covered by source, localization, and package tests but was not rendered in this standard-branch save.",
+    "Existing duplicate-stub localization and upstream/AGOT/Legacy of Valyria diagnostics remain and are not claimed fixed."
+  ]
+}

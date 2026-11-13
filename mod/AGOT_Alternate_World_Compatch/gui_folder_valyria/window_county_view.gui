@@ -2841,6 +2841,110 @@ window = {
 														}
 
 														vbox = {
+																name = "aawc_stage2_living_conditions"
+																layoutpolicy_horizontal = expanding
+																background = { using = Background_Area }
+																margin = { 6 6 }
+																spacing = 4
+
+																text_single = {
+																	text = "AAWC_STAGE2_LIVING_CONDITIONS"
+																	using = Font_Size_Medium
+																	default_format = "#high"
+																}
+																text_single = {
+																	text = "AAWC_STAGE2_EFFECTIVE_CONDITIONS_NOTE"
+																	using = Font_Size_Small
+																}
+
+																hbox = {
+																	layoutpolicy_horizontal = expanding
+																	spacing = 8
+																	vbox = {
+																		layoutpolicy_horizontal = expanding
+																		background = { using = Background_Area_Dark }
+																		margin = { 4 4 }
+																		tooltip = "AAWC_STAGE2_TT_SUSTENANCE"
+																		text_single = { text = "AAWC_STAGE2_SUSTENANCE" align = center using = Font_Size_Small }
+																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_sustenance_value'))]#!" align = center using = Font_Size_Medium }
+																	}
+																	vbox = {
+																		layoutpolicy_horizontal = expanding
+																		background = { using = Background_Area_Dark }
+																		margin = { 4 4 }
+																		tooltip = "AAWC_STAGE2_TT_HABITATION"
+																		text_single = { text = "AAWC_STAGE2_HABITATION" align = center using = Font_Size_Small }
+																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_habitation_value'))]#!" align = center using = Font_Size_Medium }
+																	}
+																	vbox = {
+																		layoutpolicy_horizontal = expanding
+																		background = { using = Background_Area_Dark }
+																		margin = { 4 4 }
+																		tooltip = "AAWC_STAGE2_TT_OPPORTUNITY"
+																		text_single = { text = "AAWC_STAGE2_OPPORTUNITY" align = center using = Font_Size_Small }
+																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_opportunity_value'))]#!" align = center using = Font_Size_Medium }
+																	}
+																}
+
+																hbox = {
+																	layoutpolicy_horizontal = expanding
+																	spacing = 8
+																	vbox = {
+																		layoutpolicy_horizontal = expanding
+																		background = { using = Background_Area_Dark }
+																		margin = { 4 4 }
+																		tooltip = "AAWC_STAGE2_TT_HEALTH"
+																		text_single = { text = "AAWC_STAGE2_HEALTH" align = center using = Font_Size_Small }
+																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_health_value'))]#!" align = center using = Font_Size_Medium }
+																	}
+																	vbox = {
+																		layoutpolicy_horizontal = expanding
+																		background = { using = Background_Area_Dark }
+																		margin = { 4 4 }
+																		tooltip = "AAWC_STAGE2_TT_SECURITY"
+																		text_single = { text = "AAWC_STAGE2_SECURITY" align = center using = Font_Size_Small }
+																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_security_value'))]#!" align = center using = Font_Size_Medium }
+																	}
+																	vbox = {
+																		layoutpolicy_horizontal = expanding
+																		background = { using = Background_Area_Dark }
+																		margin = { 4 4 }
+																		tooltip = "AAWC_STAGE2_TT_AMENITIES"
+																		text_single = { text = "AAWC_STAGE2_AMENITIES" align = center using = Font_Size_Small }
+																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_amenities_value'))]#!" align = center using = Font_Size_Medium }
+																	}
+																}
+
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	visible = "[LessThan_CFixedPoint(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'), '(CFixedPoint)80')]"
+																	raw_text = "[Localize('AAWC_STAGE2_OCCUPANCY')]: #P [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'))]%#!  ([FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_population_holding_total'))] / [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_physical_capacity'))]) — [Localize('AAWC_STAGE2_UNCROWDED')]"
+																	tooltip = "AAWC_STAGE2_TT_OCCUPANCY"
+																	using = Font_Size_Small
+																}
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	visible = "[And(GreaterThanOrEqualTo_CFixedPoint(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'), '(CFixedPoint)80'), LessThan_CFixedPoint(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'), '(CFixedPoint)90'))]"
+																	raw_text = "[Localize('AAWC_STAGE2_OCCUPANCY')]: #Y [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'))]%#!  ([FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_population_holding_total'))] / [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_physical_capacity'))]) — [Localize('AAWC_STAGE2_HABITATION_PRESSURE')]"
+																	tooltip = "AAWC_STAGE2_TT_OCCUPANCY"
+																	using = Font_Size_Small
+																}
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	visible = "[And(GreaterThanOrEqualTo_CFixedPoint(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'), '(CFixedPoint)90'), LessThan_CFixedPoint(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'), '(CFixedPoint)100'))]"
+																	raw_text = "[Localize('AAWC_STAGE2_OCCUPANCY')]: #warning [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'))]%#!  ([FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_population_holding_total'))] / [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_physical_capacity'))]) — [Localize('AAWC_STAGE2_HEALTH_PRESSURE')]"
+																	tooltip = "AAWC_STAGE2_TT_OCCUPANCY"
+																	using = Font_Size_Small
+																}
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	visible = "[GreaterThanOrEqualTo_CFixedPoint(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'), '(CFixedPoint)100')]"
+																	raw_text = "[Localize('AAWC_STAGE2_OCCUPANCY')]: #N [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_occupancy_percent_display'))]%#!  ([FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_population_holding_total'))] / [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_physical_capacity'))]) — [Localize('AAWC_STAGE2_OVERCAPACITY')]"
+																	tooltip = "AAWC_STAGE2_TT_OCCUPANCY"
+																	using = Font_Size_Small
+																}
+															}
+														vbox = {
 															name = "aawc_primary_holding_population"
 															visible = "[HoldingView.GetProvince.GetTitle.IsCountyCapital]"
 															layoutpolicy_horizontal = expanding

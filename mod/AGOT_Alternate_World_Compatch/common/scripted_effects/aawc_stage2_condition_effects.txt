@@ -9,6 +9,44 @@ aawc_stage2_add_contribution_effect = {
 	change_variable = { name = aawc_stage2_structural_security add = $SECURITY$ }
 	change_variable = { name = aawc_stage2_structural_amenities add = $AMENITIES$ }
 	change_variable = { name = aawc_stage2_space_percent add = $SPACE_PERCENT$ }
+	# The short-lived category markers make the same contribution call populate
+	# the player-facing provenance buckets. No second scoring path is evaluated.
+	if = {
+		limit = { has_variable = aawc_stage2_record_holding_type_contributions }
+		change_variable = { name = aawc_stage2_contrib_holding_type_sustenance add = $SUSTENANCE$ }
+		change_variable = { name = aawc_stage2_contrib_holding_type_habitation add = $HABITATION$ }
+		change_variable = { name = aawc_stage2_contrib_holding_type_opportunity add = $OPPORTUNITY$ }
+		change_variable = { name = aawc_stage2_contrib_holding_type_health add = $HEALTH$ }
+		change_variable = { name = aawc_stage2_contrib_holding_type_security add = $SECURITY$ }
+		change_variable = { name = aawc_stage2_contrib_holding_type_amenities add = $AMENITIES$ }
+	}
+	if = {
+		limit = { has_variable = aawc_stage2_record_terrain_contributions }
+		change_variable = { name = aawc_stage2_contrib_terrain_sustenance add = $SUSTENANCE$ }
+		change_variable = { name = aawc_stage2_contrib_terrain_habitation add = $HABITATION$ }
+		change_variable = { name = aawc_stage2_contrib_terrain_opportunity add = $OPPORTUNITY$ }
+		change_variable = { name = aawc_stage2_contrib_terrain_health add = $HEALTH$ }
+		change_variable = { name = aawc_stage2_contrib_terrain_security add = $SECURITY$ }
+		change_variable = { name = aawc_stage2_contrib_terrain_amenities add = $AMENITIES$ }
+	}
+	if = {
+		limit = { has_variable = aawc_stage2_record_building_contributions }
+		change_variable = { name = aawc_stage2_contrib_buildings_sustenance add = $SUSTENANCE$ }
+		change_variable = { name = aawc_stage2_contrib_buildings_habitation add = $HABITATION$ }
+		change_variable = { name = aawc_stage2_contrib_buildings_opportunity add = $OPPORTUNITY$ }
+		change_variable = { name = aawc_stage2_contrib_buildings_health add = $HEALTH$ }
+		change_variable = { name = aawc_stage2_contrib_buildings_security add = $SECURITY$ }
+		change_variable = { name = aawc_stage2_contrib_buildings_amenities add = $AMENITIES$ }
+	}
+	if = {
+		limit = { has_variable = aawc_stage2_record_blocker_contributions }
+		change_variable = { name = aawc_stage2_contrib_blockers_sustenance add = $SUSTENANCE$ }
+		change_variable = { name = aawc_stage2_contrib_blockers_habitation add = $HABITATION$ }
+		change_variable = { name = aawc_stage2_contrib_blockers_opportunity add = $OPPORTUNITY$ }
+		change_variable = { name = aawc_stage2_contrib_blockers_health add = $HEALTH$ }
+		change_variable = { name = aawc_stage2_contrib_blockers_security add = $SECURITY$ }
+		change_variable = { name = aawc_stage2_contrib_blockers_amenities add = $AMENITIES$ }
+	}
 }
 
 aawc_stage2_refresh_structural_effect = {
@@ -21,6 +59,33 @@ aawc_stage2_refresh_structural_effect = {
 	set_variable = { name = aawc_stage2_structural_security value = 50 }
 	set_variable = { name = aawc_stage2_structural_amenities value = 50 }
 	set_variable = { name = aawc_stage2_space_percent value = 0 }
+	# Reset the retained provenance buckets before replaying the authoritative
+	# structural contribution calls below.
+	set_variable = { name = aawc_stage2_contrib_holding_type_sustenance value = 0 }
+	set_variable = { name = aawc_stage2_contrib_holding_type_habitation value = 0 }
+	set_variable = { name = aawc_stage2_contrib_holding_type_opportunity value = 0 }
+	set_variable = { name = aawc_stage2_contrib_holding_type_health value = 0 }
+	set_variable = { name = aawc_stage2_contrib_holding_type_security value = 0 }
+	set_variable = { name = aawc_stage2_contrib_holding_type_amenities value = 0 }
+	set_variable = { name = aawc_stage2_contrib_terrain_sustenance value = 0 }
+	set_variable = { name = aawc_stage2_contrib_terrain_habitation value = 0 }
+	set_variable = { name = aawc_stage2_contrib_terrain_opportunity value = 0 }
+	set_variable = { name = aawc_stage2_contrib_terrain_health value = 0 }
+	set_variable = { name = aawc_stage2_contrib_terrain_security value = 0 }
+	set_variable = { name = aawc_stage2_contrib_terrain_amenities value = 0 }
+	set_variable = { name = aawc_stage2_contrib_buildings_sustenance value = 0 }
+	set_variable = { name = aawc_stage2_contrib_buildings_habitation value = 0 }
+	set_variable = { name = aawc_stage2_contrib_buildings_opportunity value = 0 }
+	set_variable = { name = aawc_stage2_contrib_buildings_health value = 0 }
+	set_variable = { name = aawc_stage2_contrib_buildings_security value = 0 }
+	set_variable = { name = aawc_stage2_contrib_buildings_amenities value = 0 }
+	set_variable = { name = aawc_stage2_contrib_blockers_sustenance value = 0 }
+	set_variable = { name = aawc_stage2_contrib_blockers_habitation value = 0 }
+	set_variable = { name = aawc_stage2_contrib_blockers_opportunity value = 0 }
+	set_variable = { name = aawc_stage2_contrib_blockers_health value = 0 }
+	set_variable = { name = aawc_stage2_contrib_blockers_security value = 0 }
+	set_variable = { name = aawc_stage2_contrib_blockers_amenities value = 0 }
+	set_variable = { name = aawc_stage2_record_holding_type_contributions value = 1 }
 	if = {
 		limit = { has_holding_type = castle_holding }
 	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -4 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 10 AMENITIES = 0 SPACE_PERCENT = 0 }
@@ -57,12 +122,14 @@ aawc_stage2_refresh_structural_effect = {
 		limit = { has_holding_type = settlement_holding }
 	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -5 OPPORTUNITY = -3 HEALTH = -3 SECURITY = 0 AMENITIES = -2 SPACE_PERCENT = 0 }
 	}
+	remove_variable = aawc_stage2_record_holding_type_contributions
 	change_variable = { name = aawc_stage2_structural_habitation add = { value = aawc_stage2_main_level subtract = 1 multiply = 3 } }
 	change_variable = { name = aawc_stage2_structural_opportunity add = { value = aawc_stage2_main_level subtract = 1 } }
 	change_variable = { name = aawc_stage2_structural_habitation add = { value = aawc_stage2_development multiply = 0.12 } }
 	change_variable = { name = aawc_stage2_structural_opportunity add = { value = aawc_stage2_development multiply = 0.08 } }
 	change_variable = { name = aawc_stage2_structural_health add = { value = aawc_stage2_development multiply = 0.04 } }
 	# Terrain purposes are separate from the geographical space multiplier.
+	set_variable = { name = aawc_stage2_record_terrain_contributions value = 1 }
 	if = {
 		limit = { agot_is_urban_terrain = yes }
 	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 3 OPPORTUNITY = 4 HEALTH = -2 SECURITY = 0 AMENITIES = 2 SPACE_PERCENT = 0 }
@@ -147,9 +214,13 @@ aawc_stage2_refresh_structural_effect = {
 		limit = { agot_is_frozen_flats_terrain = yes }
 	aawc_stage2_add_contribution_effect = { SUSTENANCE = -18 HABITATION = 0 OPPORTUNITY = 0 HEALTH = -6 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
 	}
+	remove_variable = aawc_stage2_record_terrain_contributions
+	set_variable = { name = aawc_stage2_record_building_contributions value = 1 }
 	aawc_stage2_building_contributions_effect = yes
+	remove_variable = aawc_stage2_record_building_contributions
 	# Existing regional blockers use supported flags; a category applies once,
 	# independent of the number of graphical/clearance definitions in its lineage.
+	set_variable = { name = aawc_stage2_record_blocker_contributions value = 1 }
 	if = {
 		limit = { has_building_with_flag = aawc_blocker_category_blight_famine_barren_wastes }
 	aawc_stage2_add_contribution_effect = { SUSTENANCE = -12 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = 0 }
@@ -182,6 +253,7 @@ aawc_stage2_refresh_structural_effect = {
 		limit = { has_building_with_flag = aawc_blocker_category_stone_fire_impassable_approaches }
 	aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -3 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = -8 }
 	}
+	remove_variable = aawc_stage2_record_blocker_contributions
 	set_variable = { name = aawc_stage2_structural_sustenance value = { value = var:aawc_stage2_structural_sustenance min = 0 max = 100 } }
 	set_variable = { name = aawc_stage2_structural_habitation value = { value = var:aawc_stage2_structural_habitation min = 0 max = 100 } }
 	set_variable = { name = aawc_stage2_structural_opportunity value = { value = var:aawc_stage2_structural_opportunity min = 0 max = 100 } }

@@ -95,6 +95,56 @@ aawc_stage2_health_pressure_loss = {
 	max = 100
 }
 
+# Player-facing provenance accessors. Holding type, terrain, buildings, and
+# blockers are recorded by the same contribution calls that build the score.
+# Main-level and development terms read the same source values directly.
+aawc_stage2_contrib_holding_type_sustenance = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_holding_type_sustenance } value = var:aawc_stage2_contrib_holding_type_sustenance } }
+aawc_stage2_contrib_holding_type_habitation = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_holding_type_habitation } value = var:aawc_stage2_contrib_holding_type_habitation } }
+aawc_stage2_contrib_holding_type_opportunity = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_holding_type_opportunity } value = var:aawc_stage2_contrib_holding_type_opportunity } }
+aawc_stage2_contrib_holding_type_health = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_holding_type_health } value = var:aawc_stage2_contrib_holding_type_health } }
+aawc_stage2_contrib_holding_type_security = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_holding_type_security } value = var:aawc_stage2_contrib_holding_type_security } }
+aawc_stage2_contrib_holding_type_amenities = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_holding_type_amenities } value = var:aawc_stage2_contrib_holding_type_amenities } }
+aawc_stage2_contrib_main_habitation = { value = aawc_stage2_main_level subtract = 1 multiply = 3 }
+aawc_stage2_contrib_main_opportunity = { value = aawc_stage2_main_level subtract = 1 }
+aawc_stage2_contrib_development_habitation = { value = aawc_stage2_development multiply = 0.12 }
+aawc_stage2_contrib_development_opportunity = { value = aawc_stage2_development multiply = 0.08 }
+aawc_stage2_contrib_development_health = { value = aawc_stage2_development multiply = 0.04 }
+aawc_stage2_contrib_terrain_sustenance = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_terrain_sustenance } value = var:aawc_stage2_contrib_terrain_sustenance } }
+aawc_stage2_contrib_terrain_habitation = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_terrain_habitation } value = var:aawc_stage2_contrib_terrain_habitation } }
+aawc_stage2_contrib_terrain_opportunity = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_terrain_opportunity } value = var:aawc_stage2_contrib_terrain_opportunity } }
+aawc_stage2_contrib_terrain_health = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_terrain_health } value = var:aawc_stage2_contrib_terrain_health } }
+aawc_stage2_contrib_terrain_security = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_terrain_security } value = var:aawc_stage2_contrib_terrain_security } }
+aawc_stage2_contrib_terrain_amenities = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_terrain_amenities } value = var:aawc_stage2_contrib_terrain_amenities } }
+aawc_stage2_contrib_buildings_sustenance = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_buildings_sustenance } value = var:aawc_stage2_contrib_buildings_sustenance } }
+aawc_stage2_contrib_buildings_habitation = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_buildings_habitation } value = var:aawc_stage2_contrib_buildings_habitation } }
+aawc_stage2_contrib_buildings_opportunity = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_buildings_opportunity } value = var:aawc_stage2_contrib_buildings_opportunity } }
+aawc_stage2_contrib_buildings_health = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_buildings_health } value = var:aawc_stage2_contrib_buildings_health } }
+aawc_stage2_contrib_buildings_security = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_buildings_security } value = var:aawc_stage2_contrib_buildings_security } }
+aawc_stage2_contrib_buildings_amenities = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_buildings_amenities } value = var:aawc_stage2_contrib_buildings_amenities } }
+aawc_stage2_contrib_blockers_sustenance = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_blockers_sustenance } value = var:aawc_stage2_contrib_blockers_sustenance } }
+aawc_stage2_contrib_blockers_habitation = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_blockers_habitation } value = var:aawc_stage2_contrib_blockers_habitation } }
+aawc_stage2_contrib_blockers_opportunity = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_blockers_opportunity } value = var:aawc_stage2_contrib_blockers_opportunity } }
+aawc_stage2_contrib_blockers_health = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_blockers_health } value = var:aawc_stage2_contrib_blockers_health } }
+aawc_stage2_contrib_blockers_security = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_blockers_security } value = var:aawc_stage2_contrib_blockers_security } }
+aawc_stage2_contrib_blockers_amenities = { value = 0 if = { limit = { has_variable = aawc_stage2_contrib_blockers_amenities } value = var:aawc_stage2_contrib_blockers_amenities } }
+
+# Effective-condition adjustments mirror aawc_stage2_refresh_effective_effect.
+aawc_stage2_adjustment_disruption_sustenance = {
+	value = 0
+	if = { limit = { county = { OR = { has_variable = aawc_population_siege_growth_suppressed has_variable = aawc_population_raid_growth_suppressed } } } value = -5 }
+}
+aawc_stage2_adjustment_disruption_security = {
+	value = 0
+	if = { limit = { county = { OR = { has_variable = aawc_population_siege_growth_suppressed has_variable = aawc_population_raid_growth_suppressed } } } value = -30 }
+}
+aawc_stage2_adjustment_control_security = { value = county.county_control min = 0 max = 100 subtract = 100 multiply = 0.35 }
+aawc_stage2_adjustment_plague_health = {
+	value = 0
+	if = { limit = { county = { has_province_with_epidemic = { intensity = apocalyptic } } } value = -45 }
+	else_if = { limit = { county = { has_province_with_epidemic = { intensity >= major } } } value = -30 }
+	else_if = { limit = { county = { has_province_with_epidemic = { intensity = any } } } value = -15 }
+}
+
 # Read-only accessors return neutral conditions before first cache initialization.
 aawc_stage2_structural_sustenance_value = { value = 50 if = { limit = { has_variable = aawc_stage2_structural_sustenance } value = var:aawc_stage2_structural_sustenance } min = 0 max = 100 }
 aawc_stage2_structural_habitation_value = { value = 50 if = { limit = { has_variable = aawc_stage2_structural_habitation } value = var:aawc_stage2_structural_habitation } min = 0 max = 100 }
