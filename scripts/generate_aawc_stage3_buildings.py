@@ -18,8 +18,24 @@ CONSTRUCTION = ROOT / 'catalogue/stage3/construction.json'
 BUILDINGS = MOD / 'common/buildings/zz_aawc_stage3_catalogue.txt'
 LOC = MOD / 'localization/english/aawc_stage3_buildings_l_english.yml'
 METADATA = ROOT / 'catalogue/stage3/runtime_metadata.json'
+STANDARD_HOLDINGS = MOD / 'common/holdings/00_holdings.txt'
+REGIONAL_HOLDINGS = MOD / 'common/holdings/zz_aawc_regional_blocker_holdings.txt'
+HOLDING_TARGETS = {
+    STANDARD_HOLDINGS: ('castle_holding', 'tribal_holding', 'city_holding', 'church_holding',
+                        'temple_citadel_holding'),
+    REGIONAL_HOLDINGS: ('pirate_den_holding', 'settlement_holding'),
+}
+HOLDING_MARKER_START = '# BEGIN AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)'
+HOLDING_MARKER_END = '# END AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)'
 GATE_KEYS = ('can_construct_potential', 'can_construct', 'can_construct_showing_failures_only', 'is_enabled')
-SETTLED = 'aawc_population_valid_settlement_for_cohort_trigger = yes'
+# Building predicates execute in province scope.  The population settlement
+# trigger executes in landed-title scope, so injecting it here hides every
+# generated building even in a valid holding.  Keep the same authoritative
+# holding whitelist, expressed with province-scope predicates.
+# Nomad and herder holdings explicitly declare the native ``no_buildings``
+# parameter and expose no construction allow-list.  They are populated holding
+# forms, but they are not valid Stage 3 construction surfaces.
+SETTLED = 'OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }'
 URBAN = 'OR = { has_holding_type = city_holding has_holding_type = castle_holding }'
 MILITARY = 'OR = { has_holding_type = castle_holding has_holding_type = tribal_holding }'
 WATER = 'OR = { is_coastal = yes is_riverside_province = yes }'
@@ -191,6 +207,67 @@ def remap_reads(text, mapping):
         return f'OR = {{ {key} = {old} {key} = {mapping[old]} }}'
     return re.sub(r'\b(has_building_or_higher|has_building)\s*=\s*([a-zA-Z0-9_]+)',replace,text)
 
+def matching_brace(text, opening):
+    """Return the closing brace while ignoring comments and quoted text."""
+    require(text[opening] == '{', 'brace scan must start at an opening brace')
+    depth = 0; quoted = False; escaped = False; comment = False
+    for pos in range(opening, len(text)):
+        char = text[pos]
+        if comment:
+            if char == '\n': comment = False
+            continue
+        if quoted:
+            if escaped: escaped = False
+            elif char == '\\': escaped = True
+            elif char == '"': quoted = False
+            continue
+        if char == '#': comment = True
+        elif char == '"': quoted = True
+        elif char == '{': depth += 1
+        elif char == '}':
+            depth -= 1
+            if depth == 0: return pos
+    raise ValueError('unterminated brace block')
+
+def holding_buildings(text, holding):
+    """Read a holding's registered first-tier building IDs."""
+    match = re.search(r'(?m)^'+re.escape(holding)+r'\s*=\s*\{', text)
+    require(match is not None, f'missing holding definition {holding}')
+    holding_open = text.find('{', match.start())
+    holding_close = matching_brace(text, holding_open)
+    body = text[holding_open + 1:holding_close]
+    buildings = re.search(r'(?m)^\s*buildings\s*=\s*\{', body)
+    require(buildings is not None, f'{holding}: missing buildings block')
+    buildings_open = holding_open + 1 + body.find('{', buildings.start())
+    buildings_close = matching_brace(text, buildings_open)
+    registered = []
+    for line in text[buildings_open + 1:buildings_close].splitlines():
+        value = line.split('#', 1)[0].strip()
+        if re.fullmatch(r'[A-Za-z0-9_]+', value): registered.append(value)
+    return registered, buildings_close
+
+def register_stage3_roots(path, holdings, roots):
+    """Add generated construction roots to the effective holding allow-lists."""
+    raw = path.read_bytes(); had_bom = raw.startswith(b'\xef\xbb\xbf')
+    text = raw.decode('utf-8-sig')
+    marker = re.compile(r'(?m)^\s*'+re.escape(HOLDING_MARKER_START)+r'\s*$.*?^\s*'+re.escape(HOLDING_MARKER_END)+r'\s*$\n?', re.S)
+    text = marker.sub('', text)
+    block = ('\t\t'+HOLDING_MARKER_START+'\n'
+             + ''.join('\t\t'+root+'\n' for root in roots)
+             + '\t\t'+HOLDING_MARKER_END+'\n')
+    for holding in holdings:
+        existing, closing = holding_buildings(text, holding)
+        require(not (set(existing) & set(roots)), f'{holding}: unmanaged Stage 3 registration')
+        line_start = text.rfind('\n', 0, closing) + 1
+        text = text[:line_start] + block + text[line_start:]
+    payload = text.encode('utf-8-sig' if had_bom else 'utf-8')
+    # Reparse the emitted payload so a malformed insertion cannot be packaged.
+    emitted = payload.decode('utf-8-sig')
+    for holding in holdings:
+        registered, _ = holding_buildings(emitted, holding)
+        require(set(roots) <= set(registered), f'{holding}: incomplete Stage 3 registration')
+    return payload
+
 def compile_buildings(data, contract):
     validate(data)
     require(set(contract)=={'schema_version','policy','symbols','chains'} and contract['schema_version']==1 and contract['policy']=='authorized_identity_ecology_v1', 'construction schema/policy mismatch')
@@ -234,11 +311,27 @@ def compile_buildings(data, contract):
             positive=sum(max(v,0) for v in l['conditions'].values())
             negative=-sum(min(v,0) for v in l['conditions'].values())
             ai=max(1,10+positive-negative)
-            script += ['',bid+' = {',f' construction_time = {l["construction_days"]}', ' cost = { '+' '.join(f'{k} = {v}' for k,v in l['costs'].items())+' }',f' type = {"duchy_capital" if c["kind"]=="duchy" else "regular"}', ' type_icon = "icon_building_market_villages.dds"', ' show_disabled = yes']
+            script += ['',bid+' = {',f' construction_time = {l["construction_days"]}', ' cost = { '+' '.join(f'{k} = {v}' for k,v in l['costs'].items())+' }']
+            # CK3 regular buildings omit ``type``.  ``regular`` is not an engine
+            # building class and causes otherwise valid catalogue entries to be
+            # excluded from the construction menu.  Only duchy buildings carry
+            # the explicit native class.
+            if c['kind']=='duchy': script.append(' type = duchy_capital')
+            script += [' type_icon = "icon_building_market_villages.dds"', ' show_disabled = yes']
             for key,value in gates.items():
                 if value.strip(): script.append(' '+key+' = {\n  '+value.strip().replace('\n','\n  ')+'\n }')
             if l['upgrades_to']: script.append(' next_building = '+l['upgrades_to'])
-            script += [' effect_desc = '+l['player']['effect_description_key'],f' ai_value = {{ base = {ai} }}','}']
+            # CK3 suppresses ``effect_desc`` in the construction UI when a
+            # building has no native modifier block.  A rendered 1.11.3.6
+            # probe established that an exactly-zero modifier is sufficient
+            # to expose the custom description while adding no gameplay
+            # output and no visible "+0" modifier line.
+            script += [
+                ' county_modifier = { development_growth_factor = 0 }',
+                ' effect_desc = '+l['player']['effect_description_key'],
+                f' ai_value = {{ base = {ai} }}',
+                '}',
+            ]
             name=re.sub(r'\s*\([^)]*\)','',c['player']['name'])+' '+str(l['tier'])
             scores='; '.join(f'{d.title()} {v:+g}' for d,v in l['conditions'].items() if v)
             effects=(scores+'; ' if scores else '')+f'Settlement space {l["capacity"]["space_percent"]:+g}%.'
@@ -249,7 +342,15 @@ def compile_buildings(data, contract):
                 localized('building_type_'+bid,re.sub(r'\s*\([^)]*\)','',c['player']['name']))
                 localized('building_type_'+bid+'_desc',c['levels'][0]['native_role']['proposal']['distinct_identity'].capitalize()+'.')
             metadata.append({'id':bid,'chain':cid,'tier':l['tier'],'ai_value':ai,'native_role':l['native_role'], 'era_innovation':ERAS[era], 'gates':gates, 'provenance':r['provenance'], 'derivation':rule['rationale'], 'icon':'icon_building_market_villages.dds','model':'none: optional regular/duchy building asset; existing holding visualization retained'})
-    return {BUILDINGS: ('\n'.join(script)+'\n').encode(), LOC: ('\n'.join(loc)+'\n').encode('utf-8-sig'),METADATA:json_bytes({'policy':contract['policy'],'target_definitions':771,'chains':131,'construction_status':'source_activated','rendered_certification':False,'levels':metadata})}
+    roots = sorted(c['levels'][0]['id'] for c in chains.values())
+    artifacts = {
+        BUILDINGS: ('\n'.join(script)+'\n').encode('utf-8-sig'),
+        LOC: ('\n'.join(loc)+'\n').encode('utf-8-sig'),
+        METADATA: json_bytes({'policy':contract['policy'],'target_definitions':771,'chains':131,'construction_status':'source_activated','rendered_certification':False,'levels':metadata}),
+    }
+    for path, holdings in HOLDING_TARGETS.items():
+        artifacts[path] = register_stage3_roots(path, holdings, roots)
+    return artifacts
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)

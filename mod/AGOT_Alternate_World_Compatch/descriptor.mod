@@ -3,7 +3,7 @@ tags={
     "Gameplay"
     "Total Conversion"
 }
-version="1.11.3.3"
+version="1.11.3.7"
 name="AGOT_Alternate_World_Compatch"
 replace_path="common/culture/eras"
 replace_path="common/defines"

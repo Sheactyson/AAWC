@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "version": "1.11.3.7",
+  "date": "2026-11-14",
+  "status": "pass",
+  "scope": "bounded representative Stage 3 construction UI inspection",
+  "environment": {
+    "ck3_version": "1.19.0.6",
+    "ck3_checksum": "9c3c",
+    "agot_version": "0.5.2.1",
+    "legacy_of_valyria_version": "1.5.2.13",
+    "aawc_version": "1.11.3.7",
+    "campaign": "retained paused Pennon campaign",
+    "date_in_game": "21st of Fourth Moon, 2 A.D.",
+    "holding": "Tribe of Pennon Hall",
+    "holding_type": "tribal_holding",
+    "terrain": "hills",
+    "faith": "Lost Flames",
+    "culture": "Pennon",
+    "available_gold": 110
+  },
+  "runtime_identity": {
+    "live_catalogue": "common/buildings/zz_aawc_stage3_catalogue.txt",
+    "sha256": "073EBF9A2F5C03C8569706BF49867C4C0BF8723DEAA3A57A8E4A34E779CDE4C8",
+    "zero_presentation_anchors": 771,
+    "checked_while_ck3_running": true
+  },
+  "rendered_observations": [
+    {
+      "category": "unrestricted_regular",
+      "building": "Common Small Residences 1",
+      "available": true,
+      "cost": {"gold": 105},
+      "construction_time": "10 months",
+      "tiers_visible": 8,
+      "description": "Small low-cost housing prior to advanced districts.",
+      "effect_text": "Structural conditions: Habitation +1; Settlement space +12%. Cumulative installed-tier values; replaces the preceding tier. Native economic and military outputs are deferred."
+    },
+    {
+      "category": "ecology_terrain_gated",
+      "building": "Steep-Slope Terrace Agriculture 1",
+      "available": true,
+      "positive_gate_evidence": "construction control enabled in a visually confirmed hills tribal holding",
+      "cost": {"gold": 105},
+      "construction_time": "7 months",
+      "tiers_visible": 7,
+      "description": "Mountain subsistence investment, high labor requirement.",
+      "effect_text": "Structural conditions: Opportunity +1; Sustenance +1; Settlement space -0.5%. Cumulative installed-tier values; replaces the preceding tier. Native economic and military outputs are deferred."
+    },
+    {
+      "category": "multi_tier_upgrade",
+      "building": "Steep-Slope Terrace Agriculture 2",
+      "cost": {"gold": 165},
+      "construction_time": "10 months",
+      "upgrade_topology": "tier I through tier VII displayed as one contiguous chain",
+      "effect_text": "Structural conditions: Opportunity +1; Sustenance +2; Settlement space -1%. Cumulative installed-tier values; replaces the preceding tier. Native economic and military outputs are deferred."
+    },
+    {
+      "category": "derived_identity_title_gate",
+      "building": "High Court And Revenue Offices",
+      "available": false,
+      "cost": {"gold": 370, "prestige": 70},
+      "construction_time": "18 months",
+      "gate_message": "You do not hold the High Lordship of Nestridge",
+      "effect_text": "Structural conditions: Amenities +1; Health -1; Opportunity +4; Settlement space +0%. Cumulative installed-tier values; replaces the preceding tier. Native economic and military outputs are deferred."
+    },
+    {
+      "category": "ordinary_military_chain",
+      "building": "Mounted Training Fields 1",
+      "cost": {"gold": 180},
+      "construction_time": "8 months",
+      "effect_text": "Structural conditions: Opportunity +1; Settlement space -1%. Cumulative installed-tier values; replaces the preceding tier. Native economic and military outputs are deferred."
+    }
+  ],
+  "additional_compact_rows": [
+    {"building": "Archer Training Grounds", "cost": {"gold": 205}, "construction_time": "8 months"},
+    {"building": "Breweries", "cost": {"gold": 170}, "construction_time": "8 months"},
+    {"building": "Palisades", "cost": {"gold": 160}, "construction_time": "8 months"},
+    {"building": "Public Bathhouses", "cost": {"gold": 200}, "construction_time": "8 months"},
+    {"building": "Commercial Guild Houses", "cost": {"gold": 235}, "construction_time": "7 months"},
+    {"building": "War Camps", "cost": {"gold": 170, "prestige": 34}, "construction_time": "8 months"},
+    {"building": "Warrior Lodges", "cost": {"gold": 180}, "construction_time": "9 months"},
+    {"building": "Watermills", "cost": {"gold": 180}, "construction_time": "8 months"}
+  ],
+  "repaired_defects": [
+    "building predicates previously invoked a landed-title-scope settlement trigger from province scope",
+    "regular building definitions incorrectly emitted the unsupported explicit type = regular",
+    "generated chain roots were absent from effective holding construction allow-lists",
+    "effect_desc was suppressed by CK3 when no native modifier block existed"
+  ],
+  "repair_policy": {
+    "supported_holding_types": [
+      "castle_holding",
+      "tribal_holding",
+      "city_holding",
+      "church_holding",
+      "temple_citadel_holding",
+      "pirate_den_holding",
+      "settlement_holding"
+    ],
+    "excluded_holding_types": {
+      "nomad_holding": "native no_buildings parameter",
+      "herder_holding": "native no_buildings parameter"
+    },
+    "presentation_anchor": "county_modifier = { development_growth_factor = 0 }",
+    "anchor_runtime_effect": "exposes effect_desc without a visible +0 line or nonzero gameplay output"
+  },
+  "automated_evidence": {
+    "focused_stage3_building_tests": "12/12 passed",
+    "generator_check": "passed",
+    "package_parity": "345 source / 345 archive / 345 installed / 345 manifest",
+    "archive_sha256": "D70738BFF58381E07A196A11497CD26EA1FC6C5A8E1D55FA39F86771FAB5D719",
+    "manifest_sha256": "D97726A112E7A35F25D6342F26D2148C75A4EBAF9D6D2210CEA23280244AB8A9"
+  },
+  "evidence_boundary": {
+    "rendered": "names, descriptions, compact rows, cost/time labels, positive terrain availability, title-gate failure text, effect descriptions, and visible upgrade topology listed above",
+    "automated": "exhaustive 771-definition structure, generated allow-list registration, zero presentation anchors, and source/package/install parity",
+    "not_claimed": "direct AI construction behavior, native Stage 6 military outputs, native Stage 7 economic outputs, or exhaustive rendering of every chain"
+  },
+  "exit": {
+    "ck3_closed": true,
+    "exit_autosave": false
+  }
+}

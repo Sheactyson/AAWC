@@ -18,7 +18,6 @@ def evaluate(nodes, fixture):
             values=[one(*n) for n in v]
             return {'AND':all(values),'OR':any(values),'NOT':not all(values)}[k]
         if k in ('culture','county','county.holder'): return evaluate(v,fixture)
-        if k=='aawc_population_valid_settlement_for_cohort_trigger': return fixture['holding']!='ruins_holding'
         if k=='has_holding_type': return fixture['holding']==v
         if k=='has_building_or_higher': return v in fixture['buildings']
         if k=='has_innovation': return v in fixture['innovations']
@@ -38,7 +37,7 @@ class Buildings(unittest.TestCase):
     def setUpClass(cls):
         cls.data=g.load_source(g.SOURCE);cls.contract=g.load_source(g.CONSTRUCTION)
         cls.artifacts=g.compile_buildings(cls.data,cls.contract)
-        cls.script=cls.artifacts[g.BUILDINGS].decode()
+        cls.script=cls.artifacts[g.BUILDINGS].decode('utf-8-sig')
         cls.parsed=parse(cls.script)
         cls.definitions={k:{key:val for key,_,val in body} for k,_,body in cls.parsed}
         cls.levels={l['id']:(c,l) for c in cls.data['chains'] for l in c['levels']}
@@ -60,7 +59,11 @@ class Buildings(unittest.TestCase):
                 self.assertEqual(float(actual['construction_time']),level['construction_days'])
                 self.assertEqual({k:float(v) for k,_,v in actual['cost']},level['costs'])
                 self.assertEqual(actual.get('next_building'),level['upgrades_to'])
-                self.assertEqual(actual['type'],'duchy_capital' if chain['kind']=='duchy' else 'regular')
+                if chain['kind']=='duchy':
+                    self.assertEqual(actual['type'],'duchy_capital')
+                else:
+                    self.assertNotIn('type',actual)
+        self.assertNotIn('type = regular',self.script)
 
     def test_localization_and_signed_effects_cover_every_level(self):
         raw=self.artifacts[g.LOC].decode('utf-8-sig')
@@ -76,9 +79,13 @@ class Buildings(unittest.TestCase):
                 if value:self.assertIn(f'{dimension.title()} {value:+g}',effect)
             self.assertIn(f'{level["capacity"]["space_percent"]:+g}%',effect)
             self.assertEqual(self.definitions[bid]['effect_desc'],level['player']['effect_description_key'])
+            self.assertEqual(
+                self.definitions[bid]['county_modifier'],
+                [('development_growth_factor','=','0')],
+            )
 
     def test_native_roles_and_ai_all_levels_no_stage6_or_stage7_outputs(self):
-        allowed={'construction_time','cost','type','type_icon','show_disabled',*g.GATE_KEYS,'next_building','effect_desc','ai_value'}
+        allowed={'construction_time','cost','type','type_icon','show_disabled',*g.GATE_KEYS,'next_building','county_modifier','effect_desc','ai_value'}
         self.assertEqual({r['id'] for r in self.metadata},set(self.levels))
         for r in self.metadata:
             actual=self.definitions[r['id']]
@@ -95,6 +102,35 @@ class Buildings(unittest.TestCase):
             self.assertFalse(g.gate_keys(text)-g.NATIVE_GATE_KEYS-set(symbols['scripted_triggers']))
             self.assertFalse(set(re.findall(r'has_building(?:_or_higher)?\s*=\s*(\w+)',text))-set(symbols['buildings'])-set(self.levels))
             if r['era_innovation']:self.assertIn('has_innovation = '+r['era_innovation'],text)
+
+    def test_construction_uses_province_scope_settlement_whitelist(self):
+        allowed={'castle_holding','tribal_holding','city_holding','church_holding',
+                 'temple_citadel_holding','pirate_den_holding','settlement_holding'}
+        self.assertNotIn('aawc_population_valid_settlement_for_cohort_trigger',self.script)
+        for bid in self.levels:
+            potential=self.definitions[bid]['can_construct_potential']
+            text=' '.join(str(part) for part in potential)
+            for holding in allowed:
+                with self.subTest(bid=bid,holding=holding):
+                    self.assertIn(holding,text)
+            self.assertNotIn('nomad_holding',text)
+            self.assertNotIn('herder_holding',text)
+
+    def test_every_chain_root_is_registered_for_each_supported_holding_type(self):
+        roots=sorted(c['levels'][0]['id'] for c in self.data['chains'])
+        nonroots={level['id'] for c in self.data['chains'] for level in c['levels'][1:]}
+        for path,holdings in g.HOLDING_TARGETS.items():
+            emitted=self.artifacts[path].decode('utf-8-sig')
+            self.assertEqual(emitted.count(g.HOLDING_MARKER_START),len(holdings))
+            self.assertEqual(emitted.count(g.HOLDING_MARKER_END),len(holdings))
+            for holding in holdings:
+                registered,_=g.holding_buildings(emitted,holding)
+                with self.subTest(path=path.name,holding=holding):
+                    self.assertTrue(set(roots)<=set(registered))
+                    self.assertFalse(nonroots & set(registered))
+                    for root in roots:self.assertEqual(registered.count(root),1)
+        self.assertIn('palisades_01',g.holding_buildings(self.artifacts[g.STANDARD_HOLDINGS].decode('utf-8-sig'),'tribal_holding')[0])
+        self.assertIn('agot_pirate_control_01',g.holding_buildings(self.artifacts[g.REGIONAL_HOLDINGS].decode('utf-8-sig'),'pirate_den_holding')[0])
 
     def test_new_chain_positive_and_negative_holding_fixtures_every_tier(self):
         seen=set()
@@ -146,6 +182,7 @@ class Buildings(unittest.TestCase):
         before=copy.deepcopy(self.contract)
         self.assertEqual(self.artifacts,g.compile_buildings(self.data,self.contract))
         self.assertEqual(before,self.contract)
+        self.assertTrue(self.artifacts[g.BUILDINGS].startswith(b'\xef\xbb\xbf'))
         for path,payload in self.artifacts.items():self.assertEqual(path.read_bytes(),payload)
 
     def test_fail_closed_missing_extra_malformed_or_unknown_gates(self):
