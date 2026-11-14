@@ -1,0 +1,76 @@
+{
+  "version": "1.11.3.13",
+  "recorded_utc": "2026-11-14T12:34:17.3523302Z",
+  "baseline_commit": "2d0cc73",
+  "candidate": {
+    "archive": "release/AGOT_Alternate_World_Compatch_1.11.3.13.zip",
+    "archive_sha256": "8EA6FD41EA110D7656062D6EA61B1B394740F14CF818813742853C543520348E",
+    "manifest": "release/AGOT_Alternate_World_Compatch_1.11.3.13.manifest.sha256",
+    "manifest_sha256": "A37BEDD157D7A5446344511D62825AFD2B309F8D7DA70B25D2A221D13D44AB79",
+    "source_archive_install_manifest_counts": [346, 346, 346, 346],
+    "parity": "pass"
+  },
+  "implementation": {
+    "catalogue_levels": 771,
+    "catalogue_chains": 131,
+    "generated_groups": 31,
+    "primary_condition_tooltips": 6,
+    "context_path": "HoldingView.GetProvince",
+    "secondary_localization_evaluation_removed": true,
+    "canonical_stage3_display_keys": true
+  },
+  "automated_validation": {
+    "stage3_adapter": "10/10 pass",
+    "stage2_conditions": "19/19 pass",
+    "stage2_population_ui": "11/11 pass",
+    "deterministic_generation": "771 levels / 131 chains pass",
+    "git_diff_check": "pass"
+  },
+  "fixture": {
+    "path": "OneDrive/Documents/Paradox Interactive/Crusader Kings III/save games/aawc_1_11_3_13_building_drilldown_fixture.ck3",
+    "sha256": "95AFB18F3E89049A18726C5766D1318169A6DE84DDDA77A2E634C89C2E8C5AB2",
+    "holding": "Pennon",
+    "campaign_time_advanced": false,
+    "saved_during_verification": false,
+    "removed_after_verification": false,
+    "cleanup": "Exact-path deletion was rejected by the execution environment; the fixture remains outside the repository and Git history."
+  },
+  "rendered_observations": {
+    "runtime": {
+      "ck3": "1.19.0.6",
+      "agot": "0.5.2.1",
+      "legacy_of_valyria": "1.5.2.13"
+    },
+    "standard_mirror": {
+      "source": "mod/AGOT_Alternate_World_Compatch/gui/window_county_view.gui",
+      "source_sha256": "31EBB5A61273F211DF7D4D6046220B177E05257C25BB1A2506DB295B3D5222F2",
+      "result": "pass"
+    },
+    "valyria_mirror": {
+      "source": "mod/AGOT_Alternate_World_Compatch/gui_folder_valyria/window_county_view.gui",
+      "source_sha256": "CDE99F402BC7F3CAD2C5B4CC63A81BDFF358B0016E305BE2372E1A74F01E9069",
+      "method": "controlled installed-only substitution into the active county-view path",
+      "natural_loader_route_claimed": false,
+      "result": "pass"
+    },
+    "rows": [
+      "Apiaries 8: Sustenance +5, Opportunity +4, Amenities +2, Settlement space -4%",
+      "Horse Pastures 6: Habitation -2, Opportunity +4, Security +1, Settlement space -6%",
+      "Workshops 8: Opportunity +12, Health -3, Amenities +1, Settlement space -4%"
+    ],
+    "installed_package_restored_after_substitution": true
+  },
+  "runtime_log": {
+    "sha256": "5C25CC290DC2B079AAF67E49A085BAA448AB635F2EEC6131469E9CA1BFD26204",
+    "missing_holdingview_context_matches": 0,
+    "missing_province_context_matches": 0,
+    "building_lines_matches": 0,
+    "tooltip_gui_matches": 0,
+    "representative_generated_row_matches": 0
+  },
+  "source_crash_save": {
+    "path": "OneDrive/Documents/Paradox Interactive/Crusader Kings III/crashes/ck3_20261113_222018/last_save.ck3",
+    "sha256_before_and_after": "E9338EC67899A181A724029ACBE4B1D26EC09F292B6D07A7571905DB025C9035"
+  },
+  "scope": "Rendered contributor drill-down context and presentation only; no broader gameplay or whole-catalogue visual certification is claimed."
+}

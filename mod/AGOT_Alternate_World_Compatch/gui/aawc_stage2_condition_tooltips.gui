@@ -1,0 +1,25 @@
+types aawc_stage2_condition_tooltips {
+	type aawc_stage2_condition_tooltip = container {
+		using = GeneralTooltipSetup
+		alwaystransparent = no
+
+		object_tooltip_pop_out = {
+			blockoverride "title_text" {
+				block "aawc_title_text" {
+					text = ""
+				}
+			}
+
+			blockoverride "concept_link" {
+				text = ""
+			}
+
+			blockoverride "description_text" {
+				block "aawc_description_text" {
+					text = ""
+				}
+			}
+
+		}
+	}
+}

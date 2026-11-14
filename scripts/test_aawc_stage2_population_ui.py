@@ -9,6 +9,7 @@ MOD = ROOT / "mod" / "AGOT_Alternate_World_Compatch"
 OUTER = ROOT / "mod" / "AGOT_Alternate_World_Compatch.mod"
 GUI = MOD / "gui" / "window_county_view.gui"
 VALYRIA_GUI = MOD / "gui_folder_valyria" / "window_county_view.gui"
+CONDITION_TOOLTIP_GUI = MOD / "gui" / "aawc_stage2_condition_tooltips.gui"
 LOC = MOD / "localization" / "english" / "aawc_population_l_english.yml"
 BUILDING_LOC = MOD / "localization" / "english" / "aawc_stage2_building_contributions_l_english.yml"
 BUILDING_CUSTOM_LOC = MOD / "common" / "customizable_localization" / "aawc_stage2_building_contributions_custom_loc.txt"
@@ -51,10 +52,11 @@ class Stage2PopulationUI(unittest.TestCase):
             "AAWC_STAGE2_HELP_STRUCTURAL",
             "AAWC_STAGE2_HELP_PHYSICAL_CAPACITY",
             "AAWC_STAGE2_HELP_CAPACITY_PRESSURE",
-            "AAWC_STAGE2_HELP_BUILDINGS",
         ):
             self.assertIn(f"#tooltip:{nested}", loc)
             self.assertIsNotNone(re.search(rf"^ {nested}:0 ", loc, re.MULTILINE))
+        self.assertNotIn("#tooltip:AAWC_STAGE2_HELP_BUILDINGS", loc)
+        self.assertIsNotNone(re.search(r"^ AAWC_STAGE2_HELP_BUILDINGS:0 ", loc, re.MULTILINE))
 
     def test_breakdown_accessors_share_the_authoritative_contribution_path(self):
         effects = read(EFFECTS)
@@ -103,6 +105,81 @@ class Stage2PopulationUI(unittest.TestCase):
         self.assertEqual(expected_keys, set(entries))
         self.assertEqual(set(definitions), set(calls))
         self.assertEqual(len(re.findall(r"^ AAWC_STAGE2_BUILDING_LINES_\d+:0 ", generated_loc, re.MULTILINE)), 31)
+
+    def test_building_drilldown_keeps_holding_context_in_both_ui_mirrors(self):
+        for path in (GUI, VALYRIA_GUI):
+            with self.subTest(gui=path.parent.name):
+                gui = read(path)
+                population = gui[gui.index("#### POPULATION ####"):gui.index("#### LEGENDS ####")]
+                panel = population[population.index('name = "aawc_stage2_living_conditions"'):]
+                self.assertEqual(panel.count('datacontext = "[HoldingView.GetProvince]"'), 12)
+                self.assertEqual(panel.count("aawc_stage2_condition_tooltip = {"), 6)
+                for dimension in DIMENSIONS:
+                    self.assertIn(
+                        f'blockoverride "aawc_description_text" {{ text = "AAWC_STAGE2_TT_{dimension.upper()}" }}',
+                        panel,
+                    )
+
+        tooltip_gui = read(CONDITION_TOOLTIP_GUI)
+        self.assertIn("type aawc_stage2_condition_tooltip = container", tooltip_gui)
+        self.assertIn("using = GeneralTooltipSetup", tooltip_gui)
+        self.assertNotIn('datacontext = "[Province.Self]"', tooltip_gui)
+        self.assertEqual(tooltip_gui.count("datacontext ="), 0)
+        self.assertNotIn('text = "AAWC_STAGE2_HELP_BUILDINGS"', tooltip_gui)
+        self.assertNotIn("aawc_stage2_building_drilldown_tooltip", tooltip_gui)
+
+        generated = read(BUILDING_LOC)
+        self.assertNotIn("[Province.Custom('AAWC_Stage2Building_", generated)
+        for representative in (
+            "aawc_amber_collection_01",
+            "aawc_horse_pastures_06",
+            "aawc_workshops_08",
+        ):
+            with self.subTest(building=representative):
+                self.assertIn(
+                    f"[HoldingView.GetProvince.Custom('AAWC_Stage2Building_{representative}')]",
+                    generated,
+                )
+
+        help_line = next(row for row in read(LOC).splitlines() if row.startswith(" AAWC_STAGE2_HELP_BUILDINGS:0 "))
+        groups = re.findall(r"AAWC_STAGE2_BUILDING_LINES_(\d{2})", help_line)
+        self.assertEqual(groups, [f"{number:02}" for number in range(1, 32)])
+
+        population_loc = read(LOC)
+        for dimension in DIMENSIONS:
+            row = next(
+                line for line in population_loc.splitlines()
+                if line.startswith(f" AAWC_STAGE2_TT_{dimension.upper()}:0 ")
+            )
+            self.assertEqual(row.count("Installed Building Contributions"), 1)
+            self.assertEqual(row.count("AAWC_Stage2Building_"), 771)
+
+    def test_representative_drilldown_rows_keep_signed_condition_and_space_details(self):
+        generated = read(BUILDING_LOC)
+        expected = {
+            "aawc_stage2_building_aawc_apiaries_08": (
+                "Sustenance +5", "Opportunity +4", "Amenities +2", "Settlement space -4%",
+            ),
+            "aawc_stage2_contribution_aawc_horse_pastures_06": (
+                "Habitation -2", "Opportunity +4", "Security +1", "Settlement space -6%",
+            ),
+            "aawc_stage2_building_aawc_workshops_08": (
+                "Opportunity +12", "Health -3", "Amenities +1", "Settlement space -4%",
+            ),
+        }
+        for key, fragments in expected.items():
+            with self.subTest(key=key):
+                row = next(line for line in generated.splitlines() if line.startswith(f" {key}:0 "))
+                for fragment in fragments:
+                    self.assertIn(fragment, row)
+        for building in ("aawc_apiaries_08", "aawc_horse_pastures_06", "aawc_workshops_08"):
+            key = (
+                "aawc_stage2_contribution_aawc_horse_pastures_06"
+                if building == "aawc_horse_pastures_06"
+                else f"aawc_stage2_building_{building}"
+            )
+            row = next(line for line in generated.splitlines() if line.startswith(f" {key}:0 "))
+            self.assertIn(f"$building_{building}$", row)
 
     def test_horse_pastures_tier6_label_renders_in_habitation_context(self):
         loc = read(LOC)
@@ -164,7 +241,10 @@ class Stage2PopulationUI(unittest.TestCase):
             self.assertIsNotNone(match, descriptor)
             versions.append(match.group(1))
         self.assertEqual(versions[0], versions[1])
-        self.assertFalse(any("stage3" in path.name.lower() for path in MOD.rglob("*")))
+        self.assertFalse(any(
+            "stage3_population" in path.name.lower() or "stage3_condition" in path.name.lower()
+            for path in MOD.rglob("*")
+        ))
 
 
 if __name__ == "__main__":

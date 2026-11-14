@@ -4,7 +4,7 @@ Development repository for AGOT Alternate World Compatch. The checkout is Git-fi
 
 ## Current layout
 
-- `mod/` — current AAWC source and transport descriptor (`1.11.3.12`).
+- `mod/` — current AAWC source and transport descriptor (`1.11.3.13`).
 - `dependencies/` — current Dependencies source and descriptor (`1.1.2`). Large binary art is tracked with Git LFS.
 - `docs/` — authoritative master documentation.
 - `evidence/stage2/` — the small retained Stage 2 validation and rendered-continuation records.
@@ -43,4 +43,4 @@ To promote a B-level branch: complete the focused validation, update the descrip
 
 The one-time snapshot is commit `46b0dafcb401a5c228bd30649cde43a3723cc960`, branch `archive/pre-cleanup-2026-11-11`, annotated tag `pre-cleanup-2026-11-11`, and the matching GitHub Release. It retains the complete `1.10.x.x` verified baseline, active pre-cleanup work, documentation, tooling, and non-save evidence. Pre-1.10 release folders and machine-local `.ck3` saves were deliberately excluded by user direction. See `archive/pre-cleanup-2026-11-11/README.md` for restoration.
 
-Stage 3 target construction is active for 131 chains / 771 levels. The current `1.11.3.12` patch replaces the Horse Pastures tier-6 Stage 2 contribution-label key that collided with AGOT's `Wendelmodis` localization hash. The generator owns the exceptional key and display-name mappings, focused regression covers both generated consumers, and firsthand CK3 inspection verified the rendered `Horse Pastures 6` signed contribution row with no related collision or missing-key diagnostic. This package does not claim broader construction-completion or whole-catalogue rendering. See `catalogue/stage3/CONSTRUCTION_POLICY.md` for derivations, source validation and the separate rendered-verification boundary.
+Stage 3 target construction is active for 131 chains / 771 levels. The current `1.11.3.13` patch restores the shared Stage 2 installed-building drill-down. Both county-view mirrors keep the selected province in their `HoldingView` tooltip context, while the generator embeds all 771 catalogue calls directly in each primary condition tooltip so CK3 never crosses the context-losing secondary-localization boundary. Representative early, middle, and final generated rows render their canonical names and signed condition and settlement-space details in both mirrors. The focused regressions, controlled rendered observations, diagnostic boundary, and exact package/install parity are recorded in the master documentation. See `catalogue/stage3/CONSTRUCTION_POLICY.md` for catalogue derivations and source validation.

@@ -20,6 +20,7 @@ TABLE = STAGE3_TABLE
 OUTPUT = ROOT / 'mod/AGOT_Alternate_World_Compatch/common/scripted_effects/aawc_stage2_building_contributions.txt'
 CUSTOM_LOC_OUTPUT = ROOT / 'mod/AGOT_Alternate_World_Compatch/common/customizable_localization/aawc_stage2_building_contributions_custom_loc.txt'
 LOCALIZATION_OUTPUT = ROOT / 'mod/AGOT_Alternate_World_Compatch/localization/english/aawc_stage2_building_contributions_l_english.yml'
+POPULATION_LOCALIZATION_OUTPUT = ROOT / 'mod/AGOT_Alternate_World_Compatch/localization/english/aawc_population_l_english.yml'
 DEPENDENCY_BUILDINGS = ROOT / 'dependencies/AAWC_Dependencies_Modpack/common/buildings'
 DIMENSIONS = ('sustenance', 'habitation', 'opportunity', 'health', 'security', 'amenities')
 FIELDS = (*DIMENSIONS, 'space_percent')
@@ -33,21 +34,12 @@ LOCALIZATION_KEY_OVERRIDES = {
     'aawc_horse_pastures_06': 'aawc_stage2_contribution_aawc_horse_pastures_06',
 }
 
-DISPLAY_LOCALIZATION_KEY_OVERRIDES = {
-    'aawc_horse_pastures_06': 'building_aawc_horse_pastures_06',
-}
-
-
 def contribution_localization_key(building):
     return LOCALIZATION_KEY_OVERRIDES.get(building, f'aawc_stage2_building_{building}')
 
 
 def contribution_display_localization_key(row):
-    building = row['building']
-    return DISPLAY_LOCALIZATION_KEY_OVERRIDES.get(
-        building,
-        row.get('legacy_building') or building,
-    )
+    return f"building_{row['building']}"
 
 
 def rows():
@@ -224,6 +216,83 @@ def render_building_localization(records, group_size=25):
     return '\n'.join(out) + '\n'
 
 
+def render_building_help_localization(records, group_size=25):
+    group_count = (len(records) + group_size - 1) // group_size
+    calls = ''.join(
+        f"[Localize('AAWC_STAGE2_BUILDING_LINES_{group_index:02}')]"
+        for group_index in range(1, group_count + 1)
+    )
+    return (
+        ' AAWC_STAGE2_HELP_BUILDINGS:0 "#T Installed Building Contributions#!\\n'
+        'Only the highest installed level in each building chain contributes. The lines below are generated '
+        'from the same reviewed Stage 2 contribution table used by the calculation. Settlement-space '
+        'percentages affect physical capacity, not a condition score.\\n'
+        f'{calls}"'
+    )
+
+
+def replace_localization_entry(text, key, replacement):
+    pattern = re.compile(
+        rf'^ {re.escape(key)}:0 .*?(?=^ [A-Za-z0-9_]+:0 )',
+        re.MULTILINE | re.DOTALL,
+    )
+    updated, count = pattern.subn(lambda _match: replacement + '\n', text)
+    if count != 1:
+        raise ValueError(f'Expected exactly one {key} localization entry, found {count}')
+    return updated
+
+
+def render_condition_building_drilldown_links(text, records):
+    old = "#tooltip:AAWC_STAGE2_HELP_BUILDINGS #E Buildings#!#!"
+    new = "#E Buildings#!"
+    old_count = text.count(old)
+    if old_count not in (0, 6):
+        raise ValueError(f'Expected zero or six legacy building-help links, found {old_count}')
+    updated = text.replace(old, new)
+    dimensions = ('sustenance', 'habitation', 'opportunity', 'health', 'security', 'amenities')
+    direct_calls = ''.join(
+        f"[HoldingView.GetProvince.Custom('AAWC_Stage2Building_{row['building']}')]"
+        for row in sorted(records, key=lambda row: row['building'])
+    )
+    section = (
+        '\\n\\n#T Installed Building Contributions#!\\n'
+        'Only the highest installed level in each building chain contributes. The lines below are generated '
+        'from the same reviewed Stage 2 contribution table used by the calculation. Settlement-space '
+        'percentages affect physical capacity, not a condition score.'
+        f'{direct_calls}'
+    )
+    for dimension in dimensions:
+        key = f'AAWC_STAGE2_TT_{dimension.upper()}'
+        old_title = f' {key}:0 "#T {dimension.title()}#!\\n'
+        new_title = f' {key}:0 "'
+        title_count = updated.count(old_title)
+        if title_count not in (0, 1):
+            raise ValueError(f'Expected zero or one legacy title prefix for {key}, found {title_count}')
+        updated = updated.replace(old_title, new_title)
+        original_line = next(row for row in updated.splitlines() if row.startswith(f' {key}:0 '))
+        line = original_line
+        marker = '\\n\\n#T Installed Building Contributions#!'
+        if marker in line:
+            line = line.split(marker, 1)[0] + '"'
+        line = line.replace(
+            "\\n[HoldingView.GetProvince.Custom('AAWC_Stage2Building_aawc_horse_pastures_06')]",
+            '',
+        )
+        if not line.endswith('"'):
+            raise ValueError(f'Expected one-line localization for {key}')
+        replacement = line[:-1] + section + '"'
+        updated = updated.replace(original_line, replacement, 1)
+    condition_rows = [
+        next(row for row in updated.splitlines() if row.startswith(f" AAWC_STAGE2_TT_{dimension.upper()}:0 "))
+        for dimension in dimensions
+    ]
+    if any(new not in row or old in row for row in condition_rows):
+        raise ValueError('Every condition tooltip must embed the shared HoldingView building drill-down')
+    if any(row.startswith(f' AAWC_STAGE2_TT_{dimension.upper()}:0 "#T ') for row, dimension in zip(condition_rows, dimensions)):
+        raise ValueError('Condition tooltip titles must be owned by the GUI tooltip widget')
+    return updated
+
+
 def find_matching_brace(text, open_brace):
     depth = 0
     in_comment = False
@@ -346,6 +415,14 @@ def main():
     generated = render(records)
     generated_custom_loc = render_building_custom_loc(records)
     generated_localization = render_building_localization(records)
+    population_localization = POPULATION_LOCALIZATION_OUTPUT.read_text(encoding='utf-8-sig')
+    generated_help = render_building_help_localization(records)
+    generated_population_localization = replace_localization_entry(
+        population_localization, 'AAWC_STAGE2_HELP_BUILDINGS', generated_help,
+    )
+    generated_population_localization = render_condition_building_drilldown_links(
+        generated_population_localization, records,
+    )
     if args.check:
         if OUTPUT.read_text(encoding='utf-8-sig') != generated:
             raise SystemExit('Stage 2 generated contributions are stale')
@@ -353,10 +430,15 @@ def main():
             raise SystemExit('Stage 2 generated building custom localization is stale')
         if LOCALIZATION_OUTPUT.read_text(encoding='utf-8-sig') != generated_localization:
             raise SystemExit('Stage 2 generated building localization is stale')
+        if population_localization != generated_population_localization:
+            raise SystemExit('Stage 2 generated building-help localization is stale')
     else:
         OUTPUT.write_text(generated, encoding='utf-8-sig', newline='\n')
         CUSTOM_LOC_OUTPUT.write_text(generated_custom_loc, encoding='utf-8-sig', newline='\n')
         LOCALIZATION_OUTPUT.write_text(generated_localization, encoding='utf-8-sig', newline='\n')
+        POPULATION_LOCALIZATION_OUTPUT.write_text(
+            generated_population_localization, encoding='utf-8-sig', newline='\n',
+        )
     print(f'Contribution parity PASS: {len(records)} levels / {len({r["chain"] for r in records})} chains')
 
 

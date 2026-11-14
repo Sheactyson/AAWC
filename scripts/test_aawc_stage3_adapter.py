@@ -104,9 +104,16 @@ class AdapterTests(unittest.TestCase):
         self.assertNotRegex(localization, rf'^ {old_key}:', re.MULTILINE)
         self.assertIn('localization_key = '+safe_key, custom)
         label = next(line for line in localization.splitlines() if line.startswith(' '+safe_key+':'))
-        self.assertEqual(adapter.DISPLAY_LOCALIZATION_KEY_OVERRIDES, {
-            'aawc_horse_pastures_06': 'building_aawc_horse_pastures_06',
-        })
+        self.assertEqual(
+            adapter.contribution_display_localization_key(
+                next(row for row in runtime if row['building'] == 'aawc_horse_pastures_06')
+            ),
+            'building_aawc_horse_pastures_06',
+        )
+        self.assertTrue(all(
+            adapter.contribution_display_localization_key(row) == f"building_{row['building']}"
+            for row in runtime
+        ))
         self.assertIn('$building_aawc_horse_pastures_06$', label)
         self.assertIn('#N Habitation -2#!', label)
         self.assertIn('#P Opportunity +4#!', label)

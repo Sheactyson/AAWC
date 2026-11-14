@@ -782,7 +782,7 @@ window = {
 
 											blockoverride "main_description"
 											{
-												vbox = {
+											vbox = {
 													layoutpolicy_horizontal = expanding
 
 													cooltip_paragraph = {
@@ -832,7 +832,7 @@ window = {
 
 											blockoverride "main_description"
 											{
-												vbox = {
+											vbox = {
 													layoutpolicy_horizontal = expanding
 
 													cooltip_paragraph = { text = "[County.GetHerdFromCountyTooltip]" }
@@ -2864,7 +2864,15 @@ window = {
 																		layoutpolicy_horizontal = expanding
 																		background = { using = Background_Area_Dark }
 																		margin = { 4 4 }
+																		datacontext = "[HoldingView.GetProvince]"
 																		tooltip = "AAWC_STAGE2_TT_SUSTENANCE"
+															tooltipwidget = {
+																datacontext = "[HoldingView.GetProvince]"
+																aawc_stage2_condition_tooltip = {
+																	blockoverride "aawc_title_text" { text = "AAWC_STAGE2_SUSTENANCE" }
+																	blockoverride "aawc_description_text" { text = "AAWC_STAGE2_TT_SUSTENANCE" }
+																}
+															}
 																		text_single = { text = "AAWC_STAGE2_SUSTENANCE" align = center using = Font_Size_Small }
 																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_sustenance_value'))]#!" align = center using = Font_Size_Medium }
 																	}
@@ -2872,7 +2880,15 @@ window = {
 																		layoutpolicy_horizontal = expanding
 																		background = { using = Background_Area_Dark }
 																		margin = { 4 4 }
+																		datacontext = "[HoldingView.GetProvince]"
 																		tooltip = "AAWC_STAGE2_TT_HABITATION"
+															tooltipwidget = {
+																datacontext = "[HoldingView.GetProvince]"
+																aawc_stage2_condition_tooltip = {
+																	blockoverride "aawc_title_text" { text = "AAWC_STAGE2_HABITATION" }
+																	blockoverride "aawc_description_text" { text = "AAWC_STAGE2_TT_HABITATION" }
+																}
+															}
 																		text_single = { text = "AAWC_STAGE2_HABITATION" align = center using = Font_Size_Small }
 																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_habitation_value'))]#!" align = center using = Font_Size_Medium }
 																	}
@@ -2880,7 +2896,15 @@ window = {
 																		layoutpolicy_horizontal = expanding
 																		background = { using = Background_Area_Dark }
 																		margin = { 4 4 }
+																		datacontext = "[HoldingView.GetProvince]"
 																		tooltip = "AAWC_STAGE2_TT_OPPORTUNITY"
+															tooltipwidget = {
+																datacontext = "[HoldingView.GetProvince]"
+																aawc_stage2_condition_tooltip = {
+																	blockoverride "aawc_title_text" { text = "AAWC_STAGE2_OPPORTUNITY" }
+																	blockoverride "aawc_description_text" { text = "AAWC_STAGE2_TT_OPPORTUNITY" }
+																}
+															}
 																		text_single = { text = "AAWC_STAGE2_OPPORTUNITY" align = center using = Font_Size_Small }
 																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_opportunity_value'))]#!" align = center using = Font_Size_Medium }
 																	}
@@ -2893,7 +2917,15 @@ window = {
 																		layoutpolicy_horizontal = expanding
 																		background = { using = Background_Area_Dark }
 																		margin = { 4 4 }
+																		datacontext = "[HoldingView.GetProvince]"
 																		tooltip = "AAWC_STAGE2_TT_HEALTH"
+															tooltipwidget = {
+																datacontext = "[HoldingView.GetProvince]"
+																aawc_stage2_condition_tooltip = {
+																	blockoverride "aawc_title_text" { text = "AAWC_STAGE2_HEALTH" }
+																	blockoverride "aawc_description_text" { text = "AAWC_STAGE2_TT_HEALTH" }
+																}
+															}
 																		text_single = { text = "AAWC_STAGE2_HEALTH" align = center using = Font_Size_Small }
 																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_health_value'))]#!" align = center using = Font_Size_Medium }
 																	}
@@ -2901,7 +2933,15 @@ window = {
 																		layoutpolicy_horizontal = expanding
 																		background = { using = Background_Area_Dark }
 																		margin = { 4 4 }
+																		datacontext = "[HoldingView.GetProvince]"
 																		tooltip = "AAWC_STAGE2_TT_SECURITY"
+															tooltipwidget = {
+																datacontext = "[HoldingView.GetProvince]"
+																aawc_stage2_condition_tooltip = {
+																	blockoverride "aawc_title_text" { text = "AAWC_STAGE2_SECURITY" }
+																	blockoverride "aawc_description_text" { text = "AAWC_STAGE2_TT_SECURITY" }
+																}
+															}
 																		text_single = { text = "AAWC_STAGE2_SECURITY" align = center using = Font_Size_Small }
 																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_security_value'))]#!" align = center using = Font_Size_Medium }
 																	}
@@ -2909,7 +2949,15 @@ window = {
 																		layoutpolicy_horizontal = expanding
 																		background = { using = Background_Area_Dark }
 																		margin = { 4 4 }
+																		datacontext = "[HoldingView.GetProvince]"
 																		tooltip = "AAWC_STAGE2_TT_AMENITIES"
+															tooltipwidget = {
+																datacontext = "[HoldingView.GetProvince]"
+																aawc_stage2_condition_tooltip = {
+																	blockoverride "aawc_title_text" { text = "AAWC_STAGE2_AMENITIES" }
+																	blockoverride "aawc_description_text" { text = "AAWC_STAGE2_TT_AMENITIES" }
+																}
+															}
 																		text_single = { text = "AAWC_STAGE2_AMENITIES" align = center using = Font_Size_Small }
 																		text_single = { raw_text = "#V [FixedPointToInt(HoldingView.GetProvince.MakeScope.ScriptValue('aawc_stage2_effective_amenities_value'))]#!" align = center using = Font_Size_Medium }
 																	}
