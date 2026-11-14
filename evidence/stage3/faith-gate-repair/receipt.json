@@ -1,0 +1,40 @@
+{
+    "task":  "Repair reproduced faith-gate runtime defects",
+    "date":  "2026-11-14",
+    "result":  "PASS",
+    "source_baseline":  "1.11.3.10 ef32ee6",
+    "runtime":  "CK3 1.19.0.6 / AGOT 0.5.2.1 / LoV 1.5.2.13",
+    "installed_baseline":  "1.11.3.9 descriptor, gameplay matched 1.11.3.10 at preflight",
+    "reproduced_defect":  "Godswood construction requirement displayed raw can_build_weirwood_groves_name",
+    "repair":  "Generator emits can_build_weirwood_groves_name = Permission to Build Weirwood Groves into generated English localization",
+    "tests":  {
+                  "generated_gameplay_change":  "one English localization entry",
+                  "all_eight_godswood_tiers":  "retained doctrine predicate asserted by regression",
+                  "construction_suite":  "14/14 passed",
+                  "diff_check":  "passed",
+                  "deterministic_generation":  "131 chains / 771 definitions, parity verified"
+              },
+    "rendered":  {
+                     "certification_scope":  "Godswood faith availability and repaired requirement label only",
+                     "negative":  "Identical fixture with original county faith 41 / Lost Flames. Godswood absent between Royal Theatre And Cultural Academy and Hill Farms.",
+                     "method":  "Paused disposable saves derived from local plaintext last_save, loading through game UI",
+                     "save_files":  "disposable fixtures removed, original autosave_exit SHA256 unchanged",
+                     "common_fixture":  "Pennon Hall province 4485, castle_holding and castle_01 substituted for tribe, no campaign time advanced",
+                     "positive":  "County faith 67, old_gods_rnh / River Old Gods. aawc_godswood_01 visible. Before repair raw parameter name rendered. After debug localization hot reload, checked requirement reads Old Gods of Rivers and Hills has a Doctrine with Permission to Build Weirwood Groves. Gold shortfall remains 12."
+                 },
+    "localization_sha256":  "46BB1753809A27A7D84E2E8F4AC9AF111DF30C5416DE90AAEFE544E64E3B361C",
+    "source_install_localization_parity":  true,
+    "cleanup":  {
+                    "installed_repair_retained":  true,
+                    "ck3_process_absent":  true,
+                    "original_autosave_exit_sha256":  "601708E92C3D7EC5229E970533E608562537667D17F16619767C4984E41881E1",
+                    "profile_backup_files_restored":  [
+                                                          "pdx_settings.txt",
+                                                          "dlc_load.json",
+                                                          "continue_game.json",
+                                                          "game_data.json"
+                                                      ]
+                },
+    "release_work":  "Versioning, packaging, release documentation and publication deferred under task restriction",
+    "separate_required_discovery":  "Horse Pastures tier 6 contribution localization hash collides with Wendelmodis and is logged missing. Retained diagnostic only, separate repair required."
+}

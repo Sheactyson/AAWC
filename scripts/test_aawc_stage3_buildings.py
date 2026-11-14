@@ -72,7 +72,7 @@ class Buildings(unittest.TestCase):
         keys=re.findall(r'^ (\w+):0 ',raw,re.M)
         self.assertEqual(len(keys),len(set(keys)))
         localized={m[0]:json.loads(m[1]) for m in re.findall(r'^ (\w+):0 (.*)$',raw,re.M)}
-        self.assertEqual(len(keys),771*3+131*2)
+        self.assertEqual(len(keys),771*3+131*2+1)
         for bid,(chain,level) in self.levels.items():
             for field in ('name_key','description_key','effect_description_key'):
                 self.assertTrue(localized[level['player'][field]])
@@ -84,6 +84,20 @@ class Buildings(unittest.TestCase):
             self.assertEqual(
                 self.definitions[bid]['county_modifier'],
                 [('development_growth_factor','=','0')],
+            )
+
+    def test_godswood_doctrine_requirement_has_a_generated_name(self):
+        raw = self.artifacts[g.LOC].decode('utf-8-sig')
+        self.assertEqual(raw.count(' can_build_weirwood_groves_name:0 '), 1)
+        self.assertIn(
+            ' can_build_weirwood_groves_name:0 "Permission to Build Weirwood Groves"',
+            raw,
+        )
+        for tier in range(1, 9):
+            definition = self.definitions[f'aawc_godswood_{tier:02}']
+            self.assertIn(
+                ('faith', '=', [('has_doctrine_parameter', '=', 'can_build_weirwood_groves')]),
+                definition['can_construct'],
             )
 
     def test_native_roles_and_ai_all_levels_no_stage6_or_stage7_outputs(self):

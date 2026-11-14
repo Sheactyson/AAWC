@@ -283,6 +283,9 @@ def compile_buildings(data, contract):
     loc = ['l_english:']; metadata = []
     def localized(key, value):
         loc.append(' '+key+':0 '+json.dumps(value,ensure_ascii=False))
+    # CK3's doctrine-parameter requirement tooltip resolves this name directly.
+    # AGOT supplies the parameter but omits its name in the effective English stack.
+    localized('can_build_weirwood_groves_name', 'Permission to Build Weirwood Groves')
     for cid,c in sorted(chains.items()):
         rule = contract['chains'][cid]
         require(set(rule)=={'catalogue_geography','rationale','levels'} and rule['rationale'] and rule['catalogue_geography']==c['gates']['proposal'],f'{cid}: missing/stale derivation')

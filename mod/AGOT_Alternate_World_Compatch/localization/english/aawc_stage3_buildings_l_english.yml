@@ -1,4 +1,5 @@
 ﻿l_english:
+ can_build_weirwood_groves_name:0 "Permission to Build Weirwood Groves"
  building_aawc_amber_collection_01:0 "Amber Collection 1"
  building_aawc_amber_collection_01_desc:0 "Amber collecting and jewelry inputs."
  aawc_stage3_aawc_amber_collection_01_effects:0 "Structural conditions: Health -1; Opportunity +1; Settlement space +0%. Cumulative installed-tier values; replaces the preceding tier. Native economic and military outputs are deferred."

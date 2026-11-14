@@ -1,0 +1,3 @@
+[01:51:32][E][pdx_localize.cpp:267]: Localization key hash collision. Key 'aawc_stage2_building_aawc_horse_pastures_06' and 'Wendelmodis' have the same hash: 2074818026.
+[01:53:03][E][jomini_custom_text.cpp:179]: Missing loc key 'aawc_stage2_building_aawc_horse_pastures_06' for custom localization 'AAWC_Stage2Building_aawc_horse_pastures_06' (or variant), at 'file: common/customizable_localization/aawc_stage2_building_contributions_custom_loc.txt line: 3706 (AAWC_Stage2Building_aawc_horse_pastures_06)'
+[03:52:49][E][pdx_localize.cpp:267]: Localization key hash collision. Key 'aawc_stage2_building_aawc_horse_pastures_06' and 'Wendelmodis' have the same hash: 2074818026.
