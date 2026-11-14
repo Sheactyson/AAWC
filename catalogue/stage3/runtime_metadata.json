@@ -15156,7 +15156,7 @@
       "era_innovation": null,
       "gates": {
         "can_construct": "",
-        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }",
+        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }",
         "can_construct_showing_failures_only": "building_requirement_tribal = no",
         "is_enabled": ""
       },
@@ -15189,8 +15189,8 @@
       "era_innovation": "innovation_manorialism",
       "gates": {
         "can_construct": "",
-        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }",
-        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_manorialism }",
+        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }",
+        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_manorialism }",
         "is_enabled": ""
       },
       "icon": "icon_building_market_villages.dds",
@@ -15222,8 +15222,8 @@
       "era_innovation": "innovation_manorialism",
       "gates": {
         "can_construct": "",
-        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_castle_city_church = { LEVEL = 02 }",
-        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_manorialism }",
+        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_castle_city_church = { LEVEL = 02 }",
+        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_manorialism }",
         "is_enabled": ""
       },
       "icon": "icon_building_market_villages.dds",
@@ -15255,8 +15255,8 @@
       "era_innovation": "innovation_windmills",
       "gates": {
         "can_construct": "",
-        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_castle_city_church = { LEVEL = 02 }",
-        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_windmills }",
+        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_castle_city_church = { LEVEL = 02 }",
+        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_windmills }",
         "is_enabled": ""
       },
       "icon": "icon_building_market_villages.dds",
@@ -15288,8 +15288,8 @@
       "era_innovation": "innovation_windmills",
       "gates": {
         "can_construct": "",
-        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_castle_city_church = { LEVEL = 03 }",
-        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_windmills }",
+        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_castle_city_church = { LEVEL = 03 }",
+        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_windmills }",
         "is_enabled": ""
       },
       "icon": "icon_building_market_villages.dds",
@@ -15321,8 +15321,8 @@
       "era_innovation": "innovation_cranes",
       "gates": {
         "can_construct": "",
-        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_castle_city_church = { LEVEL = 03 }",
-        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_cranes }",
+        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_castle_city_church = { LEVEL = 03 }",
+        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_cranes }",
         "is_enabled": ""
       },
       "icon": "icon_building_market_villages.dds",
@@ -15354,8 +15354,8 @@
       "era_innovation": "innovation_cranes",
       "gates": {
         "can_construct": "",
-        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_castle_city_church = { LEVEL = 04 }",
-        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_cranes }",
+        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_castle_city_church = { LEVEL = 04 }",
+        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_cranes }",
         "is_enabled": ""
       },
       "icon": "icon_building_market_villages.dds",
@@ -15387,8 +15387,8 @@
       "era_innovation": "innovation_cranes",
       "gates": {
         "can_construct": "",
-        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_castle_city_church = { LEVEL = 04 }",
-        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_cranes }",
+        "can_construct_potential": "OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }\nbuilding_requirement_castle_city_church = { LEVEL = 01 }\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_castle_city_church = { LEVEL = 04 }",
+        "can_construct_showing_failures_only": "building_requirement_tribal = no\nscope:holder.culture = { has_innovation = innovation_dragon_kiln }\nbuilding_requirement_tribal = no\nculture = { has_innovation = innovation_cranes }",
         "is_enabled": ""
       },
       "icon": "icon_building_market_villages.dds",

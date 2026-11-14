@@ -296,6 +296,18 @@ def compile_buildings(data, contract):
                 validate_gate_syntax(gate)
                 require(not (gate_keys(gate)-NATIVE_GATE_KEYS-set(contract['symbols']['scripted_triggers'])),f'{bid}: unknown gate trigger {gate_keys(gate)-NATIVE_GATE_KEYS-set(contract["symbols"]["scripted_triggers"])}')
             gates={k:remap_reads(v,mapping) for k,v in r['gates'].items()}
+            # AGOT removes vanilla gunpowder and does not define the recovered
+            # ``unlock_powder_magazines`` parameter. Its regional Dragon Kiln
+            # innovation is the effective-stack specialist firecraft license,
+            # so retain restricted cultural access through that valid symbol.
+            if cid == 'aawc_powder_magazine':
+                unsupported = 'scope:holder.culture = { has_cultural_parameter = unlock_powder_magazines }'
+                supported = 'scope:holder.culture = { has_innovation = innovation_dragon_kiln }'
+                require(any(unsupported in value for value in gates.values()), f'{bid}: missing Powder Magazine cultural gate source')
+                gates = {
+                    key: '\n'.join(supported if line.strip() == unsupported else line for line in value.splitlines())
+                    for key, value in gates.items()
+                }
             gates['can_construct_potential'] = SETTLED+'\n'+gates['can_construct_potential']
             era=l['gates']['era_innovation_proposal']
             require(era in ERAS,f'{bid}: unknown era')

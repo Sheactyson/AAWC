@@ -17,8 +17,10 @@ def evaluate(nodes, fixture):
         if k in ('AND','OR','NOT'):
             values=[one(*n) for n in v]
             return {'AND':all(values),'OR':any(values),'NOT':not all(values)}[k]
-        if k in ('culture','county','county.holder'): return evaluate(v,fixture)
+        if k in ('culture','county','county.holder','scope:holder.culture'): return evaluate(v,fixture)
         if k=='has_holding_type': return fixture['holding']==v
+        if k=='building_requirement_castle_city_church':
+            return fixture['holding'] in {'castle_holding','city_holding','church_holding'}
         if k=='has_building_or_higher': return v in fixture['buildings']
         if k=='has_innovation': return v in fixture['innovations']
         if k=='has_title': return fixture['duchy_owner']
@@ -177,6 +179,24 @@ class Buildings(unittest.TestCase):
                            ('tribe','tribal_holding'),('temple_citadel','government_is_mandala'),('pirate_control','pirate_den_01')]:
             for r in self.metadata:
                 if r['chain']=='aawc_'+name:self.assertIn(token,'\n'.join(r['gates'].values()))
+
+    def test_powder_magazine_permits_firecraft_cultures_and_rejects_others(self):
+        powder = [r for r in self.metadata if r['chain']=='aawc_powder_magazine']
+        self.assertEqual(len(powder), 8)
+        fixture={'holding':'castle_holding','development':20,'terrain':'plains','coast':True,'river':True,'duchy_owner':True,
+                 'buildings':set(self.levels)|{'castle_02'},'innovations':set(self.contract['symbols']['culture/innovations'])}
+        self.assertIn('innovation_dragon_kiln',fixture['innovations'])
+        for row in powder:
+            gates = '\n'.join(row['gates'].values())
+            potential=self.definitions[row['id']]['can_construct_potential']
+            with self.subTest(bid=row['id']):
+                self.assertNotIn('unlock_powder_magazines', gates)
+                self.assertIn('has_innovation = innovation_dragon_kiln', gates)
+                self.assertIn('building_requirement_castle_city_church', gates)
+                self.assertTrue(evaluate(potential,fixture))
+                self.assertFalse(evaluate(potential,{**fixture,'innovations':fixture['innovations']-{'innovation_dragon_kiln'}}))
+                if row['era_innovation'] is not None:
+                    self.assertIn('has_innovation = '+row['era_innovation'], gates)
 
     def test_deterministic_pure_generation_and_committed_artifact_parity(self):
         before=copy.deepcopy(self.contract)
