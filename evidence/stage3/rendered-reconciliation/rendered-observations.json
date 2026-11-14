@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-14",
+  "status": "pass_representative_rendered_ui",
+  "candidate_version": "1.11.3.7",
+  "candidate_commit": "95f0714261b72cc23759afd2dae6d2482922fa97",
+  "evidence_release": "1.11.3.8",
+  "reconciliation": {
+    "assigned_candidate": "1.11.3.3",
+    "actual_candidate": "1.11.3.7",
+    "source_package_install_manifest_parity": "345/345/345/345",
+    "identity_receipt": "candidate-identity.json",
+    "catalogue_sha256": "073EBF9A2F5C03C8569706BF49867C4C0BF8723DEAA3A57A8E4A34E779CDE4C8",
+    "enabled_mods": [
+      "mod/ugc_2962333032.mod",
+      "mod/AGOT_Alternate_World_Compatch.mod",
+      "mod/AAWC_Dependencies_Modpack.mod"
+    ],
+    "identity_method": "The enabled descriptor resolves to the exact hash-checked installed tree. Source, archive, manifest and installed files matched before inspection and in the retained post-exit receipt. Main-menu CK3/AGOT/LoV versions and rendered Stage 3 content corroborate the load; no on-screen AAWC version label is claimed."
+  },
+  "runtime": {
+    "process_id": 103976,
+    "start_local": "2026-11-14 00:40:29",
+    "ck3": "1.19.0.6",
+    "checksum": "9c3c Modified",
+    "agot": "0.5.2.1",
+    "legacy_of_valyria": "1.5.2.13",
+    "holding": "Tribe of Pennon Hall",
+    "holding_type": "tribal_holding",
+    "terrain": "Hills",
+    "character": "Chieftain Ludwin Withers",
+    "culture": "Pennon",
+    "faith": "Lost Flames",
+    "campaign_date": "21st of Fourth Moon, 2 A.D.",
+    "paused_throughout_inspection": true,
+    "starting_and_ending_gold": 110,
+    "construction_started": false,
+    "saved": false
+  },
+  "observations": [
+    {
+      "category": "unrestricted",
+      "id": "aawc_village_cottages_01",
+      "name": "Common Small Residences 1",
+      "available": true,
+      "cost": {
+        "gold": 105
+      },
+      "time": "10 months",
+      "description": "Small low-cost housing prior to advanced districts.",
+      "visible_effects": {
+        "habitation": 1,
+        "settlement_space_percent": 12
+      },
+      "linked_tiers": 8,
+      "screenshots": [
+        "03-constructible-list.jpg",
+        "04-residences-tier1.jpg"
+      ]
+    },
+    {
+      "category": "multi_tier_upgrade",
+      "id": "aawc_village_cottages_02",
+      "name": "Common Small Residences 2",
+      "cost": {
+        "gold": 175
+      },
+      "time": "14 months",
+      "visible_effects": {
+        "habitation": 3,
+        "settlement_space_percent": 24
+      },
+      "upgrade_observation": "Selecting II on the connected I-VIII preview updates the title, tier tooltip and cumulative effects.",
+      "screenshots": [
+        "05-residences-tier2.jpg"
+      ]
+    },
+    {
+      "category": "ecology_terrain_gate",
+      "id": "aawc_terraced_farms_01",
+      "name": "Steep-Slope Terrace Agriculture 1",
+      "available": true,
+      "gate_observation": "Enabled construction control in the visibly confirmed Hills holding.",
+      "cost": {
+        "gold": 105
+      },
+      "time": "7 months",
+      "description": "Mountain subsistence investment, high labor requirement.",
+      "visible_effects": {
+        "opportunity": 1,
+        "sustenance": 1,
+        "settlement_space_percent": -0.5
+      },
+      "linked_tiers": 7,
+      "screenshots": [
+        "02-pennon-hills.jpg",
+        "03-constructible-list.jpg",
+        "06-terrace-tier1.jpg"
+      ]
+    },
+    {
+      "category": "multi_tier_upgrade",
+      "id": "aawc_terraced_farms_02",
+      "name": "Steep-Slope Terrace Agriculture 2",
+      "cost": {
+        "gold": 165
+      },
+      "time": "10 months",
+      "visible_effects": {
+        "opportunity": 1,
+        "sustenance": 2,
+        "settlement_space_percent": -1
+      },
+      "upgrade_observation": "Selecting II on the connected I-VII preview updates the title, tier tooltip and cumulative effects.",
+      "screenshots": [
+        "07-terrace-tier2.jpg"
+      ]
+    },
+    {
+      "category": "identity_title_gate",
+      "id": "aawc_duchy_civic_court_01",
+      "name": "High Court And Revenue Offices 1",
+      "available": false,
+      "gate_observation": "You do not hold the High Lordship of Nestridge Title",
+      "cost": {
+        "gold": 370,
+        "prestige": 70
+      },
+      "time": "18 months",
+      "description": "Duchy-scale governance and control.",
+      "visible_effects": {
+        "amenities": 1,
+        "health": -1,
+        "opportunity": 4,
+        "settlement_space_percent": 0
+      },
+      "linked_tiers": 3,
+      "screenshots": [
+        "08-court-list.jpg",
+        "09-court-title-gate.jpg"
+      ]
+    }
+  ],
+  "effect_presentation": "Every inspected preview exposed signed structural conditions and settlement space, cumulative-tier replacement wording, and the deferred native-output boundary. No spurious native zero-modifier line was visible.",
+  "critical_acceptance": {
+    "specific_candidate_identity": "pass",
+    "unrestricted": "pass",
+    "identity_or_faith_gate": "pass via documented title-identity case; no faith-specific pass claimed",
+    "ecology_or_terrain_gate": "pass via Hills terrace availability",
+    "multi_tier_upgrade_presentation": "pass via tier I/II transitions on two connected chains",
+    "names_descriptions_costs_times_effect_text": "pass for the representative examples",
+    "direct_representative_defects": "none reproduced; earlier .7 repairs retained unchanged",
+    "master_documentation": "recorded in the 1.11.3.8 reconciliation entry"
+  },
+  "additional_attempt_not_credited": {
+    "goal": "Optional faith-specific historical fixture",
+    "observed": "Disabling the Alternate World rule and entering Play as Any Ruler or the Hall of Faces route still showed the generated ruins map. No historical faith fixture or campaign was started.",
+    "disposition": "No faith-specific construction conclusion; temporary rule/settings edits restored from captured backups."
+  },
+  "separate_required_follow_on": {
+    "outcome": "Extend Powder Magazine effective-stack compatibility repair to its target construction gate",
+    "evidence": "CK3 startup rejects missing Bool culture parameter unlock_powder_magazines in aawc_powder_magazine_01:can_construct_potential at generated catalogue line 14376, also in later tiers.",
+    "artifact": "powder-magazine-diagnostic.txt",
+    "occurrences_in_session_log": 15,
+    "why_required": "Invalid target eligibility is a real catalogue compatibility gap alongside the already documented eight absent legacy Powder Magazine IDs.",
+    "verification": "Repair at the construction policy/source boundary with an effective supported cultural license, regenerate and version, then show intended permitted/forbidden eligibility and no missing-parameter diagnostics in the pinned CK3 stack."
+  },
+  "not_claimed": [
+    "Faith-specific positive/negative gate behavior",
+    "Opposite-terrain rejection",
+    "Completed construction or a purchased upgrade",
+    "Post-completion population or condition recomputation",
+    "Direct AI construction",
+    "Exhaustive rendering of all 771 definitions",
+    "Separate Valyria GUI mirror",
+    "Stage 6/7 native outputs",
+    "Whole-stack clean startup log",
+    "A fresh rendered session of evidence-only 1.11.3.8"
+  ],
+  "cleanup": {
+    "ck3_closed": true,
+    "exit_autosave": false,
+    "exit_screenshot": "10-exit-without-autosave.jpg",
+    "profile_restoration": "profile-restoration.json",
+    "save_file_write_times_predate_session": true,
+    "no_save_payload_in_evidence": true
+  },
+  "screenshots": [
+    {
+      "path": "01-main-menu.jpg",
+      "sha256": "1D21BD4993FE943BE9C331C71F09E2DAEBBC49042780ABD911AE84CAAEF44685",
+      "bytes": 300895,
+      "format": "JPEG from Sky capture, unmodified"
+    },
+    {
+      "path": "02-pennon-hills.jpg",
+      "sha256": "BF15091CDA2CA6953B10108E268DEFBEB703F267820C38EB252648BBB9176591",
+      "bytes": 405188,
+      "format": "JPEG from Sky capture, unmodified"
+    },
+    {
+      "path": "03-constructible-list.jpg",
+      "sha256": "C0F75818CB5827FCB1C49D82CBE45FDC45CB8284D9034DFA80FEAF63CDFDF0D7",
+      "bytes": 345520,
+      "format": "JPEG from Sky capture, unmodified"
+    },
+    {
+      "path": "04-residences-tier1.jpg",
+      "sha256": "2D6DB035CC6BB0EF7A172F07531F1721C29764FE7CE3187D27AC34F8A2E26DB8",
+      "bytes": 324692,
+      "format": "JPEG from Sky capture, unmodified"
+    },
+    {
+      "path": "05-residences-tier2.jpg",
+      "sha256": "2A36C14922BAEC8998D0BC015AB0FACD1AFE6769711C9867980D6F05C6DFC8D6",
+      "bytes": 325302,
+      "format": "JPEG from Sky capture, unmodified"
+    },
+    {
+      "path": "06-terrace-tier1.jpg",
+      "sha256": "4F4391816A9BDF0FB2D98D9152318F47176E33D30AF6F400C04FF654AF66DB90",
+      "bytes": 324262,
+      "format": "JPEG from Sky capture, unmodified"
+    },
+    {
+      "path": "07-terrace-tier2.jpg",
+      "sha256": "442F83BDEB636867E664FABE2C053F29C6C027D2DFF78F8CE1D6ED2E0FEAFF81",
+      "bytes": 325345,
+      "format": "JPEG from Sky capture, unmodified"
+    },
+    {
+      "path": "08-court-list.jpg",
+      "sha256": "C4895397F0C22D070F7A715915F1BF91B4F637D40555EE76AE8D6E3F10D03516",
+      "bytes": 343016,
+      "format": "JPEG from Sky capture, unmodified"
+    },
+    {
+      "path": "09-court-title-gate.jpg",
+      "sha256": "A67D8BE55D0EBE3E39F68762DE0556B10AEC39A32716B0924A47CA3F9198A58E",
+      "bytes": 318841,
+      "format": "JPEG from Sky capture, unmodified"
+    },
+    {
+      "path": "10-exit-without-autosave.jpg",
+      "sha256": "330BA657683AE94F93BE517DD19CD681482561B55D12B872ACB6C8F9389B4C8D",
+      "bytes": 158092,
+      "format": "JPEG from Sky capture, unmodified"
+    }
+  ]
+}

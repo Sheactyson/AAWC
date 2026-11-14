@@ -1,0 +1,12 @@
+[
+    {
+        "path":  "player\\game_rules\\presets.txt",
+        "sha256":  "FE6FE3D021EA98B04FFE4F515C590A2D9E194797FB951CD2B17F7F5FE0988528",
+        "restored":  true
+    },
+    {
+        "path":  "pdx_settings.txt",
+        "sha256":  "5D72ACC0F2CCCD3AC78A012C864DC78AA51CED2B40F2CE17AB4ADD2CCA1DDB1F",
+        "restored":  true
+    }
+]

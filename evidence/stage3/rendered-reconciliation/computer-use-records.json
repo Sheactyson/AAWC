@@ -1,0 +1,34 @@
+{
+  "COMPUTER_USE_PATTERN": {
+    "application": "Crusader Kings III",
+    "goal": "Inspect representative Stage 3 construction without changing the campaign",
+    "preconditions": [
+      "Exact source/package/install parity",
+      "Paused retained owned Pennon holding",
+      "Rendered CK3/AGOT version receipt"
+    ],
+    "steps": [
+      "Continue the retained campaign and verify pause/date.",
+      "Realm > Domain > Pennon Hall > Buildings > empty slot.",
+      "Use compact construction list, Preview, and connected tier controls; read costs/time, requirements and effect text.",
+      "Exit Game with exit autosave unchecked."
+    ],
+    "verification": [
+      "Hills terrace enabled",
+      "Residences enabled",
+      "High Court blocked by missing Nestridge title",
+      "Tier II previews change cost/time and cumulative effects",
+      "Date and gold unchanged; CK3 closes"
+    ]
+  },
+  "COMPUTER_USE_TRACE": {
+    "pattern": "representative-stage3-construction-preview",
+    "date": "2026-11-14",
+    "candidate": "1.11.3.7",
+    "result": "pass for specified representative UI observations",
+    "evidence": "rendered-observations.json",
+    "screenshots": 10,
+    "exit_autosave": false,
+    "profile_restored": true
+  }
+}

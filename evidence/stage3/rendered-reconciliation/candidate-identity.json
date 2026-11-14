@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "installation_checked": true,
+  "version": "1.11.3.7",
+  "counts": {
+    "source": 345,
+    "archive": 345,
+    "installed": 345,
+    "manifest": 345
+  },
+  "versions": {
+    "source_inner": "1.11.3.7",
+    "source_outer": "1.11.3.7",
+    "archive_inner": "1.11.3.7",
+    "archive_outer": "1.11.3.7",
+    "installed_inner": "1.11.3.7",
+    "installed_outer": "1.11.3.7"
+  },
+  "source_to_archive": {
+    "missing": [],
+    "extra": [],
+    "changed": []
+  },
+  "source_to_install": {
+    "missing": [],
+    "extra": [],
+    "changed": []
+  },
+  "manifest": {
+    "malformed_lines": [],
+    "missing": [],
+    "extra": [],
+    "changed": []
+  },
+  "archive": {
+    "path": "C:\\Users\\sheac\\OneDrive\\Desktop\\AAWC-dev\\release\\AGOT_Alternate_World_Compatch_1.11.3.7.zip",
+    "sha256": "D70738BFF58381E07A196A11497CD26EA1FC6C5A8E1D55FA39F86771FAB5D719",
+    "bad_crc_entry": null
+  },
+  "manifest_file": {
+    "path": "C:\\Users\\sheac\\OneDrive\\Desktop\\AAWC-dev\\release\\AGOT_Alternate_World_Compatch_1.11.3.7.manifest.sha256",
+    "sha256": "D97726A112E7A35F25D6342F26D2148C75A4EBAF9D6D2210CEA23280244AB8A9"
+  }
+}

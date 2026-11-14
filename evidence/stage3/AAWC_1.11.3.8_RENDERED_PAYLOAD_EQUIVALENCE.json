@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "rendered_candidate": "1.11.3.7",
+  "evidence_release": "1.11.3.8",
+  "total_payload_entries": 345,
+  "byte_identical_non_descriptor_entries": 343,
+  "changed_entries": [
+    "AGOT_Alternate_World_Compatch/descriptor.mod",
+    "AGOT_Alternate_World_Compatch.mod"
+  ],
+  "only_change_per_descriptor": "version 1.11.3.7 -> 1.11.3.8",
+  "installation_state": "The existing rendered 1.11.3.7 installation was left unchanged.",
+  "validation_boundary": "Exact bytes transfer prior gameplay validation; no new engine session or gameplay test run is claimed."
+}

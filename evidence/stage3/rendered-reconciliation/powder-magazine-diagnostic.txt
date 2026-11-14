@@ -1,0 +1,11 @@
+818: [00:43:32][E][jomini_script_system.cpp:303]: Script system error!
+819:   Error: has_cultural_parameter trigger [ Bool culture parameter 'unlock_powder_magazines' does not exist ]
+820:   Script location: file: common/buildings/zz_aawc_stage3_catalogue.txt line: 14376 (aawc_powder_magazine_01:can_construct_potential)
+821:
+822: [00:43:32][E][jomini_trigger.cpp:243]: PostValidate of trigger 'has_cultural_parameter' returned false at file: common/buildings/zz_aawc_stage3_catalogue.txt line: 14376 (aawc_powder_magazine_01:can_construct_potential)
+
+823: [00:43:32][E][jomini_script_system.cpp:303]: Script system error!
+824:   Error: has_cultural_parameter trigger [ Bool culture parameter 'unlock_powder_magazines' does not exist ]
+825:   Script location: file: common/buildings/zz_aawc_stage3_catalogue.txt line: 14395 (aawc_powder_magazine_02:can_construct_potential)
+826:
+827: [00:43:32][E][jomini_trigger.cpp:243]: PostValidate of trigger 'has_cultural_parameter' returned false at file: common/buildings/zz_aawc_stage3_catalogue.txt line: 14395 (aawc_powder_magazine_02:can_construct_potential)
