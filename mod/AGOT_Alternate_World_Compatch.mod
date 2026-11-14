@@ -3,7 +3,7 @@ tags={
 	"Gameplay"
 	"Total Conversion"
 }
-version="1.11.3.2"
+version="1.11.3.3"
 name="AGOT_Alternate_World_Compatch"
 dependencies={
 	"A Game of Thrones"

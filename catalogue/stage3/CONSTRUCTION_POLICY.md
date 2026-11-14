@@ -1,0 +1,30 @@
+# Stage 3 construction policy ? 1.11.3.3
+
+The user explicitly authorized derivation of missing availability and construction predicates from the documented identity/ecology constraints. This supersedes the prior human-review gate for this assigned construction task. It does not authorize Stage 6 military lifecycle or Stage 7 native outputs.
+
+`catalogue.json` remains the authority for all 131 chains, 771 levels, numeric costs/days, upgrades, conditions, space and deferred native-role metadata. `construction.json` is the authored construction overlay: every level has predicate text, source path/building/hash, and a chain-specific rationale. The historical schema-v1 review statuses and `generated/readiness.json` describe the original inert source contract; current construction status is in `runtime_metadata.json`. These historical statuses must no longer be used as a runtime blocker.
+
+## Derivation rules
+
+- Retain effective heritage lineage availability, faith, culture, laws, terrain, deposits, prerequisites and enabled-state checks. Apply tier-one identity constraints at every upgrade, then add the exact tier's restrictions. Preserve all signed conditions and three currencies from the catalogue.
+- The four catalogue era labels map to no additional innovation, Manorialism, Windmills and Cranes respectively. This supplements inherited innovation requirements; it does not remove them. These are explicit balance derivations, not recovered historic gates.
+- Use the existing Stage 1 valid-settlement predicate, including pirate and settlement holdings. Do not introduce a second population eligibility model.
+- Main-holding lineages are annexes: Tribal Housing requires an existing tribal holding; Temple Citadel requires an existing temple-citadel holding and the source Mandala institution. Native `tribe`/`temple_citadel` definitions remain untouched. Their holding-creation/always-false rules are not copied onto annexes. Main holding references are never remapped to annexes.
+- City Walls additionally requires a city. Hospice uses the actual healthcare source; the imported crop/moisture boilerplate is not treated as a healthcare restriction. Dragon Kiln retains the documented source cultural kiln license as the proven eligibility route; no unsupported Dragonstone-only mapping is invented.
+- Every new-chain policy is explicitly enumerated in the compiler and copied into `construction.json`, with no permissive keyword fallback. Sewers require city/castle tier two and county development 10. Institutions require their named supporting chain. Duchy buildings use the native duchy slot/type and require ownership of the associated duchy.
+- `is_riverside_province` is the supported river-access proxy. The engine predicate does not prove navigability or isolated lake access. Saltworks use arid coastal evaporation; no unverified salt-deposit modifier is invented. These conservative geographic limitations are intentional and must be assessed during rendered review.
+- Prerequisite reads accept target OR legacy IDs, except protected main holdings. No legacy definition, caller, contribution wrapper, demographic formula or condition/capacity calculation is rewritten.
+- AI base weight is `max(1, 10 + sum(positive condition scores) - sum(abs(negative condition scores)))`. Eligibility is the native construction gate; there is no scripted purchase or military/economic output. This is an initial transparent structural-benefit preference, not observer certification.
+- Each level has English name/description/effect localization. Effects expose signed cumulative conditions and settlement-space percentages. All levels reuse the verified vanilla market-village icon; no optional map model is introduced, preserving holding visuals. Native-role proposals remain in the per-level metadata and are not emitted as modifiers.
+
+## Reproduction and verification
+
+Run `python -B scripts/generate_aawc_stage3_buildings.py`, then `--check` for read-only parity. Normal builds need no installed CK3 files. `--derive --game <game> --agot <AGOT>` is a one-time snapshot bootstrap and refuses to overwrite authored policy. Engine symbol lists accompany the predicate snapshot. Unknown triggers, innovations, building prerequisites, missing census records, malformed gates and missing provenance fail closed.
+
+Tests: `python -B -m unittest discover -s scripts -p 'test_aawc_stage3_*.py'`. The construction suite independently parses emitted script, exhaustively checks all 771 costs/times/topologies/metadata/localization rows, verifies new-chain positive/negative native-predicate fixtures, explicit heritage identity gates, and adversarial rejection. Native predicate fixtures are automated source evidence, not engine execution.
+
+## Known external compatibility boundary
+
+The whole-mod validator has no CK3 base input and reports 28 legacy IDs after target closure is repaired. Twenty Capital Bureau/Oath IDs exist in the effective base stack; eight `powder_magazine_01` through `_08` genuinely do not, because AGOT replaces the base military-building file. The construction importer explicitly recovers their documented base gate source for the new targets, without pretending the legacy definitions exist. The pre-existing contribution adapter still references these eight absent legacy IDs. Repair belongs to compatibility-wrapper/reference closure work; this task leaves the completed adapter unchanged. New target construction prerequisites close without these eight IDs.
+
+No installation, engine launch, rendered menu, upgrade, refund, tooltip or AI observer certification is claimed. The dependent rendered-construction task must inspect the package, including the main-holding annex adaptations, duchy ownership, identity restrictions, mixed currencies, river proxy, and upgrades.

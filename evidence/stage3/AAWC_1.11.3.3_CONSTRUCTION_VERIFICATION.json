@@ -1,0 +1,92 @@
+{
+  "version": "1.11.3.3",
+  "baseline_commit": "284c2fae63500a3f1b523ea898cdd218b66493f3",
+  "evidence_class": "source_automated_and_package_only",
+  "counts": {
+    "chains": 131,
+    "target_levels": 771,
+    "new_chains": 26,
+    "legacy_lineages": 105,
+    "localization_keys": 2575
+  },
+  "focused_tests": {
+    "stage3_catalogue": 29,
+    "stage3_adapter": 8,
+    "stage3_construction": 10,
+    "stage2_conditions": 19,
+    "stage2_demographic_integration": 8,
+    "total": 74,
+    "passed": true
+  },
+  "checks": {
+    "building_generator_parity": true,
+    "numeric_catalogue_parity": true,
+    "condition_adapter_parity": true,
+    "unique_target_ids": 771,
+    "target_construction_reference_closure": true,
+    "new_chain_gate_fixtures": "all 26 chains / 145 tiers positive and invalid-holding negatives; 13 focused negative ecology/institution/ownership cases",
+    "existing_tracked_gameplay_unchanged": true,
+    "changed_existing_mod_paths": [
+      "mod/AGOT_Alternate_World_Compatch.mod",
+      "mod/AGOT_Alternate_World_Compatch/descriptor.mod"
+    ],
+    "stage6_or_7_activation": false
+  },
+  "new_runtime_files": [
+    "common/buildings/zz_aawc_stage3_catalogue.txt",
+    "localization/english/aawc_stage3_buildings_l_english.yml"
+  ],
+  "package": {
+    "passed": true,
+    "installation_checked": false,
+    "version": "1.11.3.3",
+    "counts": {
+      "source": 345,
+      "archive": 345,
+      "installed": null,
+      "manifest": 345
+    },
+    "versions": {
+      "source_inner": "1.11.3.3",
+      "source_outer": "1.11.3.3",
+      "archive_inner": "1.11.3.3",
+      "archive_outer": "1.11.3.3"
+    },
+    "source_to_archive": {
+      "missing": [],
+      "extra": [],
+      "changed": []
+    },
+    "source_to_install": null,
+    "manifest": {
+      "malformed_lines": [],
+      "missing": [],
+      "extra": [],
+      "changed": []
+    },
+    "archive": {
+      "path": "C:\\Users\\sheac\\OneDrive\\Desktop\\AAWC-dev\\release\\AGOT_Alternate_World_Compatch_1.11.3.3.zip",
+      "sha256": "7AB344B1ED7EF604B88BDD09C56D4944D44A92B31E447B13DD133FF5B310E23B",
+      "bad_crc_entry": null
+    },
+    "manifest_file": {
+      "path": "C:\\Users\\sheac\\OneDrive\\Desktop\\AAWC-dev\\release\\AGOT_Alternate_World_Compatch_1.11.3.3.manifest.sha256",
+      "sha256": "F80D55A5277418FC14CFF2372691517869E0608C2628235A49DF1908C8CBA79F"
+    }
+  },
+  "limitations": [
+    "No installation, native engine execution or rendered gameplay/UI certification.",
+    "Eight pre-existing legacy powder_magazine IDs are absent from the effective stack; compatibility repair remains required.",
+    "Whole-mod validator omits CK3 base input and additionally flags 20 existing base Capital Bureau/Oath IDs.",
+    "Riverside proxy does not certify river navigability or isolated lake access.",
+    "AI weights are source validated, not observer certified."
+  ],
+  "artifacts": {
+    "scripts/generate_aawc_stage3_buildings.py": "e4ad25cbafbd2937d7735d93af876b936464c2af43010ebb196a6cbcd5b8ee61",
+    "scripts/test_aawc_stage3_buildings.py": "1a644a4f7ab3033a1554e3992d162bd32a675db90df5ec9667342bd00b0c0974",
+    "catalogue/stage3/construction.json": "961229104341e2d0db633f43ac34d9ea71741bc0163e6dffef2f9c84867397d8",
+    "catalogue/stage3/runtime_metadata.json": "72da7f3dca8fa78545f33052146ddab66c25aba0e3441e598dae32ffd7c1ad1c",
+    "mod/AGOT_Alternate_World_Compatch/common/buildings/zz_aawc_stage3_catalogue.txt": "824b1571fb689297a4ad795864d0891eb5514ddbdb5208fa622d331524c422f9",
+    "mod/AGOT_Alternate_World_Compatch/localization/english/aawc_stage3_buildings_l_english.yml": "4fb68a735115ed7100ab6e26f98b1fe453ac6b636893b3196d256cd880e5f9e8"
+  }
+}

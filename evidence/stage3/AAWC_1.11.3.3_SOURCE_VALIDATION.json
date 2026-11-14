@@ -1,0 +1,470 @@
+{
+  "file_count": 344,
+  "failures": [
+    "building or MAA reference closure failed"
+  ],
+  "encoding": {
+    "bom_counts": {
+      "without_bom": 28,
+      "with_bom": 271
+    },
+    "invalid_utf8": [],
+    "double_bom": [],
+    "bad_localization_headers": [],
+    "localization_tabs": []
+  },
+  "structure": {
+    "checked": 269,
+    "failures": {}
+  },
+  "localization_ids": {
+    "count": 63358,
+    "duplicates": {}
+  },
+  "common_ids": {
+    "all_duplicates": {
+      "buildings:city_01": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:13",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:26550"
+      ],
+      "buildings:city_02": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:2842",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:29383"
+      ],
+      "buildings:city_03": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:5671",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:8460",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:32216"
+      ],
+      "buildings:city_04": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:11210",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:34970"
+      ],
+      "buildings:guild_halls_01": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:13968",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:44212"
+      ],
+      "buildings:guild_halls_02": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:14011",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:44259"
+      ],
+      "buildings:guild_halls_03": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:14063",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:44315"
+      ],
+      "buildings:guild_halls_04": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:14128",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:44384"
+      ],
+      "buildings:guild_halls_05": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:14194",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:44454"
+      ],
+      "buildings:guild_halls_06": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:14259",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:44523"
+      ],
+      "buildings:guild_halls_07": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:14324",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:44592"
+      ],
+      "buildings:guild_halls_08": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_city_buildings.txt:14389",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:44661"
+      ],
+      "buildings:temple_01": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:16",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:62478"
+      ],
+      "buildings:temple_02": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:826",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:63293"
+      ],
+      "buildings:temple_03": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:1480",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:63951"
+      ],
+      "buildings:temple_04": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:2125",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:64600"
+      ],
+      "buildings:scriptorium_01": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:2778",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:59082"
+      ],
+      "buildings:scriptorium_02": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:2870",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:59178"
+      ],
+      "buildings:scriptorium_03": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:2933",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:59245"
+      ],
+      "buildings:scriptorium_04": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:2996",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:59312"
+      ],
+      "buildings:scriptorium_05": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3059",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:59379"
+      ],
+      "buildings:scriptorium_06": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3122",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:59446"
+      ],
+      "buildings:scriptorium_07": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3184",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:59512"
+      ],
+      "buildings:scriptorium_08": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3247",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:59579"
+      ],
+      "buildings:monastic_schools_01": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3311",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:50961"
+      ],
+      "buildings:monastic_schools_02": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3395",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:51049"
+      ],
+      "buildings:monastic_schools_03": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3472",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:51130"
+      ],
+      "buildings:monastic_schools_04": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3569",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:51231"
+      ],
+      "buildings:monastic_schools_05": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3668",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:51334"
+      ],
+      "buildings:monastic_schools_06": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3767",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:51437"
+      ],
+      "buildings:monastic_schools_07": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3866",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:51540"
+      ],
+      "buildings:monastic_schools_08": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:3965",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:51643"
+      ],
+      "buildings:megalith_01": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4063",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:49670"
+      ],
+      "buildings:megalith_02": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4133",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:49744"
+      ],
+      "buildings:megalith_03": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4182",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:49797"
+      ],
+      "buildings:megalith_04": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4234",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:49853"
+      ],
+      "buildings:megalith_05": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4287",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:49910"
+      ],
+      "buildings:megalith_06": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4341",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:49968"
+      ],
+      "buildings:megalith_07": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4395",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:50026"
+      ],
+      "buildings:megalith_08": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4449",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:50084"
+      ],
+      "buildings:breweries_01": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4503",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:7522"
+      ],
+      "buildings:breweries_02": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4554",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:7576"
+      ],
+      "buildings:breweries_03": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4604",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:7629"
+      ],
+      "buildings:breweries_04": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4644",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:7672"
+      ],
+      "buildings:breweries_05": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4684",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:7715"
+      ],
+      "buildings:breweries_06": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4724",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:7758"
+      ],
+      "buildings:breweries_07": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4764",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:7801"
+      ],
+      "buildings:breweries_08": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/00_temple_buildings.txt:4804",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/buildings/zzzz_aawc_population_building_effects.txt:7844"
+      ],
+      "defines:NGovernment": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/defines/00_defines.txt:605",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/defines/lv_defines.txt:2"
+      ],
+      "defines:NReligion": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/defines/00_defines.txt:892",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/defines/zz_kei_cafg_defines.txt:5"
+      ],
+      "defines:NCounty": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/defines/00_defines.txt:1055",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/defines/zz_kei_cafg_defines.txt:1"
+      ],
+      "dna_data:Varezys_cob_48": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/dna_data/zz_cob_characters.txt:198",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/dna_data/zz_cob_characters_valyrian.txt:2185"
+      ],
+      "on_action:yearly_global_pulse": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/aawc_mercenary_on_actions.txt:2",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/aawc_population_on_actions.txt:1",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/cos_yearly_on_actions.txt:4",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/yearly_on_actions.txt:3",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_colonization_on_actions.txt:1",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_dragon_cradling_on_action.txt:1",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_yearly_on_actions.txt:1"
+      ],
+      "on_action:quarterly_playable_pulse": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/aawc_population_on_actions.txt:7",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/yearly_on_actions.txt:2514"
+      ],
+      "on_action:yearly_playable_pulse": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/aawc_population_on_actions.txt:13",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/yearly_on_actions.txt:853",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_colonization_on_actions.txt:100"
+      ],
+      "on_action:on_game_start_after_lobby": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/aawc_population_on_actions.txt:19",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_game_start.txt:1914"
+      ],
+      "on_action:on_title_gain": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/aawc_population_on_actions.txt:25",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/title_on_actions.txt:200",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/zz_aawc_debug_on_actions.txt:9",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_colonization_on_actions.txt:350",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_silent_sisters_on_actions.txt:13",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_title_on_actions.txt:17"
+      ],
+      "on_action:on_title_destroyed": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/title_on_actions.txt:29",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_title_on_actions.txt:5"
+      ],
+      "on_action:on_title_lost": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/title_on_actions.txt:2979",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/zz_aawc_debug_on_actions.txt:13",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_title_on_actions.txt:29"
+      ],
+      "on_action:on_vassal_gained": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/title_on_actions.txt:4312",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_title_on_actions.txt:40"
+      ],
+      "on_action:on_vassal_change": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/title_on_actions.txt:4432",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_title_on_actions.txt:46"
+      ],
+      "on_action:on_travel_plan_movement": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/travel_on_actions.txt:2",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_colonization_on_actions.txt:371"
+      ],
+      "on_action:on_travel_plan_arrival": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/travel_on_actions.txt:1122",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_colonization_on_actions.txt:321",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/LV/ruin_restoration_on_actions/lv_settlement_on_actions.txt:76"
+      ],
+      "on_action:three_year_playable_pulse": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/yearly_on_actions.txt:1995",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/yearly_on_actions.txt:2979"
+      ],
+      "on_action:five_year_playable_pulse": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/yearly_on_actions.txt:2296",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_filler_events_on_actions.txt:11"
+      ],
+      "on_action:random_yearly_playable_pulse": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/yearly_on_actions.txt:2563",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_colonization_on_actions.txt:82",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_filler_events_on_actions.txt:4"
+      ],
+      "on_action:on_death": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_death.txt:5",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_silent_sisters_on_actions.txt:34"
+      ],
+      "on_action:on_game_start": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_game_start.txt:3",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/agot_on_actions/agot_silent_sisters_on_actions.txt:1",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/on_action/LV/lv_setup_on_actions/lv_on_game_start_on_actions.txt:3"
+      ],
+      "scripted_effects:agot_free_city_conversion_from_laamp_invasion_effect": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/scripted_effects/00_agot_free_city_effects.txt:1002",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/scripted_effects/zzzz_aawc_kei_cafg_agot_compat_effects.txt:32"
+      ],
+      "scripted_triggers:agot_is_valid_free_city_government_target": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/scripted_triggers/00_agot_government_triggers.txt:292",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/scripted_triggers/lv_agot_trigger_overrides.txt:21"
+      ],
+      "scripted_triggers:agot_is_a_republic": [
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/scripted_triggers/00_agot_government_triggers.txt:319",
+        "C:/Users/sheac/OneDrive/Desktop/AAWC-dev/mod/AGOT_Alternate_World_Compatch/common/scripted_triggers/lv_agot_trigger_overrides.txt:48"
+      ]
+    },
+    "unexpected_duplicates": {}
+  },
+  "descriptors": {
+    "inner_version": [
+      "1.11.3.3"
+    ],
+    "outer_version": [
+      "1.11.3.3"
+    ],
+    "inner_supported_version": [
+      "1.19.0.6"
+    ],
+    "outer_supported_version": [
+      "1.19.0.6"
+    ],
+    "inner_dependencies": [
+      "A Game of Thrones",
+      "AAWC Dependencies Modpack"
+    ],
+    "outer_dependencies": [
+      "A Game of Thrones",
+      "AAWC Dependencies Modpack"
+    ],
+    "inner_replace_path": [
+      "common/culture/eras",
+      "common/defines"
+    ],
+    "outer_replace_path": [
+      "common/culture/eras",
+      "common/defines"
+    ],
+    "inner_has_bom": false,
+    "outer_has_bom": false
+  },
+  "replace_paths": [
+    {
+      "path": "common/culture/eras",
+      "aawc_exists": true,
+      "aawc_files": 1,
+      "agot_exists": true,
+      "agot_files": 1
+    },
+    {
+      "path": "common/defines",
+      "aawc_exists": true,
+      "aawc_files": 4,
+      "agot_exists": true,
+      "agot_files": 4
+    }
+  ],
+  "references": {
+    "dependency_modpack": "C:\\Users\\sheac\\OneDrive\\Desktop\\AAWC-dev\\dependencies\\AAWC_Dependencies_Modpack",
+    "building_definitions": 11594,
+    "building_references": 4347,
+    "missing_buildings": [
+      "capital_bureau_01",
+      "capital_bureau_02",
+      "capital_bureau_03",
+      "capital_bureau_04",
+      "capital_bureau_05",
+      "capital_bureau_06",
+      "capital_bureau_07",
+      "capital_bureau_08",
+      "oath_faithful_building_01",
+      "oath_faithful_building_02",
+      "oath_faithful_building_03",
+      "oath_faithful_building_04",
+      "oath_poor_building_01",
+      "oath_poor_building_02",
+      "oath_poor_building_03",
+      "oath_poor_building_04",
+      "oath_warriors_building_01",
+      "oath_warriors_building_02",
+      "oath_warriors_building_03",
+      "oath_warriors_building_04",
+      "powder_magazine_01",
+      "powder_magazine_02",
+      "powder_magazine_03",
+      "powder_magazine_04",
+      "powder_magazine_05",
+      "powder_magazine_06",
+      "powder_magazine_07",
+      "powder_magazine_08"
+    ],
+    "maa_definitions": 300,
+    "maa_references": 0,
+    "missing_maa": []
+  },
+  "generated": {
+    "common/buildings/zz_aawc_generated_special_building_chains.txt": {
+      "bytes": 669374,
+      "sha256": "a9459fc1ffc5c93a900fa9caf9fdc7e5e43f9ff5270d6af8edccab41b6313cd8",
+      "bom": true,
+      "double_bom": false,
+      "top_level_definitions": 10871
+    },
+    "common/scripted_effects/zzzz_aawc_population_maa_cost_effects.txt": {
+      "bytes": 15365,
+      "sha256": "6ebac0670e024fe3084a404bf5f6b6fee3eaf8b18ceb9b99bd5f9707d8e68f13",
+      "bom": true,
+      "double_bom": false,
+      "top_level_definitions": null
+    }
+  },
+  "integrated_contract_mentions": {
+    "kECVCompatProvinceNotEmpty": 44,
+    "kECVCompatDisplayHolder": 14,
+    "kECVCompatProvinceHasHolder": 14,
+    "kei_Compat_IsModLoaded_AGOT": 10,
+    "kei_Compat_IsModLoaded_kCAFG": 8,
+    "ECVBaronyTabsSplit3": 8,
+    "ECVBaronyTabsCompact": 6,
+    "kECVCompatDisplayGarrison": 2,
+    "E_kCAFG_update_county_culture": 1,
+    "E_kCAFG_update_county_faith": 1,
+    "adding_building_slot_interaction": 5,
+    "extra_building_slot": 14
+  },
+  "forbidden_contract_mentions": {
+    "Rite.": 0,
+    "GetRite": 0,
+    "mbrxxx_": 0,
+    "Bruce_": 0,
+    "cow3.": 0,
+    "mgr_": 0
+  },
+  "archive": {
+    "path": "C:\\Users\\sheac\\OneDrive\\Desktop\\AAWC-dev\\release\\AGOT_Alternate_World_Compatch_1.11.3.3.zip",
+    "entries": 345,
+    "roots": [
+      "AGOT_Alternate_World_Compatch",
+      "AGOT_Alternate_World_Compatch.mod"
+    ],
+    "bad_separators": [],
+    "bad_crc_entry": null,
+    "inner_version": [
+      "1.11.3.3"
+    ],
+    "outer_version": [
+      "1.11.3.3"
+    ],
+    "version_matches": true
+  },
+  "passed": false
+}

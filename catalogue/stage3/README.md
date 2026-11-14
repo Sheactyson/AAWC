@@ -1,5 +1,15 @@
 # Stage 3 catalogue authoring contract
 
+## Construction activation (1.11.3.3)
+
+The authorized construction overlay now activates all 131 chains / 771 targets.
+See `CONSTRUCTION_POLICY.md`, `construction.json` and `runtime_metadata.json`.
+Historical blocked/proposed schema-v1 statuses below describe the inert numeric
+source contract; the construction overlay supersedes them for runtime availability.
+Regenerate with `python -B scripts/generate_aawc_stage3_buildings.py`; verify with
+`--check`. Source costs, scores, space and deferred native roles remain unchanged.
+
+
 `catalogue.json` is the editable source of truth. The strict schema-v1 validator is
 `scripts/generate_aawc_stage3_catalogue.py::validate`. Historical D7/D8 inputs under
 `evidence/stage3/imported/` are immutable provenance, not a second editable source.
