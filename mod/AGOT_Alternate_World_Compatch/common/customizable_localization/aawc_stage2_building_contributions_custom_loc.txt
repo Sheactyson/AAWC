@@ -3712,7 +3712,7 @@ AAWC_Stage2Building_aawc_horse_pastures_06 = {
 				has_building = horse_pastures_06
 			}
 		}
-		localization_key = aawc_stage2_building_aawc_horse_pastures_06
+		localization_key = aawc_stage2_contribution_aawc_horse_pastures_06
 	}
 	text = {
 		fallback = yes

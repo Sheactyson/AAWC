@@ -89,14 +89,33 @@ class Stage2PopulationUI(unittest.TestCase):
         definitions = re.findall(r"^AAWC_Stage2Building_([A-Za-z0-9_]+) =", custom_loc, re.MULTILINE)
         entries = [
             entry for entry in re.findall(
-                r"^ aawc_stage2_building_([A-Za-z0-9_]+):0 ", generated_loc, re.MULTILINE
-            ) if entry != "empty"
+                r"^ (aawc_stage2_(?:building|contribution)_[A-Za-z0-9_]+):0 ", generated_loc, re.MULTILINE
+            ) if entry != "aawc_stage2_building_empty"
         ]
         self.assertEqual(len(definitions), 771)
         self.assertEqual(len(entries), 771)
-        self.assertEqual(set(definitions), set(entries))
+        expected_keys = {
+            "aawc_stage2_contribution_aawc_horse_pastures_06"
+            if definition == "aawc_horse_pastures_06"
+            else f"aawc_stage2_building_{definition}"
+            for definition in definitions
+        }
+        self.assertEqual(expected_keys, set(entries))
         self.assertEqual(set(definitions), set(calls))
         self.assertEqual(len(re.findall(r"^ AAWC_STAGE2_BUILDING_LINES_\d+:0 ", generated_loc, re.MULTILINE)), 31)
+
+    def test_horse_pastures_tier6_label_renders_in_habitation_context(self):
+        loc = read(LOC)
+        habitation = next(row for row in loc.splitlines() if row.startswith(" AAWC_STAGE2_TT_HABITATION:0 "))
+        self.assertIn(
+            "[HoldingView.GetProvince.Custom('AAWC_Stage2Building_aawc_horse_pastures_06')]",
+            habitation,
+        )
+        generated = read(BUILDING_LOC)
+        self.assertIn(
+            'aawc_stage2_contribution_aawc_horse_pastures_06:0 "\\n$building_aawc_horse_pastures_06$:',
+            generated,
+        )
 
     def test_occupancy_adapter_and_four_pressure_states_are_bound(self):
         values = read(VALUES)

@@ -84,11 +84,34 @@ class AdapterTests(unittest.TestCase):
         text=adapter.render_building_localization(runtime)
         custom=adapter.render_building_custom_loc(runtime)
         for row in runtime:
-            self.assertIn('localization_key = aawc_stage2_building_'+row['building'],custom)
-            line=next(l for l in text.splitlines() if l.startswith(' aawc_stage2_building_'+row['building']+':'))
+            key = adapter.contribution_localization_key(row['building'])
+            self.assertIn('localization_key = '+key,custom)
+            line=next(l for l in text.splitlines() if l.startswith(' '+key+':'))
             for field in adapter.FIELDS:
                 if float(row[field]):
                     self.assertIn(adapter.format_contribution(row[field]),line)
+
+    def test_horse_pastures_tier6_avoids_known_wendelmodis_hash_collision(self):
+        runtime = adapter.rows()
+        custom = adapter.render_building_custom_loc(runtime)
+        localization = adapter.render_building_localization(runtime)
+        old_key = 'aawc_stage2_building_aawc_horse_pastures_06'
+        safe_key = 'aawc_stage2_contribution_aawc_horse_pastures_06'
+        self.assertEqual(adapter.LOCALIZATION_KEY_OVERRIDES, {
+            'aawc_horse_pastures_06': safe_key,
+        })
+        self.assertNotIn('localization_key = '+old_key, custom)
+        self.assertNotRegex(localization, rf'^ {old_key}:', re.MULTILINE)
+        self.assertIn('localization_key = '+safe_key, custom)
+        label = next(line for line in localization.splitlines() if line.startswith(' '+safe_key+':'))
+        self.assertEqual(adapter.DISPLAY_LOCALIZATION_KEY_OVERRIDES, {
+            'aawc_horse_pastures_06': 'building_aawc_horse_pastures_06',
+        })
+        self.assertIn('$building_aawc_horse_pastures_06$', label)
+        self.assertIn('#N Habitation -2#!', label)
+        self.assertIn('#P Opportunity +4#!', label)
+        self.assertIn('#P Security +1#!', label)
+        self.assertIn('#N Settlement space -6%#!', label)
 
     def test_policy_is_tier_sensitive_and_positive_growth_dominates(self):
         bychain={c['id']:c for c in self.data['chains']}

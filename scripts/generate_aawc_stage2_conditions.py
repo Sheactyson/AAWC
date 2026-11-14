@@ -26,6 +26,28 @@ FIELDS = (*DIMENSIONS, 'space_percent')
 UNAVAILABLE_LEGACY_BUILDINGS = {
     *(f'powder_magazine_{tier:02}' for tier in range(1, 9)),
 }
+# CK3's 32-bit localization hash collides for the default Horse Pastures tier-6
+# key and the upstream character name ``Wendelmodis`` (hash 2074818026). Keep
+# exceptional IDs centralized so both generated consumers always agree.
+LOCALIZATION_KEY_OVERRIDES = {
+    'aawc_horse_pastures_06': 'aawc_stage2_contribution_aawc_horse_pastures_06',
+}
+
+DISPLAY_LOCALIZATION_KEY_OVERRIDES = {
+    'aawc_horse_pastures_06': 'building_aawc_horse_pastures_06',
+}
+
+
+def contribution_localization_key(building):
+    return LOCALIZATION_KEY_OVERRIDES.get(building, f'aawc_stage2_building_{building}')
+
+
+def contribution_display_localization_key(row):
+    building = row['building']
+    return DISPLAY_LOCALIZATION_KEY_OVERRIDES.get(
+        building,
+        row.get('legacy_building') or building,
+    )
 
 
 def rows():
@@ -156,7 +178,7 @@ def render_building_custom_loc(records):
         else:
             out.append(f'\t\ttrigger = {{ has_building = {building} }}')
         out.extend([
-            f'\t\tlocalization_key = aawc_stage2_building_{building}',
+            f'\t\tlocalization_key = {contribution_localization_key(building)}',
             '\t}',
             '\ttext = {',
             '\t\tfallback = yes',
@@ -196,8 +218,9 @@ def render_building_localization(records, group_size=25):
             suffix = '%' if field == 'space_percent' else ''
             parts.append(f'#{color} {labels[field]} {value}{suffix}#!')
         detail = ', '.join(parts) if parts else '#high no score change#!'
-        display_id = row.get('legacy_building') or row['building']
-        out.append(f' aawc_stage2_building_{row["building"]}:0 "\\n${display_id}$: {detail}"')
+        display_id = contribution_display_localization_key(row)
+        key = contribution_localization_key(row['building'])
+        out.append(f' {key}:0 "\\n${display_id}$: {detail}"')
     return '\n'.join(out) + '\n'
 
 

@@ -1,0 +1,35 @@
+{
+  "candidate": "AAWC 1.11.3.12",
+  "date": "2026-11-14",
+  "stack": {
+    "ck3": "1.19.0.6",
+    "agot": "0.5.2.1",
+    "legacy_of_valyria": "1.5.2.13"
+  },
+  "fixture": {
+    "holding": "Pennon Hall",
+    "building": "aawc_horse_pastures_06",
+    "disposable_save_removed": true,
+    "gameplay_saved": false
+  },
+  "rendered": {
+    "tooltip": "Habitation",
+    "effective": 55,
+    "structural": 55,
+    "buildings": 5,
+    "label": "Horse Pastures 6: Habitation -2, Opportunity +4, Security +1, Settlement space -6%"
+  },
+  "fresh_error_log_matches": {
+    "Wendelmodis": 0,
+    "aawc_stage2_building_aawc_horse_pastures_06": 0,
+    "aawc_stage2_contribution_aawc_horse_pastures_06": 0,
+    "building_aawc_horse_pastures_06": 0,
+    "horse_pastures_06": 0,
+    "hash collision": 0
+  },
+  "package": {
+    "parity": "345/345/345/345",
+    "archive_sha256": "23405EE858A8E52EEEE8BD672F18B7F6418FDDF5DFA5D9243227D29ACEB98788",
+    "manifest_sha256": "E4F39A0C4C2496FE5BC953EA3EA08DEB7A84FD8FCC2A93EAE3F57EF68273704C"
+  }
+}

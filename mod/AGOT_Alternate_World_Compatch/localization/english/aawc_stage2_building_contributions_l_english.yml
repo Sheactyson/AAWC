@@ -260,7 +260,7 @@
  aawc_stage2_building_aawc_horse_pastures_03:0 "\n$horse_pastures_03$: #N Habitation -1#!, #P Opportunity +2#!, #P Security +1#!, #N Settlement space -3%#!"
  aawc_stage2_building_aawc_horse_pastures_04:0 "\n$horse_pastures_04$: #N Habitation -1#!, #P Opportunity +3#!, #P Security +1#!, #N Settlement space -4%#!"
  aawc_stage2_building_aawc_horse_pastures_05:0 "\n$horse_pastures_05$: #N Habitation -2#!, #P Opportunity +4#!, #P Security +1#!, #N Settlement space -5%#!"
- aawc_stage2_building_aawc_horse_pastures_06:0 "\n$horse_pastures_06$: #N Habitation -2#!, #P Opportunity +4#!, #P Security +1#!, #N Settlement space -6%#!"
+ aawc_stage2_contribution_aawc_horse_pastures_06:0 "\n$building_aawc_horse_pastures_06$: #N Habitation -2#!, #P Opportunity +4#!, #P Security +1#!, #N Settlement space -6%#!"
  aawc_stage2_building_aawc_horse_pastures_07:0 "\n$horse_pastures_07$: #N Habitation -3#!, #P Opportunity +5#!, #P Security +2#!, #N Settlement space -7%#!"
  aawc_stage2_building_aawc_horse_pastures_08:0 "\n$horse_pastures_08$: #N Habitation -3#!, #P Opportunity +6#!, #P Security +2#!, #N Settlement space -8%#!"
  aawc_stage2_building_aawc_hospices_01:0 "\n$hospices_01$: #P Sustenance +1#!"
