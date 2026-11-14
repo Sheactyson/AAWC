@@ -3874,75 +3874,35 @@ aawc_stage2_building_contributions_effect = {
 	}
 	# aawc_powder_magazine: Stage 3 dragon infrastructure
 	if = {
-		limit = {
-			OR = {
-				has_building = aawc_powder_magazine_08
-				has_building = powder_magazine_08
-			}
-		}
+		limit = { has_building = aawc_powder_magazine_08 }
 		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 4 HEALTH = -3 SECURITY = 5 AMENITIES = 0 SPACE_PERCENT = -8 }
 	}
 	else_if = {
-		limit = {
-			OR = {
-				has_building = aawc_powder_magazine_07
-				has_building = powder_magazine_07
-			}
-		}
+		limit = { has_building = aawc_powder_magazine_07 }
 		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 3 HEALTH = -3 SECURITY = 4 AMENITIES = 0 SPACE_PERCENT = -7 }
 	}
 	else_if = {
-		limit = {
-			OR = {
-				has_building = aawc_powder_magazine_06
-				has_building = powder_magazine_06
-			}
-		}
+		limit = { has_building = aawc_powder_magazine_06 }
 		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 3 HEALTH = -2 SECURITY = 4 AMENITIES = 0 SPACE_PERCENT = -6 }
 	}
 	else_if = {
-		limit = {
-			OR = {
-				has_building = aawc_powder_magazine_05
-				has_building = powder_magazine_05
-			}
-		}
+		limit = { has_building = aawc_powder_magazine_05 }
 		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 2 HEALTH = -2 SECURITY = 3 AMENITIES = 0 SPACE_PERCENT = -5 }
 	}
 	else_if = {
-		limit = {
-			OR = {
-				has_building = aawc_powder_magazine_04
-				has_building = powder_magazine_04
-			}
-		}
+		limit = { has_building = aawc_powder_magazine_04 }
 		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 2 HEALTH = -1 SECURITY = 2 AMENITIES = 0 SPACE_PERCENT = -4 }
 	}
 	else_if = {
-		limit = {
-			OR = {
-				has_building = aawc_powder_magazine_03
-				has_building = powder_magazine_03
-			}
-		}
+		limit = { has_building = aawc_powder_magazine_03 }
 		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 1 HEALTH = -1 SECURITY = 2 AMENITIES = 0 SPACE_PERCENT = -3 }
 	}
 	else_if = {
-		limit = {
-			OR = {
-				has_building = aawc_powder_magazine_02
-				has_building = powder_magazine_02
-			}
-		}
+		limit = { has_building = aawc_powder_magazine_02 }
 		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 1 HEALTH = -1 SECURITY = 1 AMENITIES = 0 SPACE_PERCENT = -2 }
 	}
 	else_if = {
-		limit = {
-			OR = {
-				has_building = aawc_powder_magazine_01
-				has_building = powder_magazine_01
-			}
-		}
+		limit = { has_building = aawc_powder_magazine_01 }
 		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = 0 OPPORTUNITY = 0 HEALTH = 0 SECURITY = 0 AMENITIES = 0 SPACE_PERCENT = -1 }
 	}
 	# aawc_public_baths: Stage 3 hospice infrastructure

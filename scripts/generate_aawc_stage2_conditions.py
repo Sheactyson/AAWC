@@ -23,6 +23,9 @@ LOCALIZATION_OUTPUT = ROOT / 'mod/AGOT_Alternate_World_Compatch/localization/eng
 DEPENDENCY_BUILDINGS = ROOT / 'dependencies/AAWC_Dependencies_Modpack/common/buildings'
 DIMENSIONS = ('sustenance', 'habitation', 'opportunity', 'health', 'security', 'amenities')
 FIELDS = (*DIMENSIONS, 'space_percent')
+UNAVAILABLE_LEGACY_BUILDINGS = {
+    *(f'powder_magazine_{tier:02}' for tier in range(1, 9)),
+}
 
 
 def rows():
@@ -71,13 +74,22 @@ def stage3_rows(data=None):
 
 
 def catalogue_legacy_ids(data=None):
-    """Return the reviewed target-to-legacy lineage used for bounded dual reads."""
+    """Return only effective legacy IDs that are safe for bounded dual reads.
+
+    The recovered vanilla Powder Magazine lineage is not defined by AGOT's
+    effective building stack. CK3 treats even a false ``has_building`` probe of
+    an undefined ID as a script error, so those targets must be read directly.
+    The catalogue retains their historical lineage for migration provenance.
+    """
     import generate_aawc_stage3_catalogue as catalogue
     if data is None:
         data = catalogue.load_source(catalogue.SOURCE)
     catalogue.validate(data)
     return {
-        level['id']: level['legacy_id']
+        level['id']: (
+            None if level['legacy_id'] in UNAVAILABLE_LEGACY_BUILDINGS
+            else level['legacy_id']
+        )
         for chain in data['chains']
         for level in chain['levels']
     }

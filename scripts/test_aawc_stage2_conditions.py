@@ -18,7 +18,6 @@ EXPECTED_UPSTREAM_BUILDINGS = {
     *(f'oath_faithful_building_{tier:02}' for tier in range(1, 5)),
     *(f'oath_poor_building_{tier:02}' for tier in range(1, 5)),
     *(f'oath_warriors_building_{tier:02}' for tier in range(1, 5)),
-    *(f'powder_magazine_{tier:02}' for tier in range(1, 9)),
 }
 
 
@@ -48,7 +47,7 @@ class ConditionsAcceptance(unittest.TestCase):
         available = effective_buildings()
         legacy_ids = {r['legacy_building'] for r in records if r['legacy_building']}
         self.assertEqual(legacy_ids - available.keys(), EXPECTED_UPSTREAM_BUILDINGS)
-        self.assertEqual(sum(not r['legacy_building'] for r in records), 147)
+        self.assertEqual(sum(not r['legacy_building'] for r in records), 155)
         self.assertEqual(len(records), 771)
         flags = set(re.findall(r'\bflag\s*=\s*(\w+)', '\n'.join(b for _, b in available.values())))
         used = set(re.findall(r'has_building_with_flag = (\w+)', source('common/scripted_effects/aawc_stage2_condition_effects.txt')))

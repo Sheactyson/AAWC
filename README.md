@@ -4,7 +4,7 @@ Development repository for AGOT Alternate World Compatch. The checkout is Git-fi
 
 ## Current layout
 
-- `mod/` — current AAWC source and transport descriptor (`1.11.3.9`).
+- `mod/` — current AAWC source and transport descriptor (`1.11.3.10`).
 - `dependencies/` — current Dependencies source and descriptor (`1.1.2`). Large binary art is tracked with Git LFS.
 - `docs/` — authoritative master documentation.
 - `evidence/stage2/` — the small retained Stage 2 validation and rendered-continuation records.
@@ -43,4 +43,4 @@ To promote a B-level branch: complete the focused validation, update the descrip
 
 The one-time snapshot is commit `46b0dafcb401a5c228bd30649cde43a3723cc960`, branch `archive/pre-cleanup-2026-11-11`, annotated tag `pre-cleanup-2026-11-11`, and the matching GitHub Release. It retains the complete `1.10.x.x` verified baseline, active pre-cleanup work, documentation, tooling, and non-save evidence. Pre-1.10 release folders and machine-local `.ck3` saves were deliberately excluded by user direction. See `archive/pre-cleanup-2026-11-11/README.md` for restoration.
 
-Stage 3 target construction is active for 131 chains / 771 levels. See `catalogue/stage3/CONSTRUCTION_POLICY.md` for derivations, source validation and the separate rendered-verification boundary.
+Stage 3 target construction is active for 131 chains / 771 levels. The current `1.11.3.10` patch removes unsafe legacy-ID reads for the eight Powder Magazine targets while retaining the validated `innovation_dragon_kiln` eligibility gate. See `catalogue/stage3/CONSTRUCTION_POLICY.md` for derivations, source validation and the separate rendered-verification boundary.

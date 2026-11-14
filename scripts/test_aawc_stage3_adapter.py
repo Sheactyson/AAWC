@@ -33,7 +33,7 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(output.count('aawc_stage2_add_contribution_effect ='),771)
         self.assertEqual(output.count('\n\tif ='),131)
         self.assertEqual(output.count('\n\telse_if ='),640)
-        self.assertEqual(output.count('\n\t\t\tOR = {'), 624)
+        self.assertEqual(output.count('\n\t\t\tOR = {'), 616)
         self.assertEqual(len(re.findall(r'^aawc_stage2_building_contributions_effect\s*=\s*\{', output, re.M)), 1)
         for row in runtime:
             args=' '.join(f'{f.upper()} = {row[f]}' for f in adapter.FIELDS)
@@ -53,7 +53,7 @@ class AdapterTests(unittest.TestCase):
             csv_rows = list(csv.DictReader(stream))
         self.assertEqual([{key: row[key] for key in csv_rows[0]} for row in runtime], csv_rows)
         mapped = [row for row in runtime if row['legacy_building']]
-        self.assertEqual(len(mapped), 624)
+        self.assertEqual(len(mapped), 616)
         row = mapped[0]
         vm = SourceVM()
         vm.buildings = {row['building'], row['legacy_building']}
@@ -64,6 +64,20 @@ class AdapterTests(unittest.TestCase):
         actual = [vm.vars['aawc_stage2_structural_'+field] - 50*S for field in adapter.DIMENSIONS]
         actual.append(vm.vars['aawc_stage2_space_percent'])
         self.assertEqual(actual, [int(float(row[field])*S) for field in adapter.FIELDS])
+
+    def test_absent_powder_magazine_legacy_ids_are_never_probed(self):
+        runtime = adapter.rows()
+        powder = [row for row in runtime if row['chain'] == 'aawc_powder_magazine']
+        self.assertEqual(len(powder), 8)
+        generated = adapter.render(runtime)
+        custom = adapter.render_building_custom_loc(runtime)
+        for tier, row in enumerate(powder, 1):
+            legacy = f'powder_magazine_{tier:02}'
+            self.assertIsNone(row['legacy_building'])
+            self.assertNotRegex(generated, rf'has_building = {legacy}(?:\s|$)')
+            self.assertNotRegex(custom, rf'has_building = {legacy}(?:\s|$)')
+            self.assertIn(f'has_building = aawc_{legacy}', generated)
+            self.assertIn(f'has_building = aawc_{legacy}', custom)
 
     def test_tooltips_preserve_signed_inputs(self):
         runtime=adapter.rows()

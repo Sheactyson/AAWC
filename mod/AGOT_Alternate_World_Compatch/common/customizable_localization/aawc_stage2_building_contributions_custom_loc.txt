@@ -7466,12 +7466,7 @@ AAWC_Stage2Building_aawc_plantations_08 = {
 AAWC_Stage2Building_aawc_powder_magazine_01 = {
 	type = province
 	text = {
-		trigger = {
-			OR = {
-				has_building = aawc_powder_magazine_01
-				has_building = powder_magazine_01
-			}
-		}
+		trigger = { has_building = aawc_powder_magazine_01 }
 		localization_key = aawc_stage2_building_aawc_powder_magazine_01
 	}
 	text = {
@@ -7483,12 +7478,7 @@ AAWC_Stage2Building_aawc_powder_magazine_01 = {
 AAWC_Stage2Building_aawc_powder_magazine_02 = {
 	type = province
 	text = {
-		trigger = {
-			OR = {
-				has_building = aawc_powder_magazine_02
-				has_building = powder_magazine_02
-			}
-		}
+		trigger = { has_building = aawc_powder_magazine_02 }
 		localization_key = aawc_stage2_building_aawc_powder_magazine_02
 	}
 	text = {
@@ -7500,12 +7490,7 @@ AAWC_Stage2Building_aawc_powder_magazine_02 = {
 AAWC_Stage2Building_aawc_powder_magazine_03 = {
 	type = province
 	text = {
-		trigger = {
-			OR = {
-				has_building = aawc_powder_magazine_03
-				has_building = powder_magazine_03
-			}
-		}
+		trigger = { has_building = aawc_powder_magazine_03 }
 		localization_key = aawc_stage2_building_aawc_powder_magazine_03
 	}
 	text = {
@@ -7517,12 +7502,7 @@ AAWC_Stage2Building_aawc_powder_magazine_03 = {
 AAWC_Stage2Building_aawc_powder_magazine_04 = {
 	type = province
 	text = {
-		trigger = {
-			OR = {
-				has_building = aawc_powder_magazine_04
-				has_building = powder_magazine_04
-			}
-		}
+		trigger = { has_building = aawc_powder_magazine_04 }
 		localization_key = aawc_stage2_building_aawc_powder_magazine_04
 	}
 	text = {
@@ -7534,12 +7514,7 @@ AAWC_Stage2Building_aawc_powder_magazine_04 = {
 AAWC_Stage2Building_aawc_powder_magazine_05 = {
 	type = province
 	text = {
-		trigger = {
-			OR = {
-				has_building = aawc_powder_magazine_05
-				has_building = powder_magazine_05
-			}
-		}
+		trigger = { has_building = aawc_powder_magazine_05 }
 		localization_key = aawc_stage2_building_aawc_powder_magazine_05
 	}
 	text = {
@@ -7551,12 +7526,7 @@ AAWC_Stage2Building_aawc_powder_magazine_05 = {
 AAWC_Stage2Building_aawc_powder_magazine_06 = {
 	type = province
 	text = {
-		trigger = {
-			OR = {
-				has_building = aawc_powder_magazine_06
-				has_building = powder_magazine_06
-			}
-		}
+		trigger = { has_building = aawc_powder_magazine_06 }
 		localization_key = aawc_stage2_building_aawc_powder_magazine_06
 	}
 	text = {
@@ -7568,12 +7538,7 @@ AAWC_Stage2Building_aawc_powder_magazine_06 = {
 AAWC_Stage2Building_aawc_powder_magazine_07 = {
 	type = province
 	text = {
-		trigger = {
-			OR = {
-				has_building = aawc_powder_magazine_07
-				has_building = powder_magazine_07
-			}
-		}
+		trigger = { has_building = aawc_powder_magazine_07 }
 		localization_key = aawc_stage2_building_aawc_powder_magazine_07
 	}
 	text = {
@@ -7585,12 +7550,7 @@ AAWC_Stage2Building_aawc_powder_magazine_07 = {
 AAWC_Stage2Building_aawc_powder_magazine_08 = {
 	type = province
 	text = {
-		trigger = {
-			OR = {
-				has_building = aawc_powder_magazine_08
-				has_building = powder_magazine_08
-			}
-		}
+		trigger = { has_building = aawc_powder_magazine_08 }
 		localization_key = aawc_stage2_building_aawc_powder_magazine_08
 	}
 	text = {
