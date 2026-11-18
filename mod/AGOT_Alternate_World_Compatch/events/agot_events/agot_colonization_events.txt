@@ -342,24 +342,33 @@ agot_colonization_events.0006 = {
 				limit = {
 					exists = scope:wilderness
 					var:aawc_population_available >= scope:wilderness.county.aawc_population_county_colonize_cost_wh
+					aawc_stage4_can_fund_wilderness_colonization = yes
 				}
 				error_log = "AAWC AI COLONIZE 0006 executing ai_colonization_effect"
 				save_scope_value_as = {
 					name = aawc_population_settlement_cost
 					value = scope:wilderness.county.aawc_population_county_colonize_cost_wh
 				}
-				aawc_population_add_reserved_amount_effect = {
-					COST = scope:aawc_population_settlement_cost
+				aawc_stage4_expedition_reserve_effect = {
+					OWNER = root
+					DESTINATION = scope:wilderness
+					AMOUNT = scope:aawc_population_settlement_cost
 				}
-				ai_colonization_effect = { WILDERNESS = scope:wilderness ROOT_SCOPE = root }
-				aawc_population_consume_reserved_amount_effect = {
-					COST = scope:aawc_population_settlement_cost
+				if = {
+					limit = { var:aawc_stage4_tx_state = 1 }
+					ai_colonization_effect = { WILDERNESS = scope:wilderness ROOT_SCOPE = root }
+					set_variable = { name = aawc_stage4_ai_arrival_attrition value = var:aawc_stage4_tx_reserved }
+					change_variable = { name = aawc_stage4_ai_arrival_attrition add = -100 }
+					if = { limit = { var:aawc_stage4_ai_arrival_attrition < 0 } set_variable = { name = aawc_stage4_ai_arrival_attrition value = 0 } }
+					aawc_stage4_expedition_commit_effect = {
+						DESTINATION = scope:wilderness
+						ATTRITION = var:aawc_stage4_ai_arrival_attrition
+					}
+					remove_variable = aawc_stage4_ai_arrival_attrition
+					if = { limit = { var:aawc_stage4_tx_state = 2 var:aawc_stage4_receipt_delta = 0 } error_log = "AAWC AI COLONIZE 0006 committed an exact Stage 4 receipt" }
+					else = { error_log = "AAWC AI COLONIZE 0006 invalid handoff released its Stage 4 packet without debit or credit" }
 				}
-				aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = 100 }
-				scope:wilderness = {
-					if = { limit = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = root.var:aawc_population_last_settlement_credit } }
-				}
-				remove_variable = aawc_population_pending_settlement_credit
+				else = { error_log = "AAWC AI COLONIZE 0006 could not reserve an exact Stage 4 packet" }
 				aawc_population_resync_settlement_tracker_effect = yes
 				remove_variable = aawc_population_settlement_cost
 			}

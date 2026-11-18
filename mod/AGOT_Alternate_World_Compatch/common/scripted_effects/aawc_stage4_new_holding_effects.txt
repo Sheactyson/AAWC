@@ -1,0 +1,73 @@
+﻿# Stage 4 new-holding fallback. A pending settlement is a real holding with no
+# residents or resident-derived privileges until an exact source packet funds it.
+
+aawc_stage4_enter_pending_settlement_effect = {
+	set_variable = { name = aawc_stage4_pending_settlement value = 1 }
+	set_variable = { name = aawc_stage4_pending_settlement_cost value = $COST$ }
+	aawc_reforging_cohort_clear_ineligible_settlement_effect = yes
+	aawc_reforging_cohort_sync_legacy_population_effect = yes
+	set_variable = { name = aawc_population_expected value = 0 }
+	set_variable = { name = aawc_population_debug_main_capacity value = 0 }
+	set_variable = { name = aawc_population_debug_building_capacity value = 0 }
+	set_variable = { name = aawc_population_debug_growth_rating value = 0 }
+	set_variable = { name = aawc_population_final_growth_rate value = 0 }
+	set_variable = { name = aawc_population_maa_max_contribution value = 0 }
+	set_variable = { name = aawc_population_last_military_contribution value = 0 }
+	set_variable = { name = aawc_migration_holding_building_rating value = 0 }
+	set_variable = { name = aawc_migration_holding_building_rating_eligible value = 0 }
+	add_province_modifier = { modifier = aawc_stage4_pending_settlement_modifier }
+	county = { aawc_population_reaggregate_county_cached_effect = yes }
+}
+
+aawc_stage4_finalize_funded_settlement_effect = {
+	remove_variable = aawc_stage4_pending_settlement
+	remove_variable = aawc_stage4_pending_settlement_cost
+	remove_province_modifier = aawc_stage4_pending_settlement_modifier
+	aawc_population_mark_holding_static_dirty_effect = yes
+	aawc_population_update_holding_dynamic_effect = yes
+	county = { aawc_population_recalculate_county_effect = yes }
+}
+
+aawc_stage4_recover_pending_settlement_effect = {
+	if = {
+		limit = {
+			has_holding = yes
+			has_variable = aawc_stage4_pending_settlement
+			has_variable = aawc_stage4_pending_settlement_cost
+			var:aawc_stage4_pending_settlement_cost > 0
+			exists = scope:aawc_stage4_pending_owner
+			scope:aawc_stage4_pending_owner = {
+				is_landed = yes
+				agot_is_dummy_character = no
+			}
+		}
+		aawc_stage4_expedition_reserve_effect = {
+			AMOUNT = var:aawc_stage4_pending_settlement_cost
+			OWNER = scope:aawc_stage4_pending_owner
+			DESTINATION = this
+		}
+		if = {
+			limit = { var:aawc_stage4_tx_state = 1 }
+			aawc_stage4_expedition_commit_effect = { DESTINATION = this ATTRITION = 0 }
+		}
+		if = {
+			limit = {
+				var:aawc_stage4_tx_state = 2
+				var:aawc_stage4_receipt_delta = 0
+				var:aawc_stage4_receipt_credited = var:aawc_stage4_pending_settlement_cost
+			}
+			aawc_stage4_finalize_funded_settlement_effect = yes
+		}
+	}
+}
+
+aawc_stage4_recover_pending_settlements_character_effect = {
+	save_scope_as = aawc_stage4_pending_owner
+	every_realm_province = {
+		limit = {
+			has_variable = aawc_stage4_pending_settlement
+			county = { holder = { top_liege = scope:aawc_stage4_pending_owner } }
+		}
+		aawc_stage4_recover_pending_settlement_effect = yes
+	}
+}

@@ -11,6 +11,10 @@
 				text = aawc_population_need_reclaim_surplus_ruin_gui_tt
 				var:aawc_population_available >= scope:ruin.county.aawc_population_county_reclaim_cost_rh
 			}
+			custom_tooltip = {
+				text = aawc_stage4_ruin_currency_cost_summary_tt
+				aawc_stage4_can_fund_ruin_reclamation = yes
+			}
 		}
 		trigger_if = { # Default AGOT ruin restoration
 			limit = {
@@ -78,8 +82,13 @@
 				}
 			}
 
-			# AAWC generated reclaim costs for county-scoped special restoration chains
+			# Stage 4 central pricing supersedes the retained site-specific
+			# compatibility table below without rewriting its restoration map.
 			trigger_if = {
+				limit = { always = yes }
+				scope:actor = { aawc_stage4_can_fund_ruin_reclamation = yes }
+			}
+			trigger_else_if = {
 				limit = { scope:ruin = { has_building_or_higher = aawc_c_ilvonys_ruined_01 } }
 				scope:actor = { gold >= 440 }
 			}
@@ -1229,7 +1238,7 @@
 		}
 		trigger_else = {
 			scope:actor = {
-				gold >= lv_settlement_cost
+				aawc_stage4_can_fund_ruin_reclamation = yes
 				NOR = {
 					var:lv_settlement_state ?= flag:planning
 					any_owned_story = {
@@ -1256,6 +1265,7 @@ reconstruct_ruin = {
 				scope:actor = {
 					aawc_population_is_top_liege_actor = yes
 					var:aawc_population_available >= scope:ruin.county.aawc_population_county_reclaim_cost_rh
+					aawc_stage4_can_fund_ruin_reclamation = yes
 				}
 			}
 		if = {
@@ -1264,7 +1274,30 @@ reconstruct_ruin = {
 				NOT = { scope:ruin.county = { aawc_county_should_use_agot_colonization_flow = yes } }
 			}
 			error_log = "AAWC DEBUG reconstruct_ruin AGOT direct-claim branch"
+			scope:actor = {
+				save_scope_value_as = {
+					name = aawc_population_settlement_cost
+					value = scope:ruin.county.aawc_population_county_reclaim_cost_rh
+				}
+				aawc_stage4_expedition_reserve_effect = {
+					OWNER = scope:actor
+					DESTINATION = scope:ruin
+					AMOUNT = scope:aawc_population_settlement_cost
+				}
+			}
 			if = {
+				limit = { scope:actor.var:aawc_stage4_tx_state = 1 }
+			if = {
+				limit = { always = yes }
+				scope:actor = {
+					aawc_stage4_pay_colonization_resources_effect = {
+						GOLD = scope:ruin.county.aawc_stage4_ruin_reclamation_gold_cost
+						PRESTIGE = scope:ruin.county.aawc_stage4_ruin_reclamation_prestige_cost
+						PIETY = scope:ruin.county.aawc_stage4_ruin_reclamation_piety_cost
+					}
+				}
+			}
+			else_if = {
 				limit = { scope:ruin = { has_building_or_higher = aawc_c_andal_coast_ruined_01 } }
 				scope:actor = { remove_short_term_gold = 70 }
 			}
@@ -2342,28 +2375,25 @@ reconstruct_ruin = {
 				scope:actor = { remove_short_term_gold = 400 }
 			}
 			else = { scope:actor = { remove_short_term_gold = 200 } }
-			scope:actor = {
-				save_scope_value_as = {
-					name = aawc_population_settlement_cost
-					value = scope:ruin.county.aawc_population_county_reclaim_cost_rh
-				}
-				aawc_population_add_reserved_amount_effect = {
-					COST = scope:aawc_population_settlement_cost
-				}
-			}
 			scope:actor = { get_title = prev.county }
 			scope:actor = {
-				aawc_population_consume_reserved_amount_effect = {
-					COST = scope:aawc_population_settlement_cost
+				set_variable = { name = aawc_stage4_direct_arrival_attrition value = var:aawc_stage4_tx_reserved }
+				change_variable = { name = aawc_stage4_direct_arrival_attrition add = -100 }
+				if = { limit = { var:aawc_stage4_direct_arrival_attrition < 0 } set_variable = { name = aawc_stage4_direct_arrival_attrition value = 0 } }
+				aawc_stage4_expedition_commit_effect = {
+					DESTINATION = scope:ruin
+					ATTRITION = var:aawc_stage4_direct_arrival_attrition
 				}
-				aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = 100 }
+				remove_variable = aawc_stage4_direct_arrival_attrition
 				remove_variable = aawc_population_settlement_cost
-				error_log = "AAWC POP direct AGOT reclaim consumed reserved population"
+				if = { limit = { var:aawc_stage4_tx_state = 2 var:aawc_stage4_receipt_delta = 0 } error_log = "AAWC POP direct AGOT reclaim committed an exact Stage 4 receipt" }
+				else = { error_log = "AAWC POP direct AGOT reclaim handoff was invalid; Stage 4 packet released without debit or credit" }
 			}
-			scope:ruin = {
-				if = { limit = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = scope:actor.var:aawc_population_last_settlement_credit } }
 			}
-			scope:actor = { remove_variable = aawc_population_pending_settlement_credit }
+			else = {
+				scope:actor = { remove_variable = aawc_population_settlement_cost }
+				error_log = "AAWC POP direct AGOT reclaim blocked because an exact Stage 4 packet could not be reserved"
+			}
 		}
 		else = {
 			error_log = "AAWC DEBUG reconstruct_ruin LoV expedition branch"
@@ -2491,8 +2521,8 @@ agot_can_colonize = {
 				}
 			}
 			custom_tooltip = {
-				text = aawc_population_colonize_gold_cost_summary_tt
-				gold >= colonize_cost_val
+				text = aawc_stage4_wilderness_currency_cost_summary_tt
+				aawc_stage4_can_fund_wilderness_colonization = yes
 			}
 			trigger_if = {
 				limit = {
@@ -2541,8 +2571,8 @@ agot_can_colonize = {
 				}
 			}
 			custom_tooltip = {
-				text = aawc_population_colonize_gold_cost_summary_tt
-				gold >= lv_settlement_cost
+				text = aawc_stage4_wilderness_currency_cost_summary_tt
+				aawc_stage4_can_fund_wilderness_colonization = yes
 			}
 			NOR = {
 				var:lv_settlement_state ?= flag:planning
@@ -2607,16 +2637,25 @@ agot_can_colonize = {
 						limit = {
 							aawc_population_is_top_liege_actor = yes
 							var:aawc_population_available >= scope:wilderness.county.aawc_population_county_colonize_cost_wh
-							gold >= colonize_cost_val
+							aawc_stage4_can_fund_wilderness_colonization = yes
 						}
 						save_scope_value_as = {
 							name = aawc_population_settlement_cost
 							value = scope:wilderness.county.aawc_population_county_colonize_cost_wh
 						}
-						aawc_population_add_reserved_amount_effect = {
-							COST = scope:aawc_population_settlement_cost
+						aawc_stage4_expedition_reserve_effect = {
+							OWNER = root
+							DESTINATION = scope:wilderness
+							AMOUNT = scope:aawc_population_settlement_cost
 						}
-						scope:wilderness = { save_scope_as = aawc_population_paid_wilderness }
+						if = {
+							limit = { var:aawc_stage4_tx_state = 1 }
+							scope:wilderness = { save_scope_as = aawc_population_paid_wilderness }
+						}
+						else = {
+							remove_variable = aawc_population_settlement_cost
+							error_log = "AAWC POP AGOT colonization blocked because an exact Stage 4 packet could not be reserved"
+						}
 					}
 					else = {
 						error_log = "AAWC POP AGOT colonization blocked at execution because the actor lacked the full gold or population cost"
@@ -2626,17 +2665,18 @@ agot_can_colonize = {
 					limit = { exists = scope:aawc_population_paid_wilderness }
 					ai_colonization_effect = { WILDERNESS = scope:wilderness ROOT_SCOPE = root }
 					root = {
-						aawc_population_consume_reserved_amount_effect = {
-							COST = scope:aawc_population_settlement_cost
+						set_variable = { name = aawc_stage4_direct_arrival_attrition value = var:aawc_stage4_tx_reserved }
+						change_variable = { name = aawc_stage4_direct_arrival_attrition add = -100 }
+						if = { limit = { var:aawc_stage4_direct_arrival_attrition < 0 } set_variable = { name = aawc_stage4_direct_arrival_attrition value = 0 } }
+						aawc_stage4_expedition_commit_effect = {
+							DESTINATION = scope:aawc_population_paid_wilderness
+							ATTRITION = var:aawc_stage4_direct_arrival_attrition
 						}
-						aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = 100 }
+						remove_variable = aawc_stage4_direct_arrival_attrition
 						remove_variable = aawc_population_settlement_cost
-						error_log = "AAWC POP AGOT colonize consumed the full reserved population cost"
+						if = { limit = { var:aawc_stage4_tx_state = 2 var:aawc_stage4_receipt_delta = 0 } error_log = "AAWC POP AGOT colonize committed an exact Stage 4 receipt" }
+						else = { error_log = "AAWC POP AGOT colonize handoff was invalid; Stage 4 packet released without debit or credit" }
 					}
-					scope:aawc_population_paid_wilderness = {
-						if = { limit = { aawc_population_valid_settlement_for_cohort_trigger = yes } aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = root.var:aawc_population_last_settlement_credit } }
-					}
-					root = { remove_variable = aawc_population_pending_settlement_credit }
 				}
 			}
 			else = {
@@ -2652,7 +2692,7 @@ agot_can_colonize = {
 						limit = {
 							aawc_population_is_top_liege_actor = yes
 							var:aawc_population_available >= scope:wilderness.county.aawc_population_county_colonize_cost_wh
-							gold >= lv_settlement_cost
+							aawc_stage4_can_fund_wilderness_colonization = yes
 						}
 						save_scope_value_as = {
 							name = lv_settlement_cost

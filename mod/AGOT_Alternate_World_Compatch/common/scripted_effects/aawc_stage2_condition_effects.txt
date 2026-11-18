@@ -218,6 +218,7 @@ aawc_stage2_refresh_structural_effect = {
 	set_variable = { name = aawc_stage2_record_building_contributions value = 1 }
 	aawc_stage2_building_contributions_effect = yes
 	remove_variable = aawc_stage2_record_building_contributions
+	aawc_stage4_blocker_contributions_effect = yes
 	# Existing regional blockers use supported flags; a category applies once,
 	# independent of the number of graphical/clearance definitions in its lineage.
 	set_variable = { name = aawc_stage2_record_blocker_contributions value = 1 }

@@ -6,6 +6,7 @@
 
 aawc_population_valid_settlement_for_cohort_trigger = {
 	has_holding = yes
+	aawc_stage4_settlement_privileges_available_trigger = yes
 	OR = {
 		has_holding_type = castle_holding
 		has_holding_type = tribal_holding
@@ -17,6 +18,12 @@ aawc_population_valid_settlement_for_cohort_trigger = {
 		has_holding_type = pirate_den_holding
 		has_holding_type = settlement_holding
 	}
+}
+
+# A zero-population new holding has no demographic, workforce, or settlement
+# privileges until an exact real-source packet commits successfully.
+aawc_stage4_settlement_privileges_available_trigger = {
+	NOT = { has_variable = aawc_stage4_pending_settlement }
 }
 
 aawc_population_ai_below_settlement_limit = {
@@ -71,6 +78,24 @@ aawc_population_has_surplus_for_reclaim = {
 aawc_population_has_surplus_for_colonize = {
 	aawc_population_is_top_liege_actor = yes
 	var:aawc_population_available >= scope:wilderness.county.aawc_population_county_colonize_cost_wh
+}
+
+aawc_stage4_can_fund_wilderness_colonization = {
+	gold >= scope:wilderness.county.aawc_stage4_wilderness_colonization_gold_cost
+	prestige >= scope:wilderness.county.aawc_stage4_wilderness_colonization_prestige_cost
+	piety >= scope:wilderness.county.aawc_stage4_wilderness_colonization_piety_cost
+}
+
+aawc_stage4_can_fund_wilderness_colonization_from_ruin = {
+	gold >= scope:ruin.county.aawc_stage4_wilderness_colonization_gold_cost
+	prestige >= scope:ruin.county.aawc_stage4_wilderness_colonization_prestige_cost
+	piety >= scope:ruin.county.aawc_stage4_wilderness_colonization_piety_cost
+}
+
+aawc_stage4_can_fund_ruin_reclamation = {
+	gold >= scope:ruin.county.aawc_stage4_ruin_reclamation_gold_cost
+	prestige >= scope:ruin.county.aawc_stage4_ruin_reclamation_prestige_cost
+	piety >= scope:ruin.county.aawc_stage4_ruin_reclamation_piety_cost
 }
 
 aawc_population_can_pay_minor_blocker_clearance = {

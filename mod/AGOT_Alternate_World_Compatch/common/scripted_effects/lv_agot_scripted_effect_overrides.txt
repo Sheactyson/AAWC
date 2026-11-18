@@ -304,17 +304,21 @@ ai_colonization_effect = {
 	scope:wilderness_holder_title.holder = {
 		if = {
 			limit = { this = title:c_wilderness.holder }
-			hidden_effect = { remove_short_term_gold = colonize_cost_val }
+			hidden_effect = { remove_short_term_gold = scope:wilderness.county.aawc_stage4_wilderness_colonization_gold_cost }
 		}
 		else_if = {
 			limit = {
 				has_treasury = yes
-				treasury >= colonize_cost_val
+				treasury >= scope:wilderness.county.aawc_stage4_wilderness_colonization_gold_cost
 			}
-			remove_short_term_treasury = colonize_cost_val
+			remove_short_term_treasury = scope:wilderness.county.aawc_stage4_wilderness_colonization_gold_cost
 		}
 		else = {
-			remove_short_term_gold = colonize_cost_val
+			remove_short_term_gold = scope:wilderness.county.aawc_stage4_wilderness_colonization_gold_cost
+		}
+		aawc_stage4_pay_colonization_legitimacy_resources_effect = {
+			PRESTIGE = scope:wilderness.county.aawc_stage4_wilderness_colonization_prestige_cost
+			PIETY = scope:wilderness.county.aawc_stage4_wilderness_colonization_piety_cost
 		}
 		increase_variable = {
 			NAME = num_settled_wilderness

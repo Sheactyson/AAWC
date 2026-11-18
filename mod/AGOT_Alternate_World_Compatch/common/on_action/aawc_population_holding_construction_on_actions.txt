@@ -30,6 +30,7 @@ aawc_population_on_new_holding_started = {
 			limit = {
 				exists = scope:character
 				has_holding = no
+				NOT = { has_variable = aawc_population_new_holding_under_construction }
 				OR = {
 					has_construction_with_flag = castle
 					has_construction_with_flag = city
@@ -39,22 +40,18 @@ aawc_population_on_new_holding_started = {
 			}
 			set_variable = { name = aawc_population_new_holding_reserved_cost value = aawc_population_new_holding_construction_cost }
 			set_variable = { name = aawc_population_new_holding_under_construction value = 1 }
-			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 new holding start detected" }
-			if = { limit = { has_construction_with_flag = castle } error_log = "AAWC POP 1.9.32 new holding type: castle" }
-			if = { limit = { has_construction_with_flag = city } error_log = "AAWC POP 1.9.32 new holding type: city" }
-			if = { limit = { has_construction_with_flag = temple } error_log = "AAWC POP 1.9.32 new holding type: temple" }
-			if = { limit = { has_construction_with_flag = tribe } error_log = "AAWC POP 1.9.32 new holding type: tribal" }
 			if = {
 				limit = { var:aawc_population_new_holding_reserved_cost > 0 }
 				scope:character.top_liege = {
-					aawc_population_recalculate_character_effect = yes
-					if = {
-						limit = { var:aawc_population_available < root.var:aawc_population_new_holding_reserved_cost }
-						if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 warning: new holding started without enough available population" }
-					}
-					aawc_population_add_reserved_amount_effect = { COST = root.var:aawc_population_new_holding_reserved_cost }
-					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 reserved population for new holding construction" }
+					save_scope_as = aawc_stage4_new_holding_owner
 				}
+				aawc_stage4_expedition_reserve_effect = {
+					AMOUNT = var:aawc_population_new_holding_reserved_cost
+					OWNER = scope:aawc_stage4_new_holding_owner
+					DESTINATION = this
+				}
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes var:aawc_stage4_tx_state = 1 } error_log = "AAWC POP Stage 4 reserved an exact new-holding cohort packet" }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes NOT = { var:aawc_stage4_tx_state = 1 } } error_log = "AAWC POP Stage 4 new holding began without an exact fundable packet; completion will remain pending" }
 			}
 			else = {
 				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 warning: new holding construction had no recognized population cost" }
@@ -66,21 +63,13 @@ aawc_population_on_new_holding_started = {
 aawc_population_on_new_holding_cancelled = {
 	effect = {
 		if = {
-			limit = { NOT = { exists = scope:character } }
-			root.county.holder = { save_scope_as = character }
-			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log = "AAWC POP 1.9.32 new holding cancel: no payer scope, using county holder" }
-		}
-		if = {
 			limit = {
-				exists = scope:character
 				has_variable = aawc_population_new_holding_under_construction
 				has_variable = aawc_population_new_holding_reserved_cost
 				var:aawc_population_new_holding_reserved_cost > 0
 			}
-			scope:character.top_liege = {
-				aawc_population_release_reserved_amount_effect = { COST = root.var:aawc_population_new_holding_reserved_cost }
-				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9.32 released reserved population for cancelled new holding" }
-			}
+			aawc_stage4_expedition_release_effect = yes
+			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP Stage 4 released exact new-holding funding once" }
 			remove_variable = aawc_population_new_holding_reserved_cost
 			remove_variable = aawc_population_new_holding_under_construction
 		}
@@ -182,36 +171,30 @@ aawc_population_on_new_holding_completed = {
 			aawc_population_mark_holding_static_dirty_effect = yes
 		}
 		if = {
-			limit = { NOT = { exists = scope:character } }
-			root.county.holder = { save_scope_as = character }
-			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log = "AAWC POP 1.9.32 new holding complete: no payer scope, using county holder" }
-		}
-		if = {
 			limit = {
-				exists = scope:character
 				has_variable = aawc_population_new_holding_under_construction
 				has_variable = aawc_population_new_holding_reserved_cost
 				var:aawc_population_new_holding_reserved_cost > 0
 			}
-			aawc_reforging_diag_caller_effect = { CALLER = 4 }
-			scope:character.top_liege = {
-				aawc_population_consume_reserved_amount_effect = { COST = root.var:aawc_population_new_holding_reserved_cost }
-				aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = root.var:aawc_population_new_holding_reserved_cost }
+			# Clear any generic startup seed first. A successful exact commit removes
+			# pending only after validating and debiting every real source packet.
+			aawc_stage4_enter_pending_settlement_effect = { COST = var:aawc_population_new_holding_reserved_cost }
+			if = {
+				limit = { var:aawc_stage4_tx_state = 1 }
+				aawc_stage4_expedition_commit_effect = { DESTINATION = this ATTRITION = 0 }
 			}
-			aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = scope:character.top_liege.var:aawc_population_last_settlement_credit }
-			scope:character.top_liege = { remove_variable = aawc_population_pending_settlement_credit }
-			set_variable = { name = aawc_population_expected value = aawc_population_holding_expected }
-			set_variable = { name = aawc_population_total value = var:aawc_population_current }
-			set_variable = { name = aawc_population_surplus value = var:aawc_population_current }
-			change_variable = {
-				name = aawc_population_surplus
-				add = {
-					value = var:aawc_population_expected
-					multiply = -1
+			if = {
+				limit = {
+					var:aawc_stage4_tx_state = 2
+					var:aawc_stage4_receipt_delta = 0
+					var:aawc_stage4_receipt_credited = var:aawc_population_new_holding_reserved_cost
 				}
+				aawc_stage4_finalize_funded_settlement_effect = yes
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP Stage 4 funded new holding committed exact debit before exact destination credit" }
 			}
-			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP Stage 1 seeded completed new holding from the confirmed source-debit receipt" }
-			if = { limit = { scope:character.top_liege.var:aawc_population_last_consume_unmet > 0 } error_log = "AAWC POP Stage 1 new holding completion had insufficient source population; destination credit was reduced fail-closed" }
+			else = {
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP Stage 4 new holding remains zero-population pending real-source funding" }
+			}
 			remove_variable = aawc_population_new_holding_reserved_cost
 			remove_variable = aawc_population_new_holding_under_construction
 		}

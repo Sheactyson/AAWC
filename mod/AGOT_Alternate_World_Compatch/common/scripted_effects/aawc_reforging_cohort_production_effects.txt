@@ -507,7 +507,9 @@ aawc_reforging_cohort_apply_production_month_effect = {
 				limit = { NOT = { has_variable = aawc_reforging_cohort_monthly_tick_recent } }
 				set_variable = { name = aawc_reforging_cohort_monthly_tick_recent value = 1 days = 27 }
 				change_variable = { name = aawc_reforging_cohort_requested_tick add = 1 }
+				aawc_stage4_expedition_detach_reserved_packet_effect = yes
 				aawc_reforging_cohort_monthly_authority_effect = { TICK_ID = var:aawc_reforging_cohort_requested_tick }
+				aawc_stage4_expedition_reattach_reserved_packet_effect = yes
 			}
 		aawc_reforging_cohort_sync_legacy_population_effect = yes
 		}
@@ -533,6 +535,30 @@ aawc_reforging_cohort_drain_band_effect = {
 	}
 }
 
+# Non-fatal outward transactions may not spend a Stage-4 expedition packet.
+# Fatal crisis drains intentionally continue to use the unrestricted helper
+# above; arrival validates the surviving packet before committing.
+aawc_reforging_cohort_drain_unreserved_band_effect = {
+	if = {
+		limit = { var:aawc_reforging_cohort_work_remaining > 0 var:$BAND$ > 0 }
+		set_variable = { name = aawc_reforging_cohort_work_band_available value = var:$BAND$ }
+		change_variable = {
+			name = aawc_reforging_cohort_work_band_available
+			add = {
+				value = { value = 0 if = { limit = { has_variable = $RESERVED$ } add = var:$RESERVED$ } }
+				multiply = -1
+			}
+		}
+		if = { limit = { var:aawc_reforging_cohort_work_band_available < 0 } set_variable = { name = aawc_reforging_cohort_work_band_available value = 0 } }
+		set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_band_available }
+		if = { limit = { var:aawc_reforging_cohort_work_band_debit > var:aawc_reforging_cohort_work_remaining } set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_remaining } }
+		change_variable = { name = $BAND$ add = { value = var:aawc_reforging_cohort_work_band_debit multiply = -1 } }
+		change_variable = { name = aawc_reforging_cohort_work_remaining add = { value = var:aawc_reforging_cohort_work_band_debit multiply = -1 } }
+		remove_variable = aawc_reforging_cohort_work_band_available
+		remove_variable = aawc_reforging_cohort_work_band_debit
+	}
+}
+
 # Stage-1 transfer packets preserve the actual age bands that leave a holding.
 # The migration planner remains age-blind and retains its existing destination
 # selection; only the commit changes from a synthetic 20-24 credit to an exact
@@ -542,6 +568,8 @@ aawc_reforging_cohort_capture_transfer_band_effect = {
 	if = {
 		limit = { var:aawc_reforging_cohort_work_remaining > 0 var:$BAND$ > 0 }
 		set_variable = { name = aawc_reforging_cohort_work_band_available value = var:$BAND$ }
+		change_variable = { name = aawc_reforging_cohort_work_band_available add = { value = { value = 0 if = { limit = { has_variable = $RESERVED$ } add = var:$RESERVED$ } } multiply = -1 } }
+		if = { limit = { var:aawc_reforging_cohort_work_band_available < 0 } set_variable = { name = aawc_reforging_cohort_work_band_available value = 0 } }
 		set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_band_available }
 		if = { limit = { var:aawc_reforging_cohort_work_band_debit > var:aawc_reforging_cohort_work_remaining } set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_remaining } }
 		change_variable = { name = $BAND$ add = { value = var:aawc_reforging_cohort_work_band_debit multiply = -1 } }
@@ -556,6 +584,7 @@ aawc_reforging_cohort_capture_transfer_adult_band_effect = {
 	if = {
 		limit = { var:aawc_reforging_cohort_work_remaining > 0 var:$BAND$ > 0 }
 		set_variable = { name = aawc_reforging_cohort_work_band_available value = var:$BAND$ }
+		change_variable = { name = aawc_reforging_cohort_work_band_available add = { value = { value = 0 if = { limit = { has_variable = $RESERVED$ } add = var:$RESERVED$ } } multiply = -1 } }
 		change_variable = { name = aawc_reforging_cohort_work_band_available add = { value = { value = 0 if = { limit = { has_variable = $MILITARY$ } add = var:$MILITARY$ } } multiply = -1 } }
 		if = { limit = { var:aawc_reforging_cohort_work_band_available < 0 } set_variable = { name = aawc_reforging_cohort_work_band_available value = 0 } }
 		set_variable = { name = aawc_reforging_cohort_work_band_debit value = var:aawc_reforging_cohort_work_band_available }
@@ -616,19 +645,19 @@ aawc_reforging_cohort_capture_transfer_packet_effect = {
 	aawc_reforging_cohort_ensure_production_ledger_effect = yes
 	set_variable = { name = aawc_reforging_cohort_work_before value = aawc_reforging_cohort_band_sum }
 	set_variable = { name = aawc_reforging_cohort_work_remaining value = { value = $AMOUNT$ min = 0 floor = yes } }
-	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_00_04 POOL = aawc_reforging_transfer_age_00_04 }
-	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_05_09 POOL = aawc_reforging_transfer_age_05_09 }
-	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_10_14 POOL = aawc_reforging_transfer_age_10_14 }
-	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_15_19 MILITARY = aawc_reforging_military_age_15_19 POOL = aawc_reforging_transfer_age_15_19 }
-	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_20_24 MILITARY = aawc_reforging_military_age_20_24 POOL = aawc_reforging_transfer_age_20_24 }
-	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_25_29 MILITARY = aawc_reforging_military_age_25_29 POOL = aawc_reforging_transfer_age_25_29 }
-	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_30_34 MILITARY = aawc_reforging_military_age_30_34 POOL = aawc_reforging_transfer_age_30_34 }
-	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_35_39 MILITARY = aawc_reforging_military_age_35_39 POOL = aawc_reforging_transfer_age_35_39 }
-	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_40_44 MILITARY = aawc_reforging_military_age_40_44 POOL = aawc_reforging_transfer_age_40_44 }
-	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_45_49 MILITARY = aawc_reforging_military_age_45_49 POOL = aawc_reforging_transfer_age_45_49 }
-	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_50_54 MILITARY = aawc_reforging_military_age_50_54 POOL = aawc_reforging_transfer_age_50_54 }
-	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_55_59 MILITARY = aawc_reforging_military_age_55_59 POOL = aawc_reforging_transfer_age_55_59 }
-	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_60_plus POOL = aawc_reforging_transfer_age_60_plus }
+	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_00_04 RESERVED = aawc_stage4_reserved_age_00_04 POOL = aawc_reforging_transfer_age_00_04 }
+	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_05_09 RESERVED = aawc_stage4_reserved_age_05_09 POOL = aawc_reforging_transfer_age_05_09 }
+	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_10_14 RESERVED = aawc_stage4_reserved_age_10_14 POOL = aawc_reforging_transfer_age_10_14 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_15_19 RESERVED = aawc_stage4_reserved_age_15_19 MILITARY = aawc_reforging_military_age_15_19 POOL = aawc_reforging_transfer_age_15_19 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_20_24 RESERVED = aawc_stage4_reserved_age_20_24 MILITARY = aawc_reforging_military_age_20_24 POOL = aawc_reforging_transfer_age_20_24 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_25_29 RESERVED = aawc_stage4_reserved_age_25_29 MILITARY = aawc_reforging_military_age_25_29 POOL = aawc_reforging_transfer_age_25_29 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_30_34 RESERVED = aawc_stage4_reserved_age_30_34 MILITARY = aawc_reforging_military_age_30_34 POOL = aawc_reforging_transfer_age_30_34 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_35_39 RESERVED = aawc_stage4_reserved_age_35_39 MILITARY = aawc_reforging_military_age_35_39 POOL = aawc_reforging_transfer_age_35_39 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_40_44 RESERVED = aawc_stage4_reserved_age_40_44 MILITARY = aawc_reforging_military_age_40_44 POOL = aawc_reforging_transfer_age_40_44 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_45_49 RESERVED = aawc_stage4_reserved_age_45_49 MILITARY = aawc_reforging_military_age_45_49 POOL = aawc_reforging_transfer_age_45_49 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_50_54 RESERVED = aawc_stage4_reserved_age_50_54 MILITARY = aawc_reforging_military_age_50_54 POOL = aawc_reforging_transfer_age_50_54 }
+	aawc_reforging_cohort_capture_transfer_adult_band_effect = { BAND = aawc_reforging_cohort_age_55_59 RESERVED = aawc_stage4_reserved_age_55_59 MILITARY = aawc_reforging_military_age_55_59 POOL = aawc_reforging_transfer_age_55_59 }
+	aawc_reforging_cohort_capture_transfer_band_effect = { BAND = aawc_reforging_cohort_age_60_plus RESERVED = aawc_stage4_reserved_age_60_plus POOL = aawc_reforging_transfer_age_60_plus }
 	aawc_reforging_cohort_reconcile_effect = yes
 	aawc_reforging_cohort_refresh_mirrors_effect = yes
 	set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = var:aawc_reforging_cohort_work_before }
@@ -670,15 +699,15 @@ aawc_reforging_cohort_debit_legacy_maa_population_effect = {
 	aawc_reforging_cohort_ensure_production_ledger_effect = yes
 	set_variable = { name = aawc_reforging_cohort_work_before value = aawc_reforging_cohort_band_sum }
 	set_variable = { name = aawc_reforging_cohort_work_remaining value = { value = $AMOUNT$ min = 0 floor = yes } }
-	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_20_24 }
-	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_25_29 }
-	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_30_34 }
-	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_35_39 }
-	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_15_19 }
-	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_40_44 }
-	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_45_49 }
-	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_50_54 }
-	aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_55_59 }
+	aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_20_24 RESERVED = aawc_stage4_reserved_age_20_24 }
+	aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_25_29 RESERVED = aawc_stage4_reserved_age_25_29 }
+	aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_30_34 RESERVED = aawc_stage4_reserved_age_30_34 }
+	aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_35_39 RESERVED = aawc_stage4_reserved_age_35_39 }
+	aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_15_19 RESERVED = aawc_stage4_reserved_age_15_19 }
+	aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_40_44 RESERVED = aawc_stage4_reserved_age_40_44 }
+	aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_45_49 RESERVED = aawc_stage4_reserved_age_45_49 }
+	aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_50_54 RESERVED = aawc_stage4_reserved_age_50_54 }
+	aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_55_59 RESERVED = aawc_stage4_reserved_age_55_59 }
 	aawc_reforging_cohort_reconcile_effect = yes
 	aawc_reforging_cohort_refresh_mirrors_effect = yes
 	set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = var:aawc_reforging_cohort_work_before }
@@ -752,19 +781,19 @@ aawc_reforging_cohort_debit_population_effect = {
 		aawc_reforging_round_single_flow_effect = { AMOUNT = $AMOUNT$ CARRY = aawc_reforging_round_population_debit_pending CAPACITY = aawc_reforging_cohort_band_sum }
 		set_variable = { name = aawc_reforging_cohort_work_remaining value = aawc_reforging_round_last_applied_value }
 		if = { limit = { var:aawc_reforging_cohort_work_remaining < 0 } set_variable = { name = aawc_reforging_cohort_work_remaining value = 0 } }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_60_plus }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_55_59 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_50_54 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_45_49 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_40_44 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_35_39 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_30_34 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_25_29 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_20_24 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_15_19 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_10_14 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_05_09 }
-		aawc_reforging_cohort_drain_band_effect = { BAND = aawc_reforging_cohort_age_00_04 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_60_plus RESERVED = aawc_stage4_reserved_age_60_plus }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_55_59 RESERVED = aawc_stage4_reserved_age_55_59 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_50_54 RESERVED = aawc_stage4_reserved_age_50_54 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_45_49 RESERVED = aawc_stage4_reserved_age_45_49 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_40_44 RESERVED = aawc_stage4_reserved_age_40_44 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_35_39 RESERVED = aawc_stage4_reserved_age_35_39 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_30_34 RESERVED = aawc_stage4_reserved_age_30_34 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_25_29 RESERVED = aawc_stage4_reserved_age_25_29 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_20_24 RESERVED = aawc_stage4_reserved_age_20_24 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_15_19 RESERVED = aawc_stage4_reserved_age_15_19 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_10_14 RESERVED = aawc_stage4_reserved_age_10_14 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_05_09 RESERVED = aawc_stage4_reserved_age_05_09 }
+		aawc_reforging_cohort_drain_unreserved_band_effect = { BAND = aawc_reforging_cohort_age_00_04 RESERVED = aawc_stage4_reserved_age_00_04 }
 		aawc_reforging_cohort_reconcile_effect = yes
 		aawc_reforging_cohort_refresh_mirrors_effect = yes
 		set_variable = { name = aawc_reforging_cohort_last_transfer_debit value = var:aawc_reforging_cohort_work_before }

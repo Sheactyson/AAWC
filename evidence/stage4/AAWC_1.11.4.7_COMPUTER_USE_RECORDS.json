@@ -1,0 +1,40 @@
+{
+  "COMPUTER_USE_PATTERN": {
+    "application": "Crusader Kings III 1.19.0.6",
+    "goal": "Validate Stage 4 wilderness/ruin pricing, rejected and successful expedition routes, and reachable lifecycle state without modifying a retained save",
+    "preconditions": [
+      "Hash-pinned AAWC 1.11.4.7 installed with the intended AGOT and Legacy of Valyria stack",
+      "Pristine paused aawc_1_11_3_13_building_drilldown_fixture",
+      "Exit autosave remains unchecked"
+    ],
+    "steps": [
+      "Load the pristine paused fixture and use Find Title to open six-slot wilderness Russeting.",
+      "Read the blocked expedition tooltip and verify population, gold, prestige and piety costs.",
+      "For the bounded success probe only, add resources and a real Stage 1 cohort ledger through an installed-only disposable fixture; choose the personal route and start native travel.",
+      "Advance one simulation tick, verify exact currency charges and the en-route event, then inspect Stage 4 game/error log lines.",
+      "Use Find Title to open six-slot ruin Hammerford and verify the rejected reclamation tooltip for all four cost dimensions.",
+      "Exit without autosave, remove the disposable fixture, reinstall the hash-pinned package, and verify exact source/archive/install/manifest parity."
+    ],
+    "verification": [
+      "Russeting displays 1500 for population, gold, prestige and piety.",
+      "Hammerford displays 3000 for population, gold, prestige and piety and remains rejected with insufficient inputs.",
+      "Personal Russeting travel starts; the first tick debits exactly 1500 gold, prestige and piety.",
+      "The original uninitialized aawc_stage4_tx_state warning has zero matches after the 1.11.4.7 repair.",
+      "No retained save changes, no disposable fixture remains, and final parity is 353/353/353/353."
+    ]
+  },
+  "COMPUTER_USE_TRACE": {
+    "pattern": "stage4-rendered-expedition-and-pricing-acceptance",
+    "date": "2026-11-17",
+    "candidate": "1.11.4.7",
+    "result": "pass for wilderness/ruin pricing, rejected route, successful reservation/travel start, exact currency charge, and repaired first-use guard",
+    "direct_lifecycle_observation": "The immediately preceding 1.11.4.6 success reached Russeting and rendered Settlement of Castle Russeting with holder self, Settlement type, Tribalize, and zero tax/levies.",
+    "pending_new_holding_observation": "not directly reached; retained automated 10/10 pending/recovery evidence only",
+    "screenshots_retained": 0,
+    "live_frames_observed": true,
+    "exit_autosave": false,
+    "retained_save_modified": false,
+    "temporary_fixture_removed": true,
+    "final_install_parity": "353/353/353/353"
+  }
+}

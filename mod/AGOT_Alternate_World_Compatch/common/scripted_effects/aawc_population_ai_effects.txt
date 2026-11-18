@@ -457,28 +457,48 @@ aawc_population_ai_colonize_selected_external_target_effect = {
 				}
 			}
 			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI 1.9.95 external colonization resource/context gate passed" }
-			remove_short_term_gold = scope:aawc_ai_external_gold_cost
-			aawc_population_add_reserved_amount_effect = {
-				COST = scope:aawc_ai_external_population_cost
+			aawc_stage4_expedition_reserve_effect = {
+				OWNER = root
+				DESTINATION = scope:aawc_ai_selected_external_province
+				AMOUNT = scope:aawc_ai_external_population_cost
 			}
-			aawc_population_consume_reserved_amount_effect = {
-				COST = scope:aawc_ai_external_population_cost
+			if = {
+				limit = { var:aawc_stage4_tx_state = 1 }
+				remove_short_term_gold = scope:aawc_ai_external_gold_cost
+				scope:aawc_ai_selected_external_county = {
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes aawc_county_should_use_lov_ai_reclaim_flow = yes } error_log = "AAWC AI 1.9.95 external target has native LoV RH routing marker" }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes aawc_county_should_use_agot_colonization_flow = yes } error_log = "AAWC AI 1.9.95 external target has AGOT colonization routing marker" }
+				}
+				save_scope_as = liege
+				lv_settlement_establish_effect = {
+					PROVINCE = scope:aawc_ai_selected_external_province
+					ACTOR = root
+				}
+				set_variable = { name = aawc_stage4_ai_arrival_attrition value = var:aawc_stage4_tx_reserved }
+				change_variable = { name = aawc_stage4_ai_arrival_attrition add = -100 }
+				if = { limit = { var:aawc_stage4_ai_arrival_attrition < 0 } set_variable = { name = aawc_stage4_ai_arrival_attrition value = 0 } }
+				aawc_stage4_expedition_commit_effect = {
+					DESTINATION = scope:aawc_ai_selected_external_province
+					ATTRITION = var:aawc_stage4_ai_arrival_attrition
+				}
+				remove_variable = aawc_stage4_ai_arrival_attrition
+				if = {
+					limit = { var:aawc_stage4_tx_state = 2 var:aawc_stage4_receipt_delta = 0 }
+					set_variable = { name = aawc_ai_yearly_action_taken value = 1 }
+					aawc_population_recalculate_character_effect = yes
+					set_variable = { name = aawc_ai_diag_result value = 3 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
+					if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY AI completed an external colonization action with an exact Stage 4 receipt" }
+				}
+				else = {
+					set_variable = { name = aawc_ai_diag_result value = 22 }
+					if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI external colonization handoff did not produce a valid Stage 4 destination; packet released without debit or credit" }
+				}
 			}
-			aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = 100 }
-			scope:aawc_ai_selected_external_county = {
-				if = { limit = { aawc_diagnostics_verbose_enabled = yes aawc_county_should_use_lov_ai_reclaim_flow = yes } error_log = "AAWC AI 1.9.95 external target has native LoV RH routing marker" }
-				if = { limit = { aawc_diagnostics_verbose_enabled = yes aawc_county_should_use_agot_colonization_flow = yes } error_log = "AAWC AI 1.9.95 external target has AGOT colonization routing marker" }
+			else = {
+				set_variable = { name = aawc_ai_diag_result value = 21 }
+				if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC AI external colonization could not reserve an exact Stage 4 packet" }
 			}
-			save_scope_as = liege
-			lv_settlement_establish_effect = {
-				PROVINCE = scope:aawc_ai_selected_external_province
-				ACTOR = root
-			}
-			set_variable = { name = aawc_ai_yearly_action_taken value = 1 }
-			aawc_population_recalculate_character_effect = yes
-			set_variable = { name = aawc_ai_diag_result value = 3 }
-			if = { limit = { aawc_diagnostics_verbose_enabled = yes } debug_log_scopes = yes }
-			if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY AI completed an external colonization action" }
 		}
 		else = {
 			set_variable = { name = aawc_ai_diag_result value = 21 }

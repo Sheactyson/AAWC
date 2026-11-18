@@ -122,27 +122,55 @@ lv_settlement_on_start = {
 			}
 			error_log = "AAWC LV SETTLEMENT on_start registered expedition story target after travel began"
 			if = {
-				limit = { exists = var:lv_settlement_cost }
-				scope:liege = { remove_short_term_gold = scope:settler.var:lv_settlement_cost }
-				error_log = "AAWC LV SETTLEMENT on_start removed expedition gold from liege"
-				remove_variable = lv_settlement_cost
-			}
-			if = {
-				limit = { exists = var:aawc_population_settlement_cost }
-				scope:liege = {
-					aawc_population_add_reserved_amount_effect = {
-						COST = scope:settler.var:aawc_population_settlement_cost
+				limit = {
+					exists = var:aawc_population_settlement_cost
+					scope:liege = {
+						OR = {
+							AND = { scope:ruin = { has_holding_type = wilderness_holding } aawc_stage4_can_fund_wilderness_colonization_from_ruin = yes }
+							AND = { scope:ruin = { NOT = { has_holding_type = wilderness_holding } } aawc_stage4_can_fund_ruin_reclamation = yes }
+						}
 					}
 				}
-				error_log = "AAWC LV SETTLEMENT on_start reserved population for expedition"
+				aawc_stage4_expedition_reserve_effect = {
+					OWNER = scope:liege
+					DESTINATION = scope:ruin
+					AMOUNT = var:aawc_population_settlement_cost
+				}
 			}
 			if = {
-				limit = { NOT = { scope:liege ?= scope:settler } }
-				error_log = "AAWC LV SETTLEMENT on_start sending departure toast to liege"
-				scope:liege = { trigger_event = lv_settlement_event.0010 }
+				limit = { var:aawc_stage4_tx_state = 1 }
+				error_log = "AAWC LV SETTLEMENT on_start reserved exact Stage 4 cohort packet"
+				scope:liege = {
+					if = {
+						limit = { scope:ruin = { has_holding_type = wilderness_holding } }
+						aawc_stage4_pay_colonization_resources_effect = {
+							GOLD = scope:ruin.county.aawc_stage4_wilderness_colonization_gold_cost
+							PRESTIGE = scope:ruin.county.aawc_stage4_wilderness_colonization_prestige_cost
+							PIETY = scope:ruin.county.aawc_stage4_wilderness_colonization_piety_cost
+						}
+					}
+					else = {
+						aawc_stage4_pay_colonization_resources_effect = {
+							GOLD = scope:ruin.county.aawc_stage4_ruin_reclamation_gold_cost
+							PRESTIGE = scope:ruin.county.aawc_stage4_ruin_reclamation_prestige_cost
+							PIETY = scope:ruin.county.aawc_stage4_ruin_reclamation_piety_cost
+						}
+					}
+				}
+				remove_variable = lv_settlement_cost
+				error_log = "AAWC Stage 4 on_start charged the exact route gold, prestige and piety after cohort reservation"
+				if = {
+					limit = { NOT = { scope:liege ?= scope:settler } }
+					error_log = "AAWC LV SETTLEMENT on_start sending departure toast to liege"
+					scope:liege = { trigger_event = lv_settlement_event.0010 }
+				}
+				error_log = "AAWC LV SETTLEMENT on_start sending departure toast to settler"
+				trigger_event = lv_settlement_event.0010
 			}
-			error_log = "AAWC LV SETTLEMENT on_start sending departure toast to settler"
-			trigger_event = lv_settlement_event.0010
+			else = {
+				error_log = "AAWC LV SETTLEMENT on_start could not reserve exact Stage 4 cohort packet; aborting travel"
+				current_travel_plan = { abort_travel_plan = yes }
+			}
 		}
 		else = {
 			error_log = "AAWC LV SETTLEMENT on_start missing liege or ruin scope, aborting travel plan"
@@ -153,13 +181,26 @@ lv_settlement_on_start = {
 
 lv_settlement_on_arrival = {
 	trigger = {
-		has_variable = lv_settlement_expedition_liege
-		has_variable = lv_settlement_expedition_destination
+		OR = {
+			AND = {
+				has_variable = lv_settlement_expedition_liege
+				has_variable = lv_settlement_expedition_destination
+			}
+			var:aawc_stage4_tx_state = 1
+		}
 	}
 	effect = {
 		error_log = "AAWC LV SETTLEMENT on_arrival reached"
-		var:lv_settlement_expedition_liege = { save_scope_as = liege }
-		var:lv_settlement_expedition_destination = { save_scope_as = ruin }
+		if = {
+			limit = { has_variable = lv_settlement_expedition_liege has_variable = lv_settlement_expedition_destination }
+			var:lv_settlement_expedition_liege = { save_scope_as = liege }
+			var:lv_settlement_expedition_destination = { save_scope_as = ruin }
+		}
+		else = {
+			var:aawc_stage4_tx_owner = { save_scope_as = liege }
+			var:aawc_stage4_tx_destination = { save_scope_as = ruin }
+			error_log = "AAWC LV SETTLEMENT on_arrival recovered protected Stage 4 token scopes"
+		}
 		if = {
 			limit = {
 				exists = scope:ruin
@@ -233,79 +274,43 @@ lv_settlement_on_arrival = {
 					if = {
 						limit = { scope:ruin.county = { holder = { agot_is_dummy_character = yes } } }
 						error_log = "AAWC LV SETTLEMENT on_arrival WARNING county still dummy-held after establish path"
-						if = {
-							limit = { exists = var:aawc_population_settlement_cost }
-							scope:liege = {
-								aawc_population_release_reserved_amount_effect = {
-									COST = scope:settler.var:aawc_population_settlement_cost
-								}
-							}
-							error_log = "AAWC LV SETTLEMENT on_arrival released reserved population due to failed handoff"
-						}
+						aawc_stage4_expedition_fail_effect = yes
+						error_log = "AAWC LV SETTLEMENT on_arrival released Stage 4 packet due to failed handoff"
 					}
 					else = {
 						error_log = "AAWC LV SETTLEMENT on_arrival county no longer dummy-held after establish path"
 						if = { limit = { scope:ruin.county = { holder ?= root } } error_log = "AAWC LV SETTLEMENT on_arrival final owner is settler before toast dispatch" }
 						if = { limit = { scope:ruin.county = { holder ?= scope:liege } } error_log = "AAWC LV SETTLEMENT on_arrival final owner is liege before toast dispatch" }
-						if = {
-							limit = { exists = var:aawc_population_settlement_cost }
-							scope:liege = {
-								aawc_population_consume_reserved_amount_effect = {
-									COST = scope:settler.var:aawc_population_settlement_cost
-								}
-								aawc_population_prepare_settlement_receipt_effect = { STARTING_POPULATION = 100 }
-							}
-							scope:ruin = {
-								aawc_reforging_cohort_initialize_production_ledger_effect = { POPULATION = scope:liege.var:aawc_population_last_settlement_credit }
-								county = { aawc_population_recalculate_county_effect = yes }
-							}
-							scope:liege = { remove_variable = aawc_population_pending_settlement_credit }
-							error_log = "AAWC LV SETTLEMENT on_arrival consumed reserved population after successful handoff"
+						set_variable = { name = aawc_stage4_arrival_attrition value = var:aawc_stage4_tx_reserved }
+						change_variable = { name = aawc_stage4_arrival_attrition add = -100 }
+						if = { limit = { var:aawc_stage4_arrival_attrition < 0 } set_variable = { name = aawc_stage4_arrival_attrition value = 0 } }
+						aawc_stage4_expedition_commit_effect = {
+							DESTINATION = scope:ruin
+							ATTRITION = var:aawc_stage4_arrival_attrition
 						}
+						remove_variable = aawc_stage4_arrival_attrition
+						if = { limit = { var:aawc_stage4_tx_state = 2 var:aawc_stage4_receipt_delta = 0 } error_log = "AAWC LV SETTLEMENT on_arrival committed exact Stage 4 packet after successful native handoff" }
+						else = { error_log = "AAWC LV SETTLEMENT on_arrival Stage 4 commit rejected after handoff" }
 					}
 					scope:liege = { trigger_event = lv_settlement_event.0011 }
 				}
 				else = { # Supposed ruin is somehow occupied already
 					error_log = "AAWC LV SETTLEMENT on_arrival blocked because destination is no longer dummy-held ruin/wilderness/unknown"
-					if = {
-						limit = { exists = var:aawc_population_settlement_cost }
-						scope:liege = {
-							aawc_population_release_reserved_amount_effect = {
-								COST = scope:settler.var:aawc_population_settlement_cost
-							}
-						}
-						error_log = "AAWC LV SETTLEMENT on_arrival released reserved population because destination was no longer claimable"
-					}
+					aawc_stage4_expedition_fail_effect = yes
+					error_log = "AAWC LV SETTLEMENT on_arrival released Stage 4 packet because destination was no longer claimable"
 				}
 			}
 			else = {
 				error_log = "AAWC LV SETTLEMENT on_arrival location mismatch, canceling travel plan"
-				if = {
-					limit = { exists = var:aawc_population_settlement_cost }
-					scope:liege = {
-						aawc_population_release_reserved_amount_effect = {
-							COST = scope:settler.var:aawc_population_settlement_cost
-						}
-					}
-					error_log = "AAWC LV SETTLEMENT on_arrival released reserved population because settler never arrived"
-				}
+				aawc_stage4_expedition_fail_effect = yes
+				error_log = "AAWC LV SETTLEMENT on_arrival released Stage 4 packet because settler never arrived"
 			}
 		}
 		else = {
 			error_log = "AAWC LV SETTLEMENT on_arrival missing liege or ruin scope, canceling travel plan"
 			current_travel_plan = { cancel_travel_plan = yes }
-			if = {
-				limit = {
-					exists = var:aawc_population_settlement_cost
-					exists = scope:liege
-				}
-				scope:liege = {
-					aawc_population_release_reserved_amount_effect = {
-						COST = scope:settler.var:aawc_population_settlement_cost
-					}
-				}
-				error_log = "AAWC LV SETTLEMENT on_arrival released reserved population because scopes were invalid"
-			}
+			aawc_stage4_expedition_fail_effect = yes
+			error_log = "AAWC LV SETTLEMENT on_arrival released Stage 4 packet because scopes were invalid"
 		}
 
 		remove_variable = lv_settlement_expedition_liege
@@ -335,24 +340,29 @@ lv_settlement_on_arrival = {
 # Why doesn't this work smh my head
 lv_settlement_on_cancel = {
 	trigger = {
-		has_variable = lv_settlement_expedition_liege
-		has_variable = lv_settlement_expedition_destination
+		OR = {
+			AND = {
+				has_variable = lv_settlement_expedition_liege
+				has_variable = lv_settlement_expedition_destination
+			}
+			var:aawc_stage4_tx_state = 1
+		}
 	}
 	effect = {
 		error_log = "AAWC LV SETTLEMENT on_cancel reached"
-		var:lv_settlement_expedition_liege = { save_scope_as = liege }
-		var:lv_settlement_expedition_destination = { save_scope_as = ruin }
+		if = {
+			limit = { has_variable = lv_settlement_expedition_liege has_variable = lv_settlement_expedition_destination }
+			var:lv_settlement_expedition_liege = { save_scope_as = liege }
+			var:lv_settlement_expedition_destination = { save_scope_as = ruin }
+		}
+		else = {
+			var:aawc_stage4_tx_owner = { save_scope_as = liege }
+			var:aawc_stage4_tx_destination = { save_scope_as = ruin }
+		}
+		aawc_stage4_expedition_release_effect = yes
 		if = {
 			limit = { exists = scope:liege }
-			if = {
-				limit = { exists = var:aawc_population_settlement_cost }
-				scope:liege = {
-					aawc_population_release_reserved_amount_effect = {
-						COST = scope:settler.var:aawc_population_settlement_cost
-					}
-				}
-				error_log = "AAWC LV SETTLEMENT on_cancel released reserved population"
-			}
+			error_log = "AAWC LV SETTLEMENT on_cancel invoked idempotent Stage 4 release callback"
 			scope:liege = {
 				remove_variable = lv_settlement_state
 				remove_variable = lv_restore_ruins_tooltip

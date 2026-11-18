@@ -4,7 +4,7 @@ Development repository for AGOT Alternate World Compatch. The checkout is Git-fi
 
 ## Current layout
 
-- `mod/` — current AAWC source and transport descriptor (`1.11.3.13`).
+- `mod/` — current AAWC source and transport descriptor (`1.11.4.7`).
 - `dependencies/` — current Dependencies source and descriptor (`1.1.2`). Large binary art is tracked with Git LFS.
 - `docs/` — authoritative master documentation.
 - `evidence/stage2/` — the small retained Stage 2 validation and rendered-continuation records.
@@ -43,4 +43,4 @@ To promote a B-level branch: complete the focused validation, update the descrip
 
 The one-time snapshot is commit `46b0dafcb401a5c228bd30649cde43a3723cc960`, branch `archive/pre-cleanup-2026-11-11`, annotated tag `pre-cleanup-2026-11-11`, and the matching GitHub Release. It retains the complete `1.10.x.x` verified baseline, active pre-cleanup work, documentation, tooling, and non-save evidence. Pre-1.10 release folders and machine-local `.ck3` saves were deliberately excluded by user direction. See `archive/pre-cleanup-2026-11-11/README.md` for restoration.
 
-Stage 3 target construction is active for 131 chains / 771 levels. The current `1.11.3.13` patch restores the shared Stage 2 installed-building drill-down. Both county-view mirrors keep the selected province in their `HoldingView` tooltip context, while the generator embeds all 771 catalogue calls directly in each primary condition tooltip so CK3 never crosses the context-losing secondary-localization boundary. Representative early, middle, and final generated rows render their canonical names and signed condition and settlement-space details in both mirrors. The focused regressions, controlled rendered observations, diagnostic boundary, and exact package/install parity are recorded in the master documentation. See `catalogue/stage3/CONSTRUCTION_POLICY.md` for catalogue derivations and source validation.
+Stage 4 integrated validation is active at `1.11.4.7`. Player travel, direct AGOT reclaim/colonization, instant AI colonization, and new-holding funding share the exact cohort reservation/commit API. Ordinary wilderness and ruin expansion uses centralized 250/500 per-slot population, gold, prestige, and piety costs. The county-view expedition tooltip now classifies wilderness and ruins independently and displays all three currency costs alongside population. Pending settlements and colony lifecycle behavior preserve the Stage 1/2/3 boundaries. The current candidate also registers its exact reservation variables through reachable source initialization, guards a first-use reservation state lookup, and encodes every Stage 4 runtime text file with CK3's required UTF-8 BOM. Implementation, focused regression evidence, package provenance, and rendered validation are recorded in the master documentation.

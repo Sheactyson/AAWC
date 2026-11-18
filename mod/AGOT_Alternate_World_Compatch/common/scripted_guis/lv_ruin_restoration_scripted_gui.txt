@@ -72,9 +72,34 @@ lv_restore_ruins_tooltip_show = {
 				name = aawc_population_tooltip_reclaim_cost_rh
 				value = scope:ruin.county.aawc_population_county_reclaim_cost_rh
 			}
-			set_variable = {
-				name = aawc_population_tooltip_gold_cost
-				value = lv_settlement_cost
+			if = {
+				limit = { scope:ruin = { has_holding_type = wilderness_holding } }
+				set_variable = {
+					name = aawc_population_tooltip_gold_cost
+					value = scope:ruin.county.aawc_stage4_wilderness_colonization_gold_cost
+				}
+				set_variable = {
+					name = aawc_population_tooltip_prestige_cost
+					value = scope:ruin.county.aawc_stage4_wilderness_colonization_prestige_cost
+				}
+				set_variable = {
+					name = aawc_population_tooltip_piety_cost
+					value = scope:ruin.county.aawc_stage4_wilderness_colonization_piety_cost
+				}
+			}
+			else = {
+				set_variable = {
+					name = aawc_population_tooltip_gold_cost
+					value = scope:ruin.county.aawc_stage4_ruin_reclamation_gold_cost
+				}
+				set_variable = {
+					name = aawc_population_tooltip_prestige_cost
+					value = scope:ruin.county.aawc_stage4_ruin_reclamation_prestige_cost
+				}
+				set_variable = {
+					name = aawc_population_tooltip_piety_cost
+					value = scope:ruin.county.aawc_stage4_ruin_reclamation_piety_cost
+				}
 			}
 			set_variable = {
 				name = aawc_population_available_display
@@ -122,8 +147,10 @@ aawc_begin_lov_expedition_from_gui = {
 		scope:actor = {
 			custom_tooltip = {
 				text = aawc_population_reclaim_cost_summary_tt
-				gold >= lv_settlement_cost
+				gold >= root.county.aawc_stage4_ruin_reclamation_gold_cost
 			}
+			prestige >= root.county.aawc_stage4_ruin_reclamation_prestige_cost
+			piety >= root.county.aawc_stage4_ruin_reclamation_piety_cost
 			custom_tooltip = {
 				text = aawc_population_need_reclaim_surplus_interaction_tt
 				var:aawc_population_available >= root.county.aawc_population_county_reclaim_cost_rh
@@ -165,7 +192,15 @@ aawc_begin_lov_expedition_from_gui = {
 			}
 			set_variable = {
 				name = aawc_population_tooltip_gold_cost
-				value = lv_settlement_cost
+				value = scope:ruin.county.aawc_stage4_ruin_reclamation_gold_cost
+			}
+			set_variable = {
+				name = aawc_population_tooltip_prestige_cost
+				value = scope:ruin.county.aawc_stage4_ruin_reclamation_prestige_cost
+			}
+			set_variable = {
+				name = aawc_population_tooltip_piety_cost
+				value = scope:ruin.county.aawc_stage4_ruin_reclamation_piety_cost
 			}
 			set_variable = {
 				name = aawc_population_available_display
@@ -185,7 +220,9 @@ aawc_begin_lov_expedition_from_gui = {
 							}
 						}
 					}
-					gold >= lv_settlement_cost
+					gold >= scope:ruin.county.aawc_stage4_ruin_reclamation_gold_cost
+					prestige >= scope:ruin.county.aawc_stage4_ruin_reclamation_prestige_cost
+					piety >= scope:ruin.county.aawc_stage4_ruin_reclamation_piety_cost
 					var:aawc_population_available >= scope:ruin.county.aawc_population_county_reclaim_cost_rh
 				}
 				save_scope_value_as = {
@@ -216,8 +253,10 @@ aawc_begin_lov_wilderness_expedition_from_gui = {
 			scope:actor = {
 				custom_tooltip = {
 					text = aawc_population_reclaim_cost_summary_tt
-					gold >= lv_settlement_cost
+					gold >= root.county.aawc_stage4_wilderness_colonization_gold_cost
 				}
+				prestige >= root.county.aawc_stage4_wilderness_colonization_prestige_cost
+				piety >= root.county.aawc_stage4_wilderness_colonization_piety_cost
 				custom_tooltip = {
 					text = aawc_population_need_colonize_surplus_wilderness_gui_tt
 					var:aawc_population_available >= root.county.aawc_population_county_colonize_cost_wh
@@ -260,7 +299,15 @@ aawc_begin_lov_wilderness_expedition_from_gui = {
 			}
 			set_variable = {
 				name = aawc_population_tooltip_gold_cost
-				value = lv_settlement_cost
+				value = scope:ruin.county.aawc_stage4_wilderness_colonization_gold_cost
+			}
+			set_variable = {
+				name = aawc_population_tooltip_prestige_cost
+				value = scope:ruin.county.aawc_stage4_wilderness_colonization_prestige_cost
+			}
+			set_variable = {
+				name = aawc_population_tooltip_piety_cost
+				value = scope:ruin.county.aawc_stage4_wilderness_colonization_piety_cost
 			}
 			set_variable = {
 				name = aawc_population_available_display
@@ -279,7 +326,9 @@ aawc_begin_lov_wilderness_expedition_from_gui = {
 							}
 						}
 						}
-						gold >= lv_settlement_cost
+						gold >= scope:ruin.county.aawc_stage4_wilderness_colonization_gold_cost
+						prestige >= scope:ruin.county.aawc_stage4_wilderness_colonization_prestige_cost
+						piety >= scope:ruin.county.aawc_stage4_wilderness_colonization_piety_cost
 						var:aawc_population_available >= scope:ruin.county.aawc_population_county_colonize_cost_wh
 					}
 					save_scope_value_as = {

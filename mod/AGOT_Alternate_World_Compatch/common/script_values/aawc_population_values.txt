@@ -7,8 +7,12 @@ aawc_population_holding_current_readonly = {
 	}
 }
 
-@aawc_population_colonize_cost_per_barony = 500
-@aawc_population_reclaim_cost_per_barony = 1000
+# Reforged Stage 4 central expansion pricing. Each required resource uses the
+# same county-slot formula, with a one-slot floor.
+@aawc_stage4_wilderness_colonization_cost_per_slot = 250
+@aawc_stage4_ruin_reclamation_cost_per_slot = 500
+@aawc_population_colonize_cost_per_barony = @aawc_stage4_wilderness_colonization_cost_per_slot
+@aawc_population_reclaim_cost_per_barony = @aawc_stage4_ruin_reclamation_cost_per_slot
 @aawc_population_owned_settlement_population_per_holding = 1000
 @aawc_population_owned_settlement_gold_per_holding = 250
 @aawc_population_owned_settlement_starting_population = 250
@@ -916,6 +920,10 @@ aawc_population_holding_live_final_growth_rate_display = {
 		limit = { county = { has_province_with_epidemic = { intensity = any } } }
 		value = -0.02
 	}
+	if = {
+		limit = { has_variable = aawc_stage4_pending_settlement }
+		value = 0
+	}
 }
 
 aawc_population_holding_normal_quarterly_growth_percent_display = {
@@ -950,6 +958,10 @@ aawc_population_holding_normal_quarterly_growth_percent_display = {
 			}
 			aawc_population_holding_potential_growth_rate > 0
 		}
+		value = 0
+	}
+	if = {
+		limit = { has_variable = aawc_stage4_pending_settlement }
 		value = 0
 	}
 	multiply = 100
@@ -1289,10 +1301,21 @@ aawc_population_maa_replenish_amount = {
 
 # Compatibility names kept for GUI/event stability. Their meaning changed in 1.9.0.
 aawc_population_holding_dev_weight = { value = aawc_population_holding_main_line_expected_capacity }
-aawc_population_holding_income_component = { value = aawc_population_holding_building_expected_capacity }
-aawc_population_holding_levy_component = { value = aawc_population_holding_final_growth_percent_display }
+aawc_population_holding_income_component = {
+	value = aawc_population_holding_building_expected_capacity
+	if = { limit = { has_variable = aawc_stage4_pending_settlement } value = 0 }
+}
+aawc_population_holding_levy_component = {
+	value = aawc_population_holding_final_growth_percent_display
+	if = { limit = { has_variable = aawc_stage4_pending_settlement } value = 0 }
+}
 aawc_population_holding_levy_multiplier_debug = { value = aawc_population_holding_growth_rating_multiplier }
 aawc_population_holding_building_levies_debug = { value = aawc_population_holding_building_expected_capacity }
+
+aawc_stage4_pending_workforce_available = {
+	value = aawc_population_holding_current_readonly
+	if = { limit = { has_variable = aawc_stage4_pending_settlement } value = 0 }
+}
 
 aawc_population_county_holding_count = {
 	value = 0
@@ -1447,31 +1470,59 @@ aawc_population_county_barony_slot_count = {
 }
 
 aawc_population_county_colonize_cost_wh = {
-	value = aawc_population_county_barony_slot_count
-	multiply = @aawc_population_colonize_cost_per_barony
-	min = 500
+	value = aawc_stage4_wilderness_colonization_population_cost
 }
 
 aawc_population_wilderness_colonize_cost_live = {
-	value = 500
+	value = @aawc_stage4_wilderness_colonization_cost_per_slot
 	if = {
 		limit = { tier = tier_county }
-		value = aawc_population_county_barony_slot_count
-		multiply = @aawc_population_colonize_cost_per_barony
-		min = 500
+		value = aawc_stage4_wilderness_colonization_population_cost
 	}
 	else_if = {
 		limit = { has_holding = yes }
-		value = county.aawc_population_county_barony_slot_count
-		multiply = @aawc_population_colonize_cost_per_barony
-		min = 500
+		value = county.aawc_stage4_wilderness_colonization_population_cost
 	}
 }
 
 aawc_population_county_reclaim_cost_rh = {
+	value = aawc_stage4_ruin_reclamation_population_cost
+}
+
+aawc_stage4_wilderness_colonization_population_cost = {
 	value = aawc_population_county_barony_slot_count
-	multiply = @aawc_population_reclaim_cost_per_barony
-	min = 1000
+	multiply = @aawc_stage4_wilderness_colonization_cost_per_slot
+	min = @aawc_stage4_wilderness_colonization_cost_per_slot
+}
+
+aawc_stage4_wilderness_colonization_gold_cost = {
+	value = aawc_stage4_wilderness_colonization_population_cost
+}
+
+aawc_stage4_wilderness_colonization_prestige_cost = {
+	value = aawc_stage4_wilderness_colonization_population_cost
+}
+
+aawc_stage4_wilderness_colonization_piety_cost = {
+	value = aawc_stage4_wilderness_colonization_population_cost
+}
+
+aawc_stage4_ruin_reclamation_population_cost = {
+	value = aawc_population_county_barony_slot_count
+	multiply = @aawc_stage4_ruin_reclamation_cost_per_slot
+	min = @aawc_stage4_ruin_reclamation_cost_per_slot
+}
+
+aawc_stage4_ruin_reclamation_gold_cost = {
+	value = aawc_stage4_ruin_reclamation_population_cost
+}
+
+aawc_stage4_ruin_reclamation_prestige_cost = {
+	value = aawc_stage4_ruin_reclamation_population_cost
+}
+
+aawc_stage4_ruin_reclamation_piety_cost = {
+	value = aawc_stage4_ruin_reclamation_population_cost
 }
 
 aawc_population_owned_settlement_population_cost = {

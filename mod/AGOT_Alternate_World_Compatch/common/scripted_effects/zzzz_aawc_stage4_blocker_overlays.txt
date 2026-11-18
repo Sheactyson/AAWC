@@ -1,0 +1,56 @@
+﻿# Reforged Stage 4 regional-blocker overlays.
+#
+# This is an additive Stage 2 consumer: it deliberately keys off the existing
+# category flags, so no generated blocker definition or localization prose is
+# rewritten.  Each category is applied at most once per holding even when a
+# blocker lineage has root and paid-clearance stages present together.
+aawc_stage4_blocker_contributions_effect = {
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_awakened_constructs_relics }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -3 OPPORTUNITY = -4 HEALTH = -2 SECURITY = -10 AMENITIES = -3 SPACE_PERCENT = -2 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_caves_mines_underways }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -2 HABITATION = -6 OPPORTUNITY = -2 HEALTH = -5 SECURITY = -4 AMENITIES = -2 SPACE_PERCENT = -5 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_coasts_wrecks_storms }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -2 HABITATION = -3 OPPORTUNITY = -4 HEALTH = -2 SECURITY = -3 AMENITIES = -2 SPACE_PERCENT = -2 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_deepwater_legends_monsters }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -2 HABITATION = -5 OPPORTUNITY = -4 HEALTH = -1 SECURITY = -5 AMENITIES = -3 SPACE_PERCENT = -3 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_elemental_rifts_manifestations }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -3 HABITATION = -4 OPPORTUNITY = -6 HEALTH = -8 SECURITY = -7 AMENITIES = -5 SPACE_PERCENT = -3 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_hauntings_curses_revenants }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = 0 HABITATION = -3 OPPORTUNITY = -2 HEALTH = -4 SECURITY = -5 AMENITIES = -7 SPACE_PERCENT = -1 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_high_crags_winds_aerial }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -3 HABITATION = -6 OPPORTUNITY = -2 HEALTH = -3 SECURITY = -4 AMENITIES = -1 SPACE_PERCENT = -8 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_old_warfields_cursed_defenses }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -2 HABITATION = -5 OPPORTUNITY = -3 HEALTH = -4 SECURITY = -7 AMENITIES = -4 SPACE_PERCENT = -4 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_rivers_crossings_drowned }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -3 HABITATION = -3 OPPORTUNITY = -7 HEALTH = -3 SECURITY = -3 AMENITIES = -2 SPACE_PERCENT = -3 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_sorcery_wards_failed_experiments }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -2 HABITATION = -4 OPPORTUNITY = -4 HEALTH = -8 SECURITY = -5 AMENITIES = -6 SPACE_PERCENT = -3 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_tombs_catacombs_buried_places }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -1 HABITATION = -5 OPPORTUNITY = -2 HEALTH = -3 SECURITY = -3 AMENITIES = -6 SPACE_PERCENT = -5 }
+	}
+	if = {
+		limit = { has_building_with_flag = aawc_blocker_category_venom_scales_fauna }
+		aawc_stage2_add_contribution_effect = { SUSTENANCE = -4 HABITATION = -3 OPPORTUNITY = -2 HEALTH = -9 SECURITY = -2 AMENITIES = -2 SPACE_PERCENT = -2 }
+	}
+}

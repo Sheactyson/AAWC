@@ -1,0 +1,28 @@
+﻿# Reforged Stage 4 colonization/reclamation currency payment primitive.
+# The target-route formula lives in aawc_population_values.txt; callers supply
+# all three cached resource values and retain the existing population reserve.
+aawc_stage4_pay_colonization_resources_effect = {
+	remove_short_term_gold = $GOLD$
+	add_prestige = {
+		value = $PRESTIGE$
+		multiply = -1
+	}
+	add_piety = {
+		value = $PIETY$
+		multiply = -1
+	}
+}
+
+# AGOT's native colonization effect continues to debit gold itself.  Direct
+# AGOT callers use this companion primitive so prestige and piety are charged
+# once, without a second gold debit.
+aawc_stage4_pay_colonization_legitimacy_resources_effect = {
+	add_prestige = {
+		value = $PRESTIGE$
+		multiply = -1
+	}
+	add_piety = {
+		value = $PIETY$
+		multiply = -1
+	}
+}

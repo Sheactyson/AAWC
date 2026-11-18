@@ -1,0 +1,7 @@
+﻿aawc_stage4_pending_settlement_modifier = {
+	tax_mult = -1
+	levy_size = -1
+	levy_reinforcement_rate = -1
+	garrison_size = -1
+	development_growth_factor = -1
+}

@@ -68,7 +68,8 @@ class SourceVM:
         self.at_war = False
         self.county_vars = {}
         for category, names, target in (
-            ('scripted_effects', ('aawc_stage2_condition_effects', 'aawc_stage2_building_contributions'), self.effects),
+            ('scripted_effects', ('aawc_stage2_condition_effects', 'aawc_stage2_building_contributions',
+                                  'zzzz_aawc_stage4_blocker_overlays'), self.effects),
             ('script_values', ('aawc_stage2_condition_values',), self.values),
         ):
             for name in names:

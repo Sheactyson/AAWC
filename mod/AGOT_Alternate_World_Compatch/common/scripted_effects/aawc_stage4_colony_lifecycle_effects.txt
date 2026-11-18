@@ -1,0 +1,41 @@
+﻿# Stage 4 colony lifecycle.
+#
+# A colony begins only after the shared transaction has credited a valid
+# post-handoff holding.  This layer never changes a title, holder, holding
+# type, restoration marker, or a Stage-1 cohort.  It only records the colony
+# lifecycle state while the existing Stage-2 structural rebuild supplies the
+# observable six-condition blocker decline and its progressive recovery.
+
+aawc_stage4_enter_colony_mode_effect = {
+	if = {
+		limit = { NOT = { has_variable = aawc_stage4_colony_mode } }
+		set_variable = { name = aawc_stage4_colony_mode value = 1 }
+		remove_variable = aawc_stage4_colony_conversion_complete
+	}
+}
+
+# `obstacle` is the native blocker lineage flag.  The Stage-2 contribution
+# replay maps the supported blocker categories into six structural dimensions;
+# as each clearance stage removes a blocker, the same replay automatically
+# improves the conditions without duplicate scoring or generated prose edits.
+aawc_stage4_refresh_colony_lifecycle_effect = {
+	if = {
+		limit = { has_variable = aawc_stage4_colony_mode }
+		if = {
+			limit = { has_building_with_flag = obstacle }
+			set_variable = { name = aawc_stage4_colony_blocker_active value = 1 }
+			set_variable = { name = aawc_stage4_colony_lifecycle_declining value = 1 }
+			# Keep the existing Stage-2 rebuilt condition values authoritative.
+			aawc_population_mark_holding_static_dirty_effect = yes
+		}
+		else = {
+			remove_variable = aawc_stage4_colony_blocker_active
+			remove_variable = aawc_stage4_colony_lifecycle_declining
+			# Conversion is intentionally a state-only, one-time transition: the
+			# credited Stage-1 residents, title identity, holder, and restoration
+			# workflow are untouched.
+			remove_variable = aawc_stage4_colony_mode
+			set_variable = { name = aawc_stage4_colony_conversion_complete value = 1 }
+		}
+	}
+}

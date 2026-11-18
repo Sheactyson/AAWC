@@ -115,14 +115,16 @@ class SourceContracts(unittest.TestCase):
         self.assertEqual(caller.count("aawc_migration_commit_scoped_pair_population_effect ="), 1)
         self.assertNotIn("aawc_reforging_cohort_apply_signed_transfer_effect =", caller)
 
-    def test_new_holding_debits_before_receipt_backed_initialization(self):
+    def test_new_holding_uses_stage4_exact_debit_before_credit(self):
         completion = body("common/on_action/aawc_population_holding_construction_on_actions.txt", "aawc_population_on_new_holding_completed")
-        consume = completion.index("aawc_population_consume_reserved_amount_effect =")
-        receipt = completion.index("aawc_population_prepare_settlement_receipt_effect =")
-        initialize = completion.index("aawc_reforging_cohort_initialize_production_ledger_effect =")
-        self.assertLess(consume, receipt)
-        self.assertLess(receipt, initialize)
-        self.assertIn("aawc_population_last_settlement_credit", completion)
+        pending = completion.index("aawc_stage4_enter_pending_settlement_effect =")
+        commit = completion.index("aawc_stage4_expedition_commit_effect =")
+        finalize = completion.index("aawc_stage4_finalize_funded_settlement_effect =")
+        self.assertLess(pending, commit)
+        self.assertLess(commit, finalize)
+        self.assertNotIn("aawc_population_consume_reserved_amount_effect =", completion)
+        core = body("common/scripted_effects/aawc_stage4_cohort_reservation_effects.txt", "aawc_stage4_expedition_commit_effect")
+        self.assertLess(core.index("aawc_stage4_expedition_commit_source_effect ="), core.index("aawc_reforging_cohort_apply_transfer_packet_effect ="))
 
     def test_consume_records_requested_applied_unmet_once(self):
         consume = body("common/scripted_effects/aawc_population_effects.txt", "aawc_population_consume_reserved_amount_effect")

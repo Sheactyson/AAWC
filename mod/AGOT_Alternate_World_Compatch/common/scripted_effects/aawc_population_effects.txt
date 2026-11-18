@@ -20,7 +20,10 @@ aawc_population_initialize_holding_demographics_effect = {
 
 aawc_population_update_holding_dynamic_effect = {
 	if = {
-		limit = { has_holding = yes }
+		limit = {
+			has_holding = yes
+			NOT = { has_variable = aawc_stage4_pending_settlement }
+		}
 
 		set_variable = { name = aawc_population_current_development_snapshot value = county.development_level }
 		set_variable = { name = aawc_stage2_environment_current value = aawc_stage2_environment_signature }
@@ -147,6 +150,7 @@ aawc_population_apply_holding_monthly_growth_effect = {
 		# that do not emit the building-completed invalidation hook.
 		aawc_population_mark_holding_static_dirty_effect = yes
 		aawc_population_update_holding_dynamic_effect = yes
+		aawc_stage4_refresh_colony_lifecycle_effect = yes
 		# The growth pass already visits every eligible source holding, so initialize
 		# this month's MAA contribution here instead of performing another realm scan.
 		set_variable = { name = aawc_population_last_military_contribution value = 0 }
@@ -201,7 +205,10 @@ aawc_population_apply_holding_monthly_growth_effect = {
 
 aawc_population_refresh_holding_dynamic_effect = {
 	if = {
-		limit = { has_holding = yes }
+		limit = {
+			has_holding = yes
+			NOT = { has_variable = aawc_stage4_pending_settlement }
+		}
 
 		# Reuse the established formula cache without mutating current population.
 		aawc_population_update_holding_dynamic_effect = yes
@@ -1432,6 +1439,7 @@ aawc_population_apply_monthly_growth_character_effect = {
 			is_landed = yes
 		}
 		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 monthly population pulse begin" }
+		aawc_stage4_recover_pending_settlements_character_effect = yes
 		aawc_population_apply_county_holder_barony_monthly_growth_effect = yes
 		# Growth has already refreshed every relevant holding. Rebuild only county/ruler aggregates.
 		aawc_population_reaggregate_character_cached_effect = yes
@@ -1475,6 +1483,11 @@ aawc_population_ensure_county_cache_effect = {
 
 # Rebuild county totals from already refreshed holding variables. This deliberately avoids
 # formula and display work and is safe after growth, migration, or population spending.
+aawc_stage4_refresh_colonization_costs_effect = {
+	set_variable = { name = aawc_population_colonize_cost_wh value = aawc_stage4_wilderness_colonization_population_cost }
+	set_variable = { name = aawc_population_reclaim_cost_rh value = aawc_stage4_ruin_reclamation_population_cost }
+}
+
 aawc_population_reaggregate_county_cached_effect = {
 	set_variable = { name = aawc_population_total value = 0 }
 	set_variable = { name = aawc_population_expected value = 0 }
@@ -1515,13 +1528,7 @@ aawc_population_reaggregate_county_cached_effect = {
 	set_variable = { name = aawc_migration_county_building_rating value = aawc_migration_county_building_rating_average }
 	set_variable = { name = aawc_population_surplus value = var:aawc_population_total }
 	change_variable = { name = aawc_population_surplus add = { value = var:aawc_population_expected multiply = -1 } }
-	set_variable = { name = aawc_population_colonize_cost_wh value = var:aawc_population_county_barony_slot_count }
-	# Parser constants are file-local; keep these literals synchronized with aawc_population_values.txt.
-	change_variable = { name = aawc_population_colonize_cost_wh multiply = 500 }
-	if = { limit = { var:aawc_population_colonize_cost_wh < 500 } set_variable = { name = aawc_population_colonize_cost_wh value = 500 } }
-	set_variable = { name = aawc_population_reclaim_cost_rh value = var:aawc_population_county_barony_slot_count }
-	change_variable = { name = aawc_population_reclaim_cost_rh multiply = 1000 }
-	if = { limit = { var:aawc_population_reclaim_cost_rh < 1000 } set_variable = { name = aawc_population_reclaim_cost_rh value = 1000 } }
+	aawc_stage4_refresh_colonization_costs_effect = yes
 }
 
 # Aggregate a ruler from county caches without rescanning realm provinces or recalculating

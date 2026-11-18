@@ -3,7 +3,10 @@
 # hooks mark the cache dirty for the remaining cases.
 aawc_population_refresh_holding_static_effect = {
 	if = {
-		limit = { has_holding = yes }
+		limit = {
+			has_holding = yes
+			NOT = { has_variable = aawc_stage4_pending_settlement }
+		}
 		aawc_stage2_refresh_structural_effect = yes
 		set_variable = { name = aawc_population_expected value = aawc_population_holding_expected }
 		set_variable = { name = aawc_population_debug_main_capacity value = aawc_population_holding_main_line_expected_capacity }

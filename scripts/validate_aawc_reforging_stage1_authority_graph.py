@@ -39,7 +39,7 @@ EXPECTED_DIRECT_WRITERS = {
 
 EXPECTED_ADAPTER_CALLS = {
     ("common/on_action/aawc_population_holding_construction_on_actions.txt", "aawc_population_on_new_holding_completed"): (
-        "aawc_reforging_cohort_initialize_production_ledger_effect",
+        "aawc_stage4_expedition_commit_effect",
     ),
     ("common/scripted_effects/aawc_population_ai_effects.txt", "aawc_population_ai_establish_selected_owned_settlement_effect"): (
         "aawc_reforging_cohort_initialize_production_ledger_effect",
