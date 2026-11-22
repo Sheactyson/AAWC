@@ -9,6 +9,7 @@ _inspect_label/
 _package_*/
 evidence/stage2/*_INSTALL_RECEIPT/
 evidence/stage3/*_INSTALL_RECEIPT/previous-install/
+evidence/stage5/*_INSTALL_RECEIPT/previous-install/
 
 # The dependency package is a large GitHub Release asset; its source remains tracked.
 release/AAWC_Dependencies_Modpack_*.zip

@@ -1,5 +1,73 @@
 # AGOT Alternate World Compatch
 
+## Local manual-test installation - 1.11.5.14 (complete)
+
+After CK3 and the Paradox launcher were confirmed closed on 2026-11-22, AAWC
+**1.11.5.14** was packaged and installed into the standard local CK3 mod
+directory. This is a versioned transport-and-record correction: the mod
+payload differs from `1.11.5.13` only in the matching inner and outer version
+descriptors, while the prior release's launcher normalization is now recorded
+accurately below. It does not alter Stage 2, Stage 3, Stage 5, or any gameplay
+formula.
+
+The current package is
+`release/AGOT_Alternate_World_Compatch_1.11.5.14.zip`, SHA-256
+`79062D7781C3F3E06BCB13B19284A965FDADED9D5A307C1DC0E0CB966CE32A9D`; its
+495-entry manifest SHA-256 is
+`C8050BF3B7BEEC18883A5B70D3E726BE5F1750D3EFD64EBBA8F61352A91280EA`.
+Focused source/archive/manifest verification passes **495/495/495** with
+matching `1.11.5.14` inner and outer descriptors and clean archive CRC.
+Immediately after controlled installation, exact
+source/archive/install/manifest verification also passes **495/495/495** with
+no missing, extra, or changed entries. The selected-package receipt and both
+checks are
+`evidence/stage5/AAWC_1.11.5.14_MANUAL_TEST_INSTALL_RECEIPT/selection.json`,
+`evidence/stage5/AAWC_1.11.5.14_PREINSTALL_PARITY.json`, and
+`evidence/stage5/AAWC_1.11.5.14_MANUAL_TEST_INSTALL_PARITY.json`.
+
+The retained `previous-install` copy is deliberately ignored as a
+machine-local rollback duplicate; the compact receipt and parity evidence are
+versioned. CK3 runtime, UI, save, and gameplay behavior were not exercised by
+this installation task. A future launcher session may again normalize the
+outer local descriptor as documented in the `1.11.5.13` historical receipt;
+that is not a substitute for the clean, pre-launch `1.11.5.14` parity check.
+
+## Local manual-test installation - 1.11.5.13 (historical receipt corrected)
+
+On 2026-11-22, the authoritative remote `main` and `1.11` release commit
+`1c30215f46cc28d9c895f9d18017816fd23a6978` (`v1.11.5.13`) was fast-forwarded
+into the local checkout and installed with the controlled installer into the
+standard local CK3 mod directory. CK3 and the Paradox launcher were confirmed
+closed before the replacement. The installed inner and outer descriptors both
+report `1.11.5.13`.
+
+The selected archive was
+`release/AGOT_Alternate_World_Compatch_1.11.5.13.zip`, SHA-256
+`4714176E6C270A85C9EA628E606BC05FBDE80B3C82113BD220C462AD7EC88CDC`; its
+manifest SHA-256 is
+`5417192D024401C76A762388750C0E1A434AEA70F760DABEAC13CE7092D27054`.
+Pre-install source/archive/manifest parity passed at **495/495**, and the
+archive CRC was clean. The immediate installer receipt recorded all 495
+selected entries as installed. After the launcher used the Test playset, the
+post-install exact-byte checker correctly found one changed entry: the outer
+`AGOT_Alternate_World_Compatch.mod`. Its inner descriptor and all other 494
+payload entries remained byte-identical to the selected archive. The launcher
+had rewritten the local `path` from the portable
+`mod/AGOT_Alternate_World_Compatch` form to the local absolute CK3 mod path and
+reordered independent descriptor fields; both inner and outer descriptors
+still report `1.11.5.13`. This is launcher-managed metadata normalization, not
+a gameplay-payload difference. The compact selection receipt and parity reports
+are
+`evidence/stage5/AAWC_1.11.5.13_MANUAL_TEST_INSTALL_RECEIPT/selection.json`,
+`evidence/stage5/AAWC_1.11.5.13_PREINSTALL_PARITY.json`, and
+`evidence/stage5/AAWC_1.11.5.13_MANUAL_TEST_INSTALL_PARITY.json`. The
+installer's rollback copy remains ignored as machine-local duplicate data.
+
+This historical receipt proves the selected package was present and
+identity-consistent for manual testing, subject to the explicit
+launcher-normalization boundary above; it is not CK3 launch, UI, save, or
+gameplay certification.
+
 ## Git publication boundary - 1.11.5.13
 
 The `1.11.5.13` Git publication contains the current mod source, Stage 3 and

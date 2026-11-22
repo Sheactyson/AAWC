@@ -4,7 +4,7 @@ Development repository for AGOT Alternate World Compatch. The checkout is Git-fi
 
 ## Current layout
 
-- `mod/` — current AAWC source and transport descriptor (`1.11.5.13`).
+- `mod/` — current AAWC source and transport descriptor (`1.11.5.14`).
 - `dependencies/` — current Dependencies source and descriptor (`1.1.2`). Large binary art is tracked with Git LFS.
 - `docs/` — authoritative master documentation.
 - `evidence/stage2/` — the small retained Stage 2 validation and rendered-continuation records.
@@ -53,4 +53,4 @@ identity-aware neighboring destinations, war displacement, and conservative
 CaFG marginal reconciliation. The adapter is not active in `.0`; implementation
 and live CK3 validation belong to subsequent `1.11.5.x` builds.
 
-Stage 5 physical identity transaction integration is complete in `1.11.5.12`. Native adjacent routing now commits exact AAWC cohort transfers and independent CaFG culture/faith debt and credit, with persistent recovery, guarded refunds, retry protection and one refresh per changed county/axis. All 89 focused Stage 5 tests pass. Direct CK3 testing and native-save audits confirm save/load recovery, normalized factors, conserved residents and identity-neutral births/deaths/aging. The finalized `1.11.5.13` cleanup release preserves that gameplay payload, removes obsolete local staging artifacts, and supplies the current 495-entry package and manifest. Exact hashes, bounded live evidence, cleanup evidence, and the restored-profile receipt are recorded in the [master documentation](docs/AGOT_Alternate_World_Compatch_Documentation_Master.md).
+Stage 5 physical identity transaction integration is complete in `1.11.5.12`. Native adjacent routing now commits exact AAWC cohort transfers and independent CaFG culture/faith debt and credit, with persistent recovery, guarded refunds, retry protection and one refresh per changed county/axis. All 89 focused Stage 5 tests pass. Direct CK3 testing and native-save audits confirm save/load recovery, normalized factors, conserved residents and identity-neutral births/deaths/aging. The `1.11.5.14` manual-test transport release preserves that gameplay payload while recording a precise launcher-normalization boundary from the preceding install. Exact hashes, bounded live evidence, cleanup evidence, and the restored-profile receipt are recorded in the [master documentation](docs/AGOT_Alternate_World_Compatch_Documentation_Master.md).
