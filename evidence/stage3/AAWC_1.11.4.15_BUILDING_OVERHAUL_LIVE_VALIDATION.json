@@ -1,0 +1,100 @@
+{
+  "schema": "aawc.stage3.building_overhaul_live_validation.v1",
+  "version": "1.11.4.15",
+  "date": "2026-11-20",
+  "passed": true,
+  "environment": {
+    "ck3": "1.19.0.6 (Scribe)",
+    "agot": "Open Beta 0.5.2.1",
+    "legacy_of_valyria": "1.5.2.13",
+    "playset": "Test",
+    "installed_package_parity": "486/486/486/486 at installation; post-session payload exact with launcher-normalized installed outer descriptor",
+    "archive_sha256": "227618A006AB148D42AB16DD61F1BF66D6CF84B6FD15EB587B5D6E1EB796932E"
+  },
+  "observations": {
+    "icons": {
+      "passed": true,
+      "details": [
+        "Archer Training Grounds, Barracks, Breweries, Mounted Training Fields, High Court And Revenue Offices, and Regional University Hospital rendered as differentiated simple silhouettes.",
+        "The transparent blocker-derived assets accepted CK3's native enabled-blue and unavailable/disabled gray presentation; no opaque painterly background remained.",
+        "The closed-session log contained zero AAWC DDS references and zero failed-to-load or failed-to-create texture diagnostics."
+      ]
+    },
+    "ordinary_and_duchy_slots": {
+      "passed": true,
+      "details": [
+        "Pennon Hall ordinary slots exposed AAWC regular chains and did not expose any AAWC duchy chain.",
+        "Still Flats is the naturally inhabited tribal capital barony of the held High Lordship of Gleaming Plains and carries CK3's native duchy-capital slot.",
+        "The large special slot opened a panel titled 'Construct New Duchy Building' and exposed AAWC duchy chains including High Court And Revenue Offices and Regional University Hospital.",
+        "A regular slot in the same Still Flats holding opened 'Construct New Building' and exposed only ordinary AAWC chains, including Archer Training Grounds, Breweries, and Mounted Training Fields."
+      ]
+    },
+    "legacy_suppression_and_replacements": {
+      "passed": true,
+      "details": [
+        "Representative ordinary construction menus at Pennon Hall and Still Flats contained AAWC replacement chains and no unbuilt vanilla or AGOT ordinary candidates.",
+        "The retained main-holding/ruin boundary remained present: the holding main line remained visible and the earlier direct ruin-panel inspection exposed the retained Reclaim Storm's End route rather than a suppressed ordinary legacy picker entry.",
+        "Existing retained and occupied entries remained inspectable, consistent with the save-compatibility policy."
+      ]
+    },
+    "replacement_unlocks_and_progression": {
+      "passed": true,
+      "details": [
+        "Archer Training Grounds rendered unavailable with the explicit prerequisite 'Requires Barracks 1'.",
+        "Barracks 1 was constructed at Pennon Hall for 250 gold and completed on 3 Ninth Moon, 5 A.D.; CK3 displayed the completion notification.",
+        "After Barracks 1 completed, Archer Training Grounds became enabled in the replacement menu and CK3 accepted its 205-gold construction order (gold 766 to 561).",
+        "The duchy chains rendered their ordinary-foundation prerequisites in the special-slot panel, including High Court And Revenue Offices requiring Capital Bureau 3."
+      ]
+    },
+    "copy_modifiers_and_retained_presentation": {
+      "passed": true,
+      "details": [
+        "Representative regular and duchy entries rendered readable flavored descriptions without the removed proposal-only 'This tier provides' functional claim.",
+        "Effect panels rendered compact icon-and-value AAWC Structural Conditions and Settlement Space rows, plus exact Building Prerequisites text.",
+        "Workshops 8 rendered its mature flavor and compact +12 Opportunity, -3 Health, +1 Amenities, and -4% Settlement Space rows without visible localization failure.",
+        "The retained Storm's End ruin route rendered its Reclaim Storm's End presentation during the live review sequence."
+      ]
+    },
+    "ai_behavior": {
+      "passed": true,
+      "certification_scope": "bounded_observation_only",
+      "details": [
+        "Neighboring one-county tribal AI realms remained live during approximately three in-game years of the disposable observation session.",
+        "No reliable AI construction start or completion occurred in a reachable settled holding during the bounded observation window, and CK3 does not expose another ruler's construction candidate picker.",
+        "No AI menu selection or long-horizon build-priority certification is claimed; source policy tests remain the evidence that suppressed roots have no construction path and AAWC roots retain AI values."
+      ]
+    }
+  },
+  "runtime_events": {
+    "initial_launch": "The first 1.11.4.15 content-load attempt ended in Radeon allocation exhaustion while unrelated AGOT assets were loading; it emitted no AAWC DDS parse or texture-load error.",
+    "clean_retry": "A clean retry reached the main menu and completed every observation recorded above.",
+    "exit": "CK3 closed normally without exit autosave; no test save is retained in Git or the release archive."
+  },
+  "closed_session_logs": {
+    "error_log": {
+      "length": 423375,
+      "sha256": "937B2EE2A9E696E62C17DE0488452F9A65F28D31F352902680E2717893734D48",
+      "aawc_dds_references": 0,
+      "failed_texture_loads": 0,
+      "failed_texture_creations": 0,
+      "unrelated_missing_texture": "gfx/interface/illustrations/event_scenes/crownlands/throneroom_crownlands_mid.dds"
+    },
+    "game_log": {
+      "length": 246795,
+      "sha256": "432A195E181703350B7ACFDB383F62A35C6BBF7A108B067C6A9D2ECADC22E909"
+    },
+    "system_log": {
+      "length": 918,
+      "sha256": "7A3BB3E60FE7EEDDDE9B253B10DD45CBCBDB246ADF8A0F3B856039EF7F12CCB6"
+    }
+  },
+  "fixture_policy": {
+    "source": "Disposable copies of the existing paused building-review fixture were edited outside the repository only to grant reachable title/capital combinations.",
+    "canonical_special_slot": "The accepted special-slot observation used naturally inhabited Still Flats, whose barony is already marked duchy_capital_barony and whose holding is already tribal; the rejected Hayford attempt remained wilderness and was not used as slot evidence.",
+    "retention": "All task-owned fixture saves are deleted after documentation and log audit."
+  },
+  "remaining_limits": [
+    "No long-horizon AI construction-priority certification is claimed.",
+    "Population-scaled economy/administration effects and military lifecycle effects remain intentionally deferred to their documented later stages."
+  ]
+}

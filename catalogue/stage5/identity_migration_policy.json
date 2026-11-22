@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "policy_id": "aawc_stage5_identity_migration_policy",
+  "release_baseline": "1.11.5.0",
+  "status": "authoritative_implementation_contract",
+  "ownership": {
+    "absolute_population": "AAWC",
+    "culture_and_faith_marginals": "CaFG",
+    "county_majority_resolution": "CaFG",
+    "joint_age_culture_faith_ledger": "forbidden"
+  },
+  "provenance": {
+    "axes_are_independent": true,
+    "culture_missing_fallback": "source_holding_majority_culture_at_reservation",
+    "faith_missing_fallback": "source_holding_majority_faith_at_reservation",
+    "majority_tie_break": "factor_descending_then_stable_identity_key_ascending",
+    "destination_identity_fallback": "forbidden",
+    "proportional_d4_fallback": "superseded_and_forbidden_in_production",
+    "joint_cross_product_inference": "forbidden"
+  },
+  "departure": {
+    "selection": "per_axis_weighted_largest_remainder",
+    "tie_break": "stable_identity_key_ascending",
+    "weights": {
+      "owner_aligned": 0.5,
+      "owner_misaligned": 2.0,
+      "owner_or_owner_identity_unavailable": 1.0
+    },
+    "explicit_packet_provenance_is_reweighted": false,
+    "fractional_residuals": "persisted_per_source_and_axis"
+  },
+  "destination": {
+    "adjacency_required": true,
+    "peacetime_rule": "destination_has_positive_factor_for_packet_culture_or_packet_faith",
+    "peaceful_source_to_war_affected_destination": "forbidden",
+    "war_source_order": [
+      "safe_neighbor_sharing_culture_or_faith",
+      "safe_neighbor_without_identity_match",
+      "war_affected_neighbor_sharing_culture_or_faith",
+      "war_affected_neighbor_without_identity_match"
+    ],
+    "tie_break": [
+      "eligibility_tier_ascending",
+      "migration_rating_delta_descending",
+      "available_receive_capacity_descending",
+      "stable_province_id_ascending"
+    ],
+    "no_eligible_destination": "no_op_without_budget_or_factor_mutation"
+  },
+  "reconciliation": {
+    "culture_debit_sum_equals_transfer": true,
+    "culture_credit_sum_equals_transfer": true,
+    "faith_debit_sum_equals_transfer": true,
+    "faith_credit_sum_equals_transfer": true,
+    "source_formula": "new_share_i=(source_population*old_share_i-debit_i)/(source_population-transfer)",
+    "destination_formula": "new_share_i=(destination_population*old_share_i+credit_i)/(destination_population+transfer)",
+    "minimum_source_population": "existing_protective_floor",
+    "known_identity_absent_at_source": "fail_closed_before_absolute_debit",
+    "identity_absent_at_destination": "create_factor_then_normalize",
+    "empty_destination": "initialize_each_axis_from_its_credit_vector",
+    "normalization": "deterministic_exact_sum_one_per_axis",
+    "subthreshold_factor": "set_zero_and_redistribute_to_largest_factor_with_stable_identity_tie_break",
+    "mutation_api": "CaFG_struct_setters_only_no_random_weighted_conversion",
+    "absolute_commit_order": [
+      "reserve_and_resolve_provenance",
+      "commit_source_absolute_debit",
+      "apply_source_marginal_debit_once",
+      "commit_destination_absolute_credit",
+      "apply_destination_marginal_credit_once",
+      "queue_changed_counties",
+      "refresh_each_changed_county_once_per_axis"
+    ],
+    "pending_settlement": "persist_exact_identity_vectors_and_phase_until_credit_or_refund",
+    "refund": "restore_source_absolute_population_and_inverse_source_marginal_debit_once",
+    "births_deaths_aging": "ratio_neutral"
+  },
+  "refresh": {
+    "province_factor_mutations_are_batched": true,
+    "county_culture_refreshes_per_batch": 1,
+    "county_faith_refreshes_per_batch": 1,
+    "full_world_scan": "forbidden"
+  }
+}

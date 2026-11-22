@@ -1,0 +1,37 @@
+{
+  "source_version": "1.11.5.10",
+  "broad_validator_passed": false,
+  "structure": {
+    "checked": 287,
+    "failures": {}
+  },
+  "baseline_version": "1.11.4.15",
+  "localization_file_parity_with_retained_baseline": {
+    "localization/english/LV/buildings/lv_settlement_buildings_l_english.yml": true,
+    "localization/english/aawc_retained_building_presentation_l_english.yml": true
+  },
+  "base_game_building_definitions": {
+    "capital_bureau_01": "00_admin_buildings.txt",
+    "capital_bureau_02": "00_admin_buildings.txt",
+    "capital_bureau_03": "00_admin_buildings.txt",
+    "capital_bureau_04": "00_admin_buildings.txt",
+    "capital_bureau_05": "00_admin_buildings.txt",
+    "capital_bureau_06": "00_admin_buildings.txt",
+    "capital_bureau_07": "00_admin_buildings.txt",
+    "capital_bureau_08": "00_admin_buildings.txt",
+    "oath_faithful_building_01": "99_ach_buildings.txt",
+    "oath_faithful_building_02": "99_ach_buildings.txt",
+    "oath_faithful_building_03": "99_ach_buildings.txt",
+    "oath_faithful_building_04": "99_ach_buildings.txt",
+    "oath_poor_building_01": "99_ach_buildings.txt",
+    "oath_poor_building_02": "99_ach_buildings.txt",
+    "oath_poor_building_03": "99_ach_buildings.txt",
+    "oath_poor_building_04": "99_ach_buildings.txt",
+    "oath_warriors_building_01": "99_ach_buildings.txt",
+    "oath_warriors_building_02": "99_ach_buildings.txt",
+    "oath_warriors_building_03": "99_ach_buildings.txt",
+    "oath_warriors_building_04": "99_ach_buildings.txt"
+  },
+  "stage5_introduced_failures": [],
+  "note": "Nine duplicate retained-ruin descriptions predate Stage5; twenty reported missing building IDs are defined in the installed base game, which the broad checker omits from its reference closure."
+}

@@ -135,6 +135,7 @@ class SourceVM:
         for key, op, arg in body:
             if key in ('aawc_diagnostics_summary_enabled', 'aawc_diagnostics_verbose_enabled'): checks.append(self.diagnostics_enabled == (arg == 'yes'))
             elif key == 'aawc_population_valid_settlement_for_cohort_trigger': checks.append(self.valid_settlement == (arg == 'yes'))
+            elif key == 'aawc_stage5_mutation_allowed_trigger': checks.append(('aawc_stage5_identity_lock' not in self.vars) == (arg == 'yes'))
             elif key == 'has_holding': checks.append(bool(self.holding) == (arg == 'yes'))
             elif key == 'has_holding_type': checks.append(self.holding == arg)
             elif key == 'has_building': checks.append(arg in self.buildings)

@@ -55,6 +55,7 @@ aawc_population_event.0210 = {
 				NOT = { has_character_flag = aawc_migration_world_tick_recent }
 			}
 			add_character_flag = { flag = aawc_migration_world_tick_recent days = 27 }
+			aawc_stage5_recover_pending_effect = yes
 			aawc_reforging_cohort_reconcile_world_settlement_eligibility_effect = yes
 			aawc_migration_update_world_effect = yes
 			aawc_reforging_diag_heartbeat_effect = yes

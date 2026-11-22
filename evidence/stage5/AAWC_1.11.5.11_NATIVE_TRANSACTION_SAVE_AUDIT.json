@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "midpoint": {
+    "file": "AAWC_S5_1511_MIDPOINT.ck3",
+    "bytes": 5661919,
+    "sha256": "49897d3e4e8c0110eb31bf561c2397eb33713998735a35cefabf070c719cf3d5"
+  },
+  "settled": {
+    "file": "AAWC_S5_1511_SETTLED.ck3",
+    "bytes": 5661728,
+    "sha256": "c03d34a258a10d7e25063e28701f86a6b0531e77bc502d13a48982013efb20b8"
+  },
+  "packet": 39497,
+  "phases": [
+    3,
+    "settled_and_cleaned"
+  ],
+  "amount": 100,
+  "source": 4485,
+  "destination": 4486,
+  "source_population": 900,
+  "destination_population": 600,
+  "exact_thirteen_band_conservation": true,
+  "factors_match_rational_oracle": true,
+  "normalized_sums_1e5": 100000,
+  "pending_and_refresh_queues_drained": true,
+  "endpoint_locks_released": true,
+  "axes": {
+    "culture": {
+      "packet_quantities": {
+        "10": 27,
+        "18": 73
+      },
+      "source_factors_1e5": {
+        "10": 63667,
+        "18": 36333
+      },
+      "destination_factors_1e5": {
+        "10": 87833,
+        "18": 12167
+      },
+      "carries_unchanged_after_reload": true
+    },
+    "faith": {
+      "packet_quantities": {
+        "87": 27,
+        "88": 73
+      },
+      "source_factors_1e5": {
+        "88": 36333,
+        "87": 63667
+      },
+      "destination_factors_1e5": {
+        "88": 12167,
+        "87": 87833
+      },
+      "carries_unchanged_after_reload": true
+    }
+  },
+  "terminal_cleanup": true,
+  "limitation": "This audit certifies saved transaction arithmetic, not the origin of ranks/candidates or full scheduler behavior. Factors have native five-decimal quantization; identity headcounts are not a second absolute ledger."
+}

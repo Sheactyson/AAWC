@@ -258,6 +258,7 @@ aawc_stage4_expedition_validate_source_effect = {
 			has_holding = yes
 			county = { holder = scope:aawc_stage4_tx_owner }
 			aawc_population_valid_settlement_for_cohort_trigger = yes
+			NOT = { has_variable = aawc_stage5_identity_lock }
 			aawc_stage4_reserved_packet_total > 0
 			var:aawc_reforging_cohort_age_00_04 >= { value = 0 if = { limit = { has_variable = aawc_stage4_reserved_age_00_04 } add = var:aawc_stage4_reserved_age_00_04 } }
 			var:aawc_reforging_cohort_age_05_09 >= { value = 0 if = { limit = { has_variable = aawc_stage4_reserved_age_05_09 } add = var:aawc_stage4_reserved_age_05_09 } }
@@ -372,7 +373,7 @@ aawc_stage4_expedition_commit_effect = {
 		if = { limit = { NOT = { var:aawc_stage4_tx_validated_count = var:aawc_stage4_tx_source_count } } set_variable = { name = aawc_stage4_tx_valid value = 0 } }
 		if = { limit = { NOT = { var:aawc_stage4_tx_validated_total = var:aawc_stage4_tx_reserved } } set_variable = { name = aawc_stage4_tx_valid value = 0 } }
 		$DESTINATION$ = {
-			if = { limit = { OR = { NOT = { has_holding = yes } has_holding_type = ruin_holding has_holding_type = wilderness_holding has_holding_type = unknown_holding county = { holder = { agot_is_dummy_character = yes } } } } scope:aawc_stage4_tx_token = { set_variable = { name = aawc_stage4_tx_valid value = 0 } } }
+			if = { limit = { OR = { NOT = { has_holding = yes } has_variable = aawc_stage5_identity_lock has_holding_type = ruin_holding has_holding_type = wilderness_holding has_holding_type = unknown_holding county = { holder = { agot_is_dummy_character = yes } } } } scope:aawc_stage4_tx_token = { set_variable = { name = aawc_stage4_tx_valid value = 0 } } }
 		}
 		if = {
 			limit = { var:aawc_stage4_tx_valid = 1 }

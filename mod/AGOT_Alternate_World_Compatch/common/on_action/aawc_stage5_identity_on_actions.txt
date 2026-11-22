@@ -1,0 +1,9 @@
+﻿# Append to native on-actions; do not replace their existing effects.
+on_culture_created = { on_actions = { aawc_stage5_culture_created } }
+on_faith_created = { on_actions = { aawc_stage5_faith_created } }
+aawc_stage5_culture_created = {
+    effect = { aawc_stage5_register_dynamic_identity_effect = { TYPE = culture } }
+}
+aawc_stage5_faith_created = {
+    effect = { faith = { aawc_stage5_register_dynamic_identity_effect = { TYPE = faith } } }
+}

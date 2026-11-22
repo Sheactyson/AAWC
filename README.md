@@ -4,12 +4,13 @@ Development repository for AGOT Alternate World Compatch. The checkout is Git-fi
 
 ## Current layout
 
-- `mod/` — current AAWC source and transport descriptor (`1.11.4.8`).
+- `mod/` — current AAWC source and transport descriptor (`1.11.5.13`).
 - `dependencies/` — current Dependencies source and descriptor (`1.1.2`). Large binary art is tracked with Git LFS.
 - `docs/` — authoritative master documentation.
 - `evidence/stage2/` — the small retained Stage 2 validation and rendered-continuation records.
 - `evidence/stage1-authority/` — the two inputs still required by the retained Stage 1 authority validator.
 - `catalogue/stage3/` - authoritative Stage 3 candidate source, schema guide and inert generated artifacts.
+- `catalogue/stage5/` - authoritative Stage 5 identity-migration policy contract.
 - `evidence/stage3/` - hash-verified historical catalogue inputs and focused compiler/package receipts.
 - `scripts/` — current packaging, installation, staging, and Stage 1/2 validation tools and the Stage 3 catalogue compiler.
 - `release/` — only the current AAWC package and manifest. Large dependency archives belong on GitHub Releases and are ignored locally after publication.
@@ -44,3 +45,12 @@ To promote a B-level branch: complete the focused validation, update the descrip
 The one-time snapshot is commit `46b0dafcb401a5c228bd30649cde43a3723cc960`, branch `archive/pre-cleanup-2026-11-11`, annotated tag `pre-cleanup-2026-11-11`, and the matching GitHub Release. It retains the complete `1.10.x.x` verified baseline, active pre-cleanup work, documentation, tooling, and non-save evidence. Pre-1.10 release folders and machine-local `.ck3` saves were deliberately excluded by user direction. See `archive/pre-cleanup-2026-11-11/README.md` for restoration.
 
 Stage 4 is complete at `1.11.4.8`. Player travel, direct AGOT reclaim/colonization, instant AI colonization, and new-holding funding share the exact cohort reservation/commit API. Ordinary wilderness and ruin expansion uses centralized 250/500 per-slot population, gold, prestige, and piety costs. The county-view expedition tooltip classifies wilderness and ruins independently and displays all three currency costs alongside population. Pending settlements and colony lifecycle behavior preserve the Stage 1/2/3 boundaries. The current release also registers its exact reservation variables through reachable source initialization, guards a first-use reservation state lookup, and encodes every Stage 4 runtime text file with CK3's required UTF-8 BOM. The direct rendered acceptance was performed on the payload-equivalent `1.11.4.7` candidate; `1.11.4.8` is the exact parity rebuild after two trailing blank lines were normalized. Implementation, regression evidence, package provenance, and the precise rendered-certification boundary are recorded in the master documentation.
+
+Stage 5 begins at policy baseline `1.11.5.0`, which preserves the verified
+`1.11.4.15` gameplay payload while freezing the implementation contract for
+source-majority missing provenance, owner-alignment departure weighting,
+identity-aware neighboring destinations, war displacement, and conservative
+CaFG marginal reconciliation. The adapter is not active in `.0`; implementation
+and live CK3 validation belong to subsequent `1.11.5.x` builds.
+
+Stage 5 physical identity transaction integration is complete in `1.11.5.12`. Native adjacent routing now commits exact AAWC cohort transfers and independent CaFG culture/faith debt and credit, with persistent recovery, guarded refunds, retry protection and one refresh per changed county/axis. All 89 focused Stage 5 tests pass. Direct CK3 testing and native-save audits confirm save/load recovery, normalized factors, conserved residents and identity-neutral births/deaths/aging. The finalized `1.11.5.13` cleanup release preserves that gameplay payload, removes obsolete local staging artifacts, and supplies the current 495-entry package and manifest. Exact hashes, bounded live evidence, cleanup evidence, and the restored-profile receipt are recorded in the [master documentation](docs/AGOT_Alternate_World_Compatch_Documentation_Master.md).

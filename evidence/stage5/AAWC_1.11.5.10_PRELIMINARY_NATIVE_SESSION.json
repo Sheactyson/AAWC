@@ -1,0 +1,47 @@
+{
+  "version": "1.11.5.10",
+  "status": "preliminary_diagnostic_only_transport_and_scope_repairs_required",
+  "markers": [
+    "[05:01:23][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 68 (aawc_s5probe_prepare_effect): AAWC S5 LIVE native registry adjacency phase3 PASS",
+    "[05:01:23][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 79 (aawc_s5probe_prepare_effect): AAWC S5 LIVE locked demographic and CaFG guard PASS",
+    "[05:03:14][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 94 (aawc_s5probe_finish_effect): AAWC S5 LIVE persisted global recovery budget retry PASS",
+    "[05:03:14][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 100 (aawc_s5probe_finish_effect): AAWC S5 LIVE sparse shared county dedup PASS",
+    "[05:04:01][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 108 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE full native route retry PASS",
+    "[05:04:01][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 119 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE peaceful mismatch no-op PASS",
+    "[05:04:01][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 123 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE war mismatch route PASS",
+    "[05:04:01][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 135 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE guarded refund retry PASS",
+    "[05:04:01][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 144 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE demographic ratios neutral PASS",
+    "[05:05:00][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 150 (aawc_s5probe_world_effect): AAWC S5 LIVE production world BEGIN",
+    "[05:05:00][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 156 (aawc_s5probe_world_effect): AAWC S5 LIVE production world conservation PASS",
+    "[05:05:00][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 159 (aawc_s5probe_world_effect): AAWC S5 LIVE production world END"
+  ],
+  "limitations": [
+    "No save/reload in this preliminary run. Global recovery executed twice in one session.",
+    "Owner scope was invalid, requiring barony.holder repair.",
+    "New generated files missing BOM; probe visibility emitted absent-global warnings.",
+    "World smoke conserved totals, but nonzero movement and positive births/deaths/aging require strengthened final probe.",
+    "Preliminary outer descriptor rewrite also altered replace_path lines. Its payload results are diagnostic only; exact final native certification must use the anchored existing runtime_descriptor transport helper."
+  ],
+  "profile_restored": true,
+  "COMPUTER_USE_PATTERN": {
+    "goal": "Exercise native adjacency, recovery, guards, refund and world entry",
+    "application": "CK3 1.19.0.6",
+    "procedure": [
+      "Load retained disposable baseline",
+      "Run sequential Stage 5 decisions",
+      "Inspect native markers",
+      "Exit without autosave",
+      "Retain closed logs and restore controls"
+    ]
+  },
+  "COMPUTER_USE_TRACE": {
+    "observed": [
+      "Paused Pennon campaign",
+      "Four sequential probe decisions completed",
+      "All preliminary PASS markers",
+      "Exit-autosave unchecked",
+      "CK3 window closed"
+    ],
+    "adaptation": "Move oversized decision dialog by dragging its title near x390,y121 into view."
+  }
+}

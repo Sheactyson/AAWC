@@ -280,6 +280,8 @@ aawc_population_apply_county_holding_monthly_growth_effect = {
 # aggregation without invoking another demographic authority. This narrow path
 # does not repeat MAA, reservation, migration, or AI work.
 aawc_population_apply_county_holding_cadence_recovery_effect = {
+	aawc_stage5_recover_pending_effect = yes
+
 	every_in_de_jure_hierarchy = {
 		limit = { tier = tier_barony }
 		title_province = {
@@ -294,6 +296,8 @@ aawc_population_apply_county_holding_cadence_recovery_effect = {
 		}
 	}
 	aawc_population_reaggregate_county_cached_effect = yes
+
+	aawc_stage5_flush_counties_effect = yes
 }
 
 aawc_population_refresh_county_holding_dynamic_effect = {
@@ -1433,6 +1437,9 @@ aawc_population_apply_monthly_maa_reinforcement_character_effect = {
 }
 
 aawc_population_apply_monthly_growth_character_effect = {
+	# Settle the sparse saved transaction list before demographic or Stage 4 mutation.
+	aawc_stage5_recover_pending_effect = yes
+
 	if = {
 		limit = {
 			agot_is_dummy_character = no
@@ -1447,6 +1454,8 @@ aawc_population_apply_monthly_growth_character_effect = {
 		aawc_population_update_county_holder_barony_maa_contribution_history_effect = yes
 		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC POP 1.9 monthly population pulse complete" }
 	}
+
+	aawc_stage5_flush_counties_effect = yes
 }
 
 aawc_population_recalculate_county_effect = {
@@ -1510,15 +1519,15 @@ aawc_population_reaggregate_county_cached_effect = {
 				scope:aawc_population_cached_county = {
 					change_variable = { name = aawc_population_county_holding_count add = 1 }
 					change_variable = { name = aawc_population_total add = prev.aawc_population_holding_current_readonly }
-					change_variable = { name = aawc_population_expected add = prev.var:aawc_population_expected }
-					change_variable = { name = aawc_population_county_dev_weight add = prev.var:aawc_population_debug_main_capacity }
-					change_variable = { name = aawc_population_county_income_component add = prev.var:aawc_population_debug_building_capacity }
-					change_variable = { name = aawc_population_county_levy_component add = prev.var:aawc_population_debug_growth_rating }
+					change_variable = { name = aawc_population_expected add = { value = 0 if = { limit = { prev = { has_variable = aawc_population_expected } } add = prev.var:aawc_population_expected } } }
+					change_variable = { name = aawc_population_county_dev_weight add = { value = 0 if = { limit = { prev = { has_variable = aawc_population_debug_main_capacity } } add = prev.var:aawc_population_debug_main_capacity } } }
+					change_variable = { name = aawc_population_county_income_component add = { value = 0 if = { limit = { prev = { has_variable = aawc_population_debug_building_capacity } } add = prev.var:aawc_population_debug_building_capacity } } }
+					change_variable = { name = aawc_population_county_levy_component add = { value = 0 if = { limit = { prev = { has_variable = aawc_population_debug_growth_rating } } add = prev.var:aawc_population_debug_growth_rating } } }
 				}
 				if = {
-					limit = { var:aawc_migration_holding_building_rating_eligible = 1 }
+					limit = { var:aawc_migration_holding_building_rating_eligible ?= 1 }
 					scope:aawc_population_cached_county = {
-						change_variable = { name = aawc_migration_county_building_rating_sum add = prev.var:aawc_migration_holding_building_rating }
+						change_variable = { name = aawc_migration_county_building_rating_sum add = { value = 0 if = { limit = { prev = { has_variable = aawc_migration_holding_building_rating } } add = prev.var:aawc_migration_holding_building_rating } } }
 						change_variable = { name = aawc_migration_county_rated_holding_count add = 1 }
 					}
 				}

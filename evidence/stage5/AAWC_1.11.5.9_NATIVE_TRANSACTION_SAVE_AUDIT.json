@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "midpoint": {
+    "file": "AAWC_S5_159_MIDPOINT.ck3",
+    "bytes": 5611122,
+    "sha256": "58b375eb50fe6d43c1bed6770f2c64174122c619251bb2256b911dd935b06fa3"
+  },
+  "settled": {
+    "file": "AAWC_S5_159_SETTLED.ck3",
+    "bytes": 5611178,
+    "sha256": "798dd85bd15d4a4773c2eaa6ed456ea17a0f26b6389f05639906ec6a58e9dd4a"
+  },
+  "packet": 39497,
+  "phases": [
+    3,
+    5
+  ],
+  "amount": 100,
+  "source": 4485,
+  "destination": 4486,
+  "source_population": 900,
+  "destination_population": 600,
+  "exact_thirteen_band_conservation": true,
+  "factors_match_rational_oracle": true,
+  "normalized_sums_1e5": 100000,
+  "pending_and_refresh_queues_drained": true,
+  "endpoint_locks_released": true,
+  "axes": {
+    "culture": {
+      "packet_quantities": {
+        "10": 27,
+        "18": 73
+      },
+      "source_factors_1e5": {
+        "10": 63667,
+        "18": 36333
+      },
+      "destination_factors_1e5": {
+        "10": 87833,
+        "18": 12167
+      },
+      "carries_unchanged_after_reload": true
+    },
+    "faith": {
+      "packet_quantities": {
+        "87": 27,
+        "88": 73
+      },
+      "source_factors_1e5": {
+        "88": 36333,
+        "87": 63667
+      },
+      "destination_factors_1e5": {
+        "88": 12167,
+        "87": 87833
+      },
+      "carries_unchanged_after_reload": true
+    }
+  },
+  "limitation": "Fixture-owned ranks/candidates. Not production routing/scheduler certification. Factors have native five-decimal quantization; identity headcounts are not a second absolute ledger."
+}

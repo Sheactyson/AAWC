@@ -17,13 +17,14 @@ MOD = ROOT / 'mod/AGOT_Alternate_World_Compatch'
 CONSTRUCTION = ROOT / 'catalogue/stage3/construction.json'
 BUILDINGS = MOD / 'common/buildings/zz_aawc_stage3_catalogue.txt'
 LOC = MOD / 'localization/english/aawc_stage3_buildings_l_english.yml'
+RETAINED_LOC = MOD / 'localization/english/aawc_retained_building_presentation_l_english.yml'
 METADATA = ROOT / 'catalogue/stage3/runtime_metadata.json'
 STANDARD_HOLDINGS = MOD / 'common/holdings/00_holdings.txt'
 REGIONAL_HOLDINGS = MOD / 'common/holdings/zz_aawc_regional_blocker_holdings.txt'
 HOLDING_TARGETS = {
     STANDARD_HOLDINGS: ('castle_holding', 'tribal_holding', 'city_holding', 'church_holding',
                         'temple_citadel_holding'),
-    REGIONAL_HOLDINGS: ('pirate_den_holding', 'settlement_holding'),
+    REGIONAL_HOLDINGS: ('monastery_holding', 'pirate_den_holding', 'settlement_holding'),
 }
 HOLDING_MARKER_START = '# BEGIN AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)'
 HOLDING_MARKER_END = '# END AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)'
@@ -35,7 +36,7 @@ GATE_KEYS = ('can_construct_potential', 'can_construct', 'can_construct_showing_
 # Nomad and herder holdings explicitly declare the native ``no_buildings``
 # parameter and expose no construction allow-list.  They are populated holding
 # forms, but they are not valid Stage 3 construction surfaces.
-SETTLED = 'OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }'
+SETTLED = 'OR = { has_holding_type = castle_holding has_holding_type = tribal_holding has_holding_type = city_holding has_holding_type = church_holding has_holding_type = temple_citadel_holding has_holding_type = monastery_holding has_holding_type = pirate_den_holding has_holding_type = settlement_holding }'
 URBAN = 'OR = { has_holding_type = city_holding has_holding_type = castle_holding }'
 MILITARY = 'OR = { has_holding_type = castle_holding has_holding_type = tribal_holding }'
 WATER = 'OR = { is_coastal = yes is_riverside_province = yes }'
@@ -68,6 +69,308 @@ def terrains(*names):
 
 def building(chain, tier=1):
     return f'has_building_or_higher = aawc_{chain}_{tier:02}'
+
+
+def stage3_icon(chain_id):
+    """Return the deliberately chain-specific interface icon filename.
+
+    A building chain evolves one underlying structure through its tiers, so those
+    tiers share an icon.  Different chains never share an icon: that keeps the
+    construction catalogue legible even where their gameplay families overlap.
+    """
+    require(chain_id.startswith('aawc_'), f'{chain_id}: invalid Stage 3 chain ID')
+    return chain_id + '.dds'
+
+
+# Positive AAWC-to-AAWC construction dependencies. Each schedule entry is
+# ``(first target tier, required source tier)``; the last entry at or below the
+# current target tier applies. Multiple sources inside one requirement are an
+# OR route, while multiple requirements on one target are cumulative (AND).
+# Duchy chains depend only on ordinary-slot foundations, never another duchy
+# chain that could not coexist in the same capital's single special slot.
+REGULAR_8 = ((1, 1), (3, 2), (5, 3), (7, 4))
+REGULAR_6 = ((1, 1), (3, 2), (5, 3))
+DUCHY_3 = ((1, 3), (2, 5), (3, 7))
+
+
+def progression(sources, schedule, rationale):
+    if isinstance(sources, str):
+        sources = (sources,)
+    return {'sources': tuple(sources), 'schedule': tuple(schedule), 'rationale': rationale}
+
+
+PREREQUISITE_PROGRESSIONS = {
+    # Professional military institutions grow out of basic drill and supply.
+    'archery_yards': (progression('barracks', REGULAR_8, 'Professional archery training requires an established barracks system.'),),
+    'cavalry_courses': (progression('barracks', REGULAR_8, 'Mounted specialization requires professional troop organization in addition to an eligible mount supply.'),),
+    'mustering_fields': (progression('barracks', REGULAR_6, 'Large civilian musters require an established military administration.'),),
+    'regimental_grounds': (progression('barracks', REGULAR_8, 'Regimental drill expands from the barracks hierarchy.'),),
+    'warrior_lodges': (progression('barracks', REGULAR_8, 'Permanent martial societies require a supporting barracks system.'),),
+    # Processing and specialist production require their material foundations.
+    'breweries': (progression('cereal_fields', REGULAR_8, 'Brewing capacity follows the local grain supply.'),),
+    'farm_estates': (progression('cereal_fields', REGULAR_8, 'Manorial estates require a developed staple-farming base.'),),
+    'plantations': (progression('farm_estates', REGULAR_8, 'Plantation estates grow out of organized landed estates.'),),
+    'spice_plantation': (progression('plantations', REGULAR_8, 'Specialist spice estates require mature plantation administration.'),),
+    'urban_farms': (progression('waterworks', REGULAR_8, 'Dense urban cultivation depends on progressively stronger water infrastructure.'),),
+    'murex_farm': (progression('coastal_fisheries', REGULAR_8, 'Murex cultivation requires an established coastal harvesting base.'),),
+    'wind_furnace': (progression('smiths', REGULAR_8, 'Advanced furnace engineering requires mature smithing workshops.'),),
+    'powder_magazine': (progression('smiths', ((1, 2), (3, 3), (5, 4), (7, 5)), 'Powder manufacture and storage require progressively stronger metalworking support.'),),
+    'leatherworkers': (progression('workshops', REGULAR_6, 'Specialist hide processing requires general craft infrastructure as well as a hide supply.'),),
+    'shipwrights': (progression('workshops', ((1, 1), (3, 2)), 'Shipbuilding yards require an established craft district.'),),
+    # Civic and commercial specializations depend on basic urban institutions.
+    'guild_halls': (progression('workshops', REGULAR_8, 'Guild halls require a progressively developed city craft base.'),),
+    'caravanserai': (progression('workshops', REGULAR_8, 'Long-distance caravan services require a local craft and repair base.'),),
+    'river_docks': (progression('workshops', REGULAR_6, 'River commerce docks require a supporting craft district.'),),
+    'monument_works': (progression('workshops', REGULAR_6, 'Monumental construction requires organized local crafts.'),),
+    'urban_tenements': (progression('public_squares', REGULAR_6, 'Dense housing follows the staged development of an urban public realm.'),),
+    'sewers': (progression('waterworks', REGULAR_6, 'Engineered sewerage requires progressively developed water infrastructure.'),),
+    'irrigation_estates': (progression(('waterworks', 'qanats'), ((1, 1), (3, 2), (5, 3), (7, 4)), 'Agricultural irrigation may advance through either public waterworks or qanat engineering.'),),
+    'public_baths': (progression(('waterworks', 'qanats'), REGULAR_6, 'Bathhouse scale follows the available fresh-water infrastructure.'),),
+    'scholars_quarters': (progression(('monastic_schools', 'scriptorium'), REGULAR_6, 'Lay scholarly communities require a progressively developed teaching or manuscript institution.'),),
+    # Duchy institutions consume ordinary slots as foundations; none require a
+    # second duchy building that could not coexist in the same capital.
+    'duchy_agricultural_estates': (progression(('cereal_fields', 'farm_estates'), DUCHY_3, 'Regional estates require high-tier local agricultural infrastructure.'),),
+    'duchy_civic_court': (progression('capital_bureau', DUCHY_3, 'Duchy courts require a mature local civil service.'),),
+    'duchy_grand_harbor': (progression('common_tradeport', DUCHY_3, 'A grand harbor authority requires a high-tier local port.'),),
+    'duchy_grand_hospital': (progression('infirmaries', ((1, 3), (2, 4), (3, 6)), 'A regional hospital requires progressively advanced clinical infrastructure.'),),
+    'duchy_military_college': (progression('barracks', DUCHY_3, 'A military college requires a mature professional barracks system.'),),
+    'duchy_royal_theatre': (progression('public_squares', ((1, 3), (2, 4), (3, 5)), 'A royal theatre requires a mature public cultural realm.'),),
+    'archery_ranges': (progression('archery_yards', DUCHY_3, 'Regional ranges require high-tier local archery training grounds.'),),
+    'blacksmiths': (progression('smiths', DUCHY_3, 'Duchy blacksmithing requires high-tier local smiths.'),),
+    'jousting_lists': (progression('cavalry_courses', ((1, 2), (2, 4), (3, 6)), 'Jousting institutions require developed mounted training.'),),
+    'military_academy': (progression('regimental_grounds', DUCHY_3, 'A military academy requires mature regimental drill grounds.'),),
+    'royal_armory': (progression('smiths', ((1, 4), (2, 6), (3, 8)), 'A royal armory requires the highest tiers of local metalworking.'),),
+    'siege_works': (
+        progression('quarries', DUCHY_3, 'Permanent siege works require high-tier stone supply.'),
+        progression('smiths', DUCHY_3, 'Permanent siege works require high-tier metalworking.'),
+    ),
+    'march': (progression('ramparts', DUCHY_3, 'A marcher command requires mature local fortifications.'),),
+    'scholastic_guilds': (progression('scholars_quarters', ((1, 2), (2, 4), (3, 6)), 'Duchy scholastic guilds require a mature lay scholarly community.'),),
+    'examination_hall': (progression('capital_bureau', DUCHY_3, 'Examination administration requires a mature civil service.'),),
+    'tax_assessor': (progression('capital_bureau', DUCHY_3, 'Regional assessment requires a mature civil service.'),),
+    'lighthouse': (progression('common_tradeport', DUCHY_3, 'A regional lighthouse authority requires a high-tier port.'),),
+    'royal_garden': (progression('public_squares', ((1, 3), (2, 4), (3, 5)), 'Royal gardens require a mature public amenities base.'),),
+    'leisure_palace': (progression('public_squares', ((1, 3), (2, 4), (3, 5)), 'A leisure palace requires a mature public amenities base.'),),
+    'royal_forest': (progression('hunting_grounds', DUCHY_3, 'A royal preserve requires mature local game management.'),),
+    'dragon_kiln': (progression('smiths', DUCHY_3, 'Dragon kiln engineering requires high-tier metalworking.'),),
+    'glass_gardens': (progression('waterworks', DUCHY_3, 'Large glass gardens require high-tier water infrastructure.'),),
+    'great_megalith': (progression('megalith', ((1, 3), (2, 6)), 'A great megalith requires an established local megalithic tradition.'),),
+    'slave_diplomacy': (progression('slave_camps', DUCHY_3, 'Coercive diplomatic administration requires a mature forced-labor apparatus.'),),
+    'slave_intrigue': (progression('slave_camps', DUCHY_3, 'Coercive intelligence administration requires a mature forced-labor apparatus.'),),
+    'slave_learning': (progression('slave_camps', DUCHY_3, 'Coercive learning administration requires a mature forced-labor apparatus.'),),
+    'slave_martial': (progression('slave_camps', DUCHY_3, 'Coercive military administration requires a mature forced-labor apparatus.'),),
+    'slave_stewardship': (progression('slave_camps', DUCHY_3, 'Coercive stewardship administration requires a mature forced-labor apparatus.'),),
+}
+
+
+EFFECTS_POLICY = {
+    'structural_conditions': {'status': 'implemented', 'scope': 'holding', 'authority': 'Stage 2 six-dimension contribution adapter'},
+    'settlement_space': {'status': 'implemented', 'scope': 'holding', 'authority': 'Stage 2 settlement-space contribution adapter'},
+    'construction_unlocks': {'status': 'implemented', 'scope': 'holding/culture/faith/title', 'authority': 'Stage 3 construction predicates'},
+    'custom_holding_modifiers': {'status': 'deferred_population_scaling', 'scope': 'this holding', 'authority': 'Stage 7 native output policy'},
+    'custom_county_modifiers': {'status': 'deferred_population_scaling', 'scope': 'this county', 'authority': 'Stage 7 native output policy'},
+    'custom_holder_modifiers': {'status': 'deferred_population_scaling', 'scope': 'holder', 'authority': 'Stage 7 native output policy'},
+    'custom_military_modifiers': {'status': 'deferred_military_lifecycle', 'scope': 'holder/army/MAA', 'authority': 'Stage 6 military lifecycle'},
+    'neutral_effect_desc_bridge': {'status': 'implemented_non_gameplay', 'scope': 'presentation only', 'authority': 'rendered Stage 3 effect-description compatibility'},
+    'retained_main_line_native_modifiers': {'status': 'implemented_preserved', 'scope': 'upstream-defined holding/county/holder semantics', 'authority': 'effective CK3/AGOT definitions'},
+    'retained_old_growth_capacity_effect_desc': {'status': 'removed', 'scope': 'retained main-line buildings', 'authority': 'superseded by Stage 2 conditions and settlement space'},
+}
+
+
+# The descriptions deliberately follow CK3/AGOT's compact building-copy shape:
+# one material image, one social consequence, and no out-of-character design
+# commentary.  The exact structural values remain in effect_desc, not prose.
+FAMILY_FLAVOR = {
+    'barrack': 'Drill yards, storehouses, and hard-used quarters gather the people who keep a host ready for war.',
+    'brew': 'The smell of mash and woodsmoke hangs over vats where grain is turned into drink, wages, and trade.',
+    'civic': 'Clerks, petitioners, and sealed records pass through offices that turn custom into durable administration.',
+    'dragon': 'Firewise craftsmen work behind thick walls, where one spark may be worth a fortune or a funeral pyre.',
+    'duchy culture': 'Patronage draws masters, scholars, and ambitious courtiers from across the realm to this celebrated institution.',
+    'duchy econ': 'A regional institution gathers wealth, expertise, and authority that lesser holdings cannot command alone.',
+    'duchy faith': 'Pilgrims and dignitaries come to a sacred work whose rites carry weight far beyond the local community.',
+    'duchy mil': 'The finest officers and craftsmen of the realm are gathered here to serve a permanent martial establishment.',
+    'faith': 'Ritual, memory, and communal duty are given a lasting home within these consecrated bounds.',
+    'farm': 'Ordered plots, stores, and labor turn uncertain soil into a dependable foundation for settled life.',
+    'field': 'Season after season, cleared earth and patient labor wrest a steadier harvest from the land.',
+    'fish': 'Boats, nets, sheds, and curing tables bind the settlement to the living wealth of its waters.',
+    'forest': 'Marked stands and disciplined crews harvest the forest without surrendering every path to the wild.',
+    'forge': 'Hammer blows ring from dawn to dusk as raw metal becomes tools, fittings, and arms.',
+    'garden': 'Open walks and gathering places give common life a stage, lending dignity to both market day and ceremony.',
+    'hospice': 'Clean rooms, practiced hands, and stores of remedies offer care where sickness once meant abandonment.',
+    'housing': 'Roofs, hearths, and shared yards make room for households to take root and endure.',
+    'hunt': 'Wardens, lodges, and managed trails turn the surrounding wilds into a guarded source of meat and prestige.',
+    'market': 'Stalls, counting rooms, and sworn measures draw scattered exchange into an institution merchants can trust.',
+    'mill': 'Wind or water drives great stones through the day, sparing hands while feeding a growing settlement.',
+    'mine': 'Cuttings, shafts, and guarded stores draw buried wealth into the light at a price paid in sweat and danger.',
+    'orchard': 'Tended rows flower in their season, promising fruit, sweetness, and patient prosperity.',
+    'pasture': 'Fenced grazing and watchful herders turn open land into meat, hides, wool, and breeding stock.',
+    'peat': 'Dark sod is cut, stacked, and dried into fuel where timber is scarce and winters bite deeply.',
+    'pirate': 'Rough crews and hidden storehouses make violence, contraband, and the sea into instruments of rule.',
+    'port': 'Wharves and warehouses meet the river traffic, carrying inland produce toward distant markets.',
+    'quarry': 'Stonecutters open the earth in measured faces, supplying the heavy bones of walls and monuments.',
+    'road': 'Courtyards, fodder, wells, and guarded rooms keep caravans moving through uncertain country.',
+    'school': 'Teachers, copyists, and disputants preserve hard-won knowledge and train those who will carry it onward.',
+    'security': 'Earth, timber, and stone are raised against raiders, forcing every attacker to pay for each step forward.',
+    'slave': 'Barracks, pens, and overseers organize coerced labor with a cruelty that stains every gain it produces.',
+    'stable': 'Pens, paddocks, and skilled handlers keep valuable beasts healthy, trained, and ready for road or war.',
+    'training': 'Targets, drill grounds, and stern instructors turn willing bodies into disciplined specialists.',
+    'watch': 'Raised platforms and signal posts extend the settlement\'s sight across road, field, and frontier.',
+    'water': 'Channels, cisterns, and careful grades carry water where settlement life requires it most.',
+    'workshop': 'Kilns, benches, and crowded yards bring specialized hands together to fashion useful goods.',
+}
+
+CHAIN_FLAVOR = {
+    'amber_collection': 'Golden resin is washed, sorted, and polished until forest relics become ornaments fit for noble halls.',
+    'building_moat': 'A broad ditch and controlled approaches turn the castle itself into an obstacle no hurried assault can ignore.',
+    'burial_site': 'Stone chambers and solemn processions bind the ruling house to its ancestors and to the land they claimed.',
+    'charnel_grounds': 'The dead are exposed according to ancient rite, beneath the watch of priests and circling birds.',
+    'coastal_fisheries': 'Shore boats return with the tide to crowded racks and salting sheds, feeding both hearth and market.',
+    'common_tradeport': 'A practical harbor of quays, fish stalls, and warehouses keeps coastal traffic moving in every season.',
+    'godswood': 'Within a sheltered grove, old trees and older silence offer a place for counsel, prayer, and remembrance.',
+    'ironwood': 'Ironwood is felled only with patience; its dense timber rewards that labor in beams, shields, and gates.',
+    'kora_kora_yards': 'Long war canoes take shape beneath open sheds, built for swift raids through island waters.',
+    'megalith': 'Great stones mark a sacred place where the community gathers beneath the weight of ancestral memory.',
+    'murex_farm': 'Shallow pens and reeking workshops turn humble sea snails into purple dye coveted by courts.',
+    'oath_faithful_building': 'Those bound by sacred oath gather here to pray, judge disputes, and keep one another steadfast.',
+    'oath_poor_building': 'An oath of mercy is made tangible in kitchens, dormitories, and storehouses kept for the destitute.',
+    'oath_warriors_building': 'Sworn warriors share discipline, worship, and watch beneath one roof, their brotherhood sharpened for war.',
+    'powder_magazine': 'Powder is ground, measured, and locked behind thick walls, guarded as carefully from flame as from thieves.',
+    'public_baths': 'Warm pools and clean water give rich and poor alike a place to wash, recover, and exchange the day\'s news.',
+    'saltworks': 'Sun, wind, and patient labor leave white pans of salt, preserving food and enriching coastal trade.',
+    'sewers': 'Covered drains carry filth away from crowded streets, an unglamorous work on which urban health depends.',
+    'slave_diplomacy': 'Coerced attendants and informants are made into instruments of courtly pressure and foreign negotiation.',
+    'slave_intrigue': 'Fear and forced service feed a hidden apparatus of watchers, messengers, and whispered accusation.',
+    'slave_learning': 'Knowledge is extracted through bondage, forcing scribes and tutors to serve an institution built on cruelty.',
+    'slave_martial': 'Coerced labor and captive expertise sustain a military administration whose order rests upon violence.',
+    'slave_stewardship': 'Ledgers, workshops, and estates are managed through compulsion, enriching the realm while brutalizing its workers.',
+    'tower_of_silence': 'High stone platforms receive the dead beneath open sky, preserving a rite older than the settlement below.',
+    'water_temples': 'Flowing water, carved basins, and solemn rites make this temple a place of purification and communal devotion.',
+    'wantilan': 'Raised timber halls shelter households above wet ground, joining private hearths to a shared village life.',
+}
+
+TIER_MATURITY = (
+    'A modest beginning serves the nearest households.',
+    'Permanent crews and better fittings broaden its reach.',
+    'Established routines make the work reliable in every season.',
+    'Expanded grounds support a larger and more specialized community.',
+    'Skilled masters now direct work of regional consequence.',
+    'Generations of investment have made the institution difficult to rival.',
+    'Its reputation draws talent and custom from far beyond the county.',
+    'At full maturity, it stands among the foremost works of its kind.',
+)
+
+DIMENSION_PRESENTATION = {
+    'sustenance': ('@county_fertility_icon!', 'Sustenance'),
+    'habitation': ('@building_icon!', 'Habitation'),
+    'opportunity': ('@county_icon!', 'Opportunity'),
+    'health': ('@county_fertility_icon!', 'Health'),
+    'security': ('@soldier_icon!', 'Security'),
+    'amenities': ('@opinion_icon!', 'Amenities'),
+    'space_percent': ('@building_icon!', 'Settlement Space'),
+}
+
+RETAINED_MAIN_LINE = {
+    'castle': (5, 'Curtain walls, towers, courts, and storehouses grow into a seat from which the surrounding country can be defended and ruled.'),
+    'city': (5, 'Homes, workshops, markets, and civic halls gather behind busy streets, making urban life both crowded and prosperous.'),
+    'settlement': (3, 'The first durable streets and common works give a fragile colony the shape of a lasting community.'),
+    'temple': (4, 'Shrines, cloisters, and service buildings root public worship in stone and bind the faithful into a settled community.'),
+    'temple_citadel': (4, 'Sacred precincts and formidable walls unite worship, learning, and temporal authority in one commanding complex.'),
+    'tribe': (2, 'Hearths, halls, and gathering grounds give scattered kin a defensible center for counsel, trade, and common life.'),
+}
+
+RETAINED_RUINS = {
+    'small_ruined_holding': 'A broken minor holding lies beneath weeds and fallen masonry; every cleared chamber reveals how much work remains.',
+    'medium_ruined_holding': 'Collapsed streets and roofless halls mark a substantial settlement whose recovery demands sustained labor and guarded exploration.',
+    'large_ruined_holding': 'A once-great center sprawls in dangerous silence, its shattered districts too vast to reclaim in a single effort.',
+}
+
+
+def flavor_description(chain, level):
+    short = chain['id'].removeprefix('aawc_')
+    opening = CHAIN_FLAVOR.get(short, FAMILY_FLAVOR[chain['family']])
+    maturity = TIER_MATURITY[min(level['tier'], len(TIER_MATURITY)) - 1]
+    # Native-role identities are proposal-only Stage 6/7 design metadata.  Do
+    # not describe them as live output before those systems implement them.
+    return (
+        f'#F {opening} {maturity}#!\n\n'
+        'Its current functional effects are the structural-condition and '
+        'settlement-space values shown below.'
+    )
+
+
+def signed_value(value, suffix=''):
+    numeric = float(value)
+    if numeric > 0:
+        return f'#P +{value:g}{suffix}#!'
+    if numeric < 0:
+        return f'#N {value:g}{suffix}#!'
+    return f'#high 0{suffix}#!'
+
+
+def dimension_lines(conditions, space_percent, include_zero=False):
+    rows = []
+    for key in ('sustenance', 'habitation', 'opportunity', 'health', 'security', 'amenities'):
+        value = conditions[key]
+        if value or include_zero:
+            icon, label = DIMENSION_PRESENTATION[key]
+            rows.append(f'{icon} {signed_value(value)} {label}')
+    icon, label = DIMENSION_PRESENTATION['space_percent']
+    rows.append(f'{icon} {signed_value(space_percent, "%")} {label}')
+    return rows
+
+
+def prerequisite_lines(rows):
+    result = []
+    for row in rows:
+        names = [f'$building_{bid}$' for bid in row['ids']]
+        result.append('$EFFECT_LIST_BULLET$Requires ' + ' or '.join(names))
+    return result
+
+
+def retained_localization():
+    loc = ['l_english:']
+    for chain, (tiers, flavor) in RETAINED_MAIN_LINE.items():
+        for tier in range(1, tiers + 1):
+            bid = f'{chain}_{tier:02}'
+            conditions = {
+                'sustenance': 0,
+                'habitation': (tier - 1) * 3,
+                'opportunity': tier - 1,
+                'health': 0,
+                'security': 0,
+                'amenities': 0,
+            }
+            effects = ['#T AAWC Structural Conditions#!', *dimension_lines(conditions, 0, include_zero=True)]
+            description = f'#F {flavor} {TIER_MATURITY[tier - 1]}#!'
+            for key in (f'building_{bid}_desc', f'building_type_{bid}_desc'):
+                loc.append(' ' + key + ':0 ' + json.dumps(description, ensure_ascii=False))
+            loc.append(' aawc_retained_' + bid + '_effects:0 ' + json.dumps('\n'.join(effects), ensure_ascii=False))
+    for chain, flavor in RETAINED_RUINS.items():
+        for tier in range(1, 4):
+            bid = f'{chain}_{tier:02}'
+            description = f'#F {flavor} Clearance stage {tier} of 3 records the remaining work.#!'
+            conditions = {key: 0 for key in ('sustenance', 'habitation', 'opportunity', 'health', 'security', 'amenities')}
+            effects = ['#T AAWC Structural Conditions#!',
+                       *dimension_lines(conditions, 0, include_zero=True),
+                       '#weak Structural conditions remain inactive while this holding is a ruin.#!']
+            for key in (f'building_{bid}_desc', f'building_type_{bid}_desc'):
+                loc.append(' ' + key + ':0 ' + json.dumps(description, ensure_ascii=False))
+            loc.append(' aawc_retained_' + bid + '_effects:0 ' + json.dumps('\n'.join(effects), ensure_ascii=False))
+    return ('\n'.join(loc) + '\n').encode('utf-8-sig')
+
+
+def progression_requirements(short, tier):
+    result = []
+    for requirement in PREREQUISITE_PROGRESSIONS.get(short, ()):
+        applicable = [source_tier for target_tier, source_tier in requirement['schedule'] if target_tier <= tier]
+        require(applicable, f'{short}_{tier:02}: progression schedule has no tier-one entry')
+        source_tier = applicable[-1]
+        ids = tuple(f'aawc_{source}_{source_tier:02}' for source in requirement['sources'])
+        text = (f'has_building_or_higher = {ids[0]}' if len(ids) == 1 else
+                'OR = { ' + ' '.join(f'has_building_or_higher = {bid}' for bid in ids) + ' }')
+        result.append({'ids': ids, 'source_tier': source_tier,
+                       'rationale': requirement['rationale'], 'text': text})
+    return result
 
 # Explicit, exhaustive new-chain derivations. No keyword/default eligibility fallback.
 # Each tuple is potential, construction, rationale; catalogue geography is retained too.
@@ -299,6 +602,9 @@ def compile_buildings(data, contract):
                 validate_gate_syntax(gate)
                 require(not (gate_keys(gate)-NATIVE_GATE_KEYS-set(contract['symbols']['scripted_triggers'])),f'{bid}: unknown gate trigger {gate_keys(gate)-NATIVE_GATE_KEYS-set(contract["symbols"]["scripted_triggers"])}')
             gates={k:remap_reads(v,mapping) for k,v in r['gates'].items()}
+            progression_rows = progression_requirements(cid.removeprefix('aawc_'), l['tier'])
+            if progression_rows:
+                gates['can_construct'] += '\n' + '\n'.join(row['text'] for row in progression_rows)
             # AGOT removes vanilla gunpowder and does not define the recovered
             # ``unlock_powder_magazines`` parameter. Its regional Dragon Kiln
             # innovation is the effective-stack specialist firecraft license,
@@ -332,7 +638,8 @@ def compile_buildings(data, contract):
             # excluded from the construction menu.  Only duchy buildings carry
             # the explicit native class.
             if c['kind']=='duchy': script.append(' type = duchy_capital')
-            script += [' type_icon = "icon_building_market_villages.dds"', ' show_disabled = yes']
+            icon = stage3_icon(cid)
+            script += [f' type_icon = "{icon}"', ' show_disabled = yes']
             for key,value in gates.items():
                 if value.strip(): script.append(' '+key+' = {\n  '+value.strip().replace('\n','\n  ')+'\n }')
             if l['upgrades_to']: script.append(' next_building = '+l['upgrades_to'])
@@ -348,23 +655,35 @@ def compile_buildings(data, contract):
                 '}',
             ]
             name=re.sub(r'\s*\([^)]*\)','',c['player']['name'])+' '+str(l['tier'])
-            scores='; '.join(f'{d.title()} {v:+g}' for d,v in l['conditions'].items() if v)
-            effects=(scores+'; ' if scores else '')+f'Settlement space {l["capacity"]["space_percent"]:+g}%.'
+            effect_lines = [
+                '#T AAWC Structural Conditions#!',
+                *dimension_lines(l['conditions'], l['capacity']['space_percent']),
+            ]
+            requirement_lines = prerequisite_lines(progression_rows)
+            if requirement_lines:
+                effect_lines += ['', '#T Building Prerequisites#!', *requirement_lines]
             localized(l['player']['name_key'],name)
-            localized(l['player']['description_key'],c['levels'][0]['native_role']['proposal']['distinct_identity'].capitalize()+'.')
-            localized(l['player']['effect_description_key'],'Structural conditions: '+effects+' Cumulative installed-tier values; replaces the preceding tier. Native economic and military outputs are deferred.')
+            localized(l['player']['description_key'], flavor_description(c, l))
+            localized(l['player']['effect_description_key'],'\n'.join(effect_lines))
             if l['tier']==1:
                 localized('building_type_'+bid,re.sub(r'\s*\([^)]*\)','',c['player']['name']))
-                localized('building_type_'+bid+'_desc',c['levels'][0]['native_role']['proposal']['distinct_identity'].capitalize()+'.')
-            metadata.append({'id':bid,'chain':cid,'tier':l['tier'],'ai_value':ai,'native_role':l['native_role'], 'era_innovation':ERAS[era], 'gates':gates, 'provenance':r['provenance'], 'derivation':rule['rationale'], 'icon':'icon_building_market_villages.dds','model':'none: optional regular/duchy building asset; existing holding visualization retained'})
-    roots = sorted(c['levels'][0]['id'] for c in chains.values())
+                localized('building_type_'+bid+'_desc',flavor_description(c, l))
+            metadata.append({'id':bid,'chain':cid,'tier':l['tier'],'ai_value':ai,'native_role':l['native_role'], 'era_innovation':ERAS[era], 'gates':gates, 'prerequisite_progression':[{k:v for k,v in row.items() if k != 'text'} for row in progression_rows], 'provenance':r['provenance'], 'derivation':rule['rationale'], 'icon':icon,'model':'none: optional regular/duchy building asset; existing holding visualization retained'})
+    # A holding's ``buildings`` allow-list feeds its ordinary construction
+    # slots. Duchy chains are discovered by CK3 through their native
+    # ``type = duchy_capital`` classification instead; registering their roots
+    # here also leaks them into the ordinary building picker.
+    regular_roots = sorted(
+        c['levels'][0]['id'] for c in chains.values() if c['kind'] == 'regular'
+    )
     artifacts = {
         BUILDINGS: ('\n'.join(script)+'\n').encode('utf-8-sig'),
         LOC: ('\n'.join(loc)+'\n').encode('utf-8-sig'),
-        METADATA: json_bytes({'policy':contract['policy'],'target_definitions':771,'chains':131,'construction_status':'source_activated','rendered_certification':False,'levels':metadata}),
+        RETAINED_LOC: retained_localization(),
+        METADATA: json_bytes({'policy':contract['policy'],'target_definitions':771,'chains':131,'construction_status':'source_activated','rendered_certification':True,'effects_policy':EFFECTS_POLICY,'levels':metadata}),
     }
     for path, holdings in HOLDING_TARGETS.items():
-        artifacts[path] = register_stage3_roots(path, holdings, roots)
+        artifacts[path] = register_stage3_roots(path, holdings, regular_roots)
     return artifacts
 
 def main():

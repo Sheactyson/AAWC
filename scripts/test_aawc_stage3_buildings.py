@@ -78,8 +78,14 @@ class Buildings(unittest.TestCase):
                 self.assertTrue(localized[level['player'][field]])
             effect=localized[level['player']['effect_description_key']]
             for dimension,value in level['conditions'].items():
-                if value:self.assertIn(f'{dimension.title()} {value:+g}',effect)
-            self.assertIn(f'{level["capacity"]["space_percent"]:+g}%',effect)
+                if value:
+                    icon,label=g.DIMENSION_PRESENTATION[dimension]
+                    self.assertIn(f'{icon} {g.signed_value(value)} {label}',effect)
+            self.assertIn(
+                f'{g.DIMENSION_PRESENTATION["space_percent"][0]} '
+                f'{g.signed_value(level["capacity"]["space_percent"], "%")} Settlement Space',
+                effect,
+            )
             self.assertEqual(self.definitions[bid]['effect_desc'],level['player']['effect_description_key'])
             self.assertEqual(
                 self.definitions[bid]['county_modifier'],
@@ -121,7 +127,7 @@ class Buildings(unittest.TestCase):
 
     def test_construction_uses_province_scope_settlement_whitelist(self):
         allowed={'castle_holding','tribal_holding','city_holding','church_holding',
-                 'temple_citadel_holding','pirate_den_holding','settlement_holding'}
+                 'temple_citadel_holding','monastery_holding','pirate_den_holding','settlement_holding'}
         self.assertNotIn('aawc_population_valid_settlement_for_cohort_trigger',self.script)
         for bid in self.levels:
             potential=self.definitions[bid]['can_construct_potential']
@@ -132,8 +138,11 @@ class Buildings(unittest.TestCase):
             self.assertNotIn('nomad_holding',text)
             self.assertNotIn('herder_holding',text)
 
-    def test_every_chain_root_is_registered_for_each_supported_holding_type(self):
-        roots=sorted(c['levels'][0]['id'] for c in self.data['chains'])
+    def test_only_regular_roots_are_registered_for_ordinary_building_slots(self):
+        regular_roots=sorted(c['levels'][0]['id'] for c in self.data['chains'] if c['kind']=='regular')
+        duchy_roots=sorted(c['levels'][0]['id'] for c in self.data['chains'] if c['kind']=='duchy')
+        self.assertEqual(len(regular_roots),99)
+        self.assertEqual(len(duchy_roots),32)
         nonroots={level['id'] for c in self.data['chains'] for level in c['levels'][1:]}
         for path,holdings in g.HOLDING_TARGETS.items():
             emitted=self.artifacts[path].decode('utf-8-sig')
@@ -142,11 +151,44 @@ class Buildings(unittest.TestCase):
             for holding in holdings:
                 registered,_=g.holding_buildings(emitted,holding)
                 with self.subTest(path=path.name,holding=holding):
-                    self.assertTrue(set(roots)<=set(registered))
+                    self.assertTrue(set(regular_roots)<=set(registered))
+                    self.assertFalse(set(duchy_roots) & set(registered))
                     self.assertFalse(nonroots & set(registered))
-                    for root in roots:self.assertEqual(registered.count(root),1)
-        self.assertIn('palisades_01',g.holding_buildings(self.artifacts[g.STANDARD_HOLDINGS].decode('utf-8-sig'),'tribal_holding')[0])
-        self.assertIn('agot_pirate_control_01',g.holding_buildings(self.artifacts[g.REGIONAL_HOLDINGS].decode('utf-8-sig'),'pirate_den_holding')[0])
+                    for root in regular_roots:self.assertEqual(registered.count(root),1)
+        self.assertNotIn('palisades_01',g.holding_buildings(self.artifacts[g.STANDARD_HOLDINGS].decode('utf-8-sig'),'tribal_holding')[0])
+        self.assertNotIn('agot_pirate_control_01',g.holding_buildings(self.artifacts[g.REGIONAL_HOLDINGS].decode('utf-8-sig'),'pirate_den_holding')[0])
+
+    def test_duchy_chains_retain_native_special_slot_type_and_ownership_gates(self):
+        duchy_chains=[c for c in self.data['chains'] if c['kind']=='duchy']
+        self.assertEqual(len(duchy_chains),32)
+        for chain in duchy_chains:
+            for level in chain['levels']:
+                definition=self.definitions[level['id']]
+                with self.subTest(bid=level['id']):
+                    self.assertEqual(definition['type'],'duchy_capital')
+                    ownership=('county.holder','=',[('has_title','=','prev.duchy')])
+                    self.assertIn(ownership,definition['can_construct'])
+                    self.assertIn(ownership,definition['is_enabled'])
+
+    def test_no_aawc_special_or_duchy_definition_is_in_an_ordinary_allow_list(self):
+        special_types={}
+        for path in (g.MOD/'common/buildings').glob('*.txt'):
+            text=path.read_text(encoding='utf-8-sig')
+            for match in re.finditer(r'(?m)^(\w+)\s*=\s*\{',text):
+                opening=text.find('{',match.start())
+                body=text[opening+1:g.matching_brace(text,opening)]
+                building_type=re.search(r'(?m)^\s*type\s*=\s*(duchy_capital|special)\s*$',body)
+                if building_type:
+                    special_types[match.group(1)]=building_type.group(1)
+        self.assertTrue(special_types)
+        self.assertIn('duchy_capital',set(special_types.values()))
+        self.assertIn('special',set(special_types.values()))
+        for path,holdings in g.HOLDING_TARGETS.items():
+            emitted=self.artifacts[path].decode('utf-8-sig')
+            for holding in holdings:
+                registered,_=g.holding_buildings(emitted,holding)
+                with self.subTest(path=path.name,holding=holding):
+                    self.assertFalse(set(special_types) & set(registered))
 
     def test_new_chain_positive_and_negative_holding_fixtures_every_tier(self):
         seen=set()

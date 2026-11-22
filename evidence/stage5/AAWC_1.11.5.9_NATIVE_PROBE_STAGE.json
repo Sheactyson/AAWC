@@ -1,0 +1,19 @@
+{
+  "version": "1.11.5.9",
+  "archive_sha256": "81514F7845F83BF182E0BF1EFDC4F3014E2001D2F6C694411B5DBC810A02A94E",
+  "package_entries": 488,
+  "staged_mismatches": [],
+  "transport_descriptor": "C:\\Users\\sheac\\OneDrive\\Documents\\Paradox Interactive\\Crusader Kings III\\mod\\AGOT_Alternate_World_Compatch.mod",
+  "transport_sha256": "6D3A7C7FC4CF703FA621014C241BD679CA16E0708CD6808DEEDB87440C447840",
+  "load_order": [
+    "mod/ugc_2962333032.mod",
+    "mod/AAWC_Dependencies_Modpack.mod",
+    "mod/AGOT_Alternate_World_Compatch.mod",
+    "mod/aawc_stage5_probe.mod"
+  ],
+  "fixture_only": true,
+  "production_routing_certified": false,
+  "transport_path": "C:\\Users\\sheac\\OneDrive\\Desktop\\AAWC-dev\\playtest\\stage5-transactions-1.11.5.8\\package\\AGOT_Alternate_World_Compatch",
+  "transport_path_verified": true,
+  "invalid_prior_restarts": "Descriptor path had erroneously changed .8 directory to nonexistent .9. No native .9 certification from those attempts."
+}

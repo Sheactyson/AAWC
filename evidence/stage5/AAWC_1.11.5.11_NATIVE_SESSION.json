@@ -1,0 +1,59 @@
+{
+  "version": "1.11.5.11",
+  "status": "transaction_audit_pass_optional_cache_repair_required",
+  "archive_sha256": "89307ab116222aecd9e81739569c150a0d39c507d46020e19dc3448226978db0",
+  "transport_path_only_verified": true,
+  "markers": [
+    "[05:20:48][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 68 (aawc_s5probe_prepare_effect): AAWC S5 LIVE native registry adjacency phase3 PASS",
+    "[05:20:48][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 79 (aawc_s5probe_prepare_effect): AAWC S5 LIVE locked demographic and CaFG guard PASS",
+    "[05:32:35][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 94 (aawc_s5probe_finish_effect): AAWC S5 LIVE persisted global recovery budget retry PASS",
+    "[05:32:35][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 100 (aawc_s5probe_finish_effect): AAWC S5 LIVE sparse shared county dedup PASS",
+    "[05:38:29][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 108 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE full native route retry PASS",
+    "[05:38:29][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 119 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE peaceful mismatch no-op PASS",
+    "[05:38:29][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 123 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE war mismatch route PASS",
+    "[05:38:29][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 135 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE guarded refund retry PASS",
+    "[05:38:29][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 145 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE positive births deaths aging PASS",
+    "[05:38:29][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 147 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE demographic ratios neutral PASS",
+    "[05:52:32][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 158 (aawc_s5probe_world_effect): AAWC S5 LIVE production world BEGIN",
+    "[05:52:32][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 164 (aawc_s5probe_world_effect): AAWC S5 LIVE production world conservation PASS",
+    "[05:52:32][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 167 (aawc_s5probe_world_effect): AAWC S5 LIVE production world moved residents FAIL",
+    "[05:52:32][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 169 (aawc_s5probe_world_effect): AAWC S5 LIVE production world END"
+  ],
+  "native_save_audit": "AAWC_1.11.5.11_NATIVE_TRANSACTION_SAVE_AUDIT.json",
+  "world_native_save": {
+    "population_before": 106085,
+    "population_after": 106085,
+    "internal_movement": 15,
+    "births": 89,
+    "deaths": 596,
+    "aged": 1496
+  },
+  "known_findings": [
+    "Absent optional cached diagnostics during post-reload county refresh; repaired in .12.",
+    "World probe FAIL was a cleared-planning-field assertion; native saved source/destination and displayed deltas independently prove 15 residents moved. Final probe now measures populations directly."
+  ],
+  "profile_restored": true,
+  "COMPUTER_USE_PATTERN": {
+    "goal": "Verify native weighted transaction survives exact save/load",
+    "procedure": [
+      "Prepare native midpoint",
+      "Save separately",
+      "Reload exact midpoint",
+      "Recover twice",
+      "Save settlement",
+      "Run remaining scenario/world decisions",
+      "Save world evidence",
+      "Exit without autosave",
+      "Restore controls"
+    ]
+  },
+  "COMPUTER_USE_TRACE": {
+    "observed": [
+      "Native midpoint .11 reloaded",
+      "Recovery and scenario decisions executed",
+      "Settlement/world saves retained",
+      "CK3 exited normally"
+    ],
+    "adaptation": "Changed in-game GUI scaling from 80% to 60% to expose entire decision dialog after unreliable dragging. Original settings restored."
+  }
+}

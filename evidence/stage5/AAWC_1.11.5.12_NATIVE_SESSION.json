@@ -1,0 +1,250 @@
+{
+  "version": "1.11.5.12",
+  "status": "PASS",
+  "recorded_at_utc": "2026-11-21T11:39:42.994841+00:00",
+  "scope": "Stage 5 production identity-routing and physical-transaction integration",
+  "stack": {
+    "ck3": "1.19.0.6",
+    "agot": "0.5.2.1",
+    "legacy_of_valyria": "1.5.2.13"
+  },
+  "archive_sha256": "94db8eeeeafd2c8fae9c6a78cc62e6bc1c727c8fba7ee0b05f6481b12dd7af2f",
+  "parity_receipt": "AAWC_1.11.5.12_NATIVE_ROUTING_RUNTIME_PARITY.json",
+  "transport_path_only_verified": true,
+  "runtime_transport_sha256": "47b6b4aa3ed53142b59f2797c14d89dc7c2ea792a21159e91275d9af29da8538",
+  "load_order": [
+    "AGOT",
+    "AAWC_Dependencies_Modpack",
+    "AAWC 1.11.5.12",
+    "disposable native probe"
+  ],
+  "input_checkpoint": {
+    "file": "AAWC_S5_1511_MIDPOINT.ck3",
+    "sha256": "49897d3e4e8c0110eb31bf561c2397eb33713998735a35cefabf070c719cf3d5",
+    "phase": 3,
+    "origin_version": "1.11.5.11",
+    "origin_native_registry_and_adjacent_candidates": true
+  },
+  "native_save_audit": "AAWC_1.11.5.12_NATIVE_TRANSACTION_SAVE_AUDIT.json",
+  "markers": [
+    "[06:20:38][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 94 (aawc_s5probe_finish_effect): AAWC S5 LIVE persisted global recovery budget retry PASS",
+    "[06:20:38][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 100 (aawc_s5probe_finish_effect): AAWC S5 LIVE sparse shared county dedup PASS",
+    "[06:34:00][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 108 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE full native route retry PASS",
+    "[06:34:00][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 119 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE peaceful mismatch no-op PASS",
+    "[06:34:00][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 123 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE war mismatch route PASS",
+    "[06:34:00][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 135 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE guarded refund retry PASS",
+    "[06:34:00][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 145 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE positive births deaths aging PASS",
+    "[06:34:00][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 147 (aawc_s5probe_scenarios_effect): AAWC S5 LIVE demographic ratios neutral PASS",
+    "[06:34:25][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 160 (aawc_s5probe_world_effect): AAWC S5 LIVE production world BEGIN",
+    "[06:34:25][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 166 (aawc_s5probe_world_effect): AAWC S5 LIVE production world conservation PASS",
+    "[06:34:25][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 168 (aawc_s5probe_world_effect): AAWC S5 LIVE production world moved residents PASS",
+    "[06:34:25][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/aawc_s5probe_effects.txt line: 171 (aawc_s5probe_world_effect): AAWC S5 LIVE production world END"
+  ],
+  "stage5_nonmarker_diagnostics": [],
+  "closed_log_classification": {
+    "scope": "All error.log blocks naming Stage 5/probe, population, cohort production, Stage 4 reservation, or CaFG province effects",
+    "all_stage5_nonmarker_errors": 0,
+    "related_execution_errors": 0,
+    "preexisting_startup_variable_diagnostics": 162,
+    "startup_variable_names_all_present_in_original_1_11_4_15": true,
+    "other_preexisting_diagnostics": [
+      "[06:08:29][E][lexer.cpp:306]: File 'common/scripted_effects/aawc_population_scheduler_effects.txt' should be in utf8-bom encoding (will try to use it anyways)\n"
+    ],
+    "scheduler_file_byte_identical_to_original_1_11_4_15": true,
+    "limitation": "The full AGOT/dependency error log is not globally clean. Existing startup warnings and compatibility overrides are retained; see broad-validation classification receipt."
+  },
+  "native_results": {
+    "recovery_executed_twice": true,
+    "source_population": 900,
+    "destination_population": 600,
+    "transfer": 100,
+    "culture_vector_owner_other": [
+      27,
+      73
+    ],
+    "faith_vector_owner_other": [
+      27,
+      73
+    ],
+    "thirteen_band_conservation": true,
+    "both_axes_match_rational_oracle": true,
+    "normalized_sum_each_axis": 1,
+    "carry_retry_idempotence": true,
+    "budget_retry_idempotence": true,
+    "shared_county_queue_deduplicated": true,
+    "terminal_packet_and_children_removed": true,
+    "peaceful_mismatch_no_op": true,
+    "war_mismatch_route": true,
+    "guarded_refund_retry": true,
+    "birth_death_aging_ratios_unchanged": true,
+    "production_world": {
+      "status": "PASS",
+      "save": {
+        "file": "AAWC_S5_1512_WORLD.ck3",
+        "bytes": 5668421,
+        "sha256": "e0fbb1197d8f86588b57a8537b3daffdb7ab949acdedbab4c86563b38b216ac8"
+      },
+      "whole_world_before": 106085,
+      "whole_world_after": 106085,
+      "moved": 15,
+      "demographic": {
+        "births": 89,
+        "deaths": 596,
+        "aged": 1496
+      },
+      "normalized_axes": true,
+      "exact_cohort_totals": true,
+      "no_pending_or_locked_endpoints": true,
+      "limitation": "Disposable fixture uses real production scheduling with pinned test capacity. Ratio neutrality is checked at the demographic boundary by native probe assertions; this later save follows migration."
+    }
+  },
+  "profile_restored": true,
+  "restored_controls": {
+    "continue_game.json": "36a772d826d59815d5ed0aa9893e53264c8f389d21352d8acfc3678507ed0b1b",
+    "dlc_load.json": "c377f78e66009c1e6b6756f3c560e7d575a5aa1481aae1dc0e564e40e06a4dd2",
+    "last_save.ck3": "ec787010b21e4fd6137467d29848886b8defe171d3c4c14e98468ebcdf0e0217",
+    "pdx_settings.txt": "5d72acc0f2cccd3ac78a012c864dc78aa51ced2b40f2ce17ab4add2cca1ddb1f",
+    "mod/AGOT_Alternate_World_Compatch.mod": "0d9edc95e62474798934a0bc21a97ed987d7d6d8a0824cdaa76f522b9d30bc68",
+    "save games/autosave_exit.ck3": "ec787010b21e4fd6137467d29848886b8defe171d3c4c14e98468ebcdf0e0217"
+  },
+  "baseline_unchanged": true,
+  "baseline": {
+    "file": "aawc_1_11_4_15_inhabited_duchy_fixture.ck3",
+    "sha256": "8e7ac00d90d57389a593dfd5384e7916088ac5d3231befe2000d37ed123007d9"
+  },
+  "temporary_external_saves_removed": [
+    {
+      "file": "AAWC_S5_1512_UPGRADE_INPUT.ck3",
+      "sha256": "49897d3e4e8c0110eb31bf561c2397eb33713998735a35cefabf070c719cf3d5"
+    },
+    {
+      "file": "AAWC_S5_1512_SETTLED.ck3",
+      "sha256": "507a114ec8bf1af42830c73f0f2e5f3a9f224eb8a5361b26b6a5b5eedfd70416"
+    },
+    {
+      "file": "AAWC_S5_1512_WORLD.ck3",
+      "sha256": "e0fbb1197d8f86588b57a8537b3daffdb7ab949acdedbab4c86563b38b216ac8"
+    }
+  ],
+  "temporary_probe_descriptor_removed": true,
+  "game_closed": true,
+  "exit_autosave_disabled": true,
+  "native_quit_log": "[06:35:34][D][application.cpp:1258]: Quit: Quit from inside game",
+  "closed_logs": {
+    "code_revisions.log": {
+      "bytes": 1387,
+      "sha256": "45f20e7aed1e4d97094320ef2cef46a42b8bf805a38a00506792d0ab11eb6a25"
+    },
+    "custom_automated_stats.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "database_conflicts.log": {
+      "bytes": 273536,
+      "sha256": "3c16be39816c44f6ff5fbf58cccfdb53953424f5b2f570c01f6493e59b73e5d0"
+    },
+    "debug.log": {
+      "bytes": 16878247,
+      "sha256": "5dde1a47b78bcaf7457c9e52d62f8ecf45fd57f80d9f2531a609e698026c9812"
+    },
+    "dedicated_server.log": {
+      "bytes": 70,
+      "sha256": "c1996fbeb42890c1e99a25eaf9db4c83de5d726486115322317130ce19b75a27"
+    },
+    "error.log": {
+      "bytes": 390510,
+      "sha256": "ac4cd0882de4009e5fca09f46a4375b36fbee75eba9561f1a797ee075765e312"
+    },
+    "game.log": {
+      "bytes": 216849,
+      "sha256": "9e7ecbdb36bac5a86cad287543138a4895c6005d92ff836f75b5a721be4fe9cf"
+    },
+    "gui_warnings.log": {
+      "bytes": 10074,
+      "sha256": "59297e122e4010bd42b4938b4aa4dace476ee07ab24ecc389aa4fd5a90bb06b9"
+    },
+    "memory.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "message.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "multiplayer.log": {
+      "bytes": 2289,
+      "sha256": "71a46cf47b5bed3a4b902b5df023d1b9e95455c2c743c6dc9d5f6925d91148a1"
+    },
+    "pdxsdk.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "profile.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "setup.log": {
+      "bytes": 8064,
+      "sha256": "386816efd6f337ebdf1f35b9a08f1ebec75745ce6716fc5823e48fef4dcf01e7"
+    },
+    "system.log": {
+      "bytes": 918,
+      "sha256": "3959fadb0db8735381cc007945187b1fc94438202b424362b20572c1f9a836df"
+    },
+    "text.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "fixture_hashes": {
+    "descriptor.mod": "bc6e069fbff6d8d6619e62fbe2e605b9c79bd94d6b10b44d9260154ce190edc4",
+    "events/aawc_s5probe_events.txt": "6e796601ef71329324fdcdac8b8b73d39b2f009089790b83bc3b5220c770dc45",
+    "localization/english/aawc_s5probe_l_english.yml": "b3787e8b50b13c39a6a24ec27c809a087d5182e0991c59c5c7dbee83aebddf71",
+    "common/decisions/aawc_s5probe_decisions.txt": "e28ad0f2ba09ae152acae50bf50ed0e3d7118cac8cb47a81e14ff76a3767c85e",
+    "common/scripted_effects/aawc_s5probe_effects.txt": "99011d0c13fd72299d1b8f65ed528f43e8d7fda73dc9e554d3ca05500be7479a"
+  },
+  "local_evidence_root": "playtest/stage5-native-routing-1.11.5.12",
+  "limitations": [
+    "Live recovery cold-loaded an exact .11 phase-3 checkpoint under compatible .12; it did not manufacture ranks or candidates on load.",
+    "Final .12 then exercised fresh native routing, retry/refund, monthly demographic and production world routines through disposable hidden-event decisions.",
+    "Pinned fixture capacity forces observable physical movement; this is bounded integration validation, not a long-run campaign balance or performance certification.",
+    "CaFG factors have native five-decimal quantization and subthreshold absorption; no identity headcount ledger is introduced."
+  ],
+  "COMPUTER_USE_PATTERN": {
+    "goal": "Verify native Stage 5 recovery and production routing in a versioned isolated CK3 session",
+    "context": "Exact 495-entry .12 candidate; path-only descriptor transport; .11 phase-3 checkpoint; 60% GUI scaling; local saves",
+    "procedure": [
+      "Cold-load exact midpoint",
+      "Run recovery twice",
+      "Save settled checkpoint",
+      "Run native route/error/demographic scenarios",
+      "Run production world update",
+      "Save world checkpoint",
+      "Exit to desktop without autosave",
+      "Audit retained saves and closed logs",
+      "Restore all profile controls"
+    ],
+    "evidence": [
+      "12 native PASS/BEGIN/END markers and zero Stage 5 nonmarker diagnostics",
+      "Independent save audit verifies normalized shares and exact cohorts",
+      "Six profile hashes and baseline hash restored"
+    ]
+  },
+  "COMPUTER_USE_TRACE": {
+    "observed": [
+      "Exact upgrade input loaded as paused Lord Ludwin campaign",
+      "Recovery, scenario and world decisions opened and executed",
+      "Local settled and world saves completed",
+      "Exit autosave checkbox was unchecked",
+      "Exit Desktop selected; CK3 window and process disappeared"
+    ],
+    "timestamps_local": {
+      "recovery": "06:20:38",
+      "scenarios": "06:34:00",
+      "world": "06:34:25",
+      "world_saved": "06:35:03",
+      "native_quit": "06:35:34"
+    },
+    "state_boundaries": "Each input followed observed window state; final save arithmetic and closed logs independently audited."
+  }
+}

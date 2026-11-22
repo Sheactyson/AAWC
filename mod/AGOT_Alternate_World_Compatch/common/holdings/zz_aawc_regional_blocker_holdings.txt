@@ -4,43 +4,107 @@
 monastery_holding = {
 	primary_building = monastery_01
 	buildings = {
-		outposts_01
-		farm_estates_01
-		cereal_fields_01
-		pastures_01
-		peat_quarries_01
-		hill_farms_01
-		logging_camps_01
-		plantations_01
-		quarries_01
-		orchards_01
-		elephant_pens_01
-		hunting_grounds_01
-		regimental_grounds_01
-		barracks_01
-		military_camps_01
-		camel_farms_01
-		stables_01
-		smiths_01
-		hillside_grazing_01
-		warrior_lodges_01
-		horse_pastures_01
-		windmills_01
-		watermills_01
-		caravanserai_01
-		workshops_01
-		wind_furnace_01
-
-		guild_halls_01
-
-		monastic_schools_01
-
-		common_tradeport_01
-
-		# AGOT Buildings
-		apiaries_01
-		# Base game buildings
-		breweries_01
+		# BEGIN AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)
+		aawc_amber_collection_01
+		aawc_apiaries_01
+		aawc_archery_yards_01
+		aawc_barracks_01
+		aawc_breweries_01
+		aawc_building_moat_01
+		aawc_camel_farms_01
+		aawc_capital_bureau_01
+		aawc_caravanserai_01
+		aawc_cavalry_courses_01
+		aawc_cereal_fields_01
+		aawc_citadel_shrine_01
+		aawc_city_walls_01
+		aawc_coastal_fisheries_01
+		aawc_common_tradeport_01
+		aawc_curtain_walls_01
+		aawc_elephant_pens_01
+		aawc_farm_estates_01
+		aawc_godswood_01
+		aawc_gold_mines_01
+		aawc_guild_halls_01
+		aawc_hill_farms_01
+		aawc_hill_forts_01
+		aawc_hillside_grazing_01
+		aawc_horse_pastures_01
+		aawc_hospices_01
+		aawc_hunting_grounds_01
+		aawc_idjang_forts_01
+		aawc_infirmaries_01
+		aawc_iron_island_mines_01
+		aawc_ironwood_01
+		aawc_irrigation_estates_01
+		aawc_kora_kora_yards_01
+		aawc_leatherworkers_01
+		aawc_logging_camps_01
+		aawc_longhouses_01
+		aawc_market_villages_01
+		aawc_megalith_01
+		aawc_military_camps_01
+		aawc_monastic_schools_01
+		aawc_monument_works_01
+		aawc_murex_farm_01
+		aawc_mustering_fields_01
+		aawc_oath_faithful_building_01
+		aawc_oath_poor_building_01
+		aawc_oath_warriors_building_01
+		aawc_orchards_01
+		aawc_outposts_01
+		aawc_paddy_fields_01
+		aawc_palisades_01
+		aawc_pastures_01
+		aawc_peat_quarries_01
+		aawc_pirate_control_01
+		aawc_pirate_economic_01
+		aawc_pirate_fortification_01
+		aawc_pirate_military_01
+		aawc_pirate_supply_01
+		aawc_pirate_troop_01
+		aawc_plantations_01
+		aawc_powder_magazine_01
+		aawc_public_baths_01
+		aawc_public_squares_01
+		aawc_qanats_01
+		aawc_quarries_01
+		aawc_ramparts_01
+		aawc_regimental_grounds_01
+		aawc_river_docks_01
+		aawc_river_fisheries_01
+		aawc_sacred_pool_01
+		aawc_saltworks_01
+		aawc_scholars_quarters_01
+		aawc_scriptorium_01
+		aawc_sewers_01
+		aawc_shipwrights_01
+		aawc_silver_mines_01
+		aawc_slave_camps_01
+		aawc_smiths_01
+		aawc_spice_plantation_01
+		aawc_stables_01
+		aawc_steppe_farms_01
+		aawc_stilted_granaries_01
+		aawc_temple_citadel_01
+		aawc_terraced_farms_01
+		aawc_trade_guilds_01
+		aawc_tribe_01
+		aawc_urban_farms_01
+		aawc_urban_tenements_01
+		aawc_vihara_halls_01
+		aawc_village_cottages_01
+		aawc_wantilan_01
+		aawc_war_camps_01
+		aawc_warrior_lodges_01
+		aawc_watchtowers_01
+		aawc_water_temples_01
+		aawc_watermills_01
+		aawc_waterworks_01
+		aawc_wind_furnace_01
+		aawc_windmills_01
+		aawc_workshops_01
+		# END AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)
 	}
 
 	can_be_inherited = yes
@@ -52,24 +116,16 @@ ruin_holding = {
 		small_ruin_01
 		medium_ruin_01
 		large_ruin_01
-
 		ruin_salted_earth_01
 		ruin_desolate_01
 		ruin_flooded_01
 		ruin_renowned_01
 		ruin_infamous_01
 		ruin_wildfire_01
-
-		## Mining Buildings 
 		valyria_mines_dormant_01
 		valyria_mines_01
-		
-		# Legacy of Valyria Additions
-		## Sothoryos Ruins
 		jungle_ruin_01
 		jungle_ruin_deep_01
-
-		## Blockers
 		unexplored_caves_01
 		swamp_01_01
 		swamp_02_01
@@ -81,7 +137,6 @@ ruin_holding = {
 		small_ruined_holding_01
 		medium_ruined_holding_01
 		large_ruined_holding_01
-
 		ravenous_basilisk_1
 		ravenous_basilisk_tame
 		ghoulish_bat_1
@@ -91,11 +146,6 @@ ruin_holding = {
 		cos_wyvern_1
 		cos_wyvern_alpha_1
 		cos_carn_plant_1
-		#cos_river_parasites_1
-		#cos_titanic_beast_1
-		#cos_raptors_1
-	
-		# AAWC generated regional blocker roots.
 		aawc_blk_beyond_the_wall_predators_spoor_nests_minor_frostfang_giant_spoor_baited_trail_root
 		aawc_blk_beyond_the_wall_predators_spoor_nests_standard_frostfang_giant_spoor_stockade_hunt_root
 		aawc_blk_beyond_the_wall_predators_spoor_nests_severe_frostfang_giant_spoor_territory_claim_root
@@ -2016,21 +2066,12 @@ ruin_holding = {
 		aawc_blk_sothoryos_blight_famine_barren_wastes_standard_green_famine_clearing_failed_season_root
 		aawc_blk_sothoryos_blight_famine_barren_wastes_severe_green_famine_clearing_hunger_district_root
 		aawc_blk_sothoryos_blight_famine_barren_wastes_deadly_green_famine_clearing_land_without_mercy_root
-}
+	}
 }
 
 pirate_den_holding = {
 	primary_building = pirate_den_01
 	buildings = {
-		agot_slave_camps_01
-		agot_pirate_control_01
-		agot_pirate_economic_01
-		agot_pirate_supply_01
-		agot_pirate_troop_01
-		agot_pirate_military_01
-		agot_pirate_fortification_01
-	
-		# AAWC generated regional blocker roots.
 		aawc_blk_beyond_the_wall_predators_spoor_nests_minor_frostfang_giant_spoor_baited_trail_root
 		aawc_blk_beyond_the_wall_predators_spoor_nests_standard_frostfang_giant_spoor_stockade_hunt_root
 		aawc_blk_beyond_the_wall_predators_spoor_nests_severe_frostfang_giant_spoor_territory_claim_root
@@ -3954,38 +3995,24 @@ pirate_den_holding = {
 		# BEGIN AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)
 		aawc_amber_collection_01
 		aawc_apiaries_01
-		aawc_archery_ranges_01
 		aawc_archery_yards_01
 		aawc_barracks_01
-		aawc_blacksmiths_01
 		aawc_breweries_01
 		aawc_building_moat_01
-		aawc_burial_site_01
 		aawc_camel_farms_01
 		aawc_capital_bureau_01
 		aawc_caravanserai_01
 		aawc_cavalry_courses_01
 		aawc_cereal_fields_01
-		aawc_charnel_grounds_01
 		aawc_citadel_shrine_01
 		aawc_city_walls_01
 		aawc_coastal_fisheries_01
 		aawc_common_tradeport_01
 		aawc_curtain_walls_01
-		aawc_dragon_kiln_01
-		aawc_duchy_agricultural_estates_01
-		aawc_duchy_civic_court_01
-		aawc_duchy_grand_harbor_01
-		aawc_duchy_grand_hospital_01
-		aawc_duchy_military_college_01
-		aawc_duchy_royal_theatre_01
 		aawc_elephant_pens_01
-		aawc_examination_hall_01
 		aawc_farm_estates_01
-		aawc_glass_gardens_01
 		aawc_godswood_01
 		aawc_gold_mines_01
-		aawc_great_megalith_01
 		aawc_guild_halls_01
 		aawc_hill_farms_01
 		aawc_hill_forts_01
@@ -3998,17 +4025,12 @@ pirate_den_holding = {
 		aawc_iron_island_mines_01
 		aawc_ironwood_01
 		aawc_irrigation_estates_01
-		aawc_jousting_lists_01
 		aawc_kora_kora_yards_01
 		aawc_leatherworkers_01
-		aawc_leisure_palace_01
-		aawc_lighthouse_01
 		aawc_logging_camps_01
 		aawc_longhouses_01
-		aawc_march_01
 		aawc_market_villages_01
 		aawc_megalith_01
-		aawc_military_academy_01
 		aawc_military_camps_01
 		aawc_monastic_schools_01
 		aawc_monument_works_01
@@ -4039,40 +4061,27 @@ pirate_den_holding = {
 		aawc_regimental_grounds_01
 		aawc_river_docks_01
 		aawc_river_fisheries_01
-		aawc_royal_armory_01
-		aawc_royal_forest_01
-		aawc_royal_garden_01
 		aawc_sacred_pool_01
 		aawc_saltworks_01
 		aawc_scholars_quarters_01
-		aawc_scholastic_guilds_01
 		aawc_scriptorium_01
 		aawc_sewers_01
 		aawc_shipwrights_01
-		aawc_siege_works_01
 		aawc_silver_mines_01
 		aawc_slave_camps_01
-		aawc_slave_diplomacy_01
-		aawc_slave_intrigue_01
-		aawc_slave_learning_01
-		aawc_slave_martial_01
-		aawc_slave_stewardship_01
 		aawc_smiths_01
 		aawc_spice_plantation_01
 		aawc_stables_01
 		aawc_steppe_farms_01
 		aawc_stilted_granaries_01
-		aawc_tax_assessor_01
 		aawc_temple_citadel_01
 		aawc_terraced_farms_01
-		aawc_tower_of_silence_01
 		aawc_trade_guilds_01
 		aawc_tribe_01
 		aawc_urban_farms_01
 		aawc_urban_tenements_01
 		aawc_vihara_halls_01
 		aawc_village_cottages_01
-		aawc_vineyard_01
 		aawc_wantilan_01
 		aawc_war_camps_01
 		aawc_warrior_lodges_01
@@ -4084,7 +4093,7 @@ pirate_den_holding = {
 		aawc_windmills_01
 		aawc_workshops_01
 		# END AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)
-}
+	}
 }
 
 
@@ -4107,17 +4116,10 @@ wilderness_holding = {
 		bandits
 		dense_growth
 		pirate_remnants
-
-		# Legacy of Valyria Additions
-		## Sothoryos Ruins
 		jungle_ruin_01
 		jungle_ruin_deep_01
-
-		## Mining Buildings 
 		valyria_mines_dormant_01
 		valyria_mines_01
-
-		## Blockers
 		unexplored_caves_01
 		swamp_01_01
 		swamp_02_01
@@ -4129,7 +4131,6 @@ wilderness_holding = {
 		small_ruined_holding_01
 		medium_ruined_holding_01
 		large_ruined_holding_01
-
 		ravenous_basilisk_1
 		ravenous_basilisk_tame
 		ghoulish_bat_1
@@ -4139,11 +4140,6 @@ wilderness_holding = {
 		cos_wyvern_1
 		cos_wyvern_alpha_1
 		cos_carn_plant_1
-		#cos_river_parasites_1
-		#cos_titanic_beast_1
-		#cos_raptors_1
-	
-		# AAWC generated regional blocker roots.
 		aawc_blk_beyond_the_wall_predators_spoor_nests_minor_frostfang_giant_spoor_baited_trail_root
 		aawc_blk_beyond_the_wall_predators_spoor_nests_standard_frostfang_giant_spoor_stockade_hunt_root
 		aawc_blk_beyond_the_wall_predators_spoor_nests_severe_frostfang_giant_spoor_territory_claim_root
@@ -6064,22 +6060,13 @@ wilderness_holding = {
 		aawc_blk_sothoryos_blight_famine_barren_wastes_standard_green_famine_clearing_failed_season_root
 		aawc_blk_sothoryos_blight_famine_barren_wastes_severe_green_famine_clearing_hunger_district_root
 		aawc_blk_sothoryos_blight_famine_barren_wastes_deadly_green_famine_clearing_land_without_mercy_root
-}
+	}
 }
 
 settlement_holding = {
 	primary_building = settlement_01
 
 	buildings = {
-		stockades_01
-		local_militia_01
-		trading_outposts_01
-		construction_guilds_01
-		hyperborean_trade_post_01
-		tribal_stockades_01
-		tribal_local_militia_01
-		tribal_trading_outposts_01
-		tribal_construction_guilds_01
 		wolf_den
 		wolf_den_cleared
 		bear_den
@@ -6092,17 +6079,8 @@ settlement_holding = {
 		dense_growth_cleared
 		pirate_remnants
 		pirate_remnants_cleared
-
-		# Legacy of Valyria Additions
-		colony_port_01
-		colony_quarries_01
-		colony_forestry_01
-
-		## Mining Buildings 
 		valyria_mines_dormant_01
 		valyria_mines_01
-
-		## Blockers
 		unexplored_caves_01
 		swamp_01_01
 		swamp_02_01
@@ -6114,7 +6092,6 @@ settlement_holding = {
 		small_ruined_holding_01
 		medium_ruined_holding_01
 		large_ruined_holding_01
-
 		ravenous_basilisk_1
 		ravenous_basilisk_tame
 		ghoulish_bat_1
@@ -6124,11 +6101,6 @@ settlement_holding = {
 		cos_wyvern_1
 		cos_wyvern_alpha_1
 		cos_carn_plant_1
-		#cos_river_parasites_1
-		#cos_titanic_beast_1
-		#cos_raptors_1
-	
-		# AAWC generated regional blocker roots.
 		aawc_blk_beyond_the_wall_predators_spoor_nests_minor_frostfang_giant_spoor_baited_trail_root
 		aawc_blk_beyond_the_wall_predators_spoor_nests_standard_frostfang_giant_spoor_stockade_hunt_root
 		aawc_blk_beyond_the_wall_predators_spoor_nests_severe_frostfang_giant_spoor_territory_claim_root
@@ -8052,38 +8024,24 @@ settlement_holding = {
 		# BEGIN AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)
 		aawc_amber_collection_01
 		aawc_apiaries_01
-		aawc_archery_ranges_01
 		aawc_archery_yards_01
 		aawc_barracks_01
-		aawc_blacksmiths_01
 		aawc_breweries_01
 		aawc_building_moat_01
-		aawc_burial_site_01
 		aawc_camel_farms_01
 		aawc_capital_bureau_01
 		aawc_caravanserai_01
 		aawc_cavalry_courses_01
 		aawc_cereal_fields_01
-		aawc_charnel_grounds_01
 		aawc_citadel_shrine_01
 		aawc_city_walls_01
 		aawc_coastal_fisheries_01
 		aawc_common_tradeport_01
 		aawc_curtain_walls_01
-		aawc_dragon_kiln_01
-		aawc_duchy_agricultural_estates_01
-		aawc_duchy_civic_court_01
-		aawc_duchy_grand_harbor_01
-		aawc_duchy_grand_hospital_01
-		aawc_duchy_military_college_01
-		aawc_duchy_royal_theatre_01
 		aawc_elephant_pens_01
-		aawc_examination_hall_01
 		aawc_farm_estates_01
-		aawc_glass_gardens_01
 		aawc_godswood_01
 		aawc_gold_mines_01
-		aawc_great_megalith_01
 		aawc_guild_halls_01
 		aawc_hill_farms_01
 		aawc_hill_forts_01
@@ -8096,17 +8054,12 @@ settlement_holding = {
 		aawc_iron_island_mines_01
 		aawc_ironwood_01
 		aawc_irrigation_estates_01
-		aawc_jousting_lists_01
 		aawc_kora_kora_yards_01
 		aawc_leatherworkers_01
-		aawc_leisure_palace_01
-		aawc_lighthouse_01
 		aawc_logging_camps_01
 		aawc_longhouses_01
-		aawc_march_01
 		aawc_market_villages_01
 		aawc_megalith_01
-		aawc_military_academy_01
 		aawc_military_camps_01
 		aawc_monastic_schools_01
 		aawc_monument_works_01
@@ -8137,40 +8090,27 @@ settlement_holding = {
 		aawc_regimental_grounds_01
 		aawc_river_docks_01
 		aawc_river_fisheries_01
-		aawc_royal_armory_01
-		aawc_royal_forest_01
-		aawc_royal_garden_01
 		aawc_sacred_pool_01
 		aawc_saltworks_01
 		aawc_scholars_quarters_01
-		aawc_scholastic_guilds_01
 		aawc_scriptorium_01
 		aawc_sewers_01
 		aawc_shipwrights_01
-		aawc_siege_works_01
 		aawc_silver_mines_01
 		aawc_slave_camps_01
-		aawc_slave_diplomacy_01
-		aawc_slave_intrigue_01
-		aawc_slave_learning_01
-		aawc_slave_martial_01
-		aawc_slave_stewardship_01
 		aawc_smiths_01
 		aawc_spice_plantation_01
 		aawc_stables_01
 		aawc_steppe_farms_01
 		aawc_stilted_granaries_01
-		aawc_tax_assessor_01
 		aawc_temple_citadel_01
 		aawc_terraced_farms_01
-		aawc_tower_of_silence_01
 		aawc_trade_guilds_01
 		aawc_tribe_01
 		aawc_urban_farms_01
 		aawc_urban_tenements_01
 		aawc_vihara_halls_01
 		aawc_village_cottages_01
-		aawc_vineyard_01
 		aawc_wantilan_01
 		aawc_war_camps_01
 		aawc_warrior_lodges_01
@@ -8182,5 +8122,5 @@ settlement_holding = {
 		aawc_windmills_01
 		aawc_workshops_01
 		# END AAWC STAGE 3 CONSTRUCTIBLE ROOTS (generated)
-}
+	}
 }

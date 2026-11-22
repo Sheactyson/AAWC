@@ -1,0 +1,47 @@
+{
+  "version": "1.11.5.13",
+  "date": "2026-11-21",
+  "status": "passed",
+  "removed": [
+    {"path": "playtest/stage5-native-routing-1.11.5.10/installed", "files": 495, "bytes": 100678329, "reason": "superseded installed copy from completed .10 probe"},
+    {"path": "playtest/stage5-native-routing-1.11.5.10/fixture", "files": 5, "bytes": 14201, "reason": "superseded disposable .10 fixture"},
+    {"path": "playtest/stage5-native-routing-1.11.5.10/controls", "files": 6, "bytes": 10866894, "reason": "restored .10 profile-control backup"},
+    {"path": "playtest/stage5-native-routing-1.11.5.11/installed", "files": 495, "bytes": 100667930, "reason": "superseded installed copy from completed .11 probe"},
+    {"path": "playtest/stage5-native-routing-1.11.5.11/fixture", "files": 5, "bytes": 15322, "reason": "superseded disposable .11 fixture"},
+    {"path": "playtest/stage5-native-routing-1.11.5.11/controls", "files": 6, "bytes": 10866894, "reason": "restored .11 profile-control backup"},
+    {"path": "playtest/stage5-transactions-1.11.5.8/package", "files": 488, "bytes": 99686801, "reason": "superseded package copy from completed transaction probe"},
+    {"path": "playtest/stage5-transactions-1.11.5.8/fixture", "files": 5, "bytes": 6941, "reason": "superseded disposable transaction fixture"},
+    {"path": "playtest/stage5-transactions-1.11.5.8/controls", "files": 6, "bytes": 10866894, "reason": "restored transaction-probe profile-control backup"}
+  ],
+  "removed_totals": {"directories": 9, "files": 1506, "bytes": 333670206},
+  "retained": [
+    {"path": "mod/AGOT_Alternate_World_Compatch", "reason": "active source"},
+    {"path": "catalogue/stage5", "reason": "authoritative Stage 5 policy"},
+    {"path": "scripts/test_aawc_stage5_*.py", "reason": "maintained regression coverage"},
+    {"path": "evidence/stage5", "reason": "machine-readable release and native-validation evidence"},
+    {"path": "playtest/stage5-native-routing-1.11.5.12", "reason": "final directly exercised runtime candidate, checkpoint saves, and closed logs"}
+  ],
+  "ambiguous_retained": [],
+  "post_cleanup": {
+    "all_removed_paths_absent": true,
+    "active_source_present": true,
+    "stage5_policy_present": true,
+    "final_1_11_5_12_evidence_present": true,
+    "final_runtime_staging_present": true,
+    "removed_paths_referenced_by_release_or_required_validation": false
+  },
+  "focused_tests": {
+    "identity_policy": "7/7 passed",
+    "production_runtime": "14/14 passed",
+    "transactions": "14/14 passed"
+  },
+  "package_parity": {
+    "status": "passed",
+    "source": 495,
+    "archive": 495,
+    "manifest": 495,
+    "archive_sha256": "4714176E6C270A85C9EA628E606BC05FBDE80B3C82113BD220C462AD7EC88CDC",
+    "manifest_sha256": "5417192D024401C76A762388750C0E1A434AEA70F760DABEAC13CE7092D27054",
+    "report": "evidence/stage5/AAWC_1.11.5.13_PACKAGE_PARITY.json"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "version": "1.11.5.12",
+  "status": "PASS",
+  "archive_sha256": "94db8eeeeafd2c8fae9c6a78cc62e6bc1c727c8fba7ee0b05f6481b12dd7af2f",
+  "stage5_suite": {
+    "command": "python -B -m unittest discover -s scripts -p 'test_aawc_stage5*.py' -q",
+    "tests": 89,
+    "seconds": 75.897,
+    "result": "OK",
+    "execution": "Completed on final .12 source before native session; not rerun after evidence-only documentation edits."
+  },
+  "focused_runtime_cache_suite": {
+    "file": "scripts/test_aawc_stage5_runtime.py",
+    "tests": 14,
+    "seconds": 29.1,
+    "result": "OK",
+    "included_in_89": true
+  },
+  "unchanged_cross_stage_regressions": {
+    "executed_on": "1.11.5.10 integration, unchanged affected routines retained in .12",
+    "results": [
+      {
+        "file": "scripts/test_aawc_cohort_bounded_arithmetic.py",
+        "tests": 10
+      },
+      {
+        "file": "scripts/test_aawc_stage1_population_transaction_acceptance.py",
+        "tests": 11
+      },
+      {
+        "file": "scripts/test_aawc_stage4_cohort_reservation.py",
+        "tests": 18
+      }
+    ]
+  },
+  "stage1_authority": {
+    "command": "python -B scripts/validate_aawc_reforging_stage1_authority_graph.py",
+    "result": "PASS on .12",
+    "inventoried_statements": 709,
+    "authorities": 72,
+    "absolute_population_authority_unchanged": true
+  },
+  "coverage": [
+    "Actual physical commit plus culture and faith factor reconciliation",
+    "Normalized factors and bounded native quantization",
+    "All persisted phase boundaries, global pending recovery and retries",
+    "Abort/refund, interleaved drift, duplicate identities, bad ranks and malformed provenance",
+    "Independent missing-axis majority fallback and empty destination",
+    "Sparse shared-county refresh and optional loaded caches",
+    "Native neighbor selection and owner weighting",
+    "Locked mutation entry points and demographic identity neutrality",
+    "Terminal packet and child cleanup"
+  ],
+  "test_source_hashes": {
+    "scripts/test_aawc_stage5_departures.py": "a1da5c3059a15bf8908be399e169b9fa39ba9ed16a5575e2fc13f26aefe16099",
+    "scripts/test_aawc_stage5_identity_policy.py": "39bd1390392595c4e1ac748275d31052297280cee00a3a2e3f44c664a2ba89f5",
+    "scripts/test_aawc_stage5_identity_reference.py": "088181169c80ecede86c7e50d8e8fa0adafd4ef27c7b84e45e28da4a971b312d",
+    "scripts/test_aawc_stage5_lifecycle.py": "e50893bc09cf8eb54903b99c79bf8c1f15a8606c8150ba5340d334722387d393",
+    "scripts/test_aawc_stage5_native_packet.py": "510f846fb993d52072dbb8fc5f7693a59e909cb7bda5c4161c3524286d9eca89",
+    "scripts/test_aawc_stage5_packet_source.py": "d834782ad7fc4363709324d389e45a756121a7729e0dd534da56fefc9929a264",
+    "scripts/test_aawc_stage5_routing.py": "0dce70aeadac840eeaf9099e0d89f912ed99b7ac0a69be5d4b890cee927a8249",
+    "scripts/test_aawc_stage5_runtime.py": "7f3041668fbf44ef586c9a75328e2118ca73d1b32ee9ae4da9cdc7654174809d",
+    "scripts/test_aawc_stage5_settlement.py": "e03ab07578f386f2e255ecde4ab2fc1189bea917035f2fb3ed7e89d0ec3c5c1a",
+    "scripts/test_aawc_stage5_snapshots.py": "b85f8f0d0f05fb35c601c2cdec30c3c00df1cff08dda0438337de7354c92b9c5",
+    "scripts/test_aawc_stage5_transactions.py": "2f031669bc724748083fdf803845159b4c2aae38438cd900046c0109c7a21e12"
+  },
+  "supporting_receipts": [
+    "AAWC_1.11.5.12_NATIVE_TRANSACTION_SAVE_AUDIT.json",
+    "AAWC_1.11.5.12_NATIVE_ROUTING_RUNTIME_PARITY.json",
+    "AAWC_1.11.5.10_BROAD_VALIDATION_CLASSIFICATION.json"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "version": "1.11.5.12",
+  "status": "superseded_by_completed_1.11.5.13_cleanup",
+  "completed": [
+    "Only current .12 archive and manifest remain in release/",
+    "Task-created external saves and test descriptor removed after hash-verified retention",
+    "Obsolete duplicate old_auditor_regression.json removed",
+    "No scripts/__pycache__ artifacts present"
+  ],
+  "remaining_superseded_staging": [
+    {
+      "path": "playtest/stage5-native-routing-1.11.5.10/installed",
+      "files": 495,
+      "bytes": 100678329
+    },
+    {
+      "path": "playtest/stage5-native-routing-1.11.5.10/fixture",
+      "files": 5,
+      "bytes": 14201
+    },
+    {
+      "path": "playtest/stage5-native-routing-1.11.5.10/controls",
+      "files": 6,
+      "bytes": 10866894
+    },
+    {
+      "path": "playtest/stage5-native-routing-1.11.5.11/installed",
+      "files": 495,
+      "bytes": 100667930
+    },
+    {
+      "path": "playtest/stage5-native-routing-1.11.5.11/fixture",
+      "files": 5,
+      "bytes": 15322
+    },
+    {
+      "path": "playtest/stage5-native-routing-1.11.5.11/controls",
+      "files": 6,
+      "bytes": 10866894
+    },
+    {
+      "path": "playtest/stage5-transactions-1.11.5.8/package",
+      "files": 488,
+      "bytes": 99686801
+    },
+    {
+      "path": "playtest/stage5-transactions-1.11.5.8/fixture",
+      "files": 5,
+      "bytes": 6941
+    },
+    {
+      "path": "playtest/stage5-transactions-1.11.5.8/controls",
+      "files": 6,
+      "bytes": 10866894
+    }
+  ],
+  "blocker": "Resolved by the user-authorized 1.11.5.13 cleanup; see evidence/stage5/AAWC_1.11.5.13_WORKSPACE_CLEANUP.json.",
+  "preserved": [
+    "All native checkpoint saves and closed logs",
+    "Final .12 installed candidate and fixture",
+    "Current regression suites",
+    "Unrelated inherited work and installation receipts"
+  ],
+  "impact": "No gameplay, packaging, source parity, test results or restored user-profile controls are affected."
+}

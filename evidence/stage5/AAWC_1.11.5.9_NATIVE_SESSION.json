@@ -1,0 +1,75 @@
+{
+  "stage5_blocks": 40851,
+  "tooltip_preview_blocks": 40848,
+  "other_stage5_blocks": [
+    "[02:59:57][E][jomini_script_system.cpp:303]: Script system error!\n  Error: set_holding_type effect [ Holding already has the target type 'castle_holding' ]\n  Script location: file: common/scripted_effects/stage5_probe.txt line: 7 (aawc_stage5_live_prepare_effect)\n    file: common/decisions/stage5_probe.txt line: 9 (aawc_stage5_probe_prepare_decision:effect)\n\n",
+    "[02:59:57][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/stage5_probe.txt line: 57 (aawc_stage5_live_prepare_effect): AAWC S5 NATIVE source phase3 PASS\n",
+    "[03:17:40][E][jomini_effect_impl.cpp:450]: file: common/scripted_effects/stage5_probe.txt line: 69 (aawc_stage5_live_finish_effect): AAWC S5 NATIVE destination phase5 retry PASS\n"
+  ],
+  "baseline_hash_unchanged": true,
+  "profile_restore": {
+    "controls": [
+      {
+        "path": "continue_game.json",
+        "sha256": "36a772d826d59815d5ed0aa9893e53264c8f389d21352d8acfc3678507ed0b1b"
+      },
+      {
+        "path": "dlc_load.json",
+        "sha256": "c377f78e66009c1e6b6756f3c560e7d575a5aa1481aae1dc0e564e40e06a4dd2"
+      },
+      {
+        "path": "last_save.ck3",
+        "sha256": "ec787010b21e4fd6137467d29848886b8defe171d3c4c14e98468ebcdf0e0217"
+      },
+      {
+        "path": "pdx_settings.txt",
+        "sha256": "5d72acc0f2cccd3ac78a012c864dc78aa51ced2b40f2ce17ab4add2cca1ddb1f"
+      },
+      {
+        "path": "mod\\AGOT_Alternate_World_Compatch.mod",
+        "sha256": "0d9edc95e62474798934a0bc21a97ed987d7d6d8a0824cdaa76f522b9d30bc68"
+      },
+      {
+        "path": "save games\\autosave_exit.ck3",
+        "sha256": "ec787010b21e4fd6137467d29848886b8defe171d3c4c14e98468ebcdf0e0217"
+      }
+    ],
+    "restored_byte_identically": true,
+    "game_process_stopped": true,
+    "logs": "C:\\Users\\sheac\\OneDrive\\Desktop\\AAWC-dev\\playtest\\stage5-transactions-1.11.5.8\\settled-1.11.5.9"
+  },
+  "package": "AGOT_Alternate_World_Compatch_1.11.5.9.zip",
+  "package_sha256": "81514F7845F83BF182E0BF1EFDC4F3014E2001D2F6C694411B5DBC810A02A94E",
+  "COMPUTER_USE_PATTERN": {
+    "goal": "Verify native physical migration settlement after save/load",
+    "application": "Crusader Kings III 1.19.0.6",
+    "preconditions": "Correct .9 package transport, separate disposable fixture addon, paused Pennon fixture",
+    "procedure": [
+      "Run reserve decision to persist phase 3",
+      "Save a separate local checkpoint",
+      "Reload that exact checkpoint",
+      "Run settle decision, which invokes the transaction twice",
+      "Save settlement checkpoint",
+      "Exit to desktop with exit autosave unchecked",
+      "Parse both native saves and restore backed-up profile controls"
+    ],
+    "success_criteria": "Phase 3 to 5, source 900 destination 600, exact age-band conservation, normalized factors equal oracle, no carry replay, queues drained, locks released"
+  },
+  "COMPUTER_USE_TRACE": {
+    "observed": [
+      "Paused campaign loaded from AAWC_S5_159_MIDPOINT",
+      "Stage 5 settle decision visible and executed",
+      "Native phase5 retry PASS marker",
+      "Settlement save retained",
+      "CK3 window and process ended",
+      "Six profile controls restored byte-for-byte and baseline save hash unchanged"
+    ],
+    "adaptation": "Keyboard input was ineffective; mouse saved with a previously absent default name and checkpoint was renamed/copied through filesystem tools. Dragging dialog top border exposed confirm button.",
+    "limitations": [
+      "Local ranks and candidate snapshots supplied by fixture",
+      "Tooltip evaluation caused 40848 warnings; isolated from actual execution diagnostics",
+      "Redundant fixture set_holding_type warning",
+      "No production scheduler or complete stage certification"
+    ]
+  }
+}

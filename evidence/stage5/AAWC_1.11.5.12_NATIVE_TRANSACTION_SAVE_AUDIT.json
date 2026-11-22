@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "midpoint": {
+    "file": "AAWC_S5_1511_MIDPOINT.ck3",
+    "bytes": 5661919,
+    "sha256": "49897d3e4e8c0110eb31bf561c2397eb33713998735a35cefabf070c719cf3d5"
+  },
+  "settled": {
+    "file": "AAWC_S5_1512_SETTLED.ck3",
+    "bytes": 5661727,
+    "sha256": "507a114ec8bf1af42830c73f0f2e5f3a9f224eb8a5361b26b6a5b5eedfd70416"
+  },
+  "packet": 39497,
+  "phases": [
+    3,
+    "settled_and_cleaned"
+  ],
+  "amount": 100,
+  "source": 4485,
+  "destination": 4486,
+  "source_population": 900,
+  "destination_population": 600,
+  "exact_thirteen_band_conservation": true,
+  "factors_match_rational_oracle": true,
+  "normalized_sums_1e5": 100000,
+  "pending_and_refresh_queues_drained": true,
+  "endpoint_locks_released": true,
+  "axes": {
+    "culture": {
+      "packet_quantities": {
+        "10": 27,
+        "18": 73
+      },
+      "source_factors_1e5": {
+        "10": 63667,
+        "18": 36333
+      },
+      "destination_factors_1e5": {
+        "10": 87833,
+        "18": 12167
+      },
+      "carries_unchanged_after_reload": true
+    },
+    "faith": {
+      "packet_quantities": {
+        "87": 27,
+        "88": 73
+      },
+      "source_factors_1e5": {
+        "88": 36333,
+        "87": 63667
+      },
+      "destination_factors_1e5": {
+        "88": 12167,
+        "87": 87833
+      },
+      "carries_unchanged_after_reload": true
+    }
+  },
+  "terminal_cleanup": true,
+  "limitation": "This audit certifies saved transaction arithmetic, not the origin of ranks/candidates or full scheduler behavior. Factors have native five-decimal quantization; identity headcounts are not a second absolute ledger.",
+  "world": {
+    "status": "PASS",
+    "save": {
+      "file": "AAWC_S5_1512_WORLD.ck3",
+      "bytes": 5668421,
+      "sha256": "e0fbb1197d8f86588b57a8537b3daffdb7ab949acdedbab4c86563b38b216ac8"
+    },
+    "whole_world_before": 106085,
+    "whole_world_after": 106085,
+    "moved": 15,
+    "demographic": {
+      "births": 89,
+      "deaths": 596,
+      "aged": 1496
+    },
+    "normalized_axes": true,
+    "exact_cohort_totals": true,
+    "no_pending_or_locked_endpoints": true,
+    "limitation": "Disposable fixture uses real production scheduling with pinned test capacity. Ratio neutrality is checked at the demographic boundary by native probe assertions; this later save follows migration."
+  }
+}

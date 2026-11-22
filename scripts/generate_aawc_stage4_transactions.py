@@ -302,6 +302,7 @@ def render_effects() -> str:
             "\t\t\thas_holding = yes",
             "\t\t\tcounty = { holder = scope:aawc_stage4_tx_owner }",
             "\t\t\taawc_population_valid_settlement_for_cohort_trigger = yes",
+            "\t\t\tNOT = { has_variable = aawc_stage5_identity_lock }",
             "\t\t\taawc_stage4_reserved_packet_total > 0",
         ]
     )
@@ -364,7 +365,7 @@ def render_effects() -> str:
             "\t\tif = { limit = { NOT = { var:aawc_stage4_tx_validated_count = var:aawc_stage4_tx_source_count } } set_variable = { name = aawc_stage4_tx_valid value = 0 } }",
             "\t\tif = { limit = { NOT = { var:aawc_stage4_tx_validated_total = var:aawc_stage4_tx_reserved } } set_variable = { name = aawc_stage4_tx_valid value = 0 } }",
             "\t\t$DESTINATION$ = {",
-            "\t\t\tif = { limit = { OR = { NOT = { has_holding = yes } has_holding_type = ruin_holding has_holding_type = wilderness_holding has_holding_type = unknown_holding county = { holder = { agot_is_dummy_character = yes } } } } scope:aawc_stage4_tx_token = { set_variable = { name = aawc_stage4_tx_valid value = 0 } } }",
+            "\t\t\tif = { limit = { OR = { NOT = { has_holding = yes } has_variable = aawc_stage5_identity_lock has_holding_type = ruin_holding has_holding_type = wilderness_holding has_holding_type = unknown_holding county = { holder = { agot_is_dummy_character = yes } } } } scope:aawc_stage4_tx_token = { set_variable = { name = aawc_stage4_tx_valid value = 0 } } }",
             "\t\t}",
             "\t\tif = {",
             "\t\t\tlimit = { var:aawc_stage4_tx_valid = 1 }",

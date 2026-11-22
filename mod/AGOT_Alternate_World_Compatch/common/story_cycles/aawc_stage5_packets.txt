@@ -1,0 +1,5 @@
+﻿aawc_stage5_packet_record = {
+    on_setup = {}
+    on_end = {}
+    on_owner_death = {}
+}

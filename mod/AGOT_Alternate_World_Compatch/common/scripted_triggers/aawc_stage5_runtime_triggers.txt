@@ -1,0 +1,24 @@
+﻿# Native source/destination warfare includes war, siege and raid suppression.
+aawc_stage5_war_affected_trigger = {
+    OR = {
+        county.holder = { is_at_war = yes }
+        county = {
+            OR = {
+                has_variable = aawc_population_warfare_growth_suppressed
+                has_variable = aawc_population_siege_growth_suppressed
+                has_variable = aawc_population_raid_growth_suppressed
+            }
+        }
+    }
+}
+aawc_stage5_county_neighbor_trigger = { NOT = { county = scope:aawc_stage5_routing_source.county } }
+aawc_stage5_internal_neighbor_trigger = { county = scope:aawc_stage5_routing_source.county }
+aawc_stage5_mutation_allowed_trigger = {
+    OR = {
+        NOT = { has_variable = aawc_stage5_identity_lock }
+        AND = {
+            has_global_variable = aawc_stage5_mutating_packet
+            var:aawc_stage5_identity_lock = global_var:aawc_stage5_mutating_packet
+        }
+    }
+}

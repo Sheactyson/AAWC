@@ -1004,7 +1004,7 @@ small_ruined_holding_01 = {
 	}
 
 	flag = obstacle
-	effect_desc = lv_wilderness_blocker_effect
+	effect_desc = aawc_retained_small_ruined_holding_01_effects
 	ai_value = {
 		base = 2000
 		directive_to_settle_wilderness_modifier = yes
@@ -1056,7 +1056,7 @@ small_ruined_holding_02 = {
 	}
 
 	flag = obstacle
-	effect_desc = lv_wilderness_blocker_effect
+	effect_desc = aawc_retained_small_ruined_holding_02_effects
 	ai_value = {
 		base = 2000
 		directive_to_settle_wilderness_modifier = yes
@@ -1106,7 +1106,7 @@ small_ruined_holding_03 = {
 	}
 
 	flag = obstacle
-	effect_desc = lv_wilderness_blocker_effect
+	effect_desc = aawc_retained_small_ruined_holding_03_effects
 	ai_value = {
 		base = 2000
 		directive_to_settle_wilderness_modifier = yes
@@ -1131,7 +1131,7 @@ medium_ruined_holding_01 = {
 	}
 
 	flag = obstacle
-	effect_desc = lv_wilderness_blocker_effect
+	effect_desc = aawc_retained_medium_ruined_holding_01_effects
 	ai_value = {
 		base = 2000
 		directive_to_settle_wilderness_modifier = yes
@@ -1183,7 +1183,7 @@ medium_ruined_holding_02 = {
 	}
 
 	flag = obstacle
-	effect_desc = lv_wilderness_blocker_effect
+	effect_desc = aawc_retained_medium_ruined_holding_02_effects
 	ai_value = {
 		base = 2000
 		directive_to_settle_wilderness_modifier = yes
@@ -1233,7 +1233,7 @@ medium_ruined_holding_03 = {
 	}
 
 	flag = obstacle
-	effect_desc = lv_wilderness_blocker_effect
+	effect_desc = aawc_retained_medium_ruined_holding_03_effects
 	ai_value = {
 		base = 2000
 		directive_to_settle_wilderness_modifier = yes
@@ -1256,7 +1256,7 @@ large_ruined_holding_01 = {
 	}
 
 	flag = obstacle
-	effect_desc = lv_wilderness_blocker_effect
+	effect_desc = aawc_retained_large_ruined_holding_01_effects
 	ai_value = {
 		base = 2000
 		directive_to_settle_wilderness_modifier = yes
@@ -1308,7 +1308,7 @@ large_ruined_holding_02 = {
 	}
 
 	flag = obstacle
-	effect_desc = lv_wilderness_blocker_effect
+	effect_desc = aawc_retained_large_ruined_holding_02_effects
 	ai_value = {
 		base = 2000
 		directive_to_settle_wilderness_modifier = yes
@@ -1358,7 +1358,7 @@ large_ruined_holding_03 = {
 	}
 
 	flag = obstacle
-	effect_desc = lv_wilderness_blocker_effect
+	effect_desc = aawc_retained_large_ruined_holding_03_effects
 	ai_value = {
 		base = 2000
 		directive_to_settle_wilderness_modifier = yes

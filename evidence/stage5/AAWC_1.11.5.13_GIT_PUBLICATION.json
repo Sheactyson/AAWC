@@ -1,0 +1,32 @@
+{
+  "version": "1.11.5.13",
+  "branch": "1.11",
+  "remote": "origin",
+  "publication_set": [
+    "README.md and .gitignore publication/hygiene policy",
+    "docs/AGOT_Alternate_World_Compatch_Documentation_Master.md",
+    "mod/ authoritative gameplay source and descriptors",
+    "catalogue/stage3 and catalogue/stage5 authoritative policies and inputs",
+    "scripts/ maintained generators, validators, and regression tests",
+    "evidence/stage3 concise validation and install-selection receipts",
+    "evidence/stage5 machine-readable implementation, native-test, package, and cleanup evidence",
+    "release/AGOT_Alternate_World_Compatch_1.11.5.13.zip",
+    "release/AGOT_Alternate_World_Compatch_1.11.5.13.manifest.sha256",
+    "removal of superseded 1.11.4.8 release archive and manifest"
+  ],
+  "excluded": [
+    "evidence/**/previous-install/** duplicate rollback payloads and fixtures",
+    "evidence/stage2/AAWC_1.11.2.13_INSTALL_RECEIPT/** unrelated dirty-worktree material",
+    "**/*.ck3 machine-local saves",
+    "**/*.log runtime logs",
+    "playtest/** disposable runtime staging",
+    "**/__pycache__/** and **/*.pyc generated caches"
+  ],
+  "release_scope": {
+    "archive_entries": 495,
+    "archive_sha256": "4714176E6C270A85C9EA628E606BC05FBDE80B3C82113BD220C462AD7EC88CDC",
+    "manifest_entries": 495,
+    "manifest_sha256": "5417192D024401C76A762388750C0E1A434AEA70F760DABEAC13CE7092D27054"
+  },
+  "claim_boundary": "Installable review release preserving the live-verified 1.11.5.12 gameplay payload; not a long-run world-scale balance or performance certification. Known pre-existing diagnostics remain classified in the master documentation."
+}

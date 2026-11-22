@@ -9647,6 +9647,7 @@ caravanserai_08 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_castle_buildings.txt
 castle_01 = {
+	effect_desc = aawc_retained_castle_01_effects
 	#AGOT Modified
 	#construction_time = slow_construction_time
 	construction_time = agot_main_tier_1_construction_time
@@ -12645,7 +12646,6 @@ castle_01 = {
 	}
 
 	cost_gold = main_building_tier_1_cost
-	effect_desc = aawc_population_building_effect_castle_01
 
 
 	next_building = castle_02
@@ -12806,6 +12806,7 @@ castle_01 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_castle_buildings.txt
 castle_02 = {
+	effect_desc = aawc_retained_castle_02_effects
 	#AGOT Modified
 	#construction_time = slow_construction_time
 	construction_time = agot_main_tier_2_construction_time
@@ -15785,7 +15786,6 @@ castle_02 = {
 	}
 
 	cost_gold = main_building_tier_2_cost
-	effect_desc = aawc_population_building_effect_castle_02
 
 
 	next_building = castle_03
@@ -15916,6 +15916,7 @@ castle_02 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_castle_buildings.txt
 castle_03 = {
+	effect_desc = aawc_retained_castle_03_effects
 	#AGOT Modified
 	#construction_time = slow_construction_time
 	construction_time = agot_main_tier_3_construction_time
@@ -18895,7 +18896,6 @@ castle_03 = {
 	}
 
 	cost_gold = main_building_tier_3_cost
-	effect_desc = aawc_population_building_effect_castle_03
 
 
 	next_building = castle_04
@@ -19018,6 +19018,7 @@ castle_03 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_castle_buildings.txt
 castle_04 = {
+	effect_desc = aawc_retained_castle_04_effects
 	#AGOT Modified
 	#construction_time = slow_construction_time
 	construction_time = agot_main_tier_4_construction_time
@@ -21997,7 +21998,6 @@ castle_04 = {
 	}
 
 	cost_gold = main_building_tier_4_cost
-	effect_desc = aawc_population_building_effect_castle_04
 
 
 	next_building = castle_05
@@ -22116,6 +22116,7 @@ castle_04 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_agot_castle_buildings.txt
 castle_05 = {
+	effect_desc = aawc_retained_castle_05_effects
 	construction_time = agot_main_tier_5_construction_time
 
 	### WESTERN ###
@@ -25190,7 +25191,6 @@ castle_05 = {
 	}
 
 	flag = castle
-	effect_desc = aawc_population_building_effect_castle_05
 
 
 	type_icon = "icon_building_ramparts.dds"
@@ -26548,6 +26548,7 @@ citadel_shrine_08 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_city_buildings.txt
 city_01 = {
+	effect_desc = aawc_retained_city_01_effects
     construction_time = slow_construction_time
 
     #Meshes (Indented for readability)
@@ -29301,7 +29302,6 @@ city_01 = {
     }
 
     flag = city
-	effect_desc = aawc_population_building_effect_city_01
 
 
     next_building = city_02
@@ -29381,6 +29381,7 @@ city_01 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_city_buildings.txt
 city_02 = {
+	effect_desc = aawc_retained_city_02_effects
     construction_time = slow_construction_time
 
     #Meshes (Indented for readability)
@@ -32135,7 +32136,6 @@ city_02 = {
     }
 
     flag = city
-	effect_desc = aawc_population_building_effect_city_02
 
 
     next_building = city_03
@@ -32214,6 +32214,7 @@ city_02 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_city_buildings.txt
 city_03 = {
+	effect_desc = aawc_retained_city_03_effects
     construction_time = slow_construction_time
 
     #Meshes (Indented for readability)
@@ -34841,7 +34842,6 @@ city_03 = {
         }
     }
     cost_gold = main_building_tier_3_cost
-	effect_desc = aawc_population_building_effect_city_03
 
 
     next_building = city_04
@@ -34968,6 +34968,7 @@ city_03 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_city_buildings.txt
 city_04 = {
+	effect_desc = aawc_retained_city_04_effects
     construction_time = slow_construction_time
 
     #Meshes (Indented for readability)
@@ -37595,7 +37596,6 @@ city_04 = {
         }
     }
     cost_gold = main_building_tier_4_cost
-	effect_desc = aawc_population_building_effect_city_04
 
 
     next_building = city_05
@@ -37721,6 +37721,7 @@ city_04 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_agot_city_buildings.txt
 city_05 = {
+	effect_desc = aawc_retained_city_05_effects
 	construction_time = slow_construction_time
 
 	asset = {
@@ -40499,7 +40500,6 @@ city_05 = {
 			}
 		}
 	}
-	effect_desc = aawc_population_building_effect_city_05
 
 
 	ai_value = {
@@ -59643,6 +59643,7 @@ scriptorium_08 = {
 
 # Source: E:\SteamLibrary\steamapps\workshop\content\1158310\2962333032\common\buildings\00_agot_settlement_buildings.txt
 settlement_01 = {
+	effect_desc = aawc_retained_settlement_01_effects
 	asset = {
 		type = pdxmesh
 		names = {
@@ -59757,7 +59758,6 @@ settlement_01 = {
 	can_construct_potential = {
 		always = no
 	}
-	effect_desc = aawc_population_building_effect_settlement_01
 
 
 
@@ -59791,6 +59791,7 @@ settlement_01 = {
 
 # Source: E:\SteamLibrary\steamapps\workshop\content\1158310\2962333032\common\buildings\00_agot_settlement_buildings.txt
 settlement_02 = {
+	effect_desc = aawc_retained_settlement_02_effects
 	construction_time = very_slow_construction_time
 
 	asset = {
@@ -59909,7 +59910,6 @@ settlement_02 = {
 			}
 		}
 	}
-	effect_desc = aawc_population_building_effect_settlement_02
 
 
 
@@ -59950,6 +59950,7 @@ settlement_02 = {
 
 # Source: E:\SteamLibrary\steamapps\workshop\content\1158310\2962333032\common\buildings\00_agot_settlement_buildings.txt
 settlement_03 = {
+	effect_desc = aawc_retained_settlement_03_effects
 	construction_time = slow_construction_time
 
 	asset = {
@@ -60088,7 +60089,6 @@ settlement_03 = {
 	character_modifier = {
 		domain_limit = 1
 	}
-	effect_desc = aawc_population_building_effect_settlement_03
 
 
 
@@ -62476,6 +62476,7 @@ tax_assessor_03 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_temple_buildings.txt
 temple_01 = {
+	effect_desc = aawc_retained_temple_01_effects
 	construction_time = slow_construction_time
 
 	#Meshes (Indented for readability)
@@ -63028,7 +63029,6 @@ temple_01 = {
 		county.holder = { agot_holder_can_build_temple_holdings = yes }
 	}
 	cost_gold = main_building_tier_1_cost
-	effect_desc = aawc_population_building_effect_temple_01
 
 
 	next_building = temple_02
@@ -63291,6 +63291,7 @@ temple_01 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_temple_buildings.txt
 temple_02 = {
+	effect_desc = aawc_retained_temple_02_effects
 	construction_time = slow_construction_time
 
 	#Meshes (Indented for readability)
@@ -63815,7 +63816,6 @@ temple_02 = {
 	}
 	can_construct_showing_failures_only = { NOT = { scope:holder = { has_character_modifier = tgp_rebuilder_modifier } } }
 	cost_gold = main_building_tier_2_cost
-	effect_desc = aawc_population_building_effect_temple_02
 
 
 	next_building = temple_03
@@ -63949,6 +63949,7 @@ temple_02 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_temple_buildings.txt
 temple_03 = {
+	effect_desc = aawc_retained_temple_03_effects
 	construction_time = slow_construction_time
 
 	#Meshes (Indented for readability)
@@ -64473,7 +64474,6 @@ temple_03 = {
 	}
 	can_construct_showing_failures_only = { NOT = { scope:holder = { has_character_modifier = tgp_rebuilder_modifier } } }
 	cost_gold = main_building_tier_3_cost
-	effect_desc = aawc_population_building_effect_temple_03
 
 
 	next_building = temple_04
@@ -64598,6 +64598,7 @@ temple_03 = {
 
 # Source: workspace\AGOT_Alternate_World_Compatch\common\buildings\00_temple_buildings.txt
 temple_04 = {
+	effect_desc = aawc_retained_temple_04_effects
 	construction_time = slow_construction_time
 
 	#Meshes (Indented for readability)
@@ -65227,7 +65228,6 @@ temple_04 = {
 			}
 		}
 	}
-	effect_desc = aawc_population_building_effect_temple_04
 
 
 
@@ -65247,6 +65247,7 @@ temple_04 = {
 
 # Source: E:\SteamLibrary\steamapps\common\Crusader Kings III\game\common\buildings\temple_citadel_buildings.txt
 temple_citadel_01 = {
+	effect_desc = aawc_retained_temple_citadel_01_effects
 	construction_time = slow_construction_time
 
 	assets = {
@@ -65877,7 +65878,6 @@ temple_citadel_01 = {
 		building_requirement_herder_holding_in_county = yes
 	}
 	cost_gold = main_building_tier_1_cost
-	effect_desc = aawc_population_building_effect_temple_citadel_01
 
 
 	next_building = temple_citadel_02
@@ -66160,6 +66160,7 @@ temple_citadel_01 = {
 
 # Source: E:\SteamLibrary\steamapps\common\Crusader Kings III\game\common\buildings\temple_citadel_buildings.txt
 temple_citadel_02 = {
+	effect_desc = aawc_retained_temple_citadel_02_effects
 	construction_time = slow_construction_time
 
 	assets = {
@@ -66792,7 +66793,6 @@ temple_citadel_02 = {
 		}
 	}
 	cost_gold = main_building_tier_2_cost
-	effect_desc = aawc_population_building_effect_temple_citadel_02
 
 
 	next_building = temple_citadel_03
@@ -66991,6 +66991,7 @@ temple_citadel_02 = {
 
 # Source: E:\SteamLibrary\steamapps\common\Crusader Kings III\game\common\buildings\temple_citadel_buildings.txt
 temple_citadel_03 = {
+	effect_desc = aawc_retained_temple_citadel_03_effects
 	construction_time = slow_construction_time
 
 	assets = {
@@ -67624,7 +67625,6 @@ temple_citadel_03 = {
 		}
 	}
 	cost_gold = main_building_tier_3_cost
-	effect_desc = aawc_population_building_effect_temple_citadel_03
 
 
 	next_building = temple_citadel_04
@@ -67798,6 +67798,7 @@ temple_citadel_03 = {
 
 # Source: E:\SteamLibrary\steamapps\common\Crusader Kings III\game\common\buildings\temple_citadel_buildings.txt
 temple_citadel_04 = {
+	effect_desc = aawc_retained_temple_citadel_04_effects
 	construction_time = slow_construction_time
 
 	assets = {
@@ -68580,7 +68581,6 @@ temple_citadel_04 = {
 			}
 		}
 	}
-	effect_desc = aawc_population_building_effect_temple_citadel_04
 
 
 
@@ -68686,6 +68686,7 @@ tower_of_silence_01 = {
 
 # Source: E:\SteamLibrary\steamapps\workshop\content\1158310\2962333032\common\buildings\00_tribal_buildings.txt
 tribe_01 = {
+	effect_desc = aawc_retained_tribe_01_effects
 	construction_time = slow_construction_time
 
 	assets = {
@@ -68874,7 +68875,6 @@ tribe_01 = {
 	
 	#AGOT Added - Vanilla bug
 	flag = tribe
-	effect_desc = aawc_population_building_effect_tribe_01
 
 
 	
@@ -68890,6 +68890,7 @@ tribe_01 = {
 
 # Source: E:\SteamLibrary\steamapps\workshop\content\1158310\2962333032\common\buildings\00_tribal_buildings.txt
 tribe_02 = {
+	effect_desc = aawc_retained_tribe_02_effects
 	construction_time = slow_construction_time
 
 	assets = {
@@ -69074,7 +69075,6 @@ tribe_02 = {
 	character_modifier = {
 		county_fertility_growth_mult = 0.35
 	}
-	effect_desc = aawc_population_building_effect_tribe_02
 
 
 	

@@ -226,12 +226,15 @@ aawc_migration_reset_county_movement_effect = {
 	set_variable = { name = aawc_migration_county_transfer_amount value = 0 }
 
 	if = {
-		limit = { var:aawc_migration_warfare_blocked = 0 }
+		limit = { always = yes }
 		set_variable = { name = aawc_migration_county_remaining_outgoing value = var:aawc_migration_county_total_give_capacity }
 		set_variable = { name = aawc_migration_county_remaining_receive value = var:aawc_migration_county_total_receive_capacity }
 	}
 
-	every_county_province = { aawc_reforging_tx_migration_reset_node_effect = yes }
+	every_county_province = {
+		aawc_reforging_tx_migration_reset_node_effect = yes
+		aawc_stage5_prepare_migration_node_effect = yes
+	}
 }
 
 	aawc_migration_transfer_to_scoped_target_effect = {
@@ -300,54 +303,8 @@ aawc_migration_reset_county_movement_effect = {
 }
 
 	aawc_migration_pair_adjacent_county_effect = {
-		save_scope_as = aawc_migration_source_county
-		set_variable = { name = aawc_migration_county_transfer_amount value = 0 }
-
-	if = {
-		limit = {
-			var:aawc_migration_county_remaining_outgoing > 0
-			var:aawc_migration_static_neighbor_count > 0
-		}
-		every_neighboring_county = {
-			limit = {
-				tier = tier_county
-				holder = { agot_is_dummy_character = no }
-				has_variable = aawc_population_total
-				has_variable = aawc_population_expected
-				var:aawc_migration_warfare_blocked = 0
-				var:aawc_migration_county_remaining_receive > 0
-				var:aawc_migration_county_rating > scope:aawc_migration_source_county.var:aawc_migration_county_rating
-				OR = {
-					faith = scope:aawc_migration_source_county.faith
-					culture = scope:aawc_migration_source_county.culture
-					scope:aawc_migration_source_county.holder = { is_at_war = yes }
-				}
-				OR = {
-					holder = { is_at_war = no }
-					scope:aawc_migration_source_county.holder = { is_at_war = yes }
-				}
-			}
-			if = {
-				limit = { scope:aawc_migration_source_county.var:aawc_migration_county_remaining_outgoing > 0 }
-				save_scope_as = aawc_migration_target_county
-				scope:aawc_migration_source_county = { aawc_migration_transfer_to_scoped_target_effect = yes }
-			}
-		}
-		if = {
-			limit = {
-				holder = { is_ai = no }
-				var:aawc_migration_county_remaining_outgoing > 0
-			}
-			if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.89 source retained county migration budget after adjacent rating comparisons" }
-		}
-	}
-	else_if = {
-		limit = {
-			var:aawc_migration_county_remaining_outgoing > 0
-			holder = { is_ai = no }
-		}
-		if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.89 county migration found no adjacent real county with higher rating and receive capacity" }
-	}
+	# Stage 5 keeps source identity before any physical debit.
+	every_county_province = { aawc_stage5_route_migration_source_effect = { KIND = county } }
 }
 
 # Commit one already matched adjacent-county edge as an exact thirteen-band
@@ -468,9 +425,7 @@ aawc_migration_apply_holding_population_delta_effect = {
 
 aawc_migration_commit_county_movement_effect = {
 	save_scope_as = aawc_migration_source_county
-	aawc_reforging_tx_migration_internal_effect = { REQUEST = var:aawc_migration_internal_transfer_total }
-	remove_variable = aawc_reforging_tx_migration_result
-	aawc_migration_commit_internal_population_effect = yes
+	every_county_province = { aawc_stage5_route_migration_source_effect = { KIND = internal } }
 
 	set_variable = { name = aawc_migration_county_projected_net value = var:aawc_migration_county_actual_net }
 
@@ -705,9 +660,8 @@ aawc_migration_update_county_diagnostics_effect = {
 		set_variable = { name = aawc_migration_warfare_blocked value = 1 }
 		set_variable = { name = aawc_migration_push_score value = 0 }
 		set_variable = { name = aawc_migration_pull_score value = 0 }
+		# Stage 5 war-displacement routing retains the ordinary physical rate caps.
 		set_variable = { name = aawc_migration_county_rate value = 0 }
-		set_variable = { name = aawc_migration_county_leaving_percent value = 0 }
-		set_variable = { name = aawc_migration_county_entering_percent value = 0 }
 	}
 
 	set_variable = { name = aawc_migration_county_rate value = 0 }
@@ -742,6 +696,11 @@ aawc_migration_update_county_diagnostics_effect = {
 }
 
 aawc_migration_update_world_effect = {
+	aawc_stage5_ensure_registry_effect = yes
+	aawc_stage5_recover_pending_effect = yes
+	if = { limit = { NOT = { has_global_variable = aawc_stage5_migration_batch } } set_global_variable = { name = aawc_stage5_migration_batch value = 0 } }
+	change_global_variable = { name = aawc_stage5_migration_batch add = 1 }
+
 	if = { limit = { aawc_diagnostics_verbose_enabled = yes } error_log = "AAWC MIGRATION 1.9.93 map-wide migration begin" }
 	every_county = {
 		limit = {
@@ -781,6 +740,8 @@ aawc_migration_update_world_effect = {
 	# County movement is already reflected in holding and county caches. Ruler aggregates are
 	# rebuilt by each staggered monthly ruler tick instead of another map-wide ruler scan here.
 	if = { limit = { aawc_diagnostics_summary_enabled = yes } debug_log = "AAWC SUMMARY synchronized monthly migration completed" }
+
+	aawc_stage5_flush_counties_effect = yes
 }
 
 aawc_migration_update_character_diagnostics_effect = {

@@ -1,5 +1,1063 @@
 # AGOT Alternate World Compatch
 
+## Git publication boundary - 1.11.5.13
+
+The `1.11.5.13` Git publication contains the current mod source, Stage 3 and
+Stage 5 policy/catalogue inputs, maintained generators and regression tests,
+concise validation evidence, and the single-current release archive and
+manifest. Controlled-install `previous-install` trees are excluded because
+they are machine-local duplicate rollback payloads and include disposable test
+fixtures. CK3 saves, logs, ignored playtest staging, Python caches, and the
+unrelated untracked Stage 2 install receipt are also outside the publication
+set and outside the release archive.
+
+The publication does not broaden the certification recorded below. Stage 5's
+physical identity transaction integration was directly exercised and audited
+in `.12`, and `.13` changes only descriptor metadata plus workspace cleanup.
+The result is suitable for installation and review, but it is not a claim of
+long-run world-scale balance or performance certification. The known
+pre-existing startup diagnostics and broad-check classifications remain
+documented in the `.12` section.
+
+## Stage 5 workspace cleanup - 1.11.5.13 (complete)
+
+The authorized 2026-11-21 cleanup removed all nine superseded Stage 5 staging,
+fixture, and control-backup directories previously recorded as blocked. The
+removed paths were the `installed`, `fixture`, and `controls` directories under
+`playtest/stage5-native-routing-1.11.5.10/` and
+`playtest/stage5-native-routing-1.11.5.11/`, plus the `package`, `fixture`, and
+`controls` directories under `playtest/stage5-transactions-1.11.5.8/`. These
+were byte copies used for completed native probes; none is a release input or a
+required validator input. Their recorded pre-cleanup inventory was **1,506
+files / 333,670,206 bytes**. Post-cleanup checks confirm all nine paths are
+absent.
+
+The cleanup deliberately retains the Stage 5 source and maintained regression
+tests, the policy catalogue, all machine-readable evidence under
+`evidence/stage5/`, checkpoint saves and closed logs used by the native audit,
+and the final `.12` routing fixture/staged copy under
+`playtest/stage5-native-routing-1.11.5.12/`. The final `.12` local staging is
+retained because the native session and save-audit evidence identify it as the
+last directly exercised runtime candidate; it is not shipped. No ambiguous
+artifact was deleted. The important live findings remain summarized in the
+`.12` section below and preserved in the final `.12` evidence JSON files.
+
+The gameplay payload is unchanged except for matching inner and outer version
+descriptors. `release/` follows the documented single-current-release policy,
+so the `.13` cleanup package and manifest supersede the `.12` transport files;
+the `.12` package identity and runtime proof remain recorded in documentation
+and `evidence/stage5/`. The exact before/after inventory and retention rationale
+are recorded in
+`evidence/stage5/AAWC_1.11.5.13_WORKSPACE_CLEANUP.json`.
+
+`release/AGOT_Alternate_World_Compatch_1.11.5.13.zip` passes exact
+**495/495/495** source/archive/manifest parity with matching inner and outer
+descriptors and a clean archive CRC. Archive SHA-256:
+`4714176E6C270A85C9EA628E606BC05FBDE80B3C82113BD220C462AD7EC88CDC`;
+manifest SHA-256:
+`5417192D024401C76A762388750C0E1A434AEA70F760DABEAC13CE7092D27054`.
+The focused post-cleanup audit found no removed path in release inputs or
+required validation scripts, confirmed the active source, Stage 5 policy,
+final `.12` evidence, and final runtime staging remain present, and reran the
+policy **7/7**, production-runtime **14/14**, and transaction **14/14** suites.
+No installation or additional CK3 session was needed because cleanup changed
+only ignored local artifacts and descriptor version metadata.
+
+## Stage 5 physical identity transaction integration - 1.11.5.12 (complete)
+
+The assigned Stage 5 routing-to-transaction integration is implemented, packaged,
+and live-verified on 2026-11-21. This status supersedes the incomplete historical
+checkpoints below. Production county and internal migration now assemble native
+adjacent candidates, use canonical identity/province ranks, select a destination,
+and execute the exact cohort packet with independent culture and faith debt and
+credit. Explicit provenance is preserved; a missing axis independently uses the
+source holding majority. Ordinary departure selection uses owner-alignment
+weighting. AAWC's thirteen age bands remain the absolute-population authority;
+CaFG owns normalized identity factors, with no second identity headcount ledger.
+
+Persisted packet phases, source/destination receipts, endpoint locks, and sparse
+pending recovery prevent repeated absolute or factor application. Stale or
+invalid inputs fail closed; guarded cancellation refunds a committed source
+once. Carry and batch-budget receipts are idempotent. Changed counties are
+deduplicated and refreshed once per axis per batch, with cached county/ruler
+aggregates updated through the same sparse queue. Terminal packet and child
+stories are removed after settlement. Births, deaths and aging do not mutate
+either identity-factor surface.
+
+Native testing found and repaired the province-owner scope (`barony.holder`),
+generated runtime text encoding, and missing optional loaded holding caches.
+The .12 cache repair treats absent expected-capacity/diagnostic fields as zero
+without initializing or mutating the holding. The live world probe also now
+compares actual before/after populations instead of intentionally cleared
+planning variables. All discovered defects within this integration are repaired
+and re-tested.
+
+**Automated verification:** all **89 focused Stage 5 tests pass** on .12,
+including the 14 native-routing/guard/cache checks. Coverage executes generated
+transaction code across every saved phase, retries, independent missing-axis
+fallback, normalization, conservation, refund, stale/duplicate/malformed input,
+sparse refresh, terminal cleanup and demographic neutrality. The Stage 1
+authority validator passes with 709 inventoried statements and 72 authorities.
+The integration's unchanged cross-stage checks also passed: 10 bounded cohort
+arithmetic, 11 Stage 1 population transaction and 18 Stage 4 reservation tests.
+Exact commands, version boundaries and test-source hashes are retained in
+`evidence/stage5/AAWC_1.11.5.12_FOCUSED_VALIDATION.json`.
+
+**Direct CK3 verification:** the exact .12 candidate ran with CK3 1.19.0.6,
+AGOT 0.5.2.1 and Legacy of Valyria 1.5.2.13. It cold-loaded the actual .11
+phase-3 checkpoint, then ran recovery twice, fresh native routing, peaceful
+mismatch rejection, wartime fallback, guarded refund/retry, the real monthly
+demographic routine and the production world migration update. All 12 final
+PASS/BEGIN/END markers are present with zero Stage 5 non-marker diagnostics.
+The disposable probe invokes production routines through hidden-event decisions;
+it is excluded from the gameplay package.
+
+The independent native-save audit proves the resumed 100-person transaction
+ends at source **900** and destination **600**, conserves all thirteen age bands,
+and matches the rational factor oracle. Each axis's owner/other packet vector is
+**27/73**; source factors are **0.63667/0.36333**, destination factors are
+**0.87833/0.12167**, and every normalized sum is exactly one. Carries do not
+advance again on reload; budgets apply once; locks and queues drain; packet and
+child stories are removed. The world update moved **15 residents** and conserved
+**106,085** residents globally. Native births **89**, deaths **596**, and aging
+**1,496** were positive while both factor surfaces remained unchanged at the
+demographic boundary. See
+`evidence/stage5/AAWC_1.11.5.12_NATIVE_TRANSACTION_SAVE_AUDIT.json` and
+`evidence/stage5/AAWC_1.11.5.12_NATIVE_SESSION.json`.
+
+**Release:** `release/AGOT_Alternate_World_Compatch_1.11.5.12.zip` has exact
+**495/495/495/495** source/archive/manifest/staged-install parity and SHA-256
+`94DB8EEEEAFD2C8FAE9C6A78CC62E6BC1C727C8FBA7EE0B05F6481B12DD7AF2F`.
+The native outer descriptor differs only in its verified installation path;
+all `replace_path` declarations are preserved. Provenance is recorded in
+`evidence/stage5/AAWC_1.11.5.12_NATIVE_ROUTING_RUNTIME_PARITY.json`.
+
+CK3 exited normally without exit autosave. All six original profile controls
+were restored byte-for-byte; the original installed .15 payload and campaign
+baseline remain unchanged. Task-created external saves and the probe descriptor
+were removed after local evidence retention. Machine-local saves and closed
+logs stay outside Git and release packages. Useful regression tests remain as
+maintained coverage, and `release/` contains only the final .12 package/manifest.
+An obsolete duplicate auditor report was removed. Automatic approval review
+blocked both recursive staging cleanup and a narrower individual-file/empty-
+directory attempt before execution, returning only `blocked by policy`. Nine
+superseded local staging/fixture/control-backup directories therefore remain;
+they do not affect the package or restored profile. Exact paths and completed
+cleanup are recorded in `evidence/stage5/AAWC_1.11.5.12_WORKSPACE_HYGIENE.json`.
+
+Certification is bounded to the exercised integration. Fixture capacity forces
+observable movement; this is not a long-run balance/performance certification.
+CaFG's native five-decimal quantization and subthreshold absorption still apply.
+The full stack log is not globally clean: 162 startup variable diagnostics name
+variables already present in .15, and the scheduler encoding warning comes from
+a byte-identical pre-existing file. There are no related execution failures.
+The broad release check's nine pre-existing retained-ruin localization overrides
+and twenty base-game references omitted from its closure remain classified in
+`evidence/stage5/AAWC_1.11.5.10_BROAD_VALIDATION_CLASSIFICATION.json`; they are
+not reported as a passing broad validation.
+
+The following sections retain historical implementation and repair evidence;
+their former incomplete statuses do not describe the final .12 integration.
+
+## Stage 5 native scope repair - 1.11.5.11 (in progress)
+
+The .10 live probe passed native registry/adjacency source debt, endpoint guards,
+same-session global recovery/retry, sparse shared-county queue deduplication,
+full route retries, peaceful mismatch rejection, wartime mismatch fallback,
+guarded refunds and a conservative production world update. It did **not** reload
+a midpoint in that preliminary run. Evidence and exact limitations are in
+`evidence/stage5/AAWC_1.11.5.10_PRELIMINARY_NATIVE_SESSION.json`. CK3 closed without
+an exit save; six controls restored exactly and the original baseline is unchanged.
+
+Native scope checking exposed the direct province `holder` link in the probe.
+Review found the same optional link in production owner capture: it silently
+omitted owner weighting. Both now use `barony.holder`. The snapshot VM fixtures
+now model the native barony link, and full route tests assert the weighted factor
+result. Registry/runtime/on-action generators now emit UTF-8 BOM, removing native
+encoding diagnostics. Probe-only absent-global visibility warnings now use the
+optional comparison. Its strengthened final pass requires positive births,
+deaths and aging and nonzero residents moved by the world scheduler, plus a real
+midpoint save/reload and independent native-save arithmetic audit.
+
+The broad .10 release checker completed structural checks (287 files) but reports
+nine retained-ruin localization overrides and twenty building references absent
+from its AGOT/dependency-only closure. These are outside the Stage 5 changes and
+are being checked against the retained baseline/base game; they are not concealed
+as a passing broad validation. Stage 1 authority validation passes unchanged.
+Baseline byte comparison confirms both localization files are unchanged from
+retained .15, and every reported building ID resolves in the installed base game.
+Evidence: `AAWC_1.11.5.10_BROAD_VALIDATION_CLASSIFICATION.json`.
+
+The preliminary .10 transport preparation used an unanchored path replacement
+that also touched `replace_path`; its native results are diagnostic only. The .11
+transport uses the existing anchored `runtime_descriptor` helper and asserts
+normalized byte equality, preserving every descriptor field except its mount
+path. This is independently recorded alongside the archive/staging parity.
+All **88 Stage 5 regressions pass** on .11. **495/495/495/495** source/archive/
+manifest/staged-install parity passes; archive SHA-256 is
+`89307AB116222AECD9E81739569C150A0D39C507D46020E19DC3448226978DB0`.
+Final .11 live certification remains in progress.
+
+## Stage 5 native routing integration - 1.11.5.10 (in progress)
+
+Implementing production holding-to-holding proposals before any county pooling.
+A pinned registry supplies lexical static culture/faith ranks and actual numeric
+province IDs. Dynamic identities receive immutable persisted ordinal keys from
+native identity bootstrap/creation, independent of CaFG row order. Static keys
+precede dynamic keys. Existing-save bootstrap runs once over identity registries;
+county refresh remains sparse. The inventory pins 185 cultures, 206 faiths,
+45 religions and 9,704 landed province IDs from the effective stack.
+
+Native proposals use directly adjacent provinces and the existing county/internal
+holding budgets, protective floors and unreserved civilian limits. Each neighbor
+is evaluated at an amount it can receive, so a smaller safe destination can win
+before a larger unsafe destination. Only the best eligible proposal executes;
+losers are deleted without consuming factors, carries or budgets. Normalized
+identity matching now explicitly excludes factors below CaFG's .005 absorption
+threshold. Receipt accounting is separate from the absolute transfer and is
+idempotent. Production county and internal scheduling now invokes the native packet route
+before any pooled population commit. Pending recovery runs before demographic
+work, eligibility reconciliation and each migration batch. Source and destination
+budget receipts apply once only in their originating batch. War/siege/raid state
+feeds the four-tier selector without erasing existing physical rate caps.
+
+Added exact-packet locks to thirteen central cohort mutation entry points and to
+CaFG province factor mutation entry points, preserving the dependency algorithms.
+Ordinary external calls cannot reuse a saved script scope as authorization;
+only a synchronous commit's explicit global packet marker permits mutation.
+Blocked absolute calls clear old success receipts. Stage 4 validates that its
+source/destination is unlocked before debit. Core demographics still perform no
+identity mutation. County and ruler caches are refreshed through the sparse
+changed-county queue after reconciliation, alongside the once-per-axis CaFG work.
+
+Thirteen native-assembly/guard regressions pass, including small-safe-versus-large-
+unsafe ordering, neighbor-order independence, no-op rejection, internal county
+boundaries, actual guarded CaFG setter execution and locked demographics. Ten
+bounded cohort-arithmetic, eleven Stage 1 transaction and eighteen Stage 4
+reservation checks pass. All **88 focused Stage 5 tests pass**. Source/archive/
+manifest/staged-install parity is **495/495/495/495**, archive SHA-256
+`5E067554265D36BD04A2D5266030E9D0AC3589A8B750654A5D207808194857D1`.
+Receipts are `evidence/stage5/AAWC_1.11.5.10_NATIVE_ROUTING_*_PARITY.json`.
+The separate reproducible `build_aawc_stage5_live_probe.py` addon exercises native
+registry/adjacency, guarded midpoint persistence, global recovery, budget retry,
+refund, demographic neutrality and the production world entry. It is excluded
+from gameplay packages. Live .10 validation is underway; this is not yet a
+completed-stage handoff. Original profile controls are backed up locally under
+`playtest/stage5-native-routing-1.11.5.10/controls/`; the installed .15 payload is
+untouched and the test descriptor points to the parity-checked extracted .10.
+
+## Stage 5 native parser repair - 1.11.5.9 (2026-11-21)
+
+Native transaction checkpoint completed on the corrected .9 transport: **74 Stage
+5 regressions and 11 existing population-transaction checks pass**. Package
+parity is **488/488/488**, SHA-256
+`81514F7845F83BF182E0BF1EFDC4F3014E2001D2F6C694411B5DBC810A02A94E`.
+The disposable live fixture reserved 100 residents from province 4485 to 4486,
+saved phase 3 (900/500 residents), reloaded that exact save, and invoked settlement
+twice. CK3 reached phase 5 with 900/600 residents. Native save parsing independently
+verified all thirteen age bands, exact cohort totals, factor sums of 1.00000,
+matching rational-oracle factors, unchanged carries on retry, drained pending and
+refresh queues, and released endpoint locks. Both axes moved 27 owner-aligned and
+73 other residents; source factors are .63667/.36333, destination .87833/.12167.
+These are normalized native five-decimal factors, not a second absolute identity
+population ledger. The bounded quantization is expected.
+
+Evidence: `evidence/stage5/AAWC_1.11.5.9_NATIVE_TRANSACTION_SAVE_AUDIT.json`,
+`evidence/stage5/AAWC_1.11.5.9_NATIVE_SESSION.json` (including COMPUTER_USE_PATTERN
+and COMPUTER_USE_TRACE), and reusable `verify_aawc_stage5_native_transaction.py`.
+Raw saves/logs stay local under `playtest/stage5-transactions-1.11.5.8/`.
+The corrected package had no Stage 5 parser or actual transaction execution
+errors. The test decision produced 40,848 tooltip-evaluation warnings and one
+redundant holding-type warning, separately classified in the session receipt;
+its local harness now dispatches hidden events and guards the holding change.
+That harness cleanup still needs a fresh run. Six external profile control files
+were restored byte-for-byte after normal exit without exit autosave; task-created
+live saves/descriptor were removed after retaining evidence, and the original
+baseline-save hash is unchanged.
+
+**Not complete:** fixture-owned ranks/candidates do not certify canonical native
+routing, production monthly scheduling, endpoint mutation guards, or all native
+refund/error paths. These remain the same acceptance objective, not a new task.
+
+The first native startup of 1.11.5.8 exposed two defects that the offline VM had
+accepted: parameterless scripted effects called with `{}` are rejected by CK3;
+persistent global lists require `every_in_global_list = { variable = ... }`.
+Corrected all Stage 5 generator calls (including inherited route/lifecycle calls)
+to `= yes`, and corrected the pending/changed-county iterators. The interpreter
+now rejects empty calls, and source regressions enforce native iterator syntax.
+The .8 startup produced parser evidence only: no targetable CK3 game window or
+campaign was observed, no test decision/save executed, and the exact launched
+process was closed before rebuilding. Raw startup logs are local under
+`playtest/stage5-transactions-1.11.5.8/startup-1.11.5.8/`.
+
+The first .9 restarts are INVALID: an overly broad test-descriptor version
+replacement also changed the staging-directory name to a nonexistent path.
+Their missing AAWC/unknown-effect diagnostics are test setup failure, not
+product results. The actual .8 staging path is now explicitly pinned and checked
+against the .9 extracted package. No .9 native PASS is inferred from those runs.
+
+The .8 package passed 488/488/488 parity (SHA-256
+`EAD012BC4FE1FD2D1C3A780F804FAC599D9D7CD2B99255350642A57F769D3260`),
+73 Stage 5 and 11 existing population transaction checks. This is not native
+transaction certification and does not remove the remaining production routing,
+rank registry, scheduler and lock-enforcement work listed below.
+
+## Stage 5 physical transaction coordinator - 1.11.5.8 (2026-11-21)
+
+Work in progress, not a completed Stage 5 gameplay release. Added
+`generate_aawc_stage5_transactions.py` to the packet generator. The coordinator
+executes AAWC's existing exact thirteen-band capture/credit adapters, using the
+persistent identity packet itself as the age-pool owner and transaction ID.
+Absolute population remains owned exclusively by the cohort ledger and its
+existing scalar mirror; no synthetic age credit or culture/faith cross-product
+is introduced. Both source and destination marginal sums normalize to one.
+
+Added destination union snapshots, duplicate/unknown-rank rejection, bidirectional
+live-factor validation, protective-floor and reserved-civilian checks, source and
+destination locks, and exact absolute debit/credit/refund receipts. Destination
+preparation now accepts sealed phase 1 so malformed destination state is rejected
+before source debit; the original phase-3 helper API remains compatible. Source
+and destination receipt replay checks frozen factors before writing, so external
+interleaved changes cannot silently be overwritten. A stale destination after
+source debt requests the existing guarded refund. Unexpected partial receipts
+retain debt for recovery (phase 8) rather than replaying or discarding it. Terminal
+cleanup destroys packet/candidate/union stories only after receipt consumption;
+source-owned fractional carries outlive packet cleanup.
+
+The sparse persistent pending-packet list supports replay at recorded phases. A
+separate changed-county queue deduplicates county list/majority refreshes, once per
+axis per batch, without a map scan. These APIs are not yet called by the monthly
+production migration scheduler. Canonical identity ranks, native adjacent
+candidate assembly, scheduler budget accounting, early recovery before unrelated
+mutation and endpoint lock enforcement remain required before activation.
+
+Validation in progress: emitted-script transaction regressions execute the actual
+cohort transfer effects and compare identity results to the independent rational
+oracle. Tests cover phase replay through a restored scope graph, guarded refunds,
+no-route/invalid-vector rejection, stale/duplicate source and destination factors,
+reserved civilians, floor and lock failures, exact band conservation, terminal
+cleanup and shared-county refresh deduplication. The actual demographic authority
+tick remains free of identity mutation. Native CK3/save-load verification and
+package evidence will be recorded below; none is claimed by these offline tests.
+
+## Stage 5 preparation and carry lifecycle checkpoint - 1.11.5.7 (2026-11-21)
+
+Incomplete candidate; not installed or live-certified. Added the packet-level
+`aawc_stage5_prepare_identity_route_effect` coordinator: ordinary packets stage
+weighted independent marginals, while imported/known packets preserve supplied
+quantities and independently fall back for missing axes. Validated vectors pass
+through existing route selection, sealing and source-debit preparation. Failed
+route search cannot seal the packet, write factors, advance source carries or
+change absolute population. Canonical ranks and frozen native candidate inputs
+still must be assembled before invoking this coordinator.
+
+The existing exact source-debit receipt guard now commits weighted departure
+residuals into source-owned, identity-keyed persistent stories once per axis.
+Existing records are updated; missing records are created. Explicit/fallback
+axes do not consume ordinary-stream carries. Source locks remain a transaction
+caller requirement. A source marginal write also initializes a staged empty-axis
+repair through the existing CaFG setter; no second repair or credit/refund helper
+was added. Absolute AAWC population remains read-only in this layer. Carries
+advance at successful reservation, as required by the existing departure
+contract; existing destination/refund helpers remain unchanged.
+
+Verified: **59 focused Stage 5 regressions pass**, including six new emitted-script
+lifecycle tests for no-op rejected routes, independent known/missing provenance,
+receipt-gated new/existing carry persistence, restored-graph retry, invalid or
+mismatched absolute receipts, and commit-only empty-axis repair writes. Command:
+`python -B -m unittest discover -s scripts -p 'test_aawc_stage5*.py' -q`.
+Deep-copy graph restoration is not native save/load verification.
+
+Remaining SAME objective: canonical identity rank registry, native adjacent
+candidate assembly and runtime entry wiring, then install and directly verify
+in CK3 including save/load. No changed policy assumption, separate required
+follow-on, obsolete downstream task or missing-authority decision emerged.
+Keep active regression coverage. Descriptors/README advance to 1.11.5.7 and the
+standard builder replaces only the superseded development package/manifest.
+
+Package verification: **488/488/488 source/archive/manifest parity**, matching
+versions and clean CRC. Receipt:
+`evidence/stage5/AAWC_1.11.5.7_LIFECYCLE_PACKAGE_PARITY.json`.
+Archive SHA-256:
+`C50FBCA16D953F464B1A7D2FBE58AE63A649095457C6EE9B243AA107345B2CA8`.
+`git diff --check` passed. Installation and live CK3 checks remain unperformed.
+
+## Stage 5 source snapshot checkpoint - 1.11.5.6 (2026-11-21)
+
+Incomplete dormant candidate. Packet creation now snapshots owner culture and
+faith independently from the source holding holder, normalized source factors,
+and source-owned identity-keyed departure carries. Absent ownership leaves the
+existing neutral departure weight intact. Carry values default to zero; duplicate
+carry records invalidate staging rather than allowing iteration order to win.
+Each axis has a persistent snapshot receipt, preventing retries from rereading
+changed ownership, factors or carries. No mutable CaFG struct pointer is retained.
+
+An absent/empty source factor list stages a single factor-one row from that
+source county's corresponding identity, with an axis-specific repair receipt.
+It does not infer the other axis, copy owner identity or inspect the destination.
+Missing source-title identity fails closed. This is the staged repair vector;
+transaction integration must still initialize the missing native CaFG axis on
+commit. Source carries are read from `aawc_stage5_culture_carries` and
+`aawc_stage5_faith_carries`, whose records contain `identity` and `value`.
+The successful-reservation carry commit remains unwired. Neither staging nor
+these snapshots changes absolute population or CaFG factors. Existing credit and
+refund helpers are unchanged.
+
+Verified: **53 focused Stage 5 regressions pass**, including emitted-script
+execution of owner/carry snapshots, empty faith repair with populated culture,
+missing owner/title, duplicate carry rejection and restored-graph retry after
+source mutation. Command: `python -B -m unittest discover -s scripts -p
+"test_aawc_stage5*.py" -q`. A scope-resolution defect in the test interpreter
+introduced during this work was fixed before the passing run. Native CK3 testing
+and installation have not occurred; deep-copy restoration is not save/load proof.
+
+Remaining SAME objective: canonical identity registry/rank assignment, native
+adjacent-candidate assembly, identity preparation and persistence lifecycle
+wiring (including committed empty-axis repairs and carries), then installation
+and focused live CK3/save-load verification. No policy assumptions changed,
+new separate required follow-on work emerged, or downstream tasks became
+obsolete. No design decision is currently escalated. Keep active regressions.
+Descriptors and README advance to 1.11.5.6; the standard builder retains only the
+current development package and manifest. Package verification passed exact
+**488/488/488 source/archive/manifest parity**, matching descriptors and clean
+CRC. Receipt: `evidence/stage5/AAWC_1.11.5.6_SNAPSHOTS_PACKAGE_PARITY.json`.
+Archive SHA-256: `102B678B9BE8BDA9E5006E62E72EB6B36A53BA01BAD221A4C5D33D19E2F27B41`.
+`git diff --check` passed.
+
+## Stage 5 destination eligibility checkpoint - 1.11.5.5 (2026-11-21)
+
+Incomplete dormant candidate. Added `generate_aawc_stage5_routing.py` to the
+packet generator. Persistent candidate stories are evaluated for adjacency,
+receive capacity, positive culture-or-faith matches against positive packet
+quantities, and peaceful-source exclusion of war destinations. War sources use
+the four policy tiers in their documented order. Ties resolve by rating delta,
+receive capacity, then stable province ID. A selected route receipt and candidate
+reference persist on the packet and prevent retry from replacing the route.
+No absolute population, source carries, or CaFG factors are mutated. Existing
+destination-credit/refund helpers are unchanged.
+
+The helper requires frozen candidate inputs; it does NOT yet enumerate adjacent
+holdings or assemble candidate stories from native county state. Existing packet
+creation/production migration is not yet wired to this selector. Thus this is
+implemented eligibility logic, not a claim of complete runtime routing.
+
+Verified: **48 focused Stage 5 regressions pass** with generated-source parity.
+New tests execute emitted script for each peacetime eligibility gate, independent
+culture/faith match, zero-factor/zero-quantity rejection, all war-tier permutations,
+rating/capacity/province ordering, sealed/invalid guards, and restored-graph retry.
+Deep-copy restoration is not native save/load certification. Command:
+`python -B -m unittest discover -s scripts -p 'test_aawc_stage5*.py' -q`.
+
+Remaining SAME objective: canonical identity registry, source/owner/carry snapshot
+assembly, independent empty-axis repair, native adjacent-candidate assembly and
+persistence lifecycle wiring, then focused native CK3 verification. No changed
+policy assumptions, newly discovered required follow-on task, obsolete downstream
+task, or decision blocked by missing guidance. No install/live-test claim.
+Package source/archive/manifest parity passed **488/488/488**, clean CRC;
+receipt: `evidence/stage5/AAWC_1.11.5.5_ROUTING_PACKAGE_PARITY.json`.
+Archive SHA-256: `E53A7F4FA5F6930101D094F18E18FC20A06E11466EE581F74BD8618B246447B6`.
+`git diff --check` passed after correcting local newline conversion.
+Descriptors and README are advanced to 1.11.5.5. The standard single-current
+builder removes superseded packages/manifests only; ongoing regressions remain.
+
+## Stage 5 weighted departure checkpoint - 1.11.5.4 (2026-11-21)
+
+Incomplete dormant candidate, not a completed identity-routing or gameplay-review
+release. Added `scripts/generate_aawc_stage5_departures.py`, included by the
+existing packet generator. Independent culture/faith allocation uses frozen
+owner identity: aligned 0.5, misaligned 2, unavailable 1. Capped Hamilton quotas
+redistribute saturated identities before deterministic rank-based remainder
+correction. Signed input carries and staged next carries live on packet rows.
+Explicit and majority-fallback vectors bypass weighting. A completed weighted
+axis becomes explicit provenance, so retry/fallback cannot replace it.
+
+The allocator does not write absolute population, CaFG factors, destination
+credits, or refunds. Existing helpers remain authoritative for reconciliation.
+Source carry persistence/commit is NOT yet connected: the routing assembler must
+load source per-axis carries into the frozen rows; transaction integration must
+commit next carries only after a successful reservation. A failed destination
+search must not consume these carries. Canonical ranks and owner identity are
+still inputs, not assembled by this helper.
+
+Verified: **42 focused Stage 5 tests pass**, including 50 seeded weighted-vector
+comparisons with the rational reference, owner-faith pressure, neutral ownership,
+saturation, signed carries, stable ties, explicit provenance preservation,
+insufficient capacity, and retry after deep-copy restoration. Source contracts
+also prohibit absolute-population/factor writes by the new helpers. Tests execute
+the emitted script in the existing bounded interpreter; deep-copy restoration
+is not native save/load certification. Command:
+`python -B -m unittest discover -s scripts -p 'test_aawc_stage5*.py' -q`.
+
+Remaining SAME assigned identity-routing objective: canonical identity registry,
+source/title repair and owner/carry snapshot assembly, adjacent destination
+eligibility and ordered war routing, persistence wiring and focused regressions,
+then native CK3 verification. The separately planned production transaction,
+recovery and refresh integration remains necessary and is not implemented here.
+No assumptions changed, no external blocker arose, no downstream task became
+obsolete. No installation or live CK3 validation is claimed for this checkpoint.
+Both descriptors and README advance to 1.11.5.4. Package parity receipt:
+`evidence/stage5/AAWC_1.11.5.4_WEIGHTED_DEPARTURES_PACKAGE_PARITY.json`.
+Source/archive/manifest parity passed **488/488/488**, with no differences or CRC
+failure. Archive SHA-256:
+`14F8542E02D47CBDEDF618B1DF4D35F3D0665F99284D6A28CD5CA2E55DD2DFE5`.
+`git diff --check` passed.
+The standard single-current builder removes only superseded release archives and
+manifests; ongoing regressions and unrelated user work remain intact.
+
+## Stage 5 destination reconciliation checkpoint - 1.11.5.3 (2026-11-21)
+
+Incomplete dormant implementation candidate; NOT a gameplay-review release.
+This checkpoint supersedes the outstanding destination/refund helper portion of
+1.11.5.2, but does not activate production migration. Added generated native
+helpers in `scripts/generate_aawc_stage5_settlement.py` and focused execution
+coverage in `scripts/test_aawc_stage5_settlement.py`.
+
+Destination preparation validates the union of destination and packet identity
+rows against the sealed independent culture/faith vectors, rejects duplicate or
+unmatched identities, invalid populations and non-normalized populated axes,
+then computes credit masses and deterministic normalized shares. Empty
+holdings initialize from credits; absent destination identities are created by
+the CaFG setter on application. Phase 4 plus the expected absolute population
+permits one factor write pass and advances to terminal phase 5. These helpers
+never modify AAWC absolute population or demographic rates.
+
+Refund preparation requires phase 3 and unchanged post-debit population and
+both marginal axes, checking identities in both directions to reject duplicate
+live structs that could otherwise conceal a missing identity. A prepared exact
+absolute refund receipt (phase 6) restores original factors, including units
+absorbed during source normalization, once, ending in phase 7. Destination
+validation failure does not block refund. Interleaved source mutations fail
+closed rather than overwriting newer identity state. The integrating caller
+must hold the source lock across this sequence and create exact Stage 4 receipts;
+phase/population guards are not a substitute for transaction integration.
+
+Verified: **37 focused Stage 5 tests pass**, including eight new execution tests
+for destination conservation, new identities, empty holdings, malformed vectors,
+whole-person population validation, receipt mismatch, retry suppression, refund
+restoration and interleaved/duplicate identity rejection. A deep-copied scope
+graph exercises resumed helper calls, not native save/load. Command:
+`python -B -m unittest discover -s scripts -p 'test_aawc_stage5*.py' -q`.
+The bounded interpreter is not CK3 engine certification.
+
+Remaining SAME objective: canonical identity registry and union-row snapshot
+assembly; source-title repair for empty axes; weighted departures and persistent
+carries; adjacency/identity/war routing; stale-source commit validation;
+absolute transaction receipts and locks; pending recovery orchestration and
+cleanup of destination rows; changed-county batched refresh; production migration
+integration before county pooling; install and direct CK3 verification. Keep
+this candidate dormant until those pieces are integrated. No policy assumptions
+changed, external blockers arose, or downstream tasks became obsolete. The
+helper work narrows but does not replace the remaining recovery integration.
+
+Both descriptors and README advance to 1.11.5.3. Source/archive/manifest evidence
+is recorded in `evidence/stage5/AAWC_1.11.5.3_DESTINATION_RECONCILIATION_PACKAGE_PARITY.json`.
+Verified source/archive/manifest parity: **488/488/488**, no differences or CRC
+failures. Archive SHA-256: `139F4DE01D1B08058F69D06D713C68910B3BE8E4D4C54B0043EA64CDF32AFAA4`.
+`git diff --check` passed. No installation or live validation is claimed. The standard single-current
+package builder removes only superseded release archive/manifest artifacts;
+regression tests and unrelated user work are retained.
+
+## Stage 5 native source reconciliation checkpoint - 1.11.5.2 (2026-11-21)
+
+Incomplete, dormant implementation candidate; not a gameplay-review release.
+The existing packet generator now includes `generate_aawc_stage5_reconciliation.py`.
+Added native independent missing-axis majority selection, explicit-axis preservation,
+positive unique canonical-rank validation, source marginal mass preparation,
+five-decimal Hamilton normalization with stable rank tie breaks and deterministic
+0.005 absorption, and source writes through `E_kCAFG_set_struct_factor` only.
+The write helper requires phase 2, successful preparation, and the expected
+post-debit absolute population, then advances to phase 3 to prevent retry writes.
+It does not create the Stage 4 absolute receipt: the integrating caller must do so.
+No absolute population field is written by these helpers.
+
+The emitted code is exercised by `test_aawc_stage5_native_packet.py`, a deliberately
+bounded fixed-point/scope interpreter that rejects unknown operations. All **29
+focused Stage 5 checks pass**, including 100 seeded normalization comparisons
+against the independent rational oracle, majority ties with reversed row order,
+independent explicit faith preservation, absent/duplicate rank rejection, empty
+axis rejection, excessive source debt, receipt population mismatch, and repeated
+source-write calls. These are execution tests of a supported script subset, not
+CK3 parser, engine arithmetic, native persistence or rendered-game certification.
+Command: `python -B -m unittest discover -s scripts -p 'test_aawc_stage5*.py' -q`.
+
+Remaining in this SAME objective: build the canonical identity registry (ranks
+are currently an explicit helper input); repair empty axes from source title
+majority; weighted departure and persistent carries; adjacency and identity/war
+routing; stale-source validation before committing; exact absolute receipt
+integration; destination credit and inverse refund/recovery; changed-county batch
+refresh; connect migration before county pooling; then install and live-test.
+No production caller invokes these new helpers yet. Do not activate only the
+source half. Source factor snapshots must be validated at commit; a changed source
+cannot safely be debited from a stale snapshot. No policy decisions changed,
+no external blocker emerged, and no downstream task is made obsolete. The earlier
+scope/reference-only test boundary is superseded by the bounded execution tests,
+but native validation remains required.
+
+Both descriptors and the current package advance to 1.11.5.2. The standard builder
+removes only superseded current-release archive/manifest artifacts. Regression
+tests and unrelated user work remain. Installation is unchanged; live CK3 testing
+has not been performed for this dormant candidate. Package parity evidence:
+`evidence/stage5/AAWC_1.11.5.2_SOURCE_RECONCILIATION_PACKAGE_PARITY.json`.
+Verified source/archive/manifest parity: **488/488/488**, no differences or CRC
+failures. Archive SHA-256: `BCECFE0FF6F3E3AEB5605DF94347BD3A6B3179AD32812B0B38ED03AD4808B2E9`.
+`git diff --check` passed. No installation parity is claimed.
+
+## Stage 5 persistent packet staging checkpoint - 1.11.5.1 (2026-11-21)
+
+This **incomplete implementation candidate** adds dormant native CK3 packet
+staging, generated by `scripts/generate_aawc_stage5_packets.py`. It does not
+activate identity migration and is not ready for gameplay review or installation.
+The prior arithmetic-only checkpoint below is historical; this entry supersedes
+its statement that no native adapter source exists.
+
+Added `common/story_cycles/aawc_stage5_packets.txt` and
+`common/scripted_effects/aawc_stage5_packet_effects.txt`. A source province owns
+one persistent packet reference; independent culture/faith story rows snapshot
+identity scopes, original factors, and quantities without retaining mutable CaFG
+struct pointers. Begin refuses to overwrite pending state. Quantity assignment
+is idempotent, unknown identities invalidate staging, and sealing requires both
+axis sums to equal the physical amount, normalized source snapshots, whole
+quantities, and no negative or excessive identity debt. Cancellation destroys
+only uncommitted rows/packets (phase below 2). No CaFG factors or AAWC absolute
+population are mutated by these staging effects. Callers must pass stable scope
+references, not context-relative expressions, for DESTINATION and IDENTITY.
+
+Validation: **24/24 focused tests passed**, comprising seven policy assertions,
+eleven arithmetic reference tests (including 300 randomized fixtures), and six
+new generated-source contracts. The source contracts parse the emitted script,
+check generator parity, guards, ownership isolation, and terminal cleanup. They
+are not effect execution, native parser certification, or CK3 save/load evidence.
+No CK3 session or installation was performed for this dormant checkpoint.
+
+Still required in this same task: source-majority repair/fallback and stable
+identity ordering in native code; owner-weighted selection and persistent
+residuals; adjacency/identity/war-tier routing; integration before the existing
+county pooling loses provenance; absolute debit/credit receipts, marginal
+normalization/setters and inverse refund phases; stale-source validation and
+pending recovery; changed-county refresh batching; implementation regressions
+and live CK3 validation. Do not wire staging into production alone. No policy
+assumptions changed and no new product decision is blocked. Existing downstream
+activation/live-validation tasks remain required; no task is made obsolete.
+
+Package verification passed: source/archive/manifest **488/488/488**, no
+missing, extra, changed, or CRC-failing entries. Evidence:
+`evidence/stage5/AAWC_1.11.5.1_PACKET_STAGING_PACKAGE_PARITY.json`.
+Archive SHA-256: `B7E65E06E3E0E4B3A602B8D9C94949D23E83B77BA2DFEAE49531B0B355912551`.
+`git diff --check` passed. Installation parity was deliberately not claimed.
+
+Both descriptors advance to `1.11.5.1` for the new runtime-support artifact.
+The single-current-package builder replaces `.0` with `.1`; installation remains
+unchanged. Retained tests are regression coverage; no historical evidence or
+unrelated dirty files were removed.
+
+## Stage 5 adapter implementation checkpoint (2026-11-21; not released)
+
+Implementation is in progress against the authoritative policy below. No
+runtime adapter or gameplay change is active at this checkpoint; the current
+package remains `1.11.5.0`. The next gameplay candidate must increment the patch
+version and pass source/archive/manifest validation before installation.
+
+Added `scripts/aawc_stage5_identity_reference.py`, an exact rational arithmetic
+oracle (not a native emulator): independent source-majority fallback, explicit
+provenance validation, capacity-capped owner-weighted departures with returned
+fractional residuals, marginal debit/credit formulas, and fixed-point
+normalization with CaFG absorption. Its companion
+`scripts/test_aawc_stage5_identity_reference.py` covers these operations,
+including 300 seeded randomized capacity/normalization fixtures. Combined
+policy/reference command:
+`python -B -m unittest discover -s scripts -p 'test_aawc_stage5*.py' -v`:
+**18/18 passed**. This is neither production integration evidence nor native
+save/load certification. The fractional-carry test serializes rational values;
+it does not exercise CK3 persistence.
+
+Confirmed integration surfaces and remaining work:
+
+- Existing `aawc_reforging_cohort_transaction_effects.txt` migration planning
+  pools holding debits and credits into county-edge/net plans. Identity history
+  cannot be reconstructed reliably from those final nets. Production work must
+  preserve exact source/destination packet vectors before absolute debit.
+- CaFG provides `E_kCAFG_set_struct_factor` with TYPE/SCOPE/FACTOR parameters;
+  it creates missing positive structs and removes zero structs. Use that API,
+  not conversion/random removal. Canonical dependency absorption threshold is
+  `V_kCAFG_absorption_threshold = 0.005`.
+- The existing migration diagnostics block warfare destinations and sources;
+  the Stage 5 ordered displacement exception needs integration before its
+  policy tests can count as implementation coverage.
+- Still required within this same objective: runtime adapter and routing,
+  deterministic identity ordering, persistent packet phases/refunds, changed
+  county refresh batching, implementation-level eligibility/recovery coverage,
+  versioned package and provenance. Live Stage 5 validation remains unperformed.
+
+No existing dirty building/icon work was reverted, no dependency files were
+changed, and no installed profile, save, or release artifact was changed.
+The reference tests are retained regression coverage, not obsolete one-off tests.
+
+## Stage 5 identity-migration policy baseline - 1.11.5.0 (2026-11-21)
+
+AAWC **1.11.5.0** opens the Stage 5 topical line as the unchanged gameplay
+baseline from verified **1.11.4.15**. This entry freezes the identity-migration
+contract that subsequent `1.11.5.x` implementation builds must follow; `.0`
+does not activate the adapter or claim new CK3 runtime behavior. The
+machine-readable companion is
+`catalogue/stage5/identity_migration_policy.json`, and
+`scripts/test_aawc_stage5_identity_policy.py` pins the decisions below.
+
+### Authority and data model
+
+- AAWC remains the sole authority for absolute physical population. CaFG
+  remains the authority for normalized culture and faith factors and for
+  county-majority aggregation. CaFG's displayed synthetic amounts are not
+  treated as absolute persons.
+- Culture and faith are two independent marginal provenance axes. Every
+  physical transfer amount `M` must have a culture debit/credit vector whose
+  entries total `M` and, separately, a faith debit/credit vector whose entries
+  total `M`. AAWC must never construct an age × culture × faith cross-product,
+  infer a joint culture-faith cohort, or claim that independently selected
+  marginal labels describe the same individual people.
+- Births, deaths, and aging remain identity-ratio neutral. Only a physical
+  transfer that changes which holding contains the people may mutate CaFG
+  factors. Conversion remains CaFG-owned and is not reimplemented by AAWC.
+
+### Provenance resolution and missing-data fallback
+
+Provenance is resolved and frozen when a transfer is reserved, before any
+absolute debit. Explicit packet provenance wins and is never reweighted. When
+an older caller or pending packet lacks one identity axis, the missing culture
+is the source holding's majority culture at reservation time, and the missing
+faith is the source holding's majority faith at reservation time. The two
+fallbacks are evaluated separately. One missing axis does not overwrite a
+known value on the other axis, and neither fallback reads the destination.
+
+"Majority" on either axis means the highest current normalized factor in the
+source holding/province. A tie is resolved by stable identity key ascending,
+and the resolved scope is stored on the reservation so later CaFG change does
+not rewrite packet history.
+
+The former diagnostic D4 proportional fallback is superseded and forbidden in
+production. A missing packet is not spread across every source factor, and a
+destination majority is never substituted for missing source provenance. If a
+source factor list is absent or empty, the adapter first initializes only that
+axis from the source holding/title majority and records that repair. If an
+explicitly known identity is absent from a nonempty source factor list, that is
+a contradictory packet rather than missing provenance and follows the
+fail-closed rule below.
+
+### Deterministic identity-weighted departure
+
+Stage 5 creates new ordinary-migration provenance independently on each axis
+from the source holding's normalized CaFG factors. For an axis identity with
+available amount `A`, the selection score is `A × W`:
+
+- an owner-aligned identity receives weight `0.5`;
+- an owner-misaligned identity receives weight `2.0`.
+
+If the holding has no valid owner, or the owner lacks the axis identity needed
+for comparison, that axis uses neutral weight `1.0` rather than classifying the
+population as aligned or misaligned.
+
+Culture alignment compares the culture identity with the source holding
+owner's culture; faith alignment makes the analogous faith comparison. This
+makes owner-aligned people half as departure-prone and misaligned people twice
+as departure-prone without changing the already-approved physical send budget.
+Allocation uses normalized weighted largest remainder at AAWC population
+precision. Ties use ascending stable identity key, and fractional residuals
+persist per source holding and axis so repeated ticks are deterministic and do
+not systematically lose small minorities. Culture and faith allocations are
+never multiplied together. Explicitly proven packet identities bypass this
+selection step.
+
+### Destination eligibility and ordering
+
+The source and destination must be neighboring holdings and the destination
+must have positive receive capacity. A positive CaFG factor above the canonical
+absorption threshold means the destination shares that identity; owner or
+title identity alone does not make a nonempty factor list match.
+
+**Peacetime destination gate.** A peaceful migrant packet may enter only a
+neighboring holding that shares either the packet's culture or the packet's
+faith. A peaceful source may not send into a war-, siege-, or raid-affected
+destination. If no neighbor satisfies the identity, safety, and capacity
+gates, no transfer occurs.
+
+**War-displacement exception.** A packet from a war-, siege-, or raid-affected
+source relaxes the identity gate deliberately and in a fixed order; war does
+not silently bypass every restriction. Candidate tiers are: (1) safe neighbor
+sharing culture or faith, (2) safe nonmatching neighbor, (3) war-affected
+neighbor sharing culture or faith, and (4) war-affected nonmatching neighbor.
+The first tier with receive capacity wins. Within a tier, sort by migration
+rating advantage descending, receive capacity descending, then stable province
+ID ascending. Adjacency, source send capacity, destination receive capacity,
+the source protective floor, and transaction reservation rules always remain
+active.
+
+An empty destination with no identity factors cannot satisfy the ordinary
+peacetime identity gate. It may receive a separately authorized colonization,
+settlement, or war-displacement packet; its culture and faith axes are then
+initialized from the packet's independent credit vectors.
+
+### Debit, credit, normalization, and failure behavior
+
+Let source and destination absolute populations before transfer be `S` and
+`D`, let transfer amount be `M`, let normalized old factor for identity `i` be
+`s_i` or `d_i`, and let the independently resolved marginal debit/credit for
+that identity be `q_i`. On each axis, `Σq_i = M`, `0 ≤ q_i ≤ S×s_i`, and the
+source protective floor guarantees `S-M > 0`. The exact target factors are:
+
+```text
+source:      s'_i = (S × s_i - q_i) / (S - M)
+destination: d'_i = (D × d_i + q_i) / (D + M)
+```
+
+The culture vector and faith vector each conserve the same physical `M`; they
+are parallel marginal reconciliations, not two additional populations. Every
+axis is normalized to exactly `1` at AAWC's fixed precision. Largest-remainder
+normalization uses factor descending then stable identity key ascending for
+ties. A sub-threshold result is set to zero before CaFG setters are called, and
+its residual goes to the largest remaining factor using the same stable tie
+break. The adapter must use CaFG struct setters and must not call the random
+weighted-conversion/removal path.
+
+- **Known identity absent at source:** reject or reduce the reservation before
+  any absolute debit. Never invent the identity, substitute another identity,
+  or create a destination credit. If either marginal axis cannot support the
+  same `M`, recompute both axes at the smaller supported amount; zero support
+  cancels the transfer.
+- **Identity absent at destination:** create that CaFG struct at the computed
+  positive factor, then normalize. This is a valid credit, not a fallback.
+- **No eligible destination:** leave source/destination population, send and
+  receive budgets, fractional carries, CaFG factors, and refresh queues
+  unchanged. The intent may be reconsidered on a later tick.
+- **Empty destination:** when `D=0`, initialize each axis directly from its own
+  credit vector divided by `M`. No destination preexisting identity is
+  fabricated.
+- **Pending credit or failure:** persist the exact culture vector, faith vector,
+  transaction ID, and phase. Apply the source CaFG debit once after the Stage 4
+  absolute source-debit receipt; apply the destination CaFG credit once only
+  after the exact absolute credit commits. A final failure refunds the absolute
+  source population and inverses the source marginal debit once. Save/reload
+  resumes the recorded phase and cannot repeat either side.
+
+The commit sequence is reserve/resolve provenance, commit absolute source
+debit, apply source marginal debit, commit exact absolute destination credit,
+apply destination marginal credit, then queue affected counties. This preserves
+the Stage 4 debit-before-credit and pending-settlement contract while making
+identity debt observable and reversible.
+
+All province factor mutations for one demographic batch complete before county
+work. Each changed county runs CaFG culture-list/majority refresh once and faith
+list/majority refresh once, even when multiple holdings or transfers changed.
+No unchanged county and no full-world scan is permitted.
+
+### Automated and live-CK3 acceptance matrix
+
+| ID | Layer | Fixture / action | Required observable result |
+|---|---|---|---|
+| S5-P01 | Automated | Culture missing, faith known | Culture becomes the reservation-time source majority; known faith remains unchanged; no joint cross-product appears. |
+| S5-P02 | Automated | Faith missing, culture known | Faith becomes the reservation-time source majority; known culture remains unchanged; destination identity is never consulted. |
+| S5-P03 | Automated | Both axes missing | Independent one-axis source-majority fallbacks each total `M`; diagnostic D4 proportional allocation is absent. |
+| S5-D01 | Automated | Equal available aligned/misaligned factors | Per-axis scores use `0.5` and `2.0`; largest-remainder output and stable-key ties reproduce byte-for-byte across runs. |
+| S5-D02 | Live CK3 | Controlled mixed-identity source under an aligned owner | Over repeated eligible ticks, misaligned identity departure debt exceeds aligned debt while total physical send remains within the unchanged budget. |
+| S5-E01 | Automated + live CK3 | Peaceful packet, adjacent matching and nonmatching neighbors | Only a neighbor sharing packet culture or faith is eligible; the nonmatching neighbor receives zero. |
+| S5-E02 | Automated + live CK3 | Peaceful source, only war-affected targets | No transfer, budget consumption, factor mutation, or refresh occurs. |
+| S5-E03 | Automated + live CK3 | War-displaced source with all four destination tiers | Selection follows the documented four-tier order and deterministic in-tier tie breaks; capacity and protective floors remain enforced. |
+| S5-C01 | Automated | Known identity absent at source | Transaction fails closed before absolute debit, or both axes are recomputed to the same smaller supported `M`; no phantom credit exists. |
+| S5-C02 | Automated | Destination lacks a credited identity | Struct is created, source/destination factors each sum exactly `1`, and culture and faith debit/credit totals each equal physical `M`. |
+| S5-C03 | Automated | Empty authorized destination | Each axis initializes only from its credit vector and normalizes to `1`. |
+| S5-C04 | Automated | No eligible destination | Absolute totals, both factor surfaces, capacities, carries, and refresh queues are byte-identical before/after. |
+| S5-R01 | Automated + live CK3 | Birth, death, and aging without transfer | Culture and faith factor hashes remain unchanged. |
+| S5-R02 | Live CK3 | Multi-holding, multi-transfer monthly batch | AAWC world population is conserved; source loss equals destination gain; visible CaFG shares and county majorities match the computed marginal results. |
+| S5-R03 | Automated + live CK3 | Save after source commit, reload, finish or refund | Save/reload idempotency: each absolute and marginal side applies once, exact vectors persist, and final conservation/normalization holds. |
+| S5-PERF01 | Automated + live CK3 | Instrument a batch changing several holdings in the same counties | Batch/performance bound: exactly one culture and one faith county refresh per changed county, zero refreshes for unchanged counties, no full-world traversal, and retained tick timing/memory are reported. |
+
+Automated tests must include conservation and normalization property fixtures,
+adversarial malformed/absent-factor fixtures, deterministic reruns, and
+save-phase replay. Live CK3 evidence must use an isolated fixture/save, record
+pre/post AAWC totals and CaFG factors, exercise a peaceful match, a peaceful
+dual mismatch, the war exception, and a save/reload midpoint, then audit the
+closed-session logs. Performance acceptance at this stage is the bounded work
+shape and refresh counts above; broader world-scale numeric release thresholds
+remain a separate measured-performance decision and are not invented here.
+
+This policy resolves the former Stage 5 provenance blocker. It does not itself
+implement migration reconciliation, alter gameplay source, install a package,
+or claim live CK3 validation of behavior that does not yet exist.
+
+Focused policy validation passes **7/7**, and the portable-path regression
+suite passes **5/5**. Before packaging, all **484 non-descriptor inner-mod
+files** matched the verified `1.11.4.15` archive byte-for-byte, with zero
+missing, extra, or changed payload files; only the required inner and outer
+version labels advance the topical baseline. The `1.11.5.0` package has exact
+**486/486/486 source/archive/manifest parity**, matching inner and outer
+versions, clean CRC, and empty missing/extra/changed sets. Archive SHA-256:
+`FACDA7100155E3A6FE1375755C7F07E4E8CA94D9678CDE7C5F85F2469CC9B6E2`;
+manifest SHA-256:
+`6A872C24DD301175E3852823B96FBDFBB1007B9CEA7D25C39AB02BDD33F6937A`.
+Package evidence is
+`evidence/stage5/AAWC_1.11.5.0_POLICY_BASELINE_PACKAGE_PARITY.json`.
+The baseline was not installed and CK3 was not launched because this task
+freezes policy rather than implementing runtime behavior.
+
+## Blocker-style building-icon repair candidate - 1.11.4.15 (2026-11-20)
+
+Direct review of the installed **1.11.4.14** construction menu showed that the
+131 differentiated Stage 3 assets were the wrong visual format: each DDS baked
+an opaque painterly scene into the entire 256x256 image. That prevented CK3's
+native enabled-blue and unavailable-gray building plates from showing through,
+unlike the already-correct AAWC blocker-chain icons.
+
+AAWC **1.11.4.15** replaces all 131 custom-chain assets with deterministic,
+simple black silhouettes on fully transparent backgrounds. The generator now
+owns both the nine source atlases and the runtime DDS files, copies the exact
+blocker DDS header/layout, and rejects any non-black RGB channel, partial alpha,
+fully opaque background, or empty subject. Each chain retains a distinct
+payload while tiers within that chain reuse its icon. `ICON_POLICY.md` records
+the blocker-derived contract and `test_aawc_stage3_icons.py` pins it. The
+complete affected Stage 3 matrix passes **82/82**, both generators reproduce
+their checked outputs, and the icon converter resolves all 131 assets.
+
+The `.15` package and controlled test-profile installation initially had exact
+**486/486/486/486 source/archive/install/manifest parity**, matching inner and
+outer version `1.11.4.15`, clean CRC, and empty missing/extra/changed sets. The
+post-session audit still reports 486 entries in every surface and exact mod
+payload parity. CK3's launcher normalized only the installed outer descriptor:
+it reordered the dependency block and expanded the relative `path` to the
+absolute test-profile path. Its name, version, dependencies, replace paths,
+and supported version remain identical; source, archive, manifest, and all 485
+installed inner-mod files remain byte-identical.
+Archive SHA-256: `227618A006AB148D42AB16DD61F1BF66D6CF84B6FD15EB587B5D6E1EB796932E`;
+manifest SHA-256: `9207FBF39BA4382C83D98587A09089B7A537806A3B3411064CCE59A251C003BA`.
+Package evidence is
+`evidence/stage3/AAWC_1.11.4.15_BLOCKER_STYLE_ICON_PACKAGE_PARITY.json`;
+installation evidence is
+`evidence/stage3/AAWC_1.11.4.15_BLOCKER_STYLE_ICON_INSTALL_RECEIPT/selection.json`;
+four-way parity is
+`evidence/stage3/AAWC_1.11.4.15_BLOCKER_STYLE_ICON_RUNTIME_PARITY.json`.
+
+Direct CK3 testing of the installed `.15` package is complete. Archer Training
+Grounds, Barracks, Breweries, Mounted Training Fields, High Court And Revenue
+Offices, and Regional University Hospital rendered as distinct simple
+silhouettes with CK3's own enabled-blue and unavailable/disabled-gray state
+presentation showing through the transparent background. No opaque painterly
+plate remained, and the closed-session log contained no AAWC DDS reference or
+failed texture-load/creation diagnostic.
+
+The live slot split passed in one naturally inhabited de jure capital. Still
+Flats is the existing tribal capital barony of the held High Lordship of
+Gleaming Plains. Its large special slot opened **Construct New Duchy Building**
+and exposed AAWC duchy chains such as High Court And Revenue Offices and
+Regional University Hospital. A regular slot in the same holding opened
+**Construct New Building** and exposed only ordinary AAWC chains such as Archer
+Training Grounds, Breweries, and Mounted Training Fields. Pennon Hall's regular
+menu likewise contained no duchy chain. Both ordinary menus contained AAWC
+replacements and no unbuilt vanilla or AGOT ordinary candidate. The retained
+main-line and ruin boundary remained available, including the directly observed
+Reclaim Storm's End route.
+
+Representative progression also passed live. Archer Training Grounds first
+rendered unavailable with **Requires Barracks 1**. Barracks 1 was built at
+Pennon Hall for 250 gold and completed on 3 Ninth Moon, 5 A.D.; afterward the
+Archer chain became enabled and CK3 accepted its 205-gold order (766 to 561).
+Regular and duchy entries rendered readable flavor, compact AAWC Structural
+Conditions and Settlement Space rows, and exact prerequisite text. Workshops 8
+rendered mature flavor with `+12 Opportunity`, `-3 Health`, `+1 Amenities`, and
+`-4% Settlement Space`; the removed proposal-only functional sentence did not
+return.
+
+The first `.15` content-load attempt ended in Radeon allocation exhaustion while
+unrelated AGOT assets were loading, without an AAWC DDS error. A clean retry
+reached the main menu and completed the full observation set. Neighboring tribal
+AI realms remained active through roughly three in-game years, but no reliable
+AI build start or completion occurred in a reachable settled holding and CK3
+does not expose another ruler's candidate picker. Therefore no long-horizon AI
+priority certification is claimed; the exact limitation is retained rather
+than inferred. The session closed normally without an exit autosave. Full live
+evidence and closed-session log hashes are in
+`evidence/stage3/AAWC_1.11.4.15_BUILDING_OVERHAUL_LIVE_VALIDATION.json`.
+
+## Live building-review repair candidate - 1.11.4.14 (2026-11-20)
+
+The first direct CK3 pass over installed **1.11.4.13** confirmed that Pennon Hall's ordinary construction picker exposed AAWC replacements, visibly different chain art, compact structural rows, and the authored Barracks prerequisite for Archer Training Grounds. It also demonstrated a copy-policy defect that the automated presentation suite had encoded instead of rejecting: proposal-only `native_role.distinct_identity` text was emitted as “This tier provides ...”, including a rendered claim of distinct MAA archery recruitment and efficiency even though Stage 6 military output is deferred.
+
+AAWC **1.11.4.14** removes the proposal-derived functional sentence path from the generator. Every custom tier now points only to the live structural-condition and Settlement Space rows beneath its flavor text. The presentation validator asserts that exact boundary and rejects the old “This tier provides ...” form. `PRESENTATION_POLICY.md` records the live discovery and corrected rule. The deterministic generator reproduces all 131 chains / 771 tiers, and the complete affected Stage 3 family passes **82/82**.
+
+The `.14` package and controlled test-profile installation have exact **486/486/486/486 source/archive/install/manifest parity**, matching inner and outer version `1.11.4.14`, clean CRC, and empty missing/extra/changed sets. Archive SHA-256: `EFD5C800B722C16ACD2934B1B70EA4AC078BF95F55CAA011DA0F9913968347EF`; manifest SHA-256: `CF1BC61E698262936E39D7CE95999F2677DC9E6468ADA3F378B2FF2197AA9E81`. Package evidence is `evidence/stage3/AAWC_1.11.4.14_LIVE_BUILDING_REPAIR_PACKAGE_PARITY.json`; installation evidence is `evidence/stage3/AAWC_1.11.4.14_LIVE_REPAIR_INSTALL_RECEIPT/selection.json`; four-way parity is `evidence/stage3/AAWC_1.11.4.14_LIVE_BUILDING_REPAIR_RUNTIME_PARITY.json`.
+
+The `.14` repair was re-tested as part of the installed `.15` live matrix above;
+the `.14` interim runtime gate is superseded by that completed record.
+
+## Integrated building-system review release - 1.11.4.13 (2026-11-20)
+
+AAWC **1.11.4.13** is the single integrated review candidate for the five post-review building outcomes. Ordinary holding allow-lists contain the **99 regular AAWC roots** and exclude all **32 AAWC duchy roots**; every duchy tier remains a native `duchy_capital` building with its ownership gate. Vanilla, AGOT, and dependency definitions remain present for save and scripted-reference compatibility, but their unbuilt ordinary roots and **635 unretained special/duchy tiers** are suppressed from player and AI construction. The policy maps **88 ordinary roots** and **618 legacy tiers** to reachable AAWC alternatives, preserves the six retained `tribe_*` and `temple_citadel_*` main-line tiers, and explicitly records site-specific or dependency-owned no-replacement exceptions. No direct character-skill/lifestyle construction gate exists in the effective suppressed inventory, so none was invented; culture/innovation, faith/doctrine, dynasty legacy, government, geography/resource, prerequisite, title/realm, holding-type, and DLC gates retain recorded replacement routes.
+
+Progression now contains **53 positive tier-scaled prerequisites across 52 specialized chains**. The graph is monotonic, acyclic, resolves every source and target, and terminates in reachable ordinary-slot foundations; the valid Commercial Guild Houses city alternative remains intact. All **131 custom chains and 771 tiers** have CK3/AGOT-style flavor, compact icon-and-value structural rows, and chain-specific CK3-style DDS art. Tiers reuse only their own chain's icon. The retained **23 main-line tiers** and **nine ruin tiers** use the same compact presentation; main-line dimension values match the live Stage 2 formula, while ruins state explicit zero/inactive values without inventing penalties. Referenced Growth Rating, fixed Building Capacity, and Migration Rating presentation has been removed.
+
+The effects boundary remains deliberate. Current custom functional output is the Stage 2 six structural dimensions, Settlement Space, and the approved construction gates. Fixed custom holding/county/holder economy or administration remains deferred to the planned Stage 7 population-scaled output system, and military/MAA effects remain deferred to Stage 6. Native CK3/AGOT main-line modifiers are preserved. The zero `development_growth_factor` bridge exists only to make CK3 render `effect_desc`; it is not claimed as an economic effect. `CONSTRUCTION_POLICY.md`, `ICON_POLICY.md`, `LEGACY_BUILDING_POLICY.md`, `PROGRESSION_EFFECTS_POLICY.md`, `PRESENTATION_POLICY.md`, `runtime_metadata.json`, and `legacy_building_policy.json` are the retained policy authorities.
+
+The exact assembled `.13` source passes **82/82 focused Stage 3 tests**: catalogue **29/29**, building/special-slot **16/16**, adapter **10/10**, legacy suppression/unlock routing **9/9**, progression/effects policy **9/9**, localization/presentation **6/6**, and icon resolution **3/3**. These suites cover special-slot eligibility, retained exceptions, complete legacy inventory and mapping reachability, prerequisite graph reachability, effects-policy classification, localization references and uniqueness, and all referenced DDS assets. Deterministic checks reproduce the 131-chain/771-tier construction output, complete legacy policy/override, and all 131 DDS assets. The Windows-aware whitespace check passes. No broad unrelated whole-project stress suite was substituted for these affected-path checks.
+
+Package and controlled-install provenance is exact at **486/486/486/486 source/archive/install/manifest entries**. All inner, outer, archive, and installed descriptors report `1.11.4.13`; missing, extra, changed, malformed-manifest, and CRC-failure sets are empty. The installable archive is `release/AGOT_Alternate_World_Compatch_1.11.4.13.zip`, SHA-256 `C39B15085160A806CFED1086FF2E7317725A8E5D8460D1BD9E0D5F51653B2D41`; manifest SHA-256 is `876C95F3202AE2D70386FF7421C1B24642D758A3BD05192A37DA0F081CEBA4CD`. Package receipt: `evidence/stage3/AAWC_1.11.4.13_BUILDING_REVIEW_PACKAGE_PARITY.json`; controlled-install selection: `evidence/stage3/AAWC_1.11.4.13_REVIEW_INSTALL_RECEIPT/selection.json`; four-way parity: `evidence/stage3/AAWC_1.11.4.13_BUILDING_REVIEW_RUNTIME_PARITY.json`. The installer replaced only the existing AAWC mod slot while CK3 and the launcher were closed and preserved the prior `.8` installation in its rollback evidence. The single-current release builder removed only the superseded `.12` archive and manifest; component policies, receipts, icon sources, tests, and local CK3 saves were preserved, and saves remain outside Git.
+
+This release is automated source/package/install evidence for user review, not rendered gameplay certification. CK3 construction-menu typography and wrapping, visible absence of legacy candidates, special-slot-only presentation, icon appearance, and AI menu behavior have not been directly re-observed under `.13` and remain intentionally unclaimed.
+
+## Building localization and compact presentation - 1.11.4.12 (2026-11-20)
+
+AAWC **1.11.4.12** completes the bounded localization/presentation slice of the post-review building overhaul. All **131 custom chains and 771 tiers** now have generated CK3/AGOT-style flavor grounded in their material and social role, followed by a concise statement of the approved functional identity. Tier copy advances with the maturity of the structure and does not advertise deferred Stage 6 military outputs, Stage 7 population-scaled economy outputs, or proposal-only native roles as functional.
+
+Custom `effect_desc` presentation is now row-based rather than paragraph-based. Each nonzero Stage 2 contribution is shown as an icon, colored signed number, and one of Sustenance, Habitation, Opportunity, Health, Security, or Amenities. Settlement Space always appears as an icon and signed percentage, including `0%`. The values are the exact cumulative installed-tier values from the catalogue. All **53** authored AAWC prerequisites are generated from the same progression rows as their `has_building_or_higher` gates, so the displayed requirement names the exact source tier and preserves `or` alternatives without duplicating native culture, faith, terrain, title, or resource requirement prose.
+
+The retained **23** castle, city, settlement, temple, temple-citadel, and tribe main-line levels now reference AAWC presentation keys and show all six dimensions plus Settlement Space, including explicit zeroes. Their displayed condition contribution matches the live `aawc_stage2_main_level` formula: tier one is neutral and every additional tier contributes `+3 Habitation` and `+1 Opportunity`; Settlement Space is `0%`. Their native CK3/AGOT modifier blocks remain intact and render separately. The retained **nine** small/medium/large ruin-clearance tiers now have stage-aware flavor and show explicit zeroes for all six dimensions and Settlement Space plus an inactive-condition note, because ruin holdings are excluded from the valid Stage 1/2 settlement engine. No unauthorised ruin penalty was invented. Referenced retained effects no longer advertise Growth Rating, fixed Building Capacity, or Migration Rating.
+
+`catalogue/stage3/PRESENTATION_POLICY.md` is the dedicated convention and verification authority. `scripts/test_aawc_stage3_presentation.py` exhaustively checks flavor and functional text, compact icon rows, exact values, exact prerequisite references, retained definition bindings, main-line tier math, ruin inactivity, localization uniqueness, and removal of superseded labels. Deterministic Stage 3 construction, catalogue, and legacy-policy generation checks pass, and the complete focused Stage 3 family passes **73/73**. The `.12` package has exact **486/486/486 source/archive/manifest parity**, matching inner and outer descriptors and clean CRC. Archive SHA-256 is `B4BF8DB5A3F56D0AC4C726A616DCF1B6AA12470060DADC4EFE3EFCFB157D4F13`; manifest SHA-256 is `0882AE16A193F18FED26F0866887B2861949908582679B089A008F1D033AB5E6`. Receipt: `evidence/stage3/AAWC_1.11.4.12_PRESENTATION_PACKAGE_PARITY.json`. This is deterministic source/package evidence only; rendered CK3 typography, wrapping, and final menu inspection remain owned by the integrated review candidate.
+
+## Building progression and effects policy - 1.11.4.11 (2026-11-20)
+
+AAWC **1.11.4.11** adds a bounded prerequisite-progression and effects-policy layer over the `.10` legacy-suppression candidate. The generated construction overlay now applies **53 positive prerequisite requirements across 52 specialized chains**. Regular specializations advance from basic military, agricultural, craft, water, civic, and scholarly foundations; duchy institutions require high-tier ordinary-slot foundations and never another duchy building. Tier requirements increase monotonically, every target/source tier resolves, the positive graph is acyclic, and every path terminates in a regular construction chain. Inherited CK3/AGOT exclusions inside `NOT`, `NOR`, and `NAND` remain exclusions rather than false dependency edges. Commercial Guild Houses retain their existing city-or-developed-market route because forcing the tribal/pirate-only Market Villages chain onto the city branch would make that branch unreachable.
+
+The effects boundary is now explicit and machine-readable in `runtime_metadata.json`. Functional custom effects are the Stage 2 six structural conditions and settlement-space input plus Stage 3 construction gates. Fixed custom “This Holding,” “This County,” and “Holder” economic/administrative modifiers remain deliberately deferred to the Stage 7 population-scaled output contract; MAA, army, reinforcement, and other military modifiers remain Stage 6 work. Native-role proposals remain metadata only. The exact zero `development_growth_factor` modifier remains solely the proven non-gameplay bridge that exposes `effect_desc`. Retained main-line CK3/AGOT modifiers remain functional, but the **23** castle, city, settlement, temple, temple-citadel, and tribe levels no longer reference AAWC’s superseded Growth Rating, fixed Building Capacity, or Migration Rating effect descriptions. No ruin lifecycle root carried a matching obsolete overlay reference.
+
+`catalogue/stage3/PROGRESSION_EFFECTS_POLICY.md` is the dedicated graph and decision authority. The focused progression/effects suite passes **9/9** and proves coverage, monotonicity, tier bounds, acyclicity, ordinary-foundation termination, duchy-slot reachability, exact per-level emission, inventory coverage, absence of falsely functional custom outputs, and obsolete-reference removal. The complete Stage 3 family passes **67/67**, including the retained construction, adapter, icon, catalogue, and legacy-suppression regressions. Deterministic generation checks pass for the 131-chain construction overlay, 771-level catalogue, and legacy policy; `git diff --check` passes.
+
+The versioned `.11` package has exact **485/485/485 source/archive/manifest parity**, matching inner and outer descriptors and clean CRC. The archive is `release/AGOT_Alternate_World_Compatch_1.11.4.11.zip`, SHA-256 `EAA9376E1FCE8D881B45291FB70E2409DA6ECA200AA692FACA88640B1BA4186A`; manifest SHA-256 is `2F2A1A02C54228345886B29EF18FB386A16B811DF87674396D40D0B010790ADB`. Receipt: `evidence/stage3/AAWC_1.11.4.11_PROGRESSION_EFFECTS_PACKAGE_PARITY.json`. This is deterministic source/package evidence only; no installation, rendered CK3 construction-menu, or AI claim is made for `.11` before the integrated review candidate.
+
+## Legacy-building suppression and unlock translation - 1.11.4.10 (2026-11-20)
+
+AAWC **1.11.4.10** completes the compatibility-safe legacy-catalogue suppression slice of the post-review building overhaul. Vanilla, AGOT, and dependency ordinary roots are removed from the settled holding construction allow-lists without deleting their definitions. Existing save instances, modifiers, and exact-ID scripted references therefore remain resolvable, while players and AI cannot select those roots for new construction. The retained boundary is explicit: all AAWC definitions, every primary holding chain, all ruin/wilderness roots, exact settlement blocker/cleared-state and Valyria mine lifecycle roots, and restored-special endpoints reached through AAWC wrapper chains remain available.
+
+The ordinary inventory contains **88 mapped roots** and **3 holding-specific no-replacement exceptions**. Seventy-five routes inherit direct catalogue lineage; thirteen LoV settlement routes use explicit analogous AAWC infrastructure (palisades, mustering fields, market villages, workshops, trade ports, quarries, logging camps, or barracks). The three exceptions are the dependency-owned generic dragon-pit route and the dormant/active Valyria mine pair: the dragon route remains owned by AGOT's dragon lifecycle, while the mines remain exact-ID ruin/settlement lifecycle content rather than general settled-holding construction. Monasteries initially had no reachable AAWC alternatives after suppression; `monastery_holding` is now part of the settled construction whitelist and registers all **99 regular AAWC roots**, while nomad/herder no-building behavior and the **32** special-slot-only AAWC duchy roots remain unchanged.
+
+Special and duchy definitions cannot be suppressed through ordinary holding allow-lists. The generated late override therefore mirrors the complete effective payload of **635** unretained legacy special/duchy tiers and changes only construction visibility, construction eligibility, and AI selection. **74** of those tiers map to exact AAWC catalogue tiers; **561** county/site-specific landmarks or dependency-owned special tiers have per-ID no-replacement records. Existing instances retain their modifiers and references. The retained special closure contains **943** AAWC, primary, ruin/wilderness, and restoration-linked tiers and is disjoint from the suppression override.
+
+Unlock translation is exhaustive rather than root-only. `catalogue/stage3/legacy_building_policy.json` records all **624 historical legacy tiers**: **618** are replaced by exact AAWC tiers, while the six `tribe_*` and `temple_citadel_*` tiers remain protected main-holding lines with separate AAWC annex alternatives. Every row includes predicate provenance, gate classes, and a normalized gate-contract hash. The inherited contracts cover culture/innovation, faith/doctrine, dynasty legacy, government, geography/resource, prerequisite buildings, title/realm, holding type, and DLC gates. No direct character-skill/lifestyle construction gate exists in the effective suppressed catalogue, so none is invented. `legendary_watchtower` is dynasty-legacy-gated and is recorded as an exact-ID unique-landmark no-replacement exception rather than receiving an inappropriate generic watchtower substitute. `catalogue/stage3/LEGACY_BUILDING_POLICY.md` is the dedicated human-readable mapping and rationale authority.
+
+Focused validation passes the legacy policy suite **9/9** and the complete Stage 3 building suite **16/16**; the retained Stage 3 adapter and icon suites pass **10/10** and **3/3**. Both deterministic generators reproduce the committed holding lists, 771 AAWC definitions, policy JSON/Markdown, and special override byte-for-byte. The validation enumerates every pre-suppression ordinary root, retained exception, full legacy tier route, mapped target reachability, special/duchy override gate, preserved payload hash, and main/ruin availability. `git diff --check` and balanced-brace validation pass. The `1.11.4.10` package has exact **485/485/485 source/archive/manifest parity**, matching inner and outer descriptors, and clean CRC. The archive SHA-256 is `2E2AEB6AA55BBC3DBCBC21F3B8DA0175E198AC8B0A12E7020DC800DB31E5A596`; manifest SHA-256 is `912523AC89DB4109AA0ED04E729D2DB71291FAE484AEA1387ED59E98D0A26FC0`. Receipt: `evidence/stage3/AAWC_1.11.4.10_LEGACY_BUILDING_PACKAGE_PARITY.json`. This is source/package evidence only; no installation, rendered CK3 menu, or AI observation is claimed before the integrated review candidate.
+
+## Building-system special-slot isolation candidate - 1.11.4.9 (2026-11-20)
+
+AAWC **1.11.4.9** begins the post-review building-system overhaul over `1.11.4.8` with the bounded special-slot eligibility repair. The Stage 3 generator previously registered all 131 chain roots in every supported holding type's ordinary `buildings` allow-list. That list included all 32 duchy-chain roots, so those native `duchy_capital` definitions could also enter the ordinary building picker. The generator now registers only the 99 regular roots in ordinary holding allow-lists.
+
+Every tier in all 32 duchy chains still emits `type = duchy_capital` and retains its `county.holder = { has_title = prev.duchy }` construction and enabled checks. Costs, upgrade topology, era/culture/faith/terrain gates, prerequisites, AI weights, structural-condition contributions, and the separate legacy-suppression work are unchanged. The focused regression exhaustively verifies the 99/32 partition for castle, tribal, city, church, temple-citadel, pirate-den, and settlement holdings, proves that no catalogue duchy root is registered as an ordinary candidate, and verifies the native duchy type and ownership predicates on every duchy tier. A separate whole-AAWC audit proves that no definition carrying either `type = duchy_capital` or `type = special` appears in any of those seven ordinary holding allow-lists. Deterministic generator parity passes and the complete focused Stage 3 building suite passes **16/16**; no new rendered CK3 claim is made before the later integrated review candidate.
+
+The versioned `1.11.4.9` candidate has exact **353/353/353 source/archive/manifest parity**, matching inner and outer descriptors, and clean archive CRC. Its package receipt is `evidence/stage3/AAWC_1.11.4.9_SPECIAL_SLOT_PACKAGE_PARITY.json`. The archive SHA-256 is `E584D6D863B8B28C016C40F41CC9F1972B39696715D142E9A57C091DE9C41658`; the manifest SHA-256 is `57F8AEC4F3F6E20021E291AE1C2A34251A2DEF31B908904945C06D644371E661`. The package was not installed or rendered because the later integrated building-system candidate owns those downstream checks.
+
+### Stage 3 chain-icon pass (2026-11-20)
+
+The construction overlay no longer assigns the indiscriminate market-village
+icon to every Stage 3 target. All 131 chains now reference a distinct
+chain-level `aawc_<chain>.dds` visual; each chain reuses its own artwork only
+for its successive tiers. The 131 new 256×256 BGRA DDS assets are generated
+from nine retained original source sheets and use the same native layout as the
+established AAWC blocker icons. The generator metadata now records the resolved
+chain icon alongside each of the 771 target definitions.
+
+`catalogue/stage3/ICON_POLICY.md` is the dedicated source-sheet inventory,
+mapping authority, reuse policy, prompt/style provenance, and deferred-visual
+exception record. Its focused regression and converter check pass, as does the
+Stage 3 building suite (**16/16**); the regression also proves each referenced
+DDS is in the release builder's recursive mod input tree. This is
+source/asset-reference validation;
+it makes no rendered CK3 UI claim and is intentionally awaiting the integrated
+review candidate rather than creating a competing standalone package.
+
 ## Reforged Stage 4 final parity release - 1.11.4.8 (2026-11-17)
 
 AAWC **1.11.4.8** supersedes `1.11.4.7` as the install and review handoff. A final post-publication parity audit found that the source copies of `zzzz_aawc_stage4_blocker_overlays.txt` and `zzzz_aawc_stage4_colonization_currency_effects.txt` had each lost one trailing blank line while the staged diff was being cleaned, after the `.7` archive and installed tree had already been built. The executable CK3 tokens, BOMs, logic, and balance were unchanged, but exact source/archive/install/manifest parity was therefore false for that published commit. The mismatch was not waived or hidden.
